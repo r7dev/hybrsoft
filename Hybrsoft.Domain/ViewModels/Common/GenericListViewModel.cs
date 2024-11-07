@@ -61,6 +61,10 @@ namespace Hybrsoft.Domain.ViewModels
 
 		public ICommand NewCommand => new RelayCommand(OnNew);
 
+		public ICommand RefreshCommand => new RelayCommand(OnRefresh);
+
 		abstract protected void OnNew();
+
+		abstract protected void OnRefresh();
 	}
 }

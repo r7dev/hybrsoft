@@ -25,7 +25,8 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 				{
 					UserId = r.UserId,
 					FirstName = r.FirstName,
-					LastName = r.LastName
+					LastName = r.LastName,
+					Email = r.Email
 				})
 				.AsNoTracking()
 				.ToListAsync();

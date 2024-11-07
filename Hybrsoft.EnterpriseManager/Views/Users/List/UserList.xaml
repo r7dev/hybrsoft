@@ -63,5 +63,6 @@
 				   ItemTemplate="{StaticResource ItemTemplate}"
 				   IsMultipleSelection="{x:Bind ViewModel.IsMultipleSelection, Mode=TwoWay}"
 				   ItemsCount="{x:Bind ViewModel.ItemsCount, Mode=OneWay}"
-				   NewCommand="{x:Bind ViewModel.NewCommand}"/>
+				   NewCommand="{x:Bind ViewModel.NewCommand}"
+				   RefreshCommand="{x:Bind ViewModel.RefreshCommand}"/>
 </UserControl>

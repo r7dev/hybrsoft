@@ -110,6 +110,15 @@ namespace Hybrsoft.Domain.ViewModels
 			StatusReady();
 		}
 
+		protected override async void OnRefresh()
+		{
+			StartStatusMessage("Loading users...");
+			if (await RefreshAsync())
+			{
+				EndStatusMessage("Users loaded");
+			}
+		}
+
 		private DataRequest<User> BuildDataRequest()
 		{
 			return new DataRequest<User>()
