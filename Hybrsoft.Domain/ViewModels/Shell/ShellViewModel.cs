@@ -1,6 +1,7 @@
 ﻿using Hybrsoft.Domain.Infrastructure.Commom;
 using Hybrsoft.Domain.Infrastructure.ViewModels;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
+using Microsoft.UI.Xaml.Controls;
 using System.Threading.Tasks;
 
 namespace Hybrsoft.Domain.ViewModels
@@ -26,11 +27,18 @@ namespace Hybrsoft.Domain.ViewModels
 			set => Set(ref _message, value);
 		}
 
-		private bool _isError = false;
-		public bool IsError
+		private bool _isOpen;
+		public bool IsOpen
 		{
-			get => _isError;
-			set => Set(ref _isError, value);
+			get => _isOpen;
+			set => Set(ref _isOpen, value);
+		}
+
+		private InfoBarSeverity _Severity;
+		public InfoBarSeverity Severity
+		{
+			get => _Severity;
+			set => Set(ref _Severity, value);
 		}
 
 		public UserInfo UserInfo { get; protected set; }
@@ -70,7 +78,8 @@ namespace Hybrsoft.Domain.ViewModels
 				case "StatusError":
 					if (viewModel.ContextService.ContextID == ContextService.ContextID)
 					{
-						IsError = message == "StatusError";
+						IsOpen = !string.IsNullOrWhiteSpace(message);
+						Severity = message == "StatusError" ? InfoBarSeverity.Error : InfoBarSeverity.Informational;
 						SetStatus(status);
 					}
 					break;

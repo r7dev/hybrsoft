@@ -26,8 +26,8 @@
 		</Grid>
 
 		<Grid Grid.Row="1">
-			<InfoBar IsOpen="{x:Bind ViewModel.IsError, Mode=OneWay}"
-					 Severity="Error"
+			<InfoBar IsOpen="{x:Bind ViewModel.IsOpen, Mode=TwoWay}"
+					 Severity="{x:Bind ViewModel.Severity}"
 					 Message="{x:Bind ViewModel.Message, Mode=OneWay}" />
 		</Grid>
 	</Grid>
