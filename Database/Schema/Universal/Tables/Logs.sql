@@ -1,0 +1,13 @@
+﻿CREATE TABLE [Universal].[Logs]
+(
+	[Id] BIGINT NOT NULL IDENTITY(1,1) PRIMARY KEY, 
+	[IsRead] BIT NULL,
+	[Name] VARCHAR(50) NULL,
+	[DateTime] DATETIMEOFFSET NOT NULL, 
+	[User] VARCHAR(50) NOT NULL, 
+	[Type] INT NOT NULL, 
+	[Source] VARCHAR(50) NOT NULL, 
+	[Action] VARCHAR(50) NOT NULL, 
+	[Message] VARCHAR(400) NOT NULL, 
+	[Description] VARCHAR(4000) NOT NULL
+)

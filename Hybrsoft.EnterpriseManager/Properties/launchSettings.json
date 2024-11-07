@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Hybrsoft.EnterpriseManager (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Hybrsoft.EnterpriseManager (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
