@@ -57,12 +57,15 @@
 	</UserControl.Resources>
 	
 	<controls:DataList ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
-				   NewLabel="New User"
-				   SelectedItem="{x:Bind ViewModel.SelectedItem, Mode=TwoWay}"
-				   HeaderTemplate="{StaticResource HeaderTemplate}"
-				   ItemTemplate="{StaticResource ItemTemplate}"
-				   IsMultipleSelection="{x:Bind ViewModel.IsMultipleSelection, Mode=TwoWay}"
-				   ItemsCount="{x:Bind ViewModel.ItemsCount, Mode=OneWay}"
-				   NewCommand="{x:Bind ViewModel.NewCommand}"
-				   RefreshCommand="{x:Bind ViewModel.RefreshCommand}"/>
+					   ItemSecondaryActionInvokedCommand="{x:Bind ViewModel.OpenInNewViewCommand}"
+					   NewLabel="New User"
+					   SelectedItem="{x:Bind ViewModel.SelectedItem, Mode=TwoWay}"
+					   HeaderTemplate="{StaticResource HeaderTemplate}"
+					   ItemTemplate="{StaticResource ItemTemplate}"
+					   IsMultipleSelection="{x:Bind ViewModel.IsMultipleSelection, Mode=TwoWay}"
+					   ItemsCount="{x:Bind ViewModel.ItemsCount, Mode=OneWay}"
+					   NewCommand="{x:Bind ViewModel.NewCommand}"
+					   RefreshCommand="{x:Bind ViewModel.RefreshCommand}"
+					   Query="{x:Bind ViewModel.Query, Mode=TwoWay}"
+					   QuerySubmittedCommand="{x:Bind ViewModel.RefreshCommand}"/>
 </UserControl>

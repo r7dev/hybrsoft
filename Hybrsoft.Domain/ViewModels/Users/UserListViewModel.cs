@@ -1,4 +1,5 @@
 ﻿using Hybrsoft.Domain.Dtos;
+using Hybrsoft.Domain.Infrastructure.Commom;
 using Hybrsoft.Domain.Infrastructure.ViewModels;
 using Hybrsoft.Domain.Interfaces;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Hybrsoft.Domain.ViewModels
 {
@@ -94,6 +96,15 @@ namespace Hybrsoft.Domain.ViewModels
 				return await UserService.GetUsersAsync(request);
 			}
 			return new List<UserDto>();
+		}
+
+		public ICommand OpenInNewViewCommand => new RelayCommand(OnOpenInNewView);
+		private async void OnOpenInNewView()
+		{
+			if (SelectedItem != null)
+			{
+				await NavigationService.CreateNewViewAsync<UserDetailsViewModel>(new UserDetailsArgs { UserID = SelectedItem.UserID });
+			}
 		}
 
 		protected override async void OnNew()
