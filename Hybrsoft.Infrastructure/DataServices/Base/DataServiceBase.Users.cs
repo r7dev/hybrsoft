@@ -34,6 +34,22 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			return records;
 		}
 
+		public async Task<IList<User>> GetUserKeysAsync(int skip, int take, DataRequest<User> request)
+		{
+			IQueryable<User> items = GetUsers(request);
+
+			// Execute
+			var records = await items.Skip(skip).Take(take)
+				.Select(r => new User
+				{
+					UserId = r.UserId,
+				})
+				.AsNoTracking()
+				.ToListAsync();
+
+			return records;
+		}
+
 		private IQueryable<User> GetUsers(DataRequest<User> request)
 		{
 			IQueryable<User> items = _dataSource.Users;

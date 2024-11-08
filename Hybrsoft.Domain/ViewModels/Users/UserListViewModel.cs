@@ -130,6 +130,62 @@ namespace Hybrsoft.Domain.ViewModels
 			}
 		}
 
+		protected override async void OnDeleteSelection()
+		{
+			StatusReady();
+			if (await DialogService.ShowAsync("Confirm Delete", "Are you sure you want to delete selected users?", "Ok", "Cancel"))
+			{
+				int count = 0;
+				try
+				{
+					if (SelectedIndexRanges != null)
+					{
+						count = SelectedIndexRanges.Sum(r => r.Length);
+						StartStatusMessage($"Deleting {count} users...");
+						await DeleteRangesAsync(SelectedIndexRanges);
+						MessageService.Send(this, "ItemRangesDeleted", SelectedIndexRanges);
+					}
+					else if (SelectedItems != null)
+					{
+						count = SelectedItems.Count();
+						StartStatusMessage($"Deleting {count} users...");
+						await DeleteItemsAsync(SelectedItems);
+						MessageService.Send(this, "ItemsDeleted", SelectedItems);
+					}
+				}
+				catch (Exception ex)
+				{
+					StatusError($"Error deleting {count} Users: {ex.Message}");
+					LogException("Users", "Delete", ex);
+					count = 0;
+				}
+				await RefreshAsync();
+				SelectedIndexRanges = null;
+				SelectedItems = null;
+				if (count > 0)
+				{
+					EndStatusMessage($"{count} users deleted");
+				}
+			}
+		}
+
+		private async Task DeleteItemsAsync(IEnumerable<UserDto> models)
+		{
+			foreach (var model in models)
+			{
+				await UserService.DeleteUserAsync(model);
+			}
+		}
+
+		private async Task DeleteRangesAsync(IEnumerable<IndexRange> ranges)
+		{
+			DataRequest<User> request = BuildDataRequest();
+			foreach (var range in ranges)
+			{
+				await UserService.DeleteUserRangeAsync(range.Index, range.Length, request);
+			}
+		}
+
 		private DataRequest<User> BuildDataRequest()
 		{
 			return new DataRequest<User>()

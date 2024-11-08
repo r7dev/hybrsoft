@@ -17,5 +17,6 @@ namespace Hybrsoft.Domain.Interfaces
 		Task<int> UpdateUserAsync(UserDto model);
 
 		Task<int> DeleteUserAsync(UserDto model);
+		Task<int> DeleteUserRangeAsync(int index, int length, DataRequest<User> request);
 	}
 }

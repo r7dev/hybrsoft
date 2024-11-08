@@ -35,6 +35,7 @@ namespace Hybrsoft.Domain.ViewModels
 
 		public async void NavigateTo(Type viewModel)
 		{
+			await Task.Delay(100);
 			switch (viewModel.Name)
 			{
 				case "DashboardViewModel":

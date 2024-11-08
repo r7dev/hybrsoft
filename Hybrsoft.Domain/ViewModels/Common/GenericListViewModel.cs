@@ -3,6 +3,7 @@ using Hybrsoft.Domain.Infrastructure.ViewModels;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
 
 namespace Hybrsoft.Domain.ViewModels
@@ -59,12 +60,73 @@ namespace Hybrsoft.Domain.ViewModels
 			set => Set(ref _isMultipleSelection, value);
 		}
 
+		public List<TModel> SelectedItems { get; protected set; }
+		public IndexRange[] SelectedIndexRanges { get; protected set; }
+
 		public ICommand NewCommand => new RelayCommand(OnNew);
 
 		public ICommand RefreshCommand => new RelayCommand(OnRefresh);
 
-		abstract protected void OnNew();
+		public ICommand StartSelectionCommand => new RelayCommand(OnStartSelection);
+		virtual protected void OnStartSelection()
+		{
+			StatusMessage("Start selection");
+			SelectedItem = null;
+			SelectedItems = new List<TModel>();
+			SelectedIndexRanges = null;
+			IsMultipleSelection = true;
+		}
 
+		public ICommand CancelSelectionCommand => new RelayCommand(OnCancelSelection);
+		virtual protected void OnCancelSelection()
+		{
+			StatusReady();
+			SelectedItems = null;
+			SelectedIndexRanges = null;
+			IsMultipleSelection = false;
+			SelectedItem = Items?.FirstOrDefault();
+		}
+
+		public ICommand SelectItemsCommand => new RelayCommand<IList<object>>(OnSelectItems);
+		virtual protected void OnSelectItems(IList<object> items)
+		{
+			StatusReady();
+			if (IsMultipleSelection)
+			{
+				SelectedItems.AddRange(items.Cast<TModel>());
+				StatusMessage($"{SelectedItems.Count} items selected");
+			}
+		}
+
+		public ICommand DeselectItemsCommand => new RelayCommand<IList<object>>(OnDeselectItems);
+		virtual protected void OnDeselectItems(IList<object> items)
+		{
+			if (items?.Count > 0)
+			{
+				StatusReady();
+			}
+			if (IsMultipleSelection)
+			{
+				foreach (TModel item in items)
+				{
+					SelectedItems.Remove(item);
+				}
+				StatusMessage($"{SelectedItems.Count} items selected");
+			}
+		}
+
+		public ICommand SelectRangesCommand => new RelayCommand<IndexRange[]>(OnSelectRanges);
+		virtual protected void OnSelectRanges(IndexRange[] indexRanges)
+		{
+			SelectedIndexRanges = indexRanges;
+			int count = SelectedIndexRanges?.Sum(r => r.Length) ?? 0;
+			StatusMessage($"{count} items selected");
+		}
+
+		public ICommand DeleteSelectionCommand => new RelayCommand(OnDeleteSelection);
+
+		abstract protected void OnNew();
 		abstract protected void OnRefresh();
+		abstract protected void OnDeleteSelection();
 	}
 }

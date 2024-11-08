@@ -13,6 +13,7 @@ namespace Hybrsoft.Infrastructure.DataServices
 
 		Task<User> GetUserAsync(Guid id);
 		Task<IList<User>> GetUsersAsync(int skip, int take, DataRequest<User> request);
+		Task<IList<User>> GetUserKeysAsync(int skip, int take, DataRequest<User> request);
 		Task<int> GetUsersCountAsync(DataRequest<User> request);
 		Task<int> UpdateUserAsync(User user);
 		Task<int> DeleteUsersAsync(params User[] users);

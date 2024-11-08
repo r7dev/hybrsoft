@@ -67,5 +67,11 @@
 					   NewCommand="{x:Bind ViewModel.NewCommand}"
 					   RefreshCommand="{x:Bind ViewModel.RefreshCommand}"
 					   Query="{x:Bind ViewModel.Query, Mode=TwoWay}"
-					   QuerySubmittedCommand="{x:Bind ViewModel.RefreshCommand}"/>
+					   QuerySubmittedCommand="{x:Bind ViewModel.RefreshCommand}"
+					   StartSelectionCommand="{x:Bind ViewModel.StartSelectionCommand}"
+					   CancelSelectionCommand="{x:Bind ViewModel.CancelSelectionCommand}"
+					   SelectItemsCommand="{x:Bind ViewModel.SelectItemsCommand}"
+					   DeselectItemsCommand="{x:Bind ViewModel.DeselectItemsCommand}"
+					   SelectRangesCommand="{x:Bind ViewModel.SelectRangesCommand}"
+					   DeleteCommand="{x:Bind ViewModel.DeleteSelectionCommand}"/>
 </UserControl>

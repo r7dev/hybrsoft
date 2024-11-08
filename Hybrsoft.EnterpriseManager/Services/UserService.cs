@@ -8,6 +8,7 @@ using Hybrsoft.Infrastructure.DataServices;
 using Hybrsoft.Infrastructure.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services
@@ -92,6 +93,15 @@ namespace Hybrsoft.EnterpriseManager.Services
 			using (var dataService = DataServiceFactory.CreateDataService())
 			{
 				return await dataService.DeleteUsersAsync(customer);
+			}
+		}
+
+		public async Task<int> DeleteUserRangeAsync(int index, int length, DataRequest<User> request)
+		{
+			using (var dataService = DataServiceFactory.CreateDataService())
+			{
+				var items = await dataService.GetUserKeysAsync(index, length, request);
+				return await dataService.DeleteUsersAsync(items.ToArray());
 			}
 		}
 
