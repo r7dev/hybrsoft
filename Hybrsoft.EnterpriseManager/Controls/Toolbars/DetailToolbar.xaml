@@ -8,11 +8,11 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d">
 
-	<CommandBar x:Name="commandBar" Height="36" DefaultLabelPosition="Right" Style="{StaticResource ToolBarStyle}" Background="Transparent">
-		<AppBarButton x:Name="buttonBack" Icon="Back" Label="Back" LabelPosition="Default" HorizontalAlignment="Left" Style="{StaticResource ToolBarButtonStyle}" Tag="back" />
-		<AppBarButton x:Name="buttonEdit" Icon="Edit" Label="Edit" LabelPosition="Default" HorizontalAlignment="Left" Style="{StaticResource ToolBarButtonStyle}" Tag="edit" />
-		<AppBarButton x:Name="buttonDelete" Icon="Delete" Label="Delete" LabelPosition="Default" HorizontalAlignment="Left" Style="{StaticResource ToolBarButtonStyle}" Tag="delete" />
-		<AppBarButton x:Name="buttonCancel" Icon="Cancel" Label="Cancel" LabelPosition="Default" HorizontalAlignment="Left" Style="{StaticResource ToolBarButtonStyle}" Tag="cancel" />
-		<AppBarButton x:Name="buttonSave" Icon="Save" Label="Save" LabelPosition="Default" HorizontalAlignment="Left" Style="{StaticResource ToolBarButtonStyle}" Tag="save" />
+	<CommandBar x:Name="commandBar" DefaultLabelPosition="Right" HorizontalAlignment="Left" Background="Transparent">
+		<AppBarButton x:Name="buttonBack" Icon="Back" Label="Back" LabelPosition="Default" HorizontalAlignment="Left" Tag="back" />
+		<AppBarButton x:Name="buttonEdit" Icon="Edit" Label="Edit" LabelPosition="Default" HorizontalAlignment="Left" Tag="edit" />
+		<AppBarButton x:Name="buttonDelete" Icon="Delete" Label="Delete" LabelPosition="Default" HorizontalAlignment="Left" Tag="delete" />
+		<AppBarButton x:Name="buttonCancel" Icon="Cancel" Label="Cancel" LabelPosition="Default" HorizontalAlignment="Left" Tag="cancel" />
+		<AppBarButton x:Name="buttonSave" Icon="Save" Label="Save" LabelPosition="Default" HorizontalAlignment="Left" Tag="save" />
 	</CommandBar>
 </UserControl>
