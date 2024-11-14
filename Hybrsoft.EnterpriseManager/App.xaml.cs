@@ -19,7 +19,7 @@ namespace Hybrsoft.EnterpriseManager
 		private Window m_window;
 		private ExtendedSplash splash_Screen;
 
-		public Window MainWindow { get; private set; }
+		public Window MainWindow { get; set; }
 		public Window CurrentView { get; set; }
 
 		/// <summary>
@@ -46,7 +46,6 @@ namespace Hybrsoft.EnterpriseManager
 
 			m_window = new MainWindow();
 			AppWindowExtensions.SetDefaultIcon(m_window.AppWindow);
-			MainWindow = m_window;
 			m_window.Activate();
 
 			await Task.Delay(1000);

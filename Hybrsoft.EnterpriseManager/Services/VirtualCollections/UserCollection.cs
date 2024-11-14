@@ -32,10 +32,10 @@ namespace Hybrsoft.EnterpriseManager.Services.VirtualCollections
 				Count = await UserService.GetUsersCountAsync(_dataRequest);
 				Ranges[0] = await UserService.GetUsersAsync(0, RangeSize, _dataRequest);
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				Count = 0;
-				throw ex;
+				throw;
 			}
 		}
 

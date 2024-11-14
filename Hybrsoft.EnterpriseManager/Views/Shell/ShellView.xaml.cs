@@ -30,10 +30,9 @@ namespace Hybrsoft.EnterpriseManager.Views
 		private void InitializeContext()
 		{
 			var context = ServiceLocator.Current.GetService<IContextService>();
-			//context.Initialize(Dispatcher, ApplicationView.GetForCurrentView().Id, CoreApplication.GetCurrentView().IsMain);
 			Window currentView = ((App)Application.Current).CurrentView;
 			var appWindow = AppWindowExtensions.GetAppWindow(currentView);
-			context.Initialize(Dispatcher, (int)appWindow.Id.Value, currentView.IsMain());
+			context.Initialize(DispatcherQueue, (int)appWindow.Id.Value, currentView.IsMain());
 		}
 
 		private void InitializeNavigation()

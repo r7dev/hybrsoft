@@ -1,7 +1,7 @@
 ﻿using Hybrsoft.Domain.Interfaces.Infrastructure;
+using Microsoft.UI.Dispatching;
 using System;
 using System.Threading.Tasks;
-using Windows.UI.Core;
 
 namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 {
@@ -9,7 +9,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 	{
 		static private int _mainViewID = -1;
 
-		private CoreDispatcher _dispatcher = null;
+		private DispatcherQueue _dispatcher = null;
 
 		public int MainViewID => _mainViewID;
 
@@ -19,7 +19,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 
 		public void Initialize(object dispatcher, int contextID, bool isMainView)
 		{
-			_dispatcher = dispatcher as CoreDispatcher;
+			_dispatcher = dispatcher as DispatcherQueue;
 			ContextID = contextID;
 			IsMainView = isMainView;
 			if (IsMainView)
@@ -30,7 +30,19 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 
 		public async Task RunAsync(Action action)
 		{
-			await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => action());
+			var taskCompletionSource = new TaskCompletionSource<object>();
+			_dispatcher.TryEnqueue(DispatcherQueuePriority.Normal, () => {
+				try
+				{
+					action();
+					taskCompletionSource.SetResult(null);
+				}
+				catch (Exception ex)
+				{
+					taskCompletionSource.SetException(ex);
+				}
+			});
+			await taskCompletionSource.Task;
 		}
 	}
 }

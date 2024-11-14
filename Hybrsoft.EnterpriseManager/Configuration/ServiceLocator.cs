@@ -1,11 +1,13 @@
 ﻿using Hybrsoft.Domain.Interfaces;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
 using Hybrsoft.Domain.ViewModels;
+using Hybrsoft.EnterpriseManager.Extensions;
 using Hybrsoft.EnterpriseManager.Services;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
 using Hybrsoft.EnterpriseManager.Services.Infrastructure;
 using Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Concurrent;
 using Windows.UI.ViewManagement;
@@ -43,8 +45,9 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 		{
 			get
 			{
-				//int currentViewId = ApplicationView.GetForCurrentView().Id;
-				int currentViewId = -4654875;
+				Window currentView = ((App)Application.Current).CurrentView;
+				var appWindow = AppWindowExtensions.GetAppWindow(currentView);
+				int currentViewId = (int)appWindow.Id.Value;
 				return _serviceLocators.GetOrAdd(currentViewId, key => new ServiceLocator());
 			}
 		}

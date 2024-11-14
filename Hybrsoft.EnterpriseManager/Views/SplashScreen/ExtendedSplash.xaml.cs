@@ -21,6 +21,7 @@ namespace Hybrsoft.EnterpriseManager.Views.SplashScreen
 		public ExtendedSplash()
 		{
 			this.InitializeComponent();
+			((App)Application.Current).CurrentView = this;
 
 			AppWindow appWindow = AppWindowExtensions.GetAppWindow(this);
 			OverlappedPresenter presenter = appWindow.Presenter as OverlappedPresenter;

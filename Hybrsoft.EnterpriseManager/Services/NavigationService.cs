@@ -1,9 +1,11 @@
 ﻿using Hybrsoft.Domain.Infrastructure.Commom;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
 using Hybrsoft.Domain.ViewModels;
+using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.EnterpriseManager.Extensions;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
 using Hybrsoft.EnterpriseManager.Views;
+using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
@@ -11,6 +13,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.UI.ViewManagement;
@@ -92,7 +95,8 @@ namespace Hybrsoft.EnterpriseManager.Services
 		}
 		public async Task<int> CreateNewViewAsync(Type viewModelType, object parameter = null)
 		{
-			//int viewId = 0;
+			var taskCompetionSource = new TaskCompletionSource<int>();
+			
 			Window newWindow = new();
 			AppWindowExtensions.SetDefaultIcon(newWindow.AppWindow);
 			((App)Application.Current).CurrentView = newWindow;
@@ -106,33 +110,15 @@ namespace Hybrsoft.EnterpriseManager.Services
 			frame.Navigate(typeof(ShellView), args);
 			newWindow.Content = frame;
 
-			await Task.Delay(100);
+			newWindow.Closed += (s, e) =>
+			{
+				((App)Application.Current).CurrentView = ((App)Application.Current).MainWindow;
+			};
 			newWindow.Activate();
 
-			return (int)newWindow.AppWindow.Id.Value;
-			//var newView = CoreApplication.CreateNewView();
-			//await newView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-			//{
-			//	viewId = ApplicationView.GetForCurrentView().Id;
+			taskCompetionSource.SetResult((int)newWindow.AppWindow.Id.Value);
 
-			//	var frame = new Frame();
-			//	var args = new ShellArgs
-			//	{
-			//		ViewModel = viewModelType,
-			//		Parameter = parameter
-			//	};
-			//	frame.Navigate(typeof(ShellView), args);
-
-			//	Window.Current.Content = frame;
-			//	Window.Current.Activate();
-			//});
-
-			//if (await ApplicationViewSwitcher.TryShowAsStandaloneAsync(viewId))
-			//{
-			//	return viewId;
-			//}
-
-			//return 0;
+			return await taskCompetionSource.Task;
 		}
 
 		public async Task CloseViewAsync()

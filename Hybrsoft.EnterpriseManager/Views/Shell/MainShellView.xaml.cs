@@ -2,6 +2,8 @@ using Hybrsoft.Domain.Infrastructure.Commom;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
 using Hybrsoft.Domain.ViewModels;
 using Hybrsoft.EnterpriseManager.Configuration;
+using Hybrsoft.EnterpriseManager.Extensions;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
@@ -30,8 +32,9 @@ namespace Hybrsoft.EnterpriseManager.Views
 		private void InitializeContext()
 		{
 			var context = ServiceLocator.Current.GetService<IContextService>();
-			//context.Initialize(Dispatcher, ApplicationView.GetForCurrentView().Id, CoreApplication.GetCurrentView().IsMain);
-			context.Initialize(Dispatcher, -4654874, true);
+			Window currentView = ((App)Application.Current).CurrentView;
+			var appWindow = AppWindowExtensions.GetAppWindow(currentView);
+			context.Initialize(DispatcherQueue, (int)appWindow.Id.Value, currentView.IsMain());
 		}
 
 		private void InitializeNavigation()

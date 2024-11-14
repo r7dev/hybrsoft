@@ -15,6 +15,8 @@ namespace Hybrsoft.EnterpriseManager
 		public MainWindow()
 		{
 			this.InitializeComponent();
+			((App)Application.Current).MainWindow = this;
+			((App)Application.Current).CurrentView = this;
 			this.Title = AppInfo.Current.DisplayInfo.DisplayName;
 			TrySetMicaBackdrop(true);
 			//TrySetDesktopAcrylicBackdrop();
