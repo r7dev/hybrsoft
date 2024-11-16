@@ -115,6 +115,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 				((App)Application.Current).CurrentView = ((App)Application.Current).MainWindow;
 			};
 			newWindow.Activate();
+			ThemeExtensions.TrySetMicaBackdrop(newWindow, true);
 
 			taskCompetionSource.SetResult((int)newWindow.AppWindow.Id.Value);
 
