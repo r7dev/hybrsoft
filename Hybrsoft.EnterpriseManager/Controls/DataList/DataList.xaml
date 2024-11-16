@@ -37,7 +37,6 @@
 					  DoubleTapped="OnDoubleTapped"
 					  ItemsSource="{x:Bind ItemsSource, Mode=OneWay}"
 					  ItemTemplate="{x:Bind ItemTemplate}"
-					  ItemContainerStyle="{StaticResource RowItemStyle}"
 					  SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
 					  SelectionMode="{x:Bind SelectionMode, Mode=OneWay}"
 					  SelectionChanged="OnSelectionChanged"
