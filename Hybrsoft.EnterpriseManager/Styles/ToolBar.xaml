@@ -23,7 +23,7 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="AppBarButton">
-					<Grid x:Name="Root" CornerRadius="6" MinWidth="{TemplateBinding MinWidth}" MaxWidth="{TemplateBinding MaxWidth}" Background="{TemplateBinding Background}">
+					<Grid x:Name="Root" CornerRadius="4" MinWidth="{TemplateBinding MinWidth}" MaxWidth="{TemplateBinding MaxWidth}" Background="{TemplateBinding Background}">
 						<Grid.Resources>
 							<Style x:Name="LabelOnRightStyle" TargetType="AppBarButton">
 								<Setter Property="Width" Value="NaN" />
@@ -242,7 +242,7 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="AppBarButton">
-					<Grid x:Name="Root" CornerRadius="6" MinWidth="{TemplateBinding MinWidth}" MaxWidth="{TemplateBinding MaxWidth}" Background="{TemplateBinding Background}">
+					<Grid x:Name="Root" CornerRadius="4" MinWidth="{TemplateBinding MinWidth}" MaxWidth="{TemplateBinding MaxWidth}" Background="{TemplateBinding Background}">
 						<Grid.Resources>
 							<Style x:Name="LabelOnRightStyle" TargetType="AppBarButton">
 								<Setter Property="Width" Value="NaN" />

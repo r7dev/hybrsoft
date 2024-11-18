@@ -14,9 +14,9 @@
 		<DataTemplate x:Key="DetailsTemplate" x:DataType="viewmodels:UserDetailsViewModel">
 			<controls:FluidGrid Columns="2" ColumnSpacing="12" Margin="12,18,6,6" RowSpacing="12">
 				<TextBlock Text="User Information" Style="{StaticResource FormsSection}" controls:FluidGrid.ColumnSpan="2" />
-				<TextBox Header="First Name" Text="{x:Bind EditableItem.FirstName, Mode=TwoWay}" />
-				<TextBox Header="Last Name" Text="{x:Bind EditableItem.LastName, Mode=TwoWay}" />
-				<TextBox Header="Email Address" Text="{x:Bind EditableItem.Email, Mode=TwoWay}" IsSpellCheckEnabled="False" />
+				<controls:FormTextBox Header="First Name" Text="{x:Bind EditableItem.FirstName, Mode=TwoWay}" />
+				<controls:FormTextBox Header="Last Name" Text="{x:Bind EditableItem.LastName, Mode=TwoWay}" />
+				<controls:FormTextBox Header="Email Address" Text="{x:Bind EditableItem.Email, Mode=TwoWay}" IsSpellCheckEnabled="False" />
 			</controls:FluidGrid>
 		</DataTemplate>
 	</UserControl.Resources>

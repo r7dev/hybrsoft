@@ -1,18 +1,14 @@
 ﻿using Microsoft.UI.Xaml;
-using Microsoft.UI;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media;
 using System;
 
 namespace Hybrsoft.EnterpriseManager.Controls
 {
-	public class FormTextBox : TextBox, IFormControl
+	public partial class FormTextBox : TextBox, IFormControl
 	{
 		public event EventHandler<FormVisualState> VisualStateChanged;
 
 		private Border _borderElement = null;
-		private Control _contentElement = null;
-		private Border _displayContent = null;
 
 		private bool _isInitialized = false;
 
@@ -75,8 +71,6 @@ namespace Hybrsoft.EnterpriseManager.Controls
 		protected override void OnApplyTemplate()
 		{
 			_borderElement = base.GetTemplateChild("BorderElement") as Border;
-			_contentElement = base.GetTemplateChild("ContentElement") as Control;
-			_displayContent = base.GetTemplateChild("DisplayContent") as Border;
 
 			_isInitialized = true;
 
@@ -102,15 +96,15 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			switch (DataType)
 			{
 				case TextDataType.Integer:
-					Int64.TryParse(Text, out Int64 n);
+					_ = Int64.TryParse(Text, out Int64 n);
 					FormattedText = n.ToString(Format);
 					break;
 				case TextDataType.Decimal:
-					Decimal.TryParse(Text, out decimal m);
+					_ = Decimal.TryParse(Text, out decimal m);
 					FormattedText = m.ToString(Format);
 					break;
 				case TextDataType.Double:
-					Double.TryParse(Text, out double d);
+					_ = Double.TryParse(Text, out double d);
 					FormattedText = d.ToString(Format);
 					break;
 				case TextDataType.String:
@@ -125,15 +119,15 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			switch (DataType)
 			{
 				case TextDataType.Integer:
-					Int64.TryParse(Text, out Int64 n);
+					_ = Int64.TryParse(Text, out Int64 n);
 					Text = n == 0 ? "" : n.ToString();
 					break;
 				case TextDataType.Decimal:
-					Decimal.TryParse(Text, out decimal m);
+					_ = Decimal.TryParse(Text, out decimal m);
 					Text = m == 0 ? "" : m.ToString();
 					break;
 				case TextDataType.Double:
-					Double.TryParse(Text, out double d);
+					_ = Double.TryParse(Text, out double d);
 					Text = d == 0 ? "" : d.ToString();
 					break;
 				case TextDataType.String:
@@ -159,19 +153,19 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			switch (DataType)
 			{
 				case TextDataType.Integer:
-					if (!Int64.TryParse(Text, out Int64 n))
+					if (!Int64.TryParse(Text, out _))
 					{
 						Text = "0";
 					}
 					break;
 				case TextDataType.Decimal:
-					if (!Decimal.TryParse(Text, out decimal m))
+					if (!Decimal.TryParse(Text, out _))
 					{
 						Text = "0";
 					}
 					break;
 				case TextDataType.Double:
-					if (!Double.TryParse(Text, out double d))
+					if (!Double.TryParse(Text, out _))
 					{
 						Text = "0";
 					}
@@ -195,13 +189,13 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			switch (DataType)
 			{
 				case TextDataType.Integer:
-					args.Cancel = !Int64.TryParse(str, out Int64 n);
+					args.Cancel = !Int64.TryParse(str, out _);
 					break;
 				case TextDataType.Decimal:
-					args.Cancel = !Decimal.TryParse(str, out decimal m);
+					args.Cancel = !Decimal.TryParse(str, out _);
 					break;
 				case TextDataType.Double:
-					args.Cancel = !Double.TryParse(str, out double d);
+					args.Cancel = !Double.TryParse(str, out _);
 					break;
 			}
 		}
@@ -245,33 +239,20 @@ namespace Hybrsoft.EnterpriseManager.Controls
 				{
 					case FormVisualState.Idle:
 						_borderElement.Opacity = 0.40;
-						_contentElement.Visibility = Visibility.Collapsed;
-						_displayContent.Background = TransparentBrush;
-						_displayContent.Visibility = Visibility.Visible;
 						break;
 					case FormVisualState.Ready:
 						_borderElement.Opacity = 1.0;
-						_contentElement.Visibility = Visibility.Collapsed;
-						_displayContent.Background = OpaqueBrush;
-						_displayContent.Visibility = Visibility.Visible;
 						break;
 					case FormVisualState.Focused:
 						_borderElement.Opacity = 1.0;
-						_contentElement.Visibility = Visibility.Visible;
-						_displayContent.Visibility = Visibility.Collapsed;
 						break;
 					case FormVisualState.Disabled:
 						_borderElement.Opacity = 0.40;
-						_contentElement.Visibility = Visibility.Visible;
-						_displayContent.Visibility = Visibility.Collapsed;
 						IsEnabled = false;
 						Opacity = 0.75;
 						break;
 				}
 			}
 		}
-
-		private readonly Brush TransparentBrush = new SolidColorBrush(Colors.Transparent);
-		private readonly Brush OpaqueBrush = new SolidColorBrush(Colors.White);
 	}
 }

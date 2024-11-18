@@ -16,5 +16,26 @@ namespace Hybrsoft.Domain.Dtos
 
 		public DateTimeOffset CreatedOn { get; set; }
 		public DateTimeOffset? LastModifiedOn { get; set; }
+
+		public override void Merge(ObservableObject source)
+		{
+			if (source is UserDto model)
+			{
+				Merge(model);
+			}
+		}
+
+		public void Merge(UserDto source)
+		{
+			if (source != null)
+			{
+				UserID = source.UserID;
+				FirstName = source.FirstName;
+				LastName = source.LastName;
+				Email = source.Email;
+				CreatedOn = source.CreatedOn;
+				LastModifiedOn = source.LastModifiedOn;
+			}
+		}
 	}
 }

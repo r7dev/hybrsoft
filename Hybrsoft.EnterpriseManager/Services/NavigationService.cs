@@ -95,8 +95,6 @@ namespace Hybrsoft.EnterpriseManager.Services
 		}
 		public async Task<int> CreateNewViewAsync(Type viewModelType, object parameter = null)
 		{
-			var taskCompetionSource = new TaskCompletionSource<int>();
-			
 			Window newWindow = new();
 			AppWindowExtensions.SetDefaultIcon(newWindow.AppWindow);
 			((App)Application.Current).CurrentView = newWindow;
@@ -114,12 +112,11 @@ namespace Hybrsoft.EnterpriseManager.Services
 			{
 				((App)Application.Current).CurrentView = ((App)Application.Current).MainWindow;
 			};
+			await Task.Delay(200);
 			newWindow.Activate();
 			ThemeExtensions.TrySetMicaBackdrop(newWindow, true);
 
-			taskCompetionSource.SetResult((int)newWindow.AppWindow.Id.Value);
-
-			return await taskCompetionSource.Task;
+			return (int)newWindow.AppWindow.Id.Value;
 		}
 
 		public async Task CloseViewAsync()
