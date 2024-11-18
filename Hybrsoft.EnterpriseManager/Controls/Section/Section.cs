@@ -139,7 +139,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			}
 			else
 			{
-				//_container.Grayscale();
+				_container.Grayscale();
 				_content.Opacity = 0.5;
 			}
 		}

@@ -48,7 +48,7 @@ namespace Hybrsoft.EnterpriseManager.Extensions
 				Source = new CompositionEffectSourceParameter("source")
 			};
 
-			var compositor = Window.Current.Compositor;
+			var compositor = ((App)Application.Current).CurrentView.Compositor;
 			var factory = compositor.CreateEffectFactory(effect);
 			var brush = factory.CreateBrush();
 			brush.SetSourceParameter("source", compositor.CreateBackdropBrush());
