@@ -22,11 +22,12 @@ namespace Hybrsoft.Infrastructure.DataContexts
 		{
 			modelBuilder.HasDefaultSchema("Universal");
 			modelBuilder.Entity<User>().ToTable("User", "Universal");
+			modelBuilder.Entity<NavigationItem>().ToTable("NavigationItem", "Universal");
 			base.OnModelCreating(modelBuilder);
 		}
 
-		public DbSet<Menu> Menu { get; set; }
 		public DbSet<AppLog> Logs { get; set; }
 		public DbSet<User> Users { get; set; }
+		public DbSet<NavigationItem> NavigationItems { get; set; }
 	}
 }

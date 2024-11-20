@@ -1,11 +1,12 @@
-﻿using Hybrsoft.Domain.Infrastructure.Commom;
+﻿using Hybrsoft.Domain.Dtos;
+using Hybrsoft.Domain.Infrastructure.Commom;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
 using Hybrsoft.Domain.ViewModels;
-using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.EnterpriseManager.Extensions;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
 using Hybrsoft.EnterpriseManager.Views;
-using Microsoft.UI.Dispatching;
+using Hybrsoft.Infrastructure.Enums;
+using Hybrsoft.Infrastructure.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
@@ -13,7 +14,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.UI.ViewManagement;
@@ -26,7 +26,9 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public NavigationService(IDataServiceFactory dataServiceFactory)
 		{
-			MainViewId = -4654874;//ApplicationView.GetForCurrentView().Id;
+			Window currentView = ((App)Application.Current).CurrentView;
+			var appWindow = AppWindowExtensions.GetAppWindow(currentView);
+			MainViewId = (int)appWindow.Id.Value;
 			DataServiceFactory = dataServiceFactory;
 		}
 
@@ -127,28 +129,27 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public IDataServiceFactory DataServiceFactory { get; }
 
-		public IEnumerable<NavigationItem> GetItems()
+		public IEnumerable<NavigationItemDto> GetItems()
 		{
-			using (var dataService = DataServiceFactory.CreateDataService())
-			{
-				return GetItemsBySuperiorId(dataService.GetMenus(), null);
-			}
+			using var dataService = DataServiceFactory.CreateDataService();
+			return GetNavigationItemByParentId(dataService.GetNavigationItemByAppType(AppType.EnterpriseManager), null);
 		}
 
-		private IEnumerable<NavigationItem> GetItemsBySuperiorId(IList<Hybrsoft.Infrastructure.Models.Menu> items, int? superiorId)
+		private IEnumerable<NavigationItemDto> GetNavigationItemByParentId(IList<NavigationItem> items, int? parentId)
 		{
-			return items.Where(f => f.SuperiorId == superiorId)
-				.Select(f => new NavigationItem(
-					f.Icone.Value,
-					f.Nome,
-					f.SuperiorId,
-					new ObservableCollection<NavigationItem>(GetItemsBySuperiorId(items, f.MenuId)),
-					GetTypeViewModelByName(f.Nome)));
+			return items.Where(f => f.ParentId == parentId)
+				.Select(f => new NavigationItemDto(
+					f.Label,
+					f.Icon.Value,
+					f.Tag,
+					f.ParentId,
+					new ObservableCollection<NavigationItemDto>(GetNavigationItemByParentId(items, f.NavigationItemId)),
+					GetTypeViewModelByName(f.Tag)));
 		}
 
-		private Type GetTypeViewModelByName(string name)
+		private Type GetTypeViewModelByName(string tag)
 		{
-			if (name == "Usuários")
+			if (tag == "Users")
 			{
 				return typeof(UsersViewModel);
 			}

@@ -1,4 +1,5 @@
-﻿using Hybrsoft.Domain.Infrastructure.Commom;
+﻿using Hybrsoft.Domain.Dtos;
+using Hybrsoft.Domain.Infrastructure.Commom;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -13,16 +14,16 @@ namespace Hybrsoft.Domain.ViewModels
 		{
 		}
 
-		private IEnumerable<NavigationItem> _items;
-		public IEnumerable<NavigationItem> Items
+		private IEnumerable<NavigationItemDto> _navigationItems;
+		public IEnumerable<NavigationItemDto> NavigationItems
 		{
-			get => _items;
-			set => Set(ref _items, value);
+			get => _navigationItems;
+			set => Set(ref _navigationItems, value);
 		}
 
 		public override async Task LoadAsync(ShellArgs args)
 		{
-			Items = GetItems().ToArray();
+			NavigationItems = GetItems().ToArray();
 			//await UpdateAppLogBadge();
 			await base.LoadAsync(args);
 		}
@@ -63,7 +64,7 @@ namespace Hybrsoft.Domain.ViewModels
 			}
 		}
 
-		private IEnumerable<NavigationItem> GetItems()
+		private IEnumerable<NavigationItemDto> GetItems()
 		{
 			return NavigationService.GetItems();
 		}

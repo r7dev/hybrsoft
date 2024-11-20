@@ -7,4 +7,60 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="DateTime" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="1a7104f9-96e7-441a-bdab-678efb1a0cb1" ChangeDateTime="11/19/2024 13:08:33">
+    <Property Name="ElementName" Value="[dbo].[NavigationItem].[Label]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[NavigationItem]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Content" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="bb7eb052-c946-410d-9c76-8e9934cd1f01" ChangeDateTime="11/19/2024 13:10:51">
+    <Property Name="ElementName" Value="[dbo].[NavigationItem].[Content]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[NavigationItem]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Label" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="cde97b02-9b75-4655-9396-d412564296fc" ChangeDateTime="11/19/2024 13:14:04">
+    <Property Name="ElementName" Value="[dbo].[NavigationItem].[SuperiorId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[NavigationItem]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ParentId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="1a4ed3d2-d561-478a-ba1f-55089d10de70" ChangeDateTime="11/19/2024 13:14:38">
+    <Property Name="ElementName" Value="[dbo].[NavigationItem].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[NavigationItem]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="NavigationItemId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7ff8abe2-2bae-45a8-bc73-8a90b11af603" ChangeDateTime="11/19/2024 13:16:09">
+    <Property Name="ElementName" Value="[Universal].[NavigationItem].[ApplicationType]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[Universal].[NavigationItem]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Application" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7f776c57-2b21-4070-96e9-97b609076111" ChangeDateTime="11/19/2024 13:19:12">
+    <Property Name="ElementName" Value="[Universal].[NavigationItem].[Icon]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[Universal].[NavigationItem]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Glyph" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="97871a4e-a80a-4a6b-9480-3a8cdbdbd993" ChangeDateTime="11/19/2024 13:47:25">
+    <Property Name="ElementName" Value="[Universal].[NavigationItem].[Application]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[Universal].[NavigationItem]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AppType" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="2571f183-1a1d-4a0e-9e36-53bedecc5395" ChangeDateTime="11/19/2024 13:53:28">
+    <Property Name="ElementName" Value="[Universal].[NavigationItem].[Glyph]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[Universal].[NavigationItem]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Icon" />
+  </Operation>
 </Operations>

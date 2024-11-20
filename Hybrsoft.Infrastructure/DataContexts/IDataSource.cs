@@ -9,14 +9,14 @@ namespace Hybrsoft.Infrastructure.DataContexts
 {
 	public interface IDataSource : IDisposable
 	{
-		public DbSet<Menu> Menu { get; set; }
 		public DbSet<AppLog> Logs { get; set; }
 		public DbSet<User> Users { get; set; }
+		public DbSet<NavigationItem> NavigationItems { get; set; }
 
 		EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
 
 		int SaveChanges();
 
-		Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
+		Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 	}
 }

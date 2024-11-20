@@ -1,4 +1,5 @@
 ﻿using Hybrsoft.Infrastructure.Common;
+using Hybrsoft.Infrastructure.Enums;
 using Hybrsoft.Infrastructure.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ namespace Hybrsoft.Infrastructure.DataServices
 {
 	public interface IDataService : IDisposable
 	{
-		IList<Menu> GetMenus();
+		IList<NavigationItem> GetNavigationItemByAppType(AppType appType);
 		Task<int> CreateLogAsync(AppLog appLog);
 
 		Task<User> GetUserAsync(Guid id);
