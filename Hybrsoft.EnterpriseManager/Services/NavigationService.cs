@@ -22,7 +22,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 {
 	public partial class NavigationService : INavigationService
 	{
-		static private readonly ConcurrentDictionary<Type, Type> _viewModelMap = new ConcurrentDictionary<Type, Type>();
+		static private readonly ConcurrentDictionary<Type, Type> _viewModelMap = new();
 
 		public NavigationService(IDataServiceFactory dataServiceFactory)
 		{
@@ -58,11 +58,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		static public Type GetViewModel(Type view)
 		{
 			var type = _viewModelMap.Where(r => r.Value == view).Select(r => r.Key).FirstOrDefault();
-			if (type == null)
-			{
-				throw new InvalidOperationException($"View not registered for ViewModel '{view.FullName}'");
-			}
-			return type;
+			return type ?? throw new InvalidOperationException($"View not registered for ViewModel '{view.FullName}'");
 		}
 
 		public bool IsMainView => CoreApplication.GetCurrentView().IsMain;
@@ -135,7 +131,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return GetNavigationItemByParentId(dataService.GetNavigationItemByAppType(AppType.EnterpriseManager), null);
 		}
 
-		private IEnumerable<NavigationItemDto> GetNavigationItemByParentId(IList<NavigationItem> items, int? parentId)
+		private static IEnumerable<NavigationItemDto> GetNavigationItemByParentId(IList<NavigationItem> items, int? parentId)
 		{
 			return items.Where(f => f.ParentId == parentId)
 				.Select(f => new NavigationItemDto(
@@ -147,7 +143,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 					GetTypeViewModelByName(f.Tag)));
 		}
 
-		private Type GetTypeViewModelByName(string tag)
+		private static Type GetTypeViewModelByName(string tag)
 		{
 			if (tag == "Users")
 			{

@@ -1,5 +1,6 @@
 ﻿using Hybrsoft.Domain.Infrastructure.Commom;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Threading.Tasks;
@@ -30,6 +31,8 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			{
 				dialog.SecondaryButtonText = cancel;
 			}
+			Window currentView = ((App)Application.Current).CurrentView;
+			dialog.XamlRoot = currentView.Content.XamlRoot;
 			var result = await dialog.ShowAsync();
 			return result == ContentDialogResult.Primary;
 		}

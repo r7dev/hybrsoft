@@ -11,7 +11,7 @@ namespace Hybrsoft.Domain.ViewModels
 	#region UserDetailsArgs
 	public class UserDetailsArgs
 	{
-		static public UserDetailsArgs CreateDefault() => new UserDetailsArgs();
+		static public UserDetailsArgs CreateDefault() => new();
 
 		public Guid UserID { get; set; }
 
@@ -19,14 +19,9 @@ namespace Hybrsoft.Domain.ViewModels
 	}
 	#endregion
 
-	public class UserDetailsViewModel : GenericDetailsViewModel<UserDto>
+	public partial class UserDetailsViewModel(IUserService userService, ICommonServices commonServices) : GenericDetailsViewModel<UserDto>(commonServices)
 	{
-		public UserDetailsViewModel(IUserService userService, ICommonServices commonServices) : base(commonServices)
-		{
-			UserService = userService;
-		}
-
-		public IUserService UserService { get; }
+		public IUserService UserService { get; } = userService;
 
 		override public string Title => (Item?.IsNew ?? true) ? "New User" : TitleEdit;
 		public string TitleEdit => Item == null ? "User" : $"{Item.FullName}";
@@ -114,7 +109,7 @@ namespace Hybrsoft.Domain.ViewModels
 
 		protected override async Task<bool> ConfirmDeleteAsync()
 		{
-			return await DialogService.ShowAsync("Confirm Delete", "Are you sure you want to delete current user?", "Ok", "Cancel");
+			return await DialogService.ShowAsync("Confirm Delete", "Are you sure you want to delete current user?", "Delete", "Cancel");
 		}
 
 		private async void OnDetailsMessage(UserDetailsViewModel sender, string message, UserDto changed)
@@ -132,7 +127,7 @@ namespace Hybrsoft.Domain.ViewModels
 								try
 								{
 									var item = await UserService.GetUserAsync(current.UserID);
-									item = item ?? new UserDto { UserID = current.UserID, IsEmpty = true };
+									item ??= new UserDto { UserID = current.UserID, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
 									NotifyPropertyChanged(nameof(Title));

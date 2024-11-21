@@ -13,14 +13,9 @@ using System.Windows.Input;
 
 namespace Hybrsoft.Domain.ViewModels
 {
-	public class UserListViewModel : GenericListViewModel<UserDto>
+	public partial class UserListViewModel(IUserService userService, ICommonServices commonServices) : GenericListViewModel<UserDto>(commonServices)
 	{
-		public UserListViewModel(IUserService userService, ICommonServices commonServices) : base(commonServices)
-		{
-			UserService = userService;
-		}
-
-		public IUserService UserService { get; }
+		public IUserService UserService { get; } = userService;
 
 		public UserListArgs ViewModelArgs { get; private set; }
 
@@ -72,7 +67,7 @@ namespace Hybrsoft.Domain.ViewModels
 			}
 			catch (Exception ex)
 			{
-				Items = new List<UserDto>();
+				Items = [];
 				StatusError($"Error loading Users: {ex.Message}");
 				LogException("Users", "Refresh", ex);
 				isOk = false;
@@ -95,7 +90,7 @@ namespace Hybrsoft.Domain.ViewModels
 				DataRequest<User> request = BuildDataRequest();
 				return await UserService.GetUsersAsync(request);
 			}
-			return new List<UserDto>();
+			return [];
 		}
 
 		public ICommand OpenInNewViewCommand => new RelayCommand(OnOpenInNewView);
@@ -133,7 +128,7 @@ namespace Hybrsoft.Domain.ViewModels
 		protected override async void OnDeleteSelection()
 		{
 			StatusReady();
-			if (await DialogService.ShowAsync("Confirm Delete", "Are you sure you want to delete selected users?", "Ok", "Cancel"))
+			if (await DialogService.ShowAsync("Confirm Delete", "Are you sure you want to delete selected users?", "Delete", "Cancel"))
 			{
 				int count = 0;
 				try
@@ -147,7 +142,7 @@ namespace Hybrsoft.Domain.ViewModels
 					}
 					else if (SelectedItems != null)
 					{
-						count = SelectedItems.Count();
+						count = SelectedItems.Count;
 						StartStatusMessage($"Deleting {count} users...");
 						await DeleteItemsAsync(SelectedItems);
 						MessageService.Send(this, "ItemsDeleted", SelectedItems);

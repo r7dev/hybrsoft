@@ -8,28 +8,19 @@ using Hybrsoft.Infrastructure.DataServices;
 using Hybrsoft.Infrastructure.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services
 {
-	public class UserService : IUserService
+	public class UserService(IDataServiceFactory dataServiceFactory, ILogService logService) : IUserService
 	{
-		public UserService(IDataServiceFactory dataServiceFactory, ILogService logService)
-		{
-			DataServiceFactory = dataServiceFactory;
-			LogService = logService;
-		}
-
-		public IDataServiceFactory DataServiceFactory { get; }
-		public ILogService LogService { get; }
+		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
+		public ILogService LogService { get; } = logService;
 
 		public async Task<UserDto> GetUserAsync(Guid id)
 		{
-			using (var dataService = DataServiceFactory.CreateDataService())
-			{
-				return await GetUserAsync(dataService, id);
-			}
+			using var dataService = DataServiceFactory.CreateDataService();
+			return await GetUserAsync(dataService, id);
 		}
 
 		static private async Task<UserDto> GetUserAsync(IDataService dataService, Guid id)
@@ -52,57 +43,47 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<IList<UserDto>> GetUsersAsync(int skip, int take, DataRequest<User> request)
 		{
 			var models = new List<UserDto>();
-			using (var dataService = DataServiceFactory.CreateDataService())
+			using var dataService = DataServiceFactory.CreateDataService();
+			var items = await dataService.GetUsersAsync(skip, take, request);
+			foreach (var item in items)
 			{
-				var items = await dataService.GetUsersAsync(skip, take, request);
-				foreach (var item in items)
-				{
-					models.Add(CreateUserDtoAsync(item, includeAllFields: false));
-				}
-				return models;
+				models.Add(CreateUserDtoAsync(item, includeAllFields: false));
 			}
+			return models;
 		}
 
 		public async Task<int> GetUsersCountAsync(DataRequest<User> request)
 		{
-			using (var dataService = DataServiceFactory.CreateDataService())
-			{
-				return await dataService.GetUsersCountAsync(request);
-			}
+			using var dataService = DataServiceFactory.CreateDataService();
+			return await dataService.GetUsersCountAsync(request);
 		}
 
 		public async Task<int> UpdateUserAsync(UserDto model)
 		{
 			Guid id = model.UserID;
-			using (var dataService = DataServiceFactory.CreateDataService())
+			using var dataService = DataServiceFactory.CreateDataService();
+			var user = id != Guid.Empty ? await dataService.GetUserAsync(model.UserID) : new User();
+			if (user != null)
 			{
-				var user = id != Guid.Empty ? await dataService.GetUserAsync(model.UserID) : new User();
-				if (user != null)
-				{
-					UpdateUserFromDto(user, model);
-					await dataService.UpdateUserAsync(user);
-					model.Merge(await GetUserAsync(dataService, user.UserId));
-				}
-				return 0;
+				UpdateUserFromDto(user, model);
+				await dataService.UpdateUserAsync(user);
+				model.Merge(await GetUserAsync(dataService, user.UserId));
 			}
+			return 0;
 		}
 
 		public async Task<int> DeleteUserAsync(UserDto model)
 		{
 			var customer = new User { UserId = model.UserID };
-			using (var dataService = DataServiceFactory.CreateDataService())
-			{
-				return await dataService.DeleteUsersAsync(customer);
-			}
+			using var dataService = DataServiceFactory.CreateDataService();
+			return await dataService.DeleteUsersAsync(customer);
 		}
 
 		public async Task<int> DeleteUserRangeAsync(int index, int length, DataRequest<User> request)
 		{
-			using (var dataService = DataServiceFactory.CreateDataService())
-			{
-				var items = await dataService.GetUserKeysAsync(index, length, request);
-				return await dataService.DeleteUsersAsync(items.ToArray());
-			}
+			using var dataService = DataServiceFactory.CreateDataService();
+			var items = await dataService.GetUserKeysAsync(index, length, request);
+			return await dataService.DeleteUsersAsync([.. items]);
 		}
 
 		static public UserDto CreateUserDtoAsync(User source, bool includeAllFields)
@@ -123,7 +104,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return model;
 		}
 
-		private void UpdateUserFromDto(User target, UserDto source)
+		private static void UpdateUserFromDto(User target, UserDto source)
 		{
 			target.FirstName = source.FirstName;
 			target.LastName = source.LastName;

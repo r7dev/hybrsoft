@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.Domain.ViewModels
 {
-    public class ShellViewModel : ViewModelBase
+    public partial class ShellViewModel(ICommonServices commonServices) : ViewModelBase(commonServices)
 	{
-		public ShellViewModel(ICommonServices commonServices) : base(commonServices)
-		{
-			
-		}
-
 		private bool _isEnabled = true;
 		public bool IsEnabled
 		{
@@ -118,7 +113,7 @@ namespace Hybrsoft.Domain.ViewModels
 
 		private void SetStatus(string message)
 		{
-			message = message ?? "";
+			message ??= "";
 			message = message.Replace("\r\n", " ").Replace("\r", " ").Replace("\n", " ");
 			Message = message;
 		}

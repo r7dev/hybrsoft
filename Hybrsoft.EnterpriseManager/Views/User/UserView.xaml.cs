@@ -33,7 +33,7 @@ namespace Hybrsoft.EnterpriseManager.Views
 			if (ViewModel.IsEditMode)
 			{
 				await Task.Delay(100);
-				//details.SetFocus();
+				details.SetFocus();
 			}
 		}
 
