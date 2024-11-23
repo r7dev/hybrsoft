@@ -4,7 +4,11 @@ using Hybrsoft.EnterpriseManager.Extensions;
 using Hybrsoft.EnterpriseManager.Views.SplashScreen;
 using Hybrsoft.Infrastructure.Enums;
 using Microsoft.UI.Xaml;
+using System;
+using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -14,10 +18,12 @@ namespace Hybrsoft.EnterpriseManager
 	/// <summary>
 	/// Provides application-specific behavior to supplement the default Application class.
 	/// </summary>
-	public partial class App : Application
+	public partial class App : Application, IDisposable
 	{
 		private Window m_window;
 		private ExtendedSplash splash_Screen;
+		private static Mutex _mutex;
+		private bool disposedValue;
 
 		public Window MainWindow { get; set; }
 		public Window CurrentView { get; set; }
@@ -30,8 +36,38 @@ namespace Hybrsoft.EnterpriseManager
 		{
 			this.InitializeComponent();
 
+			_mutex = new Mutex(true, "SingleInstanceAppMutex", out bool createdNew);
+			if (!createdNew)
+			{
+				BringExistingInstanceToFront();
+				_mutex.Dispose();
+				Environment.Exit(0);
+			}
+
 			this.UnhandledException += OnUnhandledException;
 		}
+
+		/// <summary>
+		/// Find window existing and bring instance to front.
+		/// </summary>
+		private static void BringExistingInstanceToFront()
+		{
+			string windowTitle = AppInfo.Current.DisplayInfo.DisplayName;
+			IntPtr hWnd = FindWindow(null, windowTitle);
+			if (hWnd != IntPtr.Zero)
+			{
+				ShowWindow(hWnd, SW_RESTORE);
+				SetForegroundWindow(hWnd);
+			}
+		}
+
+		[DllImport("user32.dll", SetLastError = true)]
+		private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+		[DllImport("user32.dll")]
+		private static extern bool SetForegroundWindow(IntPtr hWnd);
+		[DllImport("user32.dll")]
+		private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+		private const int SW_RESTORE = 9;
 
 		/// <summary>
 		/// Invoked when the application is launched.
@@ -57,5 +93,25 @@ namespace Hybrsoft.EnterpriseManager
 			var logService = ServiceLocator.Current.GetService<ILogService>();
 			logService.WriteAsync(LogType.Error, "App", "UnhandledException", e.Message, e.Exception.ToString());
 		}
+
+		#region Dispose
+		protected virtual void Dispose(bool disposing)
+		{
+			if (!disposedValue)
+			{
+				if (disposing)
+				{
+					_mutex?.Dispose();
+				}
+				disposedValue = true;
+			}
+		}
+
+		public void Dispose()
+		{
+			Dispose(disposing: true);
+			GC.SuppressFinalize(this);
+		}
+		#endregion
 	}
 }

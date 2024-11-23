@@ -14,7 +14,7 @@ using Windows.UI.ViewManagement;
 
 namespace Hybrsoft.EnterpriseManager.Configuration
 {
-	public class ServiceLocator : IDisposable
+	public partial class ServiceLocator : IDisposable
 	{
 		static private readonly ConcurrentDictionary<int, ServiceLocator> _serviceLocators = new();
 
@@ -61,7 +61,7 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			}
 		}
 
-		private IServiceScope _serviceScope = null;
+		private readonly IServiceScope _serviceScope = null;
 
 		private ServiceLocator()
 		{
@@ -93,10 +93,7 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 		{
 			if (disposing)
 			{
-				if (_serviceScope != null)
-				{
-					_serviceScope.Dispose();
-				}
+				_serviceScope?.Dispose();
 			}
 		}
 		#endregion

@@ -8,12 +8,8 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.Domain.ViewModels
 {
-	public class MainShellViewModel : ShellViewModel
+	public partial class MainShellViewModel(ICommonServices commonServices) : ShellViewModel(commonServices)
 	{
-		public MainShellViewModel(ICommonServices commonServices) : base(commonServices)
-		{
-		}
-
 		private IEnumerable<NavigationItemDto> _navigationItems;
 		public IEnumerable<NavigationItemDto> NavigationItems
 		{

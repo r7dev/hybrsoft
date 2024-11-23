@@ -25,11 +25,13 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			{
 				Title = title,
 				Content = content,
-				PrimaryButtonText = ok
+				PrimaryButtonText = ok,
+				DefaultButton = ContentDialogButton.Primary,
+				Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style
 			};
 			if (cancel != null)
 			{
-				dialog.SecondaryButtonText = cancel;
+				dialog.CloseButtonText = cancel;
 			}
 			Window currentView = ((App)Application.Current).CurrentView;
 			dialog.XamlRoot = currentView.Content.XamlRoot;
