@@ -13,20 +13,18 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 		}
 		static public AppSettings Current { get; }
 
-		//public ApplicationDataContainer LocalSettings => ApplicationData.Current.LocalSettings;
-		public ApplicationDataContainer LocalSettings
-		{
-			get
-			{
-				var localSettings = ApplicationData.Current.LocalSettings;
-				return localSettings;
-			}
-		}
+		public ApplicationDataContainer LocalSettings => ApplicationData.Current.LocalSettings;
 
 		public string UserName
 		{
 			get => GetSettingsValue("UserName", default(String));
 			set => LocalSettings.Values["UserName"] = value;
+		}
+
+		public string WindowsHelloPublicKeyHint
+		{
+			get => GetSettingsValue("WindowsHelloPublicKeyHint", default(String));
+			set => LocalSettings.Values["WindowsHelloPublicKeyHint"] = value;
 		}
 
 		public DataProviderType DataProvider

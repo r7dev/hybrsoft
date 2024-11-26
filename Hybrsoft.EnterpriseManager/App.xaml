@@ -18,6 +18,7 @@
 			<!-- Other app resources here -->
 			<!--  Converters  -->
 			<converters:BoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" FalseValue="Visible" TrueValue="Collapsed" />
+			<converters:BoolNegationConverter x:Key="BoolNegationConverter" />
 		</ResourceDictionary>
 	</Application.Resources>
 </Application>

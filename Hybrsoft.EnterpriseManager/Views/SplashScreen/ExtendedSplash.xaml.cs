@@ -37,27 +37,6 @@ namespace Hybrsoft.EnterpriseManager.Views.SplashScreen
 			LoadDataAsync();
 		}
 
-		public async Task SetWindowPositionToCenter()
-		{
-			AppWindow appWindow = AppWindowExtensions.GetAppWindow(this);
-
-			var displayList = await DeviceInformation.FindAllAsync(DisplayMonitor.GetDeviceSelector());
-
-			if (!displayList.Any())
-			{
-				return;
-			}
-
-			var monitorInfo = await DisplayMonitor.FromInterfaceIdAsync(displayList[0].Id);
-
-			var Height = monitorInfo.NativeResolutionInRawPixels.Height;
-			var Width = monitorInfo.NativeResolutionInRawPixels.Width;
-			var CenterPosition = appWindow.Position;
-			CenterPosition.X = (Width - appWindow.Size.Width) / 2;
-			CenterPosition.Y = (Height - appWindow.Size.Height) / 2;
-			appWindow.Move(CenterPosition);
-		}
-
 		private async void LoadDataAsync()
 		{
 			await Startup.ConfigureAsync();

@@ -22,6 +22,8 @@
   <ItemGroup>
     <None Remove="Controls\DataList\DataList.xaml" />
     <None Remove="Controls\Details\Details.xaml" />
+    <None Remove="Controls\Login\LoginNamePassword.xaml" />
+    <None Remove="Controls\Login\LoginWindowsHello.xaml" />
     <None Remove="Controls\Search\Search.xaml" />
     <None Remove="Controls\Toolbars\DetailToolbar.xaml" />
     <None Remove="Controls\Toolbars\ListToolbar.xaml" />
@@ -33,6 +35,8 @@
     <None Remove="Themes\Controls\Buttons.xaml" />
     <None Remove="Themes\Controls\FormTextBox.xaml" />
     <None Remove="Themes\Controls\Section.xaml" />
+    <None Remove="Views\Dashboard\DashboardView.xaml" />
+    <None Remove="Views\Login\LoginView.xaml" />
     <None Remove="Views\Shell\MainShellView.xaml" />
     <None Remove="Views\Shell\ShellView.xaml" />
     <None Remove="Views\SplashScreen\ExtendedSplash.xaml" />
@@ -124,7 +128,28 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Assets\Images\" />
     <Folder Include="Strings\en-us\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Dashboard\DashboardView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\Login\LoginWindowsHello.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\Login\LoginNamePassword.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Login\LoginView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Themes\Controls\FormTextBox.xaml">

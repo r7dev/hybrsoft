@@ -22,18 +22,25 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 
 		static public void Configure(IServiceCollection serviceCollection)
 		{
+			serviceCollection.AddSingleton<ISettingsService, SettingsService>();
 			serviceCollection.AddSingleton<IDataServiceFactory, DataServiceFactory>();
+			serviceCollection.AddSingleton<IUserService, UserService>();
+
 			serviceCollection.AddSingleton<IMessageService, MessageService>();
 			serviceCollection.AddSingleton<IDialogService, DialogService>();
 			serviceCollection.AddSingleton<ILogService, LogService>();
-			serviceCollection.AddSingleton<IUserService, UserService>();
+			serviceCollection.AddSingleton<ILoginService, LoginService>();
 
 			serviceCollection.AddScoped<IContextService, ContextService>();
 			serviceCollection.AddScoped<INavigationService, NavigationService>();
 			serviceCollection.AddScoped<ICommonServices, CommonServices>();
 
+			serviceCollection.AddTransient<LoginViewModel>();
+
 			serviceCollection.AddTransient<ShellViewModel>();
 			serviceCollection.AddTransient<MainShellViewModel>();
+
+			serviceCollection.AddTransient<DashboardViewModel>();
 
 			serviceCollection.AddTransient<UsersViewModel>();
 			serviceCollection.AddTransient<UserDetailsViewModel>();
