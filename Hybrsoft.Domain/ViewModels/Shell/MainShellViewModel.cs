@@ -10,6 +10,20 @@ namespace Hybrsoft.Domain.ViewModels
 {
 	public partial class MainShellViewModel(ICommonServices commonServices) : ShellViewModel(commonServices)
 	{
+		private object _selectedItem;
+		public object SelectedItem
+		{
+			get => _selectedItem;
+			set => Set(ref _selectedItem, value);
+		}
+
+		private bool _isPaneOpen = true;
+		public bool IsPaneOpen
+		{
+			get => _isPaneOpen;
+			set => Set(ref _isPaneOpen, value);
+		}
+
 		private IEnumerable<NavigationItemDto> _navigationItems;
 		public IEnumerable<NavigationItemDto> NavigationItems
 		{
@@ -28,6 +42,16 @@ namespace Hybrsoft.Domain.ViewModels
 		{
 			//MessageService.Subscribe<ILogService, AppLog>(this, OnLogServiceMessage);
 			base.Subscribe();
+		}
+
+		override public void Unsubscribe()
+		{
+			base.Unsubscribe();
+		}
+
+		public override void Unload()
+		{
+			base.Unload();
 		}
 
 		public async void NavigateTo(Type viewModel)

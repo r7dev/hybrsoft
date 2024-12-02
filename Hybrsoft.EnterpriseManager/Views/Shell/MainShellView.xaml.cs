@@ -4,9 +4,11 @@ using Hybrsoft.Domain.Interfaces.Infrastructure;
 using Hybrsoft.Domain.ViewModels;
 using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.EnterpriseManager.Extensions;
+using Hybrsoft.EnterpriseManager.Services;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
+using System.Linq;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -42,7 +44,19 @@ namespace Hybrsoft.EnterpriseManager.Views
 		{
 			_navigationService = ServiceLocator.Current.GetService<INavigationService>();
 			_navigationService.Initialize(frame);
-			//frame.Navigated += OnFrameNavigated;
+			frame.Navigated += OnFrameNavigated;
+		}
+
+		protected override async void OnNavigatedTo(NavigationEventArgs e)
+		{
+			await ViewModel.LoadAsync(e.Parameter as ShellArgs);
+			ViewModel.Subscribe();
+		}
+
+		protected override void OnNavigatedFrom(NavigationEventArgs e)
+		{
+			ViewModel.Unload();
+			ViewModel.Unsubscribe();
 		}
 
 		private void OnSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -55,13 +69,31 @@ namespace Hybrsoft.EnterpriseManager.Views
 			{
 				//ViewModel.NavigateTo(typeof(SettingsViewModel));
 			}
-			//UpdateBackButton();
+			UpdateBackButton();
 		}
 
-		protected override async void OnNavigatedTo(NavigationEventArgs e)
+		private void NavigationView_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
 		{
-			await ViewModel.LoadAsync(e.Parameter as ShellArgs);
-			ViewModel.Subscribe();
+			if (_navigationService.CanGoBack)
+			{
+				_navigationService.GoBack();
+			}
+		}
+
+		private void OnFrameNavigated(object sender, NavigationEventArgs e)
+		{
+			var targetType = NavigationService.GetViewModel(e.SourcePageType);
+			ViewModel.SelectedItem = targetType.Name switch
+			{
+				"SettingsViewModel" => NavigationView.SettingsItem,
+				_ => ViewModel.NavigationItems.Where(r => r.ViewModel == targetType).FirstOrDefault(),
+			};
+			UpdateBackButton();
+		}
+
+		private void UpdateBackButton()
+		{
+			NavigationView.IsBackEnabled = _navigationService.CanGoBack;
 		}
 
 		private async void OnLogoff(object sender, RoutedEventArgs e)
