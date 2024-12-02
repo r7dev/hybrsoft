@@ -9,7 +9,7 @@ namespace Hybrsoft.Domain.Interfaces.Infrastructure
 
 		Task<bool> SignInWithPasswordAsync(string userName, string password);
 
-		bool IsWindowsHelloEnabled(string userName);
+		Task<bool> IsWindowsHelloEnabledAsync(string userName);
 		Task TrySetupWindowsHelloAsync(string userName);
 		Task<Result> SignInWithWindowsHelloAsync();
 

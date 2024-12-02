@@ -47,7 +47,7 @@
 						<controls:LoginWindowsHello x:Name="helloView"
 													HorizontalAlignment="Center"
 													UserName="{x:Bind ViewModel.UserName, Mode=OneWay}"
-													LoginWithWindowHelloCommand="{x:Bind ViewModel.LoginWithWindowHelloCommand}"
+													LoginWithWindowHelloCommand="{x:Bind ViewModel.LoginWithWindowsHelloCommand}"
 													Visibility="{x:Bind ViewModel.IsLoginWithWindowsHello, Mode=OneWay}"
 													IsEnabled="{x:Bind ViewModel.IsBusy, Converter={StaticResource BoolNegationConverter}}" />
 					</Grid>
@@ -62,14 +62,19 @@
 					<RowDefinition Height="3*"/>
 				</Grid.RowDefinitions>
 
-				<HyperlinkButton Content="Sign in with another user"
-								 Foreground="#222"
-								 FontSize="15"
-								 HorizontalAlignment="Center"
-								 VerticalAlignment="Center"
-								 Visibility="{x:Bind ViewModel.IsLoginWithWindowsHello, Mode=OneWay}"
-								 Click="OnShowLoginWithPassword"
-								 Command="{x:Bind ViewModel.ShowLoginWithPasswordCommand}" />
+				<Button Background="Transparent"
+						BorderThickness="0"
+						Click="OnShowLoginWithPassword"
+						Command="{x:Bind ViewModel.ShowLoginWithPasswordCommand}"
+						HorizontalAlignment="Center"
+						VerticalAlignment="Center"
+						Visibility="{x:Bind ViewModel.IsLoginWithWindowsHello, Mode=OneWay}"
+						ToolTipService.ToolTip="Sign in with another user">
+					<StackPanel>
+						<FontIcon Glyph="&#xE748;" FontSize="32" />
+						<TextBlock Text="Switch user" FontSize="16" />
+					</StackPanel>
+				</Button>
 				<Border Grid.Row="1">
 					<Image Margin="24"
 						   Source="ms-appx:///Assets/AppLogo.png"

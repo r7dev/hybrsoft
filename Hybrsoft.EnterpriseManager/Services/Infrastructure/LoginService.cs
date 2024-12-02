@@ -17,9 +17,10 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 
 		public bool IsAuthenticated { get; set; } = false;
 
-		public bool IsWindowsHelloEnabled(string userName)
+		public async Task<bool> IsWindowsHelloEnabledAsync(string userName)
 		{
-			if (!String.IsNullOrEmpty(userName))
+			bool keyCredentialAvailable = await KeyCredentialManager.IsSupportedAsync();
+			if (keyCredentialAvailable && !String.IsNullOrEmpty(userName))
 			{
 				if (userName.Equals(AppSettings.Current.UserName, StringComparison.OrdinalIgnoreCase))
 				{
@@ -40,7 +41,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		public async Task<Result> SignInWithWindowsHelloAsync()
 		{
 			string userName = AppSettings.Current.UserName;
-			if (IsWindowsHelloEnabled(userName))
+			if (await IsWindowsHelloEnabledAsync(userName))
 			{
 				var retrieveResult = await KeyCredentialManager.OpenAsync(userName);
 				if (retrieveResult.Status == KeyCredentialStatus.Success)

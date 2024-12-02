@@ -57,14 +57,14 @@ namespace Hybrsoft.Domain.ViewModels
 
 		public ICommand ShowLoginWithPasswordCommand => new RelayCommand(ShowLoginWithPassword);
 		public ICommand LoginWithPasswordCommand => new RelayCommand(LoginWithPassword);
-		public ICommand LoginWithWindowHelloCommand => new RelayCommand(LoginWithWindowHello);
+		public ICommand LoginWithWindowsHelloCommand => new RelayCommand(LoginWithWindowsHello);
 
-		public Task LoadAsync(ShellArgs args)
+		public async Task<Task> LoadAsync(ShellArgs args)
 		{
 			ViewModelArgs = args;
 
 			UserName = SettingsService.UserName ?? args.UserInfo.AccountName;
-			IsLoginWithWindowsHello = LoginService.IsWindowsHelloEnabled(UserName);
+			IsLoginWithWindowsHello = await LoginService.IsWindowsHelloEnabledAsync(UserName);
 			IsLoginWithPassword = !IsLoginWithWindowsHello;
 			IsBusy = false;
 
@@ -79,7 +79,7 @@ namespace Hybrsoft.Domain.ViewModels
 			}
 			else
 			{
-				LoginWithWindowHello();
+				LoginWithWindowsHello();
 			}
 		}
 
@@ -97,7 +97,7 @@ namespace Hybrsoft.Domain.ViewModels
 			{
 				if (await LoginService.SignInWithPasswordAsync(UserName, Password))
 				{
-					if (!LoginService.IsWindowsHelloEnabled(UserName))
+					if (! await LoginService.IsWindowsHelloEnabledAsync(UserName))
 					{
 						await LoginService.TrySetupWindowsHelloAsync(UserName);
 					}
@@ -110,7 +110,7 @@ namespace Hybrsoft.Domain.ViewModels
 			IsBusy = false;
 		}
 
-		public async void LoginWithWindowHello()
+		public async void LoginWithWindowsHello()
 		{
 			IsBusy = true;
 			var result = await LoginService.SignInWithWindowsHelloAsync();

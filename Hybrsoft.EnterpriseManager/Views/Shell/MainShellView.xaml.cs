@@ -63,5 +63,19 @@ namespace Hybrsoft.EnterpriseManager.Views
 			await ViewModel.LoadAsync(e.Parameter as ShellArgs);
 			ViewModel.Subscribe();
 		}
+
+		private async void OnLogoff(object sender, RoutedEventArgs e)
+		{
+			var dialogService = ServiceLocator.Current.GetService<IDialogService>();
+			if (await dialogService.ShowAsync("Confirm logoff", "Are you sure you want to logoff?", "Ok", "Cancel"))
+			{
+				var loginService = ServiceLocator.Current.GetService<ILoginService>();
+				loginService.Logoff();
+				if (Frame.CanGoBack)
+				{
+					Frame.GoBack();
+				}
+			}
+		}
 	}
 }

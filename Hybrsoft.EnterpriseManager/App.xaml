@@ -19,6 +19,7 @@
 			<!--  Converters  -->
 			<converters:BoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" FalseValue="Visible" TrueValue="Collapsed" />
 			<converters:BoolNegationConverter x:Key="BoolNegationConverter" />
+			<converters:ObjectToImageConverter x:Key="ObjectToImageConverter" />
 		</ResourceDictionary>
 	</Application.Resources>
 </Application>
