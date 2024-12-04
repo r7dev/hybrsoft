@@ -9,7 +9,7 @@
 	mc:Ignorable="d">
 
 	<Grid>
-		<Image Source="ms-appx:///Assets/SplashScreen.scale-100.png"
+		<Image Source="ms-appx:///Assets/SplashScreen.scale-200.png"
 			   Stretch="UniformToFill"
 			   VerticalAlignment="Center"
 			   HorizontalAlignment="Center"/>

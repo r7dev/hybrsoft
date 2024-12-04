@@ -23,15 +23,13 @@ namespace Hybrsoft.EnterpriseManager.Views.SplashScreen
 			this.InitializeComponent();
 			((App)Application.Current).CurrentView = this;
 
-			AppWindow appWindow = AppWindowExtensions.GetAppWindow(this);
-			OverlappedPresenter presenter = appWindow.Presenter as OverlappedPresenter;
+			OverlappedPresenter presenter = this.AppWindow.Presenter as OverlappedPresenter;
 			presenter.IsAlwaysOnTop = true;
 			presenter.IsMaximizable = false;
 			presenter.IsMinimizable = false;
 			presenter.IsResizable = false;
-			appWindow.IsShownInSwitchers = false;
+			this.AppWindow.IsShownInSwitchers = false;
 			this.Title = "";
-			appWindow.Resize(new Windows.Graphics.SizeInt32 { Width = 620, Height = 300 });
 			presenter.SetBorderAndTitleBar(false, false);
 
 			LoadDataAsync();

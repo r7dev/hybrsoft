@@ -82,14 +82,16 @@ namespace Hybrsoft.EnterpriseManager
 
 		private async Task ActivateAsync(Windows.ApplicationModel.Activation.IActivatedEventArgs args)
 		{
+			var windowSize = new Windows.Graphics.SizeInt32 { Width = 1280, Height = 840 };
 			splash_Screen = new ExtendedSplash();
+			splash_Screen.AppWindow.Resize(windowSize);
 			await splash_Screen.SetWindowPositionToCenterAsync();
 			splash_Screen.Activate();
 			await Task.Delay(2000);
 
 			m_window = new MainWindow(args);
 			AppWindowExtensions.SetDefaultIcon(m_window.AppWindow);
-			m_window.AppWindow.Resize(new Windows.Graphics.SizeInt32 { Width = 1280, Height = 840 });
+			m_window.AppWindow.Resize(windowSize);
 			await m_window.SetWindowPositionToCenterAsync();
 			m_window.Activate();
 
