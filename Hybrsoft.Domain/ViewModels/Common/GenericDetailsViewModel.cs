@@ -128,7 +128,7 @@ namespace Hybrsoft.Domain.ViewModels
 			}
 			else
 			{
-				//await DialogService.ShowAsync(result.Message, $"{result.Description} Please, correct the error and try again.");
+				await DialogService.ShowAsync(result.Message, $"{result.Description} Please, correct the error and try again.");
 			}
 		}
 		virtual public async Task SaveAsync()

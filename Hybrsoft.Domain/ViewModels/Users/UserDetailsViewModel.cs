@@ -1,4 +1,5 @@
 ﻿using Hybrsoft.Domain.Dtos;
+using Hybrsoft.Domain.Infrastructure.Commom;
 using Hybrsoft.Domain.Interfaces;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
 using System;
@@ -76,7 +77,7 @@ namespace Hybrsoft.Domain.ViewModels
 				StartStatusMessage("Saving user...");
 				await Task.Delay(100);
 				await UserService.UpdateUserAsync(model);
-				EndStatusMessage("User saved");
+				EndStatusMessage("User saved", Microsoft.UI.Xaml.Controls.InfoBarSeverity.Success);
 				LogInformation("User", "Save", "User saved successfully", $"User {model.UserID} '{model.FullName}' was saved successfully.");
 				return true;
 			}
@@ -112,6 +113,15 @@ namespace Hybrsoft.Domain.ViewModels
 			return await DialogService.ShowAsync("Confirm Delete", "Are you sure you want to delete current user?", "Delete", "Cancel");
 		}
 
+		override protected IEnumerable<IValidationConstraint<UserDto>> GetValidationConstraints(UserDto model)
+		{
+			yield return new RequiredConstraint<UserDto>("Fist Name", m => m.FirstName);
+			yield return new RequiredConstraint<UserDto>("Last Name", m => m.LastName);
+			yield return new RequiredConstraint<UserDto>("Email", m => m.Email);
+			yield return new EmailValidationConstraint<UserDto>("Email", m => m.Email);
+		}
+
+		#region Handle external messages
 		private async void OnDetailsMessage(UserDetailsViewModel sender, string message, UserDto changed)
 		{
 			var current = Item;
@@ -193,5 +203,6 @@ namespace Hybrsoft.Domain.ViewModels
 				StatusMessage("WARNING: This user has been deleted externally");
 			});
 		}
+		#endregion
 	}
 }

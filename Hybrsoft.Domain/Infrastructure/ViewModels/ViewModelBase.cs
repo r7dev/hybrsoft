@@ -1,5 +1,6 @@
 ﻿using Hybrsoft.Domain.Interfaces.Infrastructure;
 using Hybrsoft.Infrastructure.Enums;
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Diagnostics;
 
@@ -53,10 +54,19 @@ namespace Hybrsoft.Domain.Infrastructure.ViewModels
 			_stopwatch.Reset();
 			_stopwatch.Start();
 		}
-		public void EndStatusMessage(string message)
+		public void EndStatusMessage(string message, InfoBarSeverity severity = InfoBarSeverity.Informational)
 		{
 			_stopwatch.Stop();
-			StatusMessage($"{message} ({_stopwatch.Elapsed.TotalSeconds:#0.000} seconds)");
+			string fullMessage = $"{message} ({_stopwatch.Elapsed.TotalSeconds:#0.000} seconds)";
+			switch (severity)
+			{
+				case InfoBarSeverity.Success:
+					SucessMessage(fullMessage);
+					break;
+				default:
+					StatusMessage(fullMessage);
+					break;
+			}
 		}
 
 		public void StatusReady()
@@ -73,6 +83,11 @@ namespace Hybrsoft.Domain.Infrastructure.ViewModels
 		{
 			Microsoft.AppCenter.Analytics.Analytics.TrackEvent(message);
 			MessageService.Send(this, "StatusError", message);
+		}
+		public void SucessMessage(string message)
+		{
+			Microsoft.AppCenter.Analytics.Analytics.TrackEvent(message);
+			MessageService.Send(this, "SucessMessage", message);
 		}
 	}
 }

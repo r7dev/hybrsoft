@@ -227,4 +227,25 @@ namespace Hybrsoft.Domain.Infrastructure.Commom
 
 		string IValidationConstraint<T>.Message => $"Property '{PropertyName}' must be less than {Value}.";
 	}
+
+	public class EmailValidationConstraint<T>(string propertyName, Func<T, string> propertyValue) : IValidationConstraint<T>
+	{
+		public string PropertyName { get; set; } = propertyName;
+		private readonly Func<T, string> _propertyValue = propertyValue;
+		private readonly string _pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+
+		public Func<T, bool> Validate => ValidateEmail;
+
+		private bool ValidateEmail(T model)
+		{
+			var email = _propertyValue(model);
+			if (string.IsNullOrEmpty(email))
+			{
+				return false;
+			}
+			return System.Text.RegularExpressions.Regex.IsMatch(email, _pattern);
+		}
+
+		public string Message => $"Property '{PropertyName}' is not a valid email address.";
+	}
 }
