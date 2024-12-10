@@ -4,7 +4,7 @@
 	[FirstName] VARCHAR(50) NULL, 
 	[LastName] VARCHAR(50) NULL, 
 	[Email] VARCHAR(150) NULL,
-	[SearchTerms] VARCHAR(150) NULL,
-	[CreatedOn] DATETIMEOFFSET,
-	[LastModifiedOn] DATETIMEOFFSET
+	[CreatedOn] DATETIMEOFFSET NOT NULL,
+	[LastModifiedOn] DATETIMEOFFSET NOT NULL,
+	[SearchTerms] VARCHAR(150) NULL
 )

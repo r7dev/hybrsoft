@@ -66,6 +66,7 @@
     <Build Include="Schema\Universal\Tables\Logs.sql" />
     <Build Include="Schema\Universal\Tables\User.sql" />
     <Build Include="Schema\Universal\Tables\NavigationItem.sql" />
+    <Build Include="Schema\Universal\Tables\Category.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Schema\Universal\Script-Post\PostDeployment.sql" />

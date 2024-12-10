@@ -10,8 +10,9 @@ namespace Hybrsoft.Infrastructure.DataContexts
 	public interface IDataSource : IDisposable
 	{
 		public DbSet<AppLog> Logs { get; set; }
-		public DbSet<User> Users { get; set; }
+		public DbSet<Category> Categories { get; set; }
 		public DbSet<NavigationItem> NavigationItems { get; set; }
+		public DbSet<User> Users { get; set; }
 
 		EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
 
