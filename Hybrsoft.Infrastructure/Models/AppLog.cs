@@ -7,14 +7,12 @@ namespace Hybrsoft.Infrastructure.Models
 	public class AppLog
 	{
 		[Key]
-		public long Id { get; set; }
+		public long AppLogId { get; set; }
 
 		public bool IsRead { get; set; }
 
-		public string Name { get; set; }
-
 		[Required]
-		public DateTimeOffset DateTime { get; set; }
+		public DateTimeOffset CreateOn { get; set; }
 
 		[Required]
 		[MaxLength(50)]
@@ -37,5 +35,8 @@ namespace Hybrsoft.Infrastructure.Models
 
 		[MaxLength(4000)]
 		public string Description { get; set; }
+
+		[Required]
+		public AppType AppType { get; set; }
 	}
 }

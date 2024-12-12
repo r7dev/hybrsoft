@@ -21,13 +21,14 @@ namespace Hybrsoft.Infrastructure.DataContexts
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.HasDefaultSchema("Universal");
+			modelBuilder.Entity<AppLog>().ToTable("AppLog", "Universal");
 			modelBuilder.Entity<Category>().ToTable("Category", "Universal");
 			modelBuilder.Entity<NavigationItem>().ToTable("NavigationItem", "Universal");
 			modelBuilder.Entity<User>().ToTable("User", "Universal");
 			base.OnModelCreating(modelBuilder);
 		}
 
-		public DbSet<AppLog> Logs { get; set; }
+		public DbSet<AppLog> AppLogs { get; set; }
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<NavigationItem> NavigationItems { get; set; }
 		public DbSet<User> Users { get; set; }

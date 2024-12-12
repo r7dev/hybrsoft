@@ -70,4 +70,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="CategoryId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="e64791c0-1d1e-4875-8716-2f3020cb6f34" ChangeDateTime="12/12/2024 22:53:59">
+    <Property Name="ElementName" Value="[Universal].[AppLog].[DateTime]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[Universal].[AppLog]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CreateOn" />
+  </Operation>
 </Operations>

@@ -1,5 +1,4 @@
-﻿
-using Hybrsoft.Domain.Interfaces.Infrastructure;
+﻿using Hybrsoft.Domain.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
 using Hybrsoft.Infrastructure.Enums;
@@ -9,16 +8,10 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 {
-	public class LogService : ILogService
+	public class LogService(IDataServiceFactory dataServiceFactory, IMessageService messageService) : ILogService
 	{
-		public LogService(IDataServiceFactory dataServiceFactory, IMessageService messageService)
-		{
-			DataServiceFactory = dataServiceFactory;
-			MessageService = messageService;
-		}
-
-		public IDataServiceFactory DataServiceFactory { get; }
-		public IMessageService MessageService { get; }
+		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
+		public IMessageService MessageService { get; } = messageService;
 
 		public async Task WriteAsync(LogType type, string source, string action, Exception ex)
 		{
@@ -32,7 +25,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 		}
 		public async Task WriteAsync(LogType type, string source, string action, string message, string description)
 		{
-			var appLog = new AppLog()
+			var appLog = new AppLog
 			{
 				User = AppSettings.Current.UserName ?? "App",
 				Type = type,
@@ -40,9 +33,9 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 				Action = action,
 				Message = message,
 				Description = description,
+				AppType = AppType.EnterpriseManager,
+				IsRead = type != LogType.Error
 			};
-
-			appLog.IsRead = type != LogType.Error;
 
 			await CreateLogAsync(appLog);
 			MessageService.Send(this, "LogAdded", appLog);
@@ -50,10 +43,8 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 
 		public async Task<int> CreateLogAsync(AppLog appLog)
 		{
-			using (var dataService = DataServiceFactory.CreateDataService())
-			{
-				return await dataService.CreateLogAsync(appLog);
-			}
+			using var dataService = DataServiceFactory.CreateDataService();
+			return await dataService.CreateLogAsync(appLog);
 		}
 	}
 }

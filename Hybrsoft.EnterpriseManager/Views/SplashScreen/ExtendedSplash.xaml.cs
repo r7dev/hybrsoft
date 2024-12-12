@@ -1,12 +1,6 @@
 using Hybrsoft.EnterpriseManager.Configuration;
-using Hybrsoft.EnterpriseManager.Extensions;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Windows.Devices.Display;
-using Windows.Devices.Enumeration;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.

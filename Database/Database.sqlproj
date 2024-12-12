@@ -63,7 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schema\Universal.sql" />
-    <Build Include="Schema\Universal\Tables\Logs.sql" />
+    <Build Include="Schema\Universal\Tables\AppLog.sql" />
     <Build Include="Schema\Universal\Tables\User.sql" />
     <Build Include="Schema\Universal\Tables\NavigationItem.sql" />
     <Build Include="Schema\Universal\Tables\Category.sql" />

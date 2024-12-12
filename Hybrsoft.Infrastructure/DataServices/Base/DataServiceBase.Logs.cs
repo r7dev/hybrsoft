@@ -9,7 +9,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 	{
 		public async Task<int> CreateLogAsync(AppLog appLog)
 		{
-			appLog.DateTime = DateTime.UtcNow;
+			appLog.CreateOn = DateTime.UtcNow;
 			_dataSource.Entry(appLog).State = EntityState.Added;
 			return await _dataSource.SaveChangesAsync();
 		}

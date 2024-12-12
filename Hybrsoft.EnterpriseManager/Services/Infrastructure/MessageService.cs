@@ -2,14 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 {
 	public class MessageService : IMessageService
 	{
-		private object _sync = new Object();
+		private Lock _sync = new();
 
-		private List<Subscriber> _subscribers = new List<Subscriber>();
+		private List<Subscriber> _subscribers = [];
 
 		public void Subscribe<TSender>(object target, Action<TSender, string, object> action) where TSender : class
 		{
@@ -17,10 +18,8 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		}
 		public void Subscribe<TSender, TArgs>(object target, Action<TSender, string, TArgs> action) where TSender : class
 		{
-			if (target == null)
-				throw new ArgumentNullException(nameof(target));
-			if (action == null)
-				throw new ArgumentNullException(nameof(action));
+			ArgumentNullException.ThrowIfNull(target);
+			ArgumentNullException.ThrowIfNull(action);
 
 			lock (_sync)
 			{
@@ -36,8 +35,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 
 		public void Unsubscribe<TSender>(object target) where TSender : class
 		{
-			if (target == null)
-				throw new ArgumentNullException(nameof(target));
+			ArgumentNullException.ThrowIfNull(target);
 
 			lock (_sync)
 			{
@@ -54,8 +52,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		}
 		public void Unsubscribe<TSender, TArgs>(object target) where TSender : class
 		{
-			if (target == null)
-				throw new ArgumentNullException(nameof(target));
+			ArgumentNullException.ThrowIfNull(target);
 
 			lock (_sync)
 			{
@@ -72,8 +69,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		}
 		public void Unsubscribe(object target)
 		{
-			if (target == null)
-				throw new ArgumentNullException(nameof(target));
+			ArgumentNullException.ThrowIfNull(target);
 
 			lock (_sync)
 			{
@@ -87,8 +83,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 
 		public void Send<TSender, TArgs>(TSender sender, string message, TArgs args) where TSender : class
 		{
-			if (sender == null)
-				throw new ArgumentNullException(nameof(sender));
+			ArgumentNullException.ThrowIfNull(sender);
 
 			foreach (var subscriber in GetSubscribersSnapshot())
 			{
@@ -104,21 +99,15 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		{
 			lock (_sync)
 			{
-				return _subscribers.ToArray();
+				return [.. _subscribers];
 			}
 		}
 
-		class Subscriber
+		class Subscriber(object target)
 		{
-			private WeakReference _reference = null;
+			private WeakReference _reference = new(target);
 
-			private Dictionary<Type, Subscriptions> _subscriptions;
-
-			public Subscriber(object target)
-			{
-				_reference = new WeakReference(target);
-				_subscriptions = new Dictionary<Type, Subscriptions>();
-			}
+			private Dictionary<Type, Subscriptions> _subscriptions = [];
 
 			public object Target => _reference.Target;
 
@@ -171,7 +160,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 
 			public Subscriptions()
 			{
-				_subscriptions = new Dictionary<Type, Delegate>();
+				_subscriptions = [];
 			}
 
 			public bool IsEmpty => _subscriptions.Count == 0;
