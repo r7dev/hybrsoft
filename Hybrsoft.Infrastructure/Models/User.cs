@@ -8,18 +8,16 @@ namespace Hybrsoft.Infrastructure.Models
 		[Required]
 		public Guid UserId { get; set; }
 		[Required]
-		[MaxLength(50)]
+		[StringLength(50, MinimumLength = 5, ErrorMessage = "The name must be between 5 and 50 characters long")]
 		public string FirstName { get; set; }
 		[Required]
-		[MaxLength(50)]
+		[StringLength(50, MinimumLength = 5, ErrorMessage = "The lastname must be between 5 and 50 characters long")]
 		public string LastName { get; set; }
 		[Required]
-		[MaxLength(150)]
+		[StringLength(150, MinimumLength = 5, ErrorMessage = "The email must be between 5 and 150 characters long")]
 		public string Email { get; set; }
 
-		[Required]
 		public DateTimeOffset CreatedOn { get; set; }
-		[Required]
 		public DateTimeOffset? LastModifiedOn { get; set; }
 		public string SearchTerms { get; set; }
 
