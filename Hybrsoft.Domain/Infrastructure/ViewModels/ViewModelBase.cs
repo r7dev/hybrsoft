@@ -1,29 +1,19 @@
 ﻿using Hybrsoft.Domain.Interfaces.Infrastructure;
 using Hybrsoft.Infrastructure.Enums;
-using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Diagnostics;
 
 namespace Hybrsoft.Domain.Infrastructure.ViewModels
 {
-	public class ViewModelBase : ObservableObject
+	public class ViewModelBase(ICommonServices commonServices) : ObservableObject
 	{
 		private Stopwatch _stopwatch = new Stopwatch();
 
-		public ViewModelBase(ICommonServices commonServices)
-		{
-			ContextService = commonServices.ContextService;
-			NavigationService = commonServices.NavigationService;
-			MessageService = commonServices.MessageService;
-			DialogService = commonServices.DialogService;
-			LogService = commonServices.LogService;
-		}
-
-		public IContextService ContextService { get; }
-		public INavigationService NavigationService { get; }
-		public IMessageService MessageService { get; }
-		public IDialogService DialogService { get; }
-		public ILogService LogService { get; }
+		public IContextService ContextService { get; } = commonServices.ContextService;
+		public INavigationService NavigationService { get; } = commonServices.NavigationService;
+		public IMessageService MessageService { get; } = commonServices.MessageService;
+		public IDialogService DialogService { get; } = commonServices.DialogService;
+		public ILogService LogService { get; } = commonServices.LogService;
 
 		public bool IsMainView => ContextService.IsMainView;
 
@@ -32,6 +22,11 @@ namespace Hybrsoft.Domain.Infrastructure.ViewModels
 		public async void LogInformation(string source, string action, string message, string description)
 		{
 			await LogService.WriteAsync(LogType.Information, source, action, message, description);
+		}
+
+		public async void LogSuccess(string source, string action, string message, string description)
+		{
+			await LogService.WriteAsync(LogType.Success, source, action, message, description);
 		}
 
 		public async void LogWarning(string source, string action, string message, string description)
@@ -54,13 +49,13 @@ namespace Hybrsoft.Domain.Infrastructure.ViewModels
 			_stopwatch.Reset();
 			_stopwatch.Start();
 		}
-		public void EndStatusMessage(string message, InfoBarSeverity severity = InfoBarSeverity.Informational)
+		public void EndStatusMessage(string message, LogType logType = LogType.Information)
 		{
 			_stopwatch.Stop();
 			string fullMessage = $"{message} ({_stopwatch.Elapsed.TotalSeconds:#0.000} seconds)";
-			switch (severity)
+			switch (logType)
 			{
-				case InfoBarSeverity.Success:
+				case LogType.Success:
 					SucessMessage(fullMessage);
 					break;
 				default:

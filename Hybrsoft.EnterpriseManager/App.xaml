@@ -8,6 +8,7 @@
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+				<ResourceDictionary Source="/Controls/Buttons/CopyButton.xaml" />
 				<ResourceDictionary Source="/Styles/Buttons.xaml" />
 				<ResourceDictionary Source="/Styles/Cards.xaml" />
 				<ResourceDictionary Source="/Styles/DataGrid.xaml" />
@@ -16,9 +17,12 @@
 				<!-- Other merged dictionaries here -->
 			</ResourceDictionary.MergedDictionaries>
 			<!-- Other app resources here -->
+			<SolidColorBrush x:Key="DetailsViewBackgroundColor" Color="#F5F5F5" />
 			<!--  Converters  -->
 			<converters:BoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" FalseValue="Visible" TrueValue="Collapsed" />
 			<converters:BoolNegationConverter x:Key="BoolNegationConverter" />
+			<converters:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
+			<converters:LogTypeConverter x:Key="LogTypeConverter" />
 			<converters:ObjectToImageConverter x:Key="ObjectToImageConverter" />
 		</ResourceDictionary>
 	</Application.Resources>

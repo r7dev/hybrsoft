@@ -45,6 +45,8 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			serviceCollection.AddTransient<UsersViewModel>();
 			serviceCollection.AddTransient<UserDetailsViewModel>();
 
+			serviceCollection.AddTransient<AppLogsViewModel>();
+
 			_rootServiceProvider = serviceCollection.BuildServiceProvider();
 		}
 

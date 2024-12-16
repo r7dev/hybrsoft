@@ -20,6 +20,7 @@
 	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Controls\Buttons\CopyButton.xaml" />
     <None Remove="Controls\DataList\DataList.xaml" />
     <None Remove="Controls\Details\Details.xaml" />
     <None Remove="Controls\Login\LoginNamePassword.xaml" />
@@ -35,6 +36,9 @@
     <None Remove="Themes\Controls\Buttons.xaml" />
     <None Remove="Themes\Controls\FormTextBox.xaml" />
     <None Remove="Themes\Controls\Section.xaml" />
+    <None Remove="Views\AppLogs\AppLogsView.xaml" />
+    <None Remove="Views\AppLogs\Details\AppLogsDetails.xaml" />
+    <None Remove="Views\AppLogs\List\AppLogsList.xaml" />
     <None Remove="Views\Dashboard\DashboardView.xaml" />
     <None Remove="Views\Login\LoginView.xaml" />
     <None Remove="Views\Shell\MainShellView.xaml" />
@@ -130,6 +134,26 @@
   <ItemGroup>
     <Folder Include="Assets\Images\" />
     <Folder Include="Strings\en-us\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\Buttons\CopyButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\AppLogs\Details\AppLogsDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\AppLogs\List\AppLogsList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\AppLogs\AppLogsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Dashboard\DashboardView.xaml">

@@ -2,6 +2,7 @@
 using Hybrsoft.Domain.Infrastructure.Commom;
 using Hybrsoft.Domain.Interfaces;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
+using Hybrsoft.Infrastructure.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -77,8 +78,8 @@ namespace Hybrsoft.Domain.ViewModels
 				StartStatusMessage("Saving user...");
 				await Task.Delay(100);
 				await UserService.UpdateUserAsync(model);
-				EndStatusMessage("User saved", Microsoft.UI.Xaml.Controls.InfoBarSeverity.Success);
-				LogInformation("User", "Save", "User saved successfully", $"User {model.UserID} '{model.FullName}' was saved successfully.");
+				EndStatusMessage("User saved", LogType.Success);
+				LogSuccess("User", "Save", "User saved successfully", $"User {model.UserID} '{model.FullName}' was saved successfully.");
 				return true;
 			}
 			catch (Exception ex)

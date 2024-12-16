@@ -14,22 +14,22 @@ namespace Hybrsoft.EnterpriseManager.Views
 	/// <summary>
 	/// An empty page that can be used on its own or navigated to within a Frame.
 	/// </summary>
-	public sealed partial class UsersView : Page
+	public sealed partial class AppLogsView : Page
 	{
-		public UsersView()
+		public AppLogsView()
 		{
-			ViewModel = ServiceLocator.Current.GetService<UsersViewModel>();
+			ViewModel = ServiceLocator.Current.GetService<AppLogsViewModel>();
 			NavigationService = ServiceLocator.Current.GetService<INavigationService>();
 			this.InitializeComponent();
 		}
 
-		public UsersViewModel ViewModel { get; }
+		public AppLogsViewModel ViewModel { get; }
 		public INavigationService NavigationService { get; }
 
 		protected override async void OnNavigatedTo(NavigationEventArgs e)
 		{
 			ViewModel.Subscribe();
-			await ViewModel.LoadAsync(e.Parameter as UserListArgs);
+			await ViewModel.LoadAsync(e.Parameter as AppLogListArgs);
 		}
 
 		protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
@@ -40,7 +40,7 @@ namespace Hybrsoft.EnterpriseManager.Views
 
 		private async void OpenInNewView(object sender, RoutedEventArgs e)
 		{
-			await NavigationService.CreateNewViewAsync<UsersViewModel>(ViewModel.UserList.CreateArgs());
+			await NavigationService.CreateNewViewAsync<AppLogsViewModel>(ViewModel.AppLogList.CreateArgs());
 		}
 
 		public int GetRowSpan(bool isMultipleSelection)

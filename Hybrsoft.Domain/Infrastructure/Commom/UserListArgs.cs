@@ -2,11 +2,11 @@
 using System;
 using System.Linq.Expressions;
 
-namespace Hybrsoft.Domain.ViewModels
+namespace Hybrsoft.Domain.Infrastructure.Commom
 {
 	public class UserListArgs
 	{
-		static public UserListArgs CreateEmpty() => new UserListArgs { IsEmpty = true };
+		static public UserListArgs CreateEmpty() => new() { IsEmpty = true };
 
 		public UserListArgs()
 		{

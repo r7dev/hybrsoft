@@ -149,6 +149,10 @@ namespace Hybrsoft.EnterpriseManager.Services
 			{
 				return typeof(UsersViewModel);
 			}
+			if (tag == "AppLogs")
+			{
+				return typeof(AppLogsViewModel);
+			}
 			return null;
 		}
 	}

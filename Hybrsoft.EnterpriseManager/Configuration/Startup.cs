@@ -31,6 +31,8 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 
 			NavigationService.Register<UsersViewModel, UsersView>();
 			NavigationService.Register<UserDetailsViewModel, UserView>();
+
+			NavigationService.Register<AppLogsViewModel, AppLogsView>();
 		}
 	}
 }

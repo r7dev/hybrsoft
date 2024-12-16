@@ -5,13 +5,8 @@ using System.Collections.ObjectModel;
 
 namespace Hybrsoft.Domain.Dtos
 {
-	public class NavigationItemDto : ObservableObject
+	public class NavigationItemDto(Type viewModel) : ObservableObject
 	{
-		public NavigationItemDto(Type viewModel)
-		{
-			ViewModel = viewModel;
-		}
-
 		public NavigationItemDto(string label,
 			int glyph,
 			string tag,
@@ -32,6 +27,13 @@ namespace Hybrsoft.Domain.Dtos
 		public readonly string Tag;
 		public readonly int? ParentId;
 		public readonly ObservableCollection<NavigationItemDto> Children;
-		public readonly Type ViewModel;
+		public readonly Type ViewModel = viewModel;
+
+		private InfoBadge _badge = null;
+		public InfoBadge Badge
+		{
+			get => _badge;
+			set => Set(ref _badge, value);
+		}
 	}
 }

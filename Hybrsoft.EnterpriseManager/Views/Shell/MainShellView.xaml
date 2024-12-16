@@ -38,6 +38,7 @@
 			<DataTemplate x:Name="NavigationViewItem" x:DataType="dtos:NavigationItemDto">
 				<NavigationViewItem Icon="{x:Bind Icon}"
 									Content="{x:Bind Label}"
+									InfoBadge="{x:Bind Badge, Mode=TwoWay}"
 									MenuItemsSource="{x:Bind Children}"/>
 			</DataTemplate>
 		</Grid.Resources>
