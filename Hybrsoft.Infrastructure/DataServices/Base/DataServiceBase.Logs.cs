@@ -74,7 +74,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 		public async Task<int> GetLogsCountAsync(DataRequest<AppLog> request)
 		{
-			IQueryable<AppLog> items = _dataSource.AppLogs;
+			IQueryable<AppLog> items = _dataSource.AppLogs.AsNoTracking();
 
 			// Query
 			if (!String.IsNullOrEmpty(request.Query))
@@ -106,7 +106,9 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 		public async Task MarkAllAsReadAsync()
 		{
-			var items = await _dataSource.AppLogs.Where(r => !r.IsRead).ToListAsync();
+			var items = await _dataSource.AppLogs
+				.Where(r => !r.IsRead && r.AppType == Enums.AppType.EnterpriseManager)
+				.ToListAsync();
 			foreach (var item in items)
 			{
 				item.IsRead = true;

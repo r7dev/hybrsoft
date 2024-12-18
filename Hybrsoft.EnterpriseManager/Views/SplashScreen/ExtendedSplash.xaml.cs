@@ -29,7 +29,7 @@ namespace Hybrsoft.EnterpriseManager.Views.SplashScreen
 			LoadDataAsync();
 		}
 
-		private async void LoadDataAsync()
+		private static async void LoadDataAsync()
 		{
 			await Startup.ConfigureAsync();
 		}

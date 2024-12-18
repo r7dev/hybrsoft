@@ -4,7 +4,7 @@ namespace Hybrsoft.Domain.Infrastructure.Commom
 {
 	public class UserInfo
 	{
-		static readonly public UserInfo Default = new UserInfo
+		static readonly public UserInfo Default = new()
 		{
 			AccountName = "Lacey Heath",
 			FirstName = "Lacey",

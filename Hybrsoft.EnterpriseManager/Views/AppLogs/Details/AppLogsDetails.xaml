@@ -14,7 +14,7 @@
 		<DataTemplate x:Key="DetailsTemplate" x:DataType="viewmodels:AppLogDetailsViewModel">
 			<StackPanel Margin="0,12" Spacing="6">
 				<controls:FormTextBox Header="Message" Text="{x:Bind Item.Message, Mode=TwoWay}" TextWrapping="Wrap" Mode="ReadOnly" />
-				<controls:CopyButton Command="{x:Bind CopyDescriptionCommand}" HorizontalAlignment="Right" Content="&#xE8C8;"/>
+				<controls:CopyButton Content="&#xE8C8;" Command="{x:Bind CopyDescriptionCommand}" HorizontalAlignment="Right" Margin="0,0,20,0" />
 				<controls:FormTextBox Header="Description" Text="{x:Bind Item.Description, Mode=TwoWay}" TextWrapping="Wrap" Mode="ReadOnly" />
 			</StackPanel>
 		</DataTemplate>

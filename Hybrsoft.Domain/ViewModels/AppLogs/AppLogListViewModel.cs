@@ -3,6 +3,7 @@ using Hybrsoft.Domain.Infrastructure.Commom;
 using Hybrsoft.Domain.Infrastructure.ViewModels;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
 using Hybrsoft.Infrastructure.Common;
+using Hybrsoft.Infrastructure.Enums;
 using Hybrsoft.Infrastructure.Models;
 using System;
 using System.Collections.Generic;
@@ -167,6 +168,7 @@ namespace Hybrsoft.Domain.ViewModels
 			return new DataRequest<AppLog>()
 			{
 				Query = Query,
+				Where = r => r.AppType == AppType.EnterpriseManager,
 				OrderBy = ViewModelArgs.OrderBy,
 				OrderByDesc = ViewModelArgs.OrderByDesc
 			};

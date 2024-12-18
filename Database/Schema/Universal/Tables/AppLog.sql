@@ -11,3 +11,9 @@
 	[Description] VARCHAR(4000) NOT NULL,
 	[AppType] INT NOT NULL
 )
+GO
+CREATE INDEX IX_AppLog_AppType_IsRead ON [Universal].[AppLog] (AppType, IsRead);
+GO
+CREATE INDEX IX_AppLog_CreateOn ON [Universal].[AppLog] (CreateOn);
+GO
+CREATE INDEX IX_AppLog_AppType ON [Universal].[AppLog] (AppType);

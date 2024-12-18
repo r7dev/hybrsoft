@@ -2,6 +2,7 @@
 using Hybrsoft.Domain.Infrastructure.Commom;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
 using Hybrsoft.Infrastructure.Common;
+using Hybrsoft.Infrastructure.Enums;
 using Hybrsoft.Infrastructure.Models;
 using Microsoft.UI.Xaml;
 using System;
@@ -37,8 +38,8 @@ namespace Hybrsoft.Domain.ViewModels
 		public override async Task LoadAsync(ShellArgs args)
 		{
 			NavigationItems = GetItems().ToArray();
-			await UpdateAppLogBadge();
 			await base.LoadAsync(args);
+			await UpdateAppLogBadge();
 		}
 
 		override public void Subscribe()
@@ -104,16 +105,19 @@ namespace Hybrsoft.Domain.ViewModels
 
 		private async Task UpdateAppLogBadge()
 		{
-			int count = await LogService.GetLogsCountAsync(new DataRequest<AppLog> { Where = r => !r.IsRead });
-			var appLogsItem = NavigationItems.Where(f => f.Tag == "AppLogs").FirstOrDefault();
-			appLogsItem.Badge = count > 0 ?
-				new Microsoft.UI.Xaml.Controls.InfoBadge
-				{
-					Style = (Style)Application.Current.Resources["CriticalValueInfoBadgeStyle"],
-					Value = count
-				}
-				:
-				null;
+			var request = new DataRequest<AppLog> { Where = r => !r.IsRead && r.AppType == AppType.EnterpriseManager };
+			int count = await LogService.GetLogsCountAsync(request);
+			var appLogsItem = NavigationItems.FirstOrDefault(f => f.Tag == "AppLogs");
+			if (appLogsItem != null)
+			{
+				appLogsItem.Badge = count > 0
+					? new Microsoft.UI.Xaml.Controls.InfoBadge
+					{
+						Style = (Style)Application.Current.Resources["CriticalValueInfoBadgeStyle"],
+						Value = count
+					}
+					: null;
+			}
 		}
 	}
 }

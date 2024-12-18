@@ -4,7 +4,7 @@ using System;
 
 namespace Hybrsoft.EnterpriseManager.Converters
 {
-	public sealed class ObjectToImageConverter : IValueConverter
+	public sealed partial class ObjectToImageConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, string language)
 		{

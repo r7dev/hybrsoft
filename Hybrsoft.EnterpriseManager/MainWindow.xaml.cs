@@ -1,10 +1,11 @@
 using Hybrsoft.Domain.Infrastructure.Commom;
+using Hybrsoft.Domain.Interfaces.Infrastructure; //Used with SKIP_LOGIN
+using Hybrsoft.EnterpriseManager.Configuration; //Used with SKIP_LOGIN
 using Hybrsoft.EnterpriseManager.Extensions;
 using Hybrsoft.EnterpriseManager.Services.Infrastructure;
 using Hybrsoft.EnterpriseManager.Tools;
 using Hybrsoft.EnterpriseManager.Views;
 using Microsoft.UI.Xaml;
-using Microsoft.Windows.AppLifecycle;
 using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
@@ -50,7 +51,7 @@ namespace Hybrsoft.EnterpriseManager
 #endif
 		}
 
-		private async Task<UserInfo> TryGetUserInfoAsync(IActivatedEventArgsWithUser argsWithUser)
+		private static async Task<UserInfo> TryGetUserInfoAsync(IActivatedEventArgsWithUser argsWithUser)
 		{
 			if (argsWithUser != null)
 			{
