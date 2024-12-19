@@ -2,18 +2,13 @@
 using Hybrsoft.Domain.Infrastructure.ViewModels;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Hybrsoft.Domain.ViewModels
 {
-	abstract public partial class GenericDetailsViewModel<TModel> : ViewModelBase where TModel : ObservableObject, new()
+	abstract public partial class GenericDetailsViewModel<TModel>(ICommonServices commonServices) : ViewModelBase(commonServices) where TModel : ObservableObject, new()
 	{
-		public GenericDetailsViewModel(ICommonServices commonServices) : base(commonServices)
-		{
-		}
-
 		public bool IsDataAvailable => _item != null;
 		public bool IsDataUnavailable => !IsDataAvailable;
 
@@ -195,7 +190,7 @@ namespace Hybrsoft.Domain.ViewModels
 			return Result.Ok();
 		}
 
-		virtual protected IEnumerable<IValidationConstraint<TModel>> GetValidationConstraints(TModel model) => Enumerable.Empty<IValidationConstraint<TModel>>();
+		virtual protected IEnumerable<IValidationConstraint<TModel>> GetValidationConstraints(TModel model) => [];
 
 		abstract public bool ItemIsNew { get; }
 

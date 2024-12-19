@@ -2,7 +2,6 @@
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Windows.Devices.Display;
 using Windows.Devices.Enumeration;
@@ -37,7 +36,7 @@ namespace Hybrsoft.EnterpriseManager.Extensions
 		public static async Task SetWindowPositionToCenterAsync(this Window window)
 		{
 			var displayList = await DeviceInformation.FindAllAsync(DisplayMonitor.GetDeviceSelector());
-			if (!displayList.Any())
+			if (displayList.Count == 0)
 			{
 				return;
 			}

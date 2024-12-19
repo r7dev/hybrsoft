@@ -3,14 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hybrsoft.Infrastructure.DataContexts
 {
-	public class SQLServerDb : DbContext, IDataSource
+	public partial class SQLServerDb(string connectionString) : DbContext, IDataSource
 	{
-		private string _connectionString = null;
-
-		public SQLServerDb(string connectionString)
-		{
-			_connectionString = connectionString;
-		}
+		private readonly string _connectionString = connectionString;
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{

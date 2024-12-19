@@ -26,7 +26,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			DependencyExpressions.Initialize(this);
 		}
 
-		static private readonly DependencyExpressions DependencyExpressions = new DependencyExpressions();
+		static private readonly DependencyExpressions DependencyExpressions = new();
 
 		#region NewLabel
 		public string NewLabel
@@ -264,22 +264,41 @@ namespace Hybrsoft.EnterpriseManager.Controls
 
 
 		public ListToolbarMode ToolbarMode => IsMultipleSelection ? (SelectedItemsCount > 0 ? ListToolbarMode.CancelDelete : ListToolbarMode.Cancel) : ListToolbarMode.Default;
-		static DependencyExpression ToolbarModeExpression = DependencyExpressions.Register(nameof(ToolbarMode), nameof(IsMultipleSelection), nameof(SelectedItemsCount));
+		public static readonly DependencyExpression ToolbarModeExpression = DependencyExpressions.Register(
+			nameof(ToolbarMode),
+			nameof(IsMultipleSelection),
+			nameof(SelectedItemsCount)
+		);
 
 		public ListViewSelectionMode SelectionMode => IsMultipleSelection ? ListViewSelectionMode.Multiple : ListViewSelectionMode.Single;
-		static DependencyExpression SelectionModeExpression = DependencyExpressions.Register(nameof(SelectionMode), nameof(IsMultipleSelection));
+		public static readonly DependencyExpression SelectionModeExpression = DependencyExpressions.Register(
+			nameof(SelectionMode),
+			nameof(IsMultipleSelection)
+		);
 
 		public bool IsSingleSelection => !IsMultipleSelection;
-		static DependencyExpression IsSingleSelectionExpression = DependencyExpressions.Register(nameof(IsSingleSelection), nameof(IsMultipleSelection));
+		public static readonly DependencyExpression IsSingleSelectionExpression = DependencyExpressions.Register(
+			nameof(IsSingleSelection),
+			nameof(IsMultipleSelection)
+		);
 
 		public bool IsDataAvailable => (ItemsSource?.Cast<object>().Any() ?? false);
-		static DependencyExpression IsDataAvailableExpression = DependencyExpressions.Register(nameof(IsDataAvailable), nameof(ItemsSource));
+		public static readonly DependencyExpression IsDataAvailableExpression = DependencyExpressions.Register(
+			nameof(IsDataAvailable),
+			nameof(ItemsSource)
+		);
 
 		public bool IsDataUnavailable => !IsDataAvailable;
-		static DependencyExpression IsDataUnavailableExpression = DependencyExpressions.Register(nameof(IsDataUnavailable), nameof(IsDataAvailable));
+		public static readonly DependencyExpression IsDataUnavailableExpression = DependencyExpressions.Register(
+			nameof(IsDataUnavailable),
+			nameof(IsDataAvailable)
+		);
 
 		public string DataUnavailableMessage => ItemsSource == null ? "Loading..." : "No items found.";
-		static DependencyExpression DataUnavailableMessageExpression = DependencyExpressions.Register(nameof(DataUnavailableMessage), nameof(ItemsSource));
+		public static readonly DependencyExpression DataUnavailableMessageExpression = DependencyExpressions.Register(
+			nameof(DataUnavailableMessage),
+			nameof(ItemsSource)
+		);
 
 		private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{

@@ -10,7 +10,7 @@ using Windows.ApplicationModel.DataTransfer;
 
 namespace Hybrsoft.Domain.ViewModels
 {
-	public class AppLogDetailsViewModel(ICommonServices commonServices) : GenericDetailsViewModel<AppLogDto>(commonServices)
+	public partial class AppLogDetailsViewModel(ICommonServices commonServices) : GenericDetailsViewModel<AppLogDto>(commonServices)
 	{
 		override public string Title => "Activity Logs";
 

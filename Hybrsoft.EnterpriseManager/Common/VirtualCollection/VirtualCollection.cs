@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Common.VirtualCollection
@@ -17,7 +18,7 @@ namespace Hybrsoft.EnterpriseManager.Common.VirtualCollection
 
 		public readonly int RangeSize;
 
-		private DispatcherTimer _timer = null;
+		private readonly DispatcherTimer _timer = null;
 		bool MustExploreDeepExceptions { get; set; }
 		public VirtualCollection(ILogService logService, int rangeSize = 16, bool mustExploreDeepExceptions = false)
 		{
@@ -25,10 +26,12 @@ namespace Hybrsoft.EnterpriseManager.Common.VirtualCollection
 			LogService = logService;
 
 			RangeSize = rangeSize;
-			Ranges = new Dictionary<int, IList<T>>();
+			Ranges = [];
 
-			_timer = new DispatcherTimer();
-			_timer.Interval = TimeSpan.FromMilliseconds(50);
+			_timer = new DispatcherTimer
+			{
+				Interval = TimeSpan.FromMilliseconds(50)
+			};
 			_timer.Tick += OnTimerTick;
 		}
 
@@ -46,7 +49,7 @@ namespace Hybrsoft.EnterpriseManager.Common.VirtualCollection
 			FetchRanges(trackedItems.Normalize().ToArray());
 		}
 
-		private object _sync = new Object();
+		private readonly Lock _sync = new();
 
 		private void OnTimerTick(object sender, object e)
 		{
@@ -143,7 +146,7 @@ namespace Hybrsoft.EnterpriseManager.Common.VirtualCollection
 			}
 		}
 
-		virtual public void Dispose() { }
+		virtual public void Dispose() { GC.SuppressFinalize(this); }
 
 		abstract protected T DefaultItem { get; }
 		abstract protected Task<IList<T>> FetchDataAsync(int pageIndex, int pageSize);

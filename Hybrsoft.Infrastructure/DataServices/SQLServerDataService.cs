@@ -3,11 +3,7 @@ using Hybrsoft.Infrastructure.DataServices.Base;
 
 namespace Hybrsoft.Infrastructure.DataServices
 {
-	public class SQLServerDataService : DataServiceBase
+	public partial class SQLServerDataService(string connectionString) : DataServiceBase(new SQLServerDb(connectionString))
 	{
-		public SQLServerDataService(string connectionString)
-			: base(new SQLServerDb(connectionString))
-		{
-		}
 	}
 }

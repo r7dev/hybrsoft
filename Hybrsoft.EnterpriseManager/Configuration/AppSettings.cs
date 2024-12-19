@@ -43,7 +43,6 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 				.Build();
 				return config.GetConnectionString("EnvironmentDev");
 			}
-			//get => GetSettingsValue("SQLServerConnectionString", @"Data Source=.\SQLExpress;Initial Catalog=VanArsdelDb;Integrated Security=SSPI");
 			set => SetSettingsValue("SQLServerConnectionString", value);
 		}
 
@@ -57,7 +56,7 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 		{
 			try
 			{
-				if (!LocalSettings.Values.ContainsKey(name))
+				if (!LocalSettings.Values.TryGetValue(name, out object value))
 				{
 					LocalSettings.Values[name] = defaultValue;
 				}

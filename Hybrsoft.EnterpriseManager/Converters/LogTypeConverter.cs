@@ -6,7 +6,7 @@ using System;
 
 namespace Hybrsoft.EnterpriseManager.Converters
 {
-	public sealed class LogTypeConverter : IValueConverter
+	public sealed partial class LogTypeConverter : IValueConverter
 	{
 		private readonly SolidColorBrush InformationColor = new(Colors.Navy);
 		private readonly SolidColorBrush SuccessColor = new(Colors.Green);

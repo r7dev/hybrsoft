@@ -6,7 +6,7 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace Hybrsoft.EnterpriseManager.Controls
 {
-	public sealed class IconLabelButton : Control
+	public sealed partial class IconLabelButton : Control
 	{
 		public event RoutedEventHandler Click;
 

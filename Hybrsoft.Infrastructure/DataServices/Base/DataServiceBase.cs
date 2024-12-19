@@ -3,14 +3,9 @@ using System;
 
 namespace Hybrsoft.Infrastructure.DataServices.Base
 {
-	abstract public partial class DataServiceBase : IDataService, IDisposable
+	abstract public partial class DataServiceBase(IDataSource dataSource) : IDataService, IDisposable
 	{
-		private IDataSource _dataSource = null;
-
-		public DataServiceBase(IDataSource dataSource)
-		{
-			_dataSource = dataSource;
-		}
+		private readonly IDataSource _dataSource = dataSource;
 
 		#region Dispose
 		public void Dispose()
@@ -23,10 +18,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		{
 			if (disposing)
 			{
-				if (_dataSource != null)
-				{
-					_dataSource.Dispose();
-				}
+				_dataSource?.Dispose();
 			}
 		}
 		#endregion

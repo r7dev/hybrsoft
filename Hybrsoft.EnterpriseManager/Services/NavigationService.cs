@@ -145,6 +145,10 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		private static Type GetTypeViewModelByName(string tag)
 		{
+			if (tag == "Dashboard")
+			{
+				return typeof(DashboardViewModel);
+			}
 			if (tag == "Users")
 			{
 				return typeof(UsersViewModel);

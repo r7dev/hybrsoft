@@ -24,7 +24,7 @@ namespace Hybrsoft.EnterpriseManager.Extensions
 			{
 				return Merge(ranges.Skip(1), ranges.First());
 			}
-			return Enumerable.Empty<ItemIndexRange>();
+			return [];
 		}
 
 		static public IList<ItemIndexRange> Merge(this IList<ItemIndexRange> ranges, ItemIndexRange range)
@@ -33,7 +33,7 @@ namespace Hybrsoft.EnterpriseManager.Extensions
 		}
 		static public IEnumerable<ItemIndexRange> Merge(this IEnumerable<ItemIndexRange> ranges, ItemIndexRange range)
 		{
-			var sorted = ranges.Concat(new[] { range }).OrderByDescending(r => r.Length).OrderBy(r => r.FirstIndex);
+			var sorted = ranges.Concat([range]).OrderByDescending(r => r.Length).OrderBy(r => r.FirstIndex);
 			foreach (var item in MergeInternal(sorted.Skip(1), sorted.First()))
 			{
 				yield return item;
@@ -193,14 +193,12 @@ namespace Hybrsoft.EnterpriseManager.Extensions
 		#region AsString
 		static public string AsString(this IEnumerable<ItemIndexRange> ranges)
 		{
-			using (var writer = new StringWriter())
+			using var writer = new StringWriter();
+			foreach (var item in ranges)
 			{
-				foreach (var item in ranges)
-				{
-					writer.Write(item.AsString());
-				}
-				return writer.ToString();
+				writer.Write(item.AsString());
 			}
+			return writer.ToString();
 		}
 
 		static public string AsString(this ItemIndexRange me)

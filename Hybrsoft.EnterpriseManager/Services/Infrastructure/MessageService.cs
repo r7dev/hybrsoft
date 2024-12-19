@@ -8,9 +8,9 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 {
 	public class MessageService : IMessageService
 	{
-		private Lock _sync = new();
+		private readonly Lock _sync = new();
 
-		private List<Subscriber> _subscribers = [];
+		private readonly List<Subscriber> _subscribers = [];
 
 		public void Subscribe<TSender>(object target, Action<TSender, string, object> action) where TSender : class
 		{
@@ -105,9 +105,9 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 
 		class Subscriber(object target)
 		{
-			private WeakReference _reference = new(target);
+			private readonly WeakReference _reference = new(target);
 
-			private Dictionary<Type, Subscriptions> _subscriptions = [];
+			private readonly Dictionary<Type, Subscriptions> _subscriptions = [];
 
 			public object Target => _reference.Target;
 
@@ -156,7 +156,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 
 		class Subscriptions
 		{
-			private Dictionary<Type, Delegate> _subscriptions = null;
+			private readonly Dictionary<Type, Delegate> _subscriptions = null;
 
 			public Subscriptions()
 			{

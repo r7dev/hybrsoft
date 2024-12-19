@@ -1,14 +1,8 @@
 ﻿namespace Hybrsoft.EnterpriseManager.Tools.DependencyExpressions
 {
-	public class DependencyExpression
+	public class DependencyExpression(string name, string[] dependencies)
 	{
-		public DependencyExpression(string name, string[] dependencies)
-		{
-			Name = name;
-			Dependencies = dependencies;
-		}
-
-		public string Name { get; }
-		public string[] Dependencies { get; }
+		public string Name { get; } = name;
+		public string[] Dependencies { get; } = dependencies;
 	}
 }

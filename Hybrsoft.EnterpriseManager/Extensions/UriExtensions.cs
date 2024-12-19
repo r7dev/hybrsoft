@@ -52,7 +52,7 @@ namespace Hybrsoft.EnterpriseManager.Extensions
 				try
 				{
 					var decoder = new WwwFormUrlDecoder(uri.Query);
-					return decoder.GetFirstValueByName("id");
+					return decoder.GetFirstValueByName(name);
 				}
 				catch { }
 			}

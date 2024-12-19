@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 {
-	public class LogCollection(ILogService logService) : VirtualCollection<AppLogDto>(logService)
+	public partial class LogCollection(ILogService logService) : VirtualCollection<AppLogDto>(logService)
 	{
 		private DataRequest<AppLog> _dataRequest = null;
 
-		private AppLogDto _defaultItem = AppLogDto.CreateEmpty();
+		private readonly AppLogDto _defaultItem = AppLogDto.CreateEmpty();
 		protected override AppLogDto DefaultItem => _defaultItem;
 
 		public async Task LoadAsync(DataRequest<AppLog> dataRequest)

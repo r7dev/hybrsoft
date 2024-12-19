@@ -5,7 +5,7 @@ using Windows.System.UserProfile;
 
 namespace Hybrsoft.EnterpriseManager.Converters
 {
-	public sealed class DateTimeFormatConverter : IValueConverter
+	public sealed partial class DateTimeFormatConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, string language)
 		{

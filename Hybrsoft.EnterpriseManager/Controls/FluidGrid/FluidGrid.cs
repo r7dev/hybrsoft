@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Windows.Foundation;
@@ -8,7 +9,7 @@ using Windows.Foundation;
 
 namespace Hybrsoft.EnterpriseManager.Controls
 {
-	public class FluidGrid : Panel
+	public partial class FluidGrid : Panel
 	{
 		#region Columns
 		public int Columns
@@ -90,7 +91,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			int count = countWidth.Item1;
 			double width = countWidth.Item2;
 
-			foreach (FrameworkElement item in Children)
+			foreach (FrameworkElement item in Children.Cast<FrameworkElement>())
 			{
 				int span = GetActualColumnSpan(item, count);
 				item.Measure(new Size(width * span + (ColumnSpacing * (span - 1)), availableSize.Height));
@@ -100,7 +101,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			int y = 0;
 			double[] rowHeights = new double[Children.Count];
 
-			foreach (FrameworkElement item in Children)
+			foreach (FrameworkElement item in Children.Cast<FrameworkElement>())
 			{
 				int span = GetActualColumnSpan(item, count);
 				if (x > 0 && x + span > count)
@@ -134,7 +135,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			double[] rowHeights = new double[Children.Count];
 			FrameworkElement[,] cells = new FrameworkElement[count, Children.Count];
 
-			foreach (FrameworkElement item in Children)
+			foreach (FrameworkElement item in Children.Cast<FrameworkElement>())
 			{
 				int span = GetActualColumnSpan(item, count);
 				if (x > 0 && x + span > count)
@@ -167,7 +168,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			return finalSize;
 		}
 
-		private int GetActualColumnSpan(FrameworkElement element, int count)
+		private static int GetActualColumnSpan(FrameworkElement element, int count)
 		{
 			int span = Math.Max(1, GetColumnSpan(element));
 			return Math.Min(count, span);

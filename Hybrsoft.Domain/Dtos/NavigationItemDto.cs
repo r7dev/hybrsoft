@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 
 namespace Hybrsoft.Domain.Dtos
 {
-	public class NavigationItemDto(Type viewModel) : ObservableObject
+	public partial class NavigationItemDto(Type viewModel) : ObservableObject
 	{
 		public NavigationItemDto(string label,
 			int glyph,

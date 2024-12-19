@@ -7,7 +7,7 @@ namespace Hybrsoft.EnterpriseManager.Tools.DependencyExpressions
 {
 	public class DependencyExpressions
 	{
-		private ConcurrentDictionary<string, DependencyExpression> _dependencyMap = new ConcurrentDictionary<string, DependencyExpression>();
+		private readonly ConcurrentDictionary<string, DependencyExpression> _dependencyMap = new();
 
 		public void Initialize(INotifyExpressionChanged source)
 		{

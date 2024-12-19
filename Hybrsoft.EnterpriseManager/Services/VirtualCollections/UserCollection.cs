@@ -10,18 +10,13 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services.VirtualCollections
 {
-	public class UserCollection : VirtualCollection<UserDto>
+	public partial class UserCollection(IUserService userService, ILogService logService) : VirtualCollection<UserDto>(logService)
 	{
 		private DataRequest<User> _dataRequest = null;
 
-		public UserCollection(IUserService userService, ILogService logService) : base(logService)
-		{
-			UserService = userService;
-		}
+		public IUserService UserService { get; } = userService;
 
-		public IUserService UserService { get; }
-
-		private UserDto _defaultItem = UserDto.CreateEmpty();
+		private readonly UserDto _defaultItem = UserDto.CreateEmpty();
 		protected override UserDto DefaultItem => _defaultItem;
 
 		public async Task LoadAsync(DataRequest<User> dataRequest)

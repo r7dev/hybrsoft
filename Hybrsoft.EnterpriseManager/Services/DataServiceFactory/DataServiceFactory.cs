@@ -7,7 +7,7 @@ namespace Hybrsoft.EnterpriseManager.Services.DataServiceFactory
 {
 	public class DataServiceFactory : IDataServiceFactory
 	{
-		static private Random _random = new Random(0);
+		private static readonly Random _random = new(0);
 		public IDataService CreateDataService()
 		{
 			if (AppSettings.Current.IsRandomErrorsEnabled)
@@ -18,17 +18,11 @@ namespace Hybrsoft.EnterpriseManager.Services.DataServiceFactory
 				}
 			}
 
-			switch (AppSettings.Current.DataProvider)
+			return AppSettings.Current.DataProvider switch
 			{
-				//case DataProviderType.SQLite:
-				//	return new SQLiteDataService(AppSettings.Current.SQLiteConnectionString);
-
-				case DataProviderType.SQLServer:
-					return new SQLServerDataService(AppSettings.Current.SQLServerConnectionString);
-
-				default:
-					throw new NotImplementedException();
-			}
+				DataProviderType.SQLServer => new SQLServerDataService(AppSettings.Current.SQLServerConnectionString),
+				_ => throw new NotImplementedException()
+			};
 		}
 	}
 }

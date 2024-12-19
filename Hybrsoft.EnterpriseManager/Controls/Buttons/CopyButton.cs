@@ -4,7 +4,7 @@ using Microsoft.UI.Xaml;
 
 namespace Hybrsoft.EnterpriseManager.Controls
 {
-	public sealed class CopyButton : Button
+	public sealed partial class CopyButton : Button
 	{
 		public CopyButton()
 		{

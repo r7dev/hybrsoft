@@ -8,12 +8,8 @@ using System.Windows.Input;
 
 namespace Hybrsoft.Domain.ViewModels
 {
-	abstract public partial class GenericListViewModel<TModel> : ViewModelBase where TModel : ObservableObject
+	abstract public partial class GenericListViewModel<TModel>(ICommonServices commonServices) : ViewModelBase(commonServices) where TModel : ObservableObject
 	{
-		public GenericListViewModel(ICommonServices commonServices) : base(commonServices)
-		{
-		}
-
 		public override string Title => String.IsNullOrEmpty(Query) ? $" ({ItemsCount})" : $" ({ItemsCount} for \"{Query}\")";
 
 		private IList<TModel> _items = null;
@@ -30,7 +26,7 @@ namespace Hybrsoft.Domain.ViewModels
 			set => Set(ref _itemsCount, value);
 		}
 
-		private TModel _selectedItem = default(TModel);
+		private TModel _selectedItem = default;
 		public TModel SelectedItem
 		{
 			get => _selectedItem;
@@ -72,7 +68,7 @@ namespace Hybrsoft.Domain.ViewModels
 		{
 			StatusMessage("Start selection");
 			SelectedItem = null;
-			SelectedItems = new List<TModel>();
+			SelectedItems = [];
 			SelectedIndexRanges = null;
 			IsMultipleSelection = true;
 		}
@@ -107,7 +103,7 @@ namespace Hybrsoft.Domain.ViewModels
 			}
 			if (IsMultipleSelection)
 			{
-				foreach (TModel item in items)
+				foreach (TModel item in items.Cast<TModel>())
 				{
 					SelectedItems.Remove(item);
 				}

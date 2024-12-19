@@ -7,7 +7,7 @@ using System;
 
 namespace Hybrsoft.EnterpriseManager.Controls
 {
-	public sealed class IconLabel : Control
+	public sealed partial class IconLabel : Control
 	{
 		private FontIcon _icon = null;
 		private TextBlock _text = null;

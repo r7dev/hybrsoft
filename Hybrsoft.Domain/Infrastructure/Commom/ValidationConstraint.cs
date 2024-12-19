@@ -8,28 +8,16 @@ namespace Hybrsoft.Domain.Infrastructure.Commom
 		string Message { get; }
 	}
 
-	public class ValidationConstraint<T> : IValidationConstraint<T>
+	public class ValidationConstraint<T>(string message, Func<T, bool> validate) : IValidationConstraint<T>
 	{
-		public ValidationConstraint(string message, Func<T, bool> validate)
-		{
-			Message = message;
-			Validate = validate;
-		}
-
-		public Func<T, bool> Validate { get; set; }
-		public string Message { get; set; }
+		public Func<T, bool> Validate { get; set; } = validate;
+		public string Message { get; set; } = message;
 	}
 
-	public class RequiredConstraint<T> : IValidationConstraint<T>
+	public class RequiredConstraint<T>(string propertyName, Func<T, object> propertyValue) : IValidationConstraint<T>
 	{
-		public RequiredConstraint(string propertyName, Func<T, object> propertyValue)
-		{
-			PropertyName = propertyName;
-			PropertyValue = propertyValue;
-		}
-
-		public string PropertyName { get; set; }
-		public Func<T, object> PropertyValue { get; set; }
+		public string PropertyName { get; set; } = propertyName;
+		public Func<T, object> PropertyValue { get; set; } = propertyValue;
 
 		Func<T, bool> IValidationConstraint<T>.Validate => ValidateProperty;
 
@@ -46,16 +34,10 @@ namespace Hybrsoft.Domain.Infrastructure.Commom
 		string IValidationConstraint<T>.Message => $"Property '{PropertyName}' cannot be empty.";
 	}
 
-	public class RequiredGreaterThanZeroConstraint<T> : IValidationConstraint<T>
+	public class RequiredGreaterThanZeroConstraint<T>(string propertyName, Func<T, object> propertyValue) : IValidationConstraint<T>
 	{
-		public RequiredGreaterThanZeroConstraint(string propertyName, Func<T, object> propertyValue)
-		{
-			PropertyName = propertyName;
-			PropertyValue = propertyValue;
-		}
-
-		public string PropertyName { get; set; }
-		public Func<T, object> PropertyValue { get; set; }
+		public string PropertyName { get; set; } = propertyName;
+		public Func<T, object> PropertyValue { get; set; } = propertyValue;
 
 		Func<T, bool> IValidationConstraint<T>.Validate => ValidateProperty;
 
@@ -75,16 +57,10 @@ namespace Hybrsoft.Domain.Infrastructure.Commom
 		string IValidationConstraint<T>.Message => $"Property '{PropertyName}' cannot be empty.";
 	}
 
-	public class PositiveConstraint<T> : IValidationConstraint<T>
+	public class PositiveConstraint<T>(string propertyName, Func<T, object> propertyValue) : IValidationConstraint<T>
 	{
-		public PositiveConstraint(string propertyName, Func<T, object> propertyValue)
-		{
-			PropertyName = propertyName;
-			PropertyValue = propertyValue;
-		}
-
-		public string PropertyName { get; set; }
-		public Func<T, object> PropertyValue { get; set; }
+		public string PropertyName { get; set; } = propertyName;
+		public Func<T, object> PropertyValue { get; set; } = propertyValue;
 
 		Func<T, bool> IValidationConstraint<T>.Validate => ValidateProperty;
 
@@ -104,16 +80,10 @@ namespace Hybrsoft.Domain.Infrastructure.Commom
 		string IValidationConstraint<T>.Message => $"Property '{PropertyName}' must be positive.";
 	}
 
-	public class NonZeroConstraint<T> : IValidationConstraint<T>
+	public class NonZeroConstraint<T>(string propertyName, Func<T, object> propertyValue) : IValidationConstraint<T>
 	{
-		public NonZeroConstraint(string propertyName, Func<T, object> propertyValue)
-		{
-			PropertyName = propertyName;
-			PropertyValue = propertyValue;
-		}
-
-		public string PropertyName { get; set; }
-		public Func<T, object> PropertyValue { get; set; }
+		public string PropertyName { get; set; } = propertyName;
+		public Func<T, object> PropertyValue { get; set; } = propertyValue;
 
 		Func<T, bool> IValidationConstraint<T>.Validate => ValidateProperty;
 
@@ -133,18 +103,11 @@ namespace Hybrsoft.Domain.Infrastructure.Commom
 		string IValidationConstraint<T>.Message => $"Property '{PropertyName}' cannot be zero.";
 	}
 
-	public class GreaterThanConstraint<T> : IValidationConstraint<T>
+	public class GreaterThanConstraint<T>(string propertyName, Func<T, object> propertyValue, double value) : IValidationConstraint<T>
 	{
-		public GreaterThanConstraint(string propertyName, Func<T, object> propertyValue, double value)
-		{
-			PropertyName = propertyName;
-			PropertyValue = propertyValue;
-			Value = value;
-		}
-
-		public string PropertyName { get; set; }
-		public Func<T, object> PropertyValue { get; set; }
-		public double Value { get; set; }
+		public string PropertyName { get; set; } = propertyName;
+		public Func<T, object> PropertyValue { get; set; } = propertyValue;
+		public double Value { get; set; } = value;
 
 		Func<T, bool> IValidationConstraint<T>.Validate => ValidateProperty;
 
@@ -197,18 +160,11 @@ namespace Hybrsoft.Domain.Infrastructure.Commom
 		string IValidationConstraint<T>.Message => $"Property '{PropertyName}' cannot be greater than {ValueDesc}.";
 	}
 
-	public class LessThanConstraint<T> : IValidationConstraint<T>
+	public class LessThanConstraint<T>(string propertyName, Func<T, object> propertyValue, double value) : IValidationConstraint<T>
 	{
-		public LessThanConstraint(string propertyName, Func<T, object> propertyValue, double value)
-		{
-			PropertyName = propertyName;
-			PropertyValue = propertyValue;
-			Value = value;
-		}
-
-		public string PropertyName { get; set; }
-		public Func<T, object> PropertyValue { get; set; }
-		public double Value { get; set; }
+		public string PropertyName { get; set; } = propertyName;
+		public Func<T, object> PropertyValue { get; set; } = propertyValue;
+		public double Value { get; set; } = value;
 
 		Func<T, bool> IValidationConstraint<T>.Validate => ValidateProperty;
 

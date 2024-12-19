@@ -46,7 +46,7 @@ namespace Hybrsoft.EnterpriseManager.Tools.ElementSet
 					return item as S;
 				}
 			}
-			return default(S);
+			return default;
 		}
 
 		public ElementSet<T> ForEach(Action<T> action)
@@ -92,7 +92,7 @@ namespace Hybrsoft.EnterpriseManager.Tools.ElementSet
 
 		static private IEnumerable<S> GetChildren<S>(object source, Func<S, bool> predicate = null) where S : UIElement
 		{
-			predicate = predicate ?? new Func<S, bool>((e) => true);
+			predicate ??= new Func<S, bool>((e) => true);
 
 			if (source is UIElement element)
 			{
@@ -129,7 +129,7 @@ namespace Hybrsoft.EnterpriseManager.Tools.ElementSet
 		{
 			if (source != null)
 			{
-				predicate = predicate ?? new Func<S, bool>((e) => true);
+				predicate ??= new Func<S, bool>((e) => true);
 
 				var count = VisualTreeHelper.GetChildrenCount(source);
 				for (int n = 0; n < count; n++)

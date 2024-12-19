@@ -14,12 +14,12 @@ namespace Hybrsoft.EnterpriseManager.Extensions
 			element.StartAnimation(nameof(Visual.Opacity), CreateScalarAnimation(milliseconds, start, end, easingFunction));
 		}
 
-		static public void Scale(this FrameworkElement element, double milliseconds, double start, double end, CompositionEasingFunction easingFunction = null)
+		static public void Scale(this FrameworkElement element, double milliseconds, double start, double end)
 		{
 			element.SetCenterPoint(element.ActualWidth / 2.0, element.ActualHeight / 2.0);
 			var vectorStart = new Vector3((float)start, (float)start, 0);
 			var vectorEnd = new Vector3((float)end, (float)end, 0);
-			element.StartAnimation(nameof(Visual.Scale), CreateVector3Animation(milliseconds, vectorStart, vectorEnd, easingFunction));
+			element.StartAnimation(nameof(Visual.Scale), CreateVector3Animation(milliseconds, vectorStart, vectorEnd));
 		}
 
 		static public void Blur(this UIElement element, double milliseconds, double start, double end, CompositionEasingFunction easingFunction = null)
@@ -84,7 +84,7 @@ namespace Hybrsoft.EnterpriseManager.Extensions
 			return animation;
 		}
 
-		static public CompositionAnimation CreateVector3Animation(double milliseconds, Vector3 start, Vector3 end, CompositionEasingFunction easingFunction = null)
+		static public CompositionAnimation CreateVector3Animation(double milliseconds, Vector3 start, Vector3 end)
 		{
 			var compositor = GetCurrentCompositor();
 			var animation = compositor.CreateVector3KeyFrameAnimation();
@@ -104,7 +104,7 @@ namespace Hybrsoft.EnterpriseManager.Extensions
 			};
 
 			var compositor = GetCurrentCompositor();
-			var factory = compositor.CreateEffectFactory(effect, new[] { "Blur.BlurAmount" });
+			var factory = compositor.CreateEffectFactory(effect, ["Blur.BlurAmount"]);
 			var brush = factory.CreateBrush();
 			brush.SetSourceParameter("source", compositor.CreateBackdropBrush());
 			return brush;

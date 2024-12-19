@@ -10,8 +10,10 @@ namespace Hybrsoft.EnterpriseManager.Extensions
 		{
 			if (MicaController.IsSupported())
 			{
-				Microsoft.UI.Xaml.Media.MicaBackdrop micaBackdrop = new();
-				micaBackdrop.Kind = useMicaAlt ? MicaKind.BaseAlt : MicaKind.Base;
+				MicaBackdrop micaBackdrop = new()
+				{
+					Kind = useMicaAlt ? MicaKind.BaseAlt : MicaKind.Base
+				};
 				window.SystemBackdrop = micaBackdrop;
 
 				return true; // Succeeded.

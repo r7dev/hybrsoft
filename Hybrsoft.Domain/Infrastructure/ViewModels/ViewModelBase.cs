@@ -5,9 +5,9 @@ using System.Diagnostics;
 
 namespace Hybrsoft.Domain.Infrastructure.ViewModels
 {
-	public class ViewModelBase(ICommonServices commonServices) : ObservableObject
+	public partial class ViewModelBase(ICommonServices commonServices) : ObservableObject
 	{
-		private Stopwatch _stopwatch = new Stopwatch();
+		private readonly Stopwatch _stopwatch = new();
 
 		public IContextService ContextService { get; } = commonServices.ContextService;
 		public INavigationService NavigationService { get; } = commonServices.NavigationService;

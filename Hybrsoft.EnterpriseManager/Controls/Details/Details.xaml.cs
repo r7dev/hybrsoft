@@ -17,7 +17,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		static private readonly DependencyExpressions DependencyExpressions = new DependencyExpressions();
+		static private readonly DependencyExpressions DependencyExpressions = new();
 
 		public Details()
 		{
@@ -160,7 +160,11 @@ namespace Hybrsoft.EnterpriseManager.Controls
 				return CanGoBack ? DetailToolbarMode.BackEditdDelete : DetailToolbarMode.Default;
 			}
 		}
-		static DependencyExpression ToolbarModeExpression = DependencyExpressions.Register(nameof(ToolbarMode), nameof(IsEditMode), nameof(CanGoBack));
+		public static readonly DependencyExpression ToolbarModeExpression = DependencyExpressions.Register(
+			nameof(ToolbarMode),
+			nameof(IsEditMode),
+			nameof(CanGoBack)
+		);
 
 		private void OnToolbarClick(object sender, ToolbarButtonClickEventArgs e)
 		{

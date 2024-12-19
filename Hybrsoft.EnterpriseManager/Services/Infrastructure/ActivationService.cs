@@ -30,15 +30,11 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 	{
 		static public ActivationInfo GetActivationInfo(IActivatedEventArgs args)
 		{
-			switch (args.Kind)
+			return args.Kind switch
 			{
-				case ActivationKind.Protocol:
-					return GetProtocolActivationInfo(args as ProtocolActivatedEventArgs);
-
-				case ActivationKind.Launch:
-				default:
-					return ActivationInfo.CreateDefault();
-			}
+				ActivationKind.Protocol => GetProtocolActivationInfo(args as ProtocolActivatedEventArgs),
+				_ => ActivationInfo.CreateDefault()
+			};
 		}
 
 		private static ActivationInfo GetProtocolActivationInfo(ProtocolActivatedEventArgs args)

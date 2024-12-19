@@ -7,16 +7,10 @@ using System.Windows.Input;
 
 namespace Hybrsoft.Domain.ViewModels
 {
-	public class LoginViewModel : ViewModelBase
+	public partial class LoginViewModel(ILoginService loginService, ISettingsService settingsService, ICommonServices commonServices) : ViewModelBase(commonServices)
 	{
-		public LoginViewModel(ILoginService loginService, ISettingsService settingsService, ICommonServices commonServices) : base(commonServices)
-		{
-			LoginService = loginService;
-			SettingsService = settingsService;
-		}
-
-		public ILoginService LoginService { get; }
-		public ISettingsService SettingsService { get; }
+		public ILoginService LoginService { get; } = loginService;
+		public ISettingsService SettingsService { get; } = settingsService;
 
 		private ShellArgs ViewModelArgs { get; set; }
 

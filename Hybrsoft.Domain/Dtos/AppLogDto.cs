@@ -4,7 +4,7 @@ using System;
 
 namespace Hybrsoft.Domain.Dtos
 {
-	public class AppLogDto : ObservableObject
+	public partial class AppLogDto : ObservableObject
 	{
 		static public AppLogDto CreateEmpty() => new() { AppLogId = -1, IsEmpty = true };
 

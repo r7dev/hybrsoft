@@ -4,7 +4,7 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace Hybrsoft.EnterpriseManager.Controls
 {
-	public class WindowTitle : Control
+	public partial class WindowTitle : Control
 	{
 		public string Prefix
 		{

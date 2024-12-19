@@ -28,14 +28,9 @@ namespace Hybrsoft.EnterpriseManager.Controls
 		CancelSave
 	}
 
-	public class ToolbarButtonClickEventArgs : EventArgs
+	public class ToolbarButtonClickEventArgs(ToolbarButton button) : EventArgs
 	{
-		public ToolbarButtonClickEventArgs(ToolbarButton button)
-		{
-			ClickedButton = button;
-		}
-
-		public ToolbarButton ClickedButton { get; }
+		public ToolbarButton ClickedButton { get; } = button;
 	}
 
 	public delegate void ToolbarButtonClickEventHandler(object sender, ToolbarButtonClickEventArgs e);

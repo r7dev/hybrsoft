@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace Hybrsoft.Domain.Infrastructure.ViewModels
 {
-	public class ObservableObject : INotifyPropertyChanged
+	public partial class ObservableObject : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -12,7 +12,7 @@ namespace Hybrsoft.Domain.Infrastructure.ViewModels
 
 		virtual public void Merge(ObservableObject source) { }
 
-		protected bool Set<T>(ref T field, T newValue = default(T), [CallerMemberName] string propertyName = null)
+		protected bool Set<T>(ref T field, T newValue = default, [CallerMemberName] string propertyName = null)
 		{
 			if (!EqualityComparer<T>.Default.Equals(field, newValue))
 			{

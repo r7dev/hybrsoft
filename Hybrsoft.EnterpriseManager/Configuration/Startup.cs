@@ -10,7 +10,7 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 {
 	static public class Startup
 	{
-		static private readonly ServiceCollection _serviceCollection = new ServiceCollection();
+		static private readonly ServiceCollection _serviceCollection = new();
 
 		static public async Task ConfigureAsync()
 		{

@@ -3,11 +3,7 @@ using Hybrsoft.Domain.Interfaces.Infrastructure;
 
 namespace Hybrsoft.Domain.ViewModels
 {
-	public class DashboardViewModel : ViewModelBase
+	public partial class DashboardViewModel(ICommonServices commonServices) : ViewModelBase(commonServices)
 	{
-		public DashboardViewModel(ICommonServices commonServices) : base(commonServices)
-		{
-			
-		}
 	}
 }

@@ -9,7 +9,7 @@ using System;
 
 namespace Hybrsoft.EnterpriseManager.Controls
 {
-	public sealed class Section : ContentControl
+	public sealed partial class Section : ContentControl
 	{
 		public event RoutedEventHandler HeaderButtonClick;
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.Domain.ViewModels
 {
-	public class AppLogsViewModel(ICommonServices commonServices) : ViewModelBase(commonServices)
+	public partial class AppLogsViewModel(ICommonServices commonServices) : ViewModelBase(commonServices)
 	{
 		public AppLogListViewModel AppLogList { get; } = new AppLogListViewModel(commonServices);
 		public AppLogDetailsViewModel AppLogDetails { get; } = new AppLogDetailsViewModel(commonServices);

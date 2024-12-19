@@ -4,14 +4,14 @@ using System;
 
 namespace Hybrsoft.EnterpriseManager.Converters
 {
-	public sealed class BoolToVisibilityConverter : IValueConverter
+	public sealed partial class BoolToVisibilityConverter : IValueConverter
 	{
 		public object TrueValue { get; set; }
 		public object FalseValue { get; set; }
 
 		public object Convert(object value, Type targetType, object parameter, string language)
 		{
-			bool boolValue = value is bool && (bool)value;
+			bool boolValue = value is bool b && b;
 
 			return XamlBindingHelper.ConvertValue(targetType, boolValue ? TrueValue : FalseValue);
 		}

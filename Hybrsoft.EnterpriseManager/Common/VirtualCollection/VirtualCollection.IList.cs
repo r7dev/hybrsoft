@@ -26,9 +26,8 @@ namespace Hybrsoft.EnterpriseManager.Common.VirtualCollection
 		virtual protected T GetItem(int index)
 		{
 			int rangeIndex = index / RangeSize;
-			if (Ranges.ContainsKey(rangeIndex))
+			if (Ranges.TryGetValue(rangeIndex, out IList<T> range))
 			{
-				var range = Ranges[rangeIndex];
 				if (range != null)
 				{
 					return range[index % RangeSize];

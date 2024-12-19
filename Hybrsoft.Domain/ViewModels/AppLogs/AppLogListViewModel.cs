@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.Domain.ViewModels
 {
-	public class AppLogListViewModel(ICommonServices commonServices) : GenericListViewModel<AppLogDto>(commonServices)
+	public partial class AppLogListViewModel(ICommonServices commonServices) : GenericListViewModel<AppLogDto>(commonServices)
 	{
 		public AppLogListArgs ViewModelArgs { get; private set; }
 
