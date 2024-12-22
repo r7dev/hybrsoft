@@ -21,6 +21,6 @@ namespace Hybrsoft.Infrastructure.Models
 		public DateTimeOffset? LastModifiedOn { get; set; }
 		public string SearchTerms { get; set; }
 
-		public string BuildSearchTerms() => $"{UserId} {FirstName} {LastName}".ToLower();
+		public string BuildSearchTerms() => $"{UserId} {FirstName} {LastName} {Email}".ToLower();
 	}
 }

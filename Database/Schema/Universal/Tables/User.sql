@@ -6,7 +6,7 @@
 	[Email] VARCHAR(150) NOT NULL UNIQUE,
 	[CreatedOn] DATETIMEOFFSET NOT NULL,
 	[LastModifiedOn] DATETIMEOFFSET NOT NULL,
-	[SearchTerms] VARCHAR(MAX) NULL
+	[SearchTerms] VARCHAR(300) NULL
 )
 GO
 CREATE INDEX IX_User_FirstName ON [Universal].[User] (FirstName);
