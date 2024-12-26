@@ -43,7 +43,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			return records;
 		}
 
-		private IQueryable<AppLog> GetLogs(DataRequest<AppLog> request)
+		private IQueryable<AppLog> GetLogs(DataRequest<AppLog> request, bool skipSorting = false)
 		{
 			IQueryable<AppLog> items = _dataSource.AppLogs;
 
@@ -60,11 +60,11 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			}
 
 			// Order By
-			if (request.OrderBy != null)
+			if (!skipSorting && request.OrderBy != null)
 			{
 				items = items.OrderBy(request.OrderBy);
 			}
-			if (request.OrderByDesc != null)
+			if (!skipSorting && request.OrderByDesc != null)
 			{
 				items = items.OrderByDescending(request.OrderByDesc);
 			}
@@ -74,21 +74,9 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 		public async Task<int> GetLogsCountAsync(DataRequest<AppLog> request)
 		{
-			IQueryable<AppLog> items = _dataSource.AppLogs.AsNoTracking();
-
-			// Query
-			if (!String.IsNullOrEmpty(request.Query))
-			{
-				items = items.Where(r => EF.Functions.Like(r.Message, "%" + request.Query + "%"));
-			}
-
-			// Where
-			if (request.Where != null)
-			{
-				items = items.Where(request.Where);
-			}
-
-			return await items.CountAsync();
+			return await GetLogs(request, true)
+				.AsNoTracking()
+				.CountAsync();
 		}
 
 		public async Task<int> CreateLogAsync(AppLog appLog)

@@ -58,6 +58,9 @@ namespace Hybrsoft.Domain.Infrastructure.ViewModels
 				case LogType.Success:
 					SucessMessage(fullMessage);
 					break;
+				case LogType.Warning:
+					WarningMessage(fullMessage);
+					break;
 				default:
 					StatusMessage(fullMessage);
 					break;
@@ -83,6 +86,11 @@ namespace Hybrsoft.Domain.Infrastructure.ViewModels
 		{
 			Microsoft.AppCenter.Analytics.Analytics.TrackEvent(message);
 			MessageService.Send(this, "SucessMessage", message);
+		}
+		public void WarningMessage(string message)
+		{
+			Microsoft.AppCenter.Analytics.Analytics.TrackEvent(message);
+			MessageService.Send(this, "WarningMessage", message);
 		}
 	}
 }

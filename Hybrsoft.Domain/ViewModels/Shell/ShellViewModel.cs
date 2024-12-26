@@ -77,13 +77,20 @@ namespace Hybrsoft.Domain.ViewModels
 						SetStatus(status);
 					}
 					break;
-
 				case "StatusMessage":
 				case "StatusError":
 					if (viewModel.ContextService.ContextID == ContextService.ContextID)
 					{
 						IsOpen = !string.IsNullOrWhiteSpace(message);
 						Severity = message == "StatusError" ? InfoBarSeverity.Error : InfoBarSeverity.Informational;
+						SetStatus(status);
+					}
+					break;
+				case "WarningMessage":
+					if (viewModel.ContextService.ContextID == ContextService.ContextID)
+					{
+						IsOpen = !string.IsNullOrWhiteSpace(message);
+						Severity = message == "WarningMessage" ? InfoBarSeverity.Warning : InfoBarSeverity.Informational;
 						SetStatus(status);
 					}
 					break;

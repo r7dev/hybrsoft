@@ -1,6 +1,7 @@
 ﻿using Hybrsoft.Domain.Dtos;
 using Hybrsoft.Domain.Infrastructure.Commom;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
+using Hybrsoft.Infrastructure.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -82,7 +83,7 @@ namespace Hybrsoft.Domain.ViewModels
 				StartStatusMessage("Deleting log...");
 				await Task.Delay(100);
 				await LogService.DeleteLogAsync(model);
-				EndStatusMessage("Log deleted");
+				EndStatusMessage("Log deleted", LogType.Warning);
 				return true;
 			}
 			catch (Exception ex)

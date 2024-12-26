@@ -50,7 +50,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			return records;
 		}
 
-		private IQueryable<User> GetUsers(DataRequest<User> request)
+		private IQueryable<User> GetUsers(DataRequest<User> request, bool skipSorting = false)
 		{
 			IQueryable<User> items = _dataSource.Users;
 
@@ -67,11 +67,11 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			}
 
 			// Order By
-			if (request.OrderBy != null)
+			if (!skipSorting && request.OrderBy != null)
 			{
 				items = items.OrderBy(request.OrderBy);
 			}
-			if (request.OrderByDesc != null)
+			if (!skipSorting && request.OrderByDesc != null)
 			{
 				items = items.OrderByDescending(request.OrderByDesc);
 			}
@@ -81,21 +81,9 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 		public async Task<int> GetUsersCountAsync(DataRequest<User> request)
 		{
-			IQueryable<User> items = _dataSource.Users;
-
-			// Query
-			if (!String.IsNullOrEmpty(request.Query))
-			{
-				items = items.Where(r => r.SearchTerms.Contains(request.Query.ToLower()));
-			}
-
-			// Where
-			if (request.Where != null)
-			{
-				items = items.Where(request.Where);
-			}
-
-			return await items.CountAsync();
+			return await GetUsers(request, true)
+				.AsNoTracking()
+				.CountAsync();
 		}
 
 		public async Task<int> UpdateUserAsync(User user)

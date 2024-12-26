@@ -141,7 +141,7 @@ namespace Hybrsoft.Domain.ViewModels
 				SelectedItems = null;
 				if (count > 0)
 				{
-					EndStatusMessage($"{count} logs deleted");
+					EndStatusMessage($"{count} logs deleted", LogType.Warning);
 				}
 			}
 		}
@@ -157,9 +157,22 @@ namespace Hybrsoft.Domain.ViewModels
 		private async Task DeleteRangesAsync(IEnumerable<IndexRange> ranges)
 		{
 			DataRequest<AppLog> request = BuildDataRequest();
+			bool isFirst = true;
+			int index;
+			int lastLength = 0;
 			foreach (var range in ranges)
 			{
-				await LogService.DeleteLogRangeAsync(range.Index, range.Length, request);
+				if (isFirst)
+				{
+					isFirst = false;
+					index = range.Index;
+				}
+				else
+				{
+					index = range.Index - lastLength;
+				}
+				lastLength = range.Length;
+				await LogService.DeleteLogRangeAsync(index, range.Length, request);
 			}
 		}
 

@@ -22,7 +22,7 @@ namespace Hybrsoft.EnterpriseManager.Converters
 					switch (logType)
 					{
 						case LogType.Information:
-							return Char.ConvertFromUtf32(0xE946).ToString();
+							return Char.ConvertFromUtf32(0xF167).ToString();
 						case LogType.Success:
 							return Char.ConvertFromUtf32(0xEC61).ToString();
 						case LogType.Warning:
@@ -31,7 +31,7 @@ namespace Hybrsoft.EnterpriseManager.Converters
 							return Char.ConvertFromUtf32(0xEB90).ToString();
 					}
 				}
-				return Char.ConvertFromUtf32(0xE946).ToString();
+				return Char.ConvertFromUtf32(0xF167).ToString();
 			}
 
 			if (targetType == typeof(Brush))

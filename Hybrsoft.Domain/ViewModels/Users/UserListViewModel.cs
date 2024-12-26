@@ -4,6 +4,7 @@ using Hybrsoft.Domain.Infrastructure.ViewModels;
 using Hybrsoft.Domain.Interfaces;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
 using Hybrsoft.Infrastructure.Common;
+using Hybrsoft.Infrastructure.Enums;
 using Hybrsoft.Infrastructure.Models;
 using System;
 using System.Collections.Generic;
@@ -159,7 +160,7 @@ namespace Hybrsoft.Domain.ViewModels
 				SelectedItems = null;
 				if (count > 0)
 				{
-					EndStatusMessage($"{count} users deleted");
+					EndStatusMessage($"{count} users deleted", LogType.Warning);
 				}
 			}
 		}
@@ -169,15 +170,40 @@ namespace Hybrsoft.Domain.ViewModels
 			foreach (var model in models)
 			{
 				await UserService.DeleteUserAsync(model);
+				LogWarning(model);
 			}
 		}
 
 		private async Task DeleteRangesAsync(IEnumerable<IndexRange> ranges)
 		{
 			DataRequest<User> request = BuildDataRequest();
+
+			List<UserDto> models = [];
 			foreach (var range in ranges)
 			{
-				await UserService.DeleteUserRangeAsync(range.Index, range.Length, request);
+				var users = await UserService.GetUsersAsync(range.Index, range.Length, request);
+				models.AddRange(users);
+			}
+			bool isFirst = true;
+			int index;
+			int lastLength = 0;
+			foreach (var range in ranges)
+			{
+				if (isFirst)
+				{
+					isFirst = false;
+					index = range.Index;
+				}
+				else
+				{
+					index = range.Index - lastLength;
+				}
+				lastLength = range.Length;
+				await UserService.DeleteUserRangeAsync(index, range.Length, request);
+			}
+			foreach (var model in models)
+			{
+				LogWarning(model);
 			}
 		}
 
@@ -189,6 +215,11 @@ namespace Hybrsoft.Domain.ViewModels
 				OrderBy = ViewModelArgs.OrderBy,
 				OrderByDesc = ViewModelArgs.OrderByDesc
 			};
+		}
+
+		private void LogWarning(UserDto model)
+		{
+			LogWarning("User", "Delete", "User deleted", $"User {model.UserID} '{model.FullName}' was deleted.");
 		}
 
 		private async void OnMessage(ViewModelBase sender, string message, object args)

@@ -97,7 +97,7 @@ namespace Hybrsoft.Domain.ViewModels
 				StartStatusMessage("Deleting user...");
 				await Task.Delay(100);
 				await UserService.DeleteUserAsync(model);
-				EndStatusMessage("User deleted");
+				EndStatusMessage("User deleted", LogType.Warning);
 				LogWarning("User", "Delete", "User deleted", $"User {model.UserID} '{model.FullName}' was deleted.");
 				return true;
 			}
