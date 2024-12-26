@@ -57,7 +57,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			// Query
 			if (!String.IsNullOrEmpty(request.Query))
 			{
-				items = items.Where(r => r.SearchTerms.Contains(request.Query.ToLower()));
+				items = items.Where(r => EF.Functions.Like(r.SearchTerms, "%" + request.Query + "%"));
 			}
 
 			// Where

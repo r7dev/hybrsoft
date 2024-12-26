@@ -74,22 +74,18 @@ namespace Hybrsoft.Domain.Infrastructure.ViewModels
 
 		public void StatusMessage(string message)
 		{
-			Microsoft.AppCenter.Analytics.Analytics.TrackEvent(message);
 			MessageService.Send(this, "StatusMessage", message);
 		}
 		public void StatusError(string message)
 		{
-			Microsoft.AppCenter.Analytics.Analytics.TrackEvent(message);
 			MessageService.Send(this, "StatusError", message);
 		}
 		public void SucessMessage(string message)
 		{
-			Microsoft.AppCenter.Analytics.Analytics.TrackEvent(message);
 			MessageService.Send(this, "SucessMessage", message);
 		}
 		public void WarningMessage(string message)
 		{
-			Microsoft.AppCenter.Analytics.Analytics.TrackEvent(message);
 			MessageService.Send(this, "WarningMessage", message);
 		}
 	}
