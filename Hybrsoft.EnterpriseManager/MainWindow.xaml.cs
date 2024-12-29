@@ -8,7 +8,6 @@ using Hybrsoft.EnterpriseManager.Views;
 using Microsoft.UI.Xaml;
 using System;
 using System.Threading.Tasks;
-using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.System;
 
@@ -27,7 +26,6 @@ namespace Hybrsoft.EnterpriseManager
 			this.InitializeComponent();
 			((App)Application.Current).MainWindow = this;
 			((App)Application.Current).CurrentView = this;
-			this.Title = AppInfo.Current.DisplayInfo.DisplayName;
 			ThemeExtensions.TrySetMicaBackdrop(this, true);
 
 			Navigate(args);

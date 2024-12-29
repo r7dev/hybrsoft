@@ -6,12 +6,14 @@
 	xmlns:local="using:Hybrsoft.EnterpriseManager.Views"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:controls="using:Hybrsoft.EnterpriseManager.Controls"
 	mc:Ignorable="d">
 
 	<Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+		<controls:WindowTitle Title="" />
 		<StackPanel Orientation="Vertical">
 			<FontIcon Glyph="&#xE98F;" FontSize="42" />
-			<TextBlock Text="Under Construction" FontSize="16"/>
+			<TextBlock Text="Dashboard Under Construction" FontSize="16"/>
 		</StackPanel>
 	</Grid>
 </Page>

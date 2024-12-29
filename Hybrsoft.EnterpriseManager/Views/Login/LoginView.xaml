@@ -11,6 +11,7 @@
 	Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
 	<Grid>
+		<controls:WindowTitle Title="" />
 		<Grid>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="2*"/>

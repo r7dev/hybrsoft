@@ -1,6 +1,7 @@
 ﻿using Hybrsoft.EnterpriseManager.Extensions;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Windows.ApplicationModel;
 
 namespace Hybrsoft.EnterpriseManager.Controls
 {
@@ -25,7 +26,10 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			var window = ((App)Application.Current).CurrentView;
 			var appWindow = AppWindowExtensions.GetAppWindow(window);
 			var control = d as WindowTitle;
-			appWindow.Title = $"{control.Prefix} {control.Title}".Trim();
+			string title = !string.IsNullOrEmpty(control.Title)
+				? control.Title
+				: AppInfo.Current.DisplayInfo.DisplayName;
+			appWindow.Title = $"{control.Prefix} {title}".Trim();
 		}
 	}
 }

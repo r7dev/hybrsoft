@@ -21,6 +21,8 @@
 
 	<Grid BorderBrush="LightGray"
 		  BorderThickness="1,0,0,0">
+		<controls:WindowTitle Prefix="Users" Title="{x:Bind ViewModel.UserList.Title, Mode=OneWay}" />
+
 		<Grid>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="*"/>
