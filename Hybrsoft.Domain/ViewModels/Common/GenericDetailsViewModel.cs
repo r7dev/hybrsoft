@@ -2,6 +2,7 @@
 using Hybrsoft.Domain.Infrastructure.ViewModels;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -123,7 +124,7 @@ namespace Hybrsoft.Domain.ViewModels
 			}
 			else
 			{
-				await DialogService.ShowAsync(result.Message, $"{result.Description} Please, correct the error and try again.");
+				await DialogService.ShowAsync(result.Message, $"{result.Description}Please, correct the error and try again.");
 			}
 		}
 		virtual public async Task SaveAsync()
@@ -180,12 +181,17 @@ namespace Hybrsoft.Domain.ViewModels
 
 		virtual public Result Validate(TModel model)
 		{
+			StringBuilder errors = new();
 			foreach (var constraint in GetValidationConstraints(model))
 			{
 				if (!constraint.Validate(model))
 				{
-					return Result.Error("Validation Error", constraint.Message);
+					errors.AppendLine(constraint.Message);
 				}
+			}
+			if (errors.Length > 0)
+			{
+				return Result.Error("Validation Error", errors.ToString());
 			}
 			return Result.Ok();
 		}
