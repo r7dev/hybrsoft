@@ -10,7 +10,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 {
 	partial class DataServiceBase
 	{
-		public async Task<User> GetUserAsync(Guid id)
+		public async Task<User> GetUserAsync(long id)
 		{
 			return await _dataSource.Users.Where(r => r.UserId == id).FirstOrDefaultAsync();
 		}
@@ -88,13 +88,13 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 		public async Task<int> UpdateUserAsync(User user)
 		{
-			if (user.UserId != Guid.Empty)
+			if (user.UserId > 0)
 			{
 				_dataSource.Entry(user).State = EntityState.Modified;
 			}
 			else
 			{
-				user.UserId = Guid.NewGuid();
+				user.UserId = UIDGenerator.Next();
 				user.CreatedOn = DateTime.UtcNow;
 				_dataSource.Entry(user).State = EntityState.Added;
 			}

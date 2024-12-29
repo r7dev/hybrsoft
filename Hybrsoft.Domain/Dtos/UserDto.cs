@@ -5,13 +5,13 @@ namespace Hybrsoft.Domain.Dtos
 {
 	public partial class UserDto : ObservableObject
 	{
-		static public UserDto CreateEmpty() => new() { UserID = Guid.Empty, IsEmpty = true };
-		public Guid UserID { get; set; }
+		static public UserDto CreateEmpty() => new() { UserID = -1, IsEmpty = true };
+		public long UserID { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 		public string Email { get; set; }
 
-		public bool IsNew => UserID == Guid.Empty;
+		public bool IsNew => UserID <= 0;
 		public string FullName => $"{FirstName} {LastName}";
 
 		public DateTimeOffset CreatedOn { get; set; }

@@ -6,7 +6,7 @@ namespace Hybrsoft.Infrastructure.Models
 	public partial class User
 	{
 		[Required]
-		public Guid UserId { get; set; }
+		public long UserId { get; set; }
 		[Required]
 		[StringLength(50, MinimumLength = 5, ErrorMessage = "The name must be between 5 and 50 characters long")]
 		public string FirstName { get; set; }

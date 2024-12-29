@@ -15,9 +15,9 @@ namespace Hybrsoft.Domain.ViewModels
 	{
 		static public UserDetailsArgs CreateDefault() => new();
 
-		public Guid UserID { get; set; }
+		public long UserID { get; set; }
 
-		public bool IsNew => UserID == Guid.Empty;
+		public bool IsNew => UserID <= 0;
 	}
 	#endregion
 
@@ -57,7 +57,7 @@ namespace Hybrsoft.Domain.ViewModels
 
 		public void Unload()
 		{
-			ViewModelArgs.UserID = Item?.UserID ?? Guid.Empty;
+			ViewModelArgs.UserID = Item?.UserID ?? 0;
 		}
 
 		public void Subscribe()

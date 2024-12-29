@@ -6,7 +6,6 @@ using Hybrsoft.EnterpriseManager.Services.VirtualCollections;
 using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.DataServices;
 using Hybrsoft.Infrastructure.Models;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -17,13 +16,13 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
 		public ILogService LogService { get; } = logService;
 
-		public async Task<UserDto> GetUserAsync(Guid id)
+		public async Task<UserDto> GetUserAsync(long id)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
 			return await GetUserAsync(dataService, id);
 		}
 
-		static private async Task<UserDto> GetUserAsync(IDataService dataService, Guid id)
+		static private async Task<UserDto> GetUserAsync(IDataService dataService, long id)
 		{
 			var item = await dataService.GetUserAsync(id);
 			if (item != null)
@@ -60,9 +59,9 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<int> UpdateUserAsync(UserDto model)
 		{
-			Guid id = model.UserID;
+			long id = model.UserID;
 			using var dataService = DataServiceFactory.CreateDataService();
-			var user = id != Guid.Empty ? await dataService.GetUserAsync(model.UserID) : new User();
+			var user = id > 0 ? await dataService.GetUserAsync(model.UserID) : new User();
 			if (user != null)
 			{
 				UpdateUserFromDto(user, model);

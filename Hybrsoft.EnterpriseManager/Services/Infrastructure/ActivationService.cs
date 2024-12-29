@@ -45,8 +45,8 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 				{
 					case "user":
 					case "users":
-						Guid userID = args.Uri.GetGuidParameter("id");
-						if (userID != Guid.Empty)
+						long userID = args.Uri.GetInt64Parameter("id");
+						if (userID > 0)
 						{
 							return ActivationInfo.Create<UserDetailsViewModel>(new UserDetailsArgs { UserID = userID });
 						}
