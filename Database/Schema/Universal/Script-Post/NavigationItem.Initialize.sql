@@ -32,13 +32,13 @@ IF NOT EXISTS(SELECT TOP 1 1 FROM [Universal].[NavigationItem] WHERE [Tag] = @Ta
 		VALUES(@Label, CONVERT(INT, 0xE902), @TagLevel2, @ParentId, @AppType)
 	END
 -- 2.2.0
-SET @Label = 'Users'
+SET @Label = 'Holydays'
 SET @TagLevel2 = @Label
 SELECT @ParentId = [NavigationItemId] FROM [Universal].[NavigationItem] WHERE [Tag] = @TagLevel1 AND AppType = @AppType
 IF NOT EXISTS(SELECT TOP 1 1 FROM [Universal].[NavigationItem] WHERE [Tag] = @TagLevel2 AND AppType = @AppType)
 	BEGIN
 		INSERT INTO [Universal].[NavigationItem] ([Label], [Icon], [Tag], [ParentId], [AppType])
-		VALUES(@Label, CONVERT(INT, 0xEF58), @TagLevel2, @ParentId, @AppType)
+		VALUES(@Label, CONVERT(INT, 0xE787), @TagLevel2, @ParentId, @AppType)
 	END
 -- 3.0.0
 SET @Label = 'Operations'
@@ -72,7 +72,42 @@ SET @TagLevel1 = 'AppLogs'
 IF NOT EXISTS(SELECT TOP 1 1 FROM [Universal].[NavigationItem] WHERE [Tag] = @TagLevel1 AND AppType = @AppType)
 	BEGIN
 		INSERT INTO [Universal].[NavigationItem] ([Label], [Icon], [Tag], [ParentId], [AppType])
-		VALUES(@Label, CONVERT(INT, 0xE7BA), @TagLevel1, NULL, @AppType)
+		VALUES(@Label, CONVERT(INT, 0xE9D9), @TagLevel1, NULL, @AppType)
+	END
+-- 99.0.0
+SET @Label = 'Administration'
+SET @TagLevel1 = @Label
+IF NOT EXISTS(SELECT TOP 1 1 FROM [Universal].[NavigationItem] WHERE [Tag] = @TagLevel1 AND AppType = @AppType)
+	BEGIN
+		INSERT INTO [Universal].[NavigationItem] ([Label], [Icon], [Tag], [ParentId], [AppType])
+		VALUES(@Label, CONVERT(INT, 0xE7EF), @TagLevel1, NULL, @AppType)
+	END
+-- 99.1.0
+SET @Label = 'Permissions'
+SET @TagLevel2 = @Label
+SELECT @ParentId = [NavigationItemId] FROM [Universal].[NavigationItem] WHERE [Tag] = @TagLevel1 AND AppType = @AppType
+IF NOT EXISTS(SELECT TOP 1 1 FROM [Universal].[NavigationItem] WHERE [Tag] = @TagLevel2 AND AppType = @AppType)
+	BEGIN
+		INSERT INTO [Universal].[NavigationItem] ([Label], [Icon], [Tag], [ParentId], [AppType])
+		VALUES(@Label, CONVERT(INT, 0xE8D7), @TagLevel2, @ParentId, @AppType)
+	END
+-- 99.2.0
+SET @Label = 'Roles'
+SET @TagLevel2 = @Label
+SELECT @ParentId = [NavigationItemId] FROM [Universal].[NavigationItem] WHERE [Tag] = @TagLevel1 AND AppType = @AppType
+IF NOT EXISTS(SELECT TOP 1 1 FROM [Universal].[NavigationItem] WHERE [Tag] = @TagLevel2 AND AppType = @AppType)
+	BEGIN
+		INSERT INTO [Universal].[NavigationItem] ([Label], [Icon], [Tag], [ParentId], [AppType])
+		VALUES(@Label, CONVERT(INT, 0xEE57), @TagLevel2, @ParentId, @AppType)
+	END
+-- 99.3.0
+SET @Label = 'Users'
+SET @TagLevel2 = @Label
+SELECT @ParentId = [NavigationItemId] FROM [Universal].[NavigationItem] WHERE [Tag] = @TagLevel1 AND AppType = @AppType
+IF NOT EXISTS(SELECT TOP 1 1 FROM [Universal].[NavigationItem] WHERE [Tag] = @TagLevel2 AND AppType = @AppType)
+	BEGIN
+		INSERT INTO [Universal].[NavigationItem] ([Label], [Icon], [Tag], [ParentId], [AppType])
+		VALUES(@Label, CONVERT(INT, 0xE7EE), @TagLevel2, @ParentId, @AppType)
 	END
 
 PRINT 'NavigationItem loaded.'
