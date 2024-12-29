@@ -14,13 +14,13 @@
 		<DataTemplate x:Key="HeaderTemplate">
 			<Grid>
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="32"/>
+					<ColumnDefinition Width="47"/>
 					<ColumnDefinition Width="100"/>
 					<ColumnDefinition Width="80"/>
+					<ColumnDefinition Width="90"/>
+					<ColumnDefinition Width="70"/>
+					<ColumnDefinition Width="1*"/>
 					<ColumnDefinition Width="80"/>
-					<ColumnDefinition Width="100"/>
-					<ColumnDefinition Width="1*"/>
-					<ColumnDefinition Width="1*"/>
 					<ColumnDefinition Width="1*"/>
 					<ColumnDefinition Width="2*"/>
 				</Grid.ColumnDefinitions>
@@ -42,10 +42,10 @@
 						<ColumnDefinition Width="32"/>
 						<ColumnDefinition Width="100"/>
 						<ColumnDefinition Width="80"/>
+						<ColumnDefinition Width="90"/>
+						<ColumnDefinition Width="70"/>
+						<ColumnDefinition Width="1*"/>
 						<ColumnDefinition Width="80"/>
-						<ColumnDefinition Width="100"/>
-						<ColumnDefinition Width="1*"/>
-						<ColumnDefinition Width="1*"/>
 						<ColumnDefinition Width="1*"/>
 						<ColumnDefinition Width="2*"/>
 					</Grid.ColumnDefinitions>

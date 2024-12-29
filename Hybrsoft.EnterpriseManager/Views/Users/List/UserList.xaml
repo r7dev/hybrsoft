@@ -14,7 +14,7 @@
 		<DataTemplate x:Key="HeaderTemplate">
 			<Grid>
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="40"/>
+					<ColumnDefinition Width="55"/>
 					<ColumnDefinition Width="8*"/>
 					<ColumnDefinition Width="10*"/>
 					<ColumnDefinition Width="12*"/>
