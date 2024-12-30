@@ -10,17 +10,6 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.Domain.ViewModels
 {
-	#region UserDetailsArgs
-	public class UserDetailsArgs
-	{
-		static public UserDetailsArgs CreateDefault() => new();
-
-		public long UserID { get; set; }
-
-		public bool IsNew => UserID <= 0;
-	}
-	#endregion
-
 	public partial class UserDetailsViewModel(IUserService userService, ICommonServices commonServices) : GenericDetailsViewModel<UserDto>(commonServices)
 	{
 		public IUserService UserService { get; } = userService;

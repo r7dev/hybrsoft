@@ -1,12 +1,11 @@
-﻿using Hybrsoft.Domain.Infrastructure.Commom;
-using Hybrsoft.Domain.Infrastructure.ViewModels;
+﻿using Hybrsoft.Domain.Infrastructure.ViewModels;
 using Hybrsoft.Domain.Interfaces;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
 using System.Threading.Tasks;
 
 namespace Hybrsoft.Domain.ViewModels
 {
-	public class UsersViewModel : ViewModelBase
+	public partial class UsersViewModel : ViewModelBase
 	{
 		public UsersViewModel(IUserService userService, ICommonServices commonServices) : base(commonServices)
 		{

@@ -1,5 +1,4 @@
-﻿using Hybrsoft.Domain.Infrastructure.Commom;
-using Hybrsoft.Domain.Infrastructure.ViewModels;
+﻿using Hybrsoft.Domain.Infrastructure.ViewModels;
 using Hybrsoft.Domain.ViewModels;
 using Hybrsoft.EnterpriseManager.Extensions;
 using System;

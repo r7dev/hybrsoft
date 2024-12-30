@@ -2,7 +2,7 @@
 using System;
 using System.Linq.Expressions;
 
-namespace Hybrsoft.Domain.Infrastructure.Commom
+namespace Hybrsoft.Domain.ViewModels
 {
 	public class AppLogListArgs
 	{

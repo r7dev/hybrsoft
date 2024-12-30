@@ -1,4 +1,4 @@
-﻿namespace Hybrsoft.Domain.Infrastructure.Commom
+﻿namespace Hybrsoft.Domain.ViewModels
 {
 	public class AppLogDetailsArgs
 	{

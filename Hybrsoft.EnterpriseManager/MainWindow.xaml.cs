@@ -1,5 +1,6 @@
 using Hybrsoft.Domain.Infrastructure.Commom;
 using Hybrsoft.Domain.Interfaces.Infrastructure; //Used with SKIP_LOGIN
+using Hybrsoft.Domain.ViewModels;
 using Hybrsoft.EnterpriseManager.Configuration; //Used with SKIP_LOGIN
 using Hybrsoft.EnterpriseManager.Extensions;
 using Hybrsoft.EnterpriseManager.Services.Infrastructure;

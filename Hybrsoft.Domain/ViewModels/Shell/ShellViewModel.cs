@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.Domain.ViewModels
 {
-    public partial class ShellViewModel(ICommonServices commonServices) : ViewModelBase(commonServices)
+	public partial class ShellViewModel(ICommonServices commonServices) : ViewModelBase(commonServices)
 	{
 		private bool _isEnabled = true;
 		public bool IsEnabled

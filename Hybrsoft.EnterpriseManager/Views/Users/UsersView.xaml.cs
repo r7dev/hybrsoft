@@ -1,4 +1,3 @@
-using Hybrsoft.Domain.Infrastructure.Commom;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
 using Hybrsoft.Domain.ViewModels;
 using Hybrsoft.EnterpriseManager.Configuration;

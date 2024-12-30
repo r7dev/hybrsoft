@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Hybrsoft.Domain.Infrastructure.Commom;
+using System;
 
-namespace Hybrsoft.Domain.Infrastructure.Commom
+namespace Hybrsoft.Domain.ViewModels
 {
 	public class ShellArgs
 	{
