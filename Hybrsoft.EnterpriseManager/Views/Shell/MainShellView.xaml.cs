@@ -62,7 +62,10 @@ namespace Hybrsoft.EnterpriseManager.Views
 		{
 			if (args.SelectedItem is NavigationItemDto item)
 			{
-				ViewModel.NavigateTo(item.ViewModel);
+				if (item.ViewModel != null)
+				{
+					ViewModel.NavigateTo(item.ViewModel);
+				}
 			}
 			else if (args.IsSettingsSelected)
 			{

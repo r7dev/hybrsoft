@@ -1,5 +1,4 @@
 ﻿using Hybrsoft.Domain.Dtos;
-using Hybrsoft.Domain.Infrastructure.Commom;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
 using Hybrsoft.Domain.ViewModels;
 using Hybrsoft.EnterpriseManager.Extensions;
@@ -137,27 +136,19 @@ namespace Hybrsoft.EnterpriseManager.Services
 				.Select(f => new NavigationItemDto(
 					f.Label,
 					f.Icon.Value,
-					f.Tag,
+					f.ViewModel,
 					f.ParentId,
 					new ObservableCollection<NavigationItemDto>(GetNavigationItemByParentId(items, f.NavigationItemId)),
-					GetTypeViewModelByName(f.Tag)));
+					string.IsNullOrEmpty(f.ViewModel) ? null : GetTypeViewModelByName(f.ViewModel)));
 		}
 
-		private static Type GetTypeViewModelByName(string tag)
+		private static Type GetTypeViewModelByName(string view) => view switch
 		{
-			if (tag == "Dashboard")
-			{
-				return typeof(DashboardViewModel);
-			}
-			if (tag == "Users")
-			{
-				return typeof(UsersViewModel);
-			}
-			if (tag == "AppLogs")
-			{
-				return typeof(AppLogsViewModel);
-			}
-			return null;
-		}
+			"DashboardViewModel" => typeof(DashboardViewModel),
+			"PermissionsViewModel" => typeof(PermissionsViewModel),
+			"UsersViewModel" => typeof(UsersViewModel),
+			"AppLogsViewModel" => typeof(AppLogsViewModel),
+			_ => throw new ArgumentOutOfRangeException(nameof(view), $"Not expected view value: {view}"),
+		};
 	}
 }
