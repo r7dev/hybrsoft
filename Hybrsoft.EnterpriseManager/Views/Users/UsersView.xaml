@@ -14,13 +14,12 @@
 		<DataTemplate x:Key="ListHeaderTemplate">
 			<StackPanel Margin="6,4,0,0" Orientation="Horizontal" VerticalAlignment="Center">
 				<TextBlock Text="Users" FontSize="18" />
-				<TextBlock Text="{Binding}" FontSize="18" Foreground="Gray" />
+				<TextBlock Text="{Binding}" FontSize="18" Foreground="{ThemeResource TextFillColorPrimaryBrush}" />
 			</StackPanel>
 		</DataTemplate>
 	</UserControl.Resources>
 
-	<Grid BorderBrush="LightGray"
-		  BorderThickness="1,0,0,0">
+	<Grid>
 		<controls:WindowTitle Prefix="Users" Title="{x:Bind ViewModel.UserList.Title, Mode=OneWay}" />
 
 		<Grid>
