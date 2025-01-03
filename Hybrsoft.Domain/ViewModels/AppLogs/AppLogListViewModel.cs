@@ -157,22 +157,9 @@ namespace Hybrsoft.Domain.ViewModels
 		private async Task DeleteRangesAsync(IEnumerable<IndexRange> ranges)
 		{
 			DataRequest<AppLog> request = BuildDataRequest();
-			bool isFirst = true;
-			int index;
-			int lastLength = 0;
-			foreach (var range in ranges)
+			foreach (var range in ranges.Reverse())
 			{
-				if (isFirst)
-				{
-					isFirst = false;
-					index = range.Index;
-				}
-				else
-				{
-					index = range.Index - lastLength;
-				}
-				lastLength = range.Length;
-				await LogService.DeleteLogRangeAsync(index, range.Length, request);
+				await LogService.DeleteLogRangeAsync(range.Index, range.Length, request);
 			}
 		}
 

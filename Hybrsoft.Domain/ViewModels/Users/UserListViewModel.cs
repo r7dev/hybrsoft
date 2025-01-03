@@ -184,22 +184,9 @@ namespace Hybrsoft.Domain.ViewModels
 				var users = await UserService.GetUsersAsync(range.Index, range.Length, request);
 				models.AddRange(users);
 			}
-			bool isFirst = true;
-			int index;
-			int lastLength = 0;
-			foreach (var range in ranges)
+			foreach (var range in ranges.Reverse())
 			{
-				if (isFirst)
-				{
-					isFirst = false;
-					index = range.Index;
-				}
-				else
-				{
-					index = range.Index - lastLength;
-				}
-				lastLength = range.Length;
-				await UserService.DeleteUserRangeAsync(index, range.Length, request);
+				await UserService.DeleteUserRangeAsync(range.Index, range.Length, request);
 			}
 			foreach (var model in models)
 			{

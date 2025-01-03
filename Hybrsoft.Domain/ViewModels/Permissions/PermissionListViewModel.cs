@@ -131,6 +131,7 @@ namespace Hybrsoft.Domain.ViewModels
 			StatusReady();
 			if (await DialogService.ShowAsync("Confirm Delete", "Are you sure you want to delete selected permissions?", "Delete", "Cancel"))
 			{
+				bool success = false;
 				int count = 0;
 				try
 				{
@@ -138,8 +139,11 @@ namespace Hybrsoft.Domain.ViewModels
 					{
 						count = SelectedIndexRanges.Sum(r => r.Length);
 						StartStatusMessage($"Deleting {count} permissions...");
-						await DeleteRangesAsync(SelectedIndexRanges);
-						MessageService.Send(this, "ItemRangesDeleted", SelectedIndexRanges);
+						success = await DeleteRangesAsync(SelectedIndexRanges);
+						if (success)
+						{
+							MessageService.Send(this, "ItemRangesDeleted", SelectedIndexRanges);
+						}
 					}
 					else if (SelectedItems != null)
 					{
@@ -155,12 +159,19 @@ namespace Hybrsoft.Domain.ViewModels
 					LogException("Permissions", "Delete", ex);
 					count = 0;
 				}
-				await RefreshAsync();
-				SelectedIndexRanges = null;
-				SelectedItems = null;
-				if (count > 0)
+				if (success)
 				{
-					EndStatusMessage($"{count} permissions deleted", LogType.Warning);
+					await RefreshAsync();
+					SelectedIndexRanges = null;
+					SelectedItems = null;
+					if (count > 0)
+					{
+						EndStatusMessage($"{count} permissions deleted", LogType.Warning);
+					}
+				}
+				else
+				{
+					StatusError("Delete not allowed");
 				}
 			}
 		}
@@ -174,7 +185,7 @@ namespace Hybrsoft.Domain.ViewModels
 			}
 		}
 
-		private async Task DeleteRangesAsync(IEnumerable<IndexRange> ranges)
+		private async Task<bool> DeleteRangesAsync(IEnumerable<IndexRange> ranges)
 		{
 			DataRequest<Permission> request = BuildDataRequest();
 
@@ -182,29 +193,23 @@ namespace Hybrsoft.Domain.ViewModels
 			foreach (var range in ranges)
 			{
 				var permissions = await PermissionService.GetPermissionsAsync(range.Index, range.Length, request);
+				var disabledPermission = permissions.FirstOrDefault(f => !f.IsEnabled);
+				if (disabledPermission != null)
+				{
+					await DialogService.ShowAsync("Delete not allowed", new ArgumentException($"Deselect the {disabledPermission.DisplayName} permission!"));
+					return false;
+				}
 				models.AddRange(permissions);
 			}
-			bool isFirst = true;
-			int index;
-			int lastLength = 0;
-			foreach (var range in ranges)
+			foreach (var range in ranges.Reverse())
 			{
-				if (isFirst)
-				{
-					isFirst = false;
-					index = range.Index;
-				}
-				else
-				{
-					index = range.Index - lastLength;
-				}
-				lastLength = range.Length;
-				await PermissionService.DeletePermissionRangeAsync(index, range.Length, request);
+				await PermissionService.DeletePermissionRangeAsync(range.Index, range.Length, request);
 			}
 			foreach (var model in models)
 			{
 				LogWarning(model);
 			}
+			return true;
 		}
 
 		private DataRequest<Permission> BuildDataRequest()
