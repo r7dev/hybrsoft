@@ -144,10 +144,10 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		private static Type GetTypeViewModelByName(string view) => view switch
 		{
-			"DashboardViewModel" => typeof(DashboardViewModel),
-			"PermissionsViewModel" => typeof(PermissionsViewModel),
-			"UsersViewModel" => typeof(UsersViewModel),
-			"AppLogsViewModel" => typeof(AppLogsViewModel),
+			nameof(DashboardViewModel) => typeof(DashboardViewModel),
+			nameof(PermissionsViewModel) => typeof(PermissionsViewModel),
+			nameof(UsersViewModel) => typeof(UsersViewModel),
+			nameof(AppLogsViewModel) => typeof(AppLogsViewModel),
 			_ => throw new ArgumentOutOfRangeException(nameof(view), $"Not expected view value: {view}"),
 		};
 	}
