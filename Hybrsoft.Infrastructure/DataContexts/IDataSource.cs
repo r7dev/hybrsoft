@@ -12,6 +12,7 @@ namespace Hybrsoft.Infrastructure.DataContexts
 		public DbSet<AppLog> AppLogs { get; set; }
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<NavigationItem> NavigationItems { get; set; }
+		public DbSet<Permission> Permissions { get; set; }
 		public DbSet<User> Users { get; set; }
 
 		EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;

@@ -41,6 +41,10 @@
     <None Remove="Views\AppLogs\List\AppLogsList.xaml" />
     <None Remove="Views\Dashboard\DashboardView.xaml" />
     <None Remove="Views\Login\LoginView.xaml" />
+    <None Remove="Views\Permissions\List\PermissionList.xaml" />
+    <None Remove="Views\Permissions\PermissionsView.xaml" />
+    <None Remove="Views\Permission\Details\PermissionDetails.xaml" />
+    <None Remove="Views\Permission\PermissionView.xaml" />
     <None Remove="Views\Shell\MainShellView.xaml" />
     <None Remove="Views\Shell\ShellView.xaml" />
     <None Remove="Views\SplashScreen\ExtendedSplash.xaml" />
@@ -134,6 +138,26 @@
   <ItemGroup>
     <Folder Include="Assets\Images\" />
     <Folder Include="Strings\en-us\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Permissions\PermissionsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Permissions\List\PermissionList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Permission\PermissionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Permission\Details\PermissionDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Controls\Buttons\CopyButton.xaml">

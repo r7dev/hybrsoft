@@ -18,6 +18,13 @@ namespace Hybrsoft.Infrastructure.DataServices
 		Task<int> DeleteLogsAsync(params AppLog[] logs);
 		Task MarkAllAsReadAsync();
 
+		Task<Permission> GetPermissionAsync(long id);
+		Task<IList<Permission>> GetPermissionsAsync(int skip, int take, DataRequest<Permission> request);
+		Task<IList<Permission>> GetPermissionKeysAsync(int skip, int take, DataRequest<Permission> request);
+		Task<int> GetPermissionsCountAsync(DataRequest<Permission> request);
+		Task<int> UpdatePermissionAsync(Permission permission);
+		Task<int> DeletePermissionsAsync(params Permission[] permission);
+
 		Task<User> GetUserAsync(long id);
 		Task<IList<User>> GetUsersAsync(int skip, int take, DataRequest<User> request);
 		Task<IList<User>> GetUserKeysAsync(int skip, int take, DataRequest<User> request);

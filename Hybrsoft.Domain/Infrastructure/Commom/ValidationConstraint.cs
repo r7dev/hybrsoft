@@ -204,4 +204,26 @@ namespace Hybrsoft.Domain.Infrastructure.Commom
 
 		public string Message => $"Property '{PropertyName}' is not a valid email address.";
 	}
+
+	public class AlphanumericValidationConstraint<T>(string propertyName, Func<T, string> propertyValue) : IValidationConstraint<T>
+	{
+		public string PropertyName { get; set; } = propertyName;
+		private readonly Func<T, string> _propertyValue = propertyValue;
+		private readonly string _pattern = @"^[a-zA-Z0-9]*$";
+
+		public Func<T, bool> Validate => ValidateAlphanumeric;
+
+		private bool ValidateAlphanumeric(T model)
+		{
+			var value = _propertyValue(model);
+			if (string.IsNullOrEmpty(value))
+			{
+				return false;
+			}
+			return System.Text.RegularExpressions.Regex.IsMatch(value, _pattern);
+		}
+
+		public string Message => $"Property '{PropertyName}' must be alphanumeric.";
+	}
+
 }

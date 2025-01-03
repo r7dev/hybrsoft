@@ -1,5 +1,4 @@
 ﻿using Hybrsoft.Domain.Dtos;
-using Hybrsoft.Domain.Infrastructure.Commom;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
 using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.Enums;
@@ -62,19 +61,19 @@ namespace Hybrsoft.Domain.ViewModels
 		{
 			switch (viewModel.Name)
 			{
-				case "DashboardViewModel":
+				case nameof(DashboardViewModel):
 					NavigationService.Navigate(viewModel);
 					break;
-				case "UsersViewModel":
+				case nameof(PermissionsViewModel):
+					NavigationService.Navigate(viewModel, new PermissionListArgs());
+					break;
+				case nameof(UsersViewModel):
 					NavigationService.Navigate(viewModel, new UserListArgs());
 					break;
-				//case "OrdersViewModel":
-				//	NavigationService.Navigate(viewModel, new OrderListArgs());
-				//	break;
 				//case "ProductsViewModel":
 				//	NavigationService.Navigate(viewModel, new ProductListArgs());
 				//	break;
-				case "AppLogsViewModel":
+				case nameof(AppLogsViewModel):
 					NavigationService.Navigate(viewModel, new AppLogListArgs());
 					await LogService.MarkAllAsReadAsync();
 					await UpdateAppLogBadge();
@@ -107,7 +106,7 @@ namespace Hybrsoft.Domain.ViewModels
 		{
 			var request = new DataRequest<AppLog> { Where = r => !r.IsRead && r.AppType == AppType.EnterpriseManager };
 			int count = await LogService.GetLogsCountAsync(request);
-			var appLogsItem = NavigationItems.FirstOrDefault(f => f.Tag == "AppLogs");
+			var appLogsItem = NavigationItems.FirstOrDefault(f => f.Tag == nameof(AppLogsViewModel));
 			if (appLogsItem != null)
 			{
 				appLogsItem.Badge = count > 0

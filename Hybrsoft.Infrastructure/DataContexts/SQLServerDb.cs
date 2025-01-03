@@ -5,6 +5,7 @@ namespace Hybrsoft.Infrastructure.DataContexts
 {
 	public partial class SQLServerDb(string connectionString) : DbContext, IDataSource
 	{
+		private const string SchemaUniversal = "Universal";
 		private readonly string _connectionString = connectionString;
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -15,17 +16,19 @@ namespace Hybrsoft.Infrastructure.DataContexts
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.HasDefaultSchema("Universal");
-			modelBuilder.Entity<AppLog>().ToTable("AppLog", "Universal");
-			modelBuilder.Entity<Category>().ToTable("Category", "Universal");
-			modelBuilder.Entity<NavigationItem>().ToTable("NavigationItem", "Universal");
-			modelBuilder.Entity<User>().ToTable("User", "Universal");
+			modelBuilder.HasDefaultSchema(SchemaUniversal);
+			modelBuilder.Entity<AppLog>().ToTable("AppLog", SchemaUniversal);
+			modelBuilder.Entity<Category>().ToTable("Category", SchemaUniversal);
+			modelBuilder.Entity<NavigationItem>().ToTable("NavigationItem", SchemaUniversal);
+			modelBuilder.Entity<Permission>().ToTable("Permission", SchemaUniversal);
+			modelBuilder.Entity<User>().ToTable("User", SchemaUniversal);
 			base.OnModelCreating(modelBuilder);
 		}
 
 		public DbSet<AppLog> AppLogs { get; set; }
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<NavigationItem> NavigationItems { get; set; }
+		public DbSet<Permission> Permissions { get; set; }
 		public DbSet<User> Users { get; set; }
 	}
 }
