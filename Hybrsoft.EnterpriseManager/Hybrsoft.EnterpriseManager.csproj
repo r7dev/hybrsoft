@@ -43,6 +43,7 @@
     <None Remove="Views\Login\LoginView.xaml" />
     <None Remove="Views\Permissions\List\PermissionList.xaml" />
     <None Remove="Views\Permissions\PermissionsView.xaml" />
+    <None Remove="Views\Permission\Details\PermissionCard.xaml" />
     <None Remove="Views\Permission\Details\PermissionDetails.xaml" />
     <None Remove="Views\Permission\PermissionView.xaml" />
     <None Remove="Views\Shell\MainShellView.xaml" />
@@ -138,6 +139,11 @@
   <ItemGroup>
     <Folder Include="Assets\Images\" />
     <Folder Include="Strings\en-us\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Permission\Details\PermissionCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Permissions\PermissionsView.xaml">
