@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
+using Windows.Graphics;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -28,6 +29,7 @@ namespace Hybrsoft.EnterpriseManager
 
 		public Window MainWindow { get; set; }
 		public Window CurrentView { get; set; }
+		public SizeInt32 WindowSizeDefault { get; } = new() { Width = 1280, Height = 840 };
 
 		/// <summary>
 		/// Initializes the singleton application object.  This is the first line of authored code
@@ -82,16 +84,15 @@ namespace Hybrsoft.EnterpriseManager
 
 		private async Task ActivateAsync(Windows.ApplicationModel.Activation.IActivatedEventArgs args)
 		{
-			var windowSize = new Windows.Graphics.SizeInt32 { Width = 1280, Height = 840 };
 			splash_Screen = new ExtendedSplash();
-			splash_Screen.AppWindow.Resize(windowSize);
+			splash_Screen.SetDefaultWindowSize();
 			await splash_Screen.SetWindowPositionToCenterAsync();
 			splash_Screen.Activate();
 			await Task.Delay(2000);
 
 			m_window = new MainWindow(args);
-			AppWindowExtensions.SetDefaultIcon(m_window.AppWindow);
-			m_window.AppWindow.Resize(windowSize);
+			m_window.SetDefaultIcon();
+			m_window.SetDefaultWindowSize();
 			await m_window.SetWindowPositionToCenterAsync();
 			m_window.Activate();
 

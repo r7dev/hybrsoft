@@ -93,7 +93,9 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<int> CreateNewViewAsync(Type viewModelType, object parameter = null)
 		{
 			Window newWindow = new();
-			AppWindowExtensions.SetDefaultIcon(newWindow.AppWindow);
+			newWindow.SetDefaultIcon();
+			newWindow.SetDefaultWindowSize();
+			await newWindow.SetWindowPositionToCenterAsync();
 			((App)Application.Current).CurrentView = newWindow;
 
 			var frame = new Frame();

@@ -22,9 +22,9 @@ namespace Hybrsoft.EnterpriseManager.Extensions
 			return AppWindow.GetFromWindowId(windowId);
 		}
 
-		public static void SetDefaultIcon(AppWindow appWindow)
+		public static void SetDefaultIcon(this Window window)
 		{
-			appWindow.SetIcon("Assets/default.ico");
+			window.AppWindow.SetIcon("Assets/default.ico");
 		}
 
 		public static bool IsMain(this Window window)
@@ -50,6 +50,12 @@ namespace Hybrsoft.EnterpriseManager.Extensions
 			CenterPosition.X = (Width - appWindow.Size.Width) / 2;
 			CenterPosition.Y = (Height - appWindow.Size.Height) / 2;
 			appWindow.Move(CenterPosition);
+		}
+
+		public static void SetDefaultWindowSize(this Window window)
+		{
+			AppWindow appWindow = GetAppWindow(window);
+			appWindow.Resize(((App)Application.Current).WindowSizeDefault);
 		}
 	}
 }
