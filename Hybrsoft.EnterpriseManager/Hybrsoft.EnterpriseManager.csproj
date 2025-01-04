@@ -51,6 +51,7 @@
     <None Remove="Views\SplashScreen\ExtendedSplash.xaml" />
     <None Remove="Views\Users\List\UserList.xaml" />
     <None Remove="Views\Users\UsersView.xaml" />
+    <None Remove="Views\User\Details\UserCard.xaml" />
     <None Remove="Views\User\Details\UserDetails.xaml" />
     <None Remove="Views\User\UserView.xaml" />
   </ItemGroup>
@@ -139,6 +140,11 @@
   <ItemGroup>
     <Folder Include="Assets\Images\" />
     <Folder Include="Strings\en-us\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\User\Details\UserCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Permission\Details\PermissionCard.xaml">
