@@ -17,7 +17,9 @@
 				<TextBlock Text="Permission Information" Style="{StaticResource FormsSection}" controls:FluidGrid.ColumnSpan="2" />
 				<controls:FormTextBox Header="Name" Text="{x:Bind EditableItem.Name, Mode=TwoWay}" />
 				<controls:FormTextBox Header="Display Name" Text="{x:Bind EditableItem.DisplayName, Mode=TwoWay}" />
-				<controls:FormTextBox Header="Description" Text="{x:Bind EditableItem.Description, Mode=TwoWay}" />
+				<controls:FormTextBox Header="Description"
+									  Text="{x:Bind EditableItem.Description, Mode=TwoWay}"
+									  controls:FluidGrid.ColumnSpan="2"/>
 			</controls:FluidGrid>
 		</DataTemplate>
 	</UserControl.Resources>
