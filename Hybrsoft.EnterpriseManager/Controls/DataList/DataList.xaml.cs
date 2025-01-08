@@ -329,6 +329,17 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			}
 		}
 
+		private void OnPreviewKeyDown(object sender, KeyRoutedEventArgs e)
+		{
+			if (!IsMultipleSelection)
+			{
+				if (e.Key == Windows.System.VirtualKey.Enter)
+				{
+					ItemSecondaryActionInvokedCommand?.TryExecute(listview.SelectedItem);
+				}
+			}
+		}
+
 		private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			if (IsMultipleSelection)
