@@ -28,6 +28,10 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 		}
 		public async Task WriteAsync(LogType type, string source, string action, string message, string description)
 		{
+			int maxDescriptionLength = 4000;
+			string refinedDescription = !string.IsNullOrEmpty(description) && description.Length > maxDescriptionLength
+				? description[..maxDescriptionLength]
+				: description;
 			var appLog = new AppLog
 			{
 				User = AppSettings.Current.UserName ?? "App",
@@ -35,7 +39,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 				Source = source,
 				Action = action,
 				Message = message,
-				Description = description,
+				Description = refinedDescription,
 				AppType = AppType.EnterpriseManager,
 				IsRead = type != LogType.Error
 			};
