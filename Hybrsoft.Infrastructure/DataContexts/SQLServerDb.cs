@@ -21,6 +21,8 @@ namespace Hybrsoft.Infrastructure.DataContexts
 			modelBuilder.Entity<Category>().ToTable("Category", SchemaUniversal);
 			modelBuilder.Entity<NavigationItem>().ToTable("NavigationItem", SchemaUniversal);
 			modelBuilder.Entity<Permission>().ToTable("Permission", SchemaUniversal);
+			modelBuilder.Entity<Role>().ToTable("Role", SchemaUniversal);
+			modelBuilder.Entity<RolePermission>().ToTable("RolePermission", SchemaUniversal);
 			modelBuilder.Entity<User>().ToTable("User", SchemaUniversal);
 			base.OnModelCreating(modelBuilder);
 		}
@@ -29,6 +31,8 @@ namespace Hybrsoft.Infrastructure.DataContexts
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<NavigationItem> NavigationItems { get; set; }
 		public DbSet<Permission> Permissions { get; set; }
+		public DbSet<Role> Roles { get; set; }
+		public DbSet<RolePermission> RolePermissions { get; set; }
 		public DbSet<User> Users { get; set; }
 	}
 }

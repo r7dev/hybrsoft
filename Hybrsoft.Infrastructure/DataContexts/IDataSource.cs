@@ -13,6 +13,8 @@ namespace Hybrsoft.Infrastructure.DataContexts
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<NavigationItem> NavigationItems { get; set; }
 		public DbSet<Permission> Permissions { get; set; }
+		public DbSet<Role> Roles { get; set; }
+		public DbSet<RolePermission> RolePermissions { get; set; }
 		public DbSet<User> Users { get; set; }
 
 		EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;

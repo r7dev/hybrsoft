@@ -67,12 +67,12 @@ namespace Hybrsoft.Domain.ViewModels
 				case nameof(PermissionsViewModel):
 					NavigationService.Navigate(viewModel, new PermissionListArgs());
 					break;
+				case nameof(RolesViewModel):
+					NavigationService.Navigate(viewModel, new RoleListArgs());
+					break;
 				case nameof(UsersViewModel):
 					NavigationService.Navigate(viewModel, new UserListArgs());
 					break;
-				//case "ProductsViewModel":
-				//	NavigationService.Navigate(viewModel, new ProductListArgs());
-				//	break;
 				case nameof(AppLogsViewModel):
 					NavigationService.Navigate(viewModel, new AppLogListArgs());
 					await LogService.MarkAllAsReadAsync();
@@ -82,7 +82,7 @@ namespace Hybrsoft.Domain.ViewModels
 				//	NavigationService.Navigate(viewModel, new SettingsArgs());
 				//	break;
 				default:
-					throw new NotImplementedException();
+					throw new ArgumentOutOfRangeException(nameof(viewModel), $"Not expected view value: {viewModel.Name}");
 			}
 		}
 

@@ -86,7 +86,7 @@ SELECT @ParentId = [NavigationItemId] FROM [Universal].[NavigationItem] WHERE [L
 IF NOT EXISTS(SELECT TOP 1 1 FROM [Universal].[NavigationItem] WHERE [Label] = @LabelLevel2 AND AppType = @AppType)
 	BEGIN
 		INSERT INTO [Universal].[NavigationItem] ([Label], [Icon], [ViewModel], [ParentId], [AppType])
-		VALUES(@LabelLevel2, CONVERT(INT, 0xEE57), NULL, @ParentId, @AppType)
+		VALUES(@LabelLevel2, CONVERT(INT, 0xEE57), 'RolesViewModel', @ParentId, @AppType)
 	END
 -- 99.3.0
 SET @LabelLevel2 = 'Users'

@@ -70,6 +70,8 @@
     <Build Include="Schema\Universal\Tables\Category.sql" />
     <PreDeploy Include="Script-Pre\PreDeployment.sql" />
     <Build Include="Schema\Universal\Tables\Permission.sql" />
+    <Build Include="Schema\Universal\Tables\Role.sql" />
+    <Build Include="Schema\Universal\Tables\RolePermission.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Schema\Universal\Script-Post\PostDeployment.sql" />

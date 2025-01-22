@@ -26,6 +26,7 @@
     <None Remove="Controls\Login\LoginNamePassword.xaml" />
     <None Remove="Controls\Login\LoginWindowsHello.xaml" />
     <None Remove="Controls\Search\Search.xaml" />
+    <None Remove="Controls\Suggest\PermissionSuggestBox.xaml" />
     <None Remove="Controls\Toolbars\DetailToolbar.xaml" />
     <None Remove="Controls\Toolbars\ListToolbar.xaml" />
     <None Remove="Styles\Buttons.xaml" />
@@ -34,6 +35,7 @@
     <None Remove="Styles\Sections.xaml" />
     <None Remove="Styles\ToolBar.xaml" />
     <None Remove="Themes\Controls\Buttons.xaml" />
+    <None Remove="Themes\Controls\FormAutoSuggestBox.xaml" />
     <None Remove="Themes\Controls\FormTextBox.xaml" />
     <None Remove="Themes\Controls\Section.xaml" />
     <None Remove="Views\AppLogs\AppLogsView.xaml" />
@@ -46,6 +48,14 @@
     <None Remove="Views\Permission\Details\PermissionCard.xaml" />
     <None Remove="Views\Permission\Details\PermissionDetails.xaml" />
     <None Remove="Views\Permission\PermissionView.xaml" />
+    <None Remove="Views\RolePermission\Details\RolePermissionCard.xaml" />
+    <None Remove="Views\RolePermission\Details\RolePermissionDetails.xaml" />
+    <None Remove="Views\RolePermission\RolePermissionView.xaml" />
+    <None Remove="Views\Roles\List\RoleList.xaml" />
+    <None Remove="Views\Roles\RolesView.xaml" />
+    <None Remove="Views\Role\Details\RoleCard.xaml" />
+    <None Remove="Views\Role\Details\RoleDetails.xaml" />
+    <None Remove="Views\Role\RoleView.xaml" />
     <None Remove="Views\Shell\MainShellView.xaml" />
     <None Remove="Views\Shell\ShellView.xaml" />
     <None Remove="Views\SplashScreen\ExtendedSplash.xaml" />
@@ -140,6 +150,62 @@
   <ItemGroup>
     <Folder Include="Assets\Images\" />
     <Folder Include="Strings\en-us\" />
+    <Folder Include="Views\Roles\Details\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\RolePermission\Details\RolePermissionCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Themes\Controls\FormAutoSuggestBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Roles\Details\RolesRolePermissions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\RolePermission\RolePermissionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\Suggest\PermissionSuggestBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\RolePermission\Details\RolePermissionDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Roles\RolesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Roles\List\RoleList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Role\RoleView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Role\Details\RoleDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Role\Details\RoleCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\User\Details\UserCard.xaml">

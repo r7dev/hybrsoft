@@ -29,6 +29,12 @@
 		<Setter Property="TextAlignment" Value="Right" />
 	</Style>
 
+	<Style x:Key="RowItemStyle" TargetType="ListViewItem">
+		<Setter Property="Padding" Value="0" />
+		<Setter Property="MinHeight" Value="8" />
+		<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+	</Style>
+
 	<Style x:Key="GridItemStyle" TargetType="GridViewItem">
 		<Setter Property="Margin" Value="6" />
 		<Setter Property="MinHeight" Value="8" />

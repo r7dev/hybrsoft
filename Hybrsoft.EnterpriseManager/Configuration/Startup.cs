@@ -31,6 +31,12 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 
 			NavigationService.Register<PermissionsViewModel, PermissionsView>();
 			NavigationService.Register<PermissionDetailsViewModel, PermissionView>();
+
+			NavigationService.Register<RolesViewModel, RolesView>();
+			NavigationService.Register<RoleDetailsViewModel, RoleView>();
+
+			NavigationService.Register<RolePermissionDetailsViewModel, RolePermissionView>();
+
 			NavigationService.Register<UsersViewModel, UsersView>();
 			NavigationService.Register<UserDetailsViewModel, UserView>();
 

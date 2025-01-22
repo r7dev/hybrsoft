@@ -25,6 +25,8 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			serviceCollection.AddSingleton<ISettingsService, SettingsService>();
 			serviceCollection.AddSingleton<IDataServiceFactory, DataServiceFactory>();
 			serviceCollection.AddSingleton<IPermissionService, PermissionService>();
+			serviceCollection.AddSingleton<IRoleService, RoleService>();
+			serviceCollection.AddSingleton<IRolePermissionService, RolePermissionService>();
 			serviceCollection.AddSingleton<IUserService, UserService>();
 
 			serviceCollection.AddSingleton<IMessageService, MessageService>();
@@ -45,6 +47,13 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 
 			serviceCollection.AddTransient<PermissionsViewModel>();
 			serviceCollection.AddTransient<PermissionDetailsViewModel>();
+
+			serviceCollection.AddTransient<RolesViewModel>();
+			serviceCollection.AddTransient<RoleDetailsViewModel>();
+			serviceCollection.AddTransient<RoleDetailsWithPermissionsViewModel>();
+
+			serviceCollection.AddTransient<RolePermissionDetailsViewModel>();
+
 			serviceCollection.AddTransient<UsersViewModel>();
 			serviceCollection.AddTransient<UserDetailsViewModel>();
 

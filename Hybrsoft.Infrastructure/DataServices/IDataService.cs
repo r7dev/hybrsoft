@@ -25,6 +25,20 @@ namespace Hybrsoft.Infrastructure.DataServices
 		Task<int> UpdatePermissionAsync(Permission permission);
 		Task<int> DeletePermissionsAsync(params Permission[] permission);
 
+		Task<Role> GetRoleAsync(long id);
+		Task<IList<Role>> GetRolesAsync(int skip, int take, DataRequest<Role> request);
+		Task<IList<Role>> GetRoleKeysAsync(int skip, int take, DataRequest<Role> request);
+		Task<int> GetRolesCountAsync(DataRequest<Role> request);
+		Task<int> UpdateRoleAsync(Role role);
+		Task<int> DeleteRolesAsync(params Role[] roles);
+
+		Task<RolePermission> GetRolePermissionAsync(long rolePermissionId);
+		Task<IList<RolePermission>> GetRolePermissionsAsync(int skip, int take, DataRequest<RolePermission> request);
+		Task<IList<RolePermission>> GetRolePermissionKeysAsync(int skip, int take, DataRequest<RolePermission> request);
+		Task<int> GetRolePermissionsCountAsync(DataRequest<RolePermission> request);
+		Task<int> UpdateRolePermissionAsync(RolePermission rolePermission);
+		Task<int> DeleteRolePermissionsAsync(params RolePermission[] rolePermissions);
+
 		Task<User> GetUserAsync(long id);
 		Task<IList<User>> GetUsersAsync(int skip, int take, DataRequest<User> request);
 		Task<IList<User>> GetUserKeysAsync(int skip, int take, DataRequest<User> request);

@@ -148,6 +148,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			nameof(DashboardViewModel) => typeof(DashboardViewModel),
 			nameof(PermissionsViewModel) => typeof(PermissionsViewModel),
+			nameof(RolesViewModel) => typeof(RolesViewModel),
 			nameof(UsersViewModel) => typeof(UsersViewModel),
 			nameof(AppLogsViewModel) => typeof(AppLogsViewModel),
 			_ => throw new ArgumentOutOfRangeException(nameof(view), $"Not expected view value: {view}"),
