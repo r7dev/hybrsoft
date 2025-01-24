@@ -25,6 +25,7 @@
 		<Grid>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="*"/>
+				<RowDefinition Height="*"/>
 			</Grid.RowDefinitions>
 
 			<!--Users-->
@@ -36,6 +37,27 @@
 								  IsButtonVisible="{x:Bind ViewModel.IsMainView}">
 					<views:UserList ViewModel="{x:Bind ViewModel.UserList}" />
 				</controls:Section>
+			</Grid>
+
+			<!--User Details-->
+			<Grid Grid.Row="1"
+				  BorderBrush="LightGray"
+				  BorderThickness="0,1,0,0"
+				  Visibility="{x:Bind ViewModel.UserList.IsMultipleSelection, Mode=OneWay, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+				<controls:Section IsEnabled="{x:Bind ViewModel.UserDetails.IsEnabled, Mode=OneWay}" 
+								  Background="{StaticResource DetailsViewBackgroundColor}" 
+								  Visibility="{x:Bind ViewModel.UserDetails.IsDataAvailable, Mode=OneWay}">
+
+					<Pivot x:Name="pivot">
+						<PivotItem Header="User Roles">
+							<views:UsersUserRoles Grid.Row="1" ViewModel="{x:Bind ViewModel.UserRoleList}" />
+						</PivotItem>
+					</Pivot>
+
+				</controls:Section>
+				<!--Empty Details-->
+				<controls:Section Header="No item selected" 
+								  Visibility="{x:Bind ViewModel.UserDetails.IsDataUnavailable, Mode=OneWay}" />
 			</Grid>
 		</Grid>
 	</Grid>

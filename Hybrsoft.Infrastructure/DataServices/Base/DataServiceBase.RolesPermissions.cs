@@ -26,7 +26,8 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			// Execute
 			var records = await items.Skip(skip).Take(take)
 				.Include(r => r.Permission)
-				.AsNoTracking().ToListAsync();
+				.AsNoTracking()
+				.ToListAsync();
 
 			return records;
 		}

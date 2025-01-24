@@ -29,18 +29,31 @@
 		</Grid.ColumnDefinitions>
 
 		<Border BorderBrush="LightGray" BorderThickness="0,1,1,0" Background="{StaticResource DetailsViewBackgroundColor}">
-			<views:UserCard Margin="6" Item="{x:Bind ViewModel.Item, Mode=OneWay}" />
+			<views:UserCard Margin="6" Item="{x:Bind ViewModel.UserDetails.Item, Mode=OneWay}" />
 		</Border>
 
-		<controls:Details x:Name="details" Grid.Column="1" Margin="6"
-				  DetailsContent="{x:Bind ViewModel}"
-				  DetailsTemplate="{StaticResource DetailsTemplate}"
-				  CanGoBack="{x:Bind ViewModel.CanGoBack}"
-				  IsEditMode="{x:Bind ViewModel.IsEditMode, Mode=OneWay}"
-				  BackCommand="{x:Bind ViewModel.BackCommand}"
-				  EditCommand="{x:Bind ViewModel.EditCommand}"
-				  DeleteCommand="{x:Bind ViewModel.DeleteCommand}"
-				  SaveCommand="{x:Bind ViewModel.SaveCommand}"
-				  CancelCommand="{x:Bind ViewModel.CancelCommand}" />
+		<Grid Grid.Column="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+
+			<controls:Details x:Name="details" Margin="6" Grid.RowSpan="{x:Bind GetRowSpan(ViewModel.UserDetails.ItemIsNew), Mode=OneWay}"
+							  DetailsContent="{x:Bind ViewModel.UserDetails}"
+							  DetailsTemplate="{StaticResource DetailsTemplate}"
+							  CanGoBack="{x:Bind ViewModel.UserDetails.CanGoBack}"
+							  IsEditMode="{x:Bind ViewModel.UserDetails.IsEditMode, Mode=OneWay}"
+							  BackCommand="{x:Bind ViewModel.UserDetails.BackCommand}"
+							  EditCommand="{x:Bind ViewModel.UserDetails.EditCommand}"
+							  DeleteCommand="{x:Bind ViewModel.UserDetails.DeleteCommand}"
+							  SaveCommand="{x:Bind ViewModel.UserDetails.SaveCommand}"
+							  CancelCommand="{x:Bind ViewModel.UserDetails.CancelCommand}" />
+
+			<Border Grid.Row="1" BorderBrush="LightGray" BorderThickness="0,1,0,0" Visibility="{x:Bind ViewModel.UserDetails.ItemIsNew, Mode=OneWay, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+				<controls:Section Header="User Roles" Background="{StaticResource DetailsViewBackgroundColor}">
+					<views:UsersUserRoles ViewModel="{x:Bind ViewModel.UserRoleList}" />
+				</controls:Section>
+			</Border>
+		</Grid>
 	</Grid>
 </UserControl>

@@ -72,6 +72,7 @@
     <Build Include="Schema\Universal\Tables\Permission.sql" />
     <Build Include="Schema\Universal\Tables\Role.sql" />
     <Build Include="Schema\Universal\Tables\RolePermission.sql" />
+    <Build Include="Schema\Universal\Tables\UserRole.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Schema\Universal\Script-Post\PostDeployment.sql" />

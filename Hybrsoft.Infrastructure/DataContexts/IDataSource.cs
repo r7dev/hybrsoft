@@ -16,6 +16,7 @@ namespace Hybrsoft.Infrastructure.DataContexts
 		public DbSet<Role> Roles { get; set; }
 		public DbSet<RolePermission> RolePermissions { get; set; }
 		public DbSet<User> Users { get; set; }
+		public DbSet<UserRole> UserRoles { get; set; }
 
 		EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
 

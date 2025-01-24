@@ -45,5 +45,12 @@ namespace Hybrsoft.Infrastructure.DataServices
 		Task<int> GetUsersCountAsync(DataRequest<User> request);
 		Task<int> UpdateUserAsync(User user);
 		Task<int> DeleteUsersAsync(params User[] users);
+
+		Task<UserRole> GetUserRoleAsync(long userRoleId);
+		Task<IList<UserRole>> GetUserRolesAsync(int skip, int take, DataRequest<UserRole> request);
+		Task<IList<UserRole>> GetUserRoleKeysAsync(int skip, int take, DataRequest<UserRole> request);
+		Task<int> GetUserRolesCountAsync(DataRequest<UserRole> request);
+		Task<int> UpdateUserRoleAsync(UserRole userRole);
+		Task<int> DeleteUserRolesAsync(params UserRole[] userRoles);
 	}
 }

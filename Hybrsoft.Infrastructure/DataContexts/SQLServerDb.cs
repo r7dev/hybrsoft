@@ -24,6 +24,7 @@ namespace Hybrsoft.Infrastructure.DataContexts
 			modelBuilder.Entity<Role>().ToTable("Role", SchemaUniversal);
 			modelBuilder.Entity<RolePermission>().ToTable("RolePermission", SchemaUniversal);
 			modelBuilder.Entity<User>().ToTable("User", SchemaUniversal);
+			modelBuilder.Entity<UserRole>().ToTable("UserRole", SchemaUniversal);
 			base.OnModelCreating(modelBuilder);
 		}
 
@@ -34,5 +35,6 @@ namespace Hybrsoft.Infrastructure.DataContexts
 		public DbSet<Role> Roles { get; set; }
 		public DbSet<RolePermission> RolePermissions { get; set; }
 		public DbSet<User> Users { get; set; }
+		public DbSet<UserRole> UserRoles { get; set; }
 	}
 }

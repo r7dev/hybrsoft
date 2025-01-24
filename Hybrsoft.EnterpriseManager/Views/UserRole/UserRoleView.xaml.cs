@@ -13,24 +13,23 @@ namespace Hybrsoft.EnterpriseManager.Views
 	/// <summary>
 	/// An empty page that can be used on its own or navigated to within a Frame.
 	/// </summary>
-	public sealed partial class UserView : Page
+	public sealed partial class UserRoleView : Page
 	{
-		public UserView()
+		public UserRoleView()
 		{
-			ViewModel = ServiceLocator.Current.GetService<UserDetailsWithRolesViewModel>();
+			ViewModel = ServiceLocator.Current.GetService<UserRoleDetailsViewModel>();
 			NavigationService = ServiceLocator.Current.GetService<INavigationService>();
 			this.InitializeComponent();
 		}
 
-		public UserDetailsWithRolesViewModel ViewModel { get; }
+		public UserRoleDetailsViewModel ViewModel { get; }
 		public INavigationService NavigationService { get; }
 
 		protected override async void OnNavigatedTo(NavigationEventArgs e)
 		{
 			ViewModel.Subscribe();
-			await ViewModel.LoadAsync(e.Parameter as UserDetailsArgs);
-
-			if (ViewModel.UserDetails.IsEditMode)
+			await ViewModel.LoadAsync(e.Parameter as UserRoleDetailsArgs);
+			if (ViewModel.IsEditMode)
 			{
 				await Task.Delay(100);
 				details.SetFocus();

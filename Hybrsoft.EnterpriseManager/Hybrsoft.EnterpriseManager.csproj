@@ -27,6 +27,7 @@
     <None Remove="Controls\Login\LoginWindowsHello.xaml" />
     <None Remove="Controls\Search\Search.xaml" />
     <None Remove="Controls\Suggest\PermissionSuggestBox.xaml" />
+    <None Remove="Controls\Suggest\RoleSuggestBox.xaml" />
     <None Remove="Controls\Toolbars\DetailToolbar.xaml" />
     <None Remove="Controls\Toolbars\ListToolbar.xaml" />
     <None Remove="Styles\Buttons.xaml" />
@@ -59,6 +60,10 @@
     <None Remove="Views\Shell\MainShellView.xaml" />
     <None Remove="Views\Shell\ShellView.xaml" />
     <None Remove="Views\SplashScreen\ExtendedSplash.xaml" />
+    <None Remove="Views\UserRole\Details\UserRoleCard.xaml" />
+    <None Remove="Views\UserRole\Details\UserRoleDetails.xaml" />
+    <None Remove="Views\UserRole\UserRoleView.xaml" />
+    <None Remove="Views\Users\Details\UsersUserRoles.xaml" />
     <None Remove="Views\Users\List\UserList.xaml" />
     <None Remove="Views\Users\UsersView.xaml" />
     <None Remove="Views\User\Details\UserCard.xaml" />
@@ -151,6 +156,31 @@
     <Folder Include="Assets\Images\" />
     <Folder Include="Strings\en-us\" />
     <Folder Include="Views\Roles\Details\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Users\Details\UsersUserRoles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\UserRole\UserRoleView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\Suggest\RoleSuggestBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\UserRole\Details\UserRoleDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\UserRole\Details\UserRoleCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\RolePermission\Details\RolePermissionCard.xaml">
