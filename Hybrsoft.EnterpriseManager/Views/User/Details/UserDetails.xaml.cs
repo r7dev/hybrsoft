@@ -13,6 +13,13 @@ namespace Hybrsoft.EnterpriseManager.Views
 		public UserDetails()
 		{
 			this.InitializeComponent();
+			UpdateBindingsAsync();
+		}
+
+		private async void UpdateBindingsAsync()
+		{
+			await Task.Delay(200);
+			this.Bindings.Update();
 		}
 
 		#region ViewModel
