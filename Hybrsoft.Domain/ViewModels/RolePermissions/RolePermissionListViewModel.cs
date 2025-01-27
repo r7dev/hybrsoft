@@ -229,6 +229,7 @@ namespace Hybrsoft.Domain.ViewModels
 			switch (message)
 			{
 				case "NewItemSaved":
+				case "ItemChanged":
 				case "ItemDeleted":
 				case "ItemsDeleted":
 				case "ItemRangesDeleted":
