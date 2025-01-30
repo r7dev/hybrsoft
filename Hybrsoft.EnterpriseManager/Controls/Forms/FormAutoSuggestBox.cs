@@ -1,6 +1,8 @@
-﻿using Microsoft.UI.Xaml;
+﻿using Hybrsoft.EnterpriseManager.Tools;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
 using System;
 using Windows.Foundation;
 
@@ -235,9 +237,11 @@ namespace Hybrsoft.EnterpriseManager.Controls
 				{
 					case FormVisualState.Idle:
 						_borderElement.Opacity = 0.40;
+						_autoSuggestBox.Background = TertiaryBrush;
 						break;
 					case FormVisualState.Ready:
 						_borderElement.Opacity = 1.00;
+						_autoSuggestBox.Background = DefaultBrush;
 						break;
 					case FormVisualState.Focused:
 						_autoSuggestBox.Opacity = 1.0;
@@ -250,5 +254,8 @@ namespace Hybrsoft.EnterpriseManager.Controls
 				}
 			}
 		}
+
+		private readonly Brush TertiaryBrush = FillColorTools.GetBrush(FillColors.ControlFillColorTertiaryBrush);
+		private readonly Brush DefaultBrush = FillColorTools.GetBrush(FillColors.ControlFillColorDefaultBrush);
 	}
 }
