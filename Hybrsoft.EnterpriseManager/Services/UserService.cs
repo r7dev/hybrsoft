@@ -7,14 +7,16 @@ using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.DataServices;
 using Hybrsoft.Infrastructure.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services
 {
-	public class UserService(IDataServiceFactory dataServiceFactory, ILogService logService) : IUserService
+	public class UserService(IDataServiceFactory dataServiceFactory, ILogService logService, IPasswordHasher passwordHasher) : IUserService
 	{
 		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
 		public ILogService LogService { get; } = logService;
+		public IPasswordHasher PasswordHasher { get; } = passwordHasher;
 
 		public async Task<UserDto> GetUserAsync(long id)
 		{
@@ -25,6 +27,22 @@ namespace Hybrsoft.EnterpriseManager.Services
 		static private async Task<UserDto> GetUserAsync(IDataService dataService, long id)
 		{
 			var item = await dataService.GetUserAsync(id);
+			if (item != null)
+			{
+				return CreateUserDtoAsync(item, includeAllFields: true);
+			}
+			return null;
+		}
+
+		public async Task<UserDto> GetUserByEmailAsync(string email)
+		{
+			using var dataService = DataServiceFactory.CreateDataService();
+			return await GetUserByEmailAsync(dataService, email);
+		}
+
+		static private async Task<UserDto> GetUserByEmailAsync(IDataService dataService, string email)
+		{
+			var item = await dataService.GetUserByEmailAsync(email);
 			if (item != null)
 			{
 				return CreateUserDtoAsync(item, includeAllFields: true);
@@ -64,6 +82,12 @@ namespace Hybrsoft.EnterpriseManager.Services
 			var user = id > 0 ? await dataService.GetUserAsync(model.UserID) : new User();
 			if (user != null)
 			{
+				model.PasswordLength = model.PasswordChanged
+					? model.Password?.Length ?? 0
+					: user.PasswordLength;
+				model.Password = model.PasswordChanged
+					? PasswordHasher.HashPassword(model.Password)
+					: user.Password;
 				UpdateUserFromDto(user, model);
 				await dataService.UpdateUserAsync(user);
 				model.Merge(await GetUserAsync(dataService, user.UserId));
@@ -98,7 +122,9 @@ namespace Hybrsoft.EnterpriseManager.Services
 			};
 			if (includeAllFields)
 			{
-				//model.BirthDate = source.BirthDate;
+				model.MiddleName = source.MiddleName;
+				model.Password = string.Concat(Enumerable.Range(1, source.PasswordLength).Select(i => i % 10));
+				model.PasswordLength = source.PasswordLength;
 			}
 			return model;
 		}
@@ -106,8 +132,11 @@ namespace Hybrsoft.EnterpriseManager.Services
 		private static void UpdateUserFromDto(User target, UserDto source)
 		{
 			target.FirstName = source.FirstName;
+			target.MiddleName = source.MiddleName;
 			target.LastName = source.LastName;
 			target.Email = source.Email;
+			target.Password = source.Password;
+			target.PasswordLength = source.PasswordLength;
 			target.CreatedOn = source.CreatedOn;
 			target.LastModifiedOn = source.LastModifiedOn;
 		}

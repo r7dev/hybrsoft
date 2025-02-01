@@ -42,7 +42,7 @@ namespace Hybrsoft.Domain.ViewModels
 			set { Set(ref _userName, value); }
 		}
 
-		private string _password = "UserPassword";
+		private string _password;
 		public string Password
 		{
 			get { return _password; }
@@ -89,7 +89,8 @@ namespace Hybrsoft.Domain.ViewModels
 			var result = ValidateInput();
 			if (result.IsOk)
 			{
-				if (await LoginService.SignInWithPasswordAsync(UserName, Password))
+				result = await LoginService.SignInWithPasswordAsync(UserName, Password);
+				if (result.IsOk)
 				{
 					if (! await LoginService.IsWindowsHelloEnabledAsync(UserName))
 					{

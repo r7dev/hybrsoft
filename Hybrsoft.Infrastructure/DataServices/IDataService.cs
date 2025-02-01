@@ -10,6 +10,7 @@ namespace Hybrsoft.Infrastructure.DataServices
 	public interface IDataService : IDisposable
 	{
 		IList<NavigationItem> GetNavigationItemByAppType(AppType appType);
+
 		Task<AppLog> GetLogAsync(long id);
 		Task<IList<AppLog>> GetLogsAsync(int skip, int take, DataRequest<AppLog> request);
 		Task<IList<AppLog>> GetLogKeysAsync(int skip, int take, DataRequest<AppLog> request);
@@ -40,6 +41,7 @@ namespace Hybrsoft.Infrastructure.DataServices
 		Task<int> DeleteRolePermissionsAsync(params RolePermission[] rolePermissions);
 
 		Task<User> GetUserAsync(long id);
+		Task<User> GetUserByEmailAsync(string email);
 		Task<IList<User>> GetUsersAsync(int skip, int take, DataRequest<User> request);
 		Task<IList<User>> GetUserKeysAsync(int skip, int take, DataRequest<User> request);
 		Task<int> GetUsersCountAsync(DataRequest<User> request);

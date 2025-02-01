@@ -9,6 +9,7 @@ namespace Hybrsoft.Domain.Interfaces
 	public interface IUserService
 	{
 		Task<UserDto> GetUserAsync(long id);
+		Task<UserDto> GetUserByEmailAsync(string email);
 		Task<IList<UserDto>> GetUsersAsync(DataRequest<User> request);
 		Task<IList<UserDto>> GetUsersAsync(int skip, int take, DataRequest<User> request);
 		Task<int> GetUsersCountAsync(DataRequest<User> request);

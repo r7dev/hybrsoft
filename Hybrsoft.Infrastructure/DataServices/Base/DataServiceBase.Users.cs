@@ -15,6 +15,11 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			return await _dataSource.Users.Where(r => r.UserId == id).FirstOrDefaultAsync();
 		}
 
+		public async Task<User> GetUserByEmailAsync(string email)
+		{
+			return await _dataSource.Users.Where(r => r.Email == email).FirstOrDefaultAsync();
+		}
+
 		public async Task<IList<User>> GetUsersAsync(int skip, int take, DataRequest<User> request)
 		{
 			IQueryable<User> items = GetUsers(request);

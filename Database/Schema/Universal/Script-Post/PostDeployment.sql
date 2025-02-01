@@ -12,3 +12,4 @@ Modelo de Script Pós-Implantação
 
 :r .\NavigationItem.Initialize.sql
 :r .\Permission.Initialize.sql
+:r .\User.Initialize.sql

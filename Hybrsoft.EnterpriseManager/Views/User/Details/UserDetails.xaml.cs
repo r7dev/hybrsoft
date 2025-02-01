@@ -41,5 +41,10 @@ namespace Hybrsoft.EnterpriseManager.Views
 		{
 			return isItemNew ? 2 : 1;
 		}
+
+		private void FormPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+		{
+			ViewModel.UserDetails.Item.PasswordChanged = true;
+		}
 	}
 }

@@ -40,7 +40,7 @@
 						<controls:LoginNamePassword x:Name="passwordView"
 													HorizontalAlignment="Center"
 													UserName="{x:Bind ViewModel.UserName, Mode=TwoWay}"
-													Password="{x:Bind ViewModel.Password}"
+													Password="{x:Bind ViewModel.Password, Mode=TwoWay}"
 													LoginWithPasswordCommand="{x:Bind ViewModel.LoginWithPasswordCommand}"
 													Visibility="{x:Bind ViewModel.IsLoginWithPassword, Mode=OneWay}"
 													IsEnabled="{x:Bind ViewModel.IsBusy, Converter={StaticResource BoolNegationConverter}}" />

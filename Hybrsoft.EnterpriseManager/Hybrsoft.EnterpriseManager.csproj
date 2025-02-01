@@ -37,6 +37,7 @@
     <None Remove="Styles\ToolBar.xaml" />
     <None Remove="Themes\Controls\Buttons.xaml" />
     <None Remove="Themes\Controls\FormAutoSuggestBox.xaml" />
+    <None Remove="Themes\Controls\FormPasswordBox.xaml" />
     <None Remove="Themes\Controls\FormTextBox.xaml" />
     <None Remove="Themes\Controls\Section.xaml" />
     <None Remove="Views\AppLogs\AppLogsView.xaml" />
@@ -156,6 +157,11 @@
     <Folder Include="Assets\Images\" />
     <Folder Include="Strings\en-us\" />
     <Folder Include="Views\Roles\Details\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Themes\Controls\FormPasswordBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Users\Details\UsersUserRoles.xaml">

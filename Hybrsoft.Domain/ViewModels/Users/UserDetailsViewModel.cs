@@ -109,6 +109,7 @@ namespace Hybrsoft.Domain.ViewModels
 			yield return new RequiredConstraint<UserDto>("Last Name", m => m.LastName);
 			yield return new RequiredConstraint<UserDto>("Email", m => m.Email);
 			yield return new EmailValidationConstraint<UserDto>("Email", m => m.Email);
+			yield return new RequiredConstraint<UserDto>("Password", m => m.Password);
 		}
 
 		#region Handle external messages

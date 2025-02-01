@@ -1,4 +1,6 @@
-﻿using Hybrsoft.Domain.Infrastructure.Commom;
+﻿using Hybrsoft.Domain.Dtos;
+using Hybrsoft.Domain.Infrastructure.Commom;
+using Hybrsoft.Domain.Interfaces;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Configuration;
 using System;
@@ -10,10 +12,12 @@ using Windows.Storage.Streams;
 
 namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 {
-	public class LoginService(IMessageService messageService, IDialogService dialogService) : ILoginService
+	public class LoginService(IMessageService messageService, IDialogService dialogService, IUserService userService, IPasswordHasher passwordHasher) : ILoginService
 	{
 		public IMessageService MessageService { get; } = messageService;
 		public IDialogService DialogService { get; } = dialogService;
+		public IUserService UserService { get; } = userService;
+		public IPasswordHasher PasswordHasher { get; } = passwordHasher;
 
 		public bool IsAuthenticated { get; set; } = false;
 
@@ -30,12 +34,16 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			return false;
 		}
 
-		public Task<bool> SignInWithPasswordAsync(string userName, string password)
+		public async Task<Result> SignInWithPasswordAsync(string userName, string password)
 		{
 			// Perform authentication here.
 			// This sample accepts any user name and password.
-			UpdateAuthenticationStatus(true);
-			return Task.FromResult(true);
+			UserDto user = await UserService.GetUserByEmailAsync(userName);
+			bool isUserAuthenticated = user != null && PasswordHasher.VerifyHashedPassword(user.Password, password);
+			UpdateAuthenticationStatus(isUserAuthenticated);
+			return isUserAuthenticated
+				? Result.Ok()
+				: Result.Error("Login error", "Please, enter a valid password.");
 		}
 
 		public async Task<Result> SignInWithWindowsHelloAsync()
