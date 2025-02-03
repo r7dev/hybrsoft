@@ -52,6 +52,12 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			set => LocalSettings.Values["IsRandomErrorsEnabled"] = value;
 		}
 
+		public char PasswordChar
+		{
+			get => GetSettingsValue("PasswordChar", '*');
+			set => LocalSettings.Values["PasswordChar"] = value;
+		}
+
 		private TResult GetSettingsValue<TResult>(string name, TResult defaultValue)
 		{
 			try

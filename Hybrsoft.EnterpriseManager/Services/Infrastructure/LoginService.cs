@@ -38,7 +38,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		{
 			// Perform authentication here.
 			// This sample accepts any user name and password.
-			UserDto user = await UserService.GetUserByEmailAsync(userName);
+			UserDto user = await UserService.GetUserByEmailAsync(userName, true);
 			bool isUserAuthenticated = user != null && PasswordHasher.VerifyHashedPassword(user.Password, password);
 			UpdateAuthenticationStatus(isUserAuthenticated);
 			return isUserAuthenticated

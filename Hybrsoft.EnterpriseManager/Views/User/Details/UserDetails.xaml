@@ -19,7 +19,7 @@
 				<controls:FormTextBox Header="Last Name" Text="{x:Bind EditableItem.LastName, Mode=TwoWay}" />
 				<controls:FormTextBox Header="Middle Name" Text="{x:Bind EditableItem.MiddleName, Mode=TwoWay}" />
 				<controls:FormTextBox Header="Email Address" Text="{x:Bind EditableItem.Email, Mode=TwoWay}" IsSpellCheckEnabled="False" />
-				<controls:FormPasswordBox Header="Password" Password="{x:Bind EditableItem.Password, Mode=TwoWay}" PasswordChanged="FormPasswordBox_PasswordChanged"	/>
+				<controls:FormPasswordBox Header="Password" Password="{x:Bind EditableItem.Password, Mode=TwoWay}" PasswordChanged="FormPasswordBox_PasswordChanged" />
 			</controls:FluidGrid>
 		</DataTemplate>
 	</UserControl.Resources>

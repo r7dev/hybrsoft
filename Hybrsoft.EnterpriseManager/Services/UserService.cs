@@ -1,13 +1,13 @@
 ﻿using Hybrsoft.Domain.Dtos;
 using Hybrsoft.Domain.Interfaces;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
+using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
 using Hybrsoft.EnterpriseManager.Services.VirtualCollections;
 using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.DataServices;
 using Hybrsoft.Infrastructure.Models;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services
@@ -18,34 +18,34 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public ILogService LogService { get; } = logService;
 		public IPasswordHasher PasswordHasher { get; } = passwordHasher;
 
-		public async Task<UserDto> GetUserAsync(long id)
+		public async Task<UserDto> GetUserAsync(long id, bool includePassword = false)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
-			return await GetUserAsync(dataService, id);
+			return await GetUserAsync(dataService, id, includePassword);
 		}
 
-		static private async Task<UserDto> GetUserAsync(IDataService dataService, long id)
+		static private async Task<UserDto> GetUserAsync(IDataService dataService, long id, bool includePassword)
 		{
 			var item = await dataService.GetUserAsync(id);
 			if (item != null)
 			{
-				return CreateUserDtoAsync(item, includeAllFields: true);
+				return CreateUserDtoAsync(item, includeAllFields: true, includePassword);
 			}
 			return null;
 		}
 
-		public async Task<UserDto> GetUserByEmailAsync(string email)
+		public async Task<UserDto> GetUserByEmailAsync(string email, bool includePassword)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
-			return await GetUserByEmailAsync(dataService, email);
+			return await GetUserByEmailAsync(dataService, email, includePassword);
 		}
 
-		static private async Task<UserDto> GetUserByEmailAsync(IDataService dataService, string email)
+		static private async Task<UserDto> GetUserByEmailAsync(IDataService dataService, string email, bool includePassword)
 		{
 			var item = await dataService.GetUserByEmailAsync(email);
 			if (item != null)
 			{
-				return CreateUserDtoAsync(item, includeAllFields: true);
+				return CreateUserDtoAsync(item, includeAllFields: true, includePassword);
 			}
 			return null;
 		}
@@ -82,15 +82,13 @@ namespace Hybrsoft.EnterpriseManager.Services
 			var user = id > 0 ? await dataService.GetUserAsync(model.UserID) : new User();
 			if (user != null)
 			{
-				model.PasswordLength = model.PasswordChanged
-					? model.Password?.Length ?? 0
-					: user.PasswordLength;
+				model.PasswordLength = model.Password?.Length ?? 0;
 				model.Password = model.PasswordChanged
 					? PasswordHasher.HashPassword(model.Password)
 					: user.Password;
 				UpdateUserFromDto(user, model);
 				await dataService.UpdateUserAsync(user);
-				model.Merge(await GetUserAsync(dataService, user.UserId));
+				model.Merge(await GetUserAsync(dataService, user.UserId, false));
 			}
 			return 0;
 		}
@@ -109,7 +107,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.DeleteUsersAsync([.. items]);
 		}
 
-		static public UserDto CreateUserDtoAsync(User source, bool includeAllFields)
+		static public UserDto CreateUserDtoAsync(User source, bool includeAllFields, bool includePassword = false)
 		{
 			var model = new UserDto()
 			{
@@ -123,7 +121,9 @@ namespace Hybrsoft.EnterpriseManager.Services
 			if (includeAllFields)
 			{
 				model.MiddleName = source.MiddleName;
-				model.Password = string.Concat(Enumerable.Range(1, source.PasswordLength).Select(i => i % 10));
+				model.Password = includePassword
+					? source.Password
+					: new string(AppSettings.Current.PasswordChar, source.PasswordLength);
 				model.PasswordLength = source.PasswordLength;
 			}
 			return model;

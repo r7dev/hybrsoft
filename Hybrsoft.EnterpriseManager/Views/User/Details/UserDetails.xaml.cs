@@ -1,6 +1,8 @@
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 using Hybrsoft.Domain.ViewModels;
+using Hybrsoft.EnterpriseManager.Configuration;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml;
+using System.Linq;
 using System.Threading.Tasks;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -44,7 +46,12 @@ namespace Hybrsoft.EnterpriseManager.Views
 
 		private void FormPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
 		{
-			ViewModel.UserDetails.Item.PasswordChanged = true;
+			var control = sender as PasswordBox;
+			if (control is not null)
+			{
+				bool areAllCharEqual = control.Password.All(c => c == AppSettings.Current.PasswordChar);
+				ViewModel.UserDetails.EditableItem.PasswordChanged = !areAllCharEqual;
+			}
 		}
 	}
 }
