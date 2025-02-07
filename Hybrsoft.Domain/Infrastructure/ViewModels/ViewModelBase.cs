@@ -14,6 +14,7 @@ namespace Hybrsoft.Domain.Infrastructure.ViewModels
 		public IMessageService MessageService { get; } = commonServices.MessageService;
 		public IDialogService DialogService { get; } = commonServices.DialogService;
 		public ILogService LogService { get; } = commonServices.LogService;
+		public IUserPermissionService UserPermissionService { get; } = commonServices.UserPermissionService;
 
 		public bool IsMainView => ContextService.IsMainView;
 

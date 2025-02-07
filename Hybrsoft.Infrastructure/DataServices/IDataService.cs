@@ -9,6 +9,8 @@ namespace Hybrsoft.Infrastructure.DataServices
 {
 	public interface IDataService : IDisposable
 	{
+		bool HasPermission(long userId, string permissionName);
+
 		IList<NavigationItem> GetNavigationItemByAppType(AppType appType);
 
 		Task<AppLog> GetLogAsync(long id);

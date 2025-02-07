@@ -15,6 +15,12 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 
 		public ApplicationDataContainer LocalSettings => ApplicationData.Current.LocalSettings;
 
+		public long UserID
+		{
+			get => GetSettingsValue("UserID", default(long));
+			set => LocalSettings.Values["UserID"] = value;
+		}
+
 		public string UserName
 		{
 			get => GetSettingsValue("UserName", default(String));

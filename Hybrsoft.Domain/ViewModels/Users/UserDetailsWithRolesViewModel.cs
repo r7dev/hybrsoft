@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.Domain.ViewModels
 {
-	public partial class UserDetailsWithRolesViewModel(IUserService userService, IUserRoleService userRoleService, ICommonServices commonServices) : ViewModelBase(commonServices)
+	public partial class UserDetailsWithRolesViewModel(IUserService userService, IUserRoleService userRoleService, ISettingsService settingsService, ICommonServices commonServices) : ViewModelBase(commonServices)
 	{
+		public ISettingsService SettingsService { get; } = settingsService;
+		public char PasswordChar { get => SettingsService.PasswordChar; }
+
 		public UserDetailsViewModel UserDetails { get; set; } = new UserDetailsViewModel(userService, commonServices);
 		public UserRoleListViewModel UserRoleList { get; set; } = new UserRoleListViewModel(userRoleService, commonServices);
 

@@ -36,14 +36,14 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 
 		public async Task<Result> SignInWithPasswordAsync(string userName, string password)
 		{
-			// Perform authentication here.
-			// This sample accepts any user name and password.
 			UserDto user = await UserService.GetUserByEmailAsync(userName, true);
 			bool isUserAuthenticated = user != null && PasswordHasher.VerifyHashedPassword(user.Password, password);
+			AppSettings.Current.UserID = isUserAuthenticated ? user.UserID : default;
+			AppSettings.Current.UserName = isUserAuthenticated ? userName : default;
 			UpdateAuthenticationStatus(isUserAuthenticated);
 			return isUserAuthenticated
 				? Result.Ok()
-				: Result.Error("Login error", "Please, enter a valid password.");
+				: Result.Error("Login error", "Please, enter a valid username and password.");
 		}
 
 		public async Task<Result> SignInWithWindowsHelloAsync()

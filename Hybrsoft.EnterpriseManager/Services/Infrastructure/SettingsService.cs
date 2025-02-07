@@ -7,10 +7,21 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 	{
 		public IDialogService DialogService { get; } = dialogService;
 
+		public long UserID
+		{
+			get => AppSettings.Current.UserID;
+			set => AppSettings.Current.UserID = value;
+		}
+
 		public string UserName
 		{
 			get => AppSettings.Current.UserName;
 			set => AppSettings.Current.UserName = value;
+		}
+
+		public char PasswordChar
+		{
+			get => AppSettings.Current.PasswordChar;
 		}
 	}
 }

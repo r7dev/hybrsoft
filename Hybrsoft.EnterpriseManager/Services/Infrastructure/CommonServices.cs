@@ -2,7 +2,12 @@
 
 namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 {
-	public class CommonServices(IContextService contextService, INavigationService navigationService, IMessageService messageService, IDialogService dialogService, ILogService logService) : ICommonServices
+	public class CommonServices(IContextService contextService,
+		INavigationService navigationService,
+		IMessageService messageService,
+		IDialogService dialogService,
+		ILogService logService,
+		IUserPermissionService userPermissionService) : ICommonServices
 	{
 		public IContextService ContextService { get; } = contextService;
 
@@ -13,5 +18,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		public IDialogService DialogService { get; } = dialogService;
 
 		public ILogService LogService { get; } = logService;
+
+		public IUserPermissionService UserPermissionService { get; } = userPermissionService;
 	}
 }

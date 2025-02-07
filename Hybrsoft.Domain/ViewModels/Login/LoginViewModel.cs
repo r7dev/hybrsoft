@@ -96,7 +96,6 @@ namespace Hybrsoft.Domain.ViewModels
 					{
 						await LoginService.TrySetupWindowsHelloAsync(UserName);
 					}
-					SettingsService.UserName = UserName;
 					EnterApplication();
 					return;
 				}

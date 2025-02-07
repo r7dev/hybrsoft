@@ -1,5 +1,4 @@
 using Hybrsoft.Domain.ViewModels;
-using Hybrsoft.EnterpriseManager.Configuration;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml;
 using System.Linq;
@@ -49,7 +48,7 @@ namespace Hybrsoft.EnterpriseManager.Views
 			var control = sender as PasswordBox;
 			if (control is not null)
 			{
-				bool areAllCharEqual = control.Password.All(c => c == AppSettings.Current.PasswordChar);
+				bool areAllCharEqual = control.Password.All(c => c == ViewModel.PasswordChar);
 				ViewModel.UserDetails.EditableItem.PasswordChanged = !areAllCharEqual;
 			}
 		}
