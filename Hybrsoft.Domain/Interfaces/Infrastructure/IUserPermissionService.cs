@@ -4,6 +4,6 @@ namespace Hybrsoft.Domain.Interfaces.Infrastructure
 {
 	public interface IUserPermissionService
 	{
-		bool HasPermission(long userId, Permissions permission);
+		bool HasPermission(Permissions permission);
 	}
 }

@@ -6,6 +6,7 @@ using Hybrsoft.Infrastructure.Models;
 using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -88,7 +89,28 @@ namespace Hybrsoft.Domain.ViewModels
 
 		private IEnumerable<NavigationItemDto> GetItems()
 		{
-			return NavigationService.GetItems();
+			return NavigationService.GetItems().Where(HasUserPermission);
+		}
+
+		private bool HasUserPermission(NavigationItemDto item)
+		{
+			if (item.ViewModel is null && item.Children != null)
+			{
+				if (item.Children.Count == 0)
+				{
+					return true;
+				}
+				var validChildren = item.Children.Where(c => HasUserPermission(c));
+				item.Children = new ObservableCollection<NavigationItemDto>(validChildren);
+				return item.Children.Any();
+			}
+			var IsSecurityAdministration = UserPermissionService.HasPermission(Permissions.SecurityAdministration);
+			return (item.ViewModel == typeof(DashboardViewModel)
+				|| item.ViewModel == typeof(PermissionsViewModel)
+				|| item.ViewModel == typeof(RolesViewModel)
+				|| item.ViewModel == typeof(UsersViewModel)
+				|| item.ViewModel == typeof(AppLogsViewModel))
+				&& IsSecurityAdministration;
 		}
 
 		private async void OnLogServiceMessage(ILogService logService, string message, AppLog log)

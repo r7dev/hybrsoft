@@ -4,14 +4,15 @@ using Hybrsoft.Infrastructure.Enums;
 
 namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 {
-	public class UserPermissionService(IDataServiceFactory dataServiceFactory) : IUserPermissionService
+	public class UserPermissionService(IDataServiceFactory dataServiceFactory, ISettingsService settingsService) : IUserPermissionService
 	{
 		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
+		public ISettingsService SettingsService { get; } = settingsService;
 
-		public bool HasPermission(long userId, Permissions permission)
+		public bool HasPermission(Permissions permission)
 		{
 			var dataService = DataServiceFactory.CreateDataService();
-			return dataService.HasPermission(userId, permission.ToString());
+			return dataService.HasPermission(SettingsService.UserID, permission.ToString());
 		}
 	}
 }

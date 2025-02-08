@@ -26,7 +26,7 @@ namespace Hybrsoft.Domain.Dtos
 		public readonly SymbolIcon Icon;
 		public readonly string Tag;
 		public readonly int? ParentId;
-		public readonly ObservableCollection<NavigationItemDto> Children;
+		public ObservableCollection<NavigationItemDto> Children;
 		public readonly Type ViewModel = viewModel;
 
 		private InfoBadge _badge = null;
