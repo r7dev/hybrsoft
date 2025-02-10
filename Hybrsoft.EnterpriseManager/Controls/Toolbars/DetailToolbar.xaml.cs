@@ -1,6 +1,7 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Hybrsoft.EnterpriseManager.Tools.ElementSet;
+using System.Windows.Input;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -49,6 +50,56 @@ namespace Hybrsoft.EnterpriseManager.Controls
 		}
 
 		public static readonly DependencyProperty DefaultCommandsProperty = DependencyProperty.Register(nameof(DefaultCommands), typeof(string), typeof(DetailToolbar), new PropertyMetadata("edit,delete", DefaultCommandsChanged));
+		#endregion
+
+		#region BackCommand
+		public ICommand BackCommand
+		{
+			get { return (ICommand)GetValue(BackCommandProperty); }
+			set { SetValue(BackCommandProperty, value); }
+		}
+
+		public static readonly DependencyProperty BackCommandProperty = DependencyProperty.Register(nameof(BackCommand), typeof(ICommand), typeof(DetailToolbar), new PropertyMetadata(null));
+		#endregion
+
+		#region EditCommand
+		public ICommand EditCommand
+		{
+			get { return (ICommand)GetValue(EditCommandProperty); }
+			set { SetValue(EditCommandProperty, value); }
+		}
+
+		public static readonly DependencyProperty EditCommandProperty = DependencyProperty.Register(nameof(EditCommand), typeof(ICommand), typeof(DetailToolbar), new PropertyMetadata(null));
+		#endregion
+
+		#region DeleteCommand
+		public ICommand DeleteCommand
+		{
+			get { return (ICommand)GetValue(DeleteCommandProperty); }
+			set { SetValue(DeleteCommandProperty, value); }
+		}
+
+		public static readonly DependencyProperty DeleteCommandProperty = DependencyProperty.Register(nameof(DeleteCommand), typeof(ICommand), typeof(DetailToolbar), new PropertyMetadata(null));
+		#endregion
+
+		#region SaveCommand
+		public ICommand SaveCommand
+		{
+			get { return (ICommand)GetValue(SaveCommandProperty); }
+			set { SetValue(SaveCommandProperty, value); }
+		}
+
+		public static readonly DependencyProperty SaveCommandProperty = DependencyProperty.Register(nameof(SaveCommand), typeof(ICommand), typeof(DetailToolbar), new PropertyMetadata(null));
+		#endregion
+
+		#region CancelCommand
+		public ICommand CancelCommand
+		{
+			get { return (ICommand)GetValue(CancelCommandProperty); }
+			set { SetValue(CancelCommandProperty, value); }
+		}
+
+		public static readonly DependencyProperty CancelCommandProperty = DependencyProperty.Register(nameof(CancelCommand), typeof(ICommand), typeof(DetailToolbar), new PropertyMetadata(null));
 		#endregion
 
 		private void UpdateControl()

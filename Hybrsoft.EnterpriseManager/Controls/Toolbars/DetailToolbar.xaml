@@ -9,10 +9,45 @@
 	mc:Ignorable="d">
 
 	<CommandBar x:Name="commandBar" DefaultLabelPosition="Right" Style="{StaticResource ToolBarStyle}" >
-		<AppBarButton x:Name="buttonBack" Icon="Back" Label="Back" LabelPosition="Default" HorizontalAlignment="Left" Style="{StaticResource ToolBarButtonStyle}" Tag="back" />
-		<AppBarButton x:Name="buttonEdit" Icon="Edit" Label="Edit" LabelPosition="Default" HorizontalAlignment="Left" Style="{StaticResource ToolBarButtonAccentStyle}" Tag="edit" />
-		<AppBarButton x:Name="buttonDelete" Icon="Delete" Label="Delete" LabelPosition="Default" HorizontalAlignment="Left" Style="{StaticResource ToolBarButtonStyle}" Tag="delete" />
-		<AppBarButton x:Name="buttonCancel" Icon="Cancel" Label="Cancel" LabelPosition="Default" HorizontalAlignment="Left" Style="{StaticResource ToolBarButtonStyle}" Tag="cancel" />
-		<AppBarButton x:Name="buttonSave" Icon="Save" Label="Save" LabelPosition="Default" HorizontalAlignment="Left" Style="{StaticResource ToolBarButtonAccentStyle}" Tag="save" />
+		<AppBarButton x:Name="buttonBack"
+					  Icon="Back"
+					  IsEnabled="{x:Bind BackCommand.CanExecute(x:Null)}"
+					  Label="Back"
+					  LabelPosition="Default"
+					  HorizontalAlignment="Left"
+					  Style="{StaticResource ToolBarButtonStyle}"
+					  Tag="back"/>
+		<AppBarButton x:Name="buttonEdit"
+					  Icon="Edit"
+					  IsEnabled="{x:Bind EditCommand.CanExecute(x:Null)}"
+					  Label="Edit"
+					  LabelPosition="Default"
+					  HorizontalAlignment="Left"
+					  Style="{StaticResource ToolBarButtonAccentStyle}"
+					  Tag="edit"/>
+		<AppBarButton x:Name="buttonDelete"
+					  Icon="Delete"
+					  IsEnabled="{x:Bind DeleteCommand.CanExecute(x:Null)}"
+					  Label="Delete"
+					  LabelPosition="Default"
+					  HorizontalAlignment="Left"
+					  Style="{StaticResource ToolBarButtonStyle}"
+					  Tag="delete"/>
+		<AppBarButton x:Name="buttonCancel"
+					  Icon="Cancel"
+					  IsEnabled="{x:Bind CancelCommand.CanExecute(x:Null)}"
+					  Label="Cancel"
+					  LabelPosition="Default"
+					  HorizontalAlignment="Left"
+					  Style="{StaticResource ToolBarButtonStyle}"
+					  Tag="cancel"/>
+		<AppBarButton x:Name="buttonSave"
+					  Icon="Save"
+					  IsEnabled="{x:Bind SaveCommand.CanExecute(x:Null)}"
+					  Label="Save"
+					  LabelPosition="Default"
+					  HorizontalAlignment="Left"
+					  Style="{StaticResource ToolBarButtonAccentStyle}"
+					  Tag="save"/>
 	</CommandBar>
 </UserControl>

@@ -1,6 +1,7 @@
 using Hybrsoft.EnterpriseManager.Tools.ElementSet;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using System.Windows.Input;
 using Windows.Foundation;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -71,6 +72,26 @@ namespace Hybrsoft.EnterpriseManager.Controls
 		}
 
 		public static readonly DependencyProperty QueryProperty = DependencyProperty.Register("Query", typeof(string), typeof(ListToolbar), new PropertyMetadata(null));
+		#endregion
+
+		#region NewCommand
+		public ICommand NewCommand
+		{
+			get { return (ICommand)GetValue(NewCommandProperty); }
+			set { SetValue(NewCommandProperty, value); }
+		}
+
+		public static readonly DependencyProperty NewCommandProperty = DependencyProperty.Register(nameof(NewCommand), typeof(ICommand), typeof(ListToolbar), new PropertyMetadata(null));
+		#endregion
+
+		#region DeleteCommand
+		public ICommand DeleteCommand
+		{
+			get { return (ICommand)GetValue(DeleteCommandProperty); }
+			set { SetValue(DeleteCommandProperty, value); }
+		}
+
+		public static readonly DependencyProperty DeleteCommandProperty = DependencyProperty.Register(nameof(DeleteCommand), typeof(ICommand), typeof(ListToolbar), new PropertyMetadata(null));
 		#endregion
 
 		private void UpdateControl()
