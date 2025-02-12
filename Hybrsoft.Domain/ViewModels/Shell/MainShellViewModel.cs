@@ -79,9 +79,9 @@ namespace Hybrsoft.Domain.ViewModels
 					await LogService.MarkAllAsReadAsync();
 					await UpdateAppLogBadge();
 					break;
-				//case "SettingsViewModel":
-				//	NavigationService.Navigate(viewModel, new SettingsArgs());
-				//	break;
+				case nameof(SettingsViewModel):
+					NavigationService.Navigate(viewModel, new SettingsArgs());
+					break;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(viewModel), $"Not expected view value: {viewModel.Name}");
 			}

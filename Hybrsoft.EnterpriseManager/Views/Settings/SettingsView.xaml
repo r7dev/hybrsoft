@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+	x:Class="Hybrsoft.EnterpriseManager.Views.SettingsView"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:Hybrsoft.EnterpriseManager.Views"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:controls="using:Hybrsoft.EnterpriseManager.Controls"
+	xmlns:toolkit="using:CommunityToolkit.WinUI.Controls"
+	mc:Ignorable="d">
+
+	<Page.Resources>
+		<!--  These styles can be referenced to create a consistent SettingsPage layout  -->
+		<!--  Reference SettingsExpander Page in Windows Community Toolkit Gallery for the full sample  -->
+
+		<!--  Spacing between cards  -->
+		<x:Double x:Key="SettingsCardSpacing">4</x:Double>
+
+		<!--  Style (inc. the correct spacing) of a section header  -->
+		<Style x:Key="SettingsSectionHeaderTextBlockStyle"
+			   BasedOn="{StaticResource BodyStrongTextBlockStyle}"
+			   TargetType="TextBlock">
+			<Style.Setters>
+				<Setter Property="Margin" Value="1,30,0,6" />
+			</Style.Setters>
+		</Style>
+	</Page.Resources>
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<controls:WindowTitle Title="Settings"/>
+		<StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
+			<SymbolIcon Symbol="Setting" Margin="36,24,8,0" />
+			<TextBlock x:Name="PageHeader" Margin="0,24,36,0" Style="{StaticResource TitleTextBlockStyle}" Text="Settings" />
+		</StackPanel>
+
+		<ScrollViewer Grid.Row="1" IsEnabled="{x:Bind ViewModel.IsBusy, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}"
+					  Padding="36,0,36,0"
+					  IsTabStop="False"
+					  UseSystemFocusVisuals="False"
+					  VerticalScrollBarVisibility="Auto"
+					  VerticalScrollMode="Auto">
+			<StackPanel Spacing="{StaticResource SettingsCardSpacing}">
+				<StackPanel.ChildrenTransitions>
+					<EntranceThemeTransition FromVerticalOffset="50" />
+					<RepositionThemeTransition IsStaggeringEnabled="False" />
+				</StackPanel.ChildrenTransitions>
+
+				<!--  About  -->
+				<TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="About" />
+				<toolkit:SettingsExpander Description="© 2025 Hybrsoft. All rights reserved." Header="{x:Bind ViewModel.AppName, Mode=OneWay}">
+					<toolkit:SettingsExpander.HeaderIcon>
+						<BitmapIcon ShowAsMonochrome="False" UriSource="/Assets/StoreLogo.png" />
+					</toolkit:SettingsExpander.HeaderIcon>
+					<TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+							   IsTextSelectionEnabled="True"
+							   Text="{x:Bind ViewModel.Version}" />
+					<toolkit:SettingsExpander.Items>
+						<toolkit:SettingsCard HorizontalContentAlignment="Left"
+											  ContentAlignment="Vertical"
+											  Header="Visit our website.">
+							<StackPanel Margin="-12,0,0,0" Orientation="Vertical">
+								<HyperlinkButton Content="Hybrsoft Corporation Website" NavigateUri="http://www.hybrsoft.com" />
+							</StackPanel>
+						</toolkit:SettingsCard>
+					</toolkit:SettingsExpander.Items>
+				</toolkit:SettingsExpander>
+			</StackPanel>
+		</ScrollViewer>
+	</Grid>
+</Page>

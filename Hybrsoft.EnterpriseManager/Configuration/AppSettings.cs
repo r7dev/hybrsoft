@@ -1,6 +1,7 @@
 ﻿using Hybrsoft.Infrastructure.Enums;
 using Microsoft.Extensions.Configuration;
 using System;
+using Windows.ApplicationModel;
 using Windows.Storage;
 
 namespace Hybrsoft.EnterpriseManager.Configuration
@@ -14,6 +15,16 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 		static public AppSettings Current { get; }
 
 		public ApplicationDataContainer LocalSettings => ApplicationData.Current.LocalSettings;
+
+		public string AppName => AppInfo.Current.DisplayInfo.DisplayName;
+		public string Version
+		{
+			get
+			{
+				var ver = Package.Current.Id.Version;
+				return $"{ver.Major}.{ver.Minor}.{ver.Build}.{ver.Revision}";
+			}
+		}
 
 		public long UserID
 		{

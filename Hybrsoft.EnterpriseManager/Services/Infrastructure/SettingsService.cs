@@ -7,6 +7,9 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 	{
 		public IDialogService DialogService { get; } = dialogService;
 
+		public string AppName => AppSettings.Current.AppName;
+		public string Version => AppSettings.Current.Version;
+
 		public long UserID
 		{
 			get => AppSettings.Current.UserID;

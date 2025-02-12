@@ -69,7 +69,7 @@ namespace Hybrsoft.EnterpriseManager.Views
 			}
 			else if (args.IsSettingsSelected)
 			{
-				//ViewModel.NavigateTo(typeof(SettingsViewModel));
+				ViewModel.NavigateTo(typeof(SettingsViewModel));
 			}
 			UpdateBackButton();
 		}
