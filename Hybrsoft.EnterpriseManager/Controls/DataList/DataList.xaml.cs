@@ -294,7 +294,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			nameof(IsDataAvailable)
 		);
 
-		public string DataUnavailableMessage => ItemsSource == null ? "Loading..." : "No items found.";
+		public string DataUnavailableMessage => ItemsSource == null ? "Loading..." : "No items found. Click + to add a new item.";
 		public static readonly DependencyExpression DataUnavailableMessageExpression = DependencyExpressions.Register(
 			nameof(DataUnavailableMessage),
 			nameof(ItemsSource)

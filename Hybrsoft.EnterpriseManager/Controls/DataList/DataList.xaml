@@ -44,7 +44,14 @@
 					  SelectionMode="{x:Bind SelectionMode, Mode=OneWay}"
 					  SelectionChanged="OnSelectionChanged"
 					  Visibility="{x:Bind IsDataAvailable, Mode=OneWay}" />
-			<TextBlock Margin="6" Text="{x:Bind DataUnavailableMessage, Mode=OneWay}" Visibility="{x:Bind IsDataUnavailable, Mode=OneWay}"/>
+			<StackPanel HorizontalAlignment="Center"
+						Margin="6"
+						Orientation="Horizontal"
+						VerticalAlignment="Center"
+						Visibility="{x:Bind IsDataUnavailable, Mode=OneWay}">
+				<FontIcon Glyph="&#xE946;" Foreground="{ThemeResource AccentFillColorDefaultBrush}" />
+				<TextBlock Margin="6,0,0,0" Text="{x:Bind DataUnavailableMessage, Mode=OneWay}" />
+			</StackPanel>
 		</Grid>
 
 		<!--Footer-->
