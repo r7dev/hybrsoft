@@ -53,6 +53,11 @@
 							  LabelPosition="Collapsed"
 							  Style="{StaticResource ToolBarButtonCollapsedStyle}"
 							  Tag="refresh"/>
+				<controls:SearchDateRange x:Name="daterange"
+										  Margin="6,0,0,0"
+										  StartDate="{x:Bind StartDate, Mode=TwoWay}"
+										  EndDate="{x:Bind EndDate, Mode=TwoWay}"
+										  Tag="daterange"/>
 				<controls:Search x:Name="search"
 								 Margin="6,0,0,0"
 								 Query="{x:Bind Query, Mode=TwoWay}"

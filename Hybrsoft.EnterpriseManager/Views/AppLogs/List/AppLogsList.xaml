@@ -63,7 +63,7 @@
 		</DataTemplate>
 	</UserControl.Resources>
 
-	<controls:DataList DefaultCommands="select,refresh,search"
+	<controls:DataList DefaultCommands="select,refresh,daterange,search"
 				   ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
 				   SelectedItem="{x:Bind ViewModel.SelectedItem, Mode=TwoWay}"
 				   HeaderTemplate="{StaticResource HeaderTemplate}"
@@ -71,6 +71,8 @@
 				   IsMultipleSelection="{x:Bind ViewModel.IsMultipleSelection, Mode=TwoWay}"
 				   ItemsCount="{x:Bind ViewModel.ItemsCount, Mode=OneWay}"
 				   RefreshCommand="{x:Bind ViewModel.RefreshCommand}"
+				   StartDate="{x:Bind ViewModel.StartDate, Mode=TwoWay}"
+				   EndDate="{x:Bind ViewModel.EndDate, Mode=TwoWay}"
 				   Query="{x:Bind ViewModel.Query, Mode=TwoWay}"
 				   QuerySubmittedCommand="{x:Bind ViewModel.RefreshCommand}"
 				   StartSelectionCommand="{x:Bind ViewModel.StartSelectionCommand}"

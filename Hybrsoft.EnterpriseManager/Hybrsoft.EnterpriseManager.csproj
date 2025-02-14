@@ -26,6 +26,7 @@
     <None Remove="Controls\Login\LoginNamePassword.xaml" />
     <None Remove="Controls\Login\LoginWindowsHello.xaml" />
     <None Remove="Controls\Search\Search.xaml" />
+    <None Remove="Controls\Search\SearchDateRange.xaml" />
     <None Remove="Controls\Suggest\PermissionSuggestBox.xaml" />
     <None Remove="Controls\Suggest\RoleSuggestBox.xaml" />
     <None Remove="Controls\Toolbars\DetailToolbar.xaml" />
@@ -158,6 +159,11 @@
     <Folder Include="Assets\Images\" />
     <Folder Include="Strings\en-us\" />
     <Folder Include="Views\Roles\Details\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\Search\SearchDateRange.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Settings\SettingsView.xaml">

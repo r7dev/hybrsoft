@@ -19,6 +19,8 @@ namespace Hybrsoft.Domain.ViewModels
 		public async Task LoadAsync(AppLogListArgs args)
 		{
 			ViewModelArgs = args ?? AppLogListArgs.CreateEmpty();
+			StartDate = ViewModelArgs.StartDate;
+			EndDate = ViewModelArgs.EndDate;
 			Query = ViewModelArgs.Query;
 
 			StartStatusMessage("Loading logs...");
@@ -47,6 +49,8 @@ namespace Hybrsoft.Domain.ViewModels
 		{
 			return new AppLogListArgs
 			{
+				StartDate = StartDate ?? DateRangeTools.GetStartDate(),
+				EndDate = EndDate ?? DateRangeTools.GetEndDate(),
 				Query = Query,
 				OrderBy = ViewModelArgs.OrderBy,
 				OrderByDesc = ViewModelArgs.OrderByDesc
@@ -168,7 +172,9 @@ namespace Hybrsoft.Domain.ViewModels
 			return new DataRequest<AppLog>()
 			{
 				Query = Query,
-				Where = r => r.AppType == AppType.EnterpriseManager,
+				Where = r => r.AppType == AppType.EnterpriseManager
+					&& r.CreateOn >= StartDate
+					&& r.CreateOn <= EndDate,
 				OrderBy = ViewModelArgs.OrderBy,
 				OrderByDesc = ViewModelArgs.OrderByDesc
 			};

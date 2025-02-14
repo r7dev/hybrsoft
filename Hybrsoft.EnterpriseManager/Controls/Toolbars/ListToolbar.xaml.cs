@@ -1,6 +1,7 @@
 using Hybrsoft.EnterpriseManager.Tools.ElementSet;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using System;
 using System.Windows.Input;
 using Windows.Foundation;
 
@@ -62,6 +63,34 @@ namespace Hybrsoft.EnterpriseManager.Controls
 		}
 
 		public static readonly DependencyProperty DefaultCommandsProperty = DependencyProperty.Register(nameof(DefaultCommands), typeof(string), typeof(ListToolbar), new PropertyMetadata("new,select,refresh,search", DefaultCommandsChanged));
+		#endregion
+
+		#region StartDate
+		public DateTimeOffset? StartDate
+		{
+			get
+			{
+				var value = GetValue(StartDateProperty);
+				return value == null ? (DateTimeOffset?)null : (DateTimeOffset)value;
+			}
+			set { SetValue(StartDateProperty, value); }
+		}
+
+		public static readonly DependencyProperty StartDateProperty = DependencyProperty.Register("StartDate", typeof(DateTimeOffset), typeof(ListToolbar), new PropertyMetadata(null));
+		#endregion
+
+		#region EndDate
+		public DateTimeOffset? EndDate
+		{
+			get
+			{
+				var value = GetValue(EndDateProperty);
+				return value == null ? (DateTimeOffset?)null : (DateTimeOffset)value;
+			}
+			set { SetValue(EndDateProperty, value); }
+		}
+
+		public static readonly DependencyProperty EndDateProperty = DependencyProperty.Register("EndDate", typeof(DateTimeOffset), typeof(ListToolbar), new PropertyMetadata(null));
 		#endregion
 
 		#region Query
@@ -129,6 +158,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 				.ForEach(v => v.Show(v.IsCategory(categories)));
 			ElementSet.Children<AppBarButton>(commandBar.Content)
 				.ForEach(v => v.Show(v.IsCategory(categories)));
+			daterange.Show(daterange.IsCategory(categories));
 			search.Show(search.IsCategory(categories));
 		}
 

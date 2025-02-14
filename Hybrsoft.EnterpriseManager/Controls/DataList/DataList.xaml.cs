@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Windows.Input;
 using System.Collections.Specialized;
 using Hybrsoft.EnterpriseManager.Extensions;
+using System;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -149,6 +150,34 @@ namespace Hybrsoft.EnterpriseManager.Controls
 		public static readonly DependencyProperty SelectedItemsCountProperty = DependencyProperty.Register(nameof(SelectedItemsCount), typeof(int), typeof(DataList), new PropertyMetadata(null, SelectedItemsCountChanged));
 		#endregion
 
+
+		#region StartDate
+		public DateTimeOffset? StartDate
+		{
+			get
+			{
+				var value = GetValue(StartDateProperty);
+				return value == null ? (DateTimeOffset?)null : (DateTimeOffset)value;
+			}
+			set { SetValue(StartDateProperty, value); }
+		}
+
+		public static readonly DependencyProperty StartDateProperty = DependencyProperty.Register("StartDate", typeof(DateTimeOffset), typeof(DataList), new PropertyMetadata(null));
+		#endregion
+
+		#region EndDate
+		public DateTimeOffset? EndDate
+		{
+			get
+			{
+				var value = GetValue(EndDateProperty);
+				return value == null ? (DateTimeOffset?)null : (DateTimeOffset)value;
+			}
+			set { SetValue(EndDateProperty, value); }
+		}
+
+		public static readonly DependencyProperty EndDateProperty = DependencyProperty.Register("EndDate", typeof(DateTimeOffset), typeof(DataList), new PropertyMetadata(null));
+		#endregion
 
 		#region Query
 		public string Query

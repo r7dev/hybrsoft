@@ -42,6 +42,19 @@ namespace Hybrsoft.Domain.ViewModels
 			}
 		}
 
+		private DateTimeOffset? _startDate = null;
+		public DateTimeOffset? StartDate
+		{
+			get => _startDate;
+			set => Set(ref _startDate, value);
+		}
+		private DateTimeOffset? _endDate = null;
+		public DateTimeOffset? EndDate
+		{
+			get => _endDate;
+			set => Set(ref _endDate, value);
+		}
+
 		private string _query = null;
 		public string Query
 		{
