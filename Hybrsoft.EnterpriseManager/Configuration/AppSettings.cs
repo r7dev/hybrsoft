@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using System;
 using Windows.ApplicationModel;
+using Windows.Graphics;
 using Windows.Storage;
 
 namespace Hybrsoft.EnterpriseManager.Configuration
@@ -26,53 +27,57 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			}
 		}
 
+		public SizeInt32 WindowSizeDefault
+		{
+			get => GetSettingsValue<SizeInt32>(nameof(WindowSizeDefault), new SizeInt32() { Width = 1280, Height = 840 });
+			set => SetSettingsValue(nameof(WindowSizeDefault), value);
+		}
+
 		public long UserID
 		{
-			get => GetSettingsValue("UserID", default(long));
-			set => LocalSettings.Values["UserID"] = value;
+			get => GetSettingsValue(nameof(UserID), default(long));
+			set => SetSettingsValue(nameof(UserID), value);
 		}
 
 		public string UserName
 		{
-			get => GetSettingsValue("UserName", default(String));
-			set => LocalSettings.Values["UserName"] = value;
+			get => GetSettingsValue(nameof(UserName), default(String));
+			set => SetSettingsValue(nameof(UserName), value);
 		}
 
 		public string WindowsHelloPublicKeyHint
 		{
-			get => GetSettingsValue("WindowsHelloPublicKeyHint", default(String));
-			set => LocalSettings.Values["WindowsHelloPublicKeyHint"] = value;
+			get => GetSettingsValue(nameof(WindowsHelloPublicKeyHint), default(String));
+			set => SetSettingsValue(nameof(WindowsHelloPublicKeyHint), value);
 		}
 
 		public DataProviderType DataProvider
 		{
-			get => (DataProviderType)GetSettingsValue("DataProvider", (int)DataProviderType.SQLServer);
-			set => LocalSettings.Values["DataProvider"] = (int)value;
+			get => (DataProviderType)GetSettingsValue(nameof(DataProvider), (int)DataProviderType.SQLServer);
+			set => SetSettingsValue(nameof(DataProvider), (int)value);
 		}
 
 		public string SQLServerConnectionString
 		{
-			get
-			{
-				var config = new ConfigurationBuilder()
+			get => GetSettingsValue(nameof(SQLServerConnectionString),
+				new ConfigurationBuilder()
 				.SetBasePath("C:\\Users\\ricar\\AppData\\Roaming\\Microsoft\\UserSecrets\\e3462127-a2fe-4121-a768-e126e4ed23f2")
 				.AddJsonFile("secrets.json")
-				.Build();
-				return config.GetConnectionString("EnterpriseManager_DevEnvironment");
-			}
-			set => SetSettingsValue("SQLServerConnectionString", value);
+				.Build()
+				.GetConnectionString("EnterpriseManager_DevEnvironment"));
+			set => SetSettingsValue(nameof(SQLServerConnectionString), value);
 		}
 
 		public bool IsRandomErrorsEnabled
 		{
-			get => GetSettingsValue("IsRandomErrorsEnabled", false);
-			set => LocalSettings.Values["IsRandomErrorsEnabled"] = value;
+			get => GetSettingsValue(nameof(IsRandomErrorsEnabled), false);
+			set => SetSettingsValue(nameof(IsRandomErrorsEnabled), value);
 		}
 
 		public char PasswordChar
 		{
-			get => GetSettingsValue("PasswordChar", '*');
-			set => LocalSettings.Values["PasswordChar"] = value;
+			get => GetSettingsValue(nameof(PasswordChar), '*');
+			set => SetSettingsValue(nameof(PasswordChar), value);
 		}
 
 		private TResult GetSettingsValue<TResult>(string name, TResult defaultValue)

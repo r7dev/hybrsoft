@@ -1,4 +1,5 @@
-﻿using Microsoft.UI;
+﻿using Hybrsoft.EnterpriseManager.Configuration;
+using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using System;
@@ -55,7 +56,7 @@ namespace Hybrsoft.EnterpriseManager.Extensions
 		public static void SetDefaultWindowSize(this Window window)
 		{
 			AppWindow appWindow = GetAppWindow(window);
-			appWindow.Resize(((App)Application.Current).WindowSizeDefault);
+			appWindow.Resize(AppSettings.Current.WindowSizeDefault);
 		}
 	}
 }

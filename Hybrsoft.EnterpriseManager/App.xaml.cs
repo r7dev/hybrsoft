@@ -10,7 +10,6 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
-using Windows.Graphics;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -29,7 +28,6 @@ namespace Hybrsoft.EnterpriseManager
 
 		public Window MainWindow { get; set; }
 		public Window CurrentView { get; set; }
-		public SizeInt32 WindowSizeDefault { get; } = new() { Width = 1280, Height = 840 };
 
 		/// <summary>
 		/// Initializes the singleton application object.  This is the first line of authored code
