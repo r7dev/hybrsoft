@@ -12,12 +12,12 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 	{
 		public async Task<User> GetUserAsync(long id)
 		{
-			return await _dataSource.Users.Where(r => r.UserId == id).FirstOrDefaultAsync();
+			return await _universalDataSource.Users.Where(r => r.UserId == id).FirstOrDefaultAsync();
 		}
 
 		public async Task<User> GetUserByEmailAsync(string email)
 		{
-			return await _dataSource.Users.Where(r => r.Email == email).FirstOrDefaultAsync();
+			return await _universalDataSource.Users.Where(r => r.Email == email).FirstOrDefaultAsync();
 		}
 
 		public async Task<IList<User>> GetUsersAsync(int skip, int take, DataRequest<User> request)
@@ -58,7 +58,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 		private IQueryable<User> GetUsers(DataRequest<User> request, bool skipSorting = false)
 		{
-			IQueryable<User> items = _dataSource.Users;
+			IQueryable<User> items = _universalDataSource.Users;
 
 			// Query
 			if (!String.IsNullOrEmpty(request.Query))
@@ -96,24 +96,24 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		{
 			if (user.UserId > 0)
 			{
-				_dataSource.Entry(user).State = EntityState.Modified;
+				_universalDataSource.Entry(user).State = EntityState.Modified;
 			}
 			else
 			{
 				user.UserId = UIDGenerator.Next();
 				user.CreatedOn = DateTime.UtcNow;
-				_dataSource.Entry(user).State = EntityState.Added;
+				_universalDataSource.Entry(user).State = EntityState.Added;
 			}
 			user.LastModifiedOn = DateTime.UtcNow;
 			user.SearchTerms = user.BuildSearchTerms();
-			int res = await _dataSource.SaveChangesAsync();
+			int res = await _universalDataSource.SaveChangesAsync();
 			return res;
 		}
 
 		public async Task<int> DeleteUsersAsync(params User[] users)
 		{
-			_dataSource.Users.RemoveRange(users);
-			return await _dataSource.SaveChangesAsync();
+			_universalDataSource.Users.RemoveRange(users);
+			return await _universalDataSource.SaveChangesAsync();
 		}
 	}
 }

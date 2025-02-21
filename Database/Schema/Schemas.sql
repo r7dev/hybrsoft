@@ -1,0 +1,3 @@
+﻿CREATE SCHEMA [Learn]
+GO
+CREATE SCHEMA [Universal]

@@ -4,15 +4,16 @@ using System.Linq;
 
 namespace Hybrsoft.Infrastructure.DataServices.Base
 {
-	abstract public partial class DataServiceBase(IDataSource dataSource) : IDataService, IDisposable
+	abstract public partial class DataServiceBase(IUniversalDataSource universalDataSource, ILearnDataSource learnDataSource) : IDataService, IDisposable
 	{
-		private readonly IDataSource _dataSource = dataSource;
+		private readonly IUniversalDataSource _universalDataSource = universalDataSource;
+		private readonly ILearnDataSource _learnDataSource = learnDataSource;
 
 		public bool HasPermission(long userId, string permissionName)
 		{
-			return _dataSource.UserRoles
-				.Join(_dataSource.RolePermissions, ur => ur.RoleId, rp => rp.RoleId, (ur, rp) => new { ur, rp })
-				.Join(_dataSource.Permissions, urrp => urrp.rp.PermissionId, p => p.PermissionId, (urrp, p) => new { urrp.ur, urrp.rp, p })
+			return _universalDataSource.UserRoles
+				.Join(_universalDataSource.RolePermissions, ur => ur.RoleId, rp => rp.RoleId, (ur, rp) => new { ur, rp })
+				.Join(_universalDataSource.Permissions, urrp => urrp.rp.PermissionId, p => p.PermissionId, (urrp, p) => new { urrp.ur, urrp.rp, p })
 				.Any(x => x.ur.UserId == userId && x.p.Name == permissionName);
 		}
 
@@ -27,7 +28,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		{
 			if (disposing)
 			{
-				_dataSource?.Dispose();
+				_universalDataSource?.Dispose();
 			}
 		}
 		#endregion

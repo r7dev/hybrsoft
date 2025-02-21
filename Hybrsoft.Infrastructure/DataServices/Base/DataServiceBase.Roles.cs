@@ -12,7 +12,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 	{
 		public async Task<Role> GetRoleAsync(long id)
 		{
-			return await _dataSource.Roles.Where(r => r.RoleId == id).FirstOrDefaultAsync();
+			return await _universalDataSource.Roles.Where(r => r.RoleId == id).FirstOrDefaultAsync();
 		}
 
 		public async Task<IList<Role>> GetRolesAsync(int skip, int take, DataRequest<Role> request)
@@ -50,7 +50,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 		private IQueryable<Role> GetRoles(DataRequest<Role> request, bool skipSorting = false)
 		{
-			IQueryable<Role> items = _dataSource.Roles;
+			IQueryable<Role> items = _universalDataSource.Roles;
 
 			// Query
 			if (!String.IsNullOrEmpty(request.Query))
@@ -88,24 +88,24 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		{
 			if (role.RoleId > 0)
 			{
-				_dataSource.Entry(role).State = EntityState.Modified;
+				_universalDataSource.Entry(role).State = EntityState.Modified;
 			}
 			else
 			{
 				role.RoleId = UIDGenerator.Next();
 				role.CreatedOn = DateTime.UtcNow;
-				_dataSource.Entry(role).State = EntityState.Added;
+				_universalDataSource.Entry(role).State = EntityState.Added;
 			}
 			role.LastModifiedOn = DateTime.UtcNow;
 			role.SearchTerms = role.BuildSearchTerms();
-			int res = await _dataSource.SaveChangesAsync();
+			int res = await _universalDataSource.SaveChangesAsync();
 			return res;
 		}
 
 		public async Task<int> DeleteRolesAsync(params Role[] role)
 		{
-			_dataSource.Roles.RemoveRange(role);
-			return await _dataSource.SaveChangesAsync();
+			_universalDataSource.Roles.RemoveRange(role);
+			return await _universalDataSource.SaveChangesAsync();
 		}
 	}
 }

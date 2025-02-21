@@ -61,9 +61,11 @@
     <Folder Include="Schema\Universal\Tables" />
     <Folder Include="Schema\Universal\Script-Post" />
     <Folder Include="Script-Pre" />
+    <Folder Include="Schema\Learn" />
+    <Folder Include="Schema\Learn\Tables" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Schema\Universal.sql" />
+    <Build Include="Schema\Schemas.sql" />
     <Build Include="Schema\Universal\Tables\AppLog.sql" />
     <Build Include="Schema\Universal\Tables\User.sql" />
     <Build Include="Schema\Universal\Tables\NavigationItem.sql" />
@@ -73,6 +75,7 @@
     <Build Include="Schema\Universal\Tables\Role.sql" />
     <Build Include="Schema\Universal\Tables\RolePermission.sql" />
     <Build Include="Schema\Universal\Tables\UserRole.sql" />
+    <Build Include="Schema\Learn\Tables\Student.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Schema\Universal\Script-Post\PostDeployment.sql" />

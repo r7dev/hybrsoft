@@ -13,7 +13,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 	{
 		public async Task<RolePermission> GetRolePermissionAsync(long rolePermissionId)
 		{
-			return await _dataSource.RolePermissions
+			return await _universalDataSource.RolePermissions
 				.Where(r => r.RolePermissionId == rolePermissionId)
 				.Include(r => r.Permission)
 				.FirstOrDefaultAsync();
@@ -51,7 +51,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 		private IQueryable<RolePermission> GetRolePermissions(DataRequest<RolePermission> request, bool skipSorting = false)
 		{
-			IQueryable<RolePermission> items = _dataSource.RolePermissions;
+			IQueryable<RolePermission> items = _universalDataSource.RolePermissions;
 
 			// Query
 			if (!String.IsNullOrEmpty(request.Query))
@@ -89,23 +89,23 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		{
 			if (rolePermission.RolePermissionId > 0)
 			{
-				_dataSource.Entry(rolePermission).State = EntityState.Modified;
+				_universalDataSource.Entry(rolePermission).State = EntityState.Modified;
 			}
 			else
 			{
 				rolePermission.RolePermissionId = UIDGenerator.Next();
 				rolePermission.CreatedOn = DateTime.UtcNow;
-				_dataSource.Entry(rolePermission).State = EntityState.Added;
+				_universalDataSource.Entry(rolePermission).State = EntityState.Added;
 			}
 			rolePermission.LastModifiedOn = DateTime.UtcNow;
 			rolePermission.SearchTerms = rolePermission.BuildSearchTerms();
-			return await _dataSource.SaveChangesAsync();
+			return await _universalDataSource.SaveChangesAsync();
 		}
 
 		public async Task<int> DeleteRolePermissionsAsync(params RolePermission[] rolePermission)
 		{
-			_dataSource.RolePermissions.RemoveRange(rolePermission);
-			return await _dataSource.SaveChangesAsync();
+			_universalDataSource.RolePermissions.RemoveRange(rolePermission);
+			return await _universalDataSource.SaveChangesAsync();
 		}
 	}
 }

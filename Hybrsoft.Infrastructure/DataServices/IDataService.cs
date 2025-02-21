@@ -9,6 +9,7 @@ namespace Hybrsoft.Infrastructure.DataServices
 {
 	public interface IDataService : IDisposable
 	{
+		#region Schema Universal
 		bool HasPermission(long userId, string permissionName);
 
 		IList<NavigationItem> GetNavigationItemByAppType(AppType appType);
@@ -56,5 +57,16 @@ namespace Hybrsoft.Infrastructure.DataServices
 		Task<int> GetUserRolesCountAsync(DataRequest<UserRole> request);
 		Task<int> UpdateUserRoleAsync(UserRole userRole);
 		Task<int> DeleteUserRolesAsync(params UserRole[] userRoles);
+		#endregion
+
+		#region Schema Learn
+		Task<Student> GetStudentAsync(long id);
+		Task<Student> GetStudentByEmailAsync(string email);
+		Task<IList<Student>> GetStudentsAsync(int skip, int take, DataRequest<Student> request);
+		Task<IList<Student>> GetStudentKeysAsync(int skip, int take, DataRequest<Student> request);
+		Task<int> GetStudentsCountAsync(DataRequest<Student> request);
+		Task<int> UpdateStudentAsync(Student Student);
+		Task<int> DeleteStudentsAsync(params Student[] Students);
+		#endregion
 	}
 }

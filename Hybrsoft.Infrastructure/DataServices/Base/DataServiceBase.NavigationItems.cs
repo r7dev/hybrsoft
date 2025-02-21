@@ -10,7 +10,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 	{
 		public IList<NavigationItem> GetNavigationItemByAppType(AppType appType)
 		{
-			return [.. _dataSource.NavigationItems
+			return [.. _universalDataSource.NavigationItems
 				.Where(f => f.AppType == appType)
 				.AsNoTracking()];
 		}

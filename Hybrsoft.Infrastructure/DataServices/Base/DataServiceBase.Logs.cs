@@ -12,7 +12,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 	{
 		public async Task<AppLog> GetLogAsync(long id)
 		{
-			return await _dataSource.AppLogs.Where(r => r.AppLogId == id).FirstOrDefaultAsync();
+			return await _universalDataSource.AppLogs.Where(r => r.AppLogId == id).FirstOrDefaultAsync();
 		}
 
 		public async Task<IList<AppLog>> GetLogsAsync(int skip, int take, DataRequest<AppLog> request)
@@ -45,7 +45,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 		private IQueryable<AppLog> GetLogs(DataRequest<AppLog> request, bool skipSorting = false)
 		{
-			IQueryable<AppLog> items = _dataSource.AppLogs;
+			IQueryable<AppLog> items = _universalDataSource.AppLogs;
 
 			// Query
 			if (!String.IsNullOrEmpty(request.Query))
@@ -82,26 +82,26 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		public async Task<int> CreateLogAsync(AppLog appLog)
 		{
 			appLog.CreateOn = DateTime.UtcNow;
-			_dataSource.Entry(appLog).State = EntityState.Added;
-			return await _dataSource.SaveChangesAsync();
+			_universalDataSource.Entry(appLog).State = EntityState.Added;
+			return await _universalDataSource.SaveChangesAsync();
 		}
 
 		public async Task<int> DeleteLogsAsync(params AppLog[] logs)
 		{
-			_dataSource.AppLogs.RemoveRange(logs);
-			return await _dataSource.SaveChangesAsync();
+			_universalDataSource.AppLogs.RemoveRange(logs);
+			return await _universalDataSource.SaveChangesAsync();
 		}
 
 		public async Task MarkAllAsReadAsync()
 		{
-			var items = await _dataSource.AppLogs
+			var items = await _universalDataSource.AppLogs
 				.Where(r => !r.IsRead && r.AppType == Enums.AppType.EnterpriseManager)
 				.ToListAsync();
 			foreach (var item in items)
 			{
 				item.IsRead = true;
 			}
-			await _dataSource.SaveChangesAsync();
+			await _universalDataSource.SaveChangesAsync();
 		}
 	}
 }

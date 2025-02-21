@@ -12,7 +12,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 	{
 		public async Task<Permission> GetPermissionAsync(long id)
 		{
-			return await _dataSource.Permissions.Where(r => r.PermissionId == id).FirstOrDefaultAsync();
+			return await _universalDataSource.Permissions.Where(r => r.PermissionId == id).FirstOrDefaultAsync();
 		}
 
 		public async Task<IList<Permission>> GetPermissionsAsync(int skip, int take, DataRequest<Permission> request)
@@ -53,7 +53,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 		private IQueryable<Permission> GetPermissions(DataRequest<Permission> request, bool skipSorting = false)
 		{
-			IQueryable<Permission> items = _dataSource.Permissions;
+			IQueryable<Permission> items = _universalDataSource.Permissions;
 
 			// Query
 			if (!String.IsNullOrEmpty(request.Query))
@@ -91,24 +91,24 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		{
 			if (permission.PermissionId > 0)
 			{
-				_dataSource.Entry(permission).State = EntityState.Modified;
+				_universalDataSource.Entry(permission).State = EntityState.Modified;
 			}
 			else
 			{
 				permission.PermissionId = UIDGenerator.Next();
 				permission.CreatedOn = DateTime.UtcNow;
-				_dataSource.Entry(permission).State = EntityState.Added;
+				_universalDataSource.Entry(permission).State = EntityState.Added;
 			}
 			permission.LastModifiedOn = DateTime.UtcNow;
 			permission.SearchTerms = permission.BuildSearchTerms();
-			int res = await _dataSource.SaveChangesAsync();
+			int res = await _universalDataSource.SaveChangesAsync();
 			return res;
 		}
 
 		public async Task<int> DeletePermissionsAsync(params Permission[] permission)
 		{
-			_dataSource.Permissions.RemoveRange(permission);
-			return await _dataSource.SaveChangesAsync();
+			_universalDataSource.Permissions.RemoveRange(permission);
+			return await _universalDataSource.SaveChangesAsync();
 		}
 	}
 }

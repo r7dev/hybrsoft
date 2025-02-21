@@ -2,12 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
-using System.Threading.Tasks;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Hybrsoft.Infrastructure.DataContexts
 {
-	public interface IDataSource : IDisposable
+	public interface IUniversalDataSource : IDisposable
 	{
 		public DbSet<AppLog> AppLogs { get; set; }
 		public DbSet<Category> Categories { get; set; }
