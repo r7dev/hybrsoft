@@ -29,8 +29,20 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 
 		public SizeInt32 WindowSizeDefault
 		{
-			get => GetSettingsValue<SizeInt32>(nameof(WindowSizeDefault), new SizeInt32() { Width = 1280, Height = 840 });
-			set => SetSettingsValue(nameof(WindowSizeDefault), value);
+			get => new() { Width = WindowWidth, Height = WindowHeight };
+			set { WindowWidth = value.Width; WindowHeight = value.Height; }
+		}
+
+		private int WindowWidth
+		{
+			get => GetSettingsValue(nameof(WindowWidth), 1280);
+			set => SetSettingsValue(nameof(WindowWidth), value);
+		}
+
+		private int WindowHeight
+		{
+			get => GetSettingsValue(nameof(WindowHeight), 840);
+			set => SetSettingsValue(nameof(WindowHeight), value);
 		}
 
 		public long UserID
