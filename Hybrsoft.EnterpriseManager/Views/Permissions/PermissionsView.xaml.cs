@@ -39,7 +39,7 @@ namespace Hybrsoft.EnterpriseManager.Views
 
 		private async void OpenInNewView(object sender, RoutedEventArgs e)
 		{
-			await NavigationService.CreateNewViewAsync<UsersViewModel>(ViewModel.PermissionList.CreateArgs());
+			await NavigationService.CreateNewViewAsync<PermissionsViewModel>(ViewModel.PermissionList.CreateArgs());
 		}
 
 		public int GetRowSpan(bool isMultipleSelection)
