@@ -13,14 +13,14 @@
 	<UserControl.Resources>
 		<DataTemplate x:Key="ListHeaderTemplate">
 			<StackPanel Margin="6,4,0,0" Orientation="Horizontal" VerticalAlignment="Center">
-				<TextBlock Text="Users" FontSize="18" />
 				<TextBlock Text="{Binding}" FontSize="18" Foreground="{ThemeResource TextFillColorPrimaryBrush}" />
 			</StackPanel>
 		</DataTemplate>
 	</UserControl.Resources>
 
 	<Grid>
-		<controls:WindowTitle Prefix="Users" Title="{x:Bind ViewModel.UserList.Title, Mode=OneWay}" />
+		<controls:WindowTitle Prefix="{x:Bind ViewModel.UserList.Prefix, Mode=OneWay}"
+							  Title="{x:Bind ViewModel.UserList.Title, Mode=OneWay}" />
 
 		<Grid>
 			<Grid.RowDefinitions>
@@ -30,7 +30,8 @@
 
 			<!--Users-->
 			<Grid Grid.RowSpan="{x:Bind GetRowSpan(ViewModel.UserList.IsMultipleSelection), Mode=OneWay}">
-				<controls:Section Header="{x:Bind ViewModel.UserList.Title, Mode=OneWay}"
+				<controls:Section Prefix="{x:Bind ViewModel.UserList.Prefix, Mode=OneWay}"
+								  Header="{x:Bind ViewModel.UserList.Title, Mode=OneWay}"
 								  HeaderTemplate="{StaticResource ListHeaderTemplate}"
 								  HeaderButtonGlyph="&#xE8A7;"
 								  HeaderButtonClick="OpenInNewView"
@@ -49,14 +50,14 @@
 								  Visibility="{x:Bind ViewModel.UserDetails.IsDataAvailable, Mode=OneWay}">
 
 					<Pivot x:Name="pivot">
-						<PivotItem Header="User Roles">
+						<PivotItem x:Uid="/UI/UsersView_Details_UserRoles">
 							<views:UsersUserRoles Grid.Row="1" ViewModel="{x:Bind ViewModel.UserRoleList}" />
 						</PivotItem>
 					</Pivot>
 
 				</controls:Section>
 				<!--Empty Details-->
-				<controls:Section Header="No item selected" 
+				<controls:Section x:Uid="/UI/UsersView_EmptyDetails"
 								  Visibility="{x:Bind ViewModel.UserDetails.IsDataUnavailable, Mode=OneWay}" />
 			</Grid>
 		</Grid>

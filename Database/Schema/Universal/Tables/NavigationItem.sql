@@ -3,6 +3,7 @@
 	[NavigationItemId] INT NOT NULL PRIMARY KEY IDENTITY,
 	[Label] NVARCHAR(50) NOT NULL,
 	[Icon] INT NULL,
+	[Uid] NVARCHAR(50) NULL,
 	[ViewModel] NVARCHAR(50) NULL,
 	[ParentId] INT NULL,
 	[AppType] INT NOT NULL,

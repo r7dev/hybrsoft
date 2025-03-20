@@ -23,12 +23,13 @@ namespace Hybrsoft.EnterpriseManager.Services
 	{
 		static private readonly ConcurrentDictionary<Type, Type> _viewModelMap = new();
 
-		public NavigationService(IDataServiceFactory dataServiceFactory)
+		public NavigationService(IDataServiceFactory dataServiceFactory, IResourceService resourceService)
 		{
 			Window currentView = ((App)Application.Current).CurrentView;
 			var appWindow = AppWindowExtensions.GetAppWindow(currentView);
 			MainViewId = (int)appWindow.Id.Value;
 			DataServiceFactory = dataServiceFactory;
+			ResourceService = resourceService;
 		}
 
 		public int MainViewId { get; }
@@ -125,6 +126,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		}
 
 		public IDataServiceFactory DataServiceFactory { get; }
+		private static IResourceService ResourceService { get; set; }
 
 		public IEnumerable<NavigationItemDto> GetItems()
 		{
@@ -136,11 +138,11 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			return items.Where(f => f.ParentId == parentId)
 				.Select(f => new NavigationItemDto(
-					f.Label,
+					string.IsNullOrEmpty(f.Uid) ? f.Label : ResourceService.GetString(nameof(ResourceFiles.UI), f.Uid),
 					f.Icon.Value,
 					f.ViewModel,
 					f.ParentId,
-					new ObservableCollection<NavigationItemDto>(GetNavigationItemByParentId(items, f.NavigationItemId)),
+					[.. GetNavigationItemByParentId(items, f.NavigationItemId)],
 					string.IsNullOrEmpty(f.ViewModel) ? null : GetTypeViewModelByName(f.ViewModel)));
 		}
 

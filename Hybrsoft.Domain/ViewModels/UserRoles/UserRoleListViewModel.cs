@@ -31,10 +31,12 @@ namespace Hybrsoft.Domain.ViewModels
 			}
 			else
 			{
-				StartStatusMessage("Loading user roles...");
+				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(UserRoleListViewModel), "_LoadingUserRoles"));
+				StartStatusMessage(startMessage);
 				if (await RefreshAsync())
 				{
-					EndStatusMessage("UserRoles loaded");
+					string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(UserRoleListViewModel), "_UserRolesLoaded"));
+					EndStatusMessage(endMessage);
 				}
 			}
 		}
@@ -79,7 +81,10 @@ namespace Hybrsoft.Domain.ViewModels
 			catch (Exception ex)
 			{
 				Items = [];
-				StatusError($"Error loading User roles: {ex.Message}");
+				string resourceKey = string.Concat(nameof(UserRoleListViewModel), "_ErrorLoadingUserRoles0");
+				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
+				string message = string.Format(resourceValue, ex.Message);
+				StatusError(message);
 				LogException("UserRoles", "Refresh", ex);
 				isOk = false;
 			}
@@ -129,39 +134,52 @@ namespace Hybrsoft.Domain.ViewModels
 
 		protected override async void OnRefresh()
 		{
-			StartStatusMessage("Loading user roles...");
+			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(UserRoleListViewModel), "_LoadingUserRoles"));
+			StartStatusMessage(startMessage);
 			if (await RefreshAsync())
 			{
-				EndStatusMessage("User roles loaded");
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(UserRoleListViewModel), "_UserRolesLoaded"));
+				EndStatusMessage(endMessage);
 			}
 		}
 
 		protected override async void OnDeleteSelection()
 		{
 			StatusReady();
-			if (await DialogService.ShowAsync("Confirm Delete", "Are you sure you want to delete selected user roles?", "Ok", "Cancel"))
+			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDelete");
+			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), string.Concat(nameof(UserRoleListViewModel), "_AreYouSureYouWantToDeleteSelectedUserRoles"));
+			string delete = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Delete");
+			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
+			if (await DialogService.ShowAsync(title, content, delete, cancel))
 			{
 				int count = 0;
 				try
 				{
+					string resourceKey = string.Concat(nameof(UserRoleListViewModel), "_Deleting0UserRoles");
+					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
 					if (SelectedIndexRanges != null)
 					{
 						count = SelectedIndexRanges.Sum(r => r.Length);
-						StartStatusMessage($"Deleting {count} user roles...");
+						string message = string.Format(resourceValue, count);
+						StartStatusMessage(message);
 						await DeleteRangesAsync(SelectedIndexRanges);
 						MessageService.Send(this, "ItemRangesDeleted", SelectedIndexRanges);
 					}
 					else if (SelectedItems != null)
 					{
 						count = SelectedItems.Count;
-						StartStatusMessage($"Deleting {count} user roles...");
+						string message = string.Format(resourceValue, count);
+						StartStatusMessage(message);
 						await DeleteItemsAsync(SelectedItems);
 						MessageService.Send(this, "ItemsDeleted", SelectedItems);
 					}
 				}
 				catch (Exception ex)
 				{
-					StatusError($"Error deleting {count} user roles: {ex.Message}");
+					string resourceKey = string.Concat(nameof(UserRoleListViewModel), "_ErrorDeleting0UserRoles1");
+					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
+					string message = string.Format(resourceValue, count, ex.Message);
+					StatusError(message);
 					LogException("UserRoles", "Delete", ex);
 					count = 0;
 				}
@@ -170,6 +188,9 @@ namespace Hybrsoft.Domain.ViewModels
 				SelectedItems = null;
 				if (count > 0)
 				{
+					string resourceKey = string.Concat(nameof(UserRoleListViewModel), "_0UserRolesDeleted");
+					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
+					string message = string.Format(resourceValue, count);
 					EndStatusMessage($"{count} user roles deleted", LogType.Warning);
 				}
 			}

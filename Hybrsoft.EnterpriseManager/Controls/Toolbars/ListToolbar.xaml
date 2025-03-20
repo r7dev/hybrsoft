@@ -11,7 +11,7 @@
 	<CommandBar x:Name="commandBar" Height="36" DefaultLabelPosition="Right" Style="{StaticResource ToolBarStyle}" Background="Transparent">
 		<AppBarButton x:Name="buttonCancel"
 					  Icon="Cancel"
-					  Label="Cancel"
+					  x:Uid="/UI/ListToolbarUserControl_AppBarButtonCancel"
 					  LabelPosition="Default"
 					  HorizontalAlignment="Left"
 					  Style="{StaticResource ToolBarButtonStyle}"
@@ -26,7 +26,7 @@
 					  Tag="new"/>
 		<AppBarButton x:Name="buttonEdit"
 					  Icon="Edit"
-					  Label="Edit"
+					  x:Uid="/UI/ListToolbarUserControl_AppBarButtonEdit"
 					  LabelPosition="Default"
 					  HorizontalAlignment="Left"
 					  Style="{StaticResource ToolBarButtonStyle}"
@@ -34,7 +34,7 @@
 		<AppBarButton x:Name="buttonDelete"
 					  Icon="Delete"
 					  IsEnabled="{x:Bind DeleteCommand.CanExecute(x:Null)}"
-					  Label="Delete"
+					  x:Uid="/UI/ListToolbarUserControl_AppBarButtonDelete"
 					  LabelPosition="Default"
 					  HorizontalAlignment="Left"
 					  Style="{StaticResource ToolBarButtonStyle}"

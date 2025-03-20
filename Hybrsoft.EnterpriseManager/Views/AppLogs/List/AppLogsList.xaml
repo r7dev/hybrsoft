@@ -24,14 +24,14 @@
 					<ColumnDefinition Width="1*"/>
 					<ColumnDefinition Width="2*"/>
 				</Grid.ColumnDefinitions>
-				<TextBlock Grid.Column="1" Text="Log Type" Style="{StaticResource ColumnHeaderStyle}" />
+				<TextBlock x:Uid="/UI/AppLogsList_ColumnHeaderLogType" Grid.Column="1" Style="{StaticResource ColumnHeaderStyle}" />
 				<TextBlock Grid.Column="2" Text="Log ID" Style="{StaticResource ColumnHeaderStyle}" />
-				<TextBlock Grid.Column="3" Text="Date" Style="{StaticResource ColumnHeaderStyle}" />
-				<TextBlock Grid.Column="4" Text="Time" Style="{StaticResource ColumnHeaderStyle}" />
-				<TextBlock Grid.Column="5" Text="User" Style="{StaticResource ColumnHeaderStyle}" />
-				<TextBlock Grid.Column="6" Text="Source" Style="{StaticResource ColumnHeaderStyle}" />
-				<TextBlock Grid.Column="7" Text="Action" Style="{StaticResource ColumnHeaderStyle}" />
-				<TextBlock Grid.Column="8" Text="Message" Style="{StaticResource ColumnHeaderStyle}" />
+				<TextBlock x:Uid="/UI/AppLogsList_ColumnHeaderDate" Grid.Column="3" Style="{StaticResource ColumnHeaderStyle}" />
+				<TextBlock x:Uid="/UI/AppLogsList_ColumnHeaderTime" Grid.Column="4" Style="{StaticResource ColumnHeaderStyle}" />
+				<TextBlock x:Uid="/UI/AppLogsList_ColumnHeaderUser" Grid.Column="5" Style="{StaticResource ColumnHeaderStyle}" />
+				<TextBlock x:Uid="/UI/AppLogsList_ColumnHeaderSource" Grid.Column="6" Style="{StaticResource ColumnHeaderStyle}" />
+				<TextBlock x:Uid="/UI/AppLogsList_ColumnHeaderAction" Grid.Column="7" Style="{StaticResource ColumnHeaderStyle}" />
+				<TextBlock x:Uid="/UI/AppLogsList_ColumnHeaderMessage" Grid.Column="8" Style="{StaticResource ColumnHeaderStyle}" />
 			</Grid>
 		</DataTemplate>
 

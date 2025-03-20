@@ -36,6 +36,7 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			serviceCollection.AddSingleton<ILoginService, LoginService>();
 			serviceCollection.AddSingleton<IPasswordHasher, PasswordHasher>();
 			serviceCollection.AddSingleton<IUserPermissionService, UserPermissionService>();
+			serviceCollection.AddSingleton<IResourceService, ResourceService>();
 
 			serviceCollection.AddScoped<IContextService, ContextService>();
 			serviceCollection.AddScoped<INavigationService, NavigationService>();

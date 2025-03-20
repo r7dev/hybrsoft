@@ -10,15 +10,15 @@
 
 	<ScrollViewer VerticalScrollBarVisibility="Auto">
 		<StackPanel Margin="12,6">
-			<TextBlock Style="{StaticResource CardSection}" Text="General"  />
+			<TextBlock Style="{StaticResource CardSection}" x:Uid="/UI/PermissionCardUserControl_General" />
 
-			<TextBlock Style="{StaticResource CardHeader}" Text="Permission ID" />
+			<TextBlock Style="{StaticResource CardHeader}" x:Uid="/UI/PermissionCardUserControl_PermissionID" />
 			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind Item.PermissionId, Mode=OneWay}" />
 
-			<TextBlock Style="{StaticResource CardHeader}" Text="Created On" />
+			<TextBlock Style="{StaticResource CardHeader}" x:Uid="/UI/PermissionCardUserControl_CreatedOn" />
 			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind Item.CreatedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
-			<TextBlock Style="{StaticResource CardHeader}" Text="Last Update" />
+			<TextBlock Style="{StaticResource CardHeader}" x:Uid="/UI/PermissionCardUserControl_LastUpdate" />
 			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind Item.LastModifiedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
 		</StackPanel>

@@ -14,8 +14,11 @@
 	<UserControl.Resources>
 		<DataTemplate x:Key="DetailsTemplate" x:DataType="viewmodels:RoleDetailsViewModel">
 			<controls:FluidGrid Columns="2" ColumnSpacing="12" Margin="12,18,6,6" RowSpacing="12">
-				<TextBlock Text="Role Information" Style="{StaticResource FormsSection}" controls:FluidGrid.ColumnSpan="2" />
-				<controls:FormTextBox Header="Name" Text="{x:Bind EditableItem.Name, Mode=TwoWay}" />
+				<TextBlock x:Uid="/UI/RoleDetailsUserControl_Information"
+						   Style="{StaticResource FormsSection}"
+						   controls:FluidGrid.ColumnSpan="2" />
+				<controls:FormTextBox x:Uid="/UI/RoleDetailsUserControl_Name"
+									  Text="{x:Bind EditableItem.Name, Mode=TwoWay}" />
 			</controls:FluidGrid>
 		</DataTemplate>
 	</UserControl.Resources>
@@ -47,7 +50,7 @@
 							  CancelCommand="{x:Bind ViewModel.RoleDetails.CancelCommand}" />
 
 			<Border Grid.Row="1" BorderBrush="LightGray" BorderThickness="0,1,0,0" Visibility="{x:Bind ViewModel.RoleDetails.ItemIsNew, Mode=OneWay, Converter={StaticResource InverseBoolToVisibilityConverter}}">
-				<controls:Section Header="Role Permissions" Background="{StaticResource DetailsViewBackgroundColor}">
+				<controls:Section x:Uid="/UI/RoleDetailsUserControl_RolePermissions" Background="{StaticResource DetailsViewBackgroundColor}">
 					<views:RolesRolePermissions ViewModel="{x:Bind ViewModel.RolePermissionList}" />
 				</controls:Section>
 			</Border>

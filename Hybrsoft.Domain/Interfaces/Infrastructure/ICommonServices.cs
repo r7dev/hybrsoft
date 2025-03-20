@@ -8,5 +8,6 @@
 		IDialogService DialogService { get; }
 		ILogService LogService { get; }
 		IUserPermissionService UserPermissionService { get; }
+		IResourceService ResourceService { get; }
 	}
 }

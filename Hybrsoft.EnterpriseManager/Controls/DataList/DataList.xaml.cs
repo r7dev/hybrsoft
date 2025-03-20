@@ -1,15 +1,18 @@
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Microsoft.UI.Xaml;
+using Hybrsoft.Domain.Interfaces.Infrastructure;
+using Hybrsoft.EnterpriseManager.Configuration;
+using Hybrsoft.EnterpriseManager.Extensions;
+using Hybrsoft.EnterpriseManager.Tools.DependencyExpressions;
+using Hybrsoft.Infrastructure.Enums;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
-using Hybrsoft.EnterpriseManager.Tools.DependencyExpressions;
+using Microsoft.UI.Xaml;
+using System.Collections.Specialized;
 using System.Collections;
 using System.ComponentModel;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows.Input;
-using System.Collections.Specialized;
-using Hybrsoft.EnterpriseManager.Extensions;
 using System;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -25,9 +28,11 @@ namespace Hybrsoft.EnterpriseManager.Controls
 		{
 			this.InitializeComponent();
 			DependencyExpressions.Initialize(this);
+			ResourceService = ServiceLocator.Current.GetService<IResourceService>();
 		}
 
 		static private readonly DependencyExpressions DependencyExpressions = new();
+		public IResourceService ResourceService { get; }
 
 		#region NewLabel
 		public string NewLabel
@@ -323,7 +328,26 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			nameof(IsDataAvailable)
 		);
 
-		public string DataUnavailableMessage => ItemsSource == null ? "Loading..." : "No items found. Click + to add a new item.";
+		public string DataUnavailableMessage
+		{
+			get
+			{
+				if (ItemsSource == null)
+				{
+					return ResourceService.GetString(nameof(ResourceFiles.UI), "DataListUserControl_Loading");
+				}
+				else
+				{
+					string searchMessage = ResourceService.GetString(nameof(ResourceFiles.UI), "DataListUserControl_NoItemsFound");
+					if (DefaultCommands.Contains("new"))
+					{
+						string newItemMessage = ResourceService.GetString(nameof(ResourceFiles.UI), "DataListUserControl_NewItem");
+						return $"{searchMessage} {newItemMessage}";
+					}
+					return searchMessage;
+				}
+			}
+		}
 		public static readonly DependencyExpression DataUnavailableMessageExpression = DependencyExpressions.Register(
 			nameof(DataUnavailableMessage),
 			nameof(ItemsSource)

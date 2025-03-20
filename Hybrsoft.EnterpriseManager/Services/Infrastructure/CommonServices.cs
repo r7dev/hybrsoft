@@ -7,7 +7,8 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		IMessageService messageService,
 		IDialogService dialogService,
 		ILogService logService,
-		IUserPermissionService userPermissionService) : ICommonServices
+		IUserPermissionService userPermissionService,
+		IResourceService resourceService) : ICommonServices
 	{
 		public IContextService ContextService { get; } = contextService;
 
@@ -20,5 +21,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		public ILogService LogService { get; } = logService;
 
 		public IUserPermissionService UserPermissionService { get; } = userPermissionService;
+
+		public IResourceService ResourceService { get; } = resourceService;
 	}
 }

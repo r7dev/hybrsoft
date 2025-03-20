@@ -27,18 +27,22 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			}
 		}
 
+		public string Language
+		{
+			get => GetSettingsValue(nameof(Language), "\"en-US\"");
+			set => SetSettingsValue(nameof(Language), value);
+		}
+
 		public SizeInt32 WindowSizeDefault
 		{
 			get => new() { Width = WindowWidth, Height = WindowHeight };
 			set { WindowWidth = value.Width; WindowHeight = value.Height; }
 		}
-
 		private int WindowWidth
 		{
 			get => GetSettingsValue(nameof(WindowWidth), 1280);
 			set => SetSettingsValue(nameof(WindowWidth), value);
 		}
-
 		private int WindowHeight
 		{
 			get => GetSettingsValue(nameof(WindowHeight), 840);

@@ -13,9 +13,9 @@
 	<UserControl.Resources>
 		<DataTemplate x:Key="DetailsTemplate" x:DataType="viewmodels:AppLogDetailsViewModel">
 			<StackPanel Margin="0,12" Spacing="6">
-				<controls:FormTextBox Header="Message" Text="{x:Bind Item.Message, Mode=TwoWay}" TextWrapping="Wrap" Mode="ReadOnly" />
-				<controls:CopyButton Content="&#xE8C8;" Command="{x:Bind CopyDescriptionCommand}" HorizontalAlignment="Right" Margin="0,0,20,0" />
-				<controls:FormTextBox Header="Description" Text="{x:Bind Item.Description, Mode=TwoWay}" TextWrapping="Wrap" Mode="ReadOnly" />
+				<controls:FormTextBox x:Uid="/UI/AppLogsDetails_MessageHeader" Text="{x:Bind Item.Message, Mode=TwoWay}" TextWrapping="Wrap" Mode="ReadOnly" />
+				<controls:CopyButton x:Uid="/UI/AppLogsDetails_CopyButton" Content="&#xE8C8;" Command="{x:Bind CopyDescriptionCommand}" HorizontalAlignment="Right" Margin="0,0,20,0" />
+				<controls:FormTextBox x:Uid="/UI/AppLogsDetails_DescriptionHeader" Text="{x:Bind Item.Description, Mode=TwoWay}" TextWrapping="Wrap" Mode="ReadOnly" />
 			</StackPanel>
 		</DataTemplate>
 	</UserControl.Resources>
@@ -44,19 +44,19 @@
 			<TextBlock Style="{StaticResource CardHeader}" Text="Log ID" />
 			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind ViewModel.Item.AppLogId, Mode=OneWay}" />
 
-			<TextBlock Style="{StaticResource CardHeader}" Text="Date" />
+			<TextBlock x:Uid="/UI/AppLogsDetails_Date" Style="{StaticResource CardHeader}" />
 			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind ViewModel.Item.CreatedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
-			<TextBlock Style="{StaticResource CardHeader}" Text="Time" />
+			<TextBlock x:Uid="/UI/AppLogsDetails_Time" Style="{StaticResource CardHeader}" />
 			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind ViewModel.Item.CreatedOn, Mode=OneWay, ConverterParameter=longtime, Converter={StaticResource DateTimeFormatConverter}}" />
 
-			<TextBlock Style="{StaticResource CardHeader}" Text="User" />
+			<TextBlock x:Uid="/UI/AppLogsDetails_User" Style="{StaticResource CardHeader}" />
 			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind ViewModel.Item.User, Mode=OneWay}" />
 
-			<TextBlock Style="{StaticResource CardHeader}" Text="Source" />
+			<TextBlock x:Uid="/UI/AppLogsDetails_Source" Style="{StaticResource CardHeader}" />
 			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind ViewModel.Item.Source, Mode=OneWay}" />
 
-			<TextBlock Style="{StaticResource CardHeader}" Text="Action" />
+			<TextBlock x:Uid="/UI/AppLogsDetails_Action" Style="{StaticResource CardHeader}" />
 			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind ViewModel.Item.Action, Mode=OneWay}" />
 		</StackPanel>
 

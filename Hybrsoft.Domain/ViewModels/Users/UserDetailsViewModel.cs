@@ -14,8 +14,32 @@ namespace Hybrsoft.Domain.ViewModels
 	{
 		public IUserService UserService { get; } = userService;
 
-		override public string Title => (Item?.IsNew ?? true) ? "New User" : TitleEdit;
-		public string TitleEdit => Item == null ? "User" : $"{Item.FullName}";
+		override public string Title
+		{
+			get
+			{
+				if (Item?.IsNew ?? true)
+				{
+					string resourceKey = string.Concat(nameof(UserDetailsViewModel), "_Title");
+					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.UI), resourceKey);
+					return resourceValue;
+				}
+				return TitleEdit;
+			}
+		}
+		public string TitleEdit
+		{
+			get
+			{
+				if (Item == null)
+				{
+					string resourceKey = string.Concat(nameof(UserDetailsViewModel), "_TitleEdit");
+					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.UI), resourceKey);
+					return resourceValue;
+				}
+				return $"{Item.FullName}";
+			}
+		}
 
 		public override bool ItemIsNew => Item?.IsNew ?? true;
 
@@ -64,16 +88,21 @@ namespace Hybrsoft.Domain.ViewModels
 		{
 			try
 			{
-				StartStatusMessage("Saving user...");
+				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(UserDetailsViewModel), "_SavingUser"));
+				StartStatusMessage(startMessage);
 				await Task.Delay(100);
 				await UserService.UpdateUserAsync(model);
-				EndStatusMessage("User saved", LogType.Success);
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(UserDetailsViewModel), "_UserSaved"));
+				EndStatusMessage(endMessage, LogType.Success);
 				LogSuccess("User", "Save", "User saved successfully", $"User {model.UserID} '{model.FullName}' was saved successfully.");
 				return true;
 			}
 			catch (Exception ex)
 			{
-				StatusError($"Error saving User: {ex.Message}");
+				string resourceKey = string.Concat(nameof(UserDetailsViewModel), "_ErrorSavingUser0");
+				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
+				string message = string.Format(resourceValue, ex.Message);
+				StatusError(message);
 				LogException("User", "Save", ex);
 				return false;
 			}
@@ -83,16 +112,21 @@ namespace Hybrsoft.Domain.ViewModels
 		{
 			try
 			{
-				StartStatusMessage("Deleting user...");
+				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(UserDetailsViewModel), "_DeletingUser"));
+				StartStatusMessage(startMessage);
 				await Task.Delay(100);
 				await UserService.DeleteUserAsync(model);
-				EndStatusMessage("User deleted", LogType.Warning);
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(UserDetailsViewModel), "_UserDeleted"));
+				EndStatusMessage(endMessage, LogType.Warning);
 				LogWarning("User", "Delete", "User deleted", $"User {model.UserID} '{model.FullName}' was deleted.");
 				return true;
 			}
 			catch (Exception ex)
 			{
-				StatusError($"Error deleting User: {ex.Message}");
+				string resourceKey = string.Concat(nameof(UserDetailsViewModel), "_ErrorDeletingUser0");
+				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
+				string message = string.Format(resourceValue, ex.Message);
+				StatusError(message);
 				LogException("User", "Delete", ex);
 				return false;
 			}
@@ -100,16 +134,42 @@ namespace Hybrsoft.Domain.ViewModels
 
 		protected override async Task<bool> ConfirmDeleteAsync()
 		{
-			return await DialogService.ShowAsync("Confirm Delete", "Are you sure you want to delete current user?", "Delete", "Cancel");
+			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDelete");
+			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), string.Concat(nameof(UserDetailsViewModel), "_AreYouSureYouWantToDeleteCurrentUser"));
+			string delete = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Delete");
+			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
+			return await DialogService.ShowAsync(title, "Are you sure you want to delete current user?", delete, cancel);
 		}
 
 		override protected IEnumerable<IValidationConstraint<UserDto>> GetValidationConstraints(UserDto model)
 		{
-			yield return new RequiredConstraint<UserDto>("Fist Name", m => m.FirstName);
-			yield return new RequiredConstraint<UserDto>("Last Name", m => m.LastName);
-			yield return new RequiredConstraint<UserDto>("Email", m => m.Email);
-			yield return new EmailValidationConstraint<UserDto>("Email", m => m.Email);
-			yield return new RequiredConstraint<UserDto>("Password", m => m.Password);
+			string resourceKeyForFirstName = string.Concat(nameof(UserDetailsViewModel), "_PropertyFirstName");
+			string propertyFirstName = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForFirstName);
+			var requiredFirstName = new RequiredConstraint<UserDto>(propertyFirstName, m => m.FirstName);
+			requiredFirstName.SetResourceService(ResourceService);
+
+			string resourceKeyForLastName = string.Concat(nameof(UserDetailsViewModel), "_PropertyLastName");
+			string propertyLastName = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForLastName);
+			var requiredLastName = new RequiredConstraint<UserDto>(propertyLastName, m => m.LastName);
+			requiredLastName.SetResourceService(ResourceService);
+
+			string resourceKeyForEmail = string.Concat(nameof(UserDetailsViewModel), "_PropertyEmail");
+			string propertyEmail = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForEmail);
+			var requiredEmail = new RequiredConstraint<UserDto>(propertyEmail, m => m.Email);
+			requiredEmail.SetResourceService(ResourceService);
+			var emailIsValid = new EmailValidationConstraint<UserDto>(propertyEmail, m => m.Email);
+			emailIsValid.SetResourceService(ResourceService);
+
+			string resourceKeyForPassword = string.Concat(nameof(UserDetailsViewModel), "_PropertyPassword");
+			string propertyPassword = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForPassword);
+			var requiredPassword = new RequiredConstraint<UserDto>(propertyPassword, m => m.Password);
+			requiredPassword.SetResourceService(ResourceService);
+
+			yield return requiredFirstName;
+			yield return requiredLastName;
+			yield return requiredEmail;
+			yield return emailIsValid;
+			yield return requiredPassword;
 		}
 
 		#region Handle external messages
@@ -134,7 +194,9 @@ namespace Hybrsoft.Domain.ViewModels
 									NotifyPropertyChanged(nameof(Title));
 									if (IsEditMode)
 									{
-										StatusMessage("WARNING: This user has been modified externally");
+										string resourceKey = string.Concat(nameof(UserDetailsViewModel), "_ThisUserHasBeenModifiedExternally");
+										string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
+										StatusMessage(message);
 									}
 								}
 								catch (Exception ex)
@@ -191,7 +253,9 @@ namespace Hybrsoft.Domain.ViewModels
 			{
 				CancelEdit();
 				IsEnabled = false;
-				StatusMessage("WARNING: This user has been deleted externally");
+				string resourceKey = string.Concat(nameof(UserDetailsViewModel), "_ThisUserHasBeenDeletedExternally");
+				string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
+				StatusMessage(message);
 			});
 		}
 		#endregion

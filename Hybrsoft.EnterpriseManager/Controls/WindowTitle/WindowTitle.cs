@@ -29,7 +29,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			string title = !string.IsNullOrEmpty(control.Title)
 				? control.Title
 				: AppInfo.Current.DisplayInfo.DisplayName;
-			appWindow.Title = $"{control.Prefix} {title}".Trim();
+			appWindow.Title = $"{control.Prefix}{title}";
 		}
 	}
 }

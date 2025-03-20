@@ -1,6 +1,7 @@
 ﻿using Hybrsoft.Domain.Infrastructure.Commom;
 using Hybrsoft.Domain.Infrastructure.ViewModels;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
+using Hybrsoft.Infrastructure.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,18 @@ namespace Hybrsoft.Domain.ViewModels
 {
 	abstract public partial class GenericListViewModel<TModel>(ICommonServices commonServices) : ViewModelBase(commonServices) where TModel : ObservableObject
 	{
-		public override string Title => String.IsNullOrEmpty(Query) ? $" ({ItemsCount})" : $" ({ItemsCount} for \"{Query}\")";
+		public override string Title
+		{
+			get
+			{
+				if (String.IsNullOrEmpty(Query))
+				{
+					return $" ({ItemsCount})";
+				}
+				string message = ResourceService.GetString(nameof(ResourceFiles.UI), string.Concat(nameof(GenericListViewModel<TModel>), "_Title"));
+				return $" ({ItemsCount} {message} \"{Query}\")";
+			}
+		}
 
 		private IList<TModel> _items = null;
 		public IList<TModel> Items
@@ -79,7 +91,8 @@ namespace Hybrsoft.Domain.ViewModels
 		public ICommand StartSelectionCommand => new RelayCommand(OnStartSelection);
 		virtual protected void OnStartSelection()
 		{
-			StatusMessage("Start selection");
+			string message = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(GenericListViewModel<TModel>), "_StartSelection"));
+			StatusMessage(message);
 			SelectedItem = null;
 			SelectedItems = [];
 			SelectedIndexRanges = null;
@@ -103,7 +116,8 @@ namespace Hybrsoft.Domain.ViewModels
 			if (IsMultipleSelection)
 			{
 				SelectedItems.AddRange(items.Cast<TModel>());
-				StatusMessage($"{SelectedItems.Count} items selected");
+				string message = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(GenericListViewModel<TModel>), "_0ItemsSelected"));
+				StatusMessage(string.Format(message, SelectedItems.Count));
 			}
 		}
 
@@ -120,7 +134,8 @@ namespace Hybrsoft.Domain.ViewModels
 				{
 					SelectedItems.Remove(item);
 				}
-				StatusMessage($"{SelectedItems.Count} items selected");
+				string message = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(GenericListViewModel<TModel>), "_0ItemsSelected"));
+				StatusMessage(string.Format(message, SelectedItems.Count));
 			}
 		}
 
@@ -129,7 +144,8 @@ namespace Hybrsoft.Domain.ViewModels
 		{
 			SelectedIndexRanges = indexRanges;
 			int count = SelectedIndexRanges?.Sum(r => r.Length) ?? 0;
-			StatusMessage($"{count} items selected");
+			string message = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(GenericListViewModel<TModel>), "_0ItemsSelected"));
+			StatusMessage(string.Format(message, count));
 		}
 
 		public ICommand DeleteSelectionCommand => new RelayCommand(OnDeleteSelection);

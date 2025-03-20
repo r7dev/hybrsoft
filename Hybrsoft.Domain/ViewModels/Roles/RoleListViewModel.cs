@@ -18,16 +18,20 @@ namespace Hybrsoft.Domain.ViewModels
 	{
 		public IRoleService RoleService { get; } = roleService;
 
+		public string Prefix => ResourceService.GetString(nameof(ResourceFiles.UI), string.Concat(nameof(RoleListViewModel), "_Prefix"));
+
 		public RoleListArgs ViewModelArgs { get; private set; }
 
 		public async Task LoadAsync(RoleListArgs args)
 		{
 			ViewModelArgs = args ?? RoleListArgs.CreateEmpty();
 			Query = ViewModelArgs.Query;
-			StartStatusMessage("Loading roles...");
+			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(RoleListViewModel), "_LoadingRoles"));
+			StartStatusMessage(startMessage);
 			if (await RefreshAsync())
 			{
-				EndStatusMessage("Roles loaded");
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(RoleListViewModel), "_RolesLoaded"));
+				EndStatusMessage(endMessage);
 			}
 		}
 		public void Unload()
@@ -68,7 +72,10 @@ namespace Hybrsoft.Domain.ViewModels
 			catch (Exception ex)
 			{
 				Items = [];
-				StatusError($"Error loading Roles: {ex.Message}");
+				string resourceKey = string.Concat(nameof(RoleListViewModel), "_ErrorLoadingRoles0");
+				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
+				string message = string.Format(resourceValue, ex.Message);
+				StatusError(message);
 				LogException("Roles", "Refresh", ex);
 				isOk = false;
 			}
@@ -118,26 +125,35 @@ namespace Hybrsoft.Domain.ViewModels
 
 		protected override async void OnRefresh()
 		{
-			StartStatusMessage("Loading roles...");
+			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(RoleListViewModel), "_LoadingRoles"));
+			StartStatusMessage(startMessage);
 			if (await RefreshAsync())
 			{
-				EndStatusMessage("Roles loaded");
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(RoleListViewModel), "_RolesLoaded"));
+				EndStatusMessage(endMessage);
 			}
 		}
 
 		protected override async void OnDeleteSelection()
 		{
 			StatusReady();
-			if (await DialogService.ShowAsync("Confirm Delete", "Are you sure you want to delete selected roles?", "Delete", "Cancel"))
+			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDelete");
+			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), string.Concat(nameof(RoleListViewModel), "_AreYouSureYouWantToDeleteSelectedRoles"));
+			string delete = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Delete");
+			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
+			if (await DialogService.ShowAsync(title, content, delete, cancel))
 			{
 				bool success = false;
 				int count = 0;
 				try
 				{
+					string resourceKey = string.Concat(nameof(RoleListViewModel), "_Deleting0Roles");
+					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
 					if (SelectedIndexRanges != null)
 					{
 						count = SelectedIndexRanges.Sum(r => r.Length);
-						StartStatusMessage($"Deleting {count} roles...");
+						string message = string.Format(resourceValue, count);
+						StartStatusMessage(message);
 						success = await DeleteRangesAsync(SelectedIndexRanges);
 						if (success)
 						{
@@ -147,14 +163,18 @@ namespace Hybrsoft.Domain.ViewModels
 					else if (SelectedItems != null)
 					{
 						count = SelectedItems.Count;
-						StartStatusMessage($"Deleting {count} roles...");
+						string message = string.Format(resourceValue, count);
+						StartStatusMessage(message);
 						await DeleteItemsAsync(SelectedItems);
 						MessageService.Send(this, "ItemsDeleted", SelectedItems);
 					}
 				}
 				catch (Exception ex)
 				{
-					StatusError($"Error deleting {count} Roles: {ex.Message}");
+					string resourceKey = string.Concat(nameof(RoleListViewModel), "_ErrorDeleting0Roles1");
+					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
+					string message = string.Format(resourceValue, count, ex.Message);
+					StatusError(message);
 					LogException("Roles", "Delete", ex);
 					count = 0;
 				}
@@ -165,12 +185,16 @@ namespace Hybrsoft.Domain.ViewModels
 					SelectedItems = null;
 					if (count > 0)
 					{
-						EndStatusMessage($"{count} roles deleted", LogType.Warning);
+						string resourceKey = string.Concat(nameof(RoleListViewModel), "_0RolesDeleted");
+						string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
+						string message = string.Format(resourceValue, count);
+						EndStatusMessage(message, LogType.Warning);
 					}
 				}
 				else
 				{
-					StatusError("Delete not allowed");
+					string message = ResourceService.GetString(nameof(ResourceFiles.Errors), "DeleteNotAllowed");
+					StatusError(message);
 				}
 			}
 		}

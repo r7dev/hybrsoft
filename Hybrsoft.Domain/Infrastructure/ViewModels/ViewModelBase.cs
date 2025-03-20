@@ -15,6 +15,7 @@ namespace Hybrsoft.Domain.Infrastructure.ViewModels
 		public IDialogService DialogService { get; } = commonServices.DialogService;
 		public ILogService LogService { get; } = commonServices.LogService;
 		public IUserPermissionService UserPermissionService { get; } = commonServices.UserPermissionService;
+		public IResourceService ResourceService { get; } = commonServices.ResourceService;
 
 		public bool IsMainView => ContextService.IsMainView;
 
@@ -53,7 +54,8 @@ namespace Hybrsoft.Domain.Infrastructure.ViewModels
 		public void EndStatusMessage(string message, LogType logType = LogType.Information)
 		{
 			_stopwatch.Stop();
-			string fullMessage = $"{message} ({_stopwatch.Elapsed.TotalSeconds:#0.000} seconds)";
+			string finalMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(ViewModelBase), "_Seconds"));
+			string fullMessage = $"{message} ({_stopwatch.Elapsed.TotalSeconds:#0.000} {finalMessage})";
 			switch (logType)
 			{
 				case LogType.Success:
@@ -70,7 +72,8 @@ namespace Hybrsoft.Domain.Infrastructure.ViewModels
 
 		public void StatusReady()
 		{
-			MessageService.Send(this, "StatusMessage", "Ready");
+			string message = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(ViewModelBase), "_Ready"));
+			MessageService.Send(this, "StatusMessage", message);
 		}
 
 		public void StatusMessage(string message)

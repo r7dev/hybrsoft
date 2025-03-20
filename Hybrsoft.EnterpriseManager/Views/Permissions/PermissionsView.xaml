@@ -13,14 +13,14 @@
 	<UserControl.Resources>
 		<DataTemplate x:Key="ListHeaderTemplate">
 			<StackPanel Margin="6,4,0,0" Orientation="Horizontal" VerticalAlignment="Center">
-				<TextBlock Text="Permissions" FontSize="18" />
 				<TextBlock Text="{Binding}" FontSize="18" Foreground="{ThemeResource TextFillColorPrimaryBrush}" />
 			</StackPanel>
 		</DataTemplate>
 	</UserControl.Resources>
 
 	<Grid>
-		<controls:WindowTitle Prefix="Permissions" Title="{x:Bind ViewModel.PermissionList.Title, Mode=OneWay}" />
+		<controls:WindowTitle Prefix="{x:Bind ViewModel.PermissionList.Prefix, Mode=OneWay}"
+							  Title="{x:Bind ViewModel.PermissionList.Title, Mode=OneWay}" />
 
 		<Grid>
 			<Grid.RowDefinitions>
@@ -29,11 +29,12 @@
 
 			<!--Permissions-->
 			<Grid Grid.RowSpan="{x:Bind GetRowSpan(ViewModel.PermissionList.IsMultipleSelection), Mode=OneWay}">
-				<controls:Section Header="{x:Bind ViewModel.PermissionList.Title, Mode=OneWay}"
-						  HeaderTemplate="{StaticResource ListHeaderTemplate}"
-						  HeaderButtonGlyph="&#xE8A7;"
-						  HeaderButtonClick="OpenInNewView"
-						  IsButtonVisible="{x:Bind ViewModel.IsMainView}">
+				<controls:Section Prefix="{x:Bind ViewModel.PermissionList.Prefix, Mode=OneWay}"
+								  Header="{x:Bind ViewModel.PermissionList.Title, Mode=OneWay}"
+								  HeaderTemplate="{StaticResource ListHeaderTemplate}"
+								  HeaderButtonGlyph="&#xE8A7;"
+								  HeaderButtonClick="OpenInNewView"
+								  IsButtonVisible="{x:Bind ViewModel.IsMainView}">
 					<views:PermissionList ViewModel="{x:Bind ViewModel.PermissionList}" />
 				</controls:Section>
 			</Grid>

@@ -1,6 +1,7 @@
 ﻿using Hybrsoft.Domain.Infrastructure.Commom;
 using Hybrsoft.Domain.Infrastructure.ViewModels;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
+using Hybrsoft.Infrastructure.Enums;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -124,7 +125,10 @@ namespace Hybrsoft.Domain.ViewModels
 			}
 			else
 			{
-				await DialogService.ShowAsync(result.Message, $"{result.Description}Please, correct the error and try again.");
+				string resourceKey = string.Concat(nameof(GenericDetailsViewModel<TModel>), "_0PleaseCorrectTheErrorAndTryAgain");
+				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKey);
+				string content = string.Format(resourceValue, result.Description);
+				await DialogService.ShowAsync(result.Message, content);
 			}
 		}
 		virtual public async Task SaveAsync()
@@ -191,7 +195,8 @@ namespace Hybrsoft.Domain.ViewModels
 			}
 			if (errors.Length > 0)
 			{
-				return Result.Error("Validation Error", errors.ToString());
+				string message = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), string.Concat(nameof(GenericDetailsViewModel<TModel>), "_ValidationError"));
+				return Result.Error(message, errors.ToString());
 			}
 			return Result.Ok();
 		}

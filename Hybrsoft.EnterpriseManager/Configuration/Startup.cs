@@ -20,6 +20,9 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 
 			var logService = ServiceLocator.Current.GetService<ILogService>();
 			await logService.WriteAsync(LogType.Information, "Startup", "Configuration", "Application Start", $"Application started.");
+
+			var resourceService = ServiceLocator.Current.GetService<IResourceService>();
+			await resourceService.InitializeAsync();
 		}
 
 		private static void ConfigureNavigation()

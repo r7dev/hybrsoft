@@ -31,10 +31,12 @@ namespace Hybrsoft.Domain.ViewModels
 			}
 			else
 			{
-				StartStatusMessage("Loading role permissions...");
+				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(RolePermissionListViewModel), "_LoadingRolePermissions"));
+				StartStatusMessage(startMessage);
 				if (await RefreshAsync())
 				{
-					EndStatusMessage("RolePermissions loaded");
+					string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(RolePermissionListViewModel), "_RolePermissionsLoaded"));
+					EndStatusMessage(endMessage);
 				}
 			}
 		}
@@ -79,7 +81,10 @@ namespace Hybrsoft.Domain.ViewModels
 			catch (Exception ex)
 			{
 				Items = [];
-				StatusError($"Error loading Role permissions: {ex.Message}");
+				string resourceKey = string.Concat(nameof(RolePermissionListViewModel), "_ErrorLoadingRolePermissions0");
+				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
+				string message = string.Format(resourceValue, ex.Message);
+				StatusError(message);
 				LogException("RolePermissions", "Refresh", ex);
 				isOk = false;
 			}
@@ -129,39 +134,52 @@ namespace Hybrsoft.Domain.ViewModels
 
 		protected override async void OnRefresh()
 		{
-			StartStatusMessage("Loading role permissions...");
+			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(RolePermissionListViewModel), "_LoadingRolePermissions"));
+			StartStatusMessage(startMessage);
 			if (await RefreshAsync())
 			{
-				EndStatusMessage("Role permissions loaded");
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(RolePermissionListViewModel), "_RolePermissionsLoaded"));
+				EndStatusMessage(endMessage);
 			}
 		}
 
 		protected override async void OnDeleteSelection()
 		{
 			StatusReady();
-			if (await DialogService.ShowAsync("Confirm Delete", "Are you sure you want to delete selected role permissions?", "Ok", "Cancel"))
+			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDelete");
+			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), string.Concat(nameof(RolePermissionListViewModel), "_AreYouSureYouWantToDeleteSelectedRolePermissions"));
+			string delete = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Delete");
+			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
+			if (await DialogService.ShowAsync(title, content, delete, cancel))
 			{
 				int count = 0;
 				try
 				{
+					string resourceKey = string.Concat(nameof(RolePermissionListViewModel), "_Deleting0RolePermissions");
+					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
 					if (SelectedIndexRanges != null)
 					{
 						count = SelectedIndexRanges.Sum(r => r.Length);
-						StartStatusMessage($"Deleting {count} role permissions...");
+						string message = string.Format(resourceValue, count);
+						StartStatusMessage(message);
 						await DeleteRangesAsync(SelectedIndexRanges);
 						MessageService.Send(this, "ItemRangesDeleted", SelectedIndexRanges);
 					}
 					else if (SelectedItems != null)
 					{
 						count = SelectedItems.Count;
-						StartStatusMessage($"Deleting {count} role permissions...");
+						string message = string.Format(resourceValue, count);
+						StartStatusMessage(message);
 						await DeleteItemsAsync(SelectedItems);
 						MessageService.Send(this, "ItemsDeleted", SelectedItems);
 					}
 				}
 				catch (Exception ex)
 				{
-					StatusError($"Error deleting {count} role permissions: {ex.Message}");
+					string resourceKey = string.Concat(nameof(RolePermissionListViewModel), "_ErrorDeleting0RolePermissions1");
+					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
+					string message = string.Format(resourceValue, count, ex.Message);
+					StatusError(message);
 					LogException("RolePermissions", "Delete", ex);
 					count = 0;
 				}
@@ -170,7 +188,10 @@ namespace Hybrsoft.Domain.ViewModels
 				SelectedItems = null;
 				if (count > 0)
 				{
-					EndStatusMessage($"{count} role permissions deleted", LogType.Warning);
+					string resourceKey = string.Concat(nameof(RolePermissionListViewModel), "_0RolePermissionsDeleted");
+					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
+					string message = string.Format(resourceValue, count);
+					EndStatusMessage(message, LogType.Warning);
 				}
 			}
 		}

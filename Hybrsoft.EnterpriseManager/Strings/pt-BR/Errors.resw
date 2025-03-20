@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppLogListViewModel_ErrorDeleting0Logs1" xml:space="preserve">
+    <value>Erro ao excluir {0} Logs: {1}</value>
+  </data>
+  <data name="AppLogDetailsViewModel_ErrorDeletingLog0" xml:space="preserve">
+    <value>Erro ao excluir o log: {0}</value>
+  </data>
+  <data name="PermissionListViewModel_ErrorLoadingPermissions0" xml:space="preserve">
+    <value>Erro ao carregar Permissões: {0}</value>
+  </data>
+  <data name="PermissionListViewModel_ErrorDeleting0Permissions1" xml:space="preserve">
+    <value>Erro ao excluir {0} Permissões: {1}</value>
+  </data>
+  <data name="DeleteNotAllowed" xml:space="preserve">
+    <value>Exclusão não permitida</value>
+  </data>
+  <data name="PermissionListViewModel_DeselectThe0Permission" xml:space="preserve">
+    <value>Desmarque a permissão {0}!</value>
+  </data>
+  <data name="PermissionDetailsViewModel_ErrorSavingPermission0" xml:space="preserve">
+    <value>Erro ao salvar Permissão: {0}</value>
+  </data>
+  <data name="PermissionDetailsViewModel_ErrorDeletingPermission0" xml:space="preserve">
+    <value>Erro ao excluir Permissão: {0}</value>
+  </data>
+  <data name="RoleListViewModel_ErrorLoadingRoles0" xml:space="preserve">
+    <value>Erro ao carregar Funções: {0}</value>
+  </data>
+  <data name="RoleListViewModel_ErrorDeleting0Roles1" xml:space="preserve">
+    <value>Erro ao excluir {0} Funções: {1}</value>
+  </data>
+  <data name="RolePermissionListViewModel_ErrorLoadingRolePermissions0" xml:space="preserve">
+    <value>Erro ao carregar Permissões de Função: {0}</value>
+  </data>
+  <data name="RolePermissionListViewModel_ErrorDeleting0RolePermissions1" xml:space="preserve">
+    <value>Erro ao excluir {0} Permissões de Função: {1}</value>
+  </data>
+  <data name="RoleDetailsViewModel_ErrorSavingRole0" xml:space="preserve">
+    <value>Erro ao salvar Função: {0}</value>
+  </data>
+  <data name="RoleDetailsViewModel_ErrorDeletingRole0" xml:space="preserve">
+    <value>Erro ao excluir Função: {0}</value>
+  </data>
+  <data name="RolePermissionDetailsViewModel_ErrorSavingRolePermission0" xml:space="preserve">
+    <value>Erro ao salvar Permissão de Função: {0}</value>
+  </data>
+  <data name="RolePermissionDetailsViewModel_ErrorDeletingRolePermission0" xml:space="preserve">
+    <value>Erro ao excluir Permissão de Função: {0}</value>
+  </data>
+  <data name="UserListViewModel_ErrorLoadingUsers0" xml:space="preserve">
+    <value>Erro ao carregar Usuários: {0}</value>
+  </data>
+  <data name="UserListViewModel_ErrorDeleting0Users1" xml:space="preserve">
+    <value>Erro ao excluir {0} Usuários: {1}</value>
+  </data>
+  <data name="UserRoleListViewModel_ErrorLoadingUserRoles0" xml:space="preserve">
+    <value>Erro ao carregar Funções de Usuário: {0}</value>
+  </data>
+  <data name="UserRoleListViewModel_ErrorDeleting0UserRoles1" xml:space="preserve">
+    <value>Erro ao excluir {0} Funções de Usuário: {1}</value>
+  </data>
+  <data name="UserDetailsViewModel_ErrorSavingUser0" xml:space="preserve">
+    <value>Erro ao salvar Usuário: {0}</value>
+  </data>
+  <data name="UserDetailsViewModel_ErrorDeletingUser0" xml:space="preserve">
+    <value>Erro ao excluir Usuário: {0}</value>
+  </data>
+  <data name="UserRoleDetailsViewModel_ErrorSavingUserRole0" xml:space="preserve">
+    <value>Erro ao salvar a Função do Usuário: {0}</value>
+  </data>
+  <data name="UserRoleDetailsViewModel_ErrorDeletingUserRole0" xml:space="preserve">
+    <value>Erro ao excluir a Função de Usuário: {0}</value>
+  </data>
+</root>

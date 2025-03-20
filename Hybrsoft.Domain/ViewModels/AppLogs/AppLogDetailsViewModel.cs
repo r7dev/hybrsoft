@@ -80,15 +80,18 @@ namespace Hybrsoft.Domain.ViewModels
 		{
 			try
 			{
-				StartStatusMessage("Deleting log...");
+				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(AppLogDetailsViewModel), "_DeletingLog"));
+				StartStatusMessage(startMessage);
 				await Task.Delay(100);
 				await LogService.DeleteLogAsync(model);
-				EndStatusMessage("Log deleted", LogType.Warning);
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(AppLogDetailsViewModel), "_LogDeleted"));
+				EndStatusMessage(endMessage, LogType.Warning);
 				return true;
 			}
 			catch (Exception ex)
 			{
-				StatusError($"Error deleting log: {ex.Message}");
+				string message = ResourceService.GetString(nameof(ResourceFiles.Errors), string.Concat(nameof(AppLogDetailsViewModel), "_ErrorDeletingLog0"));
+				StatusError(string.Format(message, ex.Message));
 				LogException("AppLog", "Delete", ex);
 				return false;
 			}
@@ -96,7 +99,11 @@ namespace Hybrsoft.Domain.ViewModels
 
 		protected override async Task<bool> ConfirmDeleteAsync()
 		{
-			return await DialogService.ShowAsync("Confirm Delete", "Are you sure you want to delete current log?", "Ok", "Cancel");
+			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDelete");
+			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), string.Concat(nameof(AppLogDetailsViewModel), "_AreYouSureYouWantToDeleteCurrentLog"));
+			string delete = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Delete");
+			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
+			return await DialogService.ShowAsync(title, content, delete, cancel);
 		}
 
 		#region Handle external messages
@@ -150,7 +157,8 @@ namespace Hybrsoft.Domain.ViewModels
 			{
 				CancelEdit();
 				IsEnabled = false;
-				StatusMessage("WARNING: This log has been deleted externally");
+				string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), string.Concat(nameof(AppLogDetailsViewModel), "_ThisLogHasBeenDeletedExternally"));
+				WarningMessage(message);
 			});
 		}
 		#endregion

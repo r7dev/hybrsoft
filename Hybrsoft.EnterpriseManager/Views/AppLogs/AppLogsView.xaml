@@ -12,14 +12,14 @@
 	<UserControl.Resources>
 		<DataTemplate x:Key="ListHeaderTemplate">
 			<StackPanel Margin="6,4,0,0" Orientation="Horizontal" VerticalAlignment="Center">
-				<TextBlock Text="Activity Logs" FontSize="18" />
 				<TextBlock Text="{Binding}" FontSize="18" Foreground="{ThemeResource TextFillColorPrimaryBrush}" />
 			</StackPanel>
 		</DataTemplate>
 	</UserControl.Resources>
 
 	<Grid>
-		<controls:WindowTitle Prefix="Activity Logs" Title="{x:Bind ViewModel.AppLogList.Title, Mode=OneWay}" />
+		<controls:WindowTitle Prefix="{x:Bind ViewModel.AppLogList.Prefix, Mode=OneWay}"
+							  Title="{x:Bind ViewModel.AppLogList.Title, Mode=OneWay}" />
 
 		<Grid>
 			<Grid.RowDefinitions>
@@ -29,7 +29,12 @@
 
 			<!--AppLogs-->
 			<Grid Grid.RowSpan="{x:Bind GetRowSpan(ViewModel.AppLogList.IsMultipleSelection), Mode=OneWay}">
-				<controls:Section Header="{x:Bind ViewModel.AppLogList.Title, Mode=OneWay}" HeaderTemplate="{StaticResource ListHeaderTemplate}" HeaderButtonGlyph="&#xE2B4;" HeaderButtonClick="OpenInNewView" IsButtonVisible="{x:Bind ViewModel.IsMainView}">
+				<controls:Section Prefix="{x:Bind ViewModel.AppLogList.Prefix, Mode=OneWay}"
+								  Header="{x:Bind ViewModel.AppLogList.Title, Mode=OneWay}"
+								  HeaderTemplate="{StaticResource ListHeaderTemplate}"
+								  HeaderButtonGlyph="&#xE2B4;"
+								  HeaderButtonClick="OpenInNewView"
+								  IsButtonVisible="{x:Bind ViewModel.IsMainView}">
 					<local:AppLogsList ViewModel="{x:Bind ViewModel.AppLogList}" />
 				</controls:Section>
 			</Grid>
@@ -46,7 +51,7 @@
 				</controls:Section>
 
 				<!--Empty Details-->
-				<controls:Section Header="No item selected" Visibility="{x:Bind ViewModel.AppLogDetails.IsDataUnavailable, Mode=OneWay}" />
+				<controls:Section x:Uid="/UI/AppLogsView_EmptyDetails" Visibility="{x:Bind ViewModel.AppLogDetails.IsDataUnavailable, Mode=OneWay}" />
 			</Grid>
 		</Grid>
 	</Grid>

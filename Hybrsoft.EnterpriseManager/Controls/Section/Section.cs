@@ -22,6 +22,22 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			this.DefaultStyleKey = typeof(Section);
 		}
 
+		#region Prefix
+		public string Prefix
+		{
+			get { return (string)GetValue(PrefixProperty); }
+			set { SetValue(PrefixProperty, value); }
+		}
+
+		private static void PrefixChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			var control = d as Section;
+			control.UpdateControl();
+		}
+
+		public static readonly DependencyProperty PrefixProperty = DependencyProperty.Register("Prefix", typeof(string), typeof(Section), new PropertyMetadata(null, PrefixChanged));
+		#endregion
+
 		#region Header
 		public object Header
 		{
@@ -32,6 +48,14 @@ namespace Hybrsoft.EnterpriseManager.Controls
 		private static void HeaderChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
 			var control = d as Section;
+			if (!string.IsNullOrEmpty(control.Prefix))
+			{
+				string header = (string)control.Header;
+				if (!header.StartsWith(control.Prefix))
+				{
+					control.Header = $"{control.Prefix}{control.Header}".Trim();
+				}
+			}
 			control.UpdateControl();
 		}
 

@@ -32,10 +32,10 @@
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
-		<controls:WindowTitle Title="Settings"/>
+		<controls:WindowTitle Title="{x:Bind PageHeader.Text}"/>
 		<StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
 			<SymbolIcon Symbol="Setting" Margin="36,24,8,0" />
-			<TextBlock x:Name="PageHeader" Margin="0,24,36,0" Style="{StaticResource TitleTextBlockStyle}" Text="Settings" />
+			<TextBlock x:Uid="/UI/SettingsView_PageHeader" x:Name="PageHeader" Margin="0,24,36,0" Style="{StaticResource TitleTextBlockStyle}" />
 		</StackPanel>
 
 		<ScrollViewer Grid.Row="1" IsEnabled="{x:Bind ViewModel.IsBusy, Mode=OneWay, Converter={StaticResource BoolNegationConverter}}"
@@ -49,10 +49,22 @@
 					<EntranceThemeTransition FromVerticalOffset="50" />
 					<RepositionThemeTransition IsStaggeringEnabled="False" />
 				</StackPanel.ChildrenTransitions>
+				<!--  Language  -->
+				<TextBlock x:Uid="/UI/SettingsView_AppearanceSection_Subtitle" Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" />
+				<toolkit:SettingsCard x:Uid="/UI/SettingsView_LanguageCard" >
+					<toolkit:SettingsCard.HeaderIcon>
+						<FontIcon Glyph="&#xF2B7;" />
+					</toolkit:SettingsCard.HeaderIcon>
+					<ComboBox x:Name="LanguageOptions"
+							  ItemsSource="{x:Bind ViewModel.AvailableLanguages}"
+							  SelectedItem="{x:Bind ViewModel.SelectedLanguage, Mode=TwoWay}"
+							  DisplayMemberPath="DisplayName"
+							  SelectedValuePath="Tag"/>
+				</toolkit:SettingsCard>
 
 				<!--  About  -->
-				<TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" Text="About" />
-				<toolkit:SettingsExpander Description="© 2025 Hybrsoft. All rights reserved." Header="{x:Bind ViewModel.AppName, Mode=OneWay}">
+				<TextBlock x:Uid="/UI/SettingsView_AboutSection_Subtitle" Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" />
+				<toolkit:SettingsExpander x:Uid="/UI/SettingsView_AboutExpander" Header="{x:Bind ViewModel.AppName, Mode=OneWay}">
 					<toolkit:SettingsExpander.HeaderIcon>
 						<BitmapIcon ShowAsMonochrome="False" UriSource="/Assets/StoreLogo.png" />
 					</toolkit:SettingsExpander.HeaderIcon>
@@ -60,9 +72,9 @@
 							   IsTextSelectionEnabled="True"
 							   Text="{x:Bind ViewModel.Version}" />
 					<toolkit:SettingsExpander.Items>
-						<toolkit:SettingsCard HorizontalContentAlignment="Left"
-											  ContentAlignment="Vertical"
-											  Header="Visit our website.">
+						<toolkit:SettingsCard x:Uid="/UI/SettingsView_AboutCard"
+											  HorizontalContentAlignment="Left"
+											  ContentAlignment="Vertical">
 							<StackPanel Margin="-12,0,0,0" Orientation="Vertical">
 								<HyperlinkButton Content="Hybrsoft Corporation Website" NavigateUri="http://www.hybrsoft.com" />
 							</StackPanel>

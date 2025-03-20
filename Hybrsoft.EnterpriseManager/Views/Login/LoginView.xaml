@@ -70,10 +70,10 @@
 						HorizontalAlignment="Center"
 						VerticalAlignment="Center"
 						Visibility="{x:Bind ViewModel.IsLoginWithWindowsHello, Mode=OneWay}"
-						ToolTipService.ToolTip="Sign in with another user">
+						x:Uid="/UI/LoginView_SwitchUserTip">
 					<StackPanel>
 						<FontIcon Glyph="&#xE748;" FontSize="32" />
-						<TextBlock Text="Switch user" FontSize="16" />
+						<TextBlock x:Uid="/UI/LoginView_SwitchUserButton" FontSize="16" />
 					</StackPanel>
 				</Button>
 				<Border Grid.Row="1">

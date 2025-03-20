@@ -14,10 +14,14 @@
 	<UserControl.Resources>
 		<DataTemplate x:Key="DetailsTemplate" x:DataType="viewmodels:PermissionDetailsViewModel">
 			<controls:FluidGrid Columns="2" ColumnSpacing="12" Margin="12,18,6,6" RowSpacing="12">
-				<TextBlock Text="Permission Information" Style="{StaticResource FormsSection}" controls:FluidGrid.ColumnSpan="2" />
-				<controls:FormTextBox Header="Name" Text="{x:Bind EditableItem.Name, Mode=TwoWay}" />
-				<controls:FormTextBox Header="Display Name" Text="{x:Bind EditableItem.DisplayName, Mode=TwoWay}" />
-				<controls:FormTextBox Header="Description"
+				<TextBlock x:Uid="/UI/PermissionDetailsUserControl_Information"
+						   Style="{StaticResource FormsSection}"
+						   controls:FluidGrid.ColumnSpan="2" />
+				<controls:FormTextBox x:Uid="/UI/PermissionDetailsUserControl_Name"
+									  Text="{x:Bind EditableItem.Name, Mode=TwoWay}" />
+				<controls:FormTextBox x:Uid="/UI/PermissionDetailsUserControl_DisplayName"
+									  Text="{x:Bind EditableItem.DisplayName, Mode=TwoWay}" />
+				<controls:FormTextBox x:Uid="/UI/PermissionDetailsUserControl_Description"
 									  Text="{x:Bind EditableItem.Description, Mode=TwoWay}"
 									  controls:FluidGrid.ColumnSpan="2"/>
 			</controls:FluidGrid>

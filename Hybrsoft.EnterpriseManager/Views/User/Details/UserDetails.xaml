@@ -14,12 +14,21 @@
 	<UserControl.Resources>
 		<DataTemplate x:Key="DetailsTemplate" x:DataType="viewmodels:UserDetailsViewModel">
 			<controls:FluidGrid Columns="2" ColumnSpacing="12" Margin="12,18,6,6" RowSpacing="12">
-				<TextBlock Text="User Information" Style="{StaticResource FormsSection}" controls:FluidGrid.ColumnSpan="2" />
-				<controls:FormTextBox Header="First Name" Text="{x:Bind EditableItem.FirstName, Mode=TwoWay}" />
-				<controls:FormTextBox Header="Last Name" Text="{x:Bind EditableItem.LastName, Mode=TwoWay}" />
-				<controls:FormTextBox Header="Middle Name" Text="{x:Bind EditableItem.MiddleName, Mode=TwoWay}" />
-				<controls:FormTextBox Header="Email Address" Text="{x:Bind EditableItem.Email, Mode=TwoWay}" IsSpellCheckEnabled="False" />
-				<controls:FormPasswordBox Header="Password" Password="{x:Bind EditableItem.Password, Mode=TwoWay}" PasswordChanged="FormPasswordBox_PasswordChanged" />
+				<TextBlock x:Uid="/UI/UserDetailsUserControl_Information"
+						   Style="{StaticResource FormsSection}"
+						   controls:FluidGrid.ColumnSpan="2" />
+				<controls:FormTextBox x:Uid="/UI/UserDetailsUserControl_FirstName"
+									  Text="{x:Bind EditableItem.FirstName, Mode=TwoWay}" />
+				<controls:FormTextBox x:Uid="/UI/UserDetailsUserControl_LastName"
+									  Text="{x:Bind EditableItem.LastName, Mode=TwoWay}" />
+				<controls:FormTextBox x:Uid="/UI/UserDetailsUserControl_MiddleName"
+									  Text="{x:Bind EditableItem.MiddleName, Mode=TwoWay}" />
+				<controls:FormTextBox x:Uid="/UI/UserDetailsUserControl_EmailAddress"
+									  Text="{x:Bind EditableItem.Email, Mode=TwoWay}"
+									  IsSpellCheckEnabled="False" />
+				<controls:FormPasswordBox x:Uid="/UI/UserDetailsUserControl_Password"
+										  Password="{x:Bind EditableItem.Password, Mode=TwoWay}"
+										  PasswordChanged="FormPasswordBox_PasswordChanged" />
 			</controls:FluidGrid>
 		</DataTemplate>
 	</UserControl.Resources>
@@ -52,7 +61,7 @@
 							  CancelCommand="{x:Bind ViewModel.UserDetails.CancelCommand}" />
 
 			<Border Grid.Row="1" BorderBrush="LightGray" BorderThickness="0,1,0,0" Visibility="{x:Bind ViewModel.UserDetails.ItemIsNew, Mode=OneWay, Converter={StaticResource InverseBoolToVisibilityConverter}}">
-				<controls:Section Header="User Roles" Background="{StaticResource DetailsViewBackgroundColor}">
+				<controls:Section x:Uid="/UI/UserDetailsUserControl_UserRoles" Background="{StaticResource DetailsViewBackgroundColor}">
 					<views:UsersUserRoles ViewModel="{x:Bind ViewModel.UserRoleList}" />
 				</controls:Section>
 			</Border>

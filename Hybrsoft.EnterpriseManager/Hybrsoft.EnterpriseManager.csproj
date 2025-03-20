@@ -157,7 +157,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Images\" />
-    <Folder Include="Strings\en-us\" />
     <Folder Include="Views\Roles\Details\" />
   </ItemGroup>
   <ItemGroup>
