@@ -2,6 +2,7 @@
 using Hybrsoft.Domain.Interfaces.Infrastructure;
 using Microsoft.Windows.ApplicationModel.Resources;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Globalization;
@@ -31,15 +32,23 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		{
 			RegisterLanguageFromResource();
 
-			string languageTag = await GetLanguageTagFromSettingsAsync();
+			string savedLanguageTag = await GetLanguageTagFromSettingsAsync();
 
-			if (languageTag is not null && GetLanguageItem(languageTag) is LanguageDto language)
+			if (savedLanguageTag is not null && GetLanguageItem(savedLanguageTag) is LanguageDto savedLanguage)
 			{
-				await SetLanguageAsync(language);
+				await SetLanguageAsync(savedLanguage);
 			}
 			else
 			{
-				await SetLanguageAsync(_currentLanguageItem);
+				string systemLanguageTag = CultureInfo.CurrentCulture.Name;
+				if (GetLanguageItem(systemLanguageTag) is LanguageDto systemLanguage)
+				{
+					await SetLanguageAsync(systemLanguage);
+				}
+				else
+				{
+					await SetLanguageAsync(_currentLanguageItem);
+				}
 			}
 		}
 

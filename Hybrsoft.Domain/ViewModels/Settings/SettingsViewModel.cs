@@ -45,6 +45,7 @@ namespace Hybrsoft.Domain.ViewModels
 			string resourceKey = string.Concat(nameof(SettingsViewModel), "_TheLanguageHasBeenChangedAndTheApplicationMustBeRestarted");
 			string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
 			WarningMessage(message);
+			LogSuccess("Settings", "LanguageChanged", "Language changed successfully",$"The language has been successfully changed to {value.DisplayName} ({value.Tag}).");
 
 			_ = ResourceService.SetLanguageAsync(value);
 		}
