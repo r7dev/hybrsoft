@@ -93,6 +93,11 @@ namespace Hybrsoft.EnterpriseManager
 			m_window.SetDefaultWindowSize();
 			await m_window.SetWindowPositionToCenterAsync();
 			m_window.Activate();
+			m_window.Closed += async (s, e) =>
+			{
+				var logService = ServiceLocator.Current.GetService<ILogService>();
+				await logService.WriteAsync(LogType.Information, "App", "Closing", "Application End", $"Application ended by '{AppSettings.Current.UserName}'.");
+			};
 
 			await Task.Delay(200);
 			splash_Screen.Close();

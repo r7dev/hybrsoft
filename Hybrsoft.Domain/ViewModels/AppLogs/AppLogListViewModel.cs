@@ -218,7 +218,7 @@ namespace Hybrsoft.Domain.ViewModels
 
 		private async void OnLogServiceMessage(ILogService logService, string message, AppLog log)
 		{
-			if (message == "LogAdded")
+			if (message == "LogAdded" && log.Action != "Closing")
 			{
 				await ContextService.RunAsync(async () =>
 				{
