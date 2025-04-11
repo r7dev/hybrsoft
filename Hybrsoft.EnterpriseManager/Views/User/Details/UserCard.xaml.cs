@@ -21,7 +21,7 @@ namespace Hybrsoft.EnterpriseManager.Views
 			set { SetValue(ItemProperty, value); }
 		}
 
-		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register(nameof(Item), typeof(UserDto), typeof(PermissionCard), new PropertyMetadata(null));
+		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register(nameof(Item), typeof(UserDto), typeof(UserCard), new PropertyMetadata(null));
 		#endregion
 	}
 }
