@@ -65,6 +65,9 @@ namespace Hybrsoft.Domain.ViewModels
 				case nameof(DashboardViewModel):
 					NavigationService.Navigate(viewModel);
 					break;
+				case nameof(StudentsViewModel):
+					NavigationService.Navigate(viewModel, new StudentListArgs());
+					break;
 				case nameof(PermissionsViewModel):
 					NavigationService.Navigate(viewModel, new PermissionListArgs());
 					break;
@@ -101,9 +104,15 @@ namespace Hybrsoft.Domain.ViewModels
 					return true;
 				}
 				var validChildren = item.Children.Where(c => HasUserPermission(c));
-				item.Children = new ObservableCollection<NavigationItemDto>(validChildren);
+				item.Children = [.. validChildren];
 				return item.Children.Any();
 			}
+			if (item.ViewModel == typeof(DashboardViewModel) || item.ViewModel == typeof(StudentsViewModel))
+			{
+				return UserPermissionService.HasPermission(Permissions.StudentReader)
+					|| UserPermissionService.HasPermission(Permissions.StudentEditor);
+			}
+
 			var IsSecurityAdministration = UserPermissionService.HasPermission(Permissions.SecurityAdministration);
 			return (item.ViewModel == typeof(DashboardViewModel)
 				|| item.ViewModel == typeof(PermissionsViewModel)
