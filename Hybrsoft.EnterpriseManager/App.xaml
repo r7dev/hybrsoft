@@ -23,6 +23,7 @@
 			<converters:BoolNegationConverter x:Key="BoolNegationConverter" />
 			<converters:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
 			<converters:LogTypeConverter x:Key="LogTypeConverter" />
+			<converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
 			<converters:ObjectToImageConverter x:Key="ObjectToImageConverter" />
 		</ResourceDictionary>
 	</Application.Resources>

@@ -135,22 +135,28 @@
   <data name="RoleListViewModel_AreYouSureYouWantToDeleteSelectedRoles" xml:space="preserve">
     <value>Are you sure you want to delete selected roles?</value>
   </data>
-  <data name="UserListViewModel_AreYouSureYouWantToDeleteSelectedUsers" xml:space="preserve">
-    <value>Are you sure you want to delete selected users?</value>
-  </data>
   <data name="RolePermissionDetailsViewModel_AreYouSureYouWantToDeleteCurrentRolePermission" xml:space="preserve">
     <value>Are you sure you want to delete current role permission?</value>
   </data>
   <data name="RolePermissionListViewModel_AreYouSureYouWantToDeleteSelectedRolePermissions" xml:space="preserve">
     <value>Are you sure you want to delete selected role permissions?</value>
   </data>
-  <data name="UserRoleListViewModel_AreYouSureYouWantToDeleteSelectedUserRoles" xml:space="preserve">
-    <value>Are you sure you want to delete selected user roles?</value>
+  <data name="StudentDetailsViewModel_AreYouSureYouWantToDeleteCurrentStudent" xml:space="preserve">
+    <value>Are you sure you want to delete current student?</value>
+  </data>
+  <data name="StudentListViewModel_AreYouSureYouWantToDeleteSelectedStudents" xml:space="preserve">
+    <value>Are you sure you want to delete selected students?</value>
   </data>
   <data name="UserDetailsViewModel_AreYouSureYouWantToDeleteCurrentUser" xml:space="preserve">
     <value>Are you sure you want to delete current user?</value>
   </data>
+  <data name="UserListViewModel_AreYouSureYouWantToDeleteSelectedUsers" xml:space="preserve">
+    <value>Are you sure you want to delete selected users?</value>
+  </data>
   <data name="UserRoleDetailsViewModel_AreYouSureYouWantToDeleteCurrentUserRole" xml:space="preserve">
     <value>Are you sure you want to delete current user role?</value>
+  </data>
+  <data name="UserRoleListViewModel_AreYouSureYouWantToDeleteSelectedUserRoles" xml:space="preserve">
+    <value>Are you sure you want to delete selected user roles?</value>
   </data>
 </root>

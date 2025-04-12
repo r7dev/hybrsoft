@@ -267,4 +267,28 @@
   <data name="UserRoleDetailsViewModel_UserRoleDeleted" xml:space="preserve">
     <value>User Role deleted</value>
   </data>
+  <data name="StudentListViewModel_LoadingStudents" xml:space="preserve">
+    <value>Loading students...</value>
+  </data>
+  <data name="StudentListViewModel_StudentsLoaded" xml:space="preserve">
+    <value>Students loaded</value>
+  </data>
+  <data name="StudentListViewModel_Deleting0Students" xml:space="preserve">
+    <value>Deleting {0} students...</value>
+  </data>
+  <data name="StudentListViewModel_0StudentsDeleted" xml:space="preserve">
+    <value>{0} students deleted</value>
+  </data>
+  <data name="StudentDetailsViewModel_SavingStudent" xml:space="preserve">
+    <value>Saving student...</value>
+  </data>
+  <data name="StudentDetailsViewModel_StudentSaved" xml:space="preserve">
+    <value>Student saved</value>
+  </data>
+  <data name="StudentDetailsViewModel_DeletingStudent" xml:space="preserve">
+    <value>Deleting student...</value>
+  </data>
+  <data name="StudentDetailsViewModel_StudentDeleted" xml:space="preserve">
+    <value>Student deleted</value>
+  </data>
 </root>

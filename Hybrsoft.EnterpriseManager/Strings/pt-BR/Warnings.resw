@@ -141,6 +141,12 @@
   <data name="SettingsViewModel_TheLanguageHasBeenChangedAndTheApplicationMustBeRestarted" xml:space="preserve">
     <value>AVISO: O idioma foi alterado com sucesso. Por favor, reinicie a aplicação para que as alterações sejam aplicadas por completo.</value>
   </data>
+  <data name="StudentDetailsViewModel_ThisStudentHasBeenDeletedExternally" xml:space="preserve">
+    <value>AVISO: Este estudante foi excluído externamente</value>
+  </data>
+  <data name="StudentDetailsViewModel_ThisStudentHasBeenModifiedExternally" xml:space="preserve">
+    <value>AVISO: Este estudante foi modificado externamente</value>
+  </data>
   <data name="UserDetailsViewModel_ThisUserHasBeenDeletedExternally" xml:space="preserve">
     <value>AVISO: Este usuário foi excluído externamente</value>
   </data>

@@ -495,4 +495,58 @@
   <data name="RoleSuggestBoxUserControl.PlaceholderText" xml:space="preserve">
     <value>Pesquisar Função</value>
   </data>
+  <data name="StudentListViewModel_Prefix" xml:space="preserve">
+    <value>Estudantes</value>
+  </data>
+  <data name="StudentDetailsViewModel_Title" xml:space="preserve">
+    <value>Novo Estudante</value>
+  </data>
+  <data name="StudentDetailsViewModel_TitleEdit" xml:space="preserve">
+    <value>Estudante</value>
+  </data>
+  <data name="StudentCardUserControl_General.Text" xml:space="preserve">
+    <value>Geral</value>
+  </data>
+  <data name="StudentCardUserControl_StudentID.Text" xml:space="preserve">
+    <value>Estudante ID</value>
+  </data>
+  <data name="GenericCardUserControl_CreatedOn.Text" xml:space="preserve">
+    <value>Criado Em</value>
+  </data>
+  <data name="GenericCardUserControl_LastUpdate.Text" xml:space="preserve">
+    <value>Última Atualização</value>
+  </data>
+  <data name="StudentDetailsUserControl_Information.Text" xml:space="preserve">
+    <value>Informação do Estudante</value>
+  </data>
+  <data name="StudentDetailsUserControl_Name.Header" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="StudentDetailsUserControl_LastName.Header" xml:space="preserve">
+    <value>Último Nome</value>
+  </data>
+  <data name="StudentDetailsUserControl_MiddleName.Header" xml:space="preserve">
+    <value>Nome do Meio</value>
+  </data>
+  <data name="StudentDetailsUserControl_EmailAddress.Header" xml:space="preserve">
+    <value>Endereço Eletrônico</value>
+  </data>
+  <data name="StudentListUserControl_ColumnHeaderStudentID.Text" xml:space="preserve">
+    <value>Estudante ID</value>
+  </data>
+  <data name="StudentListUserControl_ColumnHeaderFirstName.Text" xml:space="preserve">
+    <value>Primeiro Nome</value>
+  </data>
+  <data name="StudentListUserControl_ColumnHeaderLastName.Text" xml:space="preserve">
+    <value>Último Nome</value>
+  </data>
+  <data name="StudentListUserControl_ColumnHeaderLastModified.Text" xml:space="preserve">
+    <value>Última Atualização</value>
+  </data>
+  <data name="StudentListUserControl_New.NewLabel" xml:space="preserve">
+    <value>Novo Estudante</value>
+  </data>
+  <data name="NavigationItem_Students" xml:space="preserve">
+    <value>Estudantes</value>
+  </data>
 </root>

@@ -62,6 +62,11 @@
     <None Remove="Views\Shell\MainShellView.xaml" />
     <None Remove="Views\Shell\ShellView.xaml" />
     <None Remove="Views\SplashScreen\ExtendedSplash.xaml" />
+    <None Remove="Views\Students\List\StudentList.xaml" />
+    <None Remove="Views\Students\StudentsView.xaml" />
+    <None Remove="Views\Student\Details\StudentCard.xaml" />
+    <None Remove="Views\Student\Details\StudentDetails.xaml" />
+    <None Remove="Views\Student\StudentView.xaml" />
     <None Remove="Views\UserRole\Details\UserRoleCard.xaml" />
     <None Remove="Views\UserRole\Details\UserRoleDetails.xaml" />
     <None Remove="Views\UserRole\UserRoleView.xaml" />
@@ -89,6 +94,7 @@
     <PackageReference Include="Microsoft.Graphics.Win2D" Version="1.3.2" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250310001" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1742" />
+    <PackageReference Include="SkiaSharp" Version="3.116.1" />
     <PackageReference Include="System.Private.Uri" Version="4.3.2" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
@@ -158,6 +164,31 @@
   <ItemGroup>
     <Folder Include="Assets\Images\" />
     <Folder Include="Views\Roles\Details\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Students\StudentsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Students\List\StudentList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Student\StudentView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Student\Details\StudentDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Student\Details\StudentCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Controls\Search\SearchDateRange.xaml">

@@ -138,6 +138,15 @@
   <data name="RolePermissionDetailsViewModel_PropertyPermission" xml:space="preserve">
     <value>Permission</value>
   </data>
+  <data name="StudentDetailsViewModel_PropertyEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="StudentDetailsViewModel_PropertyFirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="StudentDetailsViewModel_PropertyLastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
   <data name="UserDetailsViewModel_PropertyEmail" xml:space="preserve">
     <value>Email</value>
   </data>

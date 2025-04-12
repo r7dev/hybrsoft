@@ -24,6 +24,7 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 		{
 			serviceCollection.AddSingleton<ISettingsService, SettingsService>();
 			serviceCollection.AddSingleton<IDataServiceFactory, DataServiceFactory>();
+			serviceCollection.AddSingleton<IStudentService, StudentService>();
 			serviceCollection.AddSingleton<IPermissionService, PermissionService>();
 			serviceCollection.AddSingleton<IRoleService, RoleService>();
 			serviceCollection.AddSingleton<IRolePermissionService, RolePermissionService>();
@@ -32,6 +33,7 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 
 			serviceCollection.AddSingleton<IMessageService, MessageService>();
 			serviceCollection.AddSingleton<IDialogService, DialogService>();
+			serviceCollection.AddSingleton<IFilePickerService, FilePickerService>();
 			serviceCollection.AddSingleton<ILogService, LogService>();
 			serviceCollection.AddSingleton<ILoginService, LoginService>();
 			serviceCollection.AddSingleton<IPasswordHasher, PasswordHasher>();
@@ -48,6 +50,9 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			serviceCollection.AddTransient<MainShellViewModel>();
 
 			serviceCollection.AddTransient<DashboardViewModel>();
+
+			serviceCollection.AddTransient<StudentsViewModel>();
+			serviceCollection.AddTransient<StudentDetailsViewModel>();
 
 			serviceCollection.AddTransient<PermissionsViewModel>();
 			serviceCollection.AddTransient<PermissionDetailsViewModel>();

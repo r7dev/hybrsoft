@@ -6,6 +6,7 @@ using System;
 using System.Threading.Tasks;
 using Windows.Devices.Display;
 using Windows.Devices.Enumeration;
+using WinRT.Interop;
 
 namespace Hybrsoft.EnterpriseManager.Extensions
 {
@@ -13,7 +14,7 @@ namespace Hybrsoft.EnterpriseManager.Extensions
 	{
 		public static AppWindow GetAppWindow(this Window window)
 		{
-			IntPtr windowHandle = WinRT.Interop.WindowNative.GetWindowHandle(window);
+			IntPtr windowHandle = WindowNative.GetWindowHandle(window);
 			return GetAppWindowFromWindowHandle(windowHandle);
 		}
 
@@ -57,6 +58,12 @@ namespace Hybrsoft.EnterpriseManager.Extensions
 		{
 			AppWindow appWindow = GetAppWindow(window);
 			appWindow.Resize(AppSettings.Current.WindowSizeDefault);
+		}
+
+		public static void InitializeWithObject(this Window window, object obj)
+		{
+			IntPtr windowHandle = WindowNative.GetWindowHandle(window);
+			InitializeWithWindow.Initialize(obj, windowHandle);
 		}
 	}
 }

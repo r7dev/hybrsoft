@@ -267,4 +267,28 @@
   <data name="UserRoleDetailsViewModel_UserRoleDeleted" xml:space="preserve">
     <value>Função de Usuário excluída</value>
   </data>
+  <data name="StudentListViewModel_LoadingStudents" xml:space="preserve">
+    <value>Carregando estudantes...</value>
+  </data>
+  <data name="StudentListViewModel_StudentsLoaded" xml:space="preserve">
+    <value>Estudantes carregados</value>
+  </data>
+  <data name="StudentListViewModel_Deleting0Students" xml:space="preserve">
+    <value>Excluindo {0} estudantes...</value>
+  </data>
+  <data name="StudentListViewModel_0StudentsDeleted" xml:space="preserve">
+    <value>{0} estudantes excluídos</value>
+  </data>
+  <data name="StudentDetailsViewModel_SavingStudent" xml:space="preserve">
+    <value>Salvando estudante...</value>
+  </data>
+  <data name="StudentDetailsViewModel_StudentSaved" xml:space="preserve">
+    <value>Estudante salvo</value>
+  </data>
+  <data name="StudentDetailsViewModel_DeletingStudent" xml:space="preserve">
+    <value>Excluindo estudante...</value>
+  </data>
+  <data name="StudentDetailsViewModel_StudentDeleted" xml:space="preserve">
+    <value>Estudante excluído</value>
+  </data>
 </root>

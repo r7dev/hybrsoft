@@ -141,6 +141,12 @@
   <data name="RolePermissionListViewModel_AreYouSureYouWantToDeleteSelectedRolePermissions" xml:space="preserve">
     <value>Tem certeza de que deseja excluir as permissões de função selecionadas?</value>
   </data>
+  <data name="StudentDetailsViewModel_AreYouSureYouWantToDeleteCurrentStudent" xml:space="preserve">
+    <value>Tem certeza de que deseja excluir o estudante atual?</value>
+  </data>
+  <data name="StudentListViewModel_AreYouSureYouWantToDeleteSelectedStudents" xml:space="preserve">
+    <value>Tem certeza de que deseja excluir estudantes selecionados?</value>
+  </data>
   <data name="UserDetailsViewModel_AreYouSureYouWantToDeleteCurrentUser" xml:space="preserve">
     <value>Tem certeza de que deseja excluir o usuário atual?</value>
   </data>

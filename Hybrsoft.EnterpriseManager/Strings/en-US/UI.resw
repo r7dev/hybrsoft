@@ -198,11 +198,11 @@
   <data name="DataListUserControl_ItemsSelected.Text" xml:space="preserve">
     <value>items selected.</value>
   </data>
-  <data name="DataListUserControl_NoItemsFound" xml:space="preserve">
-    <value>No items found.</value>
-  </data>
   <data name="DataListUserControl_Loading" xml:space="preserve">
     <value>Loading...</value>
+  </data>
+  <data name="DataListUserControl_NoItemsFound" xml:space="preserve">
+    <value>No items found.</value>
   </data>
   <data name="DataListUserControl_NewItem" xml:space="preserve">
     <value>Click + to add a new item.</value>
@@ -494,5 +494,59 @@
   </data>
   <data name="RoleSuggestBoxUserControl.PlaceholderText" xml:space="preserve">
     <value>Search Role</value>
+  </data>
+  <data name="StudentListViewModel_Prefix" xml:space="preserve">
+    <value>Students</value>
+  </data>
+  <data name="StudentDetailsViewModel_Title" xml:space="preserve">
+    <value>New Student</value>
+  </data>
+  <data name="StudentDetailsViewModel_TitleEdit" xml:space="preserve">
+    <value>Student</value>
+  </data>
+  <data name="StudentCardUserControl_General.Text" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="StudentCardUserControl_StudentID.Text" xml:space="preserve">
+    <value>Student ID</value>
+  </data>
+  <data name="GenericCardUserControl_CreatedOn.Text" xml:space="preserve">
+    <value>Created On</value>
+  </data>
+  <data name="GenericCardUserControl_LastUpdate.Text" xml:space="preserve">
+    <value>Last Update</value>
+  </data>
+  <data name="StudentDetailsUserControl_Information.Text" xml:space="preserve">
+    <value>Student Information</value>
+  </data>
+  <data name="StudentDetailsUserControl_Name.Header" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="StudentDetailsUserControl_LastName.Header" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="StudentDetailsUserControl_MiddleName.Header" xml:space="preserve">
+    <value>Middle Name</value>
+  </data>
+  <data name="StudentDetailsUserControl_EmailAddress.Header" xml:space="preserve">
+    <value>Email Address</value>
+  </data>
+  <data name="StudentListUserControl_ColumnHeaderStudentID.Text" xml:space="preserve">
+    <value>Student ID</value>
+  </data>
+  <data name="StudentListUserControl_ColumnHeaderFirstName.Text" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="StudentListUserControl_ColumnHeaderLastName.Text" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="StudentListUserControl_ColumnHeaderLastModified.Text" xml:space="preserve">
+    <value>Last Modified</value>
+  </data>
+  <data name="StudentListUserControl_New.NewLabel" xml:space="preserve">
+    <value>New Student</value>
+  </data>
+  <data name="NavigationItem_Students" xml:space="preserve">
+    <value>Students</value>
   </data>
 </root>

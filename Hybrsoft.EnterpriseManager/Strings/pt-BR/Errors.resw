@@ -189,4 +189,16 @@
   <data name="UserRoleDetailsViewModel_ErrorDeletingUserRole0" xml:space="preserve">
     <value>Erro ao excluir a Função de Usuário: {0}</value>
   </data>
+  <data name="StudentListViewModel_ErrorLoadingStudents0" xml:space="preserve">
+    <value>Erro ao carregar Estudantes: {0}</value>
+  </data>
+  <data name="StudentListViewModel_ErrorDeleting0Students1" xml:space="preserve">
+    <value>Erro ao excluir {0} Estudantes: {1}</value>
+  </data>
+  <data name="StudentDetailsViewModel_ErrorDeletingStudent0" xml:space="preserve">
+    <value>Erro ao excluir Estudante: {0}</value>
+  </data>
+  <data name="StudentDetailsViewModel_ErrorSavingStudent0" xml:space="preserve">
+    <value>Erro ao salvar Estudante: {0}</value>
+  </data>
 </root>

@@ -189,4 +189,16 @@
   <data name="UserRoleDetailsViewModel_ErrorDeletingUserRole0" xml:space="preserve">
     <value>Error deleting User Role: {0}</value>
   </data>
+  <data name="StudentListViewModel_ErrorLoadingStudents0" xml:space="preserve">
+    <value>Error loading Students: {0}</value>
+  </data>
+  <data name="StudentListViewModel_ErrorDeleting0Students1" xml:space="preserve">
+    <value>Error deleting {0} Students: {1}</value>
+  </data>
+  <data name="StudentDetailsViewModel_ErrorDeletingStudent0" xml:space="preserve">
+    <value>Error deleting Student: {0}</value>
+  </data>
+  <data name="StudentDetailsViewModel_ErrorSavingStudent0" xml:space="preserve">
+    <value>Error saving Student: {0}</value>
+  </data>
 </root>
