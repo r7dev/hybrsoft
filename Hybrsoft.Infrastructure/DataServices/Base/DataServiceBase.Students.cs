@@ -32,6 +32,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 					FirstName = r.FirstName,
 					LastName = r.LastName,
 					Email = r.Email,
+					Thumbnail = r.Thumbnail,
 					LastModifiedOn = r.LastModifiedOn,
 				})
 				.AsNoTracking()

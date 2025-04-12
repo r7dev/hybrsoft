@@ -5,11 +5,11 @@
 	[MiddleName] NVARCHAR(50) NULL,
 	[LastName] NVARCHAR(50) NOT NULL,
 	[Email] NVARCHAR(150) NOT NULL UNIQUE,
-	[Password] NVARCHAR(100) NOT NULL,
-	[PasswordLength] INT NOT NULL DEFAULT 0,
+	[Picture] VARBINARY(MAX) NULL,
+	[Thumbnail] VARBINARY(MAX) NULL,
 	[CreatedOn] DATETIMEOFFSET NOT NULL,
 	[LastModifiedOn] DATETIMEOFFSET NULL,
-	[SearchTerms] NVARCHAR(300) NULL
+	[SearchTerms] NVARCHAR(350) NULL
 )
 GO
 CREATE INDEX IX_Student_FirstName ON [Learn].[Student] (FirstName);

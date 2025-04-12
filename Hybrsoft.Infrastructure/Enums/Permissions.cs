@@ -3,5 +3,7 @@
 	public enum Permissions
 	{
 		SecurityAdministration,
+		StudentReader,
+		StudentEditor,
 	}
 }

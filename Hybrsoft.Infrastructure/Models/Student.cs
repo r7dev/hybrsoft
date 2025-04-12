@@ -10,10 +10,13 @@ namespace Hybrsoft.Infrastructure.Models
 		public string LastName { get; set; }
 		public string Email { get; set; }
 
+		public byte[] Picture { get; set; }
+		public byte[] Thumbnail { get; set; }
+
 		public DateTimeOffset CreatedOn { get; set; }
 		public DateTimeOffset? LastModifiedOn { get; set; }
 		public string SearchTerms { get; set; }
 
-		public string BuildSearchTerms() => $"{StudentId} {FirstName} {LastName} {Email}".ToLower();
+		public string BuildSearchTerms() => $"{StudentId} {FirstName} {MiddleName} {LastName} {Email}".ToLower();
 	}
 }

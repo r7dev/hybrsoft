@@ -8,9 +8,13 @@ DECLARE @Label VARCHAR(50),
 
 IF @IsRewrite = 1 AND EXISTS(SELECT TOP 1 1 FROM [Universal].[NavigationItem])
 	BEGIN
+		PRINT 'Deleting NavigationItem...'
 		DELETE FROM [Universal].[NavigationItem]
+		PRINT 'NavigationItem Deleted.'
 		-- Reset identity incremental
+		PRINT 'Reseting identity incremental'
 		DBCC CHECKIDENT ('Universal.NavigationItem', RESEED, 0)
+		PRINT 'Identity incremental reseted.'
 	END
 
 -- 1.0.0
@@ -28,12 +32,12 @@ IF NOT EXISTS(SELECT TOP 1 1 FROM [Universal].[NavigationItem] WHERE [Label] = @
 		VALUES(@Label, CONVERT(INT, 0xE838), NULL, NULL, NULL, @AppType)
 	END
 -- 2.1.0
-SET @LabelLevel2 = 'Patients'
+SET @LabelLevel2 = 'Students'
 SELECT @ParentId = [NavigationItemId] FROM [Universal].[NavigationItem] WHERE [Label] = @Label AND [AppType] = @AppType
 IF NOT EXISTS(SELECT TOP 1 1 FROM [Universal].[NavigationItem] WHERE [Label] = @LabelLevel2 AND [AppType] = @AppType)
 	BEGIN
 		INSERT INTO [Universal].[NavigationItem] ([Label], [Icon], [Uid], [ViewModel], [ParentId], [AppType])
-		VALUES(@LabelLevel2, CONVERT(INT, 0xE902), NULL, NULL, @ParentId, @AppType)
+		VALUES(@LabelLevel2, CONVERT(INT, 0xE716), 'NavigationItem_Students', 'StudentsViewModel', @ParentId, @AppType)
 	END
 -- 2.2.0
 SET @LabelLevel2 = 'Holydays'
