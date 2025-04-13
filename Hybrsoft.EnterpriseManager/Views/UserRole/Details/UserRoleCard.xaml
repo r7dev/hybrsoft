@@ -17,10 +17,10 @@
 			<TextBlock Style="{StaticResource CardHeader}" x:Uid="/UI/UserRoleCardUserControl_RoleID" />
 			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind Item.RoleId, Mode=OneWay}" />
 
-			<TextBlock Style="{StaticResource CardHeader}" x:Uid="/UI/UserRoleCardUserControl_CreatedOn" />
+			<TextBlock Style="{StaticResource CardHeader}" x:Uid="/UI/GenericCardUserControl_CreatedOn" />
 			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind Item.CreatedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
-			<TextBlock Style="{StaticResource CardHeader}" x:Uid="/UI/UserRoleCardUserControl_LastUpdate" />
+			<TextBlock Style="{StaticResource CardHeader}" x:Uid="/UI/GenericCardUserControl_LastUpdate" />
 			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind Item.LastModifiedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 		</StackPanel>
 	</ScrollViewer>

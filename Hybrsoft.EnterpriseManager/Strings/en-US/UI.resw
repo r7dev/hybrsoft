@@ -297,12 +297,6 @@
   <data name="PermissionCardUserControl_PermissionID.Text" xml:space="preserve">
     <value>Permission ID</value>
   </data>
-  <data name="PermissionCardUserControl_CreatedOn.Text" xml:space="preserve">
-    <value>Created On</value>
-  </data>
-  <data name="PermissionCardUserControl_LastUpdate.Text" xml:space="preserve">
-    <value>Last Update</value>
-  </data>
   <data name="PermissionDetailsUserControl_Information.Text" xml:space="preserve">
     <value>Permission Information</value>
   </data>
@@ -354,12 +348,6 @@
   <data name="RoleCardUserControl_RoleID.Text" xml:space="preserve">
     <value>Role ID</value>
   </data>
-  <data name="RoleCardUserControl_CreatedOn.Text" xml:space="preserve">
-    <value>Created On</value>
-  </data>
-  <data name="RoleCardUserControl_LastUpdate.Text" xml:space="preserve">
-    <value>Last Update</value>
-  </data>
   <data name="RoleDetailsUserControl_Information.Text" xml:space="preserve">
     <value>Role Information</value>
   </data>
@@ -383,12 +371,6 @@
   </data>
   <data name="RolePermissionCardUserControl_PermissionID.Text" xml:space="preserve">
     <value>Permission ID</value>
-  </data>
-  <data name="RolePermissionCardUserControl_CreatedOn.Text" xml:space="preserve">
-    <value>Created On</value>
-  </data>
-  <data name="RolePermissionCardUserControl_LastUpdate.Text" xml:space="preserve">
-    <value>Last Update</value>
   </data>
   <data name="PermissionSuggestBoxUserControl.Header" xml:space="preserve">
     <value>Permission</value>
@@ -462,12 +444,6 @@
   <data name="UserCardUserControl_UserID.Text" xml:space="preserve">
     <value>User ID</value>
   </data>
-  <data name="UserCardUserControl_CreatedOn.Text" xml:space="preserve">
-    <value>Created On</value>
-  </data>
-  <data name="UserCardUserControl_LastUpdate.Text" xml:space="preserve">
-    <value>Last Update</value>
-  </data>
   <data name="UserRoleDetailsViewModel_TitleNew" xml:space="preserve">
     <value>New User Role, User #{0}</value>
   </data>
@@ -482,12 +458,6 @@
   </data>
   <data name="UserRoleCardUserControl_RoleID.Text" xml:space="preserve">
     <value>Role ID</value>
-  </data>
-  <data name="UserRoleCardUserControl_CreatedOn.Text" xml:space="preserve">
-    <value>Created On</value>
-  </data>
-  <data name="UserRoleCardUserControl_LastUpdate.Text" xml:space="preserve">
-    <value>Last Update</value>
   </data>
   <data name="RoleSuggestBoxUserControl.Header" xml:space="preserve">
     <value>Role</value>

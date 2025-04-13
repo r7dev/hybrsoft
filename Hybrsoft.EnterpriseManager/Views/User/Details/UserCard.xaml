@@ -15,10 +15,10 @@
 			<TextBlock Style="{StaticResource CardHeader}" x:Uid="/UI/UserCardUserControl_UserID" />
 			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind Item.UserID, Mode=OneWay}" />
 
-			<TextBlock Style="{StaticResource CardHeader}" x:Uid="/UI/UserCardUserControl_CreatedOn" />
+			<TextBlock Style="{StaticResource CardHeader}" x:Uid="/UI/GenericCardUserControl_CreatedOn" />
 			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind Item.CreatedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
-			<TextBlock Style="{StaticResource CardHeader}" x:Uid="/UI/UserCardUserControl_LastUpdate" />
+			<TextBlock Style="{StaticResource CardHeader}" x:Uid="/UI/GenericCardUserControl_LastUpdate" />
 			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind Item.LastModifiedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
 
 		</StackPanel>
