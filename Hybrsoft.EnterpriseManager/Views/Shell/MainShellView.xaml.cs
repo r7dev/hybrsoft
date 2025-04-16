@@ -4,6 +4,7 @@ using Hybrsoft.Domain.ViewModels;
 using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.EnterpriseManager.Extensions;
 using Hybrsoft.EnterpriseManager.Services;
+using Hybrsoft.Infrastructure.Enums;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
@@ -100,8 +101,11 @@ namespace Hybrsoft.EnterpriseManager.Views
 
 		private async void OnLogoff(object sender, RoutedEventArgs e)
 		{
+			string title = ViewModel.ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmLogoff");
+			string content = ViewModel.ResourceService.GetString(nameof(ResourceFiles.Questions), "AreYouSureYouWantToLogoff");
+			string cancel = ViewModel.ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
 			var dialogService = ServiceLocator.Current.GetService<IDialogService>();
-			if (await dialogService.ShowAsync("Confirm logoff", "Are you sure you want to logoff?", "Ok", "Cancel"))
+			if (await dialogService.ShowAsync(title, content, "Ok", cancel))
 			{
 				var loginService = ServiceLocator.Current.GetService<ILoginService>();
 				loginService.Logoff();

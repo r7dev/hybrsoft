@@ -519,4 +519,7 @@
   <data name="NavigationItem_Students" xml:space="preserve">
     <value>Students</value>
   </data>
+  <data name="ContentDialog_Title_ConfirmLogoff" xml:space="preserve">
+    <value>Confirm logoff</value>
+  </data>
 </root>

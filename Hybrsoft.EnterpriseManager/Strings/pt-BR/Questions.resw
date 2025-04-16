@@ -123,6 +123,9 @@
   <data name="AppLogListViewModel_AreYouSureYouWantToDeleteSelectedLogs" xml:space="preserve">
     <value>Tem certeza de que deseja excluir os logs selecionados?</value>
   </data>
+  <data name="AreYouSureYouWantToLogoff" xml:space="preserve">
+    <value>Tem certeza de que deseja fazer logoff?</value>
+  </data>
   <data name="PermissionDetailsViewModel_AreYouSureYouWantToDeleteCurrentPermission" xml:space="preserve">
     <value>Tem certeza de que deseja excluir a permissão atual?</value>
   </data>

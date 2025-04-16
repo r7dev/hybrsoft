@@ -6,7 +6,6 @@ using Hybrsoft.Infrastructure.Models;
 using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -37,7 +36,7 @@ namespace Hybrsoft.Domain.ViewModels
 
 		public override async Task LoadAsync(ShellArgs args)
 		{
-			NavigationItems = GetItems().ToArray();
+			NavigationItems = [.. GetItems()];
 			await base.LoadAsync(args);
 			await UpdateAppLogBadge();
 		}
