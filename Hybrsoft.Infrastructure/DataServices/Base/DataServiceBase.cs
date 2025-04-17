@@ -1,5 +1,9 @@
 ﻿using Hybrsoft.Infrastructure.DataContexts;
+using Hybrsoft.Infrastructure.Enums;
+using Hybrsoft.Infrastructure.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Hybrsoft.Infrastructure.DataServices.Base
@@ -8,6 +12,13 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 	{
 		private readonly IUniversalDataSource _universalDataSource = universalDataSource;
 		private readonly ILearnDataSource _learnDataSource = learnDataSource;
+
+		public IList<NavigationItem> GetNavigationItemByAppType(AppType appType)
+		{
+			return [.. _universalDataSource.NavigationItems
+				.Where(f => f.AppType == appType)
+				.AsNoTracking()];
+		}
 
 		public bool HasPermission(long userId, string permissionName)
 		{
