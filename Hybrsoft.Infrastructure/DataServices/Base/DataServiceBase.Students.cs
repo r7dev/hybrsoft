@@ -15,11 +15,6 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			return await _learnDataSource.Students.Where(r => r.StudentId == id).FirstOrDefaultAsync();
 		}
 
-		public async Task<Student> GetStudentByEmailAsync(string email)
-		{
-			return await _learnDataSource.Students.Where(r => r.Email == email).FirstOrDefaultAsync();
-		}
-
 		public async Task<IList<Student>> GetStudentsAsync(int skip, int take, DataRequest<Student> request)
 		{
 			IQueryable<Student> items = GetStudents(request);

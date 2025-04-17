@@ -61,7 +61,6 @@ namespace Hybrsoft.Infrastructure.DataServices
 
 		#region Schema Learn
 		Task<Student> GetStudentAsync(long id);
-		Task<Student> GetStudentByEmailAsync(string email);
 		Task<IList<Student>> GetStudentsAsync(int skip, int take, DataRequest<Student> request);
 		Task<IList<Student>> GetStudentKeysAsync(int skip, int take, DataRequest<Student> request);
 		Task<int> GetStudentsCountAsync(DataRequest<Student> request);
