@@ -10,4 +10,6 @@
 	CONSTRAINT FK_RolePermission_PermissionId FOREIGN KEY ([PermissionId]) REFERENCES [Universal].[Permission] ([PermissionId]),
 )
 GO
-CREATE INDEX IX_RolePermission_SearchTerms ON [Universal].[RolePermission] (SearchTerms);
+CREATE INDEX IX_RolePermission_RoleId_PermissionId ON [Universal].[RolePermission] ([RoleId], [PermissionId]);
+GO
+CREATE INDEX IX_RolePermission_SearchTerms ON [Universal].[RolePermission] ([SearchTerms]);

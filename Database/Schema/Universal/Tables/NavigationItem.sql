@@ -10,4 +10,4 @@
 	CONSTRAINT FK_NavigationItem_ParentId FOREIGN KEY ([ParentId]) REFERENCES [Universal].[NavigationItem] ([NavigationItemId])
 )
 GO
-CREATE INDEX IX_NavigationItem_AppType ON [Universal].[NavigationItem] (AppType);
+CREATE INDEX IX_NavigationItem_AppType ON [Universal].[NavigationItem] ([AppType]);
