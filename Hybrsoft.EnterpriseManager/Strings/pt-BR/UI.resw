@@ -291,9 +291,6 @@
   <data name="ContentDialog_Title_ConfirmDelete" xml:space="preserve">
     <value>Confirmar Exclusão</value>
   </data>
-  <data name="PermissionCardUserControl_General.Text" xml:space="preserve">
-    <value>Geral</value>
-  </data>
   <data name="PermissionCardUserControl_PermissionID.Text" xml:space="preserve">
     <value>Permissão ID</value>
   </data>
@@ -341,9 +338,6 @@
   </data>
   <data name="RoleDetailsViewModel_TitleEdit" xml:space="preserve">
     <value>Função</value>
-  </data>
-  <data name="RoleCardUserControl_General.Text" xml:space="preserve">
-    <value>Geral</value>
   </data>
   <data name="RoleCardUserControl_RoleID.Text" xml:space="preserve">
     <value>Função ID</value>
@@ -438,9 +432,6 @@
   <data name="UserDetailsUserControl_UserRoles.Header" xml:space="preserve">
     <value>Funções de Usuário</value>
   </data>
-  <data name="UserCardUserControl_General.Text" xml:space="preserve">
-    <value>Geral</value>
-  </data>
   <data name="UserCardUserControl_UserID.Text" xml:space="preserve">
     <value>Usuário ID</value>
   </data>
@@ -473,9 +464,6 @@
   </data>
   <data name="StudentDetailsViewModel_TitleEdit" xml:space="preserve">
     <value>Estudante</value>
-  </data>
-  <data name="StudentCardUserControl_General.Text" xml:space="preserve">
-    <value>Geral</value>
   </data>
   <data name="StudentCardUserControl_StudentID.Text" xml:space="preserve">
     <value>Estudante ID</value>
