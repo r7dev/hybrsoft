@@ -12,7 +12,7 @@
 	[CreatedOn] DATETIMEOFFSET NOT NULL,
 	[LastModifiedOn] DATETIMEOFFSET NULL,
 	[SearchTerms] NVARCHAR(200) NULL,
-	CONSTRAINT UQ_Classroom_NameYearScheduleTypeId UNIQUE ([Name], [Year], [ScheduleTypeId]),
+	CONSTRAINT UQ_Classroom_Name_Year_ScheduleTypeId UNIQUE ([Name], [Year], [ScheduleTypeId]),
 	CONSTRAINT FK_Classroom_ScheduleTypeId FOREIGN KEY ([ScheduleTypeId]) REFERENCES [Learn].[ScheduleType] ([ScheduleTypeId]),
 )
 GO
