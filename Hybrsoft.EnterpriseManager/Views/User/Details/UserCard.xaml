@@ -10,7 +10,7 @@
 
 	<ScrollViewer VerticalScrollBarVisibility="Auto">
 		<StackPanel Margin="12,6">
-			<TextBlock Style="{StaticResource CardSection}" x:Uid="/UI/UserCardUserControl_General" />
+			<TextBlock Style="{StaticResource CardSection}" x:Uid="/UI/GenericCardUserControl_General" />
 
 			<TextBlock Style="{StaticResource CardHeader}" x:Uid="/UI/UserCardUserControl_UserID" />
 			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind Item.UserID, Mode=OneWay}" />
