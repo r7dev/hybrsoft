@@ -33,7 +33,7 @@ namespace Hybrsoft.Domain.ViewModels
 			{
 				string resourceKey = string.Concat(nameof(RoleDetailsViewModel), "_TitleEdit");
 				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.UI), resourceKey);
-				return Item == null ? resourceValue : $"{resourceValue} #{Item?.RoleId}";
+				return Item == null ? resourceValue : $"{resourceValue} #{Item?.RoleID}";
 			}
 		}
 
@@ -54,7 +54,7 @@ namespace Hybrsoft.Domain.ViewModels
 				try
 				{
 					var item = await RoleService.GetRoleAsync(ViewModelArgs.RoleID);
-					Item = item ?? new RoleDto { RoleId = ViewModelArgs.RoleID, IsEmpty = true };
+					Item = item ?? new RoleDto { RoleID = ViewModelArgs.RoleID, IsEmpty = true };
 				}
 				catch (Exception ex)
 				{
@@ -66,7 +66,7 @@ namespace Hybrsoft.Domain.ViewModels
 
 		public void Unload()
 		{
-			ViewModelArgs.RoleID = Item?.RoleId ?? 0;
+			ViewModelArgs.RoleID = Item?.RoleID ?? 0;
 		}
 
 		public void Subscribe()
@@ -90,7 +90,7 @@ namespace Hybrsoft.Domain.ViewModels
 				await RoleService.UpdateRoleAsync(model);
 				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(RoleDetailsViewModel), "_RoleSaved"));
 				EndStatusMessage(endMessage, LogType.Success);
-				LogSuccess("Role", "Save", "Role saved successfully", $"Role {model.RoleId} '{model.Name}' was saved successfully.");
+				LogSuccess("Role", "Save", "Role saved successfully", $"Role {model.RoleID} '{model.Name}' was saved successfully.");
 				return true;
 			}
 			catch (Exception ex)
@@ -114,7 +114,7 @@ namespace Hybrsoft.Domain.ViewModels
 				await RoleService.DeleteRoleAsync(model);
 				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(RoleDetailsViewModel), "_RoleDeleted"));
 				EndStatusMessage(endMessage, LogType.Warning);
-				LogWarning("Role", "Delete", "Role deleted", $"Role {model.RoleId} '{model.Name}' was deleted.");
+				LogWarning("Role", "Delete", "Role deleted", $"Role {model.RoleID} '{model.Name}' was deleted.");
 				return true;
 			}
 			catch (Exception ex)
@@ -157,7 +157,7 @@ namespace Hybrsoft.Domain.ViewModels
 			var current = Item;
 			if (current != null)
 			{
-				if (changed != null && changed.RoleId == current?.RoleId)
+				if (changed != null && changed.RoleID == current?.RoleID)
 				{
 					switch (message)
 					{
@@ -166,8 +166,8 @@ namespace Hybrsoft.Domain.ViewModels
 							{
 								try
 								{
-									var item = await RoleService.GetRoleAsync(current.RoleId);
-									item ??= new RoleDto { RoleId = current.RoleId, IsEmpty = true };
+									var item = await RoleService.GetRoleAsync(current.RoleID);
+									item ??= new RoleDto { RoleID = current.RoleID, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
 									NotifyPropertyChanged(nameof(Title));
@@ -202,7 +202,7 @@ namespace Hybrsoft.Domain.ViewModels
 					case "ItemsDeleted":
 						if (args is IList<RoleDto> deletedModels)
 						{
-							if (deletedModels.Any(r => r.RoleId == current.RoleId))
+							if (deletedModels.Any(r => r.RoleID == current.RoleID))
 							{
 								await OnItemDeletedExternally();
 							}
@@ -211,7 +211,7 @@ namespace Hybrsoft.Domain.ViewModels
 					case "ItemRangesDeleted":
 						try
 						{
-							var model = await RoleService.GetRoleAsync(current.RoleId);
+							var model = await RoleService.GetRoleAsync(current.RoleID);
 							if (model == null)
 							{
 								await OnItemDeletedExternally();

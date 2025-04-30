@@ -26,7 +26,7 @@ namespace Hybrsoft.Domain.ViewModels
 			try
 			{
 				var item = await LogService.GetLogAsync(ViewModelArgs.AppLogID);
-				Item = item ?? new AppLogDto { AppLogId = 0, IsEmpty = true };
+				Item = item ?? new AppLogDto { AppLogID = 0, IsEmpty = true };
 			}
 			catch (Exception ex)
 			{
@@ -35,7 +35,7 @@ namespace Hybrsoft.Domain.ViewModels
 		}
 		public void Unload()
 		{
-			ViewModelArgs.AppLogID = Item?.AppLogId ?? 0;
+			ViewModelArgs.AppLogID = Item?.AppLogID ?? 0;
 		}
 
 		public void Subscribe()
@@ -52,7 +52,7 @@ namespace Hybrsoft.Domain.ViewModels
 		{
 			return new AppLogDetailsArgs
 			{
-				AppLogID = Item?.AppLogId ?? 0
+				AppLogID = Item?.AppLogID ?? 0
 			};
 		}
 
@@ -112,7 +112,7 @@ namespace Hybrsoft.Domain.ViewModels
 			var current = Item;
 			if (current != null)
 			{
-				if (changed != null && changed.AppLogId == current?.AppLogId)
+				if (changed != null && changed.AppLogID == current?.AppLogID)
 				{
 					switch (message)
 					{
@@ -134,14 +134,14 @@ namespace Hybrsoft.Domain.ViewModels
 					case "ItemsDeleted":
 						if (args is IList<AppLogDto> deletedModels)
 						{
-							if (deletedModels.Any(r => r.AppLogId == current.AppLogId))
+							if (deletedModels.Any(r => r.AppLogID == current.AppLogID))
 							{
 								await OnItemDeletedExternally();
 							}
 						}
 						break;
 					case "ItemRangesDeleted":
-						var model = await LogService.GetLogAsync(current.AppLogId);
+						var model = await LogService.GetLogAsync(current.AppLogID);
 						if (model == null)
 						{
 							await OnItemDeletedExternally();

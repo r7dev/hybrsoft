@@ -59,7 +59,7 @@ namespace Hybrsoft.Domain.ViewModels
 				try
 				{
 					var item = await PermissionService.GetPermissionAsync(ViewModelArgs.PermissionID);
-					Item = item ?? new PermissionDto { PermissionId = ViewModelArgs.PermissionID, IsEmpty = true };
+					Item = item ?? new PermissionDto { PermissionID = ViewModelArgs.PermissionID, IsEmpty = true };
 					IsEnabled = item.IsEnabled;
 				}
 				catch (Exception ex)
@@ -71,7 +71,7 @@ namespace Hybrsoft.Domain.ViewModels
 
 		public void Unload()
 		{
-			ViewModelArgs.PermissionID = Item?.PermissionId ?? 0;
+			ViewModelArgs.PermissionID = Item?.PermissionID ?? 0;
 		}
 
 		public void Subscribe()
@@ -95,7 +95,7 @@ namespace Hybrsoft.Domain.ViewModels
 				await PermissionService.UpdatePermissionAsync(model);
 				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(PermissionDetailsViewModel), "_PermissionSaved"));
 				EndStatusMessage(endMessage, LogType.Success);
-				LogSuccess("Permission", "Save", "Permission saved successfully", $"Permission {model.PermissionId} '{model.FullName}' was saved successfully.");
+				LogSuccess("Permission", "Save", "Permission saved successfully", $"Permission {model.PermissionID} '{model.FullName}' was saved successfully.");
 				return true;
 			}
 			catch (Exception ex)
@@ -119,7 +119,7 @@ namespace Hybrsoft.Domain.ViewModels
 				await PermissionService.DeletePermissionAsync(model);
 				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(PermissionDetailsViewModel), "_PermissionDeleted"));
 				EndStatusMessage(endMessage, LogType.Warning);
-				LogWarning("Permission", "Delete", "Permission deleted", $"Permission {model.PermissionId} '{model.FullName}' was deleted.");
+				LogWarning("Permission", "Delete", "Permission deleted", $"Permission {model.PermissionID} '{model.FullName}' was deleted.");
 				return true;
 			}
 			catch (Exception ex)
@@ -174,7 +174,7 @@ namespace Hybrsoft.Domain.ViewModels
 			var current = Item;
 			if (current != null)
 			{
-				if (changed != null && changed.PermissionId == current?.PermissionId)
+				if (changed != null && changed.PermissionID == current?.PermissionID)
 				{
 					switch (message)
 					{
@@ -183,8 +183,8 @@ namespace Hybrsoft.Domain.ViewModels
 							{
 								try
 								{
-									var item = await PermissionService.GetPermissionAsync(current.PermissionId);
-									item ??= new PermissionDto { PermissionId = current.PermissionId, IsEmpty = true };
+									var item = await PermissionService.GetPermissionAsync(current.PermissionID);
+									item ??= new PermissionDto { PermissionID = current.PermissionID, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
 									NotifyPropertyChanged(nameof(Title));
@@ -219,7 +219,7 @@ namespace Hybrsoft.Domain.ViewModels
 					case "ItemsDeleted":
 						if (args is IList<PermissionDto> deletedModels)
 						{
-							if (deletedModels.Any(r => r.PermissionId == current.PermissionId))
+							if (deletedModels.Any(r => r.PermissionID == current.PermissionID))
 							{
 								await OnItemDeletedExternally();
 							}
@@ -228,7 +228,7 @@ namespace Hybrsoft.Domain.ViewModels
 					case "ItemRangesDeleted":
 						try
 						{
-							var model = await PermissionService.GetPermissionAsync(current.PermissionId);
+							var model = await PermissionService.GetPermissionAsync(current.PermissionID);
 							if (model == null)
 							{
 								await OnItemDeletedExternally();

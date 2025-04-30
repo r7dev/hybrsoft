@@ -28,7 +28,7 @@
 					<ColumnDefinition Width="2*"/>
 					<ColumnDefinition Width="8*"/>
 				</Grid.ColumnDefinitions>
-				<TextBlock Grid.Column="0" Text="{x:Bind RoleId}" Style="{StaticResource ColumnValueStyle}" />
+				<TextBlock Grid.Column="0" Text="{x:Bind RoleID}" Style="{StaticResource ColumnValueStyle}" />
 				<TextBlock Grid.Column="1" Text="{x:Bind Role.Name}" Style="{StaticResource ColumnValueStyle}" />
 			</Grid>
 		</DataTemplate>

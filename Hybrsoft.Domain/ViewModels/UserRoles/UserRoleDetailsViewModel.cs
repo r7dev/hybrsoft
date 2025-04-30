@@ -32,7 +32,7 @@ namespace Hybrsoft.Domain.ViewModels
 			{
 				string resourceKey = string.Concat(nameof(UserRoleDetailsViewModel), "_TitleEdit");
 				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.UI), resourceKey);
-				string message = string.Format(resourceValue, Item?.RoleId, Item?.UserId);
+				string message = string.Format(resourceValue, Item?.RoleID, Item?.UserID);
 				return message ?? String.Empty;
 			}
 		}
@@ -47,7 +47,7 @@ namespace Hybrsoft.Domain.ViewModels
 		public ICommand RoleSelectedCommand => new RelayCommand<RoleDto>(RoleSelected);
 		private void RoleSelected(RoleDto role)
 		{
-			EditableItem.RoleId = role?.RoleId ?? 0;
+			EditableItem.RoleID = role?.RoleID ?? 0;
 			EditableItem.Role = role;
 
 			EditableItem.NotifyChanges();
@@ -61,7 +61,7 @@ namespace Hybrsoft.Domain.ViewModels
 
 			if (ViewModelArgs.IsNew)
 			{
-				Item = new UserRoleDto { UserId = UserId };
+				Item = new UserRoleDto { UserID = UserId };
 				IsEditMode = true;
 			}
 			else
@@ -69,7 +69,7 @@ namespace Hybrsoft.Domain.ViewModels
 				try
 				{
 					var item = await UserRoleService.GetUserRoleAsync(UserRoleId);
-					Item = item ?? new UserRoleDto { UserRoleId = UserRoleId, UserId = UserId, IsEmpty = true };
+					Item = item ?? new UserRoleDto { UserRoleID = UserRoleId, UserID = UserId, IsEmpty = true };
 				}
 				catch (Exception ex)
 				{
@@ -96,8 +96,8 @@ namespace Hybrsoft.Domain.ViewModels
 		{
 			return new UserRoleDetailsArgs
 			{
-				UserRoleId = Item?.UserRoleId ?? 0,
-				UserId = Item?.UserId ?? 0
+				UserRoleId = Item?.UserRoleID ?? 0,
+				UserId = Item?.UserID ?? 0
 			};
 		}
 
@@ -111,7 +111,7 @@ namespace Hybrsoft.Domain.ViewModels
 				await UserRoleService.UpdateUserRoleAsync(model);
 				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(UserRoleDetailsViewModel), "_UserRoleSaved"));
 				EndStatusMessage(endMessage, LogType.Success);
-				LogSuccess("UserRole", "Save", "User role saved successfully", $"User role #{model.UserId}, {model.Role.Name} was saved successfully.");
+				LogSuccess("UserRole", "Save", "User role saved successfully", $"User role #{model.UserID}, {model.Role.Name} was saved successfully.");
 				return true;
 			}
 			catch (Exception ex)
@@ -135,7 +135,7 @@ namespace Hybrsoft.Domain.ViewModels
 				await UserRoleService.DeleteUserRoleAsync(model);
 				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(UserRoleDetailsViewModel), "_UserRoleDeleted"));
 				EndStatusMessage(endMessage, LogType.Warning);
-				LogWarning("UserRole", "Delete", "User role deleted", $"User role #{model.UserId}, {model.Role.Name} was deleted.");
+				LogWarning("UserRole", "Delete", "User role deleted", $"User role #{model.UserID}, {model.Role.Name} was deleted.");
 				return true;
 			}
 			catch (Exception ex)
@@ -162,7 +162,7 @@ namespace Hybrsoft.Domain.ViewModels
 		{
 			string resourceKeyForRole = string.Concat(nameof(UserRoleDetailsViewModel), "_PropertyRole");
 			string propertyRole = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForRole);
-			var requiredRole = new RequiredGreaterThanZeroConstraint<UserRoleDto>("Role", m => m.RoleId);
+			var requiredRole = new RequiredGreaterThanZeroConstraint<UserRoleDto>("Role", m => m.RoleID);
 			requiredRole.SetResourceService(ResourceService);
 
 			yield return requiredRole;
@@ -174,7 +174,7 @@ namespace Hybrsoft.Domain.ViewModels
 			var current = Item;
 			if (current != null)
 			{
-				if (changed != null && changed.UserRoleId == current?.UserRoleId)
+				if (changed != null && changed.UserRoleID == current?.UserRoleID)
 				{
 					switch (message)
 					{
@@ -183,8 +183,8 @@ namespace Hybrsoft.Domain.ViewModels
 							{
 								try
 								{
-									var item = await UserRoleService.GetUserRoleAsync(current.UserRoleId);
-									item ??= new UserRoleDto { UserRoleId = UserRoleId, UserId = UserId, IsEmpty = true };
+									var item = await UserRoleService.GetUserRoleAsync(current.UserRoleID);
+									item ??= new UserRoleDto { UserRoleID = UserRoleId, UserID = UserId, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
 									NotifyPropertyChanged(nameof(Title));
@@ -219,7 +219,7 @@ namespace Hybrsoft.Domain.ViewModels
 					case "ItemsDeleted":
 						if (args is IList<UserRoleDto> deletedModels)
 						{
-							if (deletedModels.Any(r => r.UserRoleId == current.UserRoleId))
+							if (deletedModels.Any(r => r.UserRoleID == current.UserRoleID))
 							{
 								await OnItemDeletedExternally();
 							}
@@ -228,7 +228,7 @@ namespace Hybrsoft.Domain.ViewModels
 					case "ItemRangesDeleted":
 						try
 						{
-							var model = await UserRoleService.GetUserRoleAsync(current.UserRoleId);
+							var model = await UserRoleService.GetUserRoleAsync(current.UserRoleID);
 							if (model == null)
 							{
 								await OnItemDeletedExternally();

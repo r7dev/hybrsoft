@@ -106,7 +106,7 @@ namespace Hybrsoft.Domain.ViewModels
 		{
 			if (SelectedItem != null)
 			{
-				await NavigationService.CreateNewViewAsync<PermissionDetailsViewModel>(new PermissionDetailsArgs { PermissionID = SelectedItem.PermissionId });
+				await NavigationService.CreateNewViewAsync<PermissionDetailsViewModel>(new PermissionDetailsArgs { PermissionID = SelectedItem.PermissionID });
 			}
 		}
 
@@ -252,7 +252,7 @@ namespace Hybrsoft.Domain.ViewModels
 
 		private void LogWarning(PermissionDto model)
 		{
-			LogWarning("Permission", "Delete", "Permission deleted", $"Permission {model.PermissionId} '{model.FullName}' was deleted.");
+			LogWarning("Permission", "Delete", "Permission deleted", $"Permission {model.PermissionID} '{model.FullName}' was deleted.");
 		}
 
 		private async void OnMessage(ViewModelBase sender, string message, object args)

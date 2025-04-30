@@ -20,7 +20,7 @@
 
 				<StackPanel Grid.Column="1" Margin="4">
 					<TextBlock Text="{x:Bind Name}" FontSize="14" />
-					<TextBlock Text="{x:Bind RoleId}" FontSize="13" Foreground="#666" />
+					<TextBlock Text="{x:Bind RoleID}" FontSize="13" Foreground="#666" />
 				</StackPanel>
 
 				<Border Margin="4,-1" Grid.ColumnSpan="2" BorderBrush="LightGray" BorderThickness="0,0,0,1" />

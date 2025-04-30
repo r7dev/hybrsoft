@@ -12,10 +12,10 @@
 		<StackPanel Margin="12,6">
 			<TextBlock Style="{StaticResource CardSection}" x:Uid="/UI/UserRoleCardUserControl_UserRole" />
 			<TextBlock Style="{StaticResource CardHeader}" x:Uid="/UI/UserRoleCardUserControl_UserID" />
-			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind Item.UserId, Mode=OneWay}" />
+			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind Item.UserID, Mode=OneWay}" />
 
 			<TextBlock Style="{StaticResource CardHeader}" x:Uid="/UI/UserRoleCardUserControl_RoleID" />
-			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind Item.RoleId, Mode=OneWay}" />
+			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind Item.RoleID, Mode=OneWay}" />
 
 			<TextBlock Style="{StaticResource CardHeader}" x:Uid="/UI/GenericCardUserControl_CreatedOn" />
 			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind Item.CreatedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />

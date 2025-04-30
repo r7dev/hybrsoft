@@ -12,10 +12,10 @@
 		<StackPanel Margin="12,6">
 			<TextBlock Style="{StaticResource CardSection}" x:Uid="/UI/RolePermissionCardUserControl_RolePermission" />
 			<TextBlock Style="{StaticResource CardHeader}" x:Uid="/UI/RolePermissionCardUserControl_RoleID" />
-			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind Item.RoleId, Mode=OneWay}" />
+			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind Item.RoleID, Mode=OneWay}" />
 
 			<TextBlock Style="{StaticResource CardHeader}" x:Uid="/UI/RolePermissionCardUserControl_PermissionID" />
-			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind Item.PermissionId, Mode=OneWay}" />
+			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind Item.PermissionID, Mode=OneWay}" />
 
 			<TextBlock Style="{StaticResource CardHeader}" x:Uid="/UI/GenericCardUserControl_CreatedOn" />
 			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind Item.CreatedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />

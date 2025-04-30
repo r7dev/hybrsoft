@@ -5,17 +5,17 @@ namespace Hybrsoft.Domain.Dtos
 {
 	public partial class RolePermissionDto : ObservableObject
 	{
-		public long RolePermissionId { get; set; }
+		public long RolePermissionID { get; set; }
 
-		public long RoleId { get; set; }
-		public long PermissionId { get; set; }
+		public long RoleID { get; set; }
+		public long PermissionID { get; set; }
 
 		public DateTimeOffset CreatedOn { get; set; }
 		public DateTimeOffset? LastModifiedOn { get; set; }
 
 		public PermissionDto Permission { get; set; }
 
-		public bool IsNew => RolePermissionId <= 0;
+		public bool IsNew => RolePermissionID <= 0;
 
 		public override void Merge(ObservableObject source)
 		{
@@ -29,9 +29,9 @@ namespace Hybrsoft.Domain.Dtos
 		{
 			if (source != null)
 			{
-				RolePermissionId = source.RolePermissionId;
-				RoleId = source.RoleId;
-				PermissionId = source.PermissionId;
+				RolePermissionID = source.RolePermissionID;
+				RoleID = source.RoleID;
+				PermissionID = source.PermissionID;
 				Permission = source.Permission;
 				CreatedOn = source.CreatedOn;
 				LastModifiedOn = source.LastModifiedOn;

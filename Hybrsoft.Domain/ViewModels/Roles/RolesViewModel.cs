@@ -86,7 +86,7 @@ namespace Hybrsoft.Domain.ViewModels
 		{
 			try
 			{
-				var model = await RoleService.GetRoleAsync(selected.RoleId);
+				var model = await RoleService.GetRoleAsync(selected.RoleID);
 				selected.Merge(model);
 			}
 			catch (Exception ex)
@@ -101,7 +101,7 @@ namespace Hybrsoft.Domain.ViewModels
 			{
 				if (selectedItem != null)
 				{
-					await RolePermissionList.LoadAsync(new RolePermissionListArgs { RoleId = selectedItem.RoleId }, silent: true);
+					await RolePermissionList.LoadAsync(new RolePermissionListArgs { RoleId = selectedItem.RoleID }, silent: true);
 				}
 			}
 			catch (Exception ex)

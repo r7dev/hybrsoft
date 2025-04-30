@@ -50,7 +50,7 @@ namespace Hybrsoft.Domain.ViewModels
 		{
 			if (viewModel == RoleDetails && (message == "NewItemSaved" || message == "ItemChanged"))
 			{
-				await RolePermissionList.LoadAsync(new RolePermissionListArgs { RoleId = role.RoleId });
+				await RolePermissionList.LoadAsync(new RolePermissionListArgs { RoleId = role.RoleID });
 			}
 		}
 	}

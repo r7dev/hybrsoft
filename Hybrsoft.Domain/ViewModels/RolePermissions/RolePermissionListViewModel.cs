@@ -114,7 +114,7 @@ namespace Hybrsoft.Domain.ViewModels
 		{
 			if (SelectedItem != null)
 			{
-				await NavigationService.CreateNewViewAsync<RolePermissionDetailsViewModel>(new RolePermissionDetailsArgs { RolePermissionId = SelectedItem.RolePermissionId, RoleId = SelectedItem.RoleId });
+				await NavigationService.CreateNewViewAsync<RolePermissionDetailsViewModel>(new RolePermissionDetailsArgs { RolePermissionId = SelectedItem.RolePermissionID, RoleId = SelectedItem.RoleID });
 			}
 		}
 
@@ -242,7 +242,7 @@ namespace Hybrsoft.Domain.ViewModels
 
 		private void LogWarning(RolePermissionDto model)
 		{
-			LogWarning("RolePermission", "Delete", "Role Permission deleted", $"Role Permission #{model.RoleId}, '{model.Permission.DisplayName}' was deleted.");
+			LogWarning("RolePermission", "Delete", "Role Permission deleted", $"Role Permission #{model.RoleID}, '{model.Permission.DisplayName}' was deleted.");
 		}
 
 		private async void OnMessage(ViewModelBase sender, string message, object args)

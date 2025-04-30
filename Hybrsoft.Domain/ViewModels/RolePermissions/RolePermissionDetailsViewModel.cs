@@ -32,7 +32,7 @@ namespace Hybrsoft.Domain.ViewModels
 			{
 				string resourceKey = string.Concat(nameof(RolePermissionDetailsViewModel), "_TitleEdit");
 				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.UI), resourceKey);
-				string message = string.Format(resourceValue, Item?.PermissionId, Item?.RoleId);
+				string message = string.Format(resourceValue, Item?.PermissionID, Item?.RoleID);
 				return message ?? String.Empty;
 			}
 		}
@@ -47,7 +47,7 @@ namespace Hybrsoft.Domain.ViewModels
 		public ICommand PermissionSelectedCommand => new RelayCommand<PermissionDto>(PermissionSelected);
 		private void PermissionSelected(PermissionDto permission)
 		{
-			EditableItem.PermissionId = permission?.PermissionId ?? 0;
+			EditableItem.PermissionID = permission?.PermissionID ?? 0;
 			EditableItem.Permission = permission;
 
 			EditableItem.NotifyChanges();
@@ -61,7 +61,7 @@ namespace Hybrsoft.Domain.ViewModels
 
 			if (ViewModelArgs.IsNew)
 			{
-				Item = new RolePermissionDto { RoleId = RoleId };
+				Item = new RolePermissionDto { RoleID = RoleId };
 				IsEditMode = true;
 			}
 			else
@@ -69,7 +69,7 @@ namespace Hybrsoft.Domain.ViewModels
 				try
 				{
 					var item = await RolePermissionService.GetRolePermissionAsync(RolePermissionId);
-					Item = item ?? new RolePermissionDto { RolePermissionId = RolePermissionId, RoleId = RoleId, IsEmpty = true };
+					Item = item ?? new RolePermissionDto { RolePermissionID = RolePermissionId, RoleID = RoleId, IsEmpty = true };
 				}
 				catch (Exception ex)
 				{
@@ -79,7 +79,7 @@ namespace Hybrsoft.Domain.ViewModels
 		}
 		public void Unload()
 		{
-			ViewModelArgs.RoleId = Item?.RoleId ?? 0;
+			ViewModelArgs.RoleId = Item?.RoleID ?? 0;
 		}
 
 		public void Subscribe()
@@ -96,8 +96,8 @@ namespace Hybrsoft.Domain.ViewModels
 		{
 			return new RolePermissionDetailsArgs
 			{
-				RolePermissionId = Item?.RolePermissionId ?? 0,
-				RoleId = Item?.RoleId ?? 0
+				RolePermissionId = Item?.RolePermissionID ?? 0,
+				RoleId = Item?.RoleID ?? 0
 			};
 		}
 
@@ -111,7 +111,7 @@ namespace Hybrsoft.Domain.ViewModels
 				await RolePermissionService.UpdateRolePermissionAsync(model);
 				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(RolePermissionDetailsViewModel), "_RolePermissionSaved"));
 				EndStatusMessage(endMessage, LogType.Success);
-				LogSuccess("RolePermission", "Save", "Role permission saved successfully", $"Role permission #{model.RoleId}, {model.Permission.DisplayName} was saved successfully.");
+				LogSuccess("RolePermission", "Save", "Role permission saved successfully", $"Role permission #{model.RoleID}, {model.Permission.DisplayName} was saved successfully.");
 				return true;
 			}
 			catch (Exception ex)
@@ -135,7 +135,7 @@ namespace Hybrsoft.Domain.ViewModels
 				await RolePermissionService.DeleteRolePermissionAsync(model);
 				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(RolePermissionDetailsViewModel), "_RolePermissionDeleted"));
 				EndStatusMessage(endMessage, LogType.Warning);
-				LogWarning("RolePermission", "Delete", "Role permission deleted", $"Role permission #{model.RoleId}, {model.Permission.DisplayName} was deleted.");
+				LogWarning("RolePermission", "Delete", "Role permission deleted", $"Role permission #{model.RoleID}, {model.Permission.DisplayName} was deleted.");
 				return true;
 			}
 			catch (Exception ex)
@@ -162,7 +162,7 @@ namespace Hybrsoft.Domain.ViewModels
 		{
 			string resourceKeyForPermission = string.Concat(nameof(RolePermissionDetailsViewModel), "_PropertyPermission");
 			string propertyPermission = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForPermission);
-			var requiredPermission = new RequiredGreaterThanZeroConstraint<RolePermissionDto>(propertyPermission, m => m.PermissionId);
+			var requiredPermission = new RequiredGreaterThanZeroConstraint<RolePermissionDto>(propertyPermission, m => m.PermissionID);
 			requiredPermission.SetResourceService(ResourceService);
 
 			yield return requiredPermission;
@@ -174,7 +174,7 @@ namespace Hybrsoft.Domain.ViewModels
 			var current = Item;
 			if (current != null)
 			{
-				if (changed != null && changed.RolePermissionId == current?.RolePermissionId)
+				if (changed != null && changed.RolePermissionID == current?.RolePermissionID)
 				{
 					switch (message)
 					{
@@ -183,8 +183,8 @@ namespace Hybrsoft.Domain.ViewModels
 							{
 								try
 								{
-									var item = await RolePermissionService.GetRolePermissionAsync(current.RolePermissionId);
-									item ??= new RolePermissionDto { RolePermissionId = RolePermissionId, RoleId = RoleId, IsEmpty = true };
+									var item = await RolePermissionService.GetRolePermissionAsync(current.RolePermissionID);
+									item ??= new RolePermissionDto { RolePermissionID = RolePermissionId, RoleID = RoleId, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
 									NotifyPropertyChanged(nameof(Title));
@@ -219,7 +219,7 @@ namespace Hybrsoft.Domain.ViewModels
 					case "ItemsDeleted":
 						if (args is IList<RolePermissionDto> deletedModels)
 						{
-							if (deletedModels.Any(r => r.RolePermissionId == current.RolePermissionId))
+							if (deletedModels.Any(r => r.RolePermissionID == current.RolePermissionID))
 							{
 								await OnItemDeletedExternally();
 							}
@@ -228,7 +228,7 @@ namespace Hybrsoft.Domain.ViewModels
 					case "ItemRangesDeleted":
 						try
 						{
-							var model = await RolePermissionService.GetRolePermissionAsync(current.RolePermissionId);
+							var model = await RolePermissionService.GetRolePermissionAsync(current.RolePermissionID);
 							if (model == null)
 							{
 								await OnItemDeletedExternally();

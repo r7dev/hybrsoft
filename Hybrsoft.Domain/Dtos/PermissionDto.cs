@@ -5,14 +5,14 @@ namespace Hybrsoft.Domain.Dtos
 {
 	public partial class PermissionDto : ObservableObject
 	{
-		static public PermissionDto CreateEmpty() => new() { PermissionId = -1, IsEmpty = true };
-		public long PermissionId { get; set; }
+		static public PermissionDto CreateEmpty() => new() { PermissionID = -1, IsEmpty = true };
+		public long PermissionID { get; set; }
 		public string Name { get; set; }
 		public string DisplayName { get; set; }
 		public string Description { get; set; }
 		public bool IsEnabled { get; set; }
 
-		public bool IsNew => PermissionId <= 0;
+		public bool IsNew => PermissionID <= 0;
 		public string FullName => $"{DisplayName}";
 
 		public DateTimeOffset CreatedOn { get; set; }
@@ -30,7 +30,7 @@ namespace Hybrsoft.Domain.Dtos
 		{
 			if (source != null)
 			{
-				PermissionId = source.PermissionId;
+				PermissionID = source.PermissionID;
 				Name = source.Name;
 				DisplayName = source.DisplayName;
 				Description = source.Description;

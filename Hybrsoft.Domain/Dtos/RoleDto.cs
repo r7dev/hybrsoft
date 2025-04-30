@@ -5,16 +5,16 @@ namespace Hybrsoft.Domain.Dtos
 {
 	public partial class RoleDto : ObservableObject
 	{
-		static public RoleDto CreateEmpty() => new() { RoleId = -1, IsEmpty = true };
+		static public RoleDto CreateEmpty() => new() { RoleID = -1, IsEmpty = true };
 
-		public long RoleId { get; set; }
+		public long RoleID { get; set; }
 
 		public string Name { get; set; }
 
 		public DateTimeOffset CreatedOn { get; set; }
 		public DateTimeOffset? LastModifiedOn { get; set; }
 
-		public bool IsNew => RoleId <= 0;
+		public bool IsNew => RoleID <= 0;
 
 		public override void Merge(ObservableObject source)
 		{
@@ -28,7 +28,7 @@ namespace Hybrsoft.Domain.Dtos
 		{
 			if (source != null)
 			{
-				RoleId = source.RoleId;
+				RoleID = source.RoleID;
 				Name = source.Name;
 				CreatedOn = source.CreatedOn;
 				LastModifiedOn = source.LastModifiedOn;

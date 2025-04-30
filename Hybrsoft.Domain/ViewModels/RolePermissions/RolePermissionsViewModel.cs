@@ -70,7 +70,7 @@ namespace Hybrsoft.Domain.ViewModels
 		{
 			try
 			{
-				var model = await RolePermissionService.GetRolePermissionAsync(selected.RolePermissionId);
+				var model = await RolePermissionService.GetRolePermissionAsync(selected.RolePermissionID);
 				selected.Merge(model);
 			}
 			catch (Exception ex)

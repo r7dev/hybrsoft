@@ -42,7 +42,7 @@
 			</StackPanel>
 
 			<TextBlock Style="{StaticResource CardHeader}" Text="Log ID" />
-			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind ViewModel.Item.AppLogId, Mode=OneWay}" />
+			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind ViewModel.Item.AppLogID, Mode=OneWay}" />
 
 			<TextBlock x:Uid="/UI/AppLogsDetails_Date" Style="{StaticResource CardHeader}" />
 			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind ViewModel.Item.CreatedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />

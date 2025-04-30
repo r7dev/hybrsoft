@@ -105,7 +105,7 @@ namespace Hybrsoft.Domain.ViewModels
 		{
 			if (SelectedItem != null)
 			{
-				await NavigationService.CreateNewViewAsync<RoleDetailsViewModel>(new RoleDetailsArgs { RoleID = SelectedItem.RoleId });
+				await NavigationService.CreateNewViewAsync<RoleDetailsViewModel>(new RoleDetailsArgs { RoleID = SelectedItem.RoleID });
 			}
 		}
 
@@ -241,7 +241,7 @@ namespace Hybrsoft.Domain.ViewModels
 
 		private void LogWarning(RoleDto model)
 		{
-			LogWarning("Role", "Delete", "Role deleted", $"Role {model.RoleId} '{model.Name}' was deleted.");
+			LogWarning("Role", "Delete", "Role deleted", $"Role {model.RoleID} '{model.Name}' was deleted.");
 		}
 
 		private async void OnMessage(ViewModelBase sender, string message, object args)

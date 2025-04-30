@@ -6,9 +6,9 @@ namespace Hybrsoft.Domain.Dtos
 {
 	public partial class AppLogDto : ObservableObject
 	{
-		static public AppLogDto CreateEmpty() => new() { AppLogId = -1, IsEmpty = true };
+		static public AppLogDto CreateEmpty() => new() { AppLogID = -1, IsEmpty = true };
 
-		public long AppLogId { get; set; }
+		public long AppLogID { get; set; }
 		public bool IsRead { get; set; }
 		public DateTimeOffset CreatedOn { get; set; }
 		public string User { get; set; }

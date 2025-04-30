@@ -65,7 +65,7 @@ namespace Hybrsoft.Domain.ViewModels
 		{
 			try
 			{
-				var model = await LogService.GetLogAsync(selected.AppLogId);
+				var model = await LogService.GetLogAsync(selected.AppLogID);
 				selected.Merge(model);
 			}
 			catch (Exception ex)

@@ -10,14 +10,14 @@ namespace Hybrsoft.Domain.Dtos
 		public NavigationItemDto(string label,
 			int glyph,
 			string tag,
-			int? parentId,
+			int? parentID,
 			ObservableCollection<NavigationItemDto> children,
 			Type viewModel) : this(viewModel)
 		{
 			Label = label;
 			Icon = new SymbolIcon((Symbol)glyph);
 			Tag = tag;
-			ParentId = parentId;
+			ParentID = parentID;
 			Children = children;
 			ViewModel = viewModel;
 		}
@@ -25,7 +25,7 @@ namespace Hybrsoft.Domain.Dtos
 		public readonly string Label;
 		public readonly SymbolIcon Icon;
 		public readonly string Tag;
-		public readonly int? ParentId;
+		public readonly int? ParentID;
 		public ObservableCollection<NavigationItemDto> Children;
 		public readonly Type ViewModel = viewModel;
 

@@ -59,9 +59,9 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<int> UpdatePermissionAsync(PermissionDto model)
 		{
-			long id = model.PermissionId;
+			long id = model.PermissionID;
 			using var dataService = DataServiceFactory.CreateDataService();
-			var permission = id > 0 ? await dataService.GetPermissionAsync(model.PermissionId) : new Permission();
+			var permission = id > 0 ? await dataService.GetPermissionAsync(model.PermissionID) : new Permission();
 			if (permission != null)
 			{
 				UpdatePermissionFromDto(permission, model);
@@ -73,7 +73,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<int> DeletePermissionAsync(PermissionDto model)
 		{
-			var permission = new Permission { PermissionId = model.PermissionId };
+			var permission = new Permission { PermissionId = model.PermissionID };
 			using var dataService = DataServiceFactory.CreateDataService();
 			return await dataService.DeletePermissionsAsync(permission);
 		}
@@ -89,7 +89,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			var model = new PermissionDto()
 			{
-				PermissionId = source.PermissionId,
+				PermissionID = source.PermissionId,
 				Name = source.Name,
 				DisplayName = source.DisplayName,
 				Description = source.Description,

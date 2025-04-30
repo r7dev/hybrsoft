@@ -55,8 +55,8 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<int> UpdateRolePermissionAsync(RolePermissionDto model)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
-			var rolePermission = model.RolePermissionId > 0
-				? await dataService.GetRolePermissionAsync(model.RolePermissionId)
+			var rolePermission = model.RolePermissionID > 0
+				? await dataService.GetRolePermissionAsync(model.RolePermissionID)
 				: new RolePermission() { Permission = new Permission() };
 			if (rolePermission != null)
 			{
@@ -69,7 +69,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<int> DeleteRolePermissionAsync(RolePermissionDto model)
 		{
-			var rolePermission = new RolePermission { RolePermissionId = model.RolePermissionId };
+			var rolePermission = new RolePermission { RolePermissionId = model.RolePermissionID };
 			using var dataService = DataServiceFactory.CreateDataService();
 			return await dataService.DeleteRolePermissionsAsync(rolePermission);
 		}
@@ -85,9 +85,9 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			var model = new RolePermissionDto()
 			{
-				RolePermissionId = source.RolePermissionId,
-				RoleId = source.RoleId,
-				PermissionId = source.PermissionId,
+				RolePermissionID = source.RolePermissionId,
+				RoleID = source.RoleId,
+				PermissionID = source.PermissionId,
 				Permission = PermissionService.CreatePermissionDto(source.Permission, includeAllFields),
 				CreatedOn = source.CreatedOn,
 				LastModifiedOn = source.LastModifiedOn
@@ -97,8 +97,8 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		private static void UpdateRolePermissionFromDto(RolePermission target, RolePermissionDto source)
 		{
-			target.RoleId = source.RoleId;
-			target.PermissionId = source.PermissionId;
+			target.RoleId = source.RoleID;
+			target.PermissionId = source.PermissionID;
 			target.CreatedOn = source.CreatedOn;
 			target.LastModifiedOn = source.LastModifiedOn;
 			target.SearchTerms = source.Permission?.DisplayName;

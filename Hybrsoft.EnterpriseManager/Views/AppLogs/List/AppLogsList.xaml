@@ -49,36 +49,53 @@
 						<ColumnDefinition Width="1*"/>
 						<ColumnDefinition Width="2*"/>
 					</Grid.ColumnDefinitions>
-					<FontIcon Glyph="{x:Bind Type, Converter={StaticResource LogTypeConverter}}" Foreground="{x:Bind Type, Converter={StaticResource LogTypeConverter}}" />
-					<TextBlock Grid.Column="1" Text="{x:Bind Type}" Style="{StaticResource ColumnValueStyle}" />
-					<TextBlock Grid.Column="2" Text="{x:Bind AppLogId}" Style="{StaticResource ColumnValueStyle}" />
-					<TextBlock Grid.Column="3" Text="{x:Bind CreatedOn, Converter={StaticResource DateTimeFormatConverter}}" Style="{StaticResource ColumnValueStyle}" />
-					<TextBlock Grid.Column="4" Text="{x:Bind CreatedOn, Converter={StaticResource DateTimeFormatConverter}, ConverterParameter=longtime}" Style="{StaticResource ColumnValueStyle}" />
-					<TextBlock Grid.Column="5" Text="{x:Bind User}" Style="{StaticResource ColumnValueStyle}" />
-					<TextBlock Grid.Column="6" Text="{x:Bind Source}" Style="{StaticResource ColumnValueStyle}" />
-					<TextBlock Grid.Column="7" Text="{x:Bind Action}" Style="{StaticResource ColumnValueStyle}" />
-					<TextBlock Grid.Column="8" Text="{x:Bind Message}" Style="{StaticResource ColumnValueStyle}" />
+					<FontIcon Glyph="{x:Bind Type, Converter={StaticResource LogTypeConverter}}"
+							  Foreground="{x:Bind Type, Converter={StaticResource LogTypeConverter}}" />
+					<TextBlock Grid.Column="1"
+							   Text="{x:Bind Type}"
+							   Style="{StaticResource ColumnValueStyle}" />
+					<TextBlock Grid.Column="2"
+							   Text="{x:Bind AppLogID}"
+							   Style="{StaticResource ColumnValueStyle}" />
+					<TextBlock Grid.Column="3"
+							   Text="{x:Bind CreatedOn, Converter={StaticResource DateTimeFormatConverter}}"
+							   Style="{StaticResource ColumnValueStyle}" />
+					<TextBlock Grid.Column="4"
+							   Text="{x:Bind CreatedOn, Converter={StaticResource DateTimeFormatConverter}, ConverterParameter=longtime}"
+							   Style="{StaticResource ColumnValueStyle}" />
+					<TextBlock Grid.Column="5"
+							   Text="{x:Bind User}"
+							   Style="{StaticResource ColumnValueStyle}" />
+					<TextBlock Grid.Column="6"
+							   Text="{x:Bind Source}"
+							   Style="{StaticResource ColumnValueStyle}" />
+					<TextBlock Grid.Column="7"
+							   Text="{x:Bind Action}"
+							   Style="{StaticResource ColumnValueStyle}" />
+					<TextBlock Grid.Column="8"
+							   Text="{x:Bind Message}"
+							   Style="{StaticResource ColumnValueStyle}" />
 				</Grid>
 			</Grid>
 		</DataTemplate>
 	</UserControl.Resources>
 
 	<controls:DataList DefaultCommands="select,refresh,daterange,search"
-				   ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
-				   SelectedItem="{x:Bind ViewModel.SelectedItem, Mode=TwoWay}"
-				   HeaderTemplate="{StaticResource HeaderTemplate}"
-				   ItemTemplate="{StaticResource ItemTemplate}"
-				   IsMultipleSelection="{x:Bind ViewModel.IsMultipleSelection, Mode=TwoWay}"
-				   ItemsCount="{x:Bind ViewModel.ItemsCount, Mode=OneWay}"
-				   RefreshCommand="{x:Bind ViewModel.RefreshCommand}"
-				   StartDate="{x:Bind ViewModel.StartDate, Mode=TwoWay}"
-				   EndDate="{x:Bind ViewModel.EndDate, Mode=TwoWay}"
-				   Query="{x:Bind ViewModel.Query, Mode=TwoWay}"
-				   QuerySubmittedCommand="{x:Bind ViewModel.RefreshCommand}"
-				   StartSelectionCommand="{x:Bind ViewModel.StartSelectionCommand}"
-				   CancelSelectionCommand="{x:Bind ViewModel.CancelSelectionCommand}"
-				   SelectItemsCommand="{x:Bind ViewModel.SelectItemsCommand}"
-				   DeselectItemsCommand="{x:Bind ViewModel.DeselectItemsCommand}"
-				   SelectRangesCommand="{x:Bind ViewModel.SelectRangesCommand}"
-				   DeleteCommand="{x:Bind ViewModel.DeleteSelectionCommand}" />
+					   ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
+					   SelectedItem="{x:Bind ViewModel.SelectedItem, Mode=TwoWay}"
+					   HeaderTemplate="{StaticResource HeaderTemplate}"
+					   ItemTemplate="{StaticResource ItemTemplate}"
+					   IsMultipleSelection="{x:Bind ViewModel.IsMultipleSelection, Mode=TwoWay}"
+					   ItemsCount="{x:Bind ViewModel.ItemsCount, Mode=OneWay}"
+					   RefreshCommand="{x:Bind ViewModel.RefreshCommand}"
+					   StartDate="{x:Bind ViewModel.StartDate, Mode=TwoWay}"
+					   EndDate="{x:Bind ViewModel.EndDate, Mode=TwoWay}"
+					   Query="{x:Bind ViewModel.Query, Mode=TwoWay}"
+					   QuerySubmittedCommand="{x:Bind ViewModel.RefreshCommand}"
+					   StartSelectionCommand="{x:Bind ViewModel.StartSelectionCommand}"
+					   CancelSelectionCommand="{x:Bind ViewModel.CancelSelectionCommand}"
+					   SelectItemsCommand="{x:Bind ViewModel.SelectItemsCommand}"
+					   DeselectItemsCommand="{x:Bind ViewModel.DeselectItemsCommand}"
+					   SelectRangesCommand="{x:Bind ViewModel.SelectRangesCommand}"
+					   DeleteCommand="{x:Bind ViewModel.DeleteSelectionCommand}" />
 </UserControl>

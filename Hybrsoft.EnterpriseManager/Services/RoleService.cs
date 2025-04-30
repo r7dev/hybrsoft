@@ -59,9 +59,9 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<int> UpdateRoleAsync(RoleDto model)
 		{
-			long id = model.RoleId;
+			long id = model.RoleID;
 			using var dataService = DataServiceFactory.CreateDataService();
-			var role = id > 0 ? await dataService.GetRoleAsync(model.RoleId) : new Role();
+			var role = id > 0 ? await dataService.GetRoleAsync(model.RoleID) : new Role();
 			if (role != null)
 			{
 				UpdateRoleFromDto(role, model);
@@ -73,7 +73,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<int> DeleteRoleAsync(RoleDto model)
 		{
-			var role = new Role { RoleId = model.RoleId };
+			var role = new Role { RoleId = model.RoleID };
 			using var dataService = DataServiceFactory.CreateDataService();
 			return await dataService.DeleteRolesAsync(role);
 		}
@@ -89,7 +89,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			var model = new RoleDto()
 			{
-				RoleId = source.RoleId,
+				RoleID = source.RoleId,
 				Name = source.Name,
 				CreatedOn = source.CreatedOn,
 				LastModifiedOn = source.LastModifiedOn
