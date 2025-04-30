@@ -1,5 +1,6 @@
 ﻿using Hybrsoft.Domain.Infrastructure.Commom;
 using Hybrsoft.Domain.Infrastructure.ViewModels;
+using Hybrsoft.Domain.Interfaces;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
 using Hybrsoft.Infrastructure.Enums;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace Hybrsoft.Domain.ViewModels
 {
 	abstract public partial class GenericDetailsViewModel<TModel>(ICommonServices commonServices) : ViewModelBase(commonServices) where TModel : ObservableObject, new()
 	{
+		public ILookupTables LookupTables => LookupTablesProxy.Instance;
+
 		public bool IsDataAvailable => _item != null;
 		public bool IsDataUnavailable => !IsDataAvailable;
 
