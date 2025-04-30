@@ -93,10 +93,10 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			else
 			{
 				userRole.UserRoleId = UIDGenerator.Next();
-				userRole.CreatedOn = DateTime.UtcNow;
+				userRole.CreatedOn = DateTimeOffset.Now;
 				_universalDataSource.Entry(userRole).State = EntityState.Added;
 			}
-			userRole.LastModifiedOn = DateTime.UtcNow;
+			userRole.LastModifiedOn = DateTimeOffset.Now;
 			userRole.SearchTerms = userRole.BuildSearchTerms();
 			return await _universalDataSource.SaveChangesAsync();
 		}

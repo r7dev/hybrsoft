@@ -101,10 +101,10 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			else
 			{
 				user.UserId = UIDGenerator.Next();
-				user.CreatedOn = DateTime.UtcNow;
+				user.CreatedOn = DateTimeOffset.Now;
 				_universalDataSource.Entry(user).State = EntityState.Added;
 			}
-			user.LastModifiedOn = DateTime.UtcNow;
+			user.LastModifiedOn = DateTimeOffset.Now;
 			user.SearchTerms = user.BuildSearchTerms();
 			int res = await _universalDataSource.SaveChangesAsync();
 			return res;

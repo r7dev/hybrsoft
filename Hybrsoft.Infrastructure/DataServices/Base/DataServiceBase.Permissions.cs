@@ -96,10 +96,10 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			else
 			{
 				permission.PermissionId = UIDGenerator.Next();
-				permission.CreatedOn = DateTime.UtcNow;
+				permission.CreatedOn = DateTimeOffset.Now;
 				_universalDataSource.Entry(permission).State = EntityState.Added;
 			}
-			permission.LastModifiedOn = DateTime.UtcNow;
+			permission.LastModifiedOn = DateTimeOffset.Now;
 			permission.SearchTerms = permission.BuildSearchTerms();
 			int res = await _universalDataSource.SaveChangesAsync();
 			return res;

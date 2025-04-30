@@ -81,7 +81,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 		public async Task<int> CreateLogAsync(AppLog appLog)
 		{
-			appLog.CreateOn = DateTime.UtcNow;
+			appLog.CreateOn = DateTimeOffset.Now;
 			_universalDataSource.Entry(appLog).State = EntityState.Added;
 			return await _universalDataSource.SaveChangesAsync();
 		}

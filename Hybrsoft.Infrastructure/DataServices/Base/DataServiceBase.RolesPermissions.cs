@@ -94,10 +94,10 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			else
 			{
 				rolePermission.RolePermissionId = UIDGenerator.Next();
-				rolePermission.CreatedOn = DateTime.UtcNow;
+				rolePermission.CreatedOn = DateTimeOffset.Now;
 				_universalDataSource.Entry(rolePermission).State = EntityState.Added;
 			}
-			rolePermission.LastModifiedOn = DateTime.UtcNow;
+			rolePermission.LastModifiedOn = DateTimeOffset.Now;
 			rolePermission.SearchTerms = rolePermission.BuildSearchTerms();
 			return await _universalDataSource.SaveChangesAsync();
 		}

@@ -97,10 +97,10 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			else
 			{
 				Student.StudentId = UIDGenerator.Next();
-				Student.CreatedOn = DateTime.UtcNow;
+				Student.CreatedOn = DateTimeOffset.Now;
 				_learnDataSource.Entry(Student).State = EntityState.Added;
 			}
-			Student.LastModifiedOn = DateTime.UtcNow;
+			Student.LastModifiedOn = DateTimeOffset.Now;
 			Student.SearchTerms = Student.BuildSearchTerms();
 			int res = await _learnDataSource.SaveChangesAsync();
 			return res;
