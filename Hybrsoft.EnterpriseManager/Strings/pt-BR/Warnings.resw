@@ -120,6 +120,12 @@
   <data name="AppLogDetailsViewModel_ThisLogHasBeenDeletedExternally" xml:space="preserve">
     <value>AVISO: Este log foi excluído externamente</value>
   </data>
+  <data name="ClassroomDetailsViewModel_ThisClassroomHasBeenDeletedExternally" xml:space="preserve">
+    <value>AVISO: Esta sala de aula foi excluído externamente</value>
+  </data>
+  <data name="ClassroomDetailsViewModel_ThisClassroomHasBeenModifiedExternally" xml:space="preserve">
+    <value>AVISO: Esta sala de aula foi modificado externamente</value>
+  </data>
   <data name="PermissionDetailsViewModel_ThisPermissionHasBeenDeletedExternally" xml:space="preserve">
     <value>AVISO: Esta permissão foi excluída externamente</value>
   </data>

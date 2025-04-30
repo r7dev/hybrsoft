@@ -94,7 +94,12 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			foreach (FrameworkElement item in Children.Cast<FrameworkElement>())
 			{
 				int span = GetActualColumnSpan(item, count);
-				item.Measure(new Size(width * span + (ColumnSpacing * (span - 1)), availableSize.Height));
+				Size size = new (width * span + (ColumnSpacing * (span - 1)), availableSize.Height);
+				item.Measure(size);
+				if (item is FormComboBox && item.ActualWidth > 0 && item.ActualWidth < size.Width)
+				{
+					item.Width = size.Width;
+				}
 			}
 
 			int x = 0;

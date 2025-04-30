@@ -489,8 +489,8 @@
   <data name="StudentDetailsUserControl_Information.Text" xml:space="preserve">
     <value>Informação do Estudante</value>
   </data>
-  <data name="StudentDetailsUserControl_Name.Header" xml:space="preserve">
-    <value>Nome</value>
+  <data name="StudentDetailsUserControl_FirstName.Header" xml:space="preserve">
+    <value>Primeiro Nome</value>
   </data>
   <data name="StudentDetailsUserControl_LastName.Header" xml:space="preserve">
     <value>Último Nome</value>
@@ -521,5 +521,56 @@
   </data>
   <data name="ContentDialog_Title_ConfirmLogoff" xml:space="preserve">
     <value>Confirmar logoff</value>
+  </data>
+  <data name="ClassroomDetailsViewModel_Title" xml:space="preserve">
+    <value>Nova Sala de Aula</value>
+  </data>
+  <data name="ClassroomDetailsViewModel_TitleEdit" xml:space="preserve">
+    <value>Sala de Aula</value>
+  </data>
+  <data name="GenericCardUserControl_General.Text" xml:space="preserve">
+    <value>Geral</value>
+  </data>
+  <data name="ClassroomCardUserControl_ClassroomID.Text" xml:space="preserve">
+    <value>Sala de Aula ID</value>
+  </data>
+  <data name="ClassroomDetailsUserControl_Information.Text" xml:space="preserve">
+    <value>Informação da Sala de Aula</value>
+  </data>
+  <data name="ClassroomDetailsUserControl_Name.Header" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="ClassroomDetailsUserControl_Year.Header" xml:space="preserve">
+    <value>Ano</value>
+  </data>
+  <data name="ClassroomDetailsUserControl_EducationLevel.Header" xml:space="preserve">
+    <value>Nível de Escolaridade</value>
+  </data>
+  <data name="ClassroomListUserControl_ColumnHeaderClassroomID.Text" xml:space="preserve">
+    <value>Sala de Aula ID</value>
+  </data>
+  <data name="ClassroomListUserControl_ColumnHeaderName.Text" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="ClassroomListUserControl_ColumnHeaderYear.Text" xml:space="preserve">
+    <value>Ano</value>
+  </data>
+  <data name="ClassroomListUserControl_ColumnHeaderScheduleType.Text" xml:space="preserve">
+    <value>Período</value>
+  </data>
+  <data name="ClassroomListUserControl_New.NewLabel" xml:space="preserve">
+    <value>Nova Sala de Aula</value>
+  </data>
+  <data name="NavigationItem_Classrooms" xml:space="preserve">
+    <value>Salas de Aula</value>
+  </data>
+  <data name="ClassroomListViewModel_Prefix" xml:space="preserve">
+    <value>Salas de Aula</value>
+  </data>
+  <data name="ClassroomDetailsUserControl_ScheduleType.Header" xml:space="preserve">
+    <value>Período</value>
+  </data>
+  <data name="ClassroomListUserControl_ColumnHeaderEducationLevel.Text" xml:space="preserve">
+    <value>Nível</value>
   </data>
 </root>

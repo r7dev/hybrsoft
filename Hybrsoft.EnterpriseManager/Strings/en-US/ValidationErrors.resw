@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ClassroomDetailsViewModel_PropertyEducationLevel" xml:space="preserve">
+    <value>Education Level</value>
+  </data>
+  <data name="ClassroomDetailsViewModel_PropertyName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ClassroomDetailsViewModel_PropertyScheduleType" xml:space="preserve">
+    <value>Schedule Type</value>
+  </data>
+  <data name="ClassroomDetailsViewModel_PropertyYear" xml:space="preserve">
+    <value>Year</value>
+  </data>
   <data name="GenericDetailsViewModel_0PleaseCorrectTheErrorAndTryAgain" xml:space="preserve">
     <value>{0}Please, correct the error and try again.</value>
   </data>

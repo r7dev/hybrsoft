@@ -17,7 +17,7 @@
 				<TextBlock x:Uid="/UI/StudentDetailsUserControl_Information"
 					   Style="{StaticResource FormsSection}"
 					   controls:FluidGrid.ColumnSpan="2" />
-				<controls:FormTextBox x:Uid="/UI/StudentDetailsUserControl_Name"
+				<controls:FormTextBox x:Uid="/UI/StudentDetailsUserControl_FirstName"
 									  Text="{x:Bind EditableItem.FirstName, Mode=TwoWay}"/>
 				<controls:FormTextBox x:Uid="/UI/StudentDetailsUserControl_LastName"
 									  Text="{x:Bind EditableItem.LastName, Mode=TwoWay}"/>

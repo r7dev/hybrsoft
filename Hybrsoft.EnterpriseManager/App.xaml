@@ -22,6 +22,7 @@
 			<converters:BoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" FalseValue="Visible" TrueValue="Collapsed" />
 			<converters:BoolNegationConverter x:Key="BoolNegationConverter" />
 			<converters:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
+			<converters:Int16Converter x:Key="Int16Converter" />
 			<converters:LogTypeConverter x:Key="LogTypeConverter" />
 			<converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
 			<converters:ObjectToImageConverter x:Key="ObjectToImageConverter" />

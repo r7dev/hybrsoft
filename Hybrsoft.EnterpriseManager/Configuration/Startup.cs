@@ -1,4 +1,5 @@
-﻿using Hybrsoft.Domain.Interfaces.Infrastructure;
+﻿using Hybrsoft.Domain.Interfaces;
+using Hybrsoft.Domain.Interfaces.Infrastructure;
 using Hybrsoft.Domain.ViewModels;
 using Hybrsoft.EnterpriseManager.Services;
 using Hybrsoft.EnterpriseManager.Views;
@@ -23,6 +24,8 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 
 			var resourceService = ServiceLocator.Current.GetService<IResourceService>();
 			await resourceService.InitializeAsync();
+
+			await ConfigureLookupTables();
 		}
 
 		private static void ConfigureNavigation()
@@ -34,6 +37,9 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 
 			NavigationService.Register<StudentsViewModel, StudentsView>();
 			NavigationService.Register<StudentDetailsViewModel, StudentView>();
+
+			NavigationService.Register<ClassroomsViewModel, ClassroomsView>();
+			NavigationService.Register<ClassroomDetailsViewModel, ClassroomView>();
 
 			NavigationService.Register<PermissionsViewModel, PermissionsView>();
 			NavigationService.Register<PermissionDetailsViewModel, PermissionView>();
@@ -51,6 +57,13 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			NavigationService.Register<AppLogsViewModel, AppLogsView>();
 
 			NavigationService.Register<SettingsViewModel, SettingsView>();
+		}
+
+		static private async Task ConfigureLookupTables()
+		{
+			var lookupTables = ServiceLocator.Current.GetService<ILookupTables>();
+			await lookupTables.InitializeAsync();
+			LookupTablesProxy.Instance = lookupTables;
 		}
 	}
 }

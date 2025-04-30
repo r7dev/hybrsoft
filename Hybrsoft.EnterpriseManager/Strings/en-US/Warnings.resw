@@ -120,6 +120,12 @@
   <data name="AppLogDetailsViewModel_ThisLogHasBeenDeletedExternally" xml:space="preserve">
     <value>WARNING: This log has been deleted externally</value>
   </data>
+  <data name="ClassroomDetailsViewModel_ThisClassroomHasBeenDeletedExternally" xml:space="preserve">
+    <value>WARNING: This classroom has been deleted externally</value>
+  </data>
+  <data name="ClassroomDetailsViewModel_ThisClassroomHasBeenModifiedExternally" xml:space="preserve">
+    <value>WARNING: This classroom has been modified externally</value>
+  </data>
   <data name="PermissionDetailsViewModel_ThisPermissionHasBeenDeletedExternally" xml:space="preserve">
     <value>WARNING: This permission has been deleted externally</value>
   </data>

@@ -126,6 +126,12 @@
   <data name="AreYouSureYouWantToLogoff" xml:space="preserve">
     <value>Are you sure you want to logoff?</value>
   </data>
+  <data name="ClassroomDetailsViewModel_AreYouSureYouWantToDeleteCurrentClassroom" xml:space="preserve">
+    <value>Are you sure you want to delete current classroom?</value>
+  </data>
+  <data name="ClassroomListViewModel_AreYouSureYouWantToDeleteSelectedClassrooms" xml:space="preserve">
+    <value>Are you sure you want to delete selected classrooms?</value>
+  </data>
   <data name="PermissionDetailsViewModel_AreYouSureYouWantToDeleteCurrentPermission" xml:space="preserve">
     <value>Are you sure you want to delete current permission?</value>
   </data>

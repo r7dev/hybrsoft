@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <UserControl
-	x:Class="Hybrsoft.EnterpriseManager.Views.PermissionList"
+	x:Class="Hybrsoft.EnterpriseManager.Views.ClassroomList"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:local="using:Hybrsoft.EnterpriseManager.Views"
@@ -15,38 +15,44 @@
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="2*"/>
-					<ColumnDefinition Width="2*"/>
-					<ColumnDefinition Width="2*"/>
 					<ColumnDefinition Width="4*"/>
+					<ColumnDefinition Width="1*"/>
+					<ColumnDefinition Width="1*"/>
+					<ColumnDefinition Width="2*"/>
 				</Grid.ColumnDefinitions>
 				<TextBlock Grid.Column="0"
-						   x:Uid="/UI/PermissionListUserControl_ColumnHeaderPermissionID"
+						   x:Uid="/UI/ClassroomListUserControl_ColumnHeaderClassroomID"
 						   Style="{StaticResource ColumnHeaderStyle}" />
 				<TextBlock Grid.Column="1"
-						   x:Uid="/UI/PermissionListUserControl_ColumnHeaderName"
+						   x:Uid="/UI/ClassroomListUserControl_ColumnHeaderName"
 						   Style="{StaticResource ColumnHeaderStyle}" />
 				<TextBlock Grid.Column="2"
-						   x:Uid="/UI/PermissionListUserControl_ColumnHeaderDisplayName"
+						   x:Uid="/UI/ClassroomListUserControl_ColumnHeaderYear"
 						   Style="{StaticResource ColumnHeaderStyle}" />
 				<TextBlock Grid.Column="3"
-						   x:Uid="/UI/PermissionListUserControl_ColumnHeaderDescription"
+						   x:Uid="/UI/ClassroomListUserControl_ColumnHeaderEducationLevel"
+						   Style="{StaticResource ColumnHeaderStyle}" />
+				<TextBlock Grid.Column="4"
+						   x:Uid="/UI/ClassroomListUserControl_ColumnHeaderScheduleType"
 						   Style="{StaticResource ColumnHeaderStyle}" />
 			</Grid>
 		</DataTemplate>
 
-		<DataTemplate x:Key="ItemTemplate" x:DataType="models:PermissionDto">
+		<DataTemplate x:Key="ItemTemplate" x:DataType="models:ClassroomDto">
 			<Grid Height="32">
 				<Grid Visibility="{x:Bind IsEmpty, Converter={StaticResource InverseBoolToVisibilityConverter}}">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="2*"/>
-						<ColumnDefinition Width="2*"/>
-						<ColumnDefinition Width="2*"/>
 						<ColumnDefinition Width="4*"/>
+						<ColumnDefinition Width="1*"/>
+						<ColumnDefinition Width="1*"/>
+						<ColumnDefinition Width="2*"/>
 					</Grid.ColumnDefinitions>
-					<TextBlock Grid.Column="0" Text="{x:Bind PermissionId}" Style="{StaticResource ColumnValueStyle}" />
+					<TextBlock Grid.Column="0" Text="{x:Bind ClassroomID}" Style="{StaticResource ColumnValueStyle}" />
 					<TextBlock Grid.Column="1" Text="{x:Bind Name, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
-					<TextBlock Grid.Column="2" Text="{x:Bind DisplayName, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
-					<TextBlock Grid.Column="3" Text="{x:Bind Description, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
+					<TextBlock Grid.Column="2" Text="{x:Bind Year, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
+					<TextBlock Grid.Column="3" Text="{x:Bind EducationLevel, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
+					<TextBlock Grid.Column="4" Text="{x:Bind ScheduleType.Name, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
 				</Grid>
 			</Grid>
 		</DataTemplate>
@@ -54,7 +60,7 @@
 
 	<controls:DataList ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
 					   ItemSecondaryActionInvokedCommand="{x:Bind ViewModel.OpenInNewViewCommand}"
-					   x:Uid="/UI/PermissionListUserControl_New"
+					   x:Uid="/UI/ClassroomListUserControl_New"
 					   SelectedItem="{x:Bind ViewModel.SelectedItem, Mode=TwoWay}"
 					   HeaderTemplate="{StaticResource HeaderTemplate}"
 					   ItemTemplate="{StaticResource ItemTemplate}"

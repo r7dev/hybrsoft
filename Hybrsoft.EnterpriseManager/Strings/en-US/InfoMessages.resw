@@ -291,4 +291,28 @@
   <data name="StudentDetailsViewModel_StudentDeleted" xml:space="preserve">
     <value>Student deleted</value>
   </data>
+  <data name="ClassroomDetailsViewModel_SavingClassroom" xml:space="preserve">
+    <value>Saving classroom...</value>
+  </data>
+  <data name="ClassroomDetailsViewModel_ClassroomSaved" xml:space="preserve">
+    <value>Classroom saved</value>
+  </data>
+  <data name="ClassroomDetailsViewModel_DeletingClassroom" xml:space="preserve">
+    <value>Deleting classroom...</value>
+  </data>
+  <data name="ClassroomDetailsViewModel_ClassroomDeleted" xml:space="preserve">
+    <value>Classroom deleted</value>
+  </data>
+  <data name="ClassroomListViewModel_LoadingClassrooms" xml:space="preserve">
+    <value>Loading classrooms...</value>
+  </data>
+  <data name="ClassroomListViewModel_ClassroomsLoaded" xml:space="preserve">
+    <value>Classrooms loaded</value>
+  </data>
+  <data name="ClassroomListViewModel_Deleting0Classrooms" xml:space="preserve">
+    <value>Deleting {0} classrooms...</value>
+  </data>
+  <data name="ClassroomListViewModel_0ClassroomsDeleted" xml:space="preserve">
+    <value>{0} classrooms deleted</value>
+  </data>
 </root>
