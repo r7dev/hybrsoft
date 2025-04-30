@@ -5,5 +5,7 @@
 		SecurityAdministration,
 		StudentReader,
 		StudentEditor,
+		ClassroomReader,
+		ClassroomEditor,
 	}
 }

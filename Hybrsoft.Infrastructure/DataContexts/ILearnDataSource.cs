@@ -10,6 +10,8 @@ namespace Hybrsoft.Infrastructure.DataContexts
 	public interface ILearnDataSource : IDisposable
 	{
 		public DbSet<Student> Students { get; set; }
+		public DbSet<Classroom> Classrooms { get; set; }
+		public DbSet<ScheduleType> ScheduleTypes { get; set; }
 
 		EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
 

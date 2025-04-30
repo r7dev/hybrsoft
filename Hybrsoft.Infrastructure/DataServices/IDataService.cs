@@ -13,7 +13,6 @@ namespace Hybrsoft.Infrastructure.DataServices
 		IList<NavigationItem> GetNavigationItemByAppType(AppType appType);
 		bool HasPermission(long userId, string permissionName);
 
-
 		Task<AppLog> GetLogAsync(long id);
 		Task<IList<AppLog>> GetLogsAsync(int skip, int take, DataRequest<AppLog> request);
 		Task<IList<AppLog>> GetLogKeysAsync(int skip, int take, DataRequest<AppLog> request);
@@ -60,12 +59,21 @@ namespace Hybrsoft.Infrastructure.DataServices
 		#endregion
 
 		#region Schema Learn
+		Task<IList<ScheduleType>> GetScheduleTypesByLanguageAsync(string languageTag);
+
 		Task<Student> GetStudentAsync(long id);
 		Task<IList<Student>> GetStudentsAsync(int skip, int take, DataRequest<Student> request);
 		Task<IList<Student>> GetStudentKeysAsync(int skip, int take, DataRequest<Student> request);
 		Task<int> GetStudentsCountAsync(DataRequest<Student> request);
 		Task<int> UpdateStudentAsync(Student Student);
 		Task<int> DeleteStudentsAsync(params Student[] Students);
+
+		Task<Classroom> GetClassroomAsync(long id);
+		Task<IList<Classroom>> GetClassroomsAsync(int skip, int take, DataRequest<Classroom> request);
+		Task<IList<Classroom>> GetClassroomKeysAsync(int skip, int take, DataRequest<Classroom> request);
+		Task<int> GetClassroomsCountAsync(DataRequest<Classroom> request);
+		Task<int> UpdateClassroomAsync(Classroom classroom);
+		Task<int> DeleteClassroomsAsync(params Classroom[] classrooms);
 		#endregion
 	}
 }

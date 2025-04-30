@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hybrsoft.Infrastructure.DataServices.Base
 {
@@ -28,6 +29,13 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 				.Any(x => x.ur.UserId == userId && x.p.Name == permissionName);
 		}
 
+		public async Task<IList<ScheduleType>> GetScheduleTypesByLanguageAsync(string languageTag)
+		{
+			return await _learnDataSource.ScheduleTypes
+				.Where(f => f.LanguageTag == languageTag)
+				.ToListAsync();
+		}
+
 		#region Dispose
 		public void Dispose()
 		{
@@ -40,6 +48,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			if (disposing)
 			{
 				_universalDataSource?.Dispose();
+				_learnDataSource?.Dispose();
 			}
 		}
 		#endregion

@@ -59,10 +59,10 @@
     <Folder Include="Schema" />
     <Folder Include="Schema\Universal" />
     <Folder Include="Schema\Universal\Tables" />
-    <Folder Include="Schema\Universal\Script-Post" />
     <Folder Include="Script-Pre" />
     <Folder Include="Schema\Learn" />
     <Folder Include="Schema\Learn\Tables" />
+    <Folder Include="Script-Post" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Schema\Schemas.sql" />
@@ -76,17 +76,20 @@
     <Build Include="Schema\Universal\Tables\RolePermission.sql" />
     <Build Include="Schema\Universal\Tables\UserRole.sql" />
     <Build Include="Schema\Learn\Tables\Student.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <PostDeploy Include="Schema\Universal\Script-Post\PostDeployment.sql" />
-    <None Include="Schema\Universal\Script-Post\NavigationItem.Initialize.sql" />
-    <None Include="Schema\Universal\Script-Post\Permission.Initialize.sql" />
-    <None Include="Schema\Universal\Script-Post\User.Initialize.sql" />
+    <Build Include="Schema\Learn\Tables\Classroom.sql" />
+    <Build Include="Schema\Learn\Tables\ScheduleType.sql" />
+    <None Include="Script-Post\NavigationItem.Initialize.sql" />
+    <None Include="Script-Post\Permission.Initialize.sql" />
+    <PostDeploy Include="Script-Post\PostDeployment.sql" />
+    <None Include="Script-Post\User.Initialize.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Database.refactorlog" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Script-Pre\DataBaseUsersAdd.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Script-Post\ScheduleType.Initialize.sql" />
   </ItemGroup>
 </Project>
