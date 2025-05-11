@@ -162,7 +162,7 @@ namespace Hybrsoft.Domain.ViewModels
 		{
 			string resourceKeyForRole = string.Concat(nameof(UserRoleDetailsViewModel), "_PropertyRole");
 			string propertyRole = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForRole);
-			var requiredRole = new RequiredGreaterThanZeroConstraint<UserRoleDto>("Role", m => m.RoleID);
+			var requiredRole = new RequiredGreaterThanZeroConstraint<UserRoleDto>(propertyRole, m => m.RoleID);
 			requiredRole.SetResourceService(ResourceService);
 
 			yield return requiredRole;
