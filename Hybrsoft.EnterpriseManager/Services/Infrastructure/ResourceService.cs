@@ -1,6 +1,7 @@
 ﻿using Hybrsoft.Domain.Dtos;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
 using Microsoft.Windows.ApplicationModel.Resources;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -57,8 +58,15 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		public string GetString(string resourceFile, string key)
 		{
 			var resourceMap = _resourceManager.MainResourceMap.GetSubtree(resourceFile);
-			var resource = resourceMap.GetValue(key, _resourceContext);
-			return resource?.ValueAsString ?? $"[{resourceFile}/{key} not found]";
+			try
+			{
+				var resource = resourceMap.GetValue(key, _resourceContext);
+				return resource?.ValueAsString ?? $"[{resourceFile}/{key} not found]";
+			}
+			catch (Exception ex)
+			{
+				throw new ArgumentException($"Error fetching resource {resourceFile}/{key}", ex);
+			}
 		}
 
 		public async Task SetLanguageAsync(LanguageDto language)

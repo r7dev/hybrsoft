@@ -1,0 +1,121 @@
+using Hybrsoft.Domain.Dtos;
+using Hybrsoft.Domain.Interfaces;
+using Hybrsoft.EnterpriseManager.Configuration;
+using Hybrsoft.EnterpriseManager.Extensions;
+using Hybrsoft.Infrastructure.Common;
+using Hybrsoft.Infrastructure.Models;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using Windows.ApplicationModel;
+
+// To learn more about WinUI, the WinUI project structure,
+// and more about our project templates, see: http://aka.ms/winui-project-info.
+
+namespace Hybrsoft.EnterpriseManager.Controls
+{
+	public sealed partial class StudentSuggestBox : UserControl
+	{
+		public StudentSuggestBox()
+		{
+			if (!DesignMode.DesignModeEnabled)
+			{
+				StudentService = ServiceLocator.Current.GetService<IStudentService>();
+			}
+			this.InitializeComponent();
+		}
+
+		private IStudentService StudentService { get; }
+
+		#region ExcludedStudentKeys
+		public IList<long> ExcludedStudentKeys
+		{
+			get { return (IList<long>)GetValue(ExcludedStudentKeysProperty); }
+			set { SetValue(ExcludedStudentKeysProperty, value); }
+		}
+		public static readonly DependencyProperty ExcludedStudentKeysProperty = DependencyProperty.Register(nameof(ExcludedStudentKeys), typeof(IList<long>), typeof(StudentSuggestBox), new PropertyMetadata(null));
+		#endregion
+
+		#region Items
+		public IList<StudentDto> Items
+		{
+			get { return (IList<StudentDto>)GetValue(ItemsProperty); }
+			set { SetValue(ItemsProperty, value); }
+		}
+
+		public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register(nameof(Items), typeof(IList<StudentDto>), typeof(StudentSuggestBox), new PropertyMetadata(null));
+		#endregion
+
+		#region DisplayText
+		public string DisplayText
+		{
+			get { return (string)GetValue(DisplayTextProperty); }
+			set { SetValue(DisplayTextProperty, value); }
+		}
+
+		public static readonly DependencyProperty DisplayTextProperty = DependencyProperty.Register(nameof(DisplayText), typeof(string), typeof(StudentSuggestBox), new PropertyMetadata(null));
+		#endregion
+
+		#region IsReadOnly*
+		public bool IsReadOnly
+		{
+			get { return (bool)GetValue(IsReadOnlyProperty); }
+			set { SetValue(IsReadOnlyProperty, value); }
+		}
+
+		private static void IsReadOnlyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			var control = d as StudentSuggestBox;
+			control.suggestBox.Mode = ((bool)e.NewValue == true) ? FormEditMode.ReadOnly : FormEditMode.Auto;
+		}
+
+		public static readonly DependencyProperty IsReadOnlyProperty = DependencyProperty.Register(nameof(IsReadOnly), typeof(bool), typeof(StudentSuggestBox), new PropertyMetadata(false, IsReadOnlyChanged));
+		#endregion
+
+		#region StudentSelectedCommand
+		public ICommand StudentSelectedCommand
+		{
+			get { return (ICommand)GetValue(StudentSelectedCommandProperty); }
+			set { SetValue(StudentSelectedCommandProperty, value); }
+		}
+
+		public static readonly DependencyProperty StudentSelectedCommandProperty = DependencyProperty.Register(nameof(StudentSelectedCommand), typeof(ICommand), typeof(StudentSuggestBox), new PropertyMetadata(null));
+		#endregion
+
+		private async void OnTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+		{
+			if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+			{
+				if (args.CheckCurrent())
+				{
+					Items = String.IsNullOrEmpty(sender.Text) ? null : await GetItems(sender.Text);
+					if (String.IsNullOrEmpty(sender.Text) && !string.IsNullOrEmpty(DisplayText))
+					{
+						DisplayText = string.Empty;
+						var argsChosen = (AutoSuggestBoxSuggestionChosenEventArgs)Activator.CreateInstance(typeof(AutoSuggestBoxSuggestionChosenEventArgs), true);
+						OnSuggestionChosen(sender, argsChosen);
+					}
+				}
+			}
+		}
+
+		private async Task<IList<StudentDto>> GetItems(string query)
+		{
+			var request = new DataRequest<Student>()
+			{
+				Query = query,
+				Where = r => !ExcludedStudentKeys.Contains(r.StudentId),
+				OrderBy = r => r.FirstName
+			};
+			return await StudentService.GetStudentsAsync(0, 20, request);
+		}
+
+		private void OnSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+		{
+			StudentSelectedCommand?.TryExecute(args.SelectedItem);
+		}
+	}
+}

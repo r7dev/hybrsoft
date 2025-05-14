@@ -126,6 +126,12 @@
   <data name="ClassroomDetailsViewModel_ThisClassroomHasBeenModifiedExternally" xml:space="preserve">
     <value>AVISO: Esta sala de aula foi modificado externamente</value>
   </data>
+  <data name="ClassroomStudentDetailsViewModel_ThisClassroomStudentHasBeenDeletedExternally" xml:space="preserve">
+    <value>AVISO: Este estudante da sala de aula foi excluído externamente</value>
+  </data>
+  <data name="ClassroomStudentDetailsViewModel_ThisClassroomStudentHasBeenModifiedExternally" xml:space="preserve">
+    <value>AVISO: Este estudante da sala de aula foi modificado externamente</value>
+  </data>
   <data name="PermissionDetailsViewModel_ThisPermissionHasBeenDeletedExternally" xml:space="preserve">
     <value>AVISO: Esta permissão foi excluída externamente</value>
   </data>

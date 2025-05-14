@@ -213,4 +213,16 @@
   <data name="ClassroomListViewModel_ErrorDeleting0Classrooms1" xml:space="preserve">
     <value>Error deleting {0} Classrooms: {1}</value>
   </data>
+  <data name="ClassroomStudentDetailsViewModel_ErrorSavingStudentInTheClassroom0" xml:space="preserve">
+    <value>Error saving Student in the Classroom: {0}</value>
+  </data>
+  <data name="ClassroomStudentDetailsViewModel_ErrorDeletingStudentFromTheClassroom0" xml:space="preserve">
+    <value>Error deleting Student from the Classroom: {0}</value>
+  </data>
+  <data name="ClassroomStudentListViewModel_ErrorLoadingStudentsInTheClassroom0" xml:space="preserve">
+    <value>Error loading Students in the Classroom: {0}</value>
+  </data>
+  <data name="ClassroomStudentListViewModel_ErrorDeleting0StudentsFromTheClassroom1" xml:space="preserve">
+    <value>Error deleting {0} Students from the Classroom: {1}</value>
+  </data>
 </root>

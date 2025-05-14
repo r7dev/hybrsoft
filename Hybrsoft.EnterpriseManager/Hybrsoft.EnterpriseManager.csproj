@@ -29,6 +29,7 @@
     <None Remove="Controls\Search\SearchDateRange.xaml" />
     <None Remove="Controls\Suggest\PermissionSuggestBox.xaml" />
     <None Remove="Controls\Suggest\RoleSuggestBox.xaml" />
+    <None Remove="Controls\Suggest\StudentSuggestBox.xaml" />
     <None Remove="Controls\Toolbars\DetailToolbar.xaml" />
     <None Remove="Controls\Toolbars\ListToolbar.xaml" />
     <None Remove="Styles\Buttons.xaml" />
@@ -45,7 +46,11 @@
     <None Remove="Views\AppLogs\AppLogsView.xaml" />
     <None Remove="Views\AppLogs\Details\AppLogsDetails.xaml" />
     <None Remove="Views\AppLogs\List\AppLogsList.xaml" />
+    <None Remove="Views\ClassroomStudent\ClassroomStudentView.xaml" />
+    <None Remove="Views\ClassroomStudent\Details\ClassroomStudentCard.xaml" />
+    <None Remove="Views\ClassroomStudent\Details\ClassroomStudentDetails.xaml" />
     <None Remove="Views\Classrooms\ClassroomsView.xaml" />
+    <None Remove="Views\Classrooms\Details\ClassroomsClassroomStudents.xaml" />
     <None Remove="Views\Classrooms\List\ClassroomList.xaml" />
     <None Remove="Views\Classroom\ClassroomView.xaml" />
     <None Remove="Views\Classroom\Details\ClassroomCard.xaml" />
@@ -170,6 +175,31 @@
   <ItemGroup>
     <Folder Include="Assets\Images\" />
     <Folder Include="Views\Roles\Details\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\ClassroomStudent\ClassroomStudentView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\Suggest\StudentSuggestBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\ClassroomStudent\Details\ClassroomStudentDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\ClassroomStudent\Details\ClassroomStudentCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Classrooms\Details\ClassroomsClassroomStudents.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Themes\Controls\FormComboBox.xaml">

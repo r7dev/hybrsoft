@@ -132,6 +132,12 @@
   <data name="ClassroomListViewModel_AreYouSureYouWantToDeleteSelectedClassrooms" xml:space="preserve">
     <value>Are you sure you want to delete selected classrooms?</value>
   </data>
+  <data name="ClassroomStudentDetailsViewModel_AreYouSureYouWantToDeleteCurrentStudentFromTheClassroom" xml:space="preserve">
+    <value>Are you sure you want to delete current student from the classroom?</value>
+  </data>
+  <data name="ClassroomStudentListViewModel_AreYouSureYouWantToDeleteSelectedStudentsFromTheClassroom" xml:space="preserve">
+    <value>Are you sure you want to delete selected students from the classroom?</value>
+  </data>
   <data name="PermissionDetailsViewModel_AreYouSureYouWantToDeleteCurrentPermission" xml:space="preserve">
     <value>Are you sure you want to delete current permission?</value>
   </data>

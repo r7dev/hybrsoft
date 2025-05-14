@@ -315,4 +315,28 @@
   <data name="ClassroomListViewModel_0ClassroomsDeleted" xml:space="preserve">
     <value>{0} salas de aula excluídas</value>
   </data>
+  <data name="ClassroomStudentDetailsViewModel_SavingStudentInTheClassroom" xml:space="preserve">
+    <value>Salvando o estudante na sala de aula...</value>
+  </data>
+  <data name="ClassroomStudentDetailsViewModel_StudentInTheClassroomHasBeenSaved" xml:space="preserve">
+    <value>Estudante na Sala de Aula foi salvo</value>
+  </data>
+  <data name="ClassroomStudentDetailsViewModel_DeletingStudentFromClassroom" xml:space="preserve">
+    <value>Excluindo o estudante da sala de aula...</value>
+  </data>
+  <data name="ClassroomStudentDetailsViewModel_StudentInTheClassroomHasBeenDeleted" xml:space="preserve">
+    <value>Estudante na Sala de Aula foi excluído</value>
+  </data>
+  <data name="ClassroomStudentListViewModel_LoadingStudentsInTheClassroom" xml:space="preserve">
+    <value>Carregando estudantes da sala de aula...</value>
+  </data>
+  <data name="ClassroomStudentListViewModel_StudentsInTheClassroomLoaded" xml:space="preserve">
+    <value>Estudantes da Sala de Aula carregados</value>
+  </data>
+  <data name="ClassroomStudentListViewModel_0StudentsInTheClassroomDeleted" xml:space="preserve">
+    <value>{0} estudantes da sala de aula excluídos</value>
+  </data>
+  <data name="ClassroomStudentListViewModel_Deleting0ClassroomStudents" xml:space="preserve">
+    <value>Excluindo {0} estudantes da sala de aula...</value>
+  </data>
 </root>

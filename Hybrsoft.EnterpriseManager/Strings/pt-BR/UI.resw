@@ -561,4 +561,43 @@
   <data name="ClassroomListUserControl_ColumnHeaderEducationLevel.Text" xml:space="preserve">
     <value>Nível</value>
   </data>
+  <data name="ClassroomStudentDetailsViewModel_TitleNew" xml:space="preserve">
+    <value>Novo Estudante da Sala de Aula, Sala de Aula #{0}</value>
+  </data>
+  <data name="ClassroomStudentDetailsViewModel_TitleEdit" xml:space="preserve">
+    <value>Estudante {0}, #{1}</value>
+  </data>
+  <data name="ClassroomsClassroomStudentsUserControl_ColumnHeaderStudentID.Text" xml:space="preserve">
+    <value>Estudante ID</value>
+  </data>
+  <data name="ClassroomsClassroomStudentsUserControl_ColumnHeaderName.Text" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="ClassroomsClassroomStudentsUserControl_New.NewLabel" xml:space="preserve">
+    <value>Novo Estudante</value>
+  </data>
+  <data name="ClassroomsView_Details_Students.Header" xml:space="preserve">
+    <value>Estudantes</value>
+  </data>
+  <data name="GenericView_EmptyDetails.Header" xml:space="preserve">
+    <value>Nenhum item selecionado</value>
+  </data>
+  <data name="ClassroomStudentCardUserControl_ClassroomStudent.Text" xml:space="preserve">
+    <value>Estudante da Sala de Aula</value>
+  </data>
+  <data name="ClassroomStudentCardUserControl_ClassroomID.Text" xml:space="preserve">
+    <value>Sala de Aula ID</value>
+  </data>
+  <data name="ClassroomStudentCardUserControl_StudentID.Text" xml:space="preserve">
+    <value>Estudante ID</value>
+  </data>
+  <data name="StudentSuggestBoxUserControl.PlaceholderText" xml:space="preserve">
+    <value>Pesquisar Estudante</value>
+  </data>
+  <data name="StudentSuggestBoxUserControl.Header" xml:space="preserve">
+    <value>Estudante</value>
+  </data>
+  <data name="ClassroomStudentCardUserControl_Student.Text" xml:space="preserve">
+    <value>Estudante</value>
+  </data>
 </root>
