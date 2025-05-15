@@ -591,4 +591,7 @@
   <data name="ClassroomStudentCardUserControl_Student.Text" xml:space="preserve">
     <value>Estudante</value>
   </data>
+  <data name="ClassroomDetailsUserControl_Students.Header" xml:space="preserve">
+    <value>Estudantes</value>
+  </data>
 </root>

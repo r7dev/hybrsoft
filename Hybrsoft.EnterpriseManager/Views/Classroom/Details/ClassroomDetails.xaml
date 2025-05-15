@@ -47,18 +47,36 @@
 		</Grid.ColumnDefinitions>
 
 		<Border BorderBrush="LightGray" BorderThickness="0,1,1,0" Background="{StaticResource DetailsViewBackgroundColor}">
-			<views:ClassroomCard Margin="6" Item="{x:Bind ViewModel.Item, Mode=OneWay}" />
+			<views:ClassroomCard Margin="6" Item="{x:Bind ViewModel.ClassroomDetails.Item, Mode=OneWay}" />
 		</Border>
 
-		<controls:Details x:Name="details" Grid.Column="1" Margin="6"
-						  DetailsContent="{x:Bind ViewModel}"
-						  DetailsTemplate="{StaticResource DetailsTemplate}"
-						  CanGoBack="{x:Bind ViewModel.CanGoBack}"
-						  IsEditMode="{x:Bind ViewModel.IsEditMode, Mode=OneWay}"
-						  BackCommand="{x:Bind ViewModel.BackCommand}"
-						  EditCommand="{x:Bind ViewModel.EditCommand}"
-						  DeleteCommand="{x:Bind ViewModel.DeleteCommand}"
-						  SaveCommand="{x:Bind ViewModel.SaveCommand}"
-						  CancelCommand="{x:Bind ViewModel.CancelCommand}" />
+		<Grid Grid.Column="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+
+			<controls:Details x:Name="details" Margin="6"
+							  Grid.RowSpan="{x:Bind GetRowSpan(ViewModel.ClassroomDetails.ItemIsNew), Mode=OneWay}"
+							  DetailsContent="{x:Bind ViewModel.ClassroomDetails}"
+							  DetailsTemplate="{StaticResource DetailsTemplate}"
+							  CanGoBack="{x:Bind ViewModel.ClassroomDetails.CanGoBack}"
+							  IsEditMode="{x:Bind ViewModel.ClassroomDetails.IsEditMode, Mode=OneWay}"
+							  BackCommand="{x:Bind ViewModel.ClassroomDetails.BackCommand}"
+							  EditCommand="{x:Bind ViewModel.ClassroomDetails.EditCommand}"
+							  DeleteCommand="{x:Bind ViewModel.ClassroomDetails.DeleteCommand}"
+							  SaveCommand="{x:Bind ViewModel.ClassroomDetails.SaveCommand}"
+							  CancelCommand="{x:Bind ViewModel.ClassroomDetails.CancelCommand}" />
+
+			<Border Grid.Row="1"
+					BorderBrush="LightGray"
+					BorderThickness="0,1,0,0"
+					Visibility="{x:Bind ViewModel.ClassroomDetails.ItemIsNew, Mode=OneWay, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+				<controls:Section x:Uid="/UI/ClassroomDetailsUserControl_Students"
+								  Background="{StaticResource DetailsViewBackgroundColor}">
+					<views:ClassroomsClassroomStudents ViewModel="{x:Bind ViewModel.ClassroomStudentList}" />
+				</controls:Section>
+			</Border>
+		</Grid>
 	</Grid>
 </UserControl>

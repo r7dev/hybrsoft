@@ -17,13 +17,13 @@ namespace Hybrsoft.EnterpriseManager.Views
 		}
 
 		#region ViewModel
-		public ClassroomDetailsViewModel ViewModel
+		public ClassroomDetailsWithStudentsViewModel ViewModel
 		{
-			get { return (ClassroomDetailsViewModel)GetValue(ViewModelProperty); }
+			get { return (ClassroomDetailsWithStudentsViewModel)GetValue(ViewModelProperty); }
 			set { SetValue(ViewModelProperty, value); }
 		}
 
-		public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register("ViewModel", typeof(ClassroomDetailsViewModel), typeof(ClassroomDetails), new PropertyMetadata(null));
+		public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register("ViewModel", typeof(ClassroomDetailsWithStudentsViewModel), typeof(ClassroomDetails), new PropertyMetadata(null));
 
 		#endregion
 
@@ -32,13 +32,18 @@ namespace Hybrsoft.EnterpriseManager.Views
 			details.SetFocus();
 		}
 
+		public int GetRowSpan(bool isItemNew)
+		{
+			return isItemNew ? 2 : 1;
+		}
+
 		private void FormComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			if (sender is ComboBox comboBox)
 			{
 				if (comboBox.SelectedItem != null && comboBox.SelectedItem is ScheduleTypeDto scheduleType)
 				{
-					ViewModel.ScheduleTypeSelectedCommand?.TryExecute(scheduleType);
+					ViewModel.ClassroomDetails.ScheduleTypeSelectedCommand?.TryExecute(scheduleType);
 				}
 			}
 		}
