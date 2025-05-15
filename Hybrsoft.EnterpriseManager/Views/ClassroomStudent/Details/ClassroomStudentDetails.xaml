@@ -14,8 +14,8 @@
 	<UserControl.Resources>
 		<DataTemplate x:Key="DetailsTemplate" x:DataType="viewmodels:ClassroomStudentDetailsViewModel">
 			<controls:FluidGrid  Margin="12,18,6,6" Columns="2" ColumnSpacing="12" RowSpacing="12">
-				<controls:StudentSuggestBox ExcludedStudentKeys="{x:Bind AddedStudentKeys, Mode=OneWay}"
-											DisplayText="{x:Bind EditableItem.Student.FullName, Mode=OneWay}"
+				<controls:StudentSuggestBox DisplayText="{x:Bind EditableItem.Student.FullName, Mode=OneWay}"
+											ExcludedStudentKeys="{x:Bind AddedStudentKeys, Mode=OneWay}"
 											StudentSelectedCommand="{x:Bind StudentSelectedCommand}" />
 				<Rectangle />
 			</controls:FluidGrid>

@@ -30,6 +30,15 @@ namespace Hybrsoft.EnterpriseManager.Controls
 
 		private IRoleService RoleService { get; }
 
+		#region ExcludedRoleKeys
+		public IList<long> ExcludedRoleKeys
+		{
+			get { return (IList<long>)GetValue(ExcludedRoleKeysProperty); }
+			set { SetValue(ExcludedRoleKeysProperty, value); }
+		}
+		public static readonly DependencyProperty ExcludedRoleKeysProperty = DependencyProperty.Register(nameof(ExcludedRoleKeys), typeof(IList<long>), typeof(RoleSuggestBox), new PropertyMetadata(null));
+		#endregion
+
 		#region Items
 		public IList<RoleDto> Items
 		{
@@ -98,6 +107,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			var request = new DataRequest<Role>()
 			{
 				Query = query,
+				Where = r => !ExcludedRoleKeys.Contains(r.RoleId),
 				OrderBy = r => r.Name
 			};
 			return await RoleService.GetRolesAsync(0, 20, request);

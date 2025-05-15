@@ -11,6 +11,7 @@ namespace Hybrsoft.Domain.Interfaces
 		Task<RolePermissionDto> GetRolePermissionAsync(long rolePermissionId);
 		Task<IList<RolePermissionDto>> GetRolePermissionsAsync(DataRequest<RolePermission> request);
 		Task<IList<RolePermissionDto>> GetRolePermissionsAsync(int skip, int take, DataRequest<RolePermission> request);
+		Task<IList<long>> GetAddedPermissionKeysAsync(long roleId);
 		Task<int> GetRolePermissionsCountAsync(DataRequest<RolePermission> request);
 
 		Task<int> UpdateRolePermissionAsync(RolePermissionDto model);

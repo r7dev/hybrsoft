@@ -77,6 +77,15 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			return items;
 		}
 
+		public async Task<IList<long>> GetAddedRoleKeysAsync(long userId)
+		{
+			return await _universalDataSource.UserRoles
+				.AsNoTracking()
+				.Where(r => r.UserId == userId)
+				.Select(r => r.RoleId)
+				.ToListAsync();
+		}
+
 		public async Task<int> GetUserRolesCountAsync(DataRequest<UserRole> request)
 		{
 			return await GetUserRoles(request, true)

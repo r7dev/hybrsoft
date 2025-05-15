@@ -11,6 +11,7 @@ namespace Hybrsoft.Domain.Interfaces
 		Task<UserRoleDto> GetUserRoleAsync(long userRoleId);
 		Task<IList<UserRoleDto>> GetUserRolesAsync(DataRequest<UserRole> request);
 		Task<IList<UserRoleDto>> GetUserRolesAsync(int skip, int take, DataRequest<UserRole> request);
+		Task<IList<long>> GetAddedRoleKeysAsync(long userId);
 		Task<int> GetUserRolesCountAsync(DataRequest<UserRole> request);
 
 		Task<int> UpdateUserRoleAsync(UserRoleDto model);

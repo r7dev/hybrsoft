@@ -46,6 +46,12 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return models;
 		}
 
+		public async Task<IList<long>> GetAddedRoleKeysAsync(long userId)
+		{
+			using var dataService = DataServiceFactory.CreateDataService();
+			return await dataService.GetAddedRoleKeysAsync(userId);
+		}
+
 		public async Task<int> GetUserRolesCountAsync(DataRequest<UserRole> request)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();

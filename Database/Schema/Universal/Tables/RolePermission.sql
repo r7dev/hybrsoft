@@ -8,6 +8,7 @@
 	[SearchTerms] NVARCHAR(100) NULL,
 	CONSTRAINT FK_RolePermission_RoleId FOREIGN KEY ([RoleId]) REFERENCES [Universal].[Role] ([RoleId]) ON DELETE CASCADE,
 	CONSTRAINT FK_RolePermission_PermissionId FOREIGN KEY ([PermissionId]) REFERENCES [Universal].[Permission] ([PermissionId]),
+	CONSTRAINT UQ_RolePermission_RoleId_PermissionId UNIQUE ([RoleId], [PermissionId])
 )
 GO
 CREATE INDEX IX_RolePermission_RoleId_PermissionId ON [Universal].[RolePermission] ([RoleId], [PermissionId]);

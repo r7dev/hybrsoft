@@ -43,6 +43,16 @@ namespace Hybrsoft.Domain.ViewModels
 
 		public long RolePermissionId { get; set; }
 		public long RoleId { get; set; }
+		private IList<long> _addedPermissionKeys;
+		public IList<long> AddedPermissionKeys
+		{
+			get => _addedPermissionKeys;
+			set
+			{
+				_addedPermissionKeys = value;
+				NotifyPropertyChanged(nameof(AddedPermissionKeys));
+			}
+		}
 
 		public ICommand PermissionSelectedCommand => new RelayCommand<PermissionDto>(PermissionSelected);
 		private void PermissionSelected(PermissionDto permission)
@@ -58,6 +68,7 @@ namespace Hybrsoft.Domain.ViewModels
 			ViewModelArgs = args ?? RolePermissionDetailsArgs.CreateDefault();
 			RolePermissionId = ViewModelArgs.RolePermissionId;
 			RoleId = ViewModelArgs.RoleId;
+			AddedPermissionKeys = await RolePermissionService.GetAddedPermissionKeysAsync(RoleId);
 
 			if (ViewModelArgs.IsNew)
 			{

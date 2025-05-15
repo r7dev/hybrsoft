@@ -43,6 +43,16 @@ namespace Hybrsoft.Domain.ViewModels
 
 		public long UserRoleId { get; set; }
 		public long UserId { get; set; }
+		private IList<long> _addedRoleKeys;
+		public IList<long> AddedRoleKeys
+		{
+			get => _addedRoleKeys;
+			set
+			{
+				_addedRoleKeys = value;
+				NotifyPropertyChanged(nameof(AddedRoleKeys));
+			}
+		}
 
 		public ICommand RoleSelectedCommand => new RelayCommand<RoleDto>(RoleSelected);
 		private void RoleSelected(RoleDto role)
@@ -58,6 +68,7 @@ namespace Hybrsoft.Domain.ViewModels
 			ViewModelArgs = args ?? UserRoleDetailsArgs.CreateDefault();
 			UserRoleId = ViewModelArgs.UserRoleId;
 			UserId = ViewModelArgs.UserId;
+			AddedRoleKeys = await UserRoleService.GetAddedRoleKeysAsync(UserId);
 
 			if (ViewModelArgs.IsNew)
 			{

@@ -30,6 +30,15 @@ namespace Hybrsoft.EnterpriseManager.Controls
 
 		private IPermissionService PermissionService { get; }
 
+		#region ExcludedPermissionKeys
+		public IList<long> ExcludedPermissionKeys
+		{
+			get { return (IList<long>)GetValue(ExcludedPermissionKeysProperty); }
+			set { SetValue(ExcludedPermissionKeysProperty, value); }
+		}
+		public static readonly DependencyProperty ExcludedPermissionKeysProperty = DependencyProperty.Register(nameof(ExcludedPermissionKeys), typeof(IList<long>), typeof(PermissionSuggestBox), new PropertyMetadata(null));
+		#endregion
+
 		#region Items
 		public IList<PermissionDto> Items
 		{
@@ -98,6 +107,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			var request = new DataRequest<Permission>()
 			{
 				Query = query,
+				Where = r => !ExcludedPermissionKeys.Contains(r.PermissionId),
 				OrderBy = r => r.Name
 			};
 			return await PermissionService.GetPermissionsAsync(0, 20, request);

@@ -78,6 +78,15 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			return items;
 		}
 
+		public async Task<IList<long>> GetAddedPermissionKeysAsync(long roleId)
+		{
+			return await _universalDataSource.RolePermissions
+				.AsNoTracking()
+				.Where(r => r.RoleId == roleId)
+				.Select(r => r.PermissionId)
+				.ToListAsync();
+		}
+
 		public async Task<int> GetRolePermissionsCountAsync(DataRequest<RolePermission> request)
 		{
 			return await GetRolePermissions(request, true)
