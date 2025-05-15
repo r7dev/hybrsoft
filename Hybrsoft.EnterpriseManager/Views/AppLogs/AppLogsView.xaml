@@ -51,7 +51,7 @@
 				</controls:Section>
 
 				<!--Empty Details-->
-				<controls:Section x:Uid="/UI/AppLogsView_EmptyDetails" Visibility="{x:Bind ViewModel.AppLogDetails.IsDataUnavailable, Mode=OneWay}" />
+				<controls:Section x:Uid="/UI/GenericView_EmptyDetails" Visibility="{x:Bind ViewModel.AppLogDetails.IsDataUnavailable, Mode=OneWay}" />
 			</Grid>
 		</Grid>
 	</Grid>

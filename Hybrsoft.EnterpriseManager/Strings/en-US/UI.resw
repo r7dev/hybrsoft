@@ -207,9 +207,6 @@
   <data name="DataListUserControl_NewItem" xml:space="preserve">
     <value>Click + to add a new item.</value>
   </data>
-  <data name="AppLogsView_EmptyDetails.Header" xml:space="preserve">
-    <value>No item selected</value>
-  </data>
   <data name="GenericListViewModel_Title" xml:space="preserve">
     <value>for</value>
   </data>
@@ -312,9 +309,6 @@
   <data name="RolesView_Details_RolePermissions.Header" xml:space="preserve">
     <value>Role Permissions</value>
   </data>
-  <data name="RolesView_EmptyDetails.Header" xml:space="preserve">
-    <value>No item selected</value>
-  </data>
   <data name="RoleListUserControl_ColumnHeaderRoleID.Text" xml:space="preserve">
     <value>Role ID</value>
   </data>
@@ -377,9 +371,6 @@
   </data>
   <data name="UsersView_Details_UserRoles.Header" xml:space="preserve">
     <value>User Roles</value>
-  </data>
-  <data name="UsersView_EmptyDetails.Header" xml:space="preserve">
-    <value>No item selected</value>
   </data>
   <data name="UserListUserControl_ColumnHeaderUserID.Text" xml:space="preserve">
     <value>User ID</value>

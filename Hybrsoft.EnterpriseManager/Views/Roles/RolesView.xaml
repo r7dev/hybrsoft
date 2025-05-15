@@ -57,7 +57,7 @@
 
 				</controls:Section>
 				<!--Empty Details-->
-				<controls:Section x:Uid="/UI/RolesView_EmptyDetails"
+				<controls:Section x:Uid="/UI/GenericView_EmptyDetails"
 								  Visibility="{x:Bind ViewModel.RoleDetails.IsDataUnavailable, Mode=OneWay}" />
 			</Grid>
 		</Grid>
