@@ -144,6 +144,12 @@
   <data name="PermissionListViewModel_AreYouSureYouWantToDeleteSelectedPermissions" xml:space="preserve">
     <value>Are you sure you want to delete selected permissions?</value>
   </data>
+  <data name="RelativeDetailsViewModel_AreYouSureYouWantToDeleteCurrentRelative" xml:space="preserve">
+    <value>Are you sure you want to delete current relative?</value>
+  </data>
+  <data name="RelativeListViewModel_AreYouSureYouWantToDeleteSelectedRelatives" xml:space="preserve">
+    <value>Are you sure you want to delete selected relatives?</value>
+  </data>
   <data name="RoleDetailsViewModel_AreYouSureYouWantToDeleteCurrentRole" xml:space="preserve">
     <value>Are you sure you want to delete current role?</value>
   </data>

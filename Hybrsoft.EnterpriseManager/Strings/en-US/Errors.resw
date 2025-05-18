@@ -225,4 +225,16 @@
   <data name="ClassroomStudentListViewModel_ErrorDeleting0StudentsFromTheClassroom1" xml:space="preserve">
     <value>Error deleting {0} Students from the Classroom: {1}</value>
   </data>
+  <data name="RelativeDetailsViewModel_ErrorSavingRelative0" xml:space="preserve">
+    <value>Error saving Relative: {0}</value>
+  </data>
+  <data name="RelativeDetailsViewModel_ErrorDeletingRelative0" xml:space="preserve">
+    <value>Error deleting Relative: {0}</value>
+  </data>
+  <data name="RelativeListViewModel_ErrorLoadingRelatives0" xml:space="preserve">
+    <value>Error loading Relatives: {0}</value>
+  </data>
+  <data name="RelativeListViewModel_ErrorDeleting0Relatives1" xml:space="preserve">
+    <value>Error deleting {0} Relatives: {1}</value>
+  </data>
 </root>

@@ -138,6 +138,12 @@
   <data name="PermissionDetailsViewModel_ThisPermissionHasBeenModifiedExternally" xml:space="preserve">
     <value>WARNING: This permission has been modified externally</value>
   </data>
+  <data name="RelativeDetailsViewModel_ThisRelativeHasBeenDeletedExternally" xml:space="preserve">
+    <value>WARNING: This relative has been deleted externally</value>
+  </data>
+  <data name="RelativeDetailsViewModel_ThisRelativeHasBeenModifiedExternally" xml:space="preserve">
+    <value>WARNING: This relative has been modified externally</value>
+  </data>
   <data name="RoleDetailsViewModel_ThisRoleHasBeenDeletedExternally" xml:space="preserve">
     <value>WARNING: This role has been deleted externally</value>
   </data>

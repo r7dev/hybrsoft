@@ -17,10 +17,12 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public IResourceService ResourceService { get; } = resourceService;
 
 		public IList<ScheduleTypeDto> ScheduleTypes { get; private set; }
+		public IList<RelativeTypeDto> RelativeTypes { get; private set; }
 
 		public async Task InitializeAsync()
 		{
 			ScheduleTypes = await GetScheduleTypesAsync();
+			RelativeTypes = await GetRelativeTypesAsync();
 		}
 
 		public string GetScheduleType(Int16 scheduleTypeID)
@@ -49,6 +51,36 @@ namespace Hybrsoft.EnterpriseManager.Services
 			catch (Exception ex)
 			{
 				LogException("LookupTables", "Load ScheduleTypes", ex);
+			}
+			return [];
+		}
+
+		public string GetRelativeType(Int16 relativeTypeID)
+		{
+			return relativeTypeID == 0
+				? string.Empty
+				: RelativeTypes.Where(r => r.RelativeTypeID == relativeTypeID)
+				.Select(r => r.Name)
+				.FirstOrDefault();
+		}
+
+		private async Task<IList<RelativeTypeDto>> GetRelativeTypesAsync()
+		{
+			try
+			{
+				using var dataService = DataServiceFactory.CreateDataService();
+				var currentLanguage = ResourceService.GetCurrentLanguageItem();
+				var items = await dataService.GetRelativeTypesByLanguageAsync(currentLanguage.Tag);
+				return [.. items.Select(r => new RelativeTypeDto
+				{
+					RelativeTypeID = r.RelativeTypeId,
+					Name = r.Name,
+					LanguageTag = r.LanguageTag,
+				})];
+			}
+			catch (Exception ex)
+			{
+				LogException("LookupTables", "Load RelativeTypes", ex);
 			}
 			return [];
 		}

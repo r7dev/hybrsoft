@@ -147,6 +147,15 @@
   <data name="PermissionDetailsViewModel_PropertyName" xml:space="preserve">
     <value>Nome</value>
   </data>
+  <data name="RelativeDetailsViewModel_PropertyFirstName" xml:space="preserve">
+    <value>Primeiro Nome</value>
+  </data>
+  <data name="RelativeDetailsViewModel_PropertyLastName" xml:space="preserve">
+    <value>Último Nome</value>
+  </data>
+  <data name="RelativeDetailsViewModel_PropertyRelativeType" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
   <data name="RoleDetailsViewModel_PropertyName" xml:space="preserve">
     <value>Nome</value>
   </data>

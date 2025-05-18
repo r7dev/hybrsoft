@@ -594,4 +594,55 @@
   <data name="ClassroomDetailsUserControl_Students.Header" xml:space="preserve">
     <value>Students</value>
   </data>
+  <data name="RelativeDetailsViewModel_Title" xml:space="preserve">
+    <value>New Relative</value>
+  </data>
+  <data name="RelativeDetailsViewModel_TitleEdit" xml:space="preserve">
+    <value>Relative</value>
+  </data>
+  <data name="RelativeListViewModel_Prefix" xml:space="preserve">
+    <value>Relatives</value>
+  </data>
+  <data name="RelativeCardUserControl_RelativeID.Text" xml:space="preserve">
+    <value>Relative ID</value>
+  </data>
+  <data name="RelativeDetailsUserControl_Information.Text" xml:space="preserve">
+    <value>Relative Information</value>
+  </data>
+  <data name="RelativeDetailsUserControl_FirstName.Header" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="RelativeDetailsUserControl_LastName.Header" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="RelativeDetailsUserControl_MiddleName.Header" xml:space="preserve">
+    <value>Middle Name</value>
+  </data>
+  <data name="RelativeDetailsUserControl_EmailAddress.Header" xml:space="preserve">
+    <value>Email Address</value>
+  </data>
+  <data name="RelativeListUserControl_ColumnHeaderRelativeID.Text" xml:space="preserve">
+    <value>Relative ID</value>
+  </data>
+  <data name="RelativeListUserControl_ColumnHeaderFirstName.Text" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="RelativeListUserControl_ColumnHeaderLastName.Text" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="RelativeListUserControl_ColumnHeaderLastModified.Text" xml:space="preserve">
+    <value>Last Modified</value>
+  </data>
+  <data name="RelativeListUserControl_New.NewLabel" xml:space="preserve">
+    <value>New Relative</value>
+  </data>
+  <data name="NavigationItem_Relatives" xml:space="preserve">
+    <value>Relatives</value>
+  </data>
+  <data name="RelativeDetailsUserControl_Type.Header" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="RelativeDetailsUserControl_Phone.Header" xml:space="preserve">
+    <value>Phone</value>
+  </data>
 </root>

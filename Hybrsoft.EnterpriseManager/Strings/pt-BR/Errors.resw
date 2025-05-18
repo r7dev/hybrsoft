@@ -225,4 +225,16 @@
   <data name="ClassroomStudentListViewModel_ErrorDeleting0StudentsFromTheClassroom1" xml:space="preserve">
     <value>Erro ao excluir {0} Estudantes da Sala de Aula: {1}</value>
   </data>
+  <data name="RelativeDetailsViewModel_ErrorSavingRelative0" xml:space="preserve">
+    <value>Erro ao salvar Parente: {0}</value>
+  </data>
+  <data name="RelativeDetailsViewModel_ErrorDeletingRelative0" xml:space="preserve">
+    <value>Erro ao excluir Parente: {0}</value>
+  </data>
+  <data name="RelativeListViewModel_ErrorLoadingRelatives0" xml:space="preserve">
+    <value>Erro ao carregar Parentes: {0}</value>
+  </data>
+  <data name="RelativeListViewModel_ErrorDeleting0Relatives1" xml:space="preserve">
+    <value>Erro ao excluir {0} Parentes: {1}</value>
+  </data>
 </root>

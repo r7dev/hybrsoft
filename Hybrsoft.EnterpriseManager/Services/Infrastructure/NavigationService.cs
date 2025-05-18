@@ -148,6 +148,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		private static Type GetTypeViewModelByName(string view) => view switch
 		{
 			nameof(DashboardViewModel) => typeof(DashboardViewModel),
+			nameof(RelativesViewModel) => typeof(RelativesViewModel),
 			nameof(StudentsViewModel) => typeof(StudentsViewModel),
 			nameof(ClassroomsViewModel) => typeof(ClassroomsViewModel),
 			nameof(PermissionsViewModel) => typeof(PermissionsViewModel),

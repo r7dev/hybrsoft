@@ -339,4 +339,28 @@
   <data name="ClassroomStudentListViewModel_Deleting0ClassroomStudents" xml:space="preserve">
     <value>Excluindo {0} estudantes da sala de aula...</value>
   </data>
+  <data name="RelativeDetailsViewModel_SavingRelative" xml:space="preserve">
+    <value>Salvando parente...</value>
+  </data>
+  <data name="RelativeDetailsViewModel_RelativeSaved" xml:space="preserve">
+    <value>Parente salvo</value>
+  </data>
+  <data name="RelativeDetailsViewModel_DeletingRelative" xml:space="preserve">
+    <value>Excluindo parente...</value>
+  </data>
+  <data name="RelativeDetailsViewModel_RelativeDeleted" xml:space="preserve">
+    <value>Parente excluído</value>
+  </data>
+  <data name="RelativeListViewModel_LoadingRelatives" xml:space="preserve">
+    <value>Carregando parentes...</value>
+  </data>
+  <data name="RelativeListViewModel_RelativesLoaded" xml:space="preserve">
+    <value>Parentes carregados</value>
+  </data>
+  <data name="RelativeListViewModel_Deleting0Relatives" xml:space="preserve">
+    <value>Excluindo {0} parentes...</value>
+  </data>
+  <data name="RelativeListViewModel_0RelativesDeleted" xml:space="preserve">
+    <value>{0} parentes excluídos</value>
+  </data>
 </root>

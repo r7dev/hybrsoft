@@ -25,6 +25,7 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			serviceCollection.AddSingleton<ISettingsService, SettingsService>();
 			serviceCollection.AddSingleton<IDataServiceFactory, DataServiceFactory>();
 			serviceCollection.AddSingleton<ILookupTables, LookupTables>();
+			serviceCollection.AddSingleton<IRelativeService, RelativeService>();
 			serviceCollection.AddSingleton<IStudentService, StudentService>();
 			serviceCollection.AddSingleton<IClassroomService, ClassroomService>();
 			serviceCollection.AddSingleton<IClassroomStudentService, ClassroomStudentService>();
@@ -53,6 +54,9 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			serviceCollection.AddTransient<MainShellViewModel>();
 
 			serviceCollection.AddTransient<DashboardViewModel>();
+
+			serviceCollection.AddTransient<RelativesViewModel>();
+			serviceCollection.AddTransient<RelativeDetailsViewModel>();
 
 			serviceCollection.AddTransient<StudentsViewModel>();
 			serviceCollection.AddTransient<StudentDetailsViewModel>();

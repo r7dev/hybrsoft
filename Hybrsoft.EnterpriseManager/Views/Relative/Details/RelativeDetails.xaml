@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <UserControl
-	x:Class="Hybrsoft.EnterpriseManager.Views.StudentDetails"
+	x:Class="Hybrsoft.EnterpriseManager.Views.RelativeDetails"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:local="using:Hybrsoft.EnterpriseManager.Views"
@@ -12,18 +12,26 @@
 	mc:Ignorable="d">
 
 	<UserControl.Resources>
-		<DataTemplate x:Key="DetailsTemplate" x:DataType="viewmodels:StudentDetailsViewModel">
+		<DataTemplate x:Key="DetailsTemplate" x:DataType="viewmodels:RelativeDetailsViewModel">
 			<controls:FluidGrid Columns="2" ColumnSpacing="12" Margin="12,18,6,6" RowSpacing="12">
-				<TextBlock x:Uid="/UI/StudentDetailsUserControl_Information"
+				<TextBlock x:Uid="/UI/RelativeDetailsUserControl_Information"
 						   Style="{StaticResource FormsSection}"
 						   controls:FluidGrid.ColumnSpan="2" />
-				<controls:FormTextBox x:Uid="/UI/StudentDetailsUserControl_FirstName"
+				<controls:FormTextBox x:Uid="/UI/RelativeDetailsUserControl_FirstName"
 									  Text="{x:Bind EditableItem.FirstName, Mode=TwoWay}"/>
-				<controls:FormTextBox x:Uid="/UI/StudentDetailsUserControl_LastName"
+				<controls:FormTextBox x:Uid="/UI/RelativeDetailsUserControl_LastName"
 									  Text="{x:Bind EditableItem.LastName, Mode=TwoWay}"/>
-				<controls:FormTextBox x:Uid="/UI/StudentDetailsUserControl_MiddleName"
+				<controls:FormTextBox x:Uid="/UI/RelativeDetailsUserControl_MiddleName"
 									  Text="{x:Bind EditableItem.MiddleName, Mode=TwoWay}"/>
-				<controls:FormTextBox x:Uid="/UI/StudentDetailsUserControl_EmailAddress"
+				<controls:FormComboBox x:Uid="/UI/RelativeDetailsUserControl_Type"
+									   ItemsSource="{x:Bind LookupTables.RelativeTypes}"
+									   SelectedValue="{x:Bind EditableItem.RelativeTypeID, Mode=TwoWay, Converter={StaticResource Int16Converter}}"
+									   SelectedValuePath="RelativeTypeID"
+									   DisplayMemberPath="Name"
+									   SelectionChanged="FormComboBox_SelectionChanged" />
+				<controls:FormTextBox x:Uid="/UI/RelativeDetailsUserControl_Phone"
+									  Text="{x:Bind EditableItem.Phone, Mode=TwoWay}"/>
+				<controls:FormTextBox x:Uid="/UI/RelativeDetailsUserControl_EmailAddress"
 									  Text="{x:Bind EditableItem.Email, Mode=TwoWay}"
 									  IsSpellCheckEnabled="False"/>
 			</controls:FluidGrid>
@@ -37,7 +45,7 @@
 		</Grid.ColumnDefinitions>
 
 		<Border BorderBrush="LightGray" BorderThickness="0,1,1,0" Background="{StaticResource DetailsViewBackgroundColor}">
-			<views:StudentCard Margin="6" ViewModel="{x:Bind ViewModel}" Item="{x:Bind ViewModel.Item, Mode=OneWay}" />
+			<views:RelativeCard Margin="6" ViewModel="{x:Bind ViewModel}" Item="{x:Bind ViewModel.Item, Mode=OneWay}" />
 		</Border>
 
 		<controls:Details x:Name="details" Grid.Column="1" Margin="6"

@@ -138,6 +138,12 @@
   <data name="PermissionDetailsViewModel_ThisPermissionHasBeenModifiedExternally" xml:space="preserve">
     <value>AVISO: Esta permissão foi modificada externamente</value>
   </data>
+  <data name="RelativeDetailsViewModel_ThisRelativeHasBeenDeletedExternally" xml:space="preserve">
+    <value>AVISO: Este parente foi excluído externamente</value>
+  </data>
+  <data name="RelativeDetailsViewModel_ThisRelativeHasBeenModifiedExternally" xml:space="preserve">
+    <value>AVISO: Este parente foi modificado externamente</value>
+  </data>
   <data name="RoleDetailsViewModel_ThisRoleHasBeenDeletedExternally" xml:space="preserve">
     <value>AVISO: Esta função foi excluída externamente</value>
   </data>

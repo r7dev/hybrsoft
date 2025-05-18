@@ -96,7 +96,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 				int span = GetActualColumnSpan(item, count);
 				Size size = new (width * span + (ColumnSpacing * (span - 1)), availableSize.Height);
 				item.Measure(size);
-				if (item is FormComboBox && item.ActualWidth > 0 && item.ActualWidth < size.Width)
+				if (item is FormComboBox && item.ActualWidth >= 0 && item.ActualWidth < size.Width)
 				{
 					item.Width = size.Width;
 				}
