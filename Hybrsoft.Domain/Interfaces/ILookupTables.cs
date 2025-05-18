@@ -10,8 +10,10 @@ namespace Hybrsoft.Domain.Interfaces
 		Task InitializeAsync();
 
 		IList<ScheduleTypeDto> ScheduleTypes { get; }
+		IList<RelativeTypeDto> RelativeTypes { get; }
 
 		string GetScheduleType(Int16 scheduleTypeID);
+		string GetRelativeType(Int16 relativeTypeID);
 	}
 
 	public class LookupTablesProxy

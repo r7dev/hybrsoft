@@ -64,6 +64,9 @@ namespace Hybrsoft.Domain.ViewModels
 				case nameof(DashboardViewModel):
 					NavigationService.Navigate(viewModel);
 					break;
+				case nameof(RelativesViewModel):
+					NavigationService.Navigate(viewModel, new RelativeListArgs());
+					break;
 				case nameof(StudentsViewModel):
 					NavigationService.Navigate(viewModel, new StudentListArgs());
 					break;
@@ -108,6 +111,11 @@ namespace Hybrsoft.Domain.ViewModels
 				var validChildren = item.Children.Where(c => HasUserPermission(c));
 				item.Children = [.. validChildren];
 				return item.Children.Any();
+			}
+			if (item.ViewModel == typeof(DashboardViewModel) || item.ViewModel == typeof(RelativesViewModel))
+			{
+				return UserPermissionService.HasPermission(Permissions.RelativeReader)
+					|| UserPermissionService.HasPermission(Permissions.RelativeEditor);
 			}
 			if (item.ViewModel == typeof(DashboardViewModel) || item.ViewModel == typeof(StudentsViewModel))
 			{
