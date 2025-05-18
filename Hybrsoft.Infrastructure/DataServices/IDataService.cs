@@ -62,6 +62,7 @@ namespace Hybrsoft.Infrastructure.DataServices
 
 		#region Schema Learn
 		Task<IList<ScheduleType>> GetScheduleTypesByLanguageAsync(string languageTag);
+		Task<IList<RelativeType>> GetRelativeTypesByLanguageAsync(string languageTag);
 
 		Task<Student> GetStudentAsync(long id);
 		Task<IList<Student>> GetStudentsAsync(int skip, int take, DataRequest<Student> request);
@@ -84,6 +85,13 @@ namespace Hybrsoft.Infrastructure.DataServices
 		Task<int> GetClassroomStudentsCountAsync(DataRequest<ClassroomStudent> request);
 		Task<int> UpdateClassroomStudentAsync(ClassroomStudent classroomStudent);
 		Task<int> DeleteClassroomStudentsAsync(params ClassroomStudent[] classroomStudent);
+
+		Task<Relative> GetRelativeAsync(long id);
+		Task<IList<Relative>> GetRelativesAsync(int skip, int take, DataRequest<Relative> request);
+		Task<IList<Relative>> GetRelativeKeysAsync(int skip, int take, DataRequest<Relative> request);
+		Task<int> GetRelativesCountAsync(DataRequest<Relative> request);
+		Task<int> UpdateRelativeAsync(Relative relative);
+		Task<int> DeleteRelativesAsync(params Relative[] relative);
 		#endregion
 	}
 }

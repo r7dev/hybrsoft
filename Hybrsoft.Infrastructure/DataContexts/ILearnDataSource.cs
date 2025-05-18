@@ -13,6 +13,8 @@ namespace Hybrsoft.Infrastructure.DataContexts
 		public DbSet<Classroom> Classrooms { get; set; }
 		public DbSet<ClassroomStudent> ClassroomStudents { get; set; }
 		public DbSet<ScheduleType> ScheduleTypes { get; set; }
+		public DbSet<Relative> Relatives { get; set; }
+		public DbSet<RelativeType> RelativeTypes { get; set; }
 
 		EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
 

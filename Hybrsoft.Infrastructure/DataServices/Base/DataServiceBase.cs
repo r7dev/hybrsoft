@@ -32,6 +32,15 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		public async Task<IList<ScheduleType>> GetScheduleTypesByLanguageAsync(string languageTag)
 		{
 			return await _learnDataSource.ScheduleTypes
+				.AsNoTracking()
+				.Where(f => f.LanguageTag == languageTag)
+				.ToListAsync();
+		}
+
+		public async Task<IList<RelativeType>> GetRelativeTypesByLanguageAsync(string languageTag)
+		{
+			return await _learnDataSource.RelativeTypes
+				.AsNoTracking()
 				.Where(f => f.LanguageTag == languageTag)
 				.ToListAsync();
 		}

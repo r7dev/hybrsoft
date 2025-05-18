@@ -83,12 +83,15 @@
     <PostDeploy Include="Script-Post\PostDeployment.sql" />
     <None Include="Script-Post\User.Initialize.sql" />
     <Build Include="Schema\Learn\Tables\ClassroomStudent.sql" />
+    <Build Include="Schema\Learn\Tables\Relative.sql" />
+    <Build Include="Schema\Learn\Tables\RelativeType.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Database.refactorlog" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Script-Pre\DataBaseUsersAdd.sql" />
+    <None Include="Script-Post\RelativeType.Initialize.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Script-Post\ScheduleType.Initialize.sql" />

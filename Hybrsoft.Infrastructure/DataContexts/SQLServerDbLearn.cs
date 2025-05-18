@@ -13,6 +13,8 @@ namespace Hybrsoft.Infrastructure.DataContexts
 			modelBuilder.Entity<Classroom>().ToTable(nameof(Classroom), schema);
 			modelBuilder.Entity<ClassroomStudent>().ToTable(nameof(ClassroomStudent), schema);
 			modelBuilder.Entity<ScheduleType>().ToTable(nameof(ScheduleType), schema);
+			modelBuilder.Entity<Relative>().ToTable(nameof(Relative), schema);
+			modelBuilder.Entity<RelativeType>().ToTable(nameof(RelativeType), schema);
 			base.OnModelCreating(modelBuilder);
 		}
 
@@ -20,5 +22,7 @@ namespace Hybrsoft.Infrastructure.DataContexts
 		public DbSet<Classroom> Classrooms { get; set; }
 		public DbSet<ClassroomStudent> ClassroomStudents { get; set; }
 		public DbSet<ScheduleType> ScheduleTypes { get; set; }
+		public DbSet<Relative> Relatives { get; set; }
+		public DbSet<RelativeType> RelativeTypes { get; set; }
 	}
 }

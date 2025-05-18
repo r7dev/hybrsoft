@@ -3,6 +3,8 @@
 	public enum Permissions
 	{
 		SecurityAdministration,
+		RelativeReader,
+		RelativeEditor,
 		StudentReader,
 		StudentEditor,
 		ClassroomReader,
