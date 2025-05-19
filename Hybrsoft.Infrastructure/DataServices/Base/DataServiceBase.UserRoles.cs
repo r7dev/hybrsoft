@@ -112,8 +112,9 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 		public async Task<int> DeleteUserRolesAsync(params UserRole[] userRoles)
 		{
-			_universalDataSource.UserRoles.RemoveRange(userRoles);
-			return await _universalDataSource.SaveChangesAsync();
+			return await _universalDataSource.UserRoles
+				.Where(r => userRoles.Contains(r))
+				.ExecuteDeleteAsync();
 		}
 	}
 }

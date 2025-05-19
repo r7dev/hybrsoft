@@ -110,10 +110,11 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			return await _learnDataSource.SaveChangesAsync();
 		}
 
-		public async Task<int> DeleteClassroomStudentsAsync(params ClassroomStudent[] classroomStudent)
+		public async Task<int> DeleteClassroomStudentsAsync(params ClassroomStudent[] classroomStudents)
 		{
-			_learnDataSource.ClassroomStudents.RemoveRange(classroomStudent);
-			return await _learnDataSource.SaveChangesAsync();
+			return await _learnDataSource.ClassroomStudents
+				.Where(r => classroomStudents.Contains(r))
+				.ExecuteDeleteAsync();
 		}
 	}
 }

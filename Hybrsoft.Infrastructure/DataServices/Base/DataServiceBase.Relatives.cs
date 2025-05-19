@@ -111,8 +111,9 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 		public async Task<int> DeleteRelativesAsync(params Relative[] relatives)
 		{
-			_learnDataSource.Relatives.RemoveRange(relatives);
-			return await _learnDataSource.SaveChangesAsync();
+			return await _learnDataSource.Relatives
+				.Where(r => relatives.Contains(r))
+				.ExecuteDeleteAsync();
 		}
 	}
 }

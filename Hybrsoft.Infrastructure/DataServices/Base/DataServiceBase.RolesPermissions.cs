@@ -111,10 +111,11 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			return await _universalDataSource.SaveChangesAsync();
 		}
 
-		public async Task<int> DeleteRolePermissionsAsync(params RolePermission[] rolePermission)
+		public async Task<int> DeleteRolePermissionsAsync(params RolePermission[] rolePermissions)
 		{
-			_universalDataSource.RolePermissions.RemoveRange(rolePermission);
-			return await _universalDataSource.SaveChangesAsync();
+			return await _universalDataSource.RolePermissions
+				.Where(r => rolePermissions.Contains(r))
+				.ExecuteDeleteAsync();
 		}
 	}
 }

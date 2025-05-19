@@ -105,10 +105,11 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			return res;
 		}
 
-		public async Task<int> DeletePermissionsAsync(params Permission[] permission)
+		public async Task<int> DeletePermissionsAsync(params Permission[] permissions)
 		{
-			_universalDataSource.Permissions.RemoveRange(permission);
-			return await _universalDataSource.SaveChangesAsync();
+			return await _universalDataSource.Permissions
+				.Where(r => permissions.Contains(r))
+				.ExecuteDeleteAsync();
 		}
 	}
 }

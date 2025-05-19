@@ -88,20 +88,16 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 		public async Task<int> DeleteLogsAsync(params AppLog[] logs)
 		{
-			_universalDataSource.AppLogs.RemoveRange(logs);
-			return await _universalDataSource.SaveChangesAsync();
+			return await _universalDataSource.AppLogs
+				.Where(r => logs.Contains(r))
+				.ExecuteDeleteAsync();
 		}
 
 		public async Task MarkAllAsReadAsync()
 		{
-			var items = await _universalDataSource.AppLogs
+			await _universalDataSource.AppLogs
 				.Where(r => !r.IsRead && r.AppType == Enums.AppType.EnterpriseManager)
-				.ToListAsync();
-			foreach (var item in items)
-			{
-				item.IsRead = true;
-			}
-			await _universalDataSource.SaveChangesAsync();
+				.ExecuteUpdateAsync(r => r.SetProperty(x => x.IsRead, true));
 		}
 	}
 }

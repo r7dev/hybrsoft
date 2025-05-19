@@ -102,10 +102,11 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			return res;
 		}
 
-		public async Task<int> DeleteRolesAsync(params Role[] role)
+		public async Task<int> DeleteRolesAsync(params Role[] roles)
 		{
-			_universalDataSource.Roles.RemoveRange(role);
-			return await _universalDataSource.SaveChangesAsync();
+			return await _universalDataSource.Roles
+				.Where(r => roles.Contains(r))
+				.ExecuteDeleteAsync();
 		}
 	}
 }

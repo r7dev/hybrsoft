@@ -88,28 +88,29 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 				.CountAsync();
 		}
 
-		public async Task<int> UpdateStudentAsync(Student Student)
+		public async Task<int> UpdateStudentAsync(Student student)
 		{
-			if (Student.StudentId > 0)
+			if (student.StudentId > 0)
 			{
-				_learnDataSource.Entry(Student).State = EntityState.Modified;
+				_learnDataSource.Entry(student).State = EntityState.Modified;
 			}
 			else
 			{
-				Student.StudentId = UIDGenerator.Next();
-				Student.CreatedOn = DateTimeOffset.Now;
-				_learnDataSource.Entry(Student).State = EntityState.Added;
+				student.StudentId = UIDGenerator.Next();
+				student.CreatedOn = DateTimeOffset.Now;
+				_learnDataSource.Entry(student).State = EntityState.Added;
 			}
-			Student.LastModifiedOn = DateTimeOffset.Now;
-			Student.SearchTerms = Student.BuildSearchTerms();
+			student.LastModifiedOn = DateTimeOffset.Now;
+			student.SearchTerms = student.BuildSearchTerms();
 			int res = await _learnDataSource.SaveChangesAsync();
 			return res;
 		}
 
-		public async Task<int> DeleteStudentsAsync(params Student[] Students)
+		public async Task<int> DeleteStudentsAsync(params Student[] students)
 		{
-			_learnDataSource.Students.RemoveRange(Students);
-			return await _learnDataSource.SaveChangesAsync();
+			return await _learnDataSource.Students
+				.Where(r => students.Contains(r))
+				.ExecuteDeleteAsync();
 		}
 	}
 }

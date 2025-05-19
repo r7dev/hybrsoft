@@ -112,8 +112,9 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 		public async Task<int> DeleteUsersAsync(params User[] users)
 		{
-			_universalDataSource.Users.RemoveRange(users);
-			return await _universalDataSource.SaveChangesAsync();
+			return await _universalDataSource.Users
+				.Where(r => users.Contains(r))
+				.ExecuteDeleteAsync();
 		}
 	}
 }
