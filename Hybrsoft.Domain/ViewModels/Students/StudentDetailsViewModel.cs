@@ -69,6 +69,7 @@ namespace Hybrsoft.Domain.ViewModels
 					LogException("Student", "Load", ex);
 				}
 			}
+			NotifyPropertyChanged(nameof(ItemIsNew));
 		}
 
 		public void Unload()
