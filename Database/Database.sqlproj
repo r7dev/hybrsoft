@@ -85,6 +85,7 @@
     <Build Include="Schema\Learn\Tables\ClassroomStudent.sql" />
     <Build Include="Schema\Learn\Tables\Relative.sql" />
     <Build Include="Schema\Learn\Tables\RelativeType.sql" />
+    <Build Include="Schema\Learn\Tables\StudentRelative.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Database.refactorlog" />
