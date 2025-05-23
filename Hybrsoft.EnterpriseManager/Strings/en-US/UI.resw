@@ -645,4 +645,43 @@
   <data name="RelativeDetailsUserControl_Phone.Header" xml:space="preserve">
     <value>Phone</value>
   </data>
+  <data name="StudentRelativeDetailsViewModel_TitleNew" xml:space="preserve">
+    <value>New Relative of Student, Student #{0}</value>
+  </data>
+  <data name="StudentRelativeDetailsViewModel_TitleEdit" xml:space="preserve">
+    <value>Relative {0}, #{1}</value>
+  </data>
+  <data name="StudentsStudentRelativesUserControl_ColumnHeaderRelativeID.Text" xml:space="preserve">
+    <value>Relative ID</value>
+  </data>
+  <data name="StudentsStudentRelativesUserControl_ColumnHeaderName.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="StudentsStudentRelativesUserControl_New.NewLabel" xml:space="preserve">
+    <value>New Relative</value>
+  </data>
+  <data name="StudentsView_Details_Relatives.Header" xml:space="preserve">
+    <value>Relatives</value>
+  </data>
+  <data name="StudentRelativeCardUserControl_StudentsRelative.Text" xml:space="preserve">
+    <value>Student's Relative</value>
+  </data>
+  <data name="StudentRelativeCardUserControl_StudentID.Text" xml:space="preserve">
+    <value>Student ID</value>
+  </data>
+  <data name="StudentRelativeCardUserControl_Relative.Text" xml:space="preserve">
+    <value>Relative</value>
+  </data>
+  <data name="StudentRelativeCardUserControl_RelativeID.Text" xml:space="preserve">
+    <value>Relative ID</value>
+  </data>
+  <data name="RelativeSuggestBoxUserControl.Header" xml:space="preserve">
+    <value>Relative</value>
+  </data>
+  <data name="RelativeSuggestBoxUserControl.PlaceholderText" xml:space="preserve">
+    <value>Search Relative</value>
+  </data>
+  <data name="StudentDetailsUserControl_Relatives.Header" xml:space="preserve">
+    <value>Relatives</value>
+  </data>
 </root>

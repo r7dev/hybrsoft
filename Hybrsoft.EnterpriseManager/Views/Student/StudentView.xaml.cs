@@ -17,12 +17,12 @@ namespace Hybrsoft.EnterpriseManager.Views
 	{
 		public StudentView()
 		{
-			ViewModel = ServiceLocator.Current.GetService<StudentDetailsViewModel>();
+			ViewModel = ServiceLocator.Current.GetService<StudentDetailsWithRelativesViewModel>();
 			NavigationService = ServiceLocator.Current.GetService<INavigationService>();
 			this.InitializeComponent();
 		}
 
-		public StudentDetailsViewModel ViewModel { get; }
+		public StudentDetailsWithRelativesViewModel ViewModel { get; }
 		public INavigationService NavigationService { get; }
 
 		protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -30,7 +30,7 @@ namespace Hybrsoft.EnterpriseManager.Views
 			ViewModel.Subscribe();
 			await ViewModel.LoadAsync(e.Parameter as StudentDetailsArgs);
 
-			if (ViewModel.IsEditMode)
+			if (ViewModel.StudentDetails.IsEditMode)
 			{
 				await Task.Delay(100);
 				details.SetFocus();

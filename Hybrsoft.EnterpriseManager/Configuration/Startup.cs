@@ -41,6 +41,8 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			NavigationService.Register<StudentsViewModel, StudentsView>();
 			NavigationService.Register<StudentDetailsViewModel, StudentView>();
 
+			NavigationService.Register<StudentRelativeDetailsViewModel, StudentRelativeView>();
+
 			NavigationService.Register<ClassroomsViewModel, ClassroomsView>();
 			NavigationService.Register<ClassroomDetailsViewModel, ClassroomView>();
 

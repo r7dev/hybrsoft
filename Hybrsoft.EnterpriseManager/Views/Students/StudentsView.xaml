@@ -25,6 +25,7 @@
 		<Grid>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="*"/>
+				<RowDefinition Height="*"/>
 			</Grid.RowDefinitions>
 
 			<!--Students-->
@@ -37,6 +38,27 @@
 								  IsButtonVisible="{x:Bind ViewModel.IsMainView}">
 					<views:StudentList ViewModel="{x:Bind ViewModel.StudentList}" />
 				</controls:Section>
+			</Grid>
+
+			<!--Students Details-->
+			<Grid Grid.Row="1"
+				  BorderBrush="LightGray"
+				  BorderThickness="0,1,0,0"
+				  Visibility="{x:Bind ViewModel.StudentList.IsMultipleSelection, Mode=OneWay, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+				<controls:Section IsEnabled="{x:Bind ViewModel.StudentDetails.IsEnabled, Mode=OneWay}" 
+								  Background="{StaticResource DetailsViewBackgroundColor}" 
+								  Visibility="{x:Bind ViewModel.StudentDetails.IsDataAvailable, Mode=OneWay}">
+
+					<Pivot x:Name="pivot">
+						<PivotItem x:Uid="/UI/StudentsView_Details_Relatives">
+							<views:StudentsStudentRelatives Grid.Row="1" ViewModel="{x:Bind ViewModel.StudentRelativeList}" />
+						</PivotItem>
+					</Pivot>
+
+				</controls:Section>
+				<!--Empty Details-->
+				<controls:Section x:Uid="/UI/GenericView_EmptyDetails"
+								  Visibility="{x:Bind ViewModel.StudentDetails.IsDataUnavailable, Mode=OneWay}" />
 			</Grid>
 		</Grid>
 	</Grid>

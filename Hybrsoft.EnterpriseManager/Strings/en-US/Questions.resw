@@ -168,6 +168,12 @@
   <data name="StudentListViewModel_AreYouSureYouWantToDeleteSelectedStudents" xml:space="preserve">
     <value>Are you sure you want to delete selected students?</value>
   </data>
+  <data name="StudentRelativeDetailsViewModel_AreYouSureYouWantToDeleteTheCurrentRelativeOfTheStudent" xml:space="preserve">
+    <value>Are you sure you want to delete the current relative of the student?</value>
+  </data>
+  <data name="StudentRelativeListViewModel_AreYouSureYouWantToDeleteTheSelectedRelativesOfTheStudent" xml:space="preserve">
+    <value>Are you sure you want to delete the selected relatives of the student?</value>
+  </data>
   <data name="UserDetailsViewModel_AreYouSureYouWantToDeleteCurrentUser" xml:space="preserve">
     <value>Are you sure you want to delete current user?</value>
   </data>

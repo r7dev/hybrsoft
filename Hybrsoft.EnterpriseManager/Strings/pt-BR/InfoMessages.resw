@@ -363,4 +363,28 @@
   <data name="RelativeListViewModel_0RelativesDeleted" xml:space="preserve">
     <value>{0} parentes excluídos</value>
   </data>
+  <data name="StudentRelativeDetailsViewModel_SavingStudentsRelative" xml:space="preserve">
+    <value>Salvando parente do estudante...</value>
+  </data>
+  <data name="StudentRelativeDetailsViewModel_TheStudentsRelativeWasSaved" xml:space="preserve">
+    <value>Parente do Estudando foi salvo.</value>
+  </data>
+  <data name="StudentRelativeDetailsViewModel_DeletingStudentRelative" xml:space="preserve">
+    <value>Excluindo parente do estudante...</value>
+  </data>
+  <data name="StudentRelativeDetailsViewModel_StudentsRelativeHasBeenDeleted" xml:space="preserve">
+    <value>Parente do Estudante foi excluído</value>
+  </data>
+  <data name="StudentRelativeListViewModel_LoadingStudentRelatives" xml:space="preserve">
+    <value>Carregando parentes do estudante...</value>
+  </data>
+  <data name="StudentRelativeListViewModel_StudentsRelativesLoaded" xml:space="preserve">
+    <value>Parentes do Estudante carregados</value>
+  </data>
+  <data name="StudentRelativeListViewModel_Deleting0StudentRelatives" xml:space="preserve">
+    <value>Excluindo {0} parentes de estudantes...</value>
+  </data>
+  <data name="StudentRelativeListViewModel_0StudentRelativesDeleted" xml:space="preserve">
+    <value>{0} parentes de estudante excluídos</value>
+  </data>
 </root>

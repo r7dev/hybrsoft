@@ -237,4 +237,16 @@
   <data name="RelativeListViewModel_ErrorDeleting0Relatives1" xml:space="preserve">
     <value>Erro ao excluir {0} Parentes: {1}</value>
   </data>
+  <data name="StudentRelativeDetailsViewModel_ErrorSavingStudentsRelative0" xml:space="preserve">
+    <value>Erro ao salvar Parente do Estudante: {0}</value>
+  </data>
+  <data name="StudentRelativeDetailsViewModel_ErrorDeletingStudentsRelative0" xml:space="preserve">
+    <value>Erro ao excluir Parente do Estudante: {0}</value>
+  </data>
+  <data name="StudentRelativeListViewModel_ErrorLoadingStudentsRelatives0" xml:space="preserve">
+    <value>Erro ao carregar Parentes do Estudante: {0}</value>
+  </data>
+  <data name="StudentRelativeListViewModel_ErrorDeleting0RelativesOfTheStudent1" xml:space="preserve">
+    <value>Erro ao excluir {0} Parentes de Estudante: {1}</value>
+  </data>
 </root>

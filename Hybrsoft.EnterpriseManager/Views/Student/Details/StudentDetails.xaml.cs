@@ -15,13 +15,13 @@ namespace Hybrsoft.EnterpriseManager.Views
 		}
 
 		#region ViewModel
-		public StudentDetailsViewModel ViewModel
+		public StudentDetailsWithRelativesViewModel ViewModel
 		{
-			get { return (StudentDetailsViewModel)GetValue(ViewModelProperty); }
+			get { return (StudentDetailsWithRelativesViewModel)GetValue(ViewModelProperty); }
 			set { SetValue(ViewModelProperty, value); }
 		}
 
-		public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register("ViewModel", typeof(StudentDetailsViewModel), typeof(StudentDetails), new PropertyMetadata(null));
+		public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register("ViewModel", typeof(StudentDetailsWithRelativesViewModel), typeof(StudentDetails), new PropertyMetadata(null));
 		#endregion
 
 		public void SetFocus()

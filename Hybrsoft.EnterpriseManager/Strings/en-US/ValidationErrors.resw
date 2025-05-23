@@ -171,6 +171,9 @@
   <data name="StudentDetailsViewModel_PropertyLastName" xml:space="preserve">
     <value>Last Name</value>
   </data>
+  <data name="StudentRelativeDetailsViewModel_PropertyRelative" xml:space="preserve">
+    <value>Relative</value>
+  </data>
   <data name="UserDetailsViewModel_PropertyEmail" xml:space="preserve">
     <value>Email</value>
   </data>

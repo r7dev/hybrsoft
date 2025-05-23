@@ -37,18 +37,35 @@
 		</Grid.ColumnDefinitions>
 
 		<Border BorderBrush="LightGray" BorderThickness="0,1,1,0" Background="{StaticResource DetailsViewBackgroundColor}">
-			<views:StudentCard Margin="6" ViewModel="{x:Bind ViewModel}" Item="{x:Bind ViewModel.Item, Mode=OneWay}" />
+			<views:StudentCard Margin="6" ViewModel="{x:Bind ViewModel.StudentDetails}" Item="{x:Bind ViewModel.StudentDetails.Item, Mode=OneWay}" />
 		</Border>
 
-		<controls:Details x:Name="details" Grid.Column="1" Margin="6"
-						  DetailsContent="{x:Bind ViewModel}"
-						  DetailsTemplate="{StaticResource DetailsTemplate}"
-						  CanGoBack="{x:Bind ViewModel.CanGoBack}"
-						  IsEditMode="{x:Bind ViewModel.IsEditMode, Mode=OneWay}"
-						  BackCommand="{x:Bind ViewModel.BackCommand}"
-						  EditCommand="{x:Bind ViewModel.EditCommand}"
-						  DeleteCommand="{x:Bind ViewModel.DeleteCommand}"
-						  SaveCommand="{x:Bind ViewModel.SaveCommand}"
-						  CancelCommand="{x:Bind ViewModel.CancelCommand}" />
+		<Grid Grid.Column="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+
+			<controls:Details x:Name="details" Margin="6"
+							  DetailsContent="{x:Bind ViewModel.StudentDetails}"
+							  DetailsTemplate="{StaticResource DetailsTemplate}"
+							  CanGoBack="{x:Bind ViewModel.StudentDetails.CanGoBack}"
+							  IsEditMode="{x:Bind ViewModel.StudentDetails.IsEditMode, Mode=OneWay}"
+							  BackCommand="{x:Bind ViewModel.StudentDetails.BackCommand}"
+							  EditCommand="{x:Bind ViewModel.StudentDetails.EditCommand}"
+							  DeleteCommand="{x:Bind ViewModel.StudentDetails.DeleteCommand}"
+							  SaveCommand="{x:Bind ViewModel.StudentDetails.SaveCommand}"
+							  CancelCommand="{x:Bind ViewModel.StudentDetails.CancelCommand}" />
+
+			<Border Grid.Row="1"
+					BorderBrush="LightGray"
+					BorderThickness="0,1,0,0"
+					Visibility="{x:Bind ViewModel.StudentDetails.ItemIsNew, Mode=OneWay, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+				<controls:Section x:Uid="/UI/StudentDetailsUserControl_Relatives"
+								  Background="{StaticResource DetailsViewBackgroundColor}">
+					<views:StudentsStudentRelatives ViewModel="{x:Bind ViewModel.StudentRelativeList}" />
+				</controls:Section>
+			</Border>
+		</Grid>
 	</Grid>
 </UserControl>

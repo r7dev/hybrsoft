@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+	x:Class="Hybrsoft.EnterpriseManager.Views.StudentRelativeDetails"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:Hybrsoft.EnterpriseManager.Views"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:controls="using:Hybrsoft.EnterpriseManager.Controls"
+	xmlns:views="using:Hybrsoft.EnterpriseManager.Views"
+	xmlns:viewmodels="using:Hybrsoft.Domain.ViewModels"
+	mc:Ignorable="d">
+
+	<UserControl.Resources>
+		<DataTemplate x:Key="DetailsTemplate" x:DataType="viewmodels:StudentRelativeDetailsViewModel">
+			<controls:FluidGrid  Margin="12,18,6,6" Columns="2" ColumnSpacing="12" RowSpacing="12">
+				<controls:RelativeSuggestBox DisplayText="{x:Bind EditableItem.Relative.FullName, Mode=OneWay}"
+											 ExcludedRelativeKeys="{x:Bind AddedRelativeKeys, Mode=OneWay}"
+											 RelativeSelectedCommand="{x:Bind RelativeSelectedCommand}" />
+				<Rectangle />
+			</controls:FluidGrid>
+		</DataTemplate>
+	</UserControl.Resources>
+
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="320"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+
+		<Grid BorderBrush="LightGray" BorderThickness="0,1,1,0" Background="{StaticResource DetailsViewBackgroundColor}">
+			<views:StudentRelativeCard Margin="6,12" Item="{x:Bind ViewModel.Item, Mode=OneWay}" />
+		</Grid>
+
+		<controls:Details x:Name="details" Grid.Column="1" Margin="6"
+						  DetailsContent="{x:Bind ViewModel}"
+						  DetailsTemplate="{StaticResource DetailsTemplate}"
+						  CanGoBack="{x:Bind ViewModel.CanGoBack}"
+						  IsEditMode="{x:Bind ViewModel.IsEditMode, Mode=OneWay}"
+						  BackCommand="{x:Bind ViewModel.BackCommand}"
+						  EditCommand="{x:Bind ViewModel.EditCommand}"
+						  DeleteCommand="{x:Bind ViewModel.DeleteCommand}"
+						  SaveCommand="{x:Bind ViewModel.SaveCommand}"
+						  CancelCommand="{x:Bind ViewModel.CancelCommand}" />
+	</Grid>
+</UserControl>

@@ -28,6 +28,7 @@
     <None Remove="Controls\Search\Search.xaml" />
     <None Remove="Controls\Search\SearchDateRange.xaml" />
     <None Remove="Controls\Suggest\PermissionSuggestBox.xaml" />
+    <None Remove="Controls\Suggest\RelativeSuggestBox.xaml" />
     <None Remove="Controls\Suggest\RoleSuggestBox.xaml" />
     <None Remove="Controls\Suggest\StudentSuggestBox.xaml" />
     <None Remove="Controls\Toolbars\DetailToolbar.xaml" />
@@ -78,6 +79,10 @@
     <None Remove="Views\Shell\MainShellView.xaml" />
     <None Remove="Views\Shell\ShellView.xaml" />
     <None Remove="Views\SplashScreen\ExtendedSplash.xaml" />
+    <None Remove="Views\StudentRelative\Details\StudentRelativeCard.xaml" />
+    <None Remove="Views\StudentRelative\Details\StudentRelativeDetails.xaml" />
+    <None Remove="Views\StudentRelative\StudentRelativeView.xaml" />
+    <None Remove="Views\Students\Details\StudentsStudentRelatives.xaml" />
     <None Remove="Views\Students\List\StudentList.xaml" />
     <None Remove="Views\Students\StudentsView.xaml" />
     <None Remove="Views\Student\Details\StudentCard.xaml" />
@@ -180,6 +185,31 @@
   <ItemGroup>
     <Folder Include="Assets\Images\" />
     <Folder Include="Views\Roles\Details\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\StudentRelative\StudentRelativeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\Suggest\RelativeSuggestBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\StudentRelative\Details\StudentRelativeDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\StudentRelative\Details\StudentRelativeCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Students\Details\StudentsStudentRelatives.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Relatives\RelativesView.xaml">

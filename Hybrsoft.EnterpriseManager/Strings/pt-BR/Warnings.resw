@@ -165,6 +165,12 @@
   <data name="StudentDetailsViewModel_ThisStudentHasBeenModifiedExternally" xml:space="preserve">
     <value>AVISO: Este estudante foi modificado externamente</value>
   </data>
+  <data name="StudentRelativeDetailsViewModel_ThisStudentsRelativeHasBeenDeletedExternally" xml:space="preserve">
+    <value>AVISO: Este parente do estudante foi excluído externamente</value>
+  </data>
+  <data name="StudentRelativeDetailsViewModel_ThisStudentsRelativeHasBeenModifiedExternally" xml:space="preserve">
+    <value>AVISO: Este parente do estudante foi modificado externamente</value>
+  </data>
   <data name="UserDetailsViewModel_ThisUserHasBeenDeletedExternally" xml:space="preserve">
     <value>AVISO: Este usuário foi excluído externamente</value>
   </data>
