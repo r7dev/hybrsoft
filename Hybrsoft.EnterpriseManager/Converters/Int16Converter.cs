@@ -31,7 +31,7 @@ namespace Hybrsoft.EnterpriseManager.Converters
 					return n16;
 				}
 			}
-			return 0;
+			return (Int16)0;
 		}
 	}
 }
