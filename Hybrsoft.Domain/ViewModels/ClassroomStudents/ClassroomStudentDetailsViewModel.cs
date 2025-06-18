@@ -11,8 +11,9 @@ using System.Windows.Input;
 
 namespace Hybrsoft.Domain.ViewModels
 {
-	public partial class ClassroomStudentDetailsViewModel(IClassroomStudentService classroomStudentService, ICommonServices commonServices) : GenericDetailsViewModel<ClassroomStudentDto>(commonServices)
+	public partial class ClassroomStudentDetailsViewModel(IClassroomService classroomService, IClassroomStudentService classroomStudentService, ICommonServices commonServices) : GenericDetailsViewModel<ClassroomStudentDto>(commonServices)
 	{
+		public IClassroomService ClassroomService { get; } = classroomService;
 		public IClassroomStudentService ClassroomStudentService { get; } = classroomStudentService;
 
 		public override string Title => (Item?.IsNew ?? true) ? TitleNew : TitleEdit;
@@ -67,11 +68,12 @@ namespace Hybrsoft.Domain.ViewModels
 			ViewModelArgs = args ?? ClassroomStudentDetailsArgs.CreateDefault();
 			ClassroomStudentID = ViewModelArgs.ClassroomStudentID;
 			ClassroomID = ViewModelArgs.ClassroomID;
+			var classroom = await ClassroomService.GetClassroomAsync(ClassroomID);
 			AddedStudentKeys = await ClassroomStudentService.GetAddedStudentKeysAsync(ClassroomID);
 
 			if (ViewModelArgs.IsNew)
 			{
-				Item = new ClassroomStudentDto() { ClassroomID = ClassroomID };
+				Item = new ClassroomStudentDto() { ClassroomID = ClassroomID, Classroom = classroom};
 				IsEditMode = true;
 			}
 			else
@@ -80,6 +82,7 @@ namespace Hybrsoft.Domain.ViewModels
 				{
 					var item = await ClassroomStudentService.GetClassroomStudentAsync(ClassroomStudentID);
 					Item = item ?? new ClassroomStudentDto() { ClassroomStudentID = ClassroomStudentID, ClassroomID = ClassroomID, IsEmpty = true };
+					Item.Classroom = classroom;
 				}
 				catch (Exception ex)
 				{

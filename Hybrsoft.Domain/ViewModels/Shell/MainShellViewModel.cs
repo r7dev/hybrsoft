@@ -73,6 +73,12 @@ namespace Hybrsoft.Domain.ViewModels
 				case nameof(ClassroomsViewModel):
 					NavigationService.Navigate(viewModel, new ClassroomListArgs());
 					break;
+				case nameof(DismissibleStudentsViewModel):
+					NavigationService.Navigate(viewModel, new DismissibleStudentListArgs());
+					break;
+				case nameof(DismissalsViewModel):
+					NavigationService.Navigate(viewModel, new DismissalListArgs());
+					break;
 				case nameof(PermissionsViewModel):
 					NavigationService.Navigate(viewModel, new PermissionListArgs());
 					break;
@@ -126,6 +132,15 @@ namespace Hybrsoft.Domain.ViewModels
 			{
 				return UserPermissionService.HasPermission(Permissions.ClassroomReader)
 					|| UserPermissionService.HasPermission(Permissions.ClassroomEditor);
+			}
+			if (item.ViewModel == typeof(DismissibleStudentsViewModel))
+			{
+				return UserPermissionService.HasPermission(Permissions.DismissibleStudentsRequester);
+			}
+			if (item.ViewModel == typeof(DismissalsViewModel))
+			{
+				return UserPermissionService.HasPermission(Permissions.DismissalReader)
+					|| UserPermissionService.HasPermission(Permissions.DismissalConfirmator);
 			}
 
 			var IsSecurityAdministration = UserPermissionService.HasPermission(Permissions.SecurityAdministration);

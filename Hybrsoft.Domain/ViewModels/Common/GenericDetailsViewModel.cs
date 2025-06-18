@@ -18,6 +18,7 @@ namespace Hybrsoft.Domain.ViewModels
 		public bool IsDataUnavailable => !IsDataAvailable;
 
 		public bool CanGoBack => !IsMainView && NavigationService.CanGoBack;
+		public bool BackAfterSave = false;
 
 		private TModel _item = null;
 		public TModel Item
@@ -158,6 +159,11 @@ namespace Hybrsoft.Domain.ViewModels
 				NotifyPropertyChanged(nameof(ItemIsNew));
 			}
 			IsEnabled = true;
+			if (isNew && BackAfterSave)
+			{
+				await Task.Delay(3000);
+				BackCommand?.Execute(null);
+			}
 		}
 
 		public ICommand DeleteCommand => new RelayCommand(OnDelete);

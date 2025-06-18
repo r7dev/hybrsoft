@@ -13,6 +13,7 @@ namespace Hybrsoft.Domain.Dtos
 		public DateTimeOffset CreatedOn { get; set; }
 		public DateTimeOffset? LastModifiedOn { get; set; }
 
+		public ClassroomDto Classroom { get; set; }
 		public StudentDto Student { get; set; }
 
 		public bool IsNew => ClassroomStudentID <= 0;
@@ -31,6 +32,7 @@ namespace Hybrsoft.Domain.Dtos
 			{
 				ClassroomStudentID = source.ClassroomStudentID;
 				ClassroomID = source.ClassroomID;
+				Classroom = source.Classroom;
 				StudentID = source.StudentID;
 				Student = source.Student;
 				CreatedOn = source.CreatedOn;
