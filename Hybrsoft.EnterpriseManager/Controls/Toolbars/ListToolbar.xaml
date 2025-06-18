@@ -39,6 +39,14 @@
 					  HorizontalAlignment="Left"
 					  Style="{StaticResource ToolBarButtonStyle}"
 					  Tag="delete"/>
+		<AppBarButton x:Name="buttonAccept"
+					  Icon="Accept"
+					  IsEnabled="{x:Bind AcceptCommand.CanExecute(x:Null)}"
+					  x:Uid="/UI/ListToolbarUserControl_AppBarButtonAccept"
+					  LabelPosition="Default"
+					  HorizontalAlignment="Left"
+					  Style="{StaticResource ToolBarButtonStyle}"
+					  Tag="accept"/>
 		<CommandBar.Content>
 			<StackPanel Orientation="Horizontal">
 				<AppBarButton x:Name="buttonSelect"

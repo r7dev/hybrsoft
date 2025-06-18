@@ -7,6 +7,7 @@ using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.DataServices;
 using Hybrsoft.Infrastructure.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services
@@ -15,6 +16,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 	{
 		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
 		public ILogService LogService { get; } = logService;
+		static public ILookupTables LookupTables => LookupTablesProxy.Instance;
 
 		public async Task<ClassroomDto> GetClassroomAsync(long id)
 		{
@@ -61,14 +63,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			long id = model.ClassroomID;
 			using var dataService = DataServiceFactory.CreateDataService();
-			var Classroom = id > 0
+			var classroom = id > 0
 				? await dataService.GetClassroomAsync(model.ClassroomID)
 				: new Classroom() { ScheduleType = new ScheduleType() };
-			if (Classroom != null)
+			if (classroom != null)
 			{
-				UpdateClassroomFromDto(Classroom, model);
-				await dataService.UpdateClassroomAsync(Classroom);
-				model.Merge(await GetClassroomAsync(dataService, Classroom.ClassroomId));
+				UpdateClassroomFromDto(classroom, model);
+				await dataService.UpdateClassroomAsync(classroom);
+				model.Merge(await GetClassroomAsync(dataService, classroom.ClassroomId));
 			}
 			return 0;
 		}
@@ -107,7 +109,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 				model.MinimumEducationLevel = source.MinimumEducationLevel;
 				model.MaximumEducationLevel = source.MaximumEducationLevel;
 			}
-			await Task.Delay(1);
+			await Task.CompletedTask;
 			return model;
 		}
 
@@ -131,11 +133,12 @@ namespace Hybrsoft.EnterpriseManager.Services
 			var model = new ScheduleTypeDto()
 			{
 				ScheduleTypeID = source.ScheduleTypeId,
-				Name = source.Name,
+				Name = string.IsNullOrEmpty(source.Uid)
+					? source.Name
+					: LookupTables.ScheduleTypes.FirstOrDefault(r => r.ScheduleTypeID == source.ScheduleTypeId).Name,
 			};
 			if (includeAllFields)
 			{
-				model.LanguageTag = source.LanguageTag;
 			}
 			return model;
 		}

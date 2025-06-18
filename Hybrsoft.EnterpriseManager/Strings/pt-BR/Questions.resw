@@ -138,6 +138,9 @@
   <data name="ClassroomStudentListViewModel_AreYouSureYouWantToDeleteSelectedStudentsFromTheClassroom" xml:space="preserve">
     <value>Tem certeza de que deseja excluir os estudantes da sala de aula selecionados?</value>
   </data>
+  <data name="DismissalListViewModel_AreYouSureYouWantToApproveTheSelectedDismissalRequests" xml:space="preserve">
+    <value>Tem certeza de que deseja aprovar as solicitações de dispensa selecionadas?</value>
+  </data>
   <data name="PermissionDetailsViewModel_AreYouSureYouWantToDeleteCurrentPermission" xml:space="preserve">
     <value>Tem certeza de que deseja excluir a permissão atual?</value>
   </data>

@@ -21,6 +21,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Controls\Buttons\CopyButton.xaml" />
+    <None Remove="Controls\DataGrid\DataGrid.xaml" />
     <None Remove="Controls\DataList\DataList.xaml" />
     <None Remove="Controls\Details\Details.xaml" />
     <None Remove="Controls\Login\LoginNamePassword.xaml" />
@@ -57,6 +58,10 @@
     <None Remove="Views\Classroom\Details\ClassroomCard.xaml" />
     <None Remove="Views\Classroom\Details\ClassroomDetails.xaml" />
     <None Remove="Views\Dashboard\DashboardView.xaml" />
+    <None Remove="Views\Dismissals\DismissalsView.xaml" />
+    <None Remove="Views\Dismissals\List\DismissalList.xaml" />
+    <None Remove="Views\Dismissal\Details\DismissalDetails.xaml" />
+    <None Remove="Views\Dismissal\DismissalView.xaml" />
     <None Remove="Views\Login\LoginView.xaml" />
     <None Remove="Views\Permissions\List\PermissionList.xaml" />
     <None Remove="Views\Permissions\PermissionsView.xaml" />
@@ -185,6 +190,46 @@
   <ItemGroup>
     <Folder Include="Assets\Images\" />
     <Folder Include="Views\Roles\Details\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Dismissals\DismissalsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Dismissals\List\DismissalList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\PersonSelect\PersonSelect.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Dismissal\DismissalView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Dismissal\Details\DismissalDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\DataGrid\DataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\RequestDismissal\List\RequestDismissalList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\RequestDismissal\RequestDismissalView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\StudentRelative\StudentRelativeView.xaml">

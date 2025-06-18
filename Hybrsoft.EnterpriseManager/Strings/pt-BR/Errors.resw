@@ -249,4 +249,16 @@
   <data name="StudentRelativeListViewModel_ErrorDeleting0RelativesOfTheStudent1" xml:space="preserve">
     <value>Erro ao excluir {0} Parentes de Estudante: {1}</value>
   </data>
+  <data name="DismissibleStudentListViewModel_ErrorLoadingDismissibleStudents0" xml:space="preserve">
+    <value>Erro ao carregar Estudantes Dispensáveis: {0}</value>
+  </data>
+  <data name="DismissalDetailsViewModel_ErrorSavingDismissal0" xml:space="preserve">
+    <value>Erro ao salvar Dispensa: {0}</value>
+  </data>
+  <data name="DismissalListViewModel_ErrorLoadingDismissals0" xml:space="preserve">
+    <value>Erro ao carregar Dispensas: {0}</value>
+  </data>
+  <data name="DismissalListViewModel_ErrorApproving0Dismissals1" xml:space="preserve">
+    <value>Erro ao aprovar {0} Dispensas: {1}</value>
+  </data>
 </root>

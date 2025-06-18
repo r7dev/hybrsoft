@@ -48,6 +48,10 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 
 			NavigationService.Register<ClassroomStudentDetailsViewModel, ClassroomStudentView>();
 
+			NavigationService.Register<DismissibleStudentsViewModel, DismissibleStudentsView>();
+			NavigationService.Register<DismissalsViewModel, DismissalsView>();
+			NavigationService.Register<DismissalDetailsViewModel, DismissalView>();
+
 			NavigationService.Register<PermissionsViewModel, PermissionsView>();
 			NavigationService.Register<PermissionDetailsViewModel, PermissionView>();
 

@@ -297,7 +297,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 		#endregion
 
 
-		public ListToolbarMode ToolbarMode => IsMultipleSelection ? (SelectedItemsCount > 0 ? ListToolbarMode.CancelDelete : ListToolbarMode.Cancel) : ListToolbarMode.Default;
+		public ListToolbarMode ToolbarMode => IsMultipleSelection ? (SelectedItemsCount > 0 ? ListToolbarMode.CancelMore : ListToolbarMode.Cancel) : ListToolbarMode.Default;
 		public static readonly DependencyExpression ToolbarModeExpression = DependencyExpressions.Register(
 			nameof(ToolbarMode),
 			nameof(IsMultipleSelection),

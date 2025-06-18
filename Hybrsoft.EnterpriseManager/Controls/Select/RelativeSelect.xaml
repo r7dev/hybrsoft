@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+	x:Class="Hybrsoft.EnterpriseManager.Controls.RelativeSelect"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:Hybrsoft.EnterpriseManager.Controls"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:dtos="using:Hybrsoft.Domain.Dtos"
+	mc:Ignorable="d">
+
+	<UserControl.Resources>
+		<x:Double x:Key="CardPictureRadius">72</x:Double>
+		<DataTemplate x:Key="ItemTemplate" x:DataType="dtos:RelativeDto">
+			<Grid Margin="16">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+
+				<PersonPicture Margin="1"
+							   ProfilePicture="{x:Bind ThumbnailSource, Mode=OneWay, Converter={StaticResource ObjectToImageConverter}}"
+							   Initials="{x:Bind Initials, Mode=OneWay}"
+							   Width="{StaticResource CardPictureRadius}"
+							   Height="{StaticResource CardPictureRadius}" />
+				<StackPanel Grid.Column="1"
+							Orientation="Vertical"
+							VerticalAlignment="Center"
+							Margin="12" >
+					<TextBlock Text="{x:Bind FullName}" FontWeight="Bold" />
+				</StackPanel>
+			</Grid>
+		</DataTemplate>
+	</UserControl.Resources>
+	<Grid>
+		<GridView ItemsSource="{x:Bind ItemsSource, Mode=TwoWay}"
+				  ItemTemplate="{StaticResource ItemTemplate}"
+				  Margin="36,24"
+				  SelectionChanged="OnSelectionChanged"/>
+	</Grid>
+</UserControl>

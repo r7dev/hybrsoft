@@ -466,7 +466,7 @@
     <value>Última Atualização</value>
   </data>
   <data name="StudentDetailsUserControl_Information.Text" xml:space="preserve">
-    <value>Informação do Estudante</value>
+    <value>Informações do Estudante</value>
   </data>
   <data name="StudentDetailsUserControl_FirstName.Header" xml:space="preserve">
     <value>Primeiro Nome</value>
@@ -514,7 +514,7 @@
     <value>Sala de Aula ID</value>
   </data>
   <data name="ClassroomDetailsUserControl_Information.Text" xml:space="preserve">
-    <value>Informação da Sala de Aula</value>
+    <value>Informações da Sala de Aula</value>
   </data>
   <data name="ClassroomDetailsUserControl_Name.Header" xml:space="preserve">
     <value>Nome</value>
@@ -683,5 +683,62 @@
   </data>
   <data name="StudentDetailsUserControl_Relatives.Header" xml:space="preserve">
     <value>Parentes</value>
+  </data>
+  <data name="DismissibleStudentListViewModel_Prefix" xml:space="preserve">
+    <value>Estudantes Dispensáveis</value>
+  </data>
+  <data name="NavigationItem_DismissibleStudents" xml:space="preserve">
+    <value>Estudantes Dispensáveis</value>
+  </data>
+  <data name="DataGridUserControl_Loading" xml:space="preserve">
+    <value>Carregando...</value>
+  </data>
+  <data name="DataGridUserControl_NoItemsFound" xml:space="preserve">
+    <value>Nenhum item encontrado.</value>
+  </data>
+  <data name="NavigationItem_Records" xml:space="preserve">
+    <value>Registros</value>
+  </data>
+  <data name="NavigationItem_Operations" xml:space="preserve">
+    <value>Operações</value>
+  </data>
+  <data name="ScheduleType_Fullday" xml:space="preserve">
+    <value>Integral</value>
+  </data>
+  <data name="ScheduleType_Morning" xml:space="preserve">
+    <value>Matutino</value>
+  </data>
+  <data name="ScheduleType_Afternoon" xml:space="preserve">
+    <value>Vespertino</value>
+  </data>
+  <data name="ScheduleType_Nocturnal" xml:space="preserve">
+    <value>Noturno</value>
+  </data>
+  <data name="DismissalDetailsViewModel_Title" xml:space="preserve">
+    <value>Nova Dispensa</value>
+  </data>
+  <data name="DismissalDetailsViewModel_TitleEdit" xml:space="preserve">
+    <value>Dispensa</value>
+  </data>
+  <data name="DismissalDetailsUserControl_Information.Text" xml:space="preserve">
+    <value>Informações da Dispensa</value>
+  </data>
+  <data name="DismissalListViewModel_Prefix" xml:space="preserve">
+    <value>Dispensas</value>
+  </data>
+  <data name="NavigationItem_Dismissals" xml:space="preserve">
+    <value>Dispensas</value>
+  </data>
+  <data name="ListToolbarUserControl_AppBarButtonAccept.Label" xml:space="preserve">
+    <value>Confirmar</value>
+  </data>
+  <data name="ContentDialog_Title_ConfirmDismissal" xml:space="preserve">
+    <value>Confirmar Dispensa</value>
+  </data>
+  <data name="ContentDialog_PrimaryButtonText_Approve" xml:space="preserve">
+    <value>Aprovar</value>
+  </data>
+  <data name="DataGridUserControl_NewItem" xml:space="preserve">
+    <value>Clique em + para adicionar um novo item.</value>
   </data>
 </root>

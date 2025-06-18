@@ -132,6 +132,9 @@
   <data name="ClassroomStudentDetailsViewModel_PropertyStudent" xml:space="preserve">
     <value>Estudante</value>
   </data>
+  <data name="DismissalDetailsViewModel_PropertyRelative" xml:space="preserve">
+    <value>Parente</value>
+  </data>
   <data name="GenericDetailsViewModel_0PleaseCorrectTheErrorAndTryAgain" xml:space="preserve">
     <value>{0}Por favor, corrija o erro e tente novamente.</value>
   </data>

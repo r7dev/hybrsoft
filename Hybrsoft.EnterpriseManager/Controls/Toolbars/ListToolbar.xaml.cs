@@ -65,6 +65,15 @@ namespace Hybrsoft.EnterpriseManager.Controls
 		public static readonly DependencyProperty DefaultCommandsProperty = DependencyProperty.Register(nameof(DefaultCommands), typeof(string), typeof(ListToolbar), new PropertyMetadata("new,select,refresh,search", DefaultCommandsChanged));
 		#endregion
 
+		#region DefaultCommandsMultipleSelection*
+		public string DefaultCommandsMultipleSelection
+		{
+			get { return (string)GetValue(DefaultCommandsMultipleSelectionProperty); }
+			set { SetValue(DefaultCommandsMultipleSelectionProperty, value); }
+		}
+		public static readonly DependencyProperty DefaultCommandsMultipleSelectionProperty = DependencyProperty.Register(nameof(DefaultCommandsMultipleSelection), typeof(string), typeof(ListToolbar), new PropertyMetadata("cancel,delete", DefaultCommandsChanged));
+		#endregion
+
 		#region StartDate
 		public DateTimeOffset? StartDate
 		{
@@ -123,6 +132,15 @@ namespace Hybrsoft.EnterpriseManager.Controls
 		public static readonly DependencyProperty DeleteCommandProperty = DependencyProperty.Register(nameof(DeleteCommand), typeof(ICommand), typeof(ListToolbar), new PropertyMetadata(null));
 		#endregion
 
+		#region AcceptCommand
+		public ICommand AcceptCommand
+		{
+			get { return (ICommand)GetValue(AcceptCommandProperty); }
+			set { SetValue(AcceptCommandProperty, value); }
+		}
+		public static readonly DependencyProperty AcceptCommandProperty = DependencyProperty.Register(nameof(AcceptCommand), typeof(ICommand), typeof(ListToolbar), new PropertyMetadata(null));
+		#endregion
+
 		private void UpdateControl()
 		{
 			switch (ToolbarMode)
@@ -134,8 +152,8 @@ namespace Hybrsoft.EnterpriseManager.Controls
 				case ListToolbarMode.Cancel:
 					ShowCategory("cancel");
 					break;
-				case ListToolbarMode.CancelDelete:
-					ShowCategory("cancel", "delete");
+				case ListToolbarMode.CancelMore:
+					ShowCategory(DefaultCommandsMultipleSelection.Split(','));
 					break;
 			}
 		}
@@ -179,6 +197,9 @@ namespace Hybrsoft.EnterpriseManager.Controls
 						break;
 					case "buttonCancel":
 						RaiseButtonClick(ToolbarButton.Cancel);
+						break;
+					case "buttonAccept":
+						RaiseButtonClick(ToolbarButton.Accept);
 						break;
 					case "buttonSelect":
 						RaiseButtonClick(ToolbarButton.Select);

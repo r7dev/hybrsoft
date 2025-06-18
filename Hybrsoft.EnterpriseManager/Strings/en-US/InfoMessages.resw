@@ -387,4 +387,28 @@
   <data name="StudentRelativeListViewModel_0StudentRelativesDeleted" xml:space="preserve">
     <value>{0} student relatives deleted</value>
   </data>
+  <data name="DismissibleStudentListViewModel_LoadingDismissibleStudents" xml:space="preserve">
+    <value>Loading dismissible students...</value>
+  </data>
+  <data name="DismissibleStudentListViewModel_DismissibleStudentsLoaded" xml:space="preserve">
+    <value>Dismissible Students loaded</value>
+  </data>
+  <data name="DismissalDetailsViewModel_SavingDismissal" xml:space="preserve">
+    <value>Saving dismissal...</value>
+  </data>
+  <data name="DismissalDetailsViewModel_DismissalSaved" xml:space="preserve">
+    <value>Dismissal saved</value>
+  </data>
+  <data name="DismissalListViewModel_LoadingDismissals" xml:space="preserve">
+    <value>Loading dismissals...</value>
+  </data>
+  <data name="DismissalListViewModel_DismissalsLoaded" xml:space="preserve">
+    <value>Dismissals loaded</value>
+  </data>
+  <data name="DismissalListViewModel_Approving0Dismissals" xml:space="preserve">
+    <value>Approving {0} dismissals...</value>
+  </data>
+  <data name="DismissalListViewModel_0DismissalsApproved" xml:space="preserve">
+    <value>{0} dismissals approved</value>
+  </data>
 </root>

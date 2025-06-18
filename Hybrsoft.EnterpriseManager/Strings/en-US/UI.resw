@@ -684,4 +684,61 @@
   <data name="StudentDetailsUserControl_Relatives.Header" xml:space="preserve">
     <value>Relatives</value>
   </data>
+  <data name="DismissibleStudentListViewModel_Prefix" xml:space="preserve">
+    <value>Dismissible Students</value>
+  </data>
+  <data name="NavigationItem_DismissibleStudents" xml:space="preserve">
+    <value>Dismissible Students</value>
+  </data>
+  <data name="DataGridUserControl_Loading" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="DataGridUserControl_NoItemsFound" xml:space="preserve">
+    <value>No items found.</value>
+  </data>
+  <data name="NavigationItem_Records" xml:space="preserve">
+    <value>Records</value>
+  </data>
+  <data name="NavigationItem_Operations" xml:space="preserve">
+    <value>Operations</value>
+  </data>
+  <data name="ScheduleType_Fullday" xml:space="preserve">
+    <value>Full-day</value>
+  </data>
+  <data name="ScheduleType_Morning" xml:space="preserve">
+    <value>Morning</value>
+  </data>
+  <data name="ScheduleType_Afternoon" xml:space="preserve">
+    <value>Afternoon</value>
+  </data>
+  <data name="ScheduleType_Nocturnal" xml:space="preserve">
+    <value>Nocturnal</value>
+  </data>
+  <data name="DismissalDetailsViewModel_Title" xml:space="preserve">
+    <value>New Dismissal</value>
+  </data>
+  <data name="DismissalDetailsViewModel_TitleEdit" xml:space="preserve">
+    <value>Dismissal</value>
+  </data>
+  <data name="DismissalDetailsUserControl_Information.Text" xml:space="preserve">
+    <value>Dismissal Information</value>
+  </data>
+  <data name="DismissalListViewModel_Prefix" xml:space="preserve">
+    <value>Dismissals</value>
+  </data>
+  <data name="NavigationItem_Dismissals" xml:space="preserve">
+    <value>Dismissals</value>
+  </data>
+  <data name="ListToolbarUserControl_AppBarButtonAccept.Label" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="ContentDialog_Title_ConfirmDismissal" xml:space="preserve">
+    <value>Confirm Dismissal</value>
+  </data>
+  <data name="ContentDialog_PrimaryButtonText_Approve" xml:space="preserve">
+    <value>Approve</value>
+  </data>
+  <data name="DataGridUserControl_NewItem" xml:space="preserve">
+    <value>Click + to add a new item.</value>
+  </data>
 </root>

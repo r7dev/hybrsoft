@@ -249,4 +249,16 @@
   <data name="StudentRelativeListViewModel_ErrorDeleting0RelativesOfTheStudent1" xml:space="preserve">
     <value>Error deleting {0} Relatives of the Student: {1}</value>
   </data>
+  <data name="DismissibleStudentListViewModel_ErrorLoadingDismissibleStudents0" xml:space="preserve">
+    <value>Error loading Dismissible Students: {0}</value>
+  </data>
+  <data name="DismissalDetailsViewModel_ErrorSavingDismissal0" xml:space="preserve">
+    <value>Error saving Dismissal: {0}</value>
+  </data>
+  <data name="DismissalListViewModel_ErrorLoadingDismissals0" xml:space="preserve">
+    <value>Error loading Dismissals: {0}</value>
+  </data>
+  <data name="DismissalListViewModel_ErrorApproving0Dismissals1" xml:space="preserve">
+    <value>Error approving {0} Dismissals: {1}</value>
+  </data>
 </root>

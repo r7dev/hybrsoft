@@ -151,6 +151,8 @@ namespace Hybrsoft.EnterpriseManager.Services
 			nameof(RelativesViewModel) => typeof(RelativesViewModel),
 			nameof(StudentsViewModel) => typeof(StudentsViewModel),
 			nameof(ClassroomsViewModel) => typeof(ClassroomsViewModel),
+			nameof(DismissibleStudentsViewModel) => typeof(DismissibleStudentsViewModel),
+			nameof(DismissalsViewModel) => typeof(DismissalsViewModel),
 			nameof(PermissionsViewModel) => typeof(PermissionsViewModel),
 			nameof(RolesViewModel) => typeof(RolesViewModel),
 			nameof(UsersViewModel) => typeof(UsersViewModel),

@@ -111,6 +111,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			target.CreatedOn = source.CreatedOn;
 			target.LastModifiedOn = source.LastModifiedOn;
 			target.SearchTerms = source.Student?.FullName;
+			target.SearchTermsDismissibleStudent = source.Classroom?.Name;
 		}
 	}
 }

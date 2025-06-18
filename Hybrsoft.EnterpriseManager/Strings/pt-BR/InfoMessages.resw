@@ -387,4 +387,28 @@
   <data name="StudentRelativeListViewModel_0StudentRelativesDeleted" xml:space="preserve">
     <value>{0} parentes de estudante excluídos</value>
   </data>
+  <data name="DismissibleStudentListViewModel_LoadingDismissibleStudents" xml:space="preserve">
+    <value>Carregando estudantes dispensáveis...</value>
+  </data>
+  <data name="DismissibleStudentListViewModel_DismissibleStudentsLoaded" xml:space="preserve">
+    <value>Estudantes Dispensáveis carregados</value>
+  </data>
+  <data name="DismissalDetailsViewModel_SavingDismissal" xml:space="preserve">
+    <value>Salvando dispensa...</value>
+  </data>
+  <data name="DismissalDetailsViewModel_DismissalSaved" xml:space="preserve">
+    <value>Dispensa salva</value>
+  </data>
+  <data name="DismissalListViewModel_LoadingDismissals" xml:space="preserve">
+    <value>Carregando dispensas...</value>
+  </data>
+  <data name="DismissalListViewModel_DismissalsLoaded" xml:space="preserve">
+    <value>Dispensas carregadas</value>
+  </data>
+  <data name="DismissalListViewModel_Approving0Dismissals" xml:space="preserve">
+    <value>Aprovando {0} dispensas...</value>
+  </data>
+  <data name="DismissalListViewModel_0DismissalsApproved" xml:space="preserve">
+    <value>{0} dispensas aprovadas</value>
+  </data>
 </root>

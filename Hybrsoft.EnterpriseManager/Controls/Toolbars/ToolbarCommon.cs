@@ -11,14 +11,15 @@ namespace Hybrsoft.EnterpriseManager.Controls
 		Cancel,
 		Save,
 		Select,
-		Refresh
+		Refresh,
+		Accept
 	}
 
 	public enum ListToolbarMode
 	{
 		Default,
 		Cancel,
-		CancelDelete
+		CancelMore
 	}
 
 	public enum DetailToolbarMode

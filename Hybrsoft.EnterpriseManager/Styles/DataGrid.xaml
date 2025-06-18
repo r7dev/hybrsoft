@@ -35,7 +35,7 @@
 		<Setter Property="HorizontalContentAlignment" Value="Stretch" />
 	</Style>
 
-	<Style x:Key="GridItemStyle" TargetType="GridViewItem">
+	<Style x:Key="GridItemStyle" TargetType="GridViewItem" BasedOn="{StaticResource DefaultGridViewItemStyle}">
 		<Setter Property="Margin" Value="6" />
 		<Setter Property="MinHeight" Value="8" />
 		<Setter Property="HorizontalContentAlignment" Value="Stretch" />

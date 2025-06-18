@@ -39,13 +39,11 @@ namespace Hybrsoft.EnterpriseManager.Services
 			try
 			{
 				using var dataService = DataServiceFactory.CreateDataService();
-				var currentLanguage = ResourceService.GetCurrentLanguageItem();
-				var items = await dataService.GetScheduleTypesByLanguageAsync(currentLanguage.Tag);
+				var items = await dataService.GetScheduleTypesAsync();
 				return [.. items.Select(r => new ScheduleTypeDto
 				{
 					ScheduleTypeID = r.ScheduleTypeId,
-					Name = r.Name,
-					LanguageTag = r.LanguageTag,
+					Name = string.IsNullOrEmpty(r.Uid) ? r.Name : ResourceService.GetString(nameof(ResourceFiles.UI), r.Uid),
 				})];
 			}
 			catch (Exception ex)
