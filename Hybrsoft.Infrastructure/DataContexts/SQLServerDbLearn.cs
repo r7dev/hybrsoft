@@ -16,6 +16,7 @@ namespace Hybrsoft.Infrastructure.DataContexts
 			modelBuilder.Entity<ScheduleType>().ToTable(nameof(ScheduleType), schema);
 			modelBuilder.Entity<Relative>().ToTable(nameof(Relative), schema);
 			modelBuilder.Entity<RelativeType>().ToTable(nameof(RelativeType), schema);
+			modelBuilder.Entity<Dismissal>().ToTable(nameof(Dismissal), schema);
 			base.OnModelCreating(modelBuilder);
 		}
 
@@ -26,5 +27,6 @@ namespace Hybrsoft.Infrastructure.DataContexts
 		public DbSet<ScheduleType> ScheduleTypes { get; set; }
 		public DbSet<Relative> Relatives { get; set; }
 		public DbSet<RelativeType> RelativeTypes { get; set; }
+		public DbSet<Dismissal> Dismissals { get; set; }
 	}
 }

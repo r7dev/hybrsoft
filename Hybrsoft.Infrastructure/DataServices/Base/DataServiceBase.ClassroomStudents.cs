@@ -107,6 +107,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			}
 			classroomStudent.LastModifiedOn = DateTimeOffset.Now;
 			classroomStudent.SearchTerms = classroomStudent.BuildSearchTerms();
+			classroomStudent.SearchTermsDismissibleStudent = classroomStudent.BuildSearchTermsDismissibleStudent();
 			return await _learnDataSource.SaveChangesAsync();
 		}
 

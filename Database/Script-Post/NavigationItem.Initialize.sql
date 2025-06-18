@@ -29,7 +29,7 @@ SET @Label = 'Records'
 IF NOT EXISTS(SELECT TOP 1 1 FROM [Universal].[NavigationItem] WHERE [Label] = @Label AND [AppType] = @AppType)
 	BEGIN
 		INSERT INTO [Universal].[NavigationItem] ([Label], [Icon], [Uid], [ViewModel], [ParentId], [AppType])
-		VALUES(@Label, CONVERT(INT, 0xE838), NULL, NULL, NULL, @AppType)
+		VALUES(@Label, CONVERT(INT, 0xE838), 'NavigationItem_Records', NULL, NULL, @AppType)
 	END
 -- 2.1.0
 SET @LabelLevel2 = 'Relatives'
@@ -60,23 +60,23 @@ SET @Label = 'Operations'
 IF NOT EXISTS(SELECT TOP 1 1 FROM [Universal].[NavigationItem] WHERE [Label] = @Label AND [AppType] = @AppType)
 	BEGIN
 		INSERT INTO [Universal].[NavigationItem] ([Label], [Icon], [Uid], [ViewModel], [ParentId], [AppType])
-		VALUES(@Label, CONVERT(INT, 0xE912), NULL, NULL, NULL, @AppType)
+		VALUES(@Label, CONVERT(INT, 0xE912), 'NavigationItem_Operations', NULL, NULL, @AppType)
 	END
 -- 3.1.0
-SET @LabelLevel2 = 'Scheduling'
+SET @LabelLevel2 = 'Dismissible Students'
 SELECT @ParentId = [NavigationItemId] FROM [Universal].[NavigationItem] WHERE [Label] = @Label AND [AppType] = @AppType
 IF NOT EXISTS(SELECT TOP 1 1 FROM [Universal].[NavigationItem] WHERE [Label] = @LabelLevel2 AND [AppType] = @AppType)
 	BEGIN
 		INSERT INTO [Universal].[NavigationItem] ([Label], [Icon], [Uid], [ViewModel], [ParentId], [AppType])
-		VALUES(@LabelLevel2, CONVERT(INT, 0xEC92), NULL, NULL, @ParentId, @AppType)
+		VALUES(@LabelLevel2, CONVERT(INT, 0xE789), 'NavigationItem_DismissibleStudents', 'DismissibleStudentsViewModel', @ParentId, @AppType)
 	END
 -- 3.2.0
-SET @LabelLevel2 = 'Stock'
+SET @LabelLevel2 = 'Dismissals'
 SELECT @ParentId = [NavigationItemId] FROM [Universal].[NavigationItem] WHERE [Label] = @Label AND [AppType] = @AppType
 IF NOT EXISTS(SELECT TOP 1 1 FROM [Universal].[NavigationItem] WHERE [Label] = @LabelLevel2 AND [AppType] = @AppType)
 	BEGIN
 		INSERT INTO [Universal].[NavigationItem] ([Label], [Icon], [Uid], [ViewModel], [ParentId], [AppType])
-		VALUES(@LabelLevel2, CONVERT(INT, 0xE7B8), NULL, NULL, @ParentId, @AppType)
+		VALUES(@LabelLevel2, CONVERT(INT, 0xEFA9), 'NavigationItem_Dismissals', 'DismissalsViewModel', @ParentId, @AppType)
 	END
 -- 4.0.0
 SET @Label = 'Activity Log'

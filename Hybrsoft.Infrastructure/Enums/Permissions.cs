@@ -9,5 +9,8 @@
 		StudentEditor,
 		ClassroomReader,
 		ClassroomEditor,
+		DismissibleStudentsRequester,
+		DismissalReader,
+		DismissalConfirmator,
 	}
 }

@@ -29,11 +29,10 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 				.Any(x => x.ur.UserId == userId && x.p.Name == permissionName);
 		}
 
-		public async Task<IList<ScheduleType>> GetScheduleTypesByLanguageAsync(string languageTag)
+		public async Task<IList<ScheduleType>> GetScheduleTypesAsync()
 		{
 			return await _learnDataSource.ScheduleTypes
 				.AsNoTracking()
-				.Where(f => f.LanguageTag == languageTag)
 				.ToListAsync();
 		}
 

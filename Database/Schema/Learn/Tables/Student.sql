@@ -13,6 +13,6 @@
 	CONSTRAINT UQ_Student_Email UNIQUE ([Email]),
 )
 GO
-CREATE INDEX IX_Student_FirstName ON [Learn].[Student] ([FirstName]);
-GO
-CREATE INDEX IX_Student_SearchTerms ON [Learn].[Student] ([SearchTerms]);
+CREATE INDEX IX_Student_FirstName_SearchTerms
+ON [Learn].[Student] ([FirstName], [SearchTerms])
+INCLUDE ([StudentId], [LastName], [Email], [Thumbnail], [LastModifiedOn]);
