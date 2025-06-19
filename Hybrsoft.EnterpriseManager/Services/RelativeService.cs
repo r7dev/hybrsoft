@@ -136,7 +136,6 @@ namespace Hybrsoft.EnterpriseManager.Services
 			};
 			if (includeAllFields)
 			{
-				model.LanguageTag = source.LanguageTag;
 			}
 			return model;
 		}

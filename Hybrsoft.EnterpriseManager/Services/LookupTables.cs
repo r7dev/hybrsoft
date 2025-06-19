@@ -67,13 +67,11 @@ namespace Hybrsoft.EnterpriseManager.Services
 			try
 			{
 				using var dataService = DataServiceFactory.CreateDataService();
-				var currentLanguage = ResourceService.GetCurrentLanguageItem();
-				var items = await dataService.GetRelativeTypesByLanguageAsync(currentLanguage.Tag);
+				var items = await dataService.GetRelativeTypesAsync();
 				return [.. items.Select(r => new RelativeTypeDto
 				{
 					RelativeTypeID = r.RelativeTypeId,
-					Name = r.Name,
-					LanguageTag = r.LanguageTag,
+					Name = string.IsNullOrEmpty(r.Uid) ? r.Name : ResourceService.GetString(nameof(ResourceFiles.UI), r.Uid),
 				})];
 			}
 			catch (Exception ex)

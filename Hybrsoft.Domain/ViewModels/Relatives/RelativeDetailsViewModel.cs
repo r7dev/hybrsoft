@@ -70,6 +70,8 @@ namespace Hybrsoft.Domain.ViewModels
 				{
 					var item = await RelativeService.GetRelativeAsync(ViewModelArgs.RelativeID);
 					Item = item ?? new RelativeDto { RelativeID = ViewModelArgs.RelativeID, IsEmpty = true };
+					await Task.Delay(200);
+					EditableItem.NotifyChanges();
 				}
 				catch (Exception ex)
 				{

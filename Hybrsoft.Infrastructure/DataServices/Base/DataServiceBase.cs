@@ -36,11 +36,10 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 				.ToListAsync();
 		}
 
-		public async Task<IList<RelativeType>> GetRelativeTypesByLanguageAsync(string languageTag)
+		public async Task<IList<RelativeType>> GetRelativeTypesAsync()
 		{
 			return await _learnDataSource.RelativeTypes
 				.AsNoTracking()
-				.Where(f => f.LanguageTag == languageTag)
 				.ToListAsync();
 		}
 

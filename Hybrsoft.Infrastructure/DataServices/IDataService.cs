@@ -62,7 +62,7 @@ namespace Hybrsoft.Infrastructure.DataServices
 
 		#region Schema Learn
 		Task<IList<ScheduleType>> GetScheduleTypesAsync();
-		Task<IList<RelativeType>> GetRelativeTypesByLanguageAsync(string languageTag);
+		Task<IList<RelativeType>> GetRelativeTypesAsync();
 
 		Task<Student> GetStudentAsync(long id);
 		Task<IList<Student>> GetStudentsAsync(int skip, int take, DataRequest<Student> request);

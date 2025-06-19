@@ -77,4 +77,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="CreateOn" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="2620d85c-e830-46d0-a709-24582ac23b50" ChangeDateTime="06/19/2025 20:35:05">
+    <Property Name="ElementName" Value="[Learn].[RelativeType].[LanguageTag]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[Learn].[RelativeType]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Uid" />
+  </Operation>
 </Operations>

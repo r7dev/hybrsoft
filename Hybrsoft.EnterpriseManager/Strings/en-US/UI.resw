@@ -741,4 +741,25 @@
   <data name="DataGridUserControl_NewItem" xml:space="preserve">
     <value>Click + to add a new item.</value>
   </data>
+  <data name="RelativeType_Parents" xml:space="preserve">
+    <value>Parents</value>
+  </data>
+  <data name="RelativeType_Siblings" xml:space="preserve">
+    <value>Siblings</value>
+  </data>
+  <data name="RelativeType_Uncles" xml:space="preserve">
+    <value>Uncles</value>
+  </data>
+  <data name="RelativeType_Coursins" xml:space="preserve">
+    <value>Coursins</value>
+  </data>
+  <data name="RelativeType_Grandparents" xml:space="preserve">
+    <value>Grandparents</value>
+  </data>
+  <data name="RelativeType_Driver" xml:space="preserve">
+    <value>Driver</value>
+  </data>
+  <data name="RelativeType_Nanny" xml:space="preserve">
+    <value>Nanny</value>
+  </data>
 </root>

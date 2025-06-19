@@ -24,7 +24,7 @@
 				<controls:FormTextBox x:Uid="/UI/RelativeDetailsUserControl_MiddleName"
 									  Text="{x:Bind EditableItem.MiddleName, Mode=TwoWay}"/>
 				<controls:FormComboBox x:Uid="/UI/RelativeDetailsUserControl_Type"
-									   ItemsSource="{x:Bind LookupTables.RelativeTypes}"
+									   ItemsSource="{x:Bind LookupTables.RelativeTypes, Mode=OneWay}"
 									   SelectedValue="{x:Bind EditableItem.RelativeTypeID, Mode=TwoWay, Converter={StaticResource Int16Converter}}"
 									   SelectedValuePath="RelativeTypeID"
 									   DisplayMemberPath="Name"

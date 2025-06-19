@@ -4,27 +4,18 @@ MERGE INTO [Learn].[RelativeType] AS Target
 USING
 (
 	VALUES
-		(1, 'Parents', 'en-US'),
-		(2, 'Siblings', 'en-US'),
-		(3, 'Uncles', 'en-US'),
-		(4, 'Cousins', 'en-US'),
-		(5, 'Grandparents', 'en-US'),
-		(6, 'Driver', 'en-US'),
-		(7, 'Nanny', 'en-US'),
-		(8, 'Pais', 'pt-BR'),
-		(9, 'Irmãos', 'pt-BR'),
-		(10, 'Tios', 'pt-BR'),
-		(11, 'Primos', 'pt-BR'),
-		(12, 'Avós', 'pt-BR'),
-		(13, 'Motorista', 'pt-BR'),
-		(14, 'Babá', 'pt-BR')
-) AS Source ([RelativeTypeId], [Name], [LanguageTag])
+		(1, 'Parents', 'RelativeType_Parents'),
+		(2, 'Siblings', 'RelativeType_Siblings'),
+		(3, 'Uncles', 'RelativeType_Uncles'),
+		(4, 'Cousins', 'RelativeType_Coursins'),
+		(5, 'Grandparents', 'RelativeType_Grandparents'),
+		(6, 'Driver', 'RelativeType_Driver'),
+		(7, 'Nanny', 'RelativeType_Nanny')
+) AS Source ([RelativeTypeId], [Name], [Uid])
 ON Target.[RelativeTypeId] = Source.[RelativeTypeId]
-
 WHEN NOT MATCHED THEN
-	INSERT ([RelativeTypeId], [Name], [LanguageTag]) 
-	VALUES (Source.[RelativeTypeId], Source.[Name], Source.[LanguageTag])
-
+	INSERT ([RelativeTypeId], [Name], [Uid]) 
+	VALUES (Source.[RelativeTypeId], Source.[Name], Source.[Uid])
 WHEN NOT MATCHED BY SOURCE THEN
 	DELETE;
 

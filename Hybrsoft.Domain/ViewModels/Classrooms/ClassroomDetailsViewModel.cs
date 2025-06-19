@@ -75,6 +75,8 @@ namespace Hybrsoft.Domain.ViewModels
 				{
 					var item = await ClassroomService.GetClassroomAsync(ViewModelArgs.ClassroomID);
 					Item = item ?? new ClassroomDto { ClassroomID = ViewModelArgs.ClassroomID, IsEmpty = true };
+					await Task.Delay(200);
+					EditableItem.NotifyChanges();
 				}
 				catch (Exception ex)
 				{
