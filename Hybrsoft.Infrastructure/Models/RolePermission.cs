@@ -14,7 +14,6 @@ namespace Hybrsoft.Infrastructure.Models
 
 		public string BuildSearchTerms() => $"{PermissionId} {SearchTerms}".ToLower();
 
-		public virtual Role Role { get; set; }
 		public virtual Permission Permission { get; set; }
 	}
 }

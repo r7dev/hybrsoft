@@ -13,12 +13,12 @@ namespace Hybrsoft.Infrastructure.DataServices
 		IList<NavigationItem> GetNavigationItemByAppType(AppType appType);
 		bool HasPermission(long userId, string permissionName);
 
-		Task<AppLog> GetLogAsync(long id);
-		Task<IList<AppLog>> GetLogsAsync(int skip, int take, DataRequest<AppLog> request);
-		Task<IList<AppLog>> GetLogKeysAsync(int skip, int take, DataRequest<AppLog> request);
-		Task<int> GetLogsCountAsync(DataRequest<AppLog> request);
-		Task<int> CreateLogAsync(AppLog appLog);
-		Task<int> DeleteLogsAsync(params AppLog[] logs);
+		Task<AppLog> GetAppLogAsync(long id);
+		Task<IList<AppLog>> GetAppLogsAsync(int skip, int take, DataRequest<AppLog> request);
+		Task<IList<AppLog>> GetAppLogKeysAsync(int skip, int take, DataRequest<AppLog> request);
+		Task<int> GetAppLogsCountAsync(DataRequest<AppLog> request);
+		Task<int> CreateAppLogAsync(AppLog appLog);
+		Task<int> DeleteAppLogsAsync(params AppLog[] logs);
 		Task MarkAllAsReadAsync();
 
 		Task<Permission> GetPermissionAsync(long id);

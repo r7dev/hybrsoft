@@ -573,7 +573,7 @@
   <data name="GenericView_EmptyDetails.Header" xml:space="preserve">
     <value>Nenhum item selecionado</value>
   </data>
-  <data name="ClassroomStudentCardUserControl_ClassroomStudent.Text" xml:space="preserve">
+  <data name="ClassroomStudentCardUserControl_StudentFromTheClassroom.Text" xml:space="preserve">
     <value>Estudante da Sala de Aula</value>
   </data>
   <data name="ClassroomStudentCardUserControl_ClassroomID.Text" xml:space="preserve">

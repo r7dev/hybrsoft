@@ -51,10 +51,10 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 		public async Task<AppLogDto> GetLogAsync(long id)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
-			var item = await dataService.GetLogAsync(id);
+			var item = await dataService.GetAppLogAsync(id);
 			if (item != null)
 			{
-				return CreateAppLogModel(item);
+				return CreateAppLogDto(item);
 			}
 			return null;
 		}
@@ -70,10 +70,10 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 		{
 			var models = new List<AppLogDto>();
 			using var dataSource = DataServiceFactory.CreateDataService();
-			var items = await dataSource.GetLogsAsync(skip, take, request);
+			var items = await dataSource.GetAppLogsAsync(skip, take, request);
 			foreach (var item in items)
 			{
-				models.Add(CreateAppLogModel(item));
+				models.Add(CreateAppLogDto(item));
 			}
 			return models;
 		}
@@ -81,27 +81,27 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 		public async Task<int> GetLogsCountAsync(DataRequest<AppLog> request)
 		{
 			using var dataSource = DataServiceFactory.CreateDataService();
-			return await dataSource.GetLogsCountAsync(request);
+			return await dataSource.GetAppLogsCountAsync(request);
 		}
 
 		public async Task<int> CreateLogAsync(AppLog appLog)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
-			return await dataService.CreateLogAsync(appLog);
+			return await dataService.CreateAppLogAsync(appLog);
 		}
 
 		public async Task<int> DeleteLogAsync(AppLogDto model)
 		{
 			var appLog = new AppLog { AppLogId = model.AppLogID };
 			using var dataSource = DataServiceFactory.CreateDataService();
-			return await dataSource.DeleteLogsAsync(appLog);
+			return await dataSource.DeleteAppLogsAsync(appLog);
 		}
 
 		public async Task<int> DeleteLogRangeAsync(int index, int length, DataRequest<AppLog> request)
 		{
 			using var ds = DataServiceFactory.CreateDataService();
-			var items = await ds.GetLogKeysAsync(index, length, request);
-			return await ds.DeleteLogsAsync([.. items]);
+			var items = await ds.GetAppLogKeysAsync(index, length, request);
+			return await ds.DeleteAppLogsAsync([.. items]);
 		}
 
 		public async Task MarkAllAsReadAsync()
@@ -110,7 +110,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 			await dataSource.MarkAllAsReadAsync();
 		}
 
-		private static AppLogDto CreateAppLogModel(AppLog source)
+		private static AppLogDto CreateAppLogDto(AppLog source)
 		{
 			return new AppLogDto()
 			{

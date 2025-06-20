@@ -10,12 +10,12 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 {
 	partial class DataServiceBase
 	{
-		public async Task<AppLog> GetLogAsync(long id)
+		public async Task<AppLog> GetAppLogAsync(long id)
 		{
 			return await _universalDataSource.AppLogs.Where(r => r.AppLogId == id).FirstOrDefaultAsync();
 		}
 
-		public async Task<IList<AppLog>> GetLogsAsync(int skip, int take, DataRequest<AppLog> request)
+		public async Task<IList<AppLog>> GetAppLogsAsync(int skip, int take, DataRequest<AppLog> request)
 		{
 			IQueryable<AppLog> items = GetLogs(request);
 
@@ -27,7 +27,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			return records;
 		}
 
-		public async Task<IList<AppLog>> GetLogKeysAsync(int skip, int take, DataRequest<AppLog> request)
+		public async Task<IList<AppLog>> GetAppLogKeysAsync(int skip, int take, DataRequest<AppLog> request)
 		{
 			IQueryable<AppLog> items = GetLogs(request);
 
@@ -72,21 +72,21 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			return items;
 		}
 
-		public async Task<int> GetLogsCountAsync(DataRequest<AppLog> request)
+		public async Task<int> GetAppLogsCountAsync(DataRequest<AppLog> request)
 		{
 			return await GetLogs(request, true)
 				.AsNoTracking()
 				.CountAsync();
 		}
 
-		public async Task<int> CreateLogAsync(AppLog appLog)
+		public async Task<int> CreateAppLogAsync(AppLog appLog)
 		{
 			appLog.CreateOn = DateTimeOffset.Now;
 			_universalDataSource.Entry(appLog).State = EntityState.Added;
 			return await _universalDataSource.SaveChangesAsync();
 		}
 
-		public async Task<int> DeleteLogsAsync(params AppLog[] logs)
+		public async Task<int> DeleteAppLogsAsync(params AppLog[] logs)
 		{
 			return await _universalDataSource.AppLogs
 				.Where(r => logs.Contains(r))

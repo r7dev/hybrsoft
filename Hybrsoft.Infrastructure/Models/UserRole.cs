@@ -14,7 +14,6 @@ namespace Hybrsoft.Infrastructure.Models
 
 		public string BuildSearchTerms() => $"{RoleId} {SearchTerms}".ToLower();
 
-		public virtual User User { get; set; }
 		public virtual Role Role { get; set; }
 	}
 }
