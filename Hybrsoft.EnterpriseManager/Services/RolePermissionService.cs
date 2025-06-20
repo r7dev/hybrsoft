@@ -23,7 +23,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			var item = await dataService.GetRolePermissionAsync(rolePermissionId);
 			if (item != null)
 			{
-				return CreateRolePermissionDto(item, includeAllFields: true);
+				return await CreateRolePermissionDtoAsync(item, includeAllFields: true);
 			}
 			return null;
 		}
@@ -41,7 +41,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			var items = await dataService.GetRolePermissionsAsync(skip, take, request);
 			foreach (var item in items)
 			{
-				models.Add(CreateRolePermissionDto(item, includeAllFields: false));
+				models.Add(await CreateRolePermissionDtoAsync(item, includeAllFields: false));
 			}
 			return models;
 		}
@@ -87,17 +87,18 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.DeleteRolePermissionsAsync([..items]);
 		}
 
-		static public RolePermissionDto CreateRolePermissionDto(RolePermission source, bool includeAllFields)
+		static public async Task<RolePermissionDto> CreateRolePermissionDtoAsync(RolePermission source, bool includeAllFields)
 		{
 			var model = new RolePermissionDto()
 			{
 				RolePermissionID = source.RolePermissionId,
 				RoleID = source.RoleId,
 				PermissionID = source.PermissionId,
-				Permission = PermissionService.CreatePermissionDto(source.Permission, includeAllFields),
+				Permission = await PermissionService.CreatePermissionDtoAsync(source.Permission, includeAllFields),
 				CreatedOn = source.CreatedOn,
 				LastModifiedOn = source.LastModifiedOn
 			};
+			await Task.CompletedTask;
 			return model;
 		}
 

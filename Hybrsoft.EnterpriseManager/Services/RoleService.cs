@@ -27,7 +27,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			var item = await dataService.GetRoleAsync(id);
 			if (item != null)
 			{
-				return CreateRoleDto(item, includeAllFields: true);
+				return await CreateRoleDtoAsync(item, includeAllFields: true);
 			}
 			return null;
 		}
@@ -46,7 +46,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			var items = await dataService.GetRolesAsync(skip, take, request);
 			foreach (var item in items)
 			{
-				models.Add(CreateRoleDto(item, includeAllFields: false));
+				models.Add(await CreateRoleDtoAsync(item, includeAllFields: false));
 			}
 			return models;
 		}
@@ -85,7 +85,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.DeleteRolesAsync([.. items]);
 		}
 
-		static public RoleDto CreateRoleDto(Role source, bool includeAllFields)
+		static public async Task<RoleDto> CreateRoleDtoAsync(Role source, bool includeAllFields)
 		{
 			var model = new RoleDto()
 			{
@@ -95,6 +95,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 				LastModifiedOn = source.LastModifiedOn
 			};
 			if (includeAllFields) { }
+			await Task.CompletedTask;
 			return model;
 		}
 

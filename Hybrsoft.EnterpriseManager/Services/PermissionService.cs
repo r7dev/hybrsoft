@@ -27,7 +27,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			var item = await dataService.GetPermissionAsync(id);
 			if (item != null)
 			{
-				return CreatePermissionDto(item, includeAllFields: true);
+				return await CreatePermissionDtoAsync(item, includeAllFields: true);
 			}
 			return null;
 		}
@@ -46,7 +46,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			var items = await dataService.GetPermissionsAsync(skip, take, request);
 			foreach (var item in items)
 			{
-				models.Add(CreatePermissionDto(item, includeAllFields: false));
+				models.Add(await CreatePermissionDtoAsync(item, includeAllFields: false));
 			}
 			return models;
 		}
@@ -85,7 +85,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.DeletePermissionsAsync([.. items]);
 		}
 
-		static public PermissionDto CreatePermissionDto(Permission source, bool includeAllFields)
+		static public async Task<PermissionDto> CreatePermissionDtoAsync(Permission source, bool includeAllFields)
 		{
 			var model = new PermissionDto()
 			{
@@ -98,6 +98,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 				LastModifiedOn = source.LastModifiedOn
 			};
 			if (includeAllFields) {}
+			await Task.CompletedTask;
 			return model;
 		}
 

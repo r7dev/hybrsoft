@@ -103,7 +103,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			{
 				model.MiddleName = source.MiddleName;
 				model.RelativeTypeID = source.RelativeTypeId;
-				model.RelativeType = CreateRelativeTypeDto(source.RelativeType, includeAllFields);
+				model.RelativeType = await CreateRelativeTypeDtoAsync(source.RelativeType, includeAllFields);
 				model.DocumentNumber = source.DocumentNumber;
 				model.Email = source.Email;
 				model.Picture = source.Picture;
@@ -127,16 +127,15 @@ namespace Hybrsoft.EnterpriseManager.Services
 			target.LastModifiedOn = source.LastModifiedOn;
 		}
 
-		static public RelativeTypeDto CreateRelativeTypeDto(RelativeType source, bool includeAllFields)
+		static public async Task<RelativeTypeDto> CreateRelativeTypeDtoAsync(RelativeType source, bool includeAllFields)
 		{
 			var model = new RelativeTypeDto()
 			{
 				RelativeTypeID = source.RelativeTypeId,
 				Name = source.Name,
 			};
-			if (includeAllFields)
-			{
-			}
+			if (includeAllFields){}
+			await Task.CompletedTask;
 			return model;
 		}
 	}

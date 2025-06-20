@@ -97,7 +97,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 				Name = source.Name,
 				Year = source.Year,
 				EducationLevel = source.EducationLevel,
-				ScheduleType = CreateSchedulerTypeDto(source.ScheduleType, includeAllFields),
+				ScheduleType = await CreateSchedulerTypeDtoAsync(source.ScheduleType, includeAllFields),
 				CreatedOn = source.CreatedOn,
 				LastModifiedOn = source.LastModifiedOn
 			};
@@ -128,7 +128,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			target.SearchTerms = source.ScheduleType?.Name;
 		}
 
-		static public ScheduleTypeDto CreateSchedulerTypeDto(ScheduleType source, bool includeAllFields)
+		static public async Task<ScheduleTypeDto> CreateSchedulerTypeDtoAsync(ScheduleType source, bool includeAllFields)
 		{
 			var model = new ScheduleTypeDto()
 			{
@@ -140,6 +140,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			if (includeAllFields)
 			{
 			}
+			await Task.CompletedTask;
 			return model;
 		}
 	}
