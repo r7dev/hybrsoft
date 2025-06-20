@@ -7,6 +7,4 @@
 	[SearchTerms] NVARCHAR(100) NULL
 )
 GO
-CREATE INDEX IX_Role_Name ON [Universal].[Role] ([Name]);
-GO
-CREATE INDEX IX_Role_SearchTerms ON [Universal].[Role] ([SearchTerms]);
+CREATE INDEX IX_Role_Name_SearchTerms ON [Universal].[Role] ([Name], [SearchTerms]);

@@ -11,6 +11,5 @@
 	CONSTRAINT UQ_RolePermission_RoleId_PermissionId UNIQUE ([RoleId], [PermissionId])
 )
 GO
-CREATE INDEX IX_RolePermission_RoleId_PermissionId ON [Universal].[RolePermission] ([RoleId], [PermissionId]);
-GO
-CREATE INDEX IX_RolePermission_SearchTerms ON [Universal].[RolePermission] ([SearchTerms]);
+CREATE INDEX IX_RolePermission_RoleId_PermissionId_SearchTerms
+ON [Universal].[RolePermission] ([RoleId], [PermissionId], [SearchTerms]);

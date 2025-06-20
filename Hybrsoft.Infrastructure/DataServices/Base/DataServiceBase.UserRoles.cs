@@ -24,7 +24,17 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 			// Execute
 			var records = await items.Skip(skip).Take(take)
-				.Include(r => r.Role)
+				.Select(r => new UserRole
+				{
+					UserRoleId = r.UserRoleId,
+					UserId = r.UserId,
+					RoleId = r.RoleId,
+					Role = new Role
+					{
+						RoleId = r.Role.RoleId,
+						Name = r.Role.Name
+					}
+				})
 				.AsNoTracking()
 				.ToListAsync();
 

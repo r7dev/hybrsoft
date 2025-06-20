@@ -12,6 +12,8 @@
 	CONSTRAINT UQ_ClassroomStudent_ClassroomId_StudentId UNIQUE ([ClassroomId], [StudentId])
 )
 GO
-CREATE INDEX IX_ClassroomStudent_StudentId_ClassroomId
-ON [Learn].[ClassroomStudent] ([StudentId], [ClassroomId])
-INCLUDE ([CreatedOn], [LastModifiedOn], [SearchTerms], [SearchTermsDismissibleStudent]);
+CREATE INDEX IX_ClassroomStudent_ClassroomId_StudentId_SearchTerms
+ON [Learn].[ClassroomStudent] ([ClassroomId], [StudentId], [SearchTerms]);
+GO
+CREATE INDEX IX_ClassroomStudent_StudentId_ClassroomId_SearchTermsDismissibleStudent
+ON [Learn].[ClassroomStudent] ([StudentId], [ClassroomId], [SearchTermsDismissibleStudent]);

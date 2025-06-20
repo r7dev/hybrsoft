@@ -16,6 +16,6 @@
 	CONSTRAINT FK_Relative_RelativeTypeId FOREIGN KEY ([RelativeTypeId]) REFERENCES [Learn].[RelativeType] ([RelativeTypeId]),
 )
 GO
-CREATE INDEX IX_Relative_FirstName ON [Learn].[Relative] ([FirstName]);
-GO
-CREATE INDEX IX_Relative_SearchTerms ON [Learn].[Relative] ([SearchTerms]);
+CREATE INDEX IX_Relative_FirstName_SearchTerms
+ON [Learn].[Relative] ([FirstName], [SearchTerms])
+INCLUDE ([LastName], [Thumbnail], [LastModifiedOn]);

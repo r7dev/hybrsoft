@@ -29,7 +29,6 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 					RelativeId = r.RelativeId,
 					FirstName = r.FirstName,
 					LastName = r.LastName,
-					Phone = r.Phone,
 					Thumbnail = r.Thumbnail,
 					LastModifiedOn = r.LastModifiedOn,
 				})

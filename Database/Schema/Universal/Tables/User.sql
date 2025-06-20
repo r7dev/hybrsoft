@@ -13,6 +13,6 @@
 	CONSTRAINT UQ_User_Email UNIQUE ([Email]),
 )
 GO
-CREATE INDEX IX_User_FirstName ON [Universal].[User] ([FirstName]);
-GO
-CREATE INDEX IX_User_SearchTerms ON [Universal].[User] ([SearchTerms]);
+CREATE INDEX IX_User_FirstName_SearchTerms
+ON [Universal].[User] ([FirstName], [SearchTerms])
+INCLUDE ([LastName], [Email], [LastModifiedOn]);

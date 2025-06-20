@@ -11,6 +11,5 @@
 	CONSTRAINT UQ_StudentRelative_StudentId_RelativeId UNIQUE ([StudentId], [RelativeId])
 )
 GO
-CREATE INDEX IX_StudentRelative_StudentId_RelativeId ON [Learn].[StudentRelative] ([StudentId], [RelativeId]);
-GO
-CREATE INDEX IX_StudentRelative_SearchTerms ON [Learn].[StudentRelative] ([SearchTerms]);
+CREATE INDEX IX_StudentRelative_StudentId_RelativeId_SearchTerms
+ON [Learn].[StudentRelative] ([StudentId], [RelativeId], [SearchTerms]);

@@ -11,8 +11,9 @@
 	CONSTRAINT UQ_Permission_Name UNIQUE ([Name])
 )
 GO
-CREATE INDEX IX_Permission_PermissionId_Name ON [Universal].[Permission] ([PermissionId], [Name]);
+CREATE INDEX IX_Permission_Name_SearchTerms
+ON [Universal].[Permission] ([Name], [SearchTerms])
+INCLUDE ([DisplayName], [Description]);
 GO
-CREATE INDEX IX_Permission_Name ON [Universal].[Permission] ([Name]);
-GO
-CREATE INDEX IX_Permission_SearchTerms ON [Universal].[Permission] ([SearchTerms]);
+CREATE INDEX IX_Permission_DisplayName
+ON [Universal].[Permission] ([DisplayName]);

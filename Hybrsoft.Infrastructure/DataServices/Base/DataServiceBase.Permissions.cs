@@ -26,8 +26,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 					PermissionId = r.PermissionId,
 					Name = r.Name,
 					DisplayName = r.DisplayName,
-					Description = r.Description,
-					IsEnabled = r.IsEnabled,
+					Description = r.Description
 				})
 				.AsNoTracking()
 				.ToListAsync();

@@ -109,11 +109,34 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 			// Execute
 			var records = await items.Skip(skip).Take(take)
-				.Include(r => r.Classroom)
-				.ThenInclude(r => r.ScheduleType)
-				.Include(r => r.Relative)
-				.ThenInclude(r => r.RelativeType)
-				.Include(r => r.Student)
+				.Select(r => new Dismissal
+				{
+					DismissalId = r.DismissalId,
+					ClassroomId = r.ClassroomId,
+					Classroom = new Classroom
+					{
+						ClassroomId = r.Classroom.ClassroomId,
+						Name = r.Classroom.Name,
+						ScheduleType = new ScheduleType()
+					},
+					StudentId = r.StudentId,
+					Student = new Student
+					{
+						StudentId = r.Student.StudentId,
+						FirstName = r.Student.FirstName,
+						LastName = r.Student.LastName,
+						Thumbnail = r.Student.Thumbnail
+					},
+					RelativeId = r.RelativeId,
+					Relative = new Relative
+					{
+						RelativeId = r.Relative.RelativeId,
+						FirstName = r.Relative.FirstName,
+						LastName = r.Relative.LastName,
+						Thumbnail = r.Relative.Thumbnail,
+						RelativeType = new RelativeType()
+					},
+				})
 				.AsNoTracking()
 				.ToListAsync();
 

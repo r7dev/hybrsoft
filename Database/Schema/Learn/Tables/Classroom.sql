@@ -16,6 +16,6 @@
 	CONSTRAINT FK_Classroom_ScheduleTypeId FOREIGN KEY ([ScheduleTypeId]) REFERENCES [Learn].[ScheduleType] ([ScheduleTypeId]),
 )
 GO
-CREATE INDEX IX_Classroom_Year_Name ON [Learn].[Classroom] ([Year] DESC, [Name]);
-GO
-CREATE INDEX IX_Classroom_SearchTerms ON [Learn].[Classroom] ([SearchTerms]);
+CREATE INDEX IX_Classroom_Year_Name_SearchTerms
+ON [Learn].[Classroom] ([Year] DESC, [Name], [SearchTerms])
+INCLUDE ([EducationLevel], [ScheduleTypeId], [LastModifiedOn]);

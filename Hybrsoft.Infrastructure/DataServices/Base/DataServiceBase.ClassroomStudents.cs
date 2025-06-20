@@ -24,7 +24,19 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 			// Execute
 			var records = await items.Skip(skip).Take(take)
-				.Include(r => r.Student)
+				.Select(r => new ClassroomStudent
+				{
+					ClassroomStudentId = r.ClassroomStudentId,
+					ClassroomId = r.ClassroomId,
+					StudentId = r.StudentId,
+					Student = new Student
+					{
+						StudentId = r.Student.StudentId,
+						FirstName = r.Student.FirstName,
+						LastName = r.Student.LastName,
+						Thumbnail = r.Student.Thumbnail
+					}
+				})
 				.AsNoTracking()
 				.ToListAsync();
 

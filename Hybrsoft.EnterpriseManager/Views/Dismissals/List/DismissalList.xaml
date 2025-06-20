@@ -33,7 +33,7 @@
 					</StackPanel>
 					<StackPanel Grid.Column="1" Margin="5" HorizontalAlignment="Right">
 						<PersonPicture Margin="1"
-									   ProfilePicture="{x:Bind Relative.PictureSource, Mode=OneWay, Converter={StaticResource ObjectToImageConverter}}"
+									   ProfilePicture="{x:Bind Relative.ThumbnailSource, Mode=OneWay, Converter={StaticResource ObjectToImageConverter}}"
 									   Initials="{x:Bind Relative.Initials, Mode=OneWay}"
 									   Width="{StaticResource CardPictureRadius}"
 									   Height="{StaticResource CardPictureRadius}" />

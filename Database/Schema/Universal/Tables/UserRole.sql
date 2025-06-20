@@ -11,6 +11,5 @@
 	CONSTRAINT UQ_UserRole_UserId_RoleId UNIQUE ([UserId], [RoleId])
 )
 GO
-CREATE INDEX IX_UserRole_UserId_RoleId ON [Universal].[UserRole] ([UserId], [RoleId]);
-GO
-CREATE INDEX IX_UserRole_SearchTerms ON [Universal].[UserRole] ([SearchTerms]);
+CREATE INDEX IX_UserRole_UserId_RoleId_SearchTerms
+ON [Universal].[UserRole] ([UserId], [RoleId], [SearchTerms]);
