@@ -9,8 +9,10 @@
 		StudentEditor,
 		ClassroomReader,
 		ClassroomEditor,
+		DismissibleStudentsReader,
 		DismissibleStudentsRequester,
 		DismissalReader,
 		DismissalConfirmator,
+		DashboardReader,
 	}
 }

@@ -118,34 +118,33 @@ namespace Hybrsoft.Domain.ViewModels
 				item.Children = [.. validChildren];
 				return item.Children.Any();
 			}
-			if (item.ViewModel == typeof(DashboardViewModel) || item.ViewModel == typeof(RelativesViewModel))
+			if (item.ViewModel == typeof(DashboardViewModel))
 			{
-				return UserPermissionService.HasPermission(Permissions.RelativeReader)
-					|| UserPermissionService.HasPermission(Permissions.RelativeEditor);
+				return UserPermissionService.HasPermission(Permissions.DashboardReader);
 			}
-			if (item.ViewModel == typeof(DashboardViewModel) || item.ViewModel == typeof(StudentsViewModel))
+			if (item.ViewModel == typeof(RelativesViewModel))
 			{
-				return UserPermissionService.HasPermission(Permissions.StudentReader)
-					|| UserPermissionService.HasPermission(Permissions.StudentEditor);
+				return UserPermissionService.HasPermission(Permissions.RelativeReader);
 			}
-			if (item.ViewModel == typeof(DashboardViewModel) || item.ViewModel == typeof(ClassroomsViewModel))
+			if (item.ViewModel == typeof(StudentsViewModel))
 			{
-				return UserPermissionService.HasPermission(Permissions.ClassroomReader)
-					|| UserPermissionService.HasPermission(Permissions.ClassroomEditor);
+				return UserPermissionService.HasPermission(Permissions.StudentReader);
+			}
+			if (item.ViewModel == typeof(ClassroomsViewModel))
+			{
+				return UserPermissionService.HasPermission(Permissions.ClassroomReader);
 			}
 			if (item.ViewModel == typeof(DismissibleStudentsViewModel))
 			{
-				return UserPermissionService.HasPermission(Permissions.DismissibleStudentsRequester);
+				return UserPermissionService.HasPermission(Permissions.DismissibleStudentsReader);
 			}
 			if (item.ViewModel == typeof(DismissalsViewModel))
 			{
-				return UserPermissionService.HasPermission(Permissions.DismissalReader)
-					|| UserPermissionService.HasPermission(Permissions.DismissalConfirmator);
+				return UserPermissionService.HasPermission(Permissions.DismissalReader);
 			}
 
 			var IsSecurityAdministration = UserPermissionService.HasPermission(Permissions.SecurityAdministration);
-			return (item.ViewModel == typeof(DashboardViewModel)
-				|| item.ViewModel == typeof(PermissionsViewModel)
+			return (item.ViewModel == typeof(PermissionsViewModel)
 				|| item.ViewModel == typeof(RolesViewModel)
 				|| item.ViewModel == typeof(UsersViewModel)
 				|| item.ViewModel == typeof(AppLogsViewModel))

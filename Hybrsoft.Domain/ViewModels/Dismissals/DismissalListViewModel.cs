@@ -19,6 +19,7 @@ namespace Hybrsoft.Domain.ViewModels
 		IDismissalService DismissalService { get; } = dismissalService;
 
 		public string Prefix => ResourceService.GetString(nameof(ResourceFiles.UI), string.Concat(nameof(DismissalListViewModel), "_Prefix"));
+		private bool HasPermissionToAccept;
 
 		public DismissalListArgs ViewModelArgs { get; private set; }
 
@@ -26,6 +27,7 @@ namespace Hybrsoft.Domain.ViewModels
 		{
 			ViewModelArgs = args ?? DismissalListArgs.CreateEmpty();
 			Query = ViewModelArgs.Query;
+			HasPermissionToAccept = UserPermissionService.HasPermission(Permissions.DismissalConfirmator);
 
 			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(DismissalListViewModel), "_LoadingDismissals"));
 			StartStatusMessage(startMessage);
@@ -101,7 +103,7 @@ namespace Hybrsoft.Domain.ViewModels
 			return [];
 		}
 
-		public ICommand AcceptCommand => new RelayCommand(OnAcceptSelection);
+		public ICommand AcceptCommand => new RelayCommand(OnAcceptSelection, CanAcceptSelection);
 		private async void OnAcceptSelection()
 		{
 			StatusReady();
@@ -161,6 +163,11 @@ namespace Hybrsoft.Domain.ViewModels
 				}
 			}
 			await Task.CompletedTask;
+		}
+
+		private bool CanAcceptSelection()
+		{
+			return HasPermissionToAccept;
 		}
 
 		private async Task ApproveItemsAsync(IEnumerable<DismissalDto> models)

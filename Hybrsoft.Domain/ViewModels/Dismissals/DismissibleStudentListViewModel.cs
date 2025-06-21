@@ -19,6 +19,7 @@ namespace Hybrsoft.Domain.ViewModels
 		IDismissalService DismissalService { get; } = dismissalService;
 
 		public string Prefix => ResourceService.GetString(nameof(ResourceFiles.UI), string.Concat(nameof(DismissibleStudentListViewModel), "_Prefix"));
+		private bool HasPermissionToItemInvoke;
 
 		public DismissibleStudentListArgs ViewModelArgs { get; private set; }
 
@@ -26,6 +27,7 @@ namespace Hybrsoft.Domain.ViewModels
 		{
 			ViewModelArgs = args ?? DismissibleStudentListArgs.CreateEmpty();
 			Query = ViewModelArgs.Query;
+			HasPermissionToItemInvoke = UserPermissionService.HasPermission(Permissions.DismissibleStudentsRequester);
 
 			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(DismissibleStudentListViewModel), "_LoadingDismissibleStudents"));
 			StartStatusMessage(startMessage);
@@ -101,7 +103,7 @@ namespace Hybrsoft.Domain.ViewModels
 			return [];
 		}
 
-		public ICommand ItemInvokedCommand => new RelayCommand<DismissibleStudentDto>(OnItemInvoked);
+		public ICommand ItemInvokedCommand => new RelayCommand<DismissibleStudentDto>(OnItemInvoked, CanItemInvoked);
 		private async void OnItemInvoked(DismissibleStudentDto dismissible)
 		{
 			if (dismissible != null)
@@ -109,6 +111,11 @@ namespace Hybrsoft.Domain.ViewModels
 				NavigationService.Navigate<DismissalDetailsViewModel>(new DismissalDetailsArgs { ClassroomID = dismissible.ClassroomID, StudentID = dismissible.StudentID });
 			}
 			await Task.CompletedTask;
+		}
+
+		private bool CanItemInvoked(DismissibleStudentDto dismissible)
+		{
+			return HasPermissionToItemInvoke;
 		}
 
 		protected override async void OnNew()
