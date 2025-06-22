@@ -6,14 +6,50 @@
 	xmlns:local="using:Hybrsoft.EnterpriseManager.Views"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:views="using:Hybrsoft.EnterpriseManager.Views"
 	xmlns:controls="using:Hybrsoft.EnterpriseManager.Controls"
 	mc:Ignorable="d">
 
-	<Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+	<Page.Resources>
+		<Style x:Key="GridItemStyle" TargetType="GridViewItem">
+			<Setter Property="Margin" Value="6" />
+			<Setter Property="Background" Value="White" />
+			<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+			<Setter Property="VerticalContentAlignment" Value="Stretch"/>
+			<Setter Property="BorderThickness" Value="1" />
+			<Setter Property="BorderBrush" Value="LightGray" />
+		</Style>
+	</Page.Resources>
+
+	<Grid Background="WhiteSmoke">
 		<controls:WindowTitle Title="" />
-		<StackPanel Orientation="Vertical">
-			<FontIcon Glyph="&#xE98F;" FontSize="42" />
-			<TextBlock Text="Dashboard Under Construction" FontSize="16"/>
-		</StackPanel>
+
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="12"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+
+			<TextBlock Grid.Row="1" Margin="12,0" Text="Dashboard" FontSize="22" Foreground="Gray" />
+
+
+			<GridView Grid.Row="2" 
+					  Margin="6" 
+					  ItemContainerStyle="{StaticResource GridItemStyle}"
+					  SelectionMode="None" 
+					  IsItemClickEnabled="True" ItemClick="OnItemClick">
+				<GridView.ItemsPanel>
+					<ItemsPanelTemplate>
+						<controls:WrapPanel />
+					</ItemsPanelTemplate>
+				</GridView.ItemsPanel>
+				<views:StudentsPane Margin="12" 
+									Width="600"
+									Height="250"
+									ItemsSource="{x:Bind ViewModel.Students, Mode=OneWay}" 
+									Tag="Students" />
+			</GridView>
+		</Grid>
 	</Grid>
 </Page>

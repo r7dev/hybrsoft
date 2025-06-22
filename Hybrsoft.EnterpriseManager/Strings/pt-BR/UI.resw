@@ -762,4 +762,16 @@
   <data name="RelativeType_Nanny" xml:space="preserve">
     <value>Babá</value>
   </data>
+  <data name="StudentsPane_LastestStudents.Text" xml:space="preserve">
+    <value>Últimos Estudantes</value>
+  </data>
+  <data name="StudentsPane_StudentID.Text" xml:space="preserve">
+    <value>Estudante ID</value>
+  </data>
+  <data name="StudentsPane_Name.Text" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="StudentsPane_EmailAddress.Text" xml:space="preserve">
+    <value>Endereço Eletrônico</value>
+  </data>
 </root>

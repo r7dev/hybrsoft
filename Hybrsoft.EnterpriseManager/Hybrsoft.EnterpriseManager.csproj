@@ -58,6 +58,7 @@
     <None Remove="Views\Classroom\Details\ClassroomCard.xaml" />
     <None Remove="Views\Classroom\Details\ClassroomDetails.xaml" />
     <None Remove="Views\Dashboard\DashboardView.xaml" />
+    <None Remove="Views\Dashboard\Parts\StudentsPane.xaml" />
     <None Remove="Views\Dismissals\DismissalsView.xaml" />
     <None Remove="Views\Dismissals\List\DismissalList.xaml" />
     <None Remove="Views\Dismissal\Details\DismissalDetails.xaml" />
@@ -190,6 +191,11 @@
   <ItemGroup>
     <Folder Include="Assets\Images\" />
     <Folder Include="Views\Roles\Details\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Dashboard\Parts\StudentsPane.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Dismissals\DismissalsView.xaml">

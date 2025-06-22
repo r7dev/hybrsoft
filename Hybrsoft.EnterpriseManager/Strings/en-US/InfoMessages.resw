@@ -411,4 +411,10 @@
   <data name="DismissalListViewModel_0DismissalsApproved" xml:space="preserve">
     <value>{0} dismissals approved</value>
   </data>
+  <data name="DashboardViewModel_LoadingDashboard" xml:space="preserve">
+    <value>Loading dashboard...</value>
+  </data>
+  <data name="DashboardViewModel_DashboardLoaded" xml:space="preserve">
+    <value>Dashboard loaded</value>
+  </data>
 </root>

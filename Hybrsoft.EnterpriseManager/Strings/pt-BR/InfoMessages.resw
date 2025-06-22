@@ -411,4 +411,10 @@
   <data name="DismissalListViewModel_0DismissalsApproved" xml:space="preserve">
     <value>{0} dispensas aprovadas</value>
   </data>
+  <data name="DashboardViewModel_LoadingDashboard" xml:space="preserve">
+    <value>Carregando painel...</value>
+  </data>
+  <data name="DashboardViewModel_DashboardLoaded" xml:space="preserve">
+    <value>Painel carregado</value>
+  </data>
 </root>
