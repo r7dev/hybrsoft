@@ -26,6 +26,7 @@ namespace Hybrsoft.EnterpriseManager.Views.SplashScreen
 			this.Title = "";
 			presenter.SetBorderAndTitleBar(false, false);
 
+			ProgressBarAnimation.Begin();
 			LoadDataAsync();
 		}
 
