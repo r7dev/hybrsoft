@@ -6,10 +6,7 @@ using Hybrsoft.Infrastructure.Enums;
 using Microsoft.UI.Xaml;
 using Microsoft.Windows.AppLifecycle;
 using System;
-using System.Runtime.InteropServices;
-using System.Threading;
 using System.Threading.Tasks;
-using Windows.ApplicationModel;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -23,7 +20,6 @@ namespace Hybrsoft.EnterpriseManager
 	{
 		private Window m_window;
 		private ExtendedSplash splash_Screen;
-		private static Mutex _mutex;
 		private bool disposedValue;
 
 		public Window MainWindow { get; set; }
@@ -37,38 +33,10 @@ namespace Hybrsoft.EnterpriseManager
 		{
 			this.InitializeComponent();
 
-			_mutex = new Mutex(true, "SingleInstanceAppMutex", out bool createdNew);
-			if (!createdNew)
-			{
-				BringExistingInstanceToFront();
-				_mutex.Dispose();
-				Environment.Exit(0);
-			}
+			AppMutex.Initialize();
 
 			this.UnhandledException += OnUnhandledException;
 		}
-
-		/// <summary>
-		/// Find window existing and bring instance to front.
-		/// </summary>
-		private static void BringExistingInstanceToFront()
-		{
-			string windowTitle = AppInfo.Current.DisplayInfo.DisplayName;
-			IntPtr hWnd = FindWindow(null, windowTitle);
-			if (hWnd != IntPtr.Zero)
-			{
-				ShowWindow(hWnd, SW_RESTORE);
-				SetForegroundWindow(hWnd);
-			}
-		}
-
-		[DllImport("user32.dll", SetLastError = true)]
-		private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-		[DllImport("user32.dll")]
-		private static extern bool SetForegroundWindow(IntPtr hWnd);
-		[DllImport("user32.dll")]
-		private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-		private const int SW_RESTORE = 9;
 
 		/// <summary>
 		/// Invoked when the application is launched.
@@ -80,6 +48,9 @@ namespace Hybrsoft.EnterpriseManager
 			await ActivateAsync(activatedArgs.Data as Windows.ApplicationModel.Activation.LaunchActivatedEventArgs);
 		}
 
+		/// <summary>
+		/// Invoked when the application is activated.
+		/// </summary>
 		private async Task ActivateAsync(Windows.ApplicationModel.Activation.IActivatedEventArgs args)
 		{
 			splash_Screen = new ExtendedSplash();
@@ -103,6 +74,9 @@ namespace Hybrsoft.EnterpriseManager
 			splash_Screen.Close();
 		}
 
+		/// <summary>
+		/// Invoked when the application is unhandled exception.
+		/// </summary>
 		private void OnUnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
 		{
 			var logService = ServiceLocator.Current.GetService<ILogService>();
@@ -114,10 +88,7 @@ namespace Hybrsoft.EnterpriseManager
 		{
 			if (!disposedValue)
 			{
-				if (disposing)
-				{
-					_mutex?.Dispose();
-				}
+				if (disposing){ }
 				disposedValue = true;
 			}
 		}
