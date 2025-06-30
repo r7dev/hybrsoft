@@ -88,14 +88,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 					: user.Password;
 				UpdateUserFromDto(user, model);
 				await dataService.UpdateUserAsync(user);
-				model.Merge(await GetUserAsync(dataService, user.UserId, false));
+				model.Merge(await GetUserAsync(dataService, user.UserID, false));
 			}
 			return 0;
 		}
 
 		public async Task<int> DeleteUserAsync(UserDto model)
 		{
-			var customer = new User { UserId = model.UserID };
+			var customer = new User { UserID = model.UserID };
 			using var dataService = DataServiceFactory.CreateDataService();
 			return await dataService.DeleteUsersAsync(customer);
 		}
@@ -111,7 +111,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			var model = new UserDto()
 			{
-				UserID = source.UserId,
+				UserID = source.UserID,
 				FirstName = source.FirstName,
 				LastName = source.LastName,
 				Email = source.Email,

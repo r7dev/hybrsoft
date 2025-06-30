@@ -70,14 +70,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 			{
 				UpdateClassroomFromDto(classroom, model);
 				await dataService.UpdateClassroomAsync(classroom);
-				model.Merge(await GetClassroomAsync(dataService, classroom.ClassroomId));
+				model.Merge(await GetClassroomAsync(dataService, classroom.ClassroomID));
 			}
 			return 0;
 		}
 
 		public async Task<int> DeleteClassroomAsync(ClassroomDto model)
 		{
-			var Classroom = new Classroom { ClassroomId = model.ClassroomID };
+			var Classroom = new Classroom { ClassroomID = model.ClassroomID };
 			using var dataService = DataServiceFactory.CreateDataService();
 			return await dataService.DeleteClassroomsAsync(Classroom);
 		}
@@ -93,7 +93,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			var model = new ClassroomDto()
 			{
-				ClassroomID = source.ClassroomId,
+				ClassroomID = source.ClassroomID,
 				Name = source.Name,
 				Year = source.Year,
 				EducationLevel = source.EducationLevel,
@@ -103,7 +103,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			};
 			if (includeAllFields)
 			{
-				model.ScheduleTypeID = source.ScheduleTypeId;
+				model.ScheduleTypeID = source.ScheduleTypeID;
 				model.MinimumYear = source.MinimumYear;
 				model.MaximumYear = source.MaximumYear;
 				model.MinimumEducationLevel = source.MinimumEducationLevel;
@@ -122,7 +122,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			target.EducationLevel = source.EducationLevel;
 			target.MinimumEducationLevel = source.MinimumEducationLevel;
 			target.MaximumEducationLevel = source.MaximumEducationLevel;
-			target.ScheduleTypeId = source.ScheduleTypeID;
+			target.ScheduleTypeID = source.ScheduleTypeID;
 			target.CreatedOn = source.CreatedOn;
 			target.LastModifiedOn = source.LastModifiedOn;
 			target.SearchTerms = source.ScheduleType?.Name;
@@ -132,10 +132,10 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			var model = new ScheduleTypeDto()
 			{
-				ScheduleTypeID = source.ScheduleTypeId,
+				ScheduleTypeID = source.ScheduleTypeID,
 				Name = string.IsNullOrEmpty(source.Uid)
 					? source.Name
-					: LookupTables.ScheduleTypes.FirstOrDefault(r => r.ScheduleTypeID == source.ScheduleTypeId).Name,
+					: LookupTables.ScheduleTypes.FirstOrDefault(r => r.ScheduleTypeID == source.ScheduleTypeID).Name,
 			};
 			if (includeAllFields)
 			{

@@ -13,7 +13,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		public async Task<StudentRelative> GetStudentRelativeAsync(long studentRelativeId)
 		{
 			return await _learnDataSource.StudentRelatives
-				.Where(r => r.StudentRelativeId == studentRelativeId)
+				.Where(r => r.StudentRelativeID == studentRelativeId)
 				.Include(r => r.Relative)
 				.ThenInclude(r => r.RelativeType)
 				.FirstOrDefaultAsync();
@@ -27,12 +27,12 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			var records = await items.Skip(skip).Take(take)
 				.Select(r => new StudentRelative
 				{
-					StudentRelativeId = r.StudentRelativeId,
-					StudentId = r.StudentId,
-					RelativeId = r.RelativeId,
+					StudentRelativeID = r.StudentRelativeID,
+					StudentID = r.StudentID,
+					RelativeID = r.RelativeID,
 					Relative = new Relative
 					{
-						RelativeId = r.Relative.RelativeId,
+						RelativeID = r.Relative.RelativeID,
 						FirstName = r.Relative.FirstName,
 						LastName = r.Relative.LastName,
 						Thumbnail = r.Relative.Thumbnail
@@ -52,8 +52,8 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			var records = await items.Skip(skip).Take(take)
 				.Select(r => new StudentRelative
 				{
-					StudentId = r.StudentId,
-					RelativeId = r.RelativeId
+					StudentID = r.StudentID,
+					RelativeID = r.RelativeID
 				})
 				.AsNoTracking()
 				.ToListAsync();
@@ -94,8 +94,8 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		{
 			return await _learnDataSource.StudentRelatives
 				.AsNoTracking()
-				.Where(r => r.StudentId == studentId)
-				.Select(r => r.RelativeId)
+				.Where(r => r.StudentID == studentId)
+				.Select(r => r.RelativeID)
 				.ToListAsync();
 		}
 
@@ -108,13 +108,13 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 		public async Task<int> UpdateStudentRelativeAsync(StudentRelative studentRelative)
 		{
-			if (studentRelative.StudentRelativeId > 0)
+			if (studentRelative.StudentRelativeID > 0)
 			{
 				_learnDataSource.Entry(studentRelative).State = EntityState.Modified;
 			}
 			else
 			{
-				studentRelative.StudentRelativeId = UIDGenerator.Next();
+				studentRelative.StudentRelativeID = UIDGenerator.Next();
 				studentRelative.CreatedOn = DateTimeOffset.Now;
 				_learnDataSource.Entry(studentRelative).State = EntityState.Added;
 			}

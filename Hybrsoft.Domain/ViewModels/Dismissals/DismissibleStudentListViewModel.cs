@@ -155,7 +155,7 @@ namespace Hybrsoft.Domain.ViewModels
 			{
 				Query = Query,
 				Where = r => r.Classroom.Year == now.Year
-					&& scheduleTypeIds.Contains(r.Classroom.ScheduleType.ScheduleTypeId),
+					&& scheduleTypeIds.Contains(r.Classroom.ScheduleType.ScheduleTypeID),
 				OrderBy = ViewModelArgs.OrderBy,
 				OrderByDesc = ViewModelArgs.OrderByDesc
 			};

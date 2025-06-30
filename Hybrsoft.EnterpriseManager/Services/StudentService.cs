@@ -67,14 +67,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 			{
 				UpdateStudentFromDto(student, model);
 				await dataService.UpdateStudentAsync(student);
-				model.Merge(await GetStudentAsync(dataService, student.StudentId));
+				model.Merge(await GetStudentAsync(dataService, student.StudentID));
 			}
 			return 0;
 		}
 
 		public async Task<int> DeleteStudentAsync(StudentDto model)
 		{
-			var student = new Student { StudentId = model.StudentID };
+			var student = new Student { StudentID = model.StudentID };
 			using var dataService = DataServiceFactory.CreateDataService();
 			return await dataService.DeleteStudentsAsync(student);
 		}
@@ -90,7 +90,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			var model = new StudentDto()
 			{
-				StudentID = source.StudentId,
+				StudentID = source.StudentID,
 				FirstName = source.FirstName,
 				LastName = source.LastName,
 				Email = source.Email,

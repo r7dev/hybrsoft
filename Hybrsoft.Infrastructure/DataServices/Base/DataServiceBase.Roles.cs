@@ -12,7 +12,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 	{
 		public async Task<Role> GetRoleAsync(long id)
 		{
-			return await _universalDataSource.Roles.Where(r => r.RoleId == id).FirstOrDefaultAsync();
+			return await _universalDataSource.Roles.Where(r => r.RoleID == id).FirstOrDefaultAsync();
 		}
 
 		public async Task<IList<Role>> GetRolesAsync(int skip, int take, DataRequest<Role> request)
@@ -23,7 +23,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			var records = await items.Skip(skip).Take(take)
 				.Select(r => new Role
 				{
-					RoleId = r.RoleId,
+					RoleID = r.RoleID,
 					Name = r.Name,
 				})
 				.AsNoTracking()
@@ -40,7 +40,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			var records = await items.Skip(skip).Take(take)
 				.Select(r => new Role
 				{
-					RoleId = r.RoleId,
+					RoleID = r.RoleID,
 				})
 				.AsNoTracking()
 				.ToListAsync();
@@ -86,13 +86,13 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 		public async Task<int> UpdateRoleAsync(Role role)
 		{
-			if (role.RoleId > 0)
+			if (role.RoleID > 0)
 			{
 				_universalDataSource.Entry(role).State = EntityState.Modified;
 			}
 			else
 			{
-				role.RoleId = UIDGenerator.Next();
+				role.RoleID = UIDGenerator.Next();
 				role.CreatedOn = DateTimeOffset.Now;
 				_universalDataSource.Entry(role).State = EntityState.Added;
 			}

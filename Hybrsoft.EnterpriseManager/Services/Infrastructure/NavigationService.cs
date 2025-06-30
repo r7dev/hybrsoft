@@ -135,13 +135,13 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		private static IEnumerable<NavigationItemDto> GetNavigationItemByParentId(IList<NavigationItem> items, int? parentId)
 		{
-			return items.Where(f => f.ParentId == parentId)
+			return items.Where(f => f.ParentID == parentId)
 				.Select(f => new NavigationItemDto(
 					string.IsNullOrEmpty(f.Uid) ? f.Label : ResourceService.GetString(nameof(ResourceFiles.UI), f.Uid),
 					f.Icon.Value,
 					f.ViewModel,
-					f.ParentId,
-					[.. GetNavigationItemByParentId(items, f.NavigationItemId)],
+					f.ParentID,
+					[.. GetNavigationItemByParentId(items, f.NavigationItemID)],
 					string.IsNullOrEmpty(f.ViewModel) ? null : GetTypeViewModelByName(f.ViewModel)));
 		}
 

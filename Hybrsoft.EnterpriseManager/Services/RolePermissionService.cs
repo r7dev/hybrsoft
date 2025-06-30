@@ -68,14 +68,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 			{
 				UpdateRolePermissionFromDto(rolePermission, model);
 				await dataService.UpdateRolePermissionAsync(rolePermission);
-				model.Merge(await GetRolePermissionAsync(dataService, rolePermission.RolePermissionId));
+				model.Merge(await GetRolePermissionAsync(dataService, rolePermission.RolePermissionID));
 			}
 			return 0;
 		}
 
 		public async Task<int> DeleteRolePermissionAsync(RolePermissionDto model)
 		{
-			var rolePermission = new RolePermission { RolePermissionId = model.RolePermissionID };
+			var rolePermission = new RolePermission { RolePermissionID = model.RolePermissionID };
 			using var dataService = DataServiceFactory.CreateDataService();
 			return await dataService.DeleteRolePermissionsAsync(rolePermission);
 		}
@@ -91,9 +91,9 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			var model = new RolePermissionDto()
 			{
-				RolePermissionID = source.RolePermissionId,
-				RoleID = source.RoleId,
-				PermissionID = source.PermissionId,
+				RolePermissionID = source.RolePermissionID,
+				RoleID = source.RoleID,
+				PermissionID = source.PermissionID,
 				Permission = await PermissionService.CreatePermissionDtoAsync(source.Permission, includeAllFields),
 				CreatedOn = source.CreatedOn,
 				LastModifiedOn = source.LastModifiedOn
@@ -104,8 +104,8 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		private static void UpdateRolePermissionFromDto(RolePermission target, RolePermissionDto source)
 		{
-			target.RoleId = source.RoleID;
-			target.PermissionId = source.PermissionID;
+			target.RoleID = source.RoleID;
+			target.PermissionID = source.PermissionID;
 			target.CreatedOn = source.CreatedOn;
 			target.LastModifiedOn = source.LastModifiedOn;
 			target.SearchTerms = source.Permission?.DisplayName;

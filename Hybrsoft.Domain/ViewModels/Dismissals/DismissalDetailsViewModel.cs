@@ -83,7 +83,7 @@ namespace Hybrsoft.Domain.ViewModels
 				}
 				var request = new DataRequest<StudentRelative>
 				{
-					Where = r => r.StudentId == Item.StudentID,
+					Where = r => r.StudentID == Item.StudentID,
 					OrderBy = r => r.Relative.FirstName,
 				};
 				var studentRelatives = await StudentRelativeService.GetStudentRelativesAsync(request);

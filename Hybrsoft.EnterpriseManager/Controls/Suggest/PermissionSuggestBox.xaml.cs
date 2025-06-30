@@ -107,7 +107,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			var request = new DataRequest<Permission>()
 			{
 				Query = query,
-				Where = r => !ExcludedPermissionKeys.Contains(r.PermissionId),
+				Where = r => !ExcludedPermissionKeys.Contains(r.PermissionID),
 				OrderBy = r => r.Name
 			};
 			return await PermissionService.GetPermissionsAsync(0, 20, request);

@@ -24,9 +24,9 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		public bool HasPermission(long userId, string permissionName)
 		{
 			return _universalDataSource.UserRoles
-				.Join(_universalDataSource.RolePermissions, ur => ur.RoleId, rp => rp.RoleId, (ur, rp) => new { ur, rp })
-				.Join(_universalDataSource.Permissions, urrp => urrp.rp.PermissionId, p => p.PermissionId, (urrp, p) => new { urrp.ur, urrp.rp, p })
-				.Any(x => x.ur.UserId == userId && x.p.Name == permissionName);
+				.Join(_universalDataSource.RolePermissions, ur => ur.RoleID, rp => rp.RoleID, (ur, rp) => new { ur, rp })
+				.Join(_universalDataSource.Permissions, urrp => urrp.rp.PermissionID, p => p.PermissionID, (urrp, p) => new { urrp.ur, urrp.rp, p })
+				.Any(x => x.ur.UserID == userId && x.p.Name == permissionName);
 		}
 
 		public async Task<IList<ScheduleType>> GetScheduleTypesAsync()

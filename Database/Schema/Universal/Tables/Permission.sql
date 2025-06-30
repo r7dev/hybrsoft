@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [Universal].[Permission]
 (
-	[PermissionId] BIGINT NOT NULL PRIMARY KEY,
+	[PermissionID] BIGINT NOT NULL PRIMARY KEY,
 	[Name] NVARCHAR(50) NOT NULL,
 	[DisplayName] NVARCHAR(50) NOT NULL,
 	[Description] NVARCHAR(150) NULL,

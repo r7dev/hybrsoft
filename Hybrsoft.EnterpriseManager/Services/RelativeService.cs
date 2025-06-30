@@ -67,14 +67,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 			{
 				UpdateRelativeFromDto(relative, model);
 				await dataService.UpdateRelativeAsync(relative);
-				model.Merge(await GetRelativeAsync(dataService, relative.RelativeId));
+				model.Merge(await GetRelativeAsync(dataService, relative.RelativeID));
 			}
 			return 0;
 		}
 
 		public async Task<int> DeleteRelativeAsync(RelativeDto model)
 		{
-			var relative = new Relative { RelativeId = model.RelativeID };
+			var relative = new Relative { RelativeID = model.RelativeID };
 			using var dataService = DataServiceFactory.CreateDataService();
 			return await dataService.DeleteRelativesAsync(relative);
 		}
@@ -90,7 +90,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			var model = new RelativeDto()
 			{
-				RelativeID = source.RelativeId,
+				RelativeID = source.RelativeID,
 				FirstName = source.FirstName,
 				LastName = source.LastName,
 				Phone = source.Phone,
@@ -102,7 +102,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			if (includeAllFields)
 			{
 				model.MiddleName = source.MiddleName;
-				model.RelativeTypeID = source.RelativeTypeId;
+				model.RelativeTypeID = source.RelativeTypeID;
 				model.RelativeType = await CreateRelativeTypeDtoAsync(source.RelativeType, includeAllFields);
 				model.DocumentNumber = source.DocumentNumber;
 				model.Email = source.Email;
@@ -117,7 +117,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			target.FirstName = source.FirstName;
 			target.MiddleName = source.MiddleName;
 			target.LastName = source.LastName;
-			target.RelativeTypeId = source.RelativeTypeID;
+			target.RelativeTypeID = source.RelativeTypeID;
 			target.DocumentNumber = source.DocumentNumber;
 			target.Phone = source.Phone;
 			target.Email = source.Email;
@@ -131,7 +131,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			var model = new RelativeTypeDto()
 			{
-				RelativeTypeID = source.RelativeTypeId,
+				RelativeTypeID = source.RelativeTypeID,
 				Name = source.Name,
 			};
 			if (includeAllFields){}

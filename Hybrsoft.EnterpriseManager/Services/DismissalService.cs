@@ -46,9 +46,9 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			var model = new DismissibleStudentDto
 			{
-				ClassroomID = item.ClassroomId,
+				ClassroomID = item.ClassroomID,
 				ClassroomName = item.Classroom.Name,
-				StudentID = item.StudentId,
+				StudentID = item.StudentID,
 				FirstName = item.Student.FirstName,
 				MiddleName = item.Student.MiddleName,
 				LastName = item.Student.LastName,
@@ -110,7 +110,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			{
 				UpdateDismissalFromDto(dismissal, model);
 				await dataService.UpdateDismissalAsync(dismissal);
-				model.Merge(await GetDismissalAsync(dataService, dismissal.DismissalId));
+				model.Merge(await GetDismissalAsync(dataService, dismissal.DismissalID));
 			}
 			return 0;
 		}
@@ -118,7 +118,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<int> ApproveDismissalAsync(DismissalDto model)
 		{
-			var dismissal = new Dismissal { DismissalId = model.DismissalID };
+			var dismissal = new Dismissal { DismissalID = model.DismissalID };
 			using var dataService = DataServiceFactory.CreateDataService();
 			return await dataService.ApproveDismissalsAsync(dismissal);
 		}
@@ -134,10 +134,10 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			var model = new DismissalDto()
 			{
-				DismissalID = source.DismissalId,
-				ClassroomID = source.ClassroomId,
-				StudentID = source.StudentId,
-				RelativeID = source.RelativeId,
+				DismissalID = source.DismissalID,
+				ClassroomID = source.ClassroomID,
+				StudentID = source.StudentID,
+				RelativeID = source.RelativeID,
 				CreatedOn = source.CreatedOn,
 				DismissedOn = source.DismissedOn
 			};
@@ -152,9 +152,9 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		private static void UpdateDismissalFromDto(Dismissal target, DismissalDto source)
 		{
-			target.ClassroomId = source.ClassroomID;
-			target.StudentId = source.StudentID;
-			target.RelativeId = source.RelativeID;
+			target.ClassroomID = source.ClassroomID;
+			target.StudentID = source.StudentID;
+			target.RelativeID = source.RelativeID;
 			target.CreatedOn = source.CreatedOn;
 			target.DismissedOn = source.DismissedOn;
 			target.SearchTerms = source.Student?.FullName;

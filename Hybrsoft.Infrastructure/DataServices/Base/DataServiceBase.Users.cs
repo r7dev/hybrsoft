@@ -12,7 +12,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 	{
 		public async Task<User> GetUserAsync(long id)
 		{
-			return await _universalDataSource.Users.Where(r => r.UserId == id).FirstOrDefaultAsync();
+			return await _universalDataSource.Users.Where(r => r.UserID == id).FirstOrDefaultAsync();
 		}
 
 		public async Task<User> GetUserByEmailAsync(string email)
@@ -28,7 +28,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			var records = await items.Skip(skip).Take(take)
 				.Select(r => new User
 				{
-					UserId = r.UserId,
+					UserID = r.UserID,
 					FirstName = r.FirstName,
 					LastName = r.LastName,
 					Email = r.Email,
@@ -48,7 +48,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			var records = await items.Skip(skip).Take(take)
 				.Select(r => new User
 				{
-					UserId = r.UserId,
+					UserID = r.UserID,
 				})
 				.AsNoTracking()
 				.ToListAsync();
@@ -94,13 +94,13 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 		public async Task<int> UpdateUserAsync(User user)
 		{
-			if (user.UserId > 0)
+			if (user.UserID > 0)
 			{
 				_universalDataSource.Entry(user).State = EntityState.Modified;
 			}
 			else
 			{
-				user.UserId = UIDGenerator.Next();
+				user.UserID = UIDGenerator.Next();
 				user.CreatedOn = DateTimeOffset.Now;
 				_universalDataSource.Entry(user).State = EntityState.Added;
 			}

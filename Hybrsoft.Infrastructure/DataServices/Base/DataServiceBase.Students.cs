@@ -12,7 +12,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 	{
 		public async Task<Student> GetStudentAsync(long id)
 		{
-			return await _learnDataSource.Students.Where(r => r.StudentId == id).FirstOrDefaultAsync();
+			return await _learnDataSource.Students.Where(r => r.StudentID == id).FirstOrDefaultAsync();
 		}
 
 		public async Task<IList<Student>> GetStudentsAsync(int skip, int take, DataRequest<Student> request)
@@ -23,7 +23,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			var records = await items.Skip(skip).Take(take)
 				.Select(r => new Student
 				{
-					StudentId = r.StudentId,
+					StudentID = r.StudentID,
 					FirstName = r.FirstName,
 					LastName = r.LastName,
 					Email = r.Email,
@@ -44,7 +44,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			var records = await items.Skip(skip).Take(take)
 				.Select(r => new Student
 				{
-					StudentId = r.StudentId,
+					StudentID = r.StudentID,
 				})
 				.AsNoTracking()
 				.ToListAsync();
@@ -90,13 +90,13 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 		public async Task<int> UpdateStudentAsync(Student student)
 		{
-			if (student.StudentId > 0)
+			if (student.StudentID > 0)
 			{
 				_learnDataSource.Entry(student).State = EntityState.Modified;
 			}
 			else
 			{
-				student.StudentId = UIDGenerator.Next();
+				student.StudentID = UIDGenerator.Next();
 				student.CreatedOn = DateTimeOffset.Now;
 				_learnDataSource.Entry(student).State = EntityState.Added;
 			}

@@ -92,7 +92,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 
 		public async Task<int> DeleteLogAsync(AppLogDto model)
 		{
-			var appLog = new AppLog { AppLogId = model.AppLogID };
+			var appLog = new AppLog { AppLogID = model.AppLogID };
 			using var dataSource = DataServiceFactory.CreateDataService();
 			return await dataSource.DeleteAppLogsAsync(appLog);
 		}
@@ -114,7 +114,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 		{
 			return new AppLogDto()
 			{
-				AppLogID = source.AppLogId,
+				AppLogID = source.AppLogID,
 				IsRead = source.IsRead,
 				CreatedOn = source.CreateOn,
 				User = source.User,

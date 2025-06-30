@@ -1,10 +1,10 @@
 ﻿CREATE TABLE [Learn].[Relative]
 (
-	[RelativeId] BIGINT NOT NULL PRIMARY KEY,
+	[RelativeID] BIGINT NOT NULL PRIMARY KEY,
 	[FirstName] NVARCHAR(50) NOT NULL,
 	[MiddleName] NVARCHAR(50) NULL,
 	[LastName] NVARCHAR(50) NOT NULL,
-	[RelativeTypeId] SMALLINT NOT NULL,
+	[RelativeTypeID] SMALLINT NOT NULL,
 	[DocumentNumber] NVARCHAR(20) NULL,
 	[Phone] NVARCHAR(20) NULL,
 	[Email] NVARCHAR(70) NULL,
@@ -13,7 +13,7 @@
 	[CreatedOn] DATETIMEOFFSET NOT NULL,
 	[LastModifiedOn] DATETIMEOFFSET NULL,
 	[SearchTerms] NVARCHAR(350) NULL,
-	CONSTRAINT FK_Relative_RelativeTypeId FOREIGN KEY ([RelativeTypeId]) REFERENCES [Learn].[RelativeType] ([RelativeTypeId]),
+	CONSTRAINT FK_Relative_RelativeTypeID FOREIGN KEY ([RelativeTypeID]) REFERENCES [Learn].[RelativeType] ([RelativeTypeID]),
 )
 GO
 CREATE INDEX IX_Relative_FirstName_SearchTerms

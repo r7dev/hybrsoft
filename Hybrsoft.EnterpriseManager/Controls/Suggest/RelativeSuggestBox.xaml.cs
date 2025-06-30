@@ -107,7 +107,7 @@ public sealed partial class RelativeSuggestBox : UserControl
 		var request = new DataRequest<Relative>()
 		{
 			Query = query,
-			Where = r => !ExcludedRelativeKeys.Contains(r.RelativeId),
+			Where = r => !ExcludedRelativeKeys.Contains(r.RelativeID),
 			OrderBy = r => r.FirstName
 		};
 		return await RelativeService.GetRelativesAsync(0, 20, request);

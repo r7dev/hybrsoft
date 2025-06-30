@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [Learn].[RelativeType]
 (
-	[RelativeTypeId] SMALLINT NOT NULL PRIMARY KEY,
+	[RelativeTypeID] SMALLINT NOT NULL PRIMARY KEY,
 	[Name] NVARCHAR(12) NOT NULL,
 	[Uid] NVARCHAR(35) NULL
 )

@@ -13,7 +13,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		public async Task<ClassroomStudent> GetClassroomStudentAsync(long classroomStudentId)
 		{
 			return await _learnDataSource.ClassroomStudents
-				.Where(r => r.ClassroomStudentId == classroomStudentId)
+				.Where(r => r.ClassroomStudentID == classroomStudentId)
 				.Include(r => r.Student)
 				.FirstOrDefaultAsync();
 		}
@@ -26,12 +26,12 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			var records = await items.Skip(skip).Take(take)
 				.Select(r => new ClassroomStudent
 				{
-					ClassroomStudentId = r.ClassroomStudentId,
-					ClassroomId = r.ClassroomId,
-					StudentId = r.StudentId,
+					ClassroomStudentID = r.ClassroomStudentID,
+					ClassroomID = r.ClassroomID,
+					StudentID = r.StudentID,
 					Student = new Student
 					{
-						StudentId = r.Student.StudentId,
+						StudentID = r.Student.StudentID,
 						FirstName = r.Student.FirstName,
 						LastName = r.Student.LastName,
 						Thumbnail = r.Student.Thumbnail
@@ -51,8 +51,8 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			var records = await items.Skip(skip).Take(take)
 				.Select(r => new ClassroomStudent
 				{
-					ClassroomId = r.ClassroomId,
-					StudentId = r.StudentId
+					ClassroomID = r.ClassroomID,
+					StudentID = r.StudentID
 				})
 				.AsNoTracking()
 				.ToListAsync();
@@ -93,8 +93,8 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		{
 			return await _learnDataSource.ClassroomStudents
 				.AsNoTracking()
-				.Where(r => r.ClassroomId == classroomId)
-				.Select(r => r.StudentId)
+				.Where(r => r.ClassroomID == classroomId)
+				.Select(r => r.StudentID)
 				.ToListAsync();
 		}
 
@@ -107,13 +107,13 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 		public async Task<int> UpdateClassroomStudentAsync(ClassroomStudent classroomStudent)
 		{
-			if (classroomStudent.ClassroomStudentId > 0)
+			if (classroomStudent.ClassroomStudentID > 0)
 			{
 				_learnDataSource.Entry(classroomStudent).State = EntityState.Modified;
 			}
 			else
 			{
-				classroomStudent.ClassroomStudentId = UIDGenerator.Next();
+				classroomStudent.ClassroomStudentID = UIDGenerator.Next();
 				classroomStudent.CreatedOn = DateTimeOffset.Now;
 				_learnDataSource.Entry(classroomStudent).State = EntityState.Added;
 			}

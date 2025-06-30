@@ -12,7 +12,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 	{
 		public async Task<Permission> GetPermissionAsync(long id)
 		{
-			return await _universalDataSource.Permissions.Where(r => r.PermissionId == id).FirstOrDefaultAsync();
+			return await _universalDataSource.Permissions.Where(r => r.PermissionID == id).FirstOrDefaultAsync();
 		}
 
 		public async Task<IList<Permission>> GetPermissionsAsync(int skip, int take, DataRequest<Permission> request)
@@ -23,7 +23,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			var records = await items.Skip(skip).Take(take)
 				.Select(r => new Permission
 				{
-					PermissionId = r.PermissionId,
+					PermissionID = r.PermissionID,
 					Name = r.Name,
 					DisplayName = r.DisplayName,
 					Description = r.Description
@@ -42,7 +42,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			var records = await items.Skip(skip).Take(take)
 				.Select(r => new Permission
 				{
-					PermissionId = r.PermissionId,
+					PermissionID = r.PermissionID,
 				})
 				.AsNoTracking()
 				.ToListAsync();
@@ -88,13 +88,13 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 		public async Task<int> UpdatePermissionAsync(Permission permission)
 		{
-			if (permission.PermissionId > 0)
+			if (permission.PermissionID > 0)
 			{
 				_universalDataSource.Entry(permission).State = EntityState.Modified;
 			}
 			else
 			{
-				permission.PermissionId = UIDGenerator.Next();
+				permission.PermissionID = UIDGenerator.Next();
 				permission.CreatedOn = DateTimeOffset.Now;
 				_universalDataSource.Entry(permission).State = EntityState.Added;
 			}

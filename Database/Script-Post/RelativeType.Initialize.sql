@@ -11,11 +11,11 @@ USING
 		(5, 'Grandparents', 'RelativeType_Grandparents'),
 		(6, 'Driver', 'RelativeType_Driver'),
 		(7, 'Nanny', 'RelativeType_Nanny')
-) AS Source ([RelativeTypeId], [Name], [Uid])
-ON Target.[RelativeTypeId] = Source.[RelativeTypeId]
+) AS Source ([RelativeTypeID], [Name], [Uid])
+ON Target.[RelativeTypeID] = Source.[RelativeTypeID]
 WHEN NOT MATCHED THEN
-	INSERT ([RelativeTypeId], [Name], [Uid]) 
-	VALUES (Source.[RelativeTypeId], Source.[Name], Source.[Uid])
+	INSERT ([RelativeTypeID], [Name], [Uid]) 
+	VALUES (Source.[RelativeTypeID], Source.[Name], Source.[Uid])
 WHEN NOT MATCHED BY SOURCE THEN
 	DELETE;
 

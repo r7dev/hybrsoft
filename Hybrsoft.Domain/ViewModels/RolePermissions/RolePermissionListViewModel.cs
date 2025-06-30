@@ -235,7 +235,7 @@ namespace Hybrsoft.Domain.ViewModels
 			};
 			if (ViewModelArgs.RoleId > 0)
 			{
-				request.Where = (r) => r.RoleId == ViewModelArgs.RoleId;
+				request.Where = (r) => r.RoleID == ViewModelArgs.RoleId;
 			}
 			return request;
 		}

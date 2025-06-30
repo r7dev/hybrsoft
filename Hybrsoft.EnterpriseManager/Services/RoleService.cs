@@ -66,14 +66,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 			{
 				UpdateRoleFromDto(role, model);
 				await dataService.UpdateRoleAsync(role);
-				model.Merge(await GetRoleAsync(dataService, role.RoleId));
+				model.Merge(await GetRoleAsync(dataService, role.RoleID));
 			}
 			return 0;
 		}
 
 		public async Task<int> DeleteRoleAsync(RoleDto model)
 		{
-			var role = new Role { RoleId = model.RoleID };
+			var role = new Role { RoleID = model.RoleID };
 			using var dataService = DataServiceFactory.CreateDataService();
 			return await dataService.DeleteRolesAsync(role);
 		}
@@ -89,7 +89,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			var model = new RoleDto()
 			{
-				RoleID = source.RoleId,
+				RoleID = source.RoleID,
 				Name = source.Name,
 				CreatedOn = source.CreatedOn,
 				LastModifiedOn = source.LastModifiedOn

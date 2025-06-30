@@ -68,14 +68,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 			{
 				UpdateUserRoleFromDto(userRole, model);
 				await dataService.UpdateUserRoleAsync(userRole);
-				model.Merge(await GetUserRoleAsync(dataService, userRole.UserRoleId));
+				model.Merge(await GetUserRoleAsync(dataService, userRole.UserRoleID));
 			}
 			return 0;
 		}
 
 		public async Task<int> DeleteUserRoleAsync(UserRoleDto model)
 		{
-			var userRole = new UserRole() { UserRoleId = model.UserRoleID };
+			var userRole = new UserRole() { UserRoleID = model.UserRoleID };
 			using var dataService = DataServiceFactory.CreateDataService();
 			return await dataService.DeleteUserRolesAsync(userRole);
 		}
@@ -91,9 +91,9 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			var model = new UserRoleDto()
 			{
-				UserRoleID = source.UserRoleId,
-				UserID = source.UserId,
-				RoleID = source.RoleId,
+				UserRoleID = source.UserRoleID,
+				UserID = source.UserID,
+				RoleID = source.RoleID,
 				Role = await RoleService.CreateRoleDtoAsync(source.Role, includeAllFields),
 				CreatedOn = source.CreatedOn,
 				LastModifiedOn = source.LastModifiedOn
@@ -104,8 +104,8 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		private static void UpdateUserRoleFromDto(UserRole target, UserRoleDto source)
 		{
-			target.UserId = source.UserID;
-			target.RoleId = source.RoleID;
+			target.UserID = source.UserID;
+			target.RoleID = source.RoleID;
 			target.CreatedOn = source.CreatedOn;
 			target.LastModifiedOn = source.LastModifiedOn;
 			target.SearchTerms = source.Role?.Name;

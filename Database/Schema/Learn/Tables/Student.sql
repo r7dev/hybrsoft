@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [Learn].[Student]
 (
-	[StudentId] BIGINT NOT NULL PRIMARY KEY,
+	[StudentID] BIGINT NOT NULL PRIMARY KEY,
 	[FirstName] NVARCHAR(50) NOT NULL,
 	[MiddleName] NVARCHAR(50) NULL,
 	[LastName] NVARCHAR(50) NOT NULL,
@@ -15,4 +15,4 @@
 GO
 CREATE INDEX IX_Student_FirstName_SearchTerms
 ON [Learn].[Student] ([FirstName], [SearchTerms])
-INCLUDE ([StudentId], [LastName], [Email], [Thumbnail], [LastModifiedOn]);
+INCLUDE ([StudentID], [LastName], [Email], [Thumbnail], [LastModifiedOn]);

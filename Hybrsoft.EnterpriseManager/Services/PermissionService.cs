@@ -66,14 +66,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 			{
 				UpdatePermissionFromDto(permission, model);
 				await dataService.UpdatePermissionAsync(permission);
-				model.Merge(await GetPermissionAsync(dataService, permission.PermissionId));
+				model.Merge(await GetPermissionAsync(dataService, permission.PermissionID));
 			}
 			return 0;
 		}
 
 		public async Task<int> DeletePermissionAsync(PermissionDto model)
 		{
-			var permission = new Permission { PermissionId = model.PermissionID };
+			var permission = new Permission { PermissionID = model.PermissionID };
 			using var dataService = DataServiceFactory.CreateDataService();
 			return await dataService.DeletePermissionsAsync(permission);
 		}
@@ -89,7 +89,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			var model = new PermissionDto()
 			{
-				PermissionID = source.PermissionId,
+				PermissionID = source.PermissionID,
 				Name = source.Name,
 				DisplayName = source.DisplayName,
 				Description = source.Description,

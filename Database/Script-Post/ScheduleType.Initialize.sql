@@ -8,11 +8,11 @@ USING
 		(2, 'Morning', 'ScheduleType_Morning'),
 		(3, 'Afternoon', 'ScheduleType_Afternoon'),
 		(4, 'Nocturnal', 'ScheduleType_Nocturnal')
-) AS Source ([ScheduleTypeId], [Name], [Uid])
-ON Target.[ScheduleTypeId] = Source.[ScheduleTypeId]
+) AS Source ([ScheduleTypeID], [Name], [Uid])
+ON Target.[ScheduleTypeID] = Source.[ScheduleTypeID]
 WHEN NOT MATCHED THEN
-	INSERT ([ScheduleTypeId], [Name], [Uid]) 
-	VALUES (Source.[ScheduleTypeId], Source.[Name], Source.[Uid])
+	INSERT ([ScheduleTypeID], [Name], [Uid]) 
+	VALUES (Source.[ScheduleTypeID], Source.[Name], Source.[Uid])
 WHEN NOT MATCHED BY SOURCE THEN
 	DELETE;
 

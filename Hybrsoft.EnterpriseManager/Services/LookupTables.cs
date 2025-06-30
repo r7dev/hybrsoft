@@ -42,7 +42,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 				var items = await dataService.GetScheduleTypesAsync();
 				return [.. items.Select(r => new ScheduleTypeDto
 				{
-					ScheduleTypeID = r.ScheduleTypeId,
+					ScheduleTypeID = r.ScheduleTypeID,
 					Name = string.IsNullOrEmpty(r.Uid) ? r.Name : ResourceService.GetString(nameof(ResourceFiles.UI), r.Uid),
 				})];
 			}
@@ -70,7 +70,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 				var items = await dataService.GetRelativeTypesAsync();
 				return [.. items.Select(r => new RelativeTypeDto
 				{
-					RelativeTypeID = r.RelativeTypeId,
+					RelativeTypeID = r.RelativeTypeID,
 					Name = string.IsNullOrEmpty(r.Uid) ? r.Name : ResourceService.GetString(nameof(ResourceFiles.UI), r.Uid),
 				})];
 			}

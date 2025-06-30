@@ -1,18 +1,18 @@
 ﻿CREATE TABLE [Learn].[Dismissal]
 (
-	[DismissalId] BIGINT NOT NULL PRIMARY KEY,
-	[ClassroomId] BIGINT NOT NULL,
-	[StudentId] BIGINT NOT NULL,
-	[RelativeId] BIGINT NOT NULL,
+	[DismissalID] BIGINT NOT NULL PRIMARY KEY,
+	[ClassroomID] BIGINT NOT NULL,
+	[StudentID] BIGINT NOT NULL,
+	[RelativeID] BIGINT NOT NULL,
 	[CreatedOn] DATETIMEOFFSET NOT NULL,
 	[DismissedOn] DATETIMEOFFSET NULL,
 	[SearchTerms] NVARCHAR(200) NULL,
-	CONSTRAINT FK_Dismissal_ClassroomId FOREIGN KEY ([ClassroomId]) REFERENCES [Learn].[Classroom] ([ClassroomId]),
-	CONSTRAINT FK_Dismissal_StudentId FOREIGN KEY ([StudentId]) REFERENCES [Learn].[Student] ([StudentId]),
-	CONSTRAINT FK_Dismissal_RelativeId FOREIGN KEY ([RelativeId]) REFERENCES [Learn].[Relative] ([RelativeId]),
+	CONSTRAINT FK_Dismissal_ClassroomID FOREIGN KEY ([ClassroomID]) REFERENCES [Learn].[Classroom] ([ClassroomID]),
+	CONSTRAINT FK_Dismissal_StudentID FOREIGN KEY ([StudentID]) REFERENCES [Learn].[Student] ([StudentID]),
+	CONSTRAINT FK_Dismissal_RelativeID FOREIGN KEY ([RelativeID]) REFERENCES [Learn].[Relative] ([RelativeID]),
 )
 GO
 CREATE INDEX IX_Dismissal_CreatedOn_SearchTerms
 ON [Learn].[Dismissal] ([CreatedOn] DESC, [SearchTerms])
-INCLUDE ([DismissalId], [ClassroomId], [StudentId], [RelativeId], [DismissedOn])
+INCLUDE ([DismissalID], [ClassroomID], [StudentID], [RelativeID], [DismissedOn])
 WHERE [DismissedOn] IS NULL;

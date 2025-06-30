@@ -235,7 +235,7 @@ namespace Hybrsoft.Domain.ViewModels
 			};
 			if (ViewModelArgs.ClassroomID > 0)
 			{
-				request.Where = (r) => r.ClassroomId == ViewModelArgs.ClassroomID;
+				request.Where = (r) => r.ClassroomID == ViewModelArgs.ClassroomID;
 			}
 			return request;
 		}

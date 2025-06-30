@@ -12,7 +12,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 	{
 		public async Task<AppLog> GetAppLogAsync(long id)
 		{
-			return await _universalDataSource.AppLogs.Where(r => r.AppLogId == id).FirstOrDefaultAsync();
+			return await _universalDataSource.AppLogs.Where(r => r.AppLogID == id).FirstOrDefaultAsync();
 		}
 
 		public async Task<IList<AppLog>> GetAppLogsAsync(int skip, int take, DataRequest<AppLog> request)
@@ -35,7 +35,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			var records = await items.Skip(skip).Take(take)
 				.Select(r => new AppLog
 				{
-					AppLogId = r.AppLogId,
+					AppLogID = r.AppLogID,
 				})
 				.AsNoTracking()
 				.ToListAsync();

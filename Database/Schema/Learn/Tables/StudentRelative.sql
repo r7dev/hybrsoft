@@ -1,15 +1,15 @@
 ﻿CREATE TABLE [Learn].[StudentRelative]
 (
-	[StudentRelativeId] BIGINT NOT NULL PRIMARY KEY,
-	[StudentId] BIGINT NOT NULL,
-	[RelativeId] BIGINT NOT NULL,
+	[StudentRelativeID] BIGINT NOT NULL PRIMARY KEY,
+	[StudentID] BIGINT NOT NULL,
+	[RelativeID] BIGINT NOT NULL,
 	[CreatedOn] DATETIMEOFFSET NOT NULL,
 	[LastModifiedOn] DATETIMEOFFSET NULL,
 	[SearchTerms] NVARCHAR(350) NULL,
-	CONSTRAINT FK_StudentRelative_StudentId FOREIGN KEY ([StudentId]) REFERENCES [Learn].[Student] ([StudentId]) ON DELETE CASCADE,
-	CONSTRAINT FK_StudentRelative_RelativeId FOREIGN KEY ([RelativeId]) REFERENCES [Learn].[Relative] ([RelativeId]),
-	CONSTRAINT UQ_StudentRelative_StudentId_RelativeId UNIQUE ([StudentId], [RelativeId])
+	CONSTRAINT FK_StudentRelative_StudentID FOREIGN KEY ([StudentID]) REFERENCES [Learn].[Student] ([StudentID]) ON DELETE CASCADE,
+	CONSTRAINT FK_StudentRelative_RelativeID FOREIGN KEY ([RelativeID]) REFERENCES [Learn].[Relative] ([RelativeID]),
+	CONSTRAINT UQ_StudentRelative_StudentID_RelativeID UNIQUE ([StudentID], [RelativeID])
 )
 GO
-CREATE INDEX IX_StudentRelative_StudentId_RelativeId_SearchTerms
-ON [Learn].[StudentRelative] ([StudentId], [RelativeId], [SearchTerms]);
+CREATE INDEX IX_StudentRelative_StudentID_RelativeID_SearchTerms
+ON [Learn].[StudentRelative] ([StudentID], [RelativeID], [SearchTerms]);

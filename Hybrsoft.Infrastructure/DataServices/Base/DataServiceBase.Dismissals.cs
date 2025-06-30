@@ -18,17 +18,17 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			var records = await items.Skip(skip).Take(take)
 				.Select(cs => new ClassroomStudent
 				{
-					ClassroomStudentId = cs.ClassroomStudentId,
-					ClassroomId = cs.ClassroomId,
-					StudentId = cs.StudentId,
+					ClassroomStudentID = cs.ClassroomStudentID,
+					ClassroomID = cs.ClassroomID,
+					StudentID = cs.StudentID,
 					Classroom = new Classroom
 					{
-						ClassroomId = cs.Classroom.ClassroomId,
+						ClassroomID = cs.Classroom.ClassroomID,
 						Name = cs.Classroom.Name
 					},
 					Student = new Student
 					{
-						StudentId = cs.Student.StudentId,
+						StudentID = cs.Student.StudentID,
 						FirstName = cs.Student.FirstName,
 						LastName = cs.Student.LastName,
 						Thumbnail = cs.Student.Thumbnail,
@@ -47,8 +47,8 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			var records = await items.Skip(skip).Take(take)
 				.Select(r => new ClassroomStudent
 				{
-					ClassroomId = r.ClassroomId,
-					StudentId = r.StudentId,
+					ClassroomID = r.ClassroomID,
+					StudentID = r.StudentID,
 				})
 				.AsNoTracking()
 				.ToListAsync();
@@ -94,7 +94,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		public async Task<Dismissal> GetDismissalAsync(long id)
 		{
 			return await _learnDataSource.Dismissals
-				.Where(r => r.DismissalId == id)
+				.Where(r => r.DismissalID == id)
 				.Include(r => r.Classroom)
 				.ThenInclude(r => r.ScheduleType)
 				.Include(r => r.Student)
@@ -111,26 +111,26 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			var records = await items.Skip(skip).Take(take)
 				.Select(r => new Dismissal
 				{
-					DismissalId = r.DismissalId,
-					ClassroomId = r.ClassroomId,
+					DismissalID = r.DismissalID,
+					ClassroomID = r.ClassroomID,
 					Classroom = new Classroom
 					{
-						ClassroomId = r.Classroom.ClassroomId,
+						ClassroomID = r.Classroom.ClassroomID,
 						Name = r.Classroom.Name,
 						ScheduleType = new ScheduleType()
 					},
-					StudentId = r.StudentId,
+					StudentID = r.StudentID,
 					Student = new Student
 					{
-						StudentId = r.Student.StudentId,
+						StudentID = r.Student.StudentID,
 						FirstName = r.Student.FirstName,
 						LastName = r.Student.LastName,
 						Thumbnail = r.Student.Thumbnail
 					},
-					RelativeId = r.RelativeId,
+					RelativeID = r.RelativeID,
 					Relative = new Relative
 					{
-						RelativeId = r.Relative.RelativeId,
+						RelativeID = r.Relative.RelativeID,
 						FirstName = r.Relative.FirstName,
 						LastName = r.Relative.LastName,
 						Thumbnail = r.Relative.Thumbnail,
@@ -151,7 +151,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			var records = await items.Skip(skip).Take(take)
 				.Select(r => new Dismissal
 				{
-					DismissalId = r.DismissalId,
+					DismissalID = r.DismissalID,
 				})
 				.AsNoTracking()
 				.ToListAsync();
@@ -197,14 +197,14 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 		public async Task<int> UpdateDismissalAsync(Dismissal dismissal)
 		{
-			if (dismissal.DismissalId > 0)
+			if (dismissal.DismissalID > 0)
 			{
 				_learnDataSource.Entry(dismissal).State = EntityState.Modified;
 				dismissal.DismissedOn = DateTimeOffset.Now;
 			}
 			else
 			{
-				dismissal.DismissalId = UIDGenerator.Next();
+				dismissal.DismissalID = UIDGenerator.Next();
 				dismissal.CreatedOn = DateTimeOffset.Now;
 				_learnDataSource.Entry(dismissal).State = EntityState.Added;
 			}

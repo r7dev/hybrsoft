@@ -14,7 +14,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		public async Task<RolePermission> GetRolePermissionAsync(long rolePermissionId)
 		{
 			return await _universalDataSource.RolePermissions
-				.Where(r => r.RolePermissionId == rolePermissionId)
+				.Where(r => r.RolePermissionID == rolePermissionId)
 				.Include(r => r.Permission)
 				.FirstOrDefaultAsync();
 		}
@@ -27,12 +27,12 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			var records = await items.Skip(skip).Take(take)
 				.Select(r => new RolePermission
 				{
-					RolePermissionId = r.RolePermissionId,
-					RoleId = r.RoleId,
-					PermissionId = r.PermissionId,
+					RolePermissionID = r.RolePermissionID,
+					RoleID = r.RoleID,
+					PermissionID = r.PermissionID,
 					Permission = new Permission
 					{
-						PermissionId = r.Permission.PermissionId,
+						PermissionID = r.Permission.PermissionID,
 						DisplayName = r.Permission.DisplayName
 					}
 				})
@@ -50,8 +50,8 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			var records = await items.Skip(skip).Take(take)
 				.Select(r => new RolePermission
 				{
-					RoleId = r.RoleId,
-					PermissionId = r.PermissionId
+					RoleID = r.RoleID,
+					PermissionID = r.PermissionID
 				})
 				.AsNoTracking()
 				.ToListAsync();
@@ -92,8 +92,8 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		{
 			return await _universalDataSource.RolePermissions
 				.AsNoTracking()
-				.Where(r => r.RoleId == roleId)
-				.Select(r => r.PermissionId)
+				.Where(r => r.RoleID == roleId)
+				.Select(r => r.PermissionID)
 				.ToListAsync();
 		}
 
@@ -106,13 +106,13 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 		public async Task<int> UpdateRolePermissionAsync(RolePermission rolePermission)
 		{
-			if (rolePermission.RolePermissionId > 0)
+			if (rolePermission.RolePermissionID > 0)
 			{
 				_universalDataSource.Entry(rolePermission).State = EntityState.Modified;
 			}
 			else
 			{
-				rolePermission.RolePermissionId = UIDGenerator.Next();
+				rolePermission.RolePermissionID = UIDGenerator.Next();
 				rolePermission.CreatedOn = DateTimeOffset.Now;
 				_universalDataSource.Entry(rolePermission).State = EntityState.Added;
 			}

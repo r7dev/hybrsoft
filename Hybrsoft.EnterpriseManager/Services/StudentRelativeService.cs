@@ -68,14 +68,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 			{
 				UpdateStudentRelativeFromDto(studentRelative, model);
 				await dataService.UpdateStudentRelativeAsync(studentRelative);
-				model.Merge(await GetStudentRelativeAsync(dataService, studentRelative.StudentRelativeId));
+				model.Merge(await GetStudentRelativeAsync(dataService, studentRelative.StudentRelativeID));
 			}
 			return 0;
 		}
 
 		public async Task<int> DeleteStudentRelativeAsync(StudentRelativeDto model)
 		{
-			var studentRelative = new StudentRelative() { StudentRelativeId = model.StudentRelativeID };
+			var studentRelative = new StudentRelative() { StudentRelativeID = model.StudentRelativeID };
 			using var dataService = DataServiceFactory.CreateDataService();
 			return await dataService.DeleteStudentRelativesAsync(studentRelative);
 		}
@@ -91,9 +91,9 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			var model = new StudentRelativeDto()
 			{
-				StudentRelativeID = source.StudentRelativeId,
-				StudentID = source.StudentId,
-				RelativeID = source.RelativeId,
+				StudentRelativeID = source.StudentRelativeID,
+				StudentID = source.StudentID,
+				RelativeID = source.RelativeID,
 				Relative = await RelativeService.CreateRelativeDtoAsync(source.Relative, includeAllFields),
 				CreatedOn = source.CreatedOn,
 				LastModifiedOn = source.LastModifiedOn
@@ -106,8 +106,8 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		private static void UpdateStudentRelativeFromDto(StudentRelative target, StudentRelativeDto source)
 		{
-			target.StudentId = source.StudentID;
-			target.RelativeId = source.RelativeID;
+			target.StudentID = source.StudentID;
+			target.RelativeID = source.RelativeID;
 			target.CreatedOn = source.CreatedOn;
 			target.LastModifiedOn = source.LastModifiedOn;
 			target.SearchTerms = source.Relative?.FullName;

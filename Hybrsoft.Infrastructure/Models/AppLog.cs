@@ -5,7 +5,7 @@ namespace Hybrsoft.Infrastructure.Models
 {
 	public class AppLog
 	{
-		public long AppLogId { get; set; }
+		public long AppLogID { get; set; }
 		public bool IsRead { get; set; }
 		public DateTimeOffset CreateOn { get; set; }
 		public string User { get; set; }

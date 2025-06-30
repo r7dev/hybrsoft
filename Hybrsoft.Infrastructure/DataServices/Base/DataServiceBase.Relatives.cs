@@ -13,7 +13,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		public async Task<Relative> GetRelativeAsync(long id)
 		{
 			return await _learnDataSource.Relatives
-				.Where(r => r.RelativeId == id)
+				.Where(r => r.RelativeID == id)
 				.Include(r => r.RelativeType)
 				.FirstOrDefaultAsync();
 		}
@@ -26,7 +26,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			var records = await items.Skip(skip).Take(take)
 				.Select(r => new Relative
 				{
-					RelativeId = r.RelativeId,
+					RelativeID = r.RelativeID,
 					FirstName = r.FirstName,
 					LastName = r.LastName,
 					Thumbnail = r.Thumbnail,
@@ -46,7 +46,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			var records = await items.Skip(skip).Take(take)
 				.Select(r => new Relative
 				{
-					RelativeId = r.RelativeId,
+					RelativeID = r.RelativeID,
 				})
 				.AsNoTracking()
 				.ToListAsync();
@@ -92,13 +92,13 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 		public async Task<int> UpdateRelativeAsync(Relative relative)
 		{
-			if (relative.RelativeId > 0)
+			if (relative.RelativeID > 0)
 			{
 				_learnDataSource.Entry(relative).State = EntityState.Modified;
 			}
 			else
 			{
-				relative.RelativeId = UIDGenerator.Next();
+				relative.RelativeID = UIDGenerator.Next();
 				relative.CreatedOn = DateTimeOffset.Now;
 				_learnDataSource.Entry(relative).State = EntityState.Added;
 			}

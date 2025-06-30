@@ -107,7 +107,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			var request = new DataRequest<Student>()
 			{
 				Query = query,
-				Where = r => !ExcludedStudentKeys.Contains(r.StudentId),
+				Where = r => !ExcludedStudentKeys.Contains(r.StudentID),
 				OrderBy = r => r.FirstName
 			};
 			return await StudentService.GetStudentsAsync(0, 20, request);

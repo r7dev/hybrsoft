@@ -4,7 +4,7 @@ namespace Hybrsoft.Infrastructure.Models
 {
 	public class Student
 	{
-		public long StudentId { get; set; }
+		public long StudentID { get; set; }
 		public string FirstName { get; set; }
 		public string MiddleName { get; set; }
 		public string LastName { get; set; }
@@ -17,6 +17,6 @@ namespace Hybrsoft.Infrastructure.Models
 		public DateTimeOffset? LastModifiedOn { get; set; }
 		public string SearchTerms { get; set; }
 
-		public string BuildSearchTerms() => $"{StudentId} {FirstName} {MiddleName} {LastName} {Email}".ToLower();
+		public string BuildSearchTerms() => $"{StudentID} {FirstName} {MiddleName} {LastName} {Email}".ToLower();
 	}
 }

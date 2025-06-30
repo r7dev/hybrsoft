@@ -4,7 +4,7 @@ namespace Hybrsoft.Infrastructure.Models
 {
 	public class Permission
 	{
-		public long PermissionId { get; set; }
+		public long PermissionID { get; set; }
 		public string Name { get; set; }
 		public string DisplayName { get; set; }
 		public string Description { get; set; }
@@ -14,6 +14,6 @@ namespace Hybrsoft.Infrastructure.Models
 		public DateTimeOffset? LastModifiedOn { get; set; }
 		public string SearchTerms { get; set; }
 
-		public string BuildSearchTerms() => $"{PermissionId} {Name} {DisplayName} {Description}".ToLower();
+		public string BuildSearchTerms() => $"{PermissionID} {Name} {DisplayName} {Description}".ToLower();
 	}
 }

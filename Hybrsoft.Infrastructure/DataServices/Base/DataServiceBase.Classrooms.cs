@@ -13,7 +13,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		public async Task<Classroom> GetClassroomAsync(long id)
 		{
 			return await _learnDataSource.Classrooms
-				.Where(r => r.ClassroomId == id)
+				.Where(r => r.ClassroomID == id)
 				.Include(r => r.ScheduleType)
 				.FirstOrDefaultAsync();
 		}
@@ -26,7 +26,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			var records = await items.Skip(skip).Take(take)
 				.Select(r => new Classroom
 				{
-					ClassroomId = r.ClassroomId,
+					ClassroomID = r.ClassroomID,
 					Name = r.Name,
 					Year = r.Year,
 					EducationLevel = r.EducationLevel,
@@ -47,7 +47,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			var records = await items.Skip(skip).Take(take)
 				.Select(r => new Classroom
 				{
-					ClassroomId = r.ClassroomId,
+					ClassroomID = r.ClassroomID,
 				})
 				.AsNoTracking()
 				.ToListAsync();
@@ -93,13 +93,13 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 
 		public async Task<int> UpdateClassroomAsync(Classroom classroom)
 		{
-			if (classroom.ClassroomId > 0)
+			if (classroom.ClassroomID > 0)
 			{
 				_learnDataSource.Entry(classroom).State = EntityState.Modified;
 			}
 			else
 			{
-				classroom.ClassroomId = UIDGenerator.Next();
+				classroom.ClassroomID = UIDGenerator.Next();
 				classroom.CreatedOn = DateTimeOffset.Now;
 				_learnDataSource.Entry(classroom).State = EntityState.Added;
 			}

@@ -107,7 +107,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			var request = new DataRequest<Role>()
 			{
 				Query = query,
-				Where = r => !ExcludedRoleKeys.Contains(r.RoleId),
+				Where = r => !ExcludedRoleKeys.Contains(r.RoleID),
 				OrderBy = r => r.Name
 			};
 			return await RoleService.GetRolesAsync(0, 20, request);

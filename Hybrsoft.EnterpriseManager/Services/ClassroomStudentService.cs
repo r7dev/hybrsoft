@@ -68,14 +68,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 			{
 				UpdateClassroomStudentFromDto(classroomStudent, model);
 				await dataService.UpdateClassroomStudentAsync(classroomStudent);
-				model.Merge(await GetClassroomStudentAsync(dataService, classroomStudent.ClassroomStudentId));
+				model.Merge(await GetClassroomStudentAsync(dataService, classroomStudent.ClassroomStudentID));
 			}
 			return 0;
 		}
 
 		public async Task<int> DeleteClassroomStudentAsync(ClassroomStudentDto model)
 		{
-			var classroomStudent = new ClassroomStudent() { ClassroomStudentId = model.ClassroomStudentID };
+			var classroomStudent = new ClassroomStudent() { ClassroomStudentID = model.ClassroomStudentID };
 			using var dataService = DataServiceFactory.CreateDataService();
 			return await dataService.DeleteClassroomStudentsAsync(classroomStudent);
 		}
@@ -91,9 +91,9 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			var model = new ClassroomStudentDto()
 			{
-				ClassroomStudentID = source.ClassroomStudentId,
-				ClassroomID = source.ClassroomId,
-				StudentID = source.StudentId,
+				ClassroomStudentID = source.ClassroomStudentID,
+				ClassroomID = source.ClassroomID,
+				StudentID = source.StudentID,
 				Student = await StudentService.CreateStudentDtoAsync(source.Student, includeAllFields),
 				CreatedOn = source.CreatedOn,
 				LastModifiedOn = source.LastModifiedOn
@@ -106,8 +106,8 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		private static void UpdateClassroomStudentFromDto(ClassroomStudent target, ClassroomStudentDto source)
 		{
-			target.ClassroomId = source.ClassroomID;
-			target.StudentId = source.StudentID;
+			target.ClassroomID = source.ClassroomID;
+			target.StudentID = source.StudentID;
 			target.CreatedOn = source.CreatedOn;
 			target.LastModifiedOn = source.LastModifiedOn;
 			target.SearchTerms = source.Student?.FullName;
