@@ -100,8 +100,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			}
 			permission.LastModifiedOn = DateTimeOffset.Now;
 			permission.SearchTerms = permission.BuildSearchTerms();
-			int res = await _universalDataSource.SaveChangesAsync();
-			return res;
+			return await _universalDataSource.SaveChangesAsync();
 		}
 
 		public async Task<int> DeletePermissionsAsync(params Permission[] permissions)

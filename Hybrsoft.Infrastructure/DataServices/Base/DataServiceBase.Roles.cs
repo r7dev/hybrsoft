@@ -98,8 +98,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			}
 			role.LastModifiedOn = DateTimeOffset.Now;
 			role.SearchTerms = role.BuildSearchTerms();
-			int res = await _universalDataSource.SaveChangesAsync();
-			return res;
+			return await _universalDataSource.SaveChangesAsync();
 		}
 
 		public async Task<int> DeleteRolesAsync(params Role[] roles)

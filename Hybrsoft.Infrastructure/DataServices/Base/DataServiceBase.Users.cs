@@ -106,8 +106,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			}
 			user.LastModifiedOn = DateTimeOffset.Now;
 			user.SearchTerms = user.BuildSearchTerms();
-			int res = await _universalDataSource.SaveChangesAsync();
-			return res;
+			return await _universalDataSource.SaveChangesAsync();
 		}
 
 		public async Task<int> DeleteUsersAsync(params User[] users)

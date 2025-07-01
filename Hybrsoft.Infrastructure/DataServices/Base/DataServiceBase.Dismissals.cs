@@ -209,8 +209,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 				_learnDataSource.Entry(dismissal).State = EntityState.Added;
 			}
 			dismissal.SearchTerms = dismissal.BuildSearchTerms();
-			int res = await _learnDataSource.SaveChangesAsync();
-			return res;
+			return await _learnDataSource.SaveChangesAsync();
 		}
 
 		public async Task<int> ApproveDismissalsAsync(params Dismissal[] dismissals)

@@ -104,8 +104,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			}
 			relative.LastModifiedOn = DateTimeOffset.Now;
 			relative.SearchTerms = relative.BuildSearchTerms();
-			int res = await _learnDataSource.SaveChangesAsync();
-			return res;
+			return await _learnDataSource.SaveChangesAsync();
 		}
 
 		public async Task<int> DeleteRelativesAsync(params Relative[] relatives)

@@ -102,8 +102,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			}
 			student.LastModifiedOn = DateTimeOffset.Now;
 			student.SearchTerms = student.BuildSearchTerms();
-			int res = await _learnDataSource.SaveChangesAsync();
-			return res;
+			return await _learnDataSource.SaveChangesAsync();
 		}
 
 		public async Task<int> DeleteStudentsAsync(params Student[] students)

@@ -105,8 +105,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			}
 			classroom.LastModifiedOn = DateTimeOffset.Now;
 			classroom.SearchTerms = classroom.BuildSearchTerms();
-			int res = await _learnDataSource.SaveChangesAsync();
-			return res;
+			return await _learnDataSource.SaveChangesAsync();
 		}
 
 		public async Task<int> DeleteClassroomsAsync(params Classroom[] classrooms)
