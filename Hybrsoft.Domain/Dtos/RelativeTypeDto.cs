@@ -7,6 +7,5 @@ namespace Hybrsoft.Domain.Dtos
 	{
 		public Int16 RelativeTypeID { get; set; }
 		public string Name { get; set; }
-		public string LanguageTag { get; set; }
 	}
 }
