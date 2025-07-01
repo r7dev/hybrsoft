@@ -11,7 +11,7 @@ namespace Hybrsoft.Infrastructure.DataServices
 	{
 		#region Schema Universal
 		IList<NavigationItem> GetNavigationItemByAppType(AppType appType);
-		bool HasPermission(long userId, string permissionName);
+		bool HasPermission(long userID, string permissionName);
 
 		Task<AppLog> GetAppLogAsync(long id);
 		Task<IList<AppLog>> GetAppLogsAsync(int skip, int take, DataRequest<AppLog> request);
@@ -35,10 +35,10 @@ namespace Hybrsoft.Infrastructure.DataServices
 		Task<int> UpdateRoleAsync(Role role);
 		Task<int> DeleteRolesAsync(params Role[] roles);
 
-		Task<RolePermission> GetRolePermissionAsync(long rolePermissionId);
+		Task<RolePermission> GetRolePermissionAsync(long id);
 		Task<IList<RolePermission>> GetRolePermissionsAsync(int skip, int take, DataRequest<RolePermission> request);
 		Task<IList<RolePermission>> GetRolePermissionKeysAsync(int skip, int take, DataRequest<RolePermission> request);
-		Task<IList<long>> GetAddedPermissionKeysAsync(long roleId);
+		Task<IList<long>> GetAddedPermissionKeysAsync(long roleID);
 		Task<int> GetRolePermissionsCountAsync(DataRequest<RolePermission> request);
 		Task<int> UpdateRolePermissionAsync(RolePermission rolePermission);
 		Task<int> DeleteRolePermissionsAsync(params RolePermission[] rolePermissions);
@@ -51,10 +51,10 @@ namespace Hybrsoft.Infrastructure.DataServices
 		Task<int> UpdateUserAsync(User user);
 		Task<int> DeleteUsersAsync(params User[] users);
 
-		Task<UserRole> GetUserRoleAsync(long userRoleId);
+		Task<UserRole> GetUserRoleAsync(long id);
 		Task<IList<UserRole>> GetUserRolesAsync(int skip, int take, DataRequest<UserRole> request);
 		Task<IList<UserRole>> GetUserRoleKeysAsync(int skip, int take, DataRequest<UserRole> request);
-		Task<IList<long>> GetAddedRoleKeysAsync(long userId);
+		Task<IList<long>> GetAddedRoleKeysAsync(long userID);
 		Task<int> GetUserRolesCountAsync(DataRequest<UserRole> request);
 		Task<int> UpdateUserRoleAsync(UserRole userRole);
 		Task<int> DeleteUserRolesAsync(params UserRole[] userRoles);
@@ -71,10 +71,10 @@ namespace Hybrsoft.Infrastructure.DataServices
 		Task<int> UpdateStudentAsync(Student Student);
 		Task<int> DeleteStudentsAsync(params Student[] Students);
 
-		Task<StudentRelative> GetStudentRelativeAsync(long studentRelativeId);
+		Task<StudentRelative> GetStudentRelativeAsync(long id);
 		Task<IList<StudentRelative>> GetStudentRelativesAsync(int skip, int take, DataRequest<StudentRelative> request);
 		Task<IList<StudentRelative>> GetStudentRelativeKeysAsync(int skip, int take, DataRequest<StudentRelative> request);
-		Task<IList<long>> GetAddedRelativeKeysAsync(long studentId);
+		Task<IList<long>> GetAddedRelativeKeysAsync(long studentID);
 		Task<int> GetStudentRelativesCountAsync(DataRequest<StudentRelative> request);
 		Task<int> UpdateStudentRelativeAsync(StudentRelative studentRelative);
 		Task<int> DeleteStudentRelativesAsync(params StudentRelative[] studentRelatives);
@@ -86,10 +86,10 @@ namespace Hybrsoft.Infrastructure.DataServices
 		Task<int> UpdateClassroomAsync(Classroom classroom);
 		Task<int> DeleteClassroomsAsync(params Classroom[] classrooms);
 
-		Task<ClassroomStudent> GetClassroomStudentAsync(long classroomStudentId);
+		Task<ClassroomStudent> GetClassroomStudentAsync(long id);
 		Task<IList<ClassroomStudent>> GetClassroomStudentsAsync(int skip, int take, DataRequest<ClassroomStudent> request);
 		Task<IList<ClassroomStudent>> GetClassroomStudentKeysAsync(int skip, int take, DataRequest<ClassroomStudent> request);
-		Task<IList<long>> GetAddedStudentKeysAsync(long classroomId);
+		Task<IList<long>> GetAddedStudentKeysAsync(long classroomID);
 		Task<int> GetClassroomStudentsCountAsync(DataRequest<ClassroomStudent> request);
 		Task<int> UpdateClassroomStudentAsync(ClassroomStudent classroomStudent);
 		Task<int> DeleteClassroomStudentsAsync(params ClassroomStudent[] classroomStudent);

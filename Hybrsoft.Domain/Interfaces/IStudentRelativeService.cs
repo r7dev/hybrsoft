@@ -8,10 +8,10 @@ namespace Hybrsoft.Domain.Interfaces
 {
 	public interface IStudentRelativeService
 	{
-		Task<StudentRelativeDto> GetStudentRelativeAsync(long studentRelativeId);
+		Task<StudentRelativeDto> GetStudentRelativeAsync(long id);
 		Task<IList<StudentRelativeDto>> GetStudentRelativesAsync(DataRequest<StudentRelative> request);
 		Task<IList<StudentRelativeDto>> GetStudentRelativesAsync(int skip, int take, DataRequest<StudentRelative> request);
-		Task<IList<long>> GetAddedRelativeKeysAsync(long studentId);
+		Task<IList<long>> GetAddedRelativeKeysAsync(long studentID);
 		Task<int> GetStudentRelativesCountAsync(DataRequest<StudentRelative> request);
 
 		Task<int> UpdateStudentRelativeAsync(StudentRelativeDto model);

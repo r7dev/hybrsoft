@@ -10,10 +10,10 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 {
 	partial class DataServiceBase
 	{
-		public async Task<UserRole> GetUserRoleAsync(long userRoleId)
+		public async Task<UserRole> GetUserRoleAsync(long id)
 		{
 			return await _universalDataSource.UserRoles
-				.Where(r => r.UserRoleID == userRoleId)
+				.Where(r => r.UserRoleID == id)
 				.Include(r => r.Role)
 				.FirstOrDefaultAsync();
 		}
@@ -87,11 +87,11 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			return items;
 		}
 
-		public async Task<IList<long>> GetAddedRoleKeysAsync(long userId)
+		public async Task<IList<long>> GetAddedRoleKeysAsync(long userID)
 		{
 			return await _universalDataSource.UserRoles
 				.AsNoTracking()
-				.Where(r => r.UserID == userId)
+				.Where(r => r.UserID == userID)
 				.Select(r => r.RoleID)
 				.ToListAsync();
 		}

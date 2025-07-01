@@ -11,10 +11,10 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 {
 	partial class DataServiceBase
 	{
-		public async Task<RolePermission> GetRolePermissionAsync(long rolePermissionId)
+		public async Task<RolePermission> GetRolePermissionAsync(long id)
 		{
 			return await _universalDataSource.RolePermissions
-				.Where(r => r.RolePermissionID == rolePermissionId)
+				.Where(r => r.RolePermissionID == id)
 				.Include(r => r.Permission)
 				.FirstOrDefaultAsync();
 		}
@@ -88,11 +88,11 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			return items;
 		}
 
-		public async Task<IList<long>> GetAddedPermissionKeysAsync(long roleId)
+		public async Task<IList<long>> GetAddedPermissionKeysAsync(long roleID)
 		{
 			return await _universalDataSource.RolePermissions
 				.AsNoTracking()
-				.Where(r => r.RoleID == roleId)
+				.Where(r => r.RoleID == roleID)
 				.Select(r => r.PermissionID)
 				.ToListAsync();
 		}

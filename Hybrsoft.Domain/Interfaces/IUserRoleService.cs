@@ -8,10 +8,10 @@ namespace Hybrsoft.Domain.Interfaces
 {
 	public interface IUserRoleService
 	{
-		Task<UserRoleDto> GetUserRoleAsync(long userRoleId);
+		Task<UserRoleDto> GetUserRoleAsync(long id);
 		Task<IList<UserRoleDto>> GetUserRolesAsync(DataRequest<UserRole> request);
 		Task<IList<UserRoleDto>> GetUserRolesAsync(int skip, int take, DataRequest<UserRole> request);
-		Task<IList<long>> GetAddedRoleKeysAsync(long userId);
+		Task<IList<long>> GetAddedRoleKeysAsync(long userID);
 		Task<int> GetUserRolesCountAsync(DataRequest<UserRole> request);
 
 		Task<int> UpdateUserRoleAsync(UserRoleDto model);

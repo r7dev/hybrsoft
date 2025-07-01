@@ -13,14 +13,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 	{
 		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
 
-		public async Task<StudentRelativeDto> GetStudentRelativeAsync(long studentRelativeId)
+		public async Task<StudentRelativeDto> GetStudentRelativeAsync(long id)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
-			return await GetStudentRelativeAsync(dataService, studentRelativeId);
+			return await GetStudentRelativeAsync(dataService, id);
 		}
-		static private async Task<StudentRelativeDto> GetStudentRelativeAsync(IDataService dataService, long studentRelativeId)
+		static private async Task<StudentRelativeDto> GetStudentRelativeAsync(IDataService dataService, long id)
 		{
-			var item = await dataService.GetStudentRelativeAsync(studentRelativeId);
+			var item = await dataService.GetStudentRelativeAsync(id);
 			if (item != null)
 			{
 				return await CreateStudentRelativeDtoAsync(item, includeAllFields: true);
@@ -46,10 +46,10 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return models;
 		}
 
-		public async Task<IList<long>> GetAddedRelativeKeysAsync(long studentId)
+		public async Task<IList<long>> GetAddedRelativeKeysAsync(long studentID)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
-			return await dataService.GetAddedRelativeKeysAsync(studentId);
+			return await dataService.GetAddedRelativeKeysAsync(studentID);
 		}
 
 		public async Task<int> GetStudentRelativesCountAsync(DataRequest<StudentRelative> request)

@@ -8,10 +8,10 @@ namespace Hybrsoft.Domain.Interfaces
 {
 	public interface IRolePermissionService
 	{
-		Task<RolePermissionDto> GetRolePermissionAsync(long rolePermissionId);
+		Task<RolePermissionDto> GetRolePermissionAsync(long id);
 		Task<IList<RolePermissionDto>> GetRolePermissionsAsync(DataRequest<RolePermission> request);
 		Task<IList<RolePermissionDto>> GetRolePermissionsAsync(int skip, int take, DataRequest<RolePermission> request);
-		Task<IList<long>> GetAddedPermissionKeysAsync(long roleId);
+		Task<IList<long>> GetAddedPermissionKeysAsync(long roleID);
 		Task<int> GetRolePermissionsCountAsync(DataRequest<RolePermission> request);
 
 		Task<int> UpdateRolePermissionAsync(RolePermissionDto model);

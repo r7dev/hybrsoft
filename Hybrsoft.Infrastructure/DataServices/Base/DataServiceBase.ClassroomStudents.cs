@@ -10,10 +10,10 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 {
 	partial class DataServiceBase
 	{
-		public async Task<ClassroomStudent> GetClassroomStudentAsync(long classroomStudentId)
+		public async Task<ClassroomStudent> GetClassroomStudentAsync(long id)
 		{
 			return await _learnDataSource.ClassroomStudents
-				.Where(r => r.ClassroomStudentID == classroomStudentId)
+				.Where(r => r.ClassroomStudentID == id)
 				.Include(r => r.Student)
 				.FirstOrDefaultAsync();
 		}
@@ -89,11 +89,11 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			return items;
 		}
 
-		public async Task<IList<long>> GetAddedStudentKeysAsync(long classroomId)
+		public async Task<IList<long>> GetAddedStudentKeysAsync(long classroomID)
 		{
 			return await _learnDataSource.ClassroomStudents
 				.AsNoTracking()
-				.Where(r => r.ClassroomID == classroomId)
+				.Where(r => r.ClassroomID == classroomID)
 				.Select(r => r.StudentID)
 				.ToListAsync();
 		}

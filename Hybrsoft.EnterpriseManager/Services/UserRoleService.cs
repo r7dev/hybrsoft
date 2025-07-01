@@ -13,14 +13,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 	{
 		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
 
-		public async Task<UserRoleDto> GetUserRoleAsync(long userRoleId)
+		public async Task<UserRoleDto> GetUserRoleAsync(long id)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
-			return await GetUserRoleAsync(dataService, userRoleId);
+			return await GetUserRoleAsync(dataService, id);
 		}
-		static private async Task<UserRoleDto> GetUserRoleAsync(IDataService dataService, long userRoleId)
+		static private async Task<UserRoleDto> GetUserRoleAsync(IDataService dataService, long id)
 		{
-			var item = await dataService.GetUserRoleAsync(userRoleId);
+			var item = await dataService.GetUserRoleAsync(id);
 			if (item != null)
 			{
 				return await CreateUserRoleDtoAsync(item, includeAllFields: true);
@@ -46,10 +46,10 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return models;
 		}
 
-		public async Task<IList<long>> GetAddedRoleKeysAsync(long userId)
+		public async Task<IList<long>> GetAddedRoleKeysAsync(long userID)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
-			return await dataService.GetAddedRoleKeysAsync(userId);
+			return await dataService.GetAddedRoleKeysAsync(userID);
 		}
 
 		public async Task<int> GetUserRolesCountAsync(DataRequest<UserRole> request)

@@ -13,14 +13,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 	{
 		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
 
-		public async Task<ClassroomStudentDto> GetClassroomStudentAsync(long classroomStudentId)
+		public async Task<ClassroomStudentDto> GetClassroomStudentAsync(long id)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
-			return await GetClassroomStudentAsync(dataService, classroomStudentId);
+			return await GetClassroomStudentAsync(dataService, id);
 		}
-		static private async Task<ClassroomStudentDto> GetClassroomStudentAsync(IDataService dataService, long classroomStudentId)
+		static private async Task<ClassroomStudentDto> GetClassroomStudentAsync(IDataService dataService, long id)
 		{
-			var item = await dataService.GetClassroomStudentAsync(classroomStudentId);
+			var item = await dataService.GetClassroomStudentAsync(id);
 			if (item != null)
 			{
 				return await CreateClassroomStudentDtoAsync(item, includeAllFields: true);
@@ -46,10 +46,10 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return models;
 		}
 
-		public async Task<IList<long>> GetAddedStudentKeysAsync(long classroomId)
+		public async Task<IList<long>> GetAddedStudentKeysAsync(long classroomID)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
-			return await dataService.GetAddedStudentKeysAsync(classroomId);
+			return await dataService.GetAddedStudentKeysAsync(classroomID);
 		}
 
 		public async Task<int> GetClassroomStudentsCountAsync(DataRequest<ClassroomStudent> request)
