@@ -91,27 +91,27 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 				.CountAsync();
 		}
 
-		public async Task<int> UpdateClassroomAsync(Classroom classroom)
+		public async Task<int> UpdateClassroomAsync(Classroom entity)
 		{
-			if (classroom.ClassroomID > 0)
+			if (entity.ClassroomID > 0)
 			{
-				_learnDataSource.Entry(classroom).State = EntityState.Modified;
+				_learnDataSource.Entry(entity).State = EntityState.Modified;
 			}
 			else
 			{
-				classroom.ClassroomID = UIDGenerator.Next();
-				classroom.CreatedOn = DateTimeOffset.Now;
-				_learnDataSource.Entry(classroom).State = EntityState.Added;
+				entity.ClassroomID = UIDGenerator.Next();
+				entity.CreatedOn = DateTimeOffset.Now;
+				_learnDataSource.Entry(entity).State = EntityState.Added;
 			}
-			classroom.LastModifiedOn = DateTimeOffset.Now;
-			classroom.SearchTerms = classroom.BuildSearchTerms();
+			entity.LastModifiedOn = DateTimeOffset.Now;
+			entity.SearchTerms = entity.BuildSearchTerms();
 			return await _learnDataSource.SaveChangesAsync();
 		}
 
-		public async Task<int> DeleteClassroomsAsync(params Classroom[] classrooms)
+		public async Task<int> DeleteClassroomsAsync(params Classroom[] entities)
 		{
 			return await _learnDataSource.Classrooms
-				.Where(r => classrooms.Contains(r))
+				.Where(r => entities.Contains(r))
 				.ExecuteDeleteAsync();
 		}
 	}

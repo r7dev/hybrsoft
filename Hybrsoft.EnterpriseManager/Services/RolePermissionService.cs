@@ -18,7 +18,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			using var dataService = DataServiceFactory.CreateDataService();
 			return await GetRolePermissionAsync(dataService, id);
 		}
-		static private async Task<RolePermissionDto> GetRolePermissionAsync(IDataService dataService, long id)
+		private static async Task<RolePermissionDto> GetRolePermissionAsync(IDataService dataService, long id)
 		{
 			var item = await dataService.GetRolePermissionAsync(id);
 			if (item != null)
@@ -46,10 +46,10 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return models;
 		}
 
-		public async Task<IList<long>> GetAddedPermissionKeysAsync(long roleID)
+		public async Task<IList<long>> GetAddedPermissionKeysInRoleAsync(long roleID)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
-			return await dataService.GetAddedPermissionKeysAsync(roleID);
+			return await dataService.GetAddedPermissionKeysInRoleAsync(roleID);
 		}
 
 		public async Task<int> GetRolePermissionsCountAsync(DataRequest<RolePermission> request)
@@ -61,23 +61,23 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<int> UpdateRolePermissionAsync(RolePermissionDto model)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
-			var rolePermission = model.RolePermissionID > 0
+			var item = model.RolePermissionID > 0
 				? await dataService.GetRolePermissionAsync(model.RolePermissionID)
 				: new RolePermission() { Permission = new Permission() };
-			if (rolePermission != null)
+			if (item != null)
 			{
-				UpdateRolePermissionFromDto(rolePermission, model);
-				await dataService.UpdateRolePermissionAsync(rolePermission);
-				model.Merge(await GetRolePermissionAsync(dataService, rolePermission.RolePermissionID));
+				UpdateRolePermissionFromDto(item, model);
+				await dataService.UpdateRolePermissionAsync(item);
+				model.Merge(await GetRolePermissionAsync(dataService, item.RolePermissionID));
 			}
 			return 0;
 		}
 
 		public async Task<int> DeleteRolePermissionAsync(RolePermissionDto model)
 		{
-			var rolePermission = new RolePermission { RolePermissionID = model.RolePermissionID };
+			var item = new RolePermission { RolePermissionID = model.RolePermissionID };
 			using var dataService = DataServiceFactory.CreateDataService();
-			return await dataService.DeleteRolePermissionsAsync(rolePermission);
+			return await dataService.DeleteRolePermissionsAsync(item);
 		}
 
 		public async Task<int> DeleteRolePermissionRangeAsync(int index, int length, DataRequest<RolePermission> request)
@@ -87,7 +87,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.DeleteRolePermissionsAsync([..items]);
 		}
 
-		static public async Task<RolePermissionDto> CreateRolePermissionDtoAsync(RolePermission source, bool includeAllFields)
+		public static async Task<RolePermissionDto> CreateRolePermissionDtoAsync(RolePermission source, bool includeAllFields)
 		{
 			var model = new RolePermissionDto()
 			{
@@ -98,7 +98,6 @@ namespace Hybrsoft.EnterpriseManager.Services
 				CreatedOn = source.CreatedOn,
 				LastModifiedOn = source.LastModifiedOn
 			};
-			await Task.CompletedTask;
 			return model;
 		}
 

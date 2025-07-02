@@ -87,11 +87,11 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			return items;
 		}
 
-		public async Task<IList<long>> GetAddedRoleKeysAsync(long userID)
+		public async Task<IList<long>> GetAddedRoleKeysInUserAsync(long parentID)
 		{
 			return await _universalDataSource.UserRoles
 				.AsNoTracking()
-				.Where(r => r.UserID == userID)
+				.Where(r => r.UserID == parentID)
 				.Select(r => r.RoleID)
 				.ToListAsync();
 		}
@@ -103,27 +103,27 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 				.CountAsync();
 		}
 
-		public async Task<int> UpdateUserRoleAsync(UserRole userRole)
+		public async Task<int> UpdateUserRoleAsync(UserRole entity)
 		{
-			if (userRole.UserRoleID > 0)
+			if (entity.UserRoleID > 0)
 			{
-				_universalDataSource.Entry(userRole).State = EntityState.Modified;
+				_universalDataSource.Entry(entity).State = EntityState.Modified;
 			}
 			else
 			{
-				userRole.UserRoleID = UIDGenerator.Next();
-				userRole.CreatedOn = DateTimeOffset.Now;
-				_universalDataSource.Entry(userRole).State = EntityState.Added;
+				entity.UserRoleID = UIDGenerator.Next();
+				entity.CreatedOn = DateTimeOffset.Now;
+				_universalDataSource.Entry(entity).State = EntityState.Added;
 			}
-			userRole.LastModifiedOn = DateTimeOffset.Now;
-			userRole.SearchTerms = userRole.BuildSearchTerms();
+			entity.LastModifiedOn = DateTimeOffset.Now;
+			entity.SearchTerms = entity.BuildSearchTerms();
 			return await _universalDataSource.SaveChangesAsync();
 		}
 
-		public async Task<int> DeleteUserRolesAsync(params UserRole[] userRoles)
+		public async Task<int> DeleteUserRolesAsync(params UserRole[] entities)
 		{
 			return await _universalDataSource.UserRoles
-				.Where(r => userRoles.Contains(r))
+				.Where(r => entities.Contains(r))
 				.ExecuteDeleteAsync();
 		}
 	}

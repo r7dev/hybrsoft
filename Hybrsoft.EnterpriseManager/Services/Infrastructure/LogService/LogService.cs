@@ -84,17 +84,17 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 			return await dataSource.GetAppLogsCountAsync(request);
 		}
 
-		public async Task<int> CreateLogAsync(AppLog appLog)
+		public async Task<int> CreateLogAsync(AppLog model)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
-			return await dataService.CreateAppLogAsync(appLog);
+			return await dataService.CreateAppLogAsync(model);
 		}
 
 		public async Task<int> DeleteLogAsync(AppLogDto model)
 		{
-			var appLog = new AppLog { AppLogID = model.AppLogID };
+			var item = new AppLog { AppLogID = model.AppLogID };
 			using var dataSource = DataServiceFactory.CreateDataService();
-			return await dataSource.DeleteAppLogsAsync(appLog);
+			return await dataSource.DeleteAppLogsAsync(item);
 		}
 
 		public async Task<int> DeleteLogRangeAsync(int index, int length, DataRequest<AppLog> request)

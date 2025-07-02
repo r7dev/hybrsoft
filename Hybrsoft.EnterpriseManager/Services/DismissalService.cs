@@ -42,7 +42,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.GetDismissibleStudentsCountAsync(request);
 		}
 
-		static public async Task<DismissibleStudentDto> CreateDismissibleStudentDtoAsync(ClassroomStudent item, bool includeAllFields = false)
+		public static async Task<DismissibleStudentDto> CreateDismissibleStudentDtoAsync(ClassroomStudent item, bool includeAllFields = false)
 		{
 			var model = new DismissibleStudentDto
 			{
@@ -64,7 +64,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await GetDismissalAsync(dataService, id);
 		}
 
-		static private async Task<DismissalDto> GetDismissalAsync(IDataService dataService, long id)
+		private static async Task<DismissalDto> GetDismissalAsync(IDataService dataService, long id)
 		{
 			var item = await dataService.GetDismissalAsync(id);
 			if (item != null)
@@ -103,14 +103,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			long id = model.DismissalID;
 			using var dataService = DataServiceFactory.CreateDataService();
-			var dismissal = id > 0
+			var item = id > 0
 				? await dataService.GetDismissalAsync(model.DismissalID)
 				: new Dismissal() { Classroom = new Classroom(), Student = new Student(), Relative = new Relative() };
-			if (dismissal != null)
+			if (item != null)
 			{
-				UpdateDismissalFromDto(dismissal, model);
-				await dataService.UpdateDismissalAsync(dismissal);
-				model.Merge(await GetDismissalAsync(dataService, dismissal.DismissalID));
+				UpdateDismissalFromDto(item, model);
+				await dataService.UpdateDismissalAsync(item);
+				model.Merge(await GetDismissalAsync(dataService, item.DismissalID));
 			}
 			return 0;
 		}
@@ -118,9 +118,9 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<int> ApproveDismissalAsync(DismissalDto model)
 		{
-			var dismissal = new Dismissal { DismissalID = model.DismissalID };
+			var item = new Dismissal { DismissalID = model.DismissalID };
 			using var dataService = DataServiceFactory.CreateDataService();
-			return await dataService.ApproveDismissalsAsync(dismissal);
+			return await dataService.ApproveDismissalsAsync(item);
 		}
 
 		public async Task<int> ApproveDismissalRangeAsync(int index, int length, DataRequest<Dismissal> request)
@@ -130,7 +130,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.ApproveDismissalsAsync([.. items]);
 		}
 
-		static public async Task<DismissalDto> CreateDismissalDtoAsync(Dismissal source, bool includeAllFields)
+		public static async Task<DismissalDto> CreateDismissalDtoAsync(Dismissal source, bool includeAllFields)
 		{
 			var model = new DismissalDto()
 			{

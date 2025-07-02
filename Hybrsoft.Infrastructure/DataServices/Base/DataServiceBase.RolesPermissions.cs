@@ -88,11 +88,11 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			return items;
 		}
 
-		public async Task<IList<long>> GetAddedPermissionKeysAsync(long roleID)
+		public async Task<IList<long>> GetAddedPermissionKeysInRoleAsync(long parentID)
 		{
 			return await _universalDataSource.RolePermissions
 				.AsNoTracking()
-				.Where(r => r.RoleID == roleID)
+				.Where(r => r.RoleID == parentID)
 				.Select(r => r.PermissionID)
 				.ToListAsync();
 		}
@@ -104,27 +104,27 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 				.CountAsync();
 		}
 
-		public async Task<int> UpdateRolePermissionAsync(RolePermission rolePermission)
+		public async Task<int> UpdateRolePermissionAsync(RolePermission entity)
 		{
-			if (rolePermission.RolePermissionID > 0)
+			if (entity.RolePermissionID > 0)
 			{
-				_universalDataSource.Entry(rolePermission).State = EntityState.Modified;
+				_universalDataSource.Entry(entity).State = EntityState.Modified;
 			}
 			else
 			{
-				rolePermission.RolePermissionID = UIDGenerator.Next();
-				rolePermission.CreatedOn = DateTimeOffset.Now;
-				_universalDataSource.Entry(rolePermission).State = EntityState.Added;
+				entity.RolePermissionID = UIDGenerator.Next();
+				entity.CreatedOn = DateTimeOffset.Now;
+				_universalDataSource.Entry(entity).State = EntityState.Added;
 			}
-			rolePermission.LastModifiedOn = DateTimeOffset.Now;
-			rolePermission.SearchTerms = rolePermission.BuildSearchTerms();
+			entity.LastModifiedOn = DateTimeOffset.Now;
+			entity.SearchTerms = entity.BuildSearchTerms();
 			return await _universalDataSource.SaveChangesAsync();
 		}
 
-		public async Task<int> DeleteRolePermissionsAsync(params RolePermission[] rolePermissions)
+		public async Task<int> DeleteRolePermissionsAsync(params RolePermission[] entities)
 		{
 			return await _universalDataSource.RolePermissions
-				.Where(r => rolePermissions.Contains(r))
+				.Where(r => entities.Contains(r))
 				.ExecuteDeleteAsync();
 		}
 	}

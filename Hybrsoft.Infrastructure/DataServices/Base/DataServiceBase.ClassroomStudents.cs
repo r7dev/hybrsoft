@@ -89,11 +89,11 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			return items;
 		}
 
-		public async Task<IList<long>> GetAddedStudentKeysAsync(long classroomID)
+		public async Task<IList<long>> GetAddedStudentKeysInClassroomAsync(long parentID)
 		{
 			return await _learnDataSource.ClassroomStudents
 				.AsNoTracking()
-				.Where(r => r.ClassroomID == classroomID)
+				.Where(r => r.ClassroomID == parentID)
 				.Select(r => r.StudentID)
 				.ToListAsync();
 		}
@@ -105,28 +105,28 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 				.CountAsync();
 		}
 
-		public async Task<int> UpdateClassroomStudentAsync(ClassroomStudent classroomStudent)
+		public async Task<int> UpdateClassroomStudentAsync(ClassroomStudent entity)
 		{
-			if (classroomStudent.ClassroomStudentID > 0)
+			if (entity.ClassroomStudentID > 0)
 			{
-				_learnDataSource.Entry(classroomStudent).State = EntityState.Modified;
+				_learnDataSource.Entry(entity).State = EntityState.Modified;
 			}
 			else
 			{
-				classroomStudent.ClassroomStudentID = UIDGenerator.Next();
-				classroomStudent.CreatedOn = DateTimeOffset.Now;
-				_learnDataSource.Entry(classroomStudent).State = EntityState.Added;
+				entity.ClassroomStudentID = UIDGenerator.Next();
+				entity.CreatedOn = DateTimeOffset.Now;
+				_learnDataSource.Entry(entity).State = EntityState.Added;
 			}
-			classroomStudent.LastModifiedOn = DateTimeOffset.Now;
-			classroomStudent.SearchTerms = classroomStudent.BuildSearchTerms();
-			classroomStudent.SearchTermsDismissibleStudent = classroomStudent.BuildSearchTermsDismissibleStudent();
+			entity.LastModifiedOn = DateTimeOffset.Now;
+			entity.SearchTerms = entity.BuildSearchTerms();
+			entity.SearchTermsDismissibleStudent = entity.BuildSearchTermsDismissibleStudent();
 			return await _learnDataSource.SaveChangesAsync();
 		}
 
-		public async Task<int> DeleteClassroomStudentsAsync(params ClassroomStudent[] classroomStudents)
+		public async Task<int> DeleteClassroomStudentsAsync(params ClassroomStudent[] entities)
 		{
 			return await _learnDataSource.ClassroomStudents
-				.Where(r => classroomStudents.Contains(r))
+				.Where(r => entities.Contains(r))
 				.ExecuteDeleteAsync();
 		}
 	}

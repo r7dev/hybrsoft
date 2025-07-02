@@ -69,7 +69,7 @@ namespace Hybrsoft.Domain.ViewModels
 			ClassroomStudentID = ViewModelArgs.ClassroomStudentID;
 			ClassroomID = ViewModelArgs.ClassroomID;
 			var classroom = await ClassroomService.GetClassroomAsync(ClassroomID);
-			AddedStudentKeys = await ClassroomStudentService.GetAddedStudentKeysAsync(ClassroomID);
+			AddedStudentKeys = await ClassroomStudentService.GetAddedStudentKeysInClassroomAsync(ClassroomID);
 
 			if (ViewModelArgs.IsNew)
 			{

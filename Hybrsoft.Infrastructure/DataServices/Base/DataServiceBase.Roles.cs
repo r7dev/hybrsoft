@@ -84,27 +84,27 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 				.CountAsync();
 		}
 
-		public async Task<int> UpdateRoleAsync(Role role)
+		public async Task<int> UpdateRoleAsync(Role entity)
 		{
-			if (role.RoleID > 0)
+			if (entity.RoleID > 0)
 			{
-				_universalDataSource.Entry(role).State = EntityState.Modified;
+				_universalDataSource.Entry(entity).State = EntityState.Modified;
 			}
 			else
 			{
-				role.RoleID = UIDGenerator.Next();
-				role.CreatedOn = DateTimeOffset.Now;
-				_universalDataSource.Entry(role).State = EntityState.Added;
+				entity.RoleID = UIDGenerator.Next();
+				entity.CreatedOn = DateTimeOffset.Now;
+				_universalDataSource.Entry(entity).State = EntityState.Added;
 			}
-			role.LastModifiedOn = DateTimeOffset.Now;
-			role.SearchTerms = role.BuildSearchTerms();
+			entity.LastModifiedOn = DateTimeOffset.Now;
+			entity.SearchTerms = entity.BuildSearchTerms();
 			return await _universalDataSource.SaveChangesAsync();
 		}
 
-		public async Task<int> DeleteRolesAsync(params Role[] roles)
+		public async Task<int> DeleteRolesAsync(params Role[] entities)
 		{
 			return await _universalDataSource.Roles
-				.Where(r => roles.Contains(r))
+				.Where(r => entities.Contains(r))
 				.ExecuteDeleteAsync();
 		}
 	}

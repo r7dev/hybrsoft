@@ -22,7 +22,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await GetPermissionAsync(dataService, id);
 		}
 
-		static private async Task<PermissionDto> GetPermissionAsync(IDataService dataService, long id)
+		private static async Task<PermissionDto> GetPermissionAsync(IDataService dataService, long id)
 		{
 			var item = await dataService.GetPermissionAsync(id);
 			if (item != null)
@@ -61,21 +61,21 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			long id = model.PermissionID;
 			using var dataService = DataServiceFactory.CreateDataService();
-			var permission = id > 0 ? await dataService.GetPermissionAsync(model.PermissionID) : new Permission();
-			if (permission != null)
+			var item = id > 0 ? await dataService.GetPermissionAsync(model.PermissionID) : new Permission();
+			if (item != null)
 			{
-				UpdatePermissionFromDto(permission, model);
-				await dataService.UpdatePermissionAsync(permission);
-				model.Merge(await GetPermissionAsync(dataService, permission.PermissionID));
+				UpdatePermissionFromDto(item, model);
+				await dataService.UpdatePermissionAsync(item);
+				model.Merge(await GetPermissionAsync(dataService, item.PermissionID));
 			}
 			return 0;
 		}
 
 		public async Task<int> DeletePermissionAsync(PermissionDto model)
 		{
-			var permission = new Permission { PermissionID = model.PermissionID };
+			var item = new Permission { PermissionID = model.PermissionID };
 			using var dataService = DataServiceFactory.CreateDataService();
-			return await dataService.DeletePermissionsAsync(permission);
+			return await dataService.DeletePermissionsAsync(item);
 		}
 
 		public async Task<int> DeletePermissionRangeAsync(int index, int length, DataRequest<Permission> request)
@@ -85,7 +85,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.DeletePermissionsAsync([.. items]);
 		}
 
-		static public async Task<PermissionDto> CreatePermissionDtoAsync(Permission source, bool includeAllFields)
+		public static async Task<PermissionDto> CreatePermissionDtoAsync(Permission source, bool includeAllFields)
 		{
 			var model = new PermissionDto()
 			{

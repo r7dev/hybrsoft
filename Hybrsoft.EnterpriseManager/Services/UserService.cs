@@ -24,12 +24,12 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await GetUserAsync(dataService, id, includePassword);
 		}
 
-		static private async Task<UserDto> GetUserAsync(IDataService dataService, long id, bool includePassword)
+		private static async Task<UserDto> GetUserAsync(IDataService dataService, long id, bool includePassword)
 		{
 			var item = await dataService.GetUserAsync(id);
 			if (item != null)
 			{
-				return CreateUserDtoAsync(item, includeAllFields: true, includePassword);
+				return await CreateUserDtoAsync(item, includeAllFields: true, includePassword);
 			}
 			return null;
 		}
@@ -40,12 +40,12 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await GetUserByEmailAsync(dataService, email, includePassword);
 		}
 
-		static private async Task<UserDto> GetUserByEmailAsync(IDataService dataService, string email, bool includePassword)
+		private static async Task<UserDto> GetUserByEmailAsync(IDataService dataService, string email, bool includePassword)
 		{
 			var item = await dataService.GetUserByEmailAsync(email);
 			if (item != null)
 			{
-				return CreateUserDtoAsync(item, includeAllFields: true, includePassword);
+				return await CreateUserDtoAsync(item, includeAllFields: true, includePassword);
 			}
 			return null;
 		}
@@ -64,7 +64,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			var items = await dataService.GetUsersAsync(skip, take, request);
 			foreach (var item in items)
 			{
-				models.Add(CreateUserDtoAsync(item, includeAllFields: false));
+				models.Add(await CreateUserDtoAsync(item, includeAllFields: false));
 			}
 			return models;
 		}
@@ -79,25 +79,25 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			long id = model.UserID;
 			using var dataService = DataServiceFactory.CreateDataService();
-			var user = id > 0 ? await dataService.GetUserAsync(model.UserID) : new User();
-			if (user != null)
+			var item = id > 0 ? await dataService.GetUserAsync(model.UserID) : new User();
+			if (item != null)
 			{
 				model.PasswordLength = model.Password?.Length ?? 0;
 				model.Password = model.PasswordChanged
 					? PasswordHasher.HashPassword(model.Password)
-					: user.Password;
-				UpdateUserFromDto(user, model);
-				await dataService.UpdateUserAsync(user);
-				model.Merge(await GetUserAsync(dataService, user.UserID, false));
+					: item.Password;
+				UpdateUserFromDto(item, model);
+				await dataService.UpdateUserAsync(item);
+				model.Merge(await GetUserAsync(dataService, item.UserID, false));
 			}
 			return 0;
 		}
 
 		public async Task<int> DeleteUserAsync(UserDto model)
 		{
-			var customer = new User { UserID = model.UserID };
+			var item = new User { UserID = model.UserID };
 			using var dataService = DataServiceFactory.CreateDataService();
-			return await dataService.DeleteUsersAsync(customer);
+			return await dataService.DeleteUsersAsync(item);
 		}
 
 		public async Task<int> DeleteUserRangeAsync(int index, int length, DataRequest<User> request)
@@ -107,7 +107,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.DeleteUsersAsync([.. items]);
 		}
 
-		static public UserDto CreateUserDtoAsync(User source, bool includeAllFields, bool includePassword = false)
+		public static async Task<UserDto> CreateUserDtoAsync(User source, bool includeAllFields, bool includePassword = false)
 		{
 			var model = new UserDto()
 			{
@@ -126,6 +126,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 					: new string(AppSettings.Current.PasswordChar, source.PasswordLength);
 				model.PasswordLength = source.PasswordLength;
 			}
+			await Task.CompletedTask;
 			return model;
 		}
 

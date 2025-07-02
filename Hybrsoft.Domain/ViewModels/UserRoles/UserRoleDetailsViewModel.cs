@@ -68,7 +68,7 @@ namespace Hybrsoft.Domain.ViewModels
 			ViewModelArgs = args ?? UserRoleDetailsArgs.CreateDefault();
 			UserRoleId = ViewModelArgs.UserRoleId;
 			UserId = ViewModelArgs.UserId;
-			AddedRoleKeys = await UserRoleService.GetAddedRoleKeysAsync(UserId);
+			AddedRoleKeys = await UserRoleService.GetAddedRoleKeysInUserAsync(UserId);
 
 			if (ViewModelArgs.IsNew)
 			{

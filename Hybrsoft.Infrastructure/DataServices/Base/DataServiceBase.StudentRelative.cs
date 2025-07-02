@@ -90,11 +90,11 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			return items;
 		}
 
-		public async Task<IList<long>> GetAddedRelativeKeysAsync(long studentID)
+		public async Task<IList<long>> GetAddedRelativeKeysInStudentAsync(long parentID)
 		{
 			return await _learnDataSource.StudentRelatives
 				.AsNoTracking()
-				.Where(r => r.StudentID == studentID)
+				.Where(r => r.StudentID == parentID)
 				.Select(r => r.RelativeID)
 				.ToListAsync();
 		}
@@ -106,27 +106,27 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 				.CountAsync();
 		}
 
-		public async Task<int> UpdateStudentRelativeAsync(StudentRelative studentRelative)
+		public async Task<int> UpdateStudentRelativeAsync(StudentRelative entity)
 		{
-			if (studentRelative.StudentRelativeID > 0)
+			if (entity.StudentRelativeID > 0)
 			{
-				_learnDataSource.Entry(studentRelative).State = EntityState.Modified;
+				_learnDataSource.Entry(entity).State = EntityState.Modified;
 			}
 			else
 			{
-				studentRelative.StudentRelativeID = UIDGenerator.Next();
-				studentRelative.CreatedOn = DateTimeOffset.Now;
-				_learnDataSource.Entry(studentRelative).State = EntityState.Added;
+				entity.StudentRelativeID = UIDGenerator.Next();
+				entity.CreatedOn = DateTimeOffset.Now;
+				_learnDataSource.Entry(entity).State = EntityState.Added;
 			}
-			studentRelative.LastModifiedOn = DateTimeOffset.Now;
-			studentRelative.SearchTerms = studentRelative.BuildSearchTerms();
+			entity.LastModifiedOn = DateTimeOffset.Now;
+			entity.SearchTerms = entity.BuildSearchTerms();
 			return await _learnDataSource.SaveChangesAsync();
 		}
 
-		public async Task<int> DeleteStudentRelativesAsync(params StudentRelative[] studentRelatives)
+		public async Task<int> DeleteStudentRelativesAsync(params StudentRelative[] entities)
 		{
 			return await _learnDataSource.StudentRelatives
-				.Where(r => studentRelatives.Contains(r))
+				.Where(r => entities.Contains(r))
 				.ExecuteDeleteAsync();
 		}
 	}

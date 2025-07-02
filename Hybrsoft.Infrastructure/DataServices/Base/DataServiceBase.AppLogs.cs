@@ -79,17 +79,17 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 				.CountAsync();
 		}
 
-		public async Task<int> CreateAppLogAsync(AppLog appLog)
+		public async Task<int> CreateAppLogAsync(AppLog entity)
 		{
-			appLog.CreateOn = DateTimeOffset.Now;
-			_universalDataSource.Entry(appLog).State = EntityState.Added;
+			entity.CreateOn = DateTimeOffset.Now;
+			_universalDataSource.Entry(entity).State = EntityState.Added;
 			return await _universalDataSource.SaveChangesAsync();
 		}
 
-		public async Task<int> DeleteAppLogsAsync(params AppLog[] logs)
+		public async Task<int> DeleteAppLogsAsync(params AppLog[] entities)
 		{
 			return await _universalDataSource.AppLogs
-				.Where(r => logs.Contains(r))
+				.Where(r => entities.Contains(r))
 				.ExecuteDeleteAsync();
 		}
 

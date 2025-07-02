@@ -68,7 +68,7 @@ namespace Hybrsoft.Domain.ViewModels
 			ViewModelArgs = args ?? RolePermissionDetailsArgs.CreateDefault();
 			RolePermissionId = ViewModelArgs.RolePermissionId;
 			RoleId = ViewModelArgs.RoleId;
-			AddedPermissionKeys = await RolePermissionService.GetAddedPermissionKeysAsync(RoleId);
+			AddedPermissionKeys = await RolePermissionService.GetAddedPermissionKeysInRoleAsync(RoleId);
 
 			if (ViewModelArgs.IsNew)
 			{

@@ -90,27 +90,27 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 				.CountAsync();
 		}
 
-		public async Task<int> UpdateRelativeAsync(Relative relative)
+		public async Task<int> UpdateRelativeAsync(Relative entity)
 		{
-			if (relative.RelativeID > 0)
+			if (entity.RelativeID > 0)
 			{
-				_learnDataSource.Entry(relative).State = EntityState.Modified;
+				_learnDataSource.Entry(entity).State = EntityState.Modified;
 			}
 			else
 			{
-				relative.RelativeID = UIDGenerator.Next();
-				relative.CreatedOn = DateTimeOffset.Now;
-				_learnDataSource.Entry(relative).State = EntityState.Added;
+				entity.RelativeID = UIDGenerator.Next();
+				entity.CreatedOn = DateTimeOffset.Now;
+				_learnDataSource.Entry(entity).State = EntityState.Added;
 			}
-			relative.LastModifiedOn = DateTimeOffset.Now;
-			relative.SearchTerms = relative.BuildSearchTerms();
+			entity.LastModifiedOn = DateTimeOffset.Now;
+			entity.SearchTerms = entity.BuildSearchTerms();
 			return await _learnDataSource.SaveChangesAsync();
 		}
 
-		public async Task<int> DeleteRelativesAsync(params Relative[] relatives)
+		public async Task<int> DeleteRelativesAsync(params Relative[] entities)
 		{
 			return await _learnDataSource.Relatives
-				.Where(r => relatives.Contains(r))
+				.Where(r => entities.Contains(r))
 				.ExecuteDeleteAsync();
 		}
 	}

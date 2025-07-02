@@ -23,7 +23,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await GetRelativeAsync(dataService, id);
 		}
 
-		static private async Task<RelativeDto> GetRelativeAsync(IDataService dataService, long id)
+		private static async Task<RelativeDto> GetRelativeAsync(IDataService dataService, long id)
 		{
 			var item = await dataService.GetRelativeAsync(id);
 			if (item != null)
@@ -62,21 +62,21 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			long id = model.RelativeID;
 			using var dataService = DataServiceFactory.CreateDataService();
-			var relative = id > 0 ? await dataService.GetRelativeAsync(model.RelativeID) : new Relative();
-			if (relative != null)
+			var item = id > 0 ? await dataService.GetRelativeAsync(model.RelativeID) : new Relative();
+			if (item != null)
 			{
-				UpdateRelativeFromDto(relative, model);
-				await dataService.UpdateRelativeAsync(relative);
-				model.Merge(await GetRelativeAsync(dataService, relative.RelativeID));
+				UpdateRelativeFromDto(item, model);
+				await dataService.UpdateRelativeAsync(item);
+				model.Merge(await GetRelativeAsync(dataService, item.RelativeID));
 			}
 			return 0;
 		}
 
 		public async Task<int> DeleteRelativeAsync(RelativeDto model)
 		{
-			var relative = new Relative { RelativeID = model.RelativeID };
+			var item = new Relative { RelativeID = model.RelativeID };
 			using var dataService = DataServiceFactory.CreateDataService();
-			return await dataService.DeleteRelativesAsync(relative);
+			return await dataService.DeleteRelativesAsync(item);
 		}
 
 		public async Task<int> DeleteRelativeRangeAsync(int index, int length, DataRequest<Relative> request)
@@ -86,7 +86,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.DeleteRelativesAsync([.. items]);
 		}
 
-		static public async Task<RelativeDto> CreateRelativeDtoAsync(Relative source, bool includeAllFields)
+		public static async Task<RelativeDto> CreateRelativeDtoAsync(Relative source, bool includeAllFields)
 		{
 			var model = new RelativeDto()
 			{
@@ -127,7 +127,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			target.LastModifiedOn = source.LastModifiedOn;
 		}
 
-		static public async Task<RelativeTypeDto> CreateRelativeTypeDtoAsync(RelativeType source, bool includeAllFields)
+		public static async Task<RelativeTypeDto> CreateRelativeTypeDtoAsync(RelativeType source, bool includeAllFields)
 		{
 			var model = new RelativeTypeDto()
 			{

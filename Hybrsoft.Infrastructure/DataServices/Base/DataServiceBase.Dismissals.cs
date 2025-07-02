@@ -195,27 +195,27 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 				.CountAsync();
 		}
 
-		public async Task<int> UpdateDismissalAsync(Dismissal dismissal)
+		public async Task<int> UpdateDismissalAsync(Dismissal entity)
 		{
-			if (dismissal.DismissalID > 0)
+			if (entity.DismissalID > 0)
 			{
-				_learnDataSource.Entry(dismissal).State = EntityState.Modified;
-				dismissal.DismissedOn = DateTimeOffset.Now;
+				_learnDataSource.Entry(entity).State = EntityState.Modified;
+				entity.DismissedOn = DateTimeOffset.Now;
 			}
 			else
 			{
-				dismissal.DismissalID = UIDGenerator.Next();
-				dismissal.CreatedOn = DateTimeOffset.Now;
-				_learnDataSource.Entry(dismissal).State = EntityState.Added;
+				entity.DismissalID = UIDGenerator.Next();
+				entity.CreatedOn = DateTimeOffset.Now;
+				_learnDataSource.Entry(entity).State = EntityState.Added;
 			}
-			dismissal.SearchTerms = dismissal.BuildSearchTerms();
+			entity.SearchTerms = entity.BuildSearchTerms();
 			return await _learnDataSource.SaveChangesAsync();
 		}
 
-		public async Task<int> ApproveDismissalsAsync(params Dismissal[] dismissals)
+		public async Task<int> ApproveDismissalsAsync(params Dismissal[] entities)
 		{
 			return await _learnDataSource.Dismissals
-				.Where(r => dismissals.Contains(r))
+				.Where(r => entities.Contains(r))
 				.ExecuteUpdateAsync(r => r.SetProperty(x => x.DismissedOn, DateTimeOffset.Now));
 		}
 	}

@@ -11,7 +11,7 @@ namespace Hybrsoft.Domain.Interfaces
 		Task<ClassroomStudentDto> GetClassroomStudentAsync(long id);
 		Task<IList<ClassroomStudentDto>> GetClassroomStudentsAsync(DataRequest<ClassroomStudent> request);
 		Task<IList<ClassroomStudentDto>> GetClassroomStudentsAsync(int skip, int take, DataRequest<ClassroomStudent> request);
-		Task<IList<long>> GetAddedStudentKeysAsync(long classroomID);
+		Task<IList<long>> GetAddedStudentKeysInClassroomAsync(long parentID);
 		Task<int> GetClassroomStudentsCountAsync(DataRequest<ClassroomStudent> request);
 
 		Task<int> UpdateClassroomStudentAsync(ClassroomStudentDto model);

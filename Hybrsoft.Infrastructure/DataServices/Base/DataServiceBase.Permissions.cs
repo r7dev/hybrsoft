@@ -86,27 +86,27 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 				.CountAsync();
 		}
 
-		public async Task<int> UpdatePermissionAsync(Permission permission)
+		public async Task<int> UpdatePermissionAsync(Permission entity)
 		{
-			if (permission.PermissionID > 0)
+			if (entity.PermissionID > 0)
 			{
-				_universalDataSource.Entry(permission).State = EntityState.Modified;
+				_universalDataSource.Entry(entity).State = EntityState.Modified;
 			}
 			else
 			{
-				permission.PermissionID = UIDGenerator.Next();
-				permission.CreatedOn = DateTimeOffset.Now;
-				_universalDataSource.Entry(permission).State = EntityState.Added;
+				entity.PermissionID = UIDGenerator.Next();
+				entity.CreatedOn = DateTimeOffset.Now;
+				_universalDataSource.Entry(entity).State = EntityState.Added;
 			}
-			permission.LastModifiedOn = DateTimeOffset.Now;
-			permission.SearchTerms = permission.BuildSearchTerms();
+			entity.LastModifiedOn = DateTimeOffset.Now;
+			entity.SearchTerms = entity.BuildSearchTerms();
 			return await _universalDataSource.SaveChangesAsync();
 		}
 
-		public async Task<int> DeletePermissionsAsync(params Permission[] permissions)
+		public async Task<int> DeletePermissionsAsync(params Permission[] entities)
 		{
 			return await _universalDataSource.Permissions
-				.Where(r => permissions.Contains(r))
+				.Where(r => entities.Contains(r))
 				.ExecuteDeleteAsync();
 		}
 	}

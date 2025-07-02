@@ -92,27 +92,27 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 				.CountAsync();
 		}
 
-		public async Task<int> UpdateUserAsync(User user)
+		public async Task<int> UpdateUserAsync(User entity)
 		{
-			if (user.UserID > 0)
+			if (entity.UserID > 0)
 			{
-				_universalDataSource.Entry(user).State = EntityState.Modified;
+				_universalDataSource.Entry(entity).State = EntityState.Modified;
 			}
 			else
 			{
-				user.UserID = UIDGenerator.Next();
-				user.CreatedOn = DateTimeOffset.Now;
-				_universalDataSource.Entry(user).State = EntityState.Added;
+				entity.UserID = UIDGenerator.Next();
+				entity.CreatedOn = DateTimeOffset.Now;
+				_universalDataSource.Entry(entity).State = EntityState.Added;
 			}
-			user.LastModifiedOn = DateTimeOffset.Now;
-			user.SearchTerms = user.BuildSearchTerms();
+			entity.LastModifiedOn = DateTimeOffset.Now;
+			entity.SearchTerms = entity.BuildSearchTerms();
 			return await _universalDataSource.SaveChangesAsync();
 		}
 
-		public async Task<int> DeleteUsersAsync(params User[] users)
+		public async Task<int> DeleteUsersAsync(params User[] entities)
 		{
 			return await _universalDataSource.Users
-				.Where(r => users.Contains(r))
+				.Where(r => entities.Contains(r))
 				.ExecuteDeleteAsync();
 		}
 	}

@@ -16,7 +16,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 	{
 		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
 		public ILogService LogService { get; } = logService;
-		static public ILookupTables LookupTables => LookupTablesProxy.Instance;
+		public static ILookupTables LookupTables => LookupTablesProxy.Instance;
 
 		public async Task<ClassroomDto> GetClassroomAsync(long id)
 		{
@@ -24,7 +24,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await GetClassroomAsync(dataService, id);
 		}
 
-		static private async Task<ClassroomDto> GetClassroomAsync(IDataService dataService, long id)
+		private static async Task<ClassroomDto> GetClassroomAsync(IDataService dataService, long id)
 		{
 			var item = await dataService.GetClassroomAsync(id);
 			if (item != null)
@@ -63,23 +63,23 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			long id = model.ClassroomID;
 			using var dataService = DataServiceFactory.CreateDataService();
-			var classroom = id > 0
+			var item = id > 0
 				? await dataService.GetClassroomAsync(model.ClassroomID)
 				: new Classroom() { ScheduleType = new ScheduleType() };
-			if (classroom != null)
+			if (item != null)
 			{
-				UpdateClassroomFromDto(classroom, model);
-				await dataService.UpdateClassroomAsync(classroom);
-				model.Merge(await GetClassroomAsync(dataService, classroom.ClassroomID));
+				UpdateClassroomFromDto(item, model);
+				await dataService.UpdateClassroomAsync(item);
+				model.Merge(await GetClassroomAsync(dataService, item.ClassroomID));
 			}
 			return 0;
 		}
 
 		public async Task<int> DeleteClassroomAsync(ClassroomDto model)
 		{
-			var Classroom = new Classroom { ClassroomID = model.ClassroomID };
+			var item = new Classroom { ClassroomID = model.ClassroomID };
 			using var dataService = DataServiceFactory.CreateDataService();
-			return await dataService.DeleteClassroomsAsync(Classroom);
+			return await dataService.DeleteClassroomsAsync(item);
 		}
 
 		public async Task<int> DeleteClassroomRangeAsync(int index, int length, DataRequest<Classroom> request)
@@ -89,7 +89,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.DeleteClassroomsAsync([.. items]);
 		}
 
-		static public async Task<ClassroomDto> CreateClassroomDtoAsync(Classroom source, bool includeAllFields)
+		public static async Task<ClassroomDto> CreateClassroomDtoAsync(Classroom source, bool includeAllFields)
 		{
 			var model = new ClassroomDto()
 			{
@@ -109,7 +109,6 @@ namespace Hybrsoft.EnterpriseManager.Services
 				model.MinimumEducationLevel = source.MinimumEducationLevel;
 				model.MaximumEducationLevel = source.MaximumEducationLevel;
 			}
-			await Task.CompletedTask;
 			return model;
 		}
 
@@ -128,7 +127,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			target.SearchTerms = source.ScheduleType?.Name;
 		}
 
-		static public async Task<ScheduleTypeDto> CreateSchedulerTypeDtoAsync(ScheduleType source, bool includeAllFields)
+		private static async Task<ScheduleTypeDto> CreateSchedulerTypeDtoAsync(ScheduleType source, bool includeAllFields)
 		{
 			var model = new ScheduleTypeDto()
 			{
@@ -137,9 +136,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 					? source.Name
 					: LookupTables.ScheduleTypes.FirstOrDefault(r => r.ScheduleTypeID == source.ScheduleTypeID).Name,
 			};
-			if (includeAllFields)
-			{
-			}
+			if (includeAllFields) { }
 			await Task.CompletedTask;
 			return model;
 		}

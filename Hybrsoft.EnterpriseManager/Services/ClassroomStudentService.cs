@@ -18,7 +18,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			using var dataService = DataServiceFactory.CreateDataService();
 			return await GetClassroomStudentAsync(dataService, id);
 		}
-		static private async Task<ClassroomStudentDto> GetClassroomStudentAsync(IDataService dataService, long id)
+		private static async Task<ClassroomStudentDto> GetClassroomStudentAsync(IDataService dataService, long id)
 		{
 			var item = await dataService.GetClassroomStudentAsync(id);
 			if (item != null)
@@ -46,10 +46,10 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return models;
 		}
 
-		public async Task<IList<long>> GetAddedStudentKeysAsync(long classroomID)
+		public async Task<IList<long>> GetAddedStudentKeysInClassroomAsync(long parentID)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
-			return await dataService.GetAddedStudentKeysAsync(classroomID);
+			return await dataService.GetAddedStudentKeysInClassroomAsync(parentID);
 		}
 
 		public async Task<int> GetClassroomStudentsCountAsync(DataRequest<ClassroomStudent> request)
@@ -98,9 +98,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 				CreatedOn = source.CreatedOn,
 				LastModifiedOn = source.LastModifiedOn
 			};
-			if (includeAllFields)
-			{
-			}
+			if (includeAllFields) { }
 			return model;
 		}
 

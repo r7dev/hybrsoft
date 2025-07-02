@@ -67,7 +67,7 @@ namespace Hybrsoft.Domain.ViewModels
 			ViewModelArgs = args ?? StudentRelativeDetailsArgs.CreateDefault();
 			StudentRelativeID = ViewModelArgs.StudentRelativeID;
 			StudentID = ViewModelArgs.StudentID;
-			AddedRelativeKeys = await StudentRelativeService.GetAddedRelativeKeysAsync(StudentID);
+			AddedRelativeKeys = await StudentRelativeService.GetAddedRelativeKeysInStudentAsync(StudentID);
 
 			if (ViewModelArgs.IsNew)
 			{
