@@ -7,7 +7,7 @@ namespace Hybrsoft.Domain.ViewModels
 {
 	public class AppLogListArgs
 	{
-		static public AppLogListArgs CreateEmpty() => new()
+		public static AppLogListArgs CreateEmpty() => new()
 		{
 			IsEmpty = true,
 			StartDate = DateRangeTools.GetStartDate(),

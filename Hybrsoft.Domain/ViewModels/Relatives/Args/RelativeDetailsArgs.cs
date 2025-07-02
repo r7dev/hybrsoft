@@ -2,7 +2,7 @@
 {
 	public class RelativeDetailsArgs
 	{
-		static public RelativeDetailsArgs CreateDefault() => new();
+		public static RelativeDetailsArgs CreateDefault() => new();
 
 		public long RelativeID { get; set; }
 

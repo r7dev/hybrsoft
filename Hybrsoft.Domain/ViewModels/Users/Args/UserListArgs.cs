@@ -6,7 +6,7 @@ namespace Hybrsoft.Domain.ViewModels
 {
 	public class UserListArgs
 	{
-		static public UserListArgs CreateEmpty() => new() { IsEmpty = true };
+		public static UserListArgs CreateEmpty() => new() { IsEmpty = true };
 
 		public UserListArgs()
 		{

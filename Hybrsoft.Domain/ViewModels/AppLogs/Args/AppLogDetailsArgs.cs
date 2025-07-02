@@ -2,7 +2,7 @@
 {
 	public class AppLogDetailsArgs
 	{
-		static public AppLogDetailsArgs CreateDefault() => new();
+		public static AppLogDetailsArgs CreateDefault() => new();
 
 		public long AppLogID { get; set; }
 	}

@@ -2,7 +2,7 @@
 {
 	public class StudentRelativeDetailsArgs
 	{
-		static public StudentRelativeDetailsArgs CreateDefault() => new();
+		public static StudentRelativeDetailsArgs CreateDefault() => new();
 
 		public long StudentRelativeID { get; set; }
 		public long StudentID { get; set; }

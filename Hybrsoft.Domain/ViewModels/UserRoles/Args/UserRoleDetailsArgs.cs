@@ -2,7 +2,7 @@
 {
 	public class UserRoleDetailsArgs
 	{
-		static public UserRoleDetailsArgs CreateDefault() => new();
+		public static UserRoleDetailsArgs CreateDefault() => new();
 
 		public long UserRoleId { get; set; }
 		public long UserId { get; set; }

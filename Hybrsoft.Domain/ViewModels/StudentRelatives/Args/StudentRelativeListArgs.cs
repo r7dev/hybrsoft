@@ -6,7 +6,7 @@ namespace Hybrsoft.Domain.ViewModels
 {
 	public class StudentRelativeListArgs
 	{
-		static public StudentRelativeListArgs CreateEmpty() => new() { IsEmpty = true };
+		public static StudentRelativeListArgs CreateEmpty() => new() { IsEmpty = true };
 
 		public StudentRelativeListArgs()
 		{

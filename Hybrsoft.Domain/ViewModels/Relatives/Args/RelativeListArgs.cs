@@ -6,7 +6,7 @@ namespace Hybrsoft.Domain.ViewModels
 {
 	public class RelativeListArgs
 	{
-		static public RelativeListArgs CreateEmpty() => new() { IsEmpty = true };
+		public static RelativeListArgs CreateEmpty() => new() { IsEmpty = true };
 
 		public RelativeListArgs()
 		{

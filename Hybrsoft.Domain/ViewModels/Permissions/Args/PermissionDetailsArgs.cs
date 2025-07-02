@@ -2,7 +2,7 @@
 {
 	public class PermissionDetailsArgs
 	{
-		static public PermissionDetailsArgs CreateDefault() => new();
+		public static PermissionDetailsArgs CreateDefault() => new();
 
 		public long PermissionID { get; set; }
 

@@ -2,6 +2,6 @@
 {
 	public class SettingsArgs
 	{
-		static public SettingsArgs CreateDefault() => new();
+		public static SettingsArgs CreateDefault() => new();
 	}
 }

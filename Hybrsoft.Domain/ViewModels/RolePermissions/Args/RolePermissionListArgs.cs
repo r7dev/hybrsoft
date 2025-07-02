@@ -6,7 +6,7 @@ namespace Hybrsoft.Domain.ViewModels
 {
 	public class RolePermissionListArgs
 	{
-		static public RolePermissionListArgs CreateEmpty() => new() { IsEmpty = true };
+		public static RolePermissionListArgs CreateEmpty() => new() { IsEmpty = true };
 
 		public RolePermissionListArgs()
 		{
