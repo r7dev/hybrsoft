@@ -33,7 +33,7 @@ namespace Hybrsoft.Domain.ViewModels
 			EditableItem.NotifyChanges();
 		}
 
-		override public string Title
+		public override string Title
 		{
 			get
 			{

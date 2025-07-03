@@ -15,7 +15,7 @@ namespace Hybrsoft.Domain.ViewModels
 	{
 		public IClassroomService ClassroomService { get; } = classroomService;
 
-		override public string Title
+		public override string Title
 		{
 			get
 			{
@@ -183,7 +183,7 @@ namespace Hybrsoft.Domain.ViewModels
 
 			string resourceKeyForScheduleType = string.Concat(nameof(ClassroomDetailsViewModel), "_PropertyScheduleType");
 			string propertyScheduleType = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForScheduleType);
-			var requiredScheduleType = new RequiredGreaterThanZeroConstraint<ClassroomDto>("ScheduleType", m => m.ScheduleTypeID);
+			var requiredScheduleType = new RequiredGreaterThanZeroConstraint<ClassroomDto>(propertyScheduleType, m => m.ScheduleTypeID);
 			requiredScheduleType.SetResourceService(ResourceService);
 
 			yield return requiredName;

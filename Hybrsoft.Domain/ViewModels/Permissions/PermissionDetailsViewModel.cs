@@ -14,7 +14,7 @@ namespace Hybrsoft.Domain.ViewModels
 	{
 		public IPermissionService PermissionService { get; } = permissionService;
 
-		override public string Title
+		public override string Title
 		{
 			get
 			{

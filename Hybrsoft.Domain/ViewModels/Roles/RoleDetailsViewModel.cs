@@ -14,7 +14,7 @@ namespace Hybrsoft.Domain.ViewModels
 	{
 		public IRoleService RoleService { get; } = roleService;
 
-		override public string Title
+		public override string Title
 		{
 			get
 			{

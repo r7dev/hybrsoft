@@ -15,7 +15,7 @@ namespace Hybrsoft.Domain.ViewModels
 	{
 		public IUserRoleService UserRoleService { get; } = userRoleService;
 
-		override public string Title => (Item?.IsNew ?? true) ? TitleNew : TitleEdit;
+		public override string Title => (Item?.IsNew ?? true) ? TitleNew : TitleEdit;
 		public string TitleNew
 		{
 			get

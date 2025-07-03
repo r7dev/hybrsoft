@@ -134,7 +134,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 				ScheduleTypeID = source.ScheduleTypeID,
 				Name = string.IsNullOrEmpty(source.Uid)
 					? source.Name
-					: LookupTables.ScheduleTypes.FirstOrDefault(r => r.ScheduleTypeID == source.ScheduleTypeID).Name,
+					: LookupTables.GetScheduleType(source.ScheduleTypeID),
 			};
 			if (includeAllFields) { }
 			await Task.CompletedTask;

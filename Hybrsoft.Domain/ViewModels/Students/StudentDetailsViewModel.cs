@@ -17,7 +17,7 @@ namespace Hybrsoft.Domain.ViewModels
 
 		public IFilePickerService FilePickerService { get; } = filePickerService;
 
-		override public string Title
+		public override string Title
 		{
 			get
 			{
@@ -102,11 +102,11 @@ namespace Hybrsoft.Domain.ViewModels
 		}
 
 		public ICommand EditPictureCommand => new RelayCommand(OnEditPicture);
-		virtual protected void OnEditPicture()
+		protected virtual void OnEditPicture()
 		{
 			EditPictureAsync();
 		}
-		virtual public async void EditPictureAsync()
+		public virtual async void EditPictureAsync()
 		{
 			NewPictureSource = null;
 			var result = await FilePickerService.OpenImagePickerAsync();

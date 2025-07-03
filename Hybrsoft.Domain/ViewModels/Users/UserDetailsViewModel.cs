@@ -14,7 +14,7 @@ namespace Hybrsoft.Domain.ViewModels
 	{
 		public IUserService UserService { get; } = userService;
 
-		override public string Title
+		public override string Title
 		{
 			get
 			{

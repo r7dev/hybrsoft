@@ -16,6 +16,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 	{
 		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
 		public ILogService LogService { get; } = logService;
+		public static ILookupTables LookupTables => LookupTablesProxy.Instance;
 
 		public async Task<RelativeDto> GetRelativeAsync(long id)
 		{
@@ -132,9 +133,11 @@ namespace Hybrsoft.EnterpriseManager.Services
 			var model = new RelativeTypeDto()
 			{
 				RelativeTypeID = source.RelativeTypeID,
-				Name = source.Name,
+				Name = string.IsNullOrEmpty(source.Uid)
+					? source.Name
+					: LookupTables.GetRelativeType(source.RelativeTypeID),
 			};
-			if (includeAllFields){}
+			if (includeAllFields) { }
 			await Task.CompletedTask;
 			return model;
 		}
