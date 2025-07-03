@@ -55,10 +55,10 @@ namespace Hybrsoft.Domain.ViewModels
 		}
 
 		public ICommand RelativeSelectedCommand => new RelayCommand<RelativeDto>(RelativeSelected);
-		private void RelativeSelected(RelativeDto relative)
+		private void RelativeSelected(RelativeDto model)
 		{
-			EditableItem.RelativeID = relative?.RelativeID ?? 0;
-			EditableItem.Relative = relative;
+			EditableItem.RelativeID = model?.RelativeID ?? 0;
+			EditableItem.Relative = model;
 			EditableItem.NotifyChanges();
 		}
 

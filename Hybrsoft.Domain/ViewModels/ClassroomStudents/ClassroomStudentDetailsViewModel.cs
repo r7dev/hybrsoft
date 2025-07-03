@@ -56,10 +56,10 @@ namespace Hybrsoft.Domain.ViewModels
 		}
 
 		public ICommand StudentSelectedCommand => new RelayCommand<StudentDto>(StudentSelected);
-		private void StudentSelected(StudentDto student)
+		private void StudentSelected(StudentDto model)
 		{
-			EditableItem.StudentID = student?.StudentID ?? 0;
-			EditableItem.Student = student;
+			EditableItem.StudentID = model?.StudentID ?? 0;
+			EditableItem.Student = model;
 			EditableItem.NotifyChanges();
 		}
 

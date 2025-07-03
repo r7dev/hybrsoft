@@ -55,10 +55,10 @@ namespace Hybrsoft.Domain.ViewModels
 		}
 
 		public ICommand PermissionSelectedCommand => new RelayCommand<PermissionDto>(PermissionSelected);
-		private void PermissionSelected(PermissionDto permission)
+		private void PermissionSelected(PermissionDto model)
 		{
-			EditableItem.PermissionID = permission?.PermissionID ?? 0;
-			EditableItem.Permission = permission;
+			EditableItem.PermissionID = model?.PermissionID ?? 0;
+			EditableItem.Permission = model;
 
 			EditableItem.NotifyChanges();
 		}
