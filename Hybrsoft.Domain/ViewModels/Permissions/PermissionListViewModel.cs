@@ -216,18 +216,18 @@ namespace Hybrsoft.Domain.ViewModels
 			List<PermissionDto> models = [];
 			foreach (var range in ranges)
 			{
-				var permissions = await PermissionService.GetPermissionsAsync(range.Index, range.Length, request);
-				var disabledPermission = permissions.FirstOrDefault(f => !f.IsEnabled);
-				if (disabledPermission != null)
+				var items = await PermissionService.GetPermissionsAsync(range.Index, range.Length, request);
+				var item = items.FirstOrDefault(f => !f.IsEnabled);
+				if (item != null)
 				{
 					string title = ResourceService.GetString(nameof(ResourceFiles.Errors), "DeleteNotAllowed");
 					string resourceKey = string.Concat(nameof(PermissionListViewModel), "_DeselectThe0Permission");
 					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
-					string message = string.Format(resourceValue, disabledPermission.DisplayName);
+					string message = string.Format(resourceValue, item.DisplayName);
 					await DialogService.ShowAsync(title, new ArgumentException(message));
 					return false;
 				}
-				models.AddRange(permissions);
+				models.AddRange(items);
 			}
 			foreach (var range in ranges.Reverse())
 			{

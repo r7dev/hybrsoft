@@ -203,8 +203,8 @@ namespace Hybrsoft.Domain.ViewModels
 			List<UserDto> models = [];
 			foreach (var range in ranges)
 			{
-				var users = await UserService.GetUsersAsync(range.Index, range.Length, request);
-				models.AddRange(users);
+				var items = await UserService.GetUsersAsync(range.Index, range.Length, request);
+				models.AddRange(items);
 			}
 			foreach (var range in ranges.Reverse())
 			{

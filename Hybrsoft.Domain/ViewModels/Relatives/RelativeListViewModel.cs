@@ -216,8 +216,8 @@ namespace Hybrsoft.Domain.ViewModels
 			List<RelativeDto> models = [];
 			foreach (var range in ranges)
 			{
-				var relatives = await RelativeService.GetRelativesAsync(range.Index, range.Length, request);
-				models.AddRange(relatives);
+				var items = await RelativeService.GetRelativesAsync(range.Index, range.Length, request);
+				models.AddRange(items);
 			}
 			foreach (var range in ranges.Reverse())
 			{

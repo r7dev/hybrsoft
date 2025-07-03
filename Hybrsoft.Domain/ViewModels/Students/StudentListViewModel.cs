@@ -216,8 +216,8 @@ namespace Hybrsoft.Domain.ViewModels
 			List<StudentDto> models = [];
 			foreach (var range in ranges)
 			{
-				var students = await StudentService.GetStudentsAsync(range.Index, range.Length, request);
-				models.AddRange(students);
+				var items = await StudentService.GetStudentsAsync(range.Index, range.Length, request);
+				models.AddRange(items);
 			}
 			foreach (var range in ranges.Reverse())
 			{

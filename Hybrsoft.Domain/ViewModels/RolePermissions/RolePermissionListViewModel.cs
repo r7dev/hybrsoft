@@ -212,8 +212,8 @@ namespace Hybrsoft.Domain.ViewModels
 			List<RolePermissionDto> models = [];
 			foreach (var range in ranges)
 			{
-				var rolePermissions = await RolePermissionService.GetRolePermissionsAsync(range.Index, range.Length, request);
-				models.AddRange(rolePermissions);
+				var items = await RolePermissionService.GetRolePermissionsAsync(range.Index, range.Length, request);
+				models.AddRange(items);
 			}
 			foreach (var range in ranges.Reverse())
 			{

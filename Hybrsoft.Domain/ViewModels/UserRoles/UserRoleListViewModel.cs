@@ -212,8 +212,8 @@ namespace Hybrsoft.Domain.ViewModels
 			List<UserRoleDto> models = [];
 			foreach (var range in ranges)
 			{
-				var userRoles = await UserRoleService.GetUserRolesAsync(range.Index, range.Length, request);
-				models.AddRange(userRoles);
+				var items = await UserRoleService.GetUserRolesAsync(range.Index, range.Length, request);
+				models.AddRange(items);
 			}
 			foreach (var range in ranges.Reverse())
 			{
