@@ -26,7 +26,8 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 					PermissionID = r.PermissionID,
 					Name = r.Name,
 					DisplayName = r.DisplayName,
-					Description = r.Description
+					Description = r.Description,
+					IsEnabled = r.IsEnabled // Do not remove. It is necessary for deletion.
 				})
 				.AsNoTracking()
 				.ToListAsync();
