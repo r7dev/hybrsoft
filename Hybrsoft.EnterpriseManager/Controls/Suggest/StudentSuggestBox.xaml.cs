@@ -30,13 +30,13 @@ namespace Hybrsoft.EnterpriseManager.Controls
 
 		private IStudentService StudentService { get; }
 
-		#region ExcludedStudentKeys
-		public IList<long> ExcludedStudentKeys
+		#region ExcludedKeys
+		public IList<long> ExcludedKeys
 		{
-			get { return (IList<long>)GetValue(ExcludedStudentKeysProperty); }
-			set { SetValue(ExcludedStudentKeysProperty, value); }
+			get { return (IList<long>)GetValue(ExcludedKeysProperty); }
+			set { SetValue(ExcludedKeysProperty, value); }
 		}
-		public static readonly DependencyProperty ExcludedStudentKeysProperty = DependencyProperty.Register(nameof(ExcludedStudentKeys), typeof(IList<long>), typeof(StudentSuggestBox), new PropertyMetadata(null));
+		public static readonly DependencyProperty ExcludedKeysProperty = DependencyProperty.Register(nameof(ExcludedKeys), typeof(IList<long>), typeof(StudentSuggestBox), new PropertyMetadata(null));
 		#endregion
 
 		#region Items
@@ -75,14 +75,14 @@ namespace Hybrsoft.EnterpriseManager.Controls
 		public static readonly DependencyProperty IsReadOnlyProperty = DependencyProperty.Register(nameof(IsReadOnly), typeof(bool), typeof(StudentSuggestBox), new PropertyMetadata(false, IsReadOnlyChanged));
 		#endregion
 
-		#region StudentSelectedCommand
-		public ICommand StudentSelectedCommand
+		#region SelectedCommand
+		public ICommand SelectedCommand
 		{
-			get { return (ICommand)GetValue(StudentSelectedCommandProperty); }
-			set { SetValue(StudentSelectedCommandProperty, value); }
+			get { return (ICommand)GetValue(SelectedCommandProperty); }
+			set { SetValue(SelectedCommandProperty, value); }
 		}
 
-		public static readonly DependencyProperty StudentSelectedCommandProperty = DependencyProperty.Register(nameof(StudentSelectedCommand), typeof(ICommand), typeof(StudentSuggestBox), new PropertyMetadata(null));
+		public static readonly DependencyProperty SelectedCommandProperty = DependencyProperty.Register(nameof(SelectedCommand), typeof(ICommand), typeof(StudentSuggestBox), new PropertyMetadata(null));
 		#endregion
 
 		private async void OnTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
@@ -107,7 +107,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			var request = new DataRequest<Student>()
 			{
 				Query = query,
-				Where = r => !ExcludedStudentKeys.Contains(r.StudentID),
+				Where = r => !ExcludedKeys.Contains(r.StudentID),
 				OrderBy = r => r.FirstName
 			};
 			return await StudentService.GetStudentsAsync(0, 20, request);
@@ -115,7 +115,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 
 		private void OnSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
 		{
-			StudentSelectedCommand?.TryExecute(args.SelectedItem);
+			SelectedCommand?.TryExecute(args.SelectedItem);
 		}
 	}
 }

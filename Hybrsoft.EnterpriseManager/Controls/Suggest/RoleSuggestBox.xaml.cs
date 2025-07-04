@@ -30,13 +30,13 @@ namespace Hybrsoft.EnterpriseManager.Controls
 
 		private IRoleService RoleService { get; }
 
-		#region ExcludedRoleKeys
-		public IList<long> ExcludedRoleKeys
+		#region ExcludedKeys
+		public IList<long> ExcludedKeys
 		{
-			get { return (IList<long>)GetValue(ExcludedRoleKeysProperty); }
-			set { SetValue(ExcludedRoleKeysProperty, value); }
+			get { return (IList<long>)GetValue(ExcludedKeysProperty); }
+			set { SetValue(ExcludedKeysProperty, value); }
 		}
-		public static readonly DependencyProperty ExcludedRoleKeysProperty = DependencyProperty.Register(nameof(ExcludedRoleKeys), typeof(IList<long>), typeof(RoleSuggestBox), new PropertyMetadata(null));
+		public static readonly DependencyProperty ExcludedKeysProperty = DependencyProperty.Register(nameof(ExcludedKeys), typeof(IList<long>), typeof(RoleSuggestBox), new PropertyMetadata(null));
 		#endregion
 
 		#region Items
@@ -75,14 +75,14 @@ namespace Hybrsoft.EnterpriseManager.Controls
 		public static readonly DependencyProperty IsReadOnlyProperty = DependencyProperty.Register(nameof(IsReadOnly), typeof(bool), typeof(RoleSuggestBox), new PropertyMetadata(false, IsReadOnlyChanged));
 		#endregion
 
-		#region RoleSelectedCommand
-		public ICommand RoleSelectedCommand
+		#region SelectedCommand
+		public ICommand SelectedCommand
 		{
-			get { return (ICommand)GetValue(RoleSelectedCommandProperty); }
-			set { SetValue(RoleSelectedCommandProperty, value); }
+			get { return (ICommand)GetValue(SelectedCommandProperty); }
+			set { SetValue(SelectedCommandProperty, value); }
 		}
 
-		public static readonly DependencyProperty RoleSelectedCommandProperty = DependencyProperty.Register(nameof(RoleSelectedCommand), typeof(ICommand), typeof(RoleSuggestBox), new PropertyMetadata(null));
+		public static readonly DependencyProperty SelectedCommandProperty = DependencyProperty.Register(nameof(SelectedCommand), typeof(ICommand), typeof(RoleSuggestBox), new PropertyMetadata(null));
 		#endregion
 
 		private async void OnTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
@@ -107,7 +107,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			var request = new DataRequest<Role>()
 			{
 				Query = query,
-				Where = r => !ExcludedRoleKeys.Contains(r.RoleID),
+				Where = r => !ExcludedKeys.Contains(r.RoleID),
 				OrderBy = r => r.Name
 			};
 			return await RoleService.GetRolesAsync(0, 20, request);
@@ -115,7 +115,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 
 		private void OnSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
 		{
-			RoleSelectedCommand?.TryExecute(args.SelectedItem);
+			SelectedCommand?.TryExecute(args.SelectedItem);
 		}
 	}
 }

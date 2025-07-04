@@ -30,13 +30,13 @@ namespace Hybrsoft.EnterpriseManager.Controls
 
 		private IPermissionService PermissionService { get; }
 
-		#region ExcludedPermissionKeys
-		public IList<long> ExcludedPermissionKeys
+		#region ExcludedKeys
+		public IList<long> ExcludedKeys
 		{
-			get { return (IList<long>)GetValue(ExcludedPermissionKeysProperty); }
-			set { SetValue(ExcludedPermissionKeysProperty, value); }
+			get { return (IList<long>)GetValue(ExcludedKeysProperty); }
+			set { SetValue(ExcludedKeysProperty, value); }
 		}
-		public static readonly DependencyProperty ExcludedPermissionKeysProperty = DependencyProperty.Register(nameof(ExcludedPermissionKeys), typeof(IList<long>), typeof(PermissionSuggestBox), new PropertyMetadata(null));
+		public static readonly DependencyProperty ExcludedKeysProperty = DependencyProperty.Register(nameof(ExcludedKeys), typeof(IList<long>), typeof(PermissionSuggestBox), new PropertyMetadata(null));
 		#endregion
 
 		#region Items
@@ -75,14 +75,14 @@ namespace Hybrsoft.EnterpriseManager.Controls
 		public static readonly DependencyProperty IsReadOnlyProperty = DependencyProperty.Register(nameof(IsReadOnly), typeof(bool), typeof(PermissionSuggestBox), new PropertyMetadata(false, IsReadOnlyChanged));
 		#endregion
 
-		#region PermissionSelectedCommand
-		public ICommand PermissionSelectedCommand
+		#region SelectedCommand
+		public ICommand SelectedCommand
 		{
-			get { return (ICommand)GetValue(PermissionSelectedCommandProperty); }
-			set { SetValue(PermissionSelectedCommandProperty, value); }
+			get { return (ICommand)GetValue(SelectedCommandProperty); }
+			set { SetValue(SelectedCommandProperty, value); }
 		}
 
-		public static readonly DependencyProperty PermissionSelectedCommandProperty = DependencyProperty.Register(nameof(PermissionSelectedCommand), typeof(ICommand), typeof(PermissionSuggestBox), new PropertyMetadata(null));
+		public static readonly DependencyProperty SelectedCommandProperty = DependencyProperty.Register(nameof(SelectedCommand), typeof(ICommand), typeof(PermissionSuggestBox), new PropertyMetadata(null));
 		#endregion
 
 		private async void OnTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
@@ -107,7 +107,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			var request = new DataRequest<Permission>()
 			{
 				Query = query,
-				Where = r => !ExcludedPermissionKeys.Contains(r.PermissionID),
+				Where = r => !ExcludedKeys.Contains(r.PermissionID),
 				OrderBy = r => r.Name
 			};
 			return await PermissionService.GetPermissionsAsync(0, 20, request);
@@ -115,7 +115,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 
 		private void OnSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
 		{
-			PermissionSelectedCommand?.TryExecute(args.SelectedItem);
+			SelectedCommand?.TryExecute(args.SelectedItem);
 		}
 	}
 }

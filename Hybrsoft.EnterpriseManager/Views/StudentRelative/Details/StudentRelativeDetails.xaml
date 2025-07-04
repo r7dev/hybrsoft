@@ -15,8 +15,8 @@
 		<DataTemplate x:Key="DetailsTemplate" x:DataType="viewmodels:StudentRelativeDetailsViewModel">
 			<controls:FluidGrid  Margin="12,18,6,6" Columns="2" ColumnSpacing="12" RowSpacing="12">
 				<controls:RelativeSuggestBox DisplayText="{x:Bind EditableItem.Relative.FullName, Mode=OneWay}"
-											 ExcludedRelativeKeys="{x:Bind AddedRelativeKeys, Mode=OneWay}"
-											 RelativeSelectedCommand="{x:Bind RelativeSelectedCommand}" />
+											 ExcludedKeys="{x:Bind AddedRelativeKeys, Mode=OneWay}"
+											 SelectedCommand="{x:Bind RelativeSelectedCommand}" />
 				<Rectangle />
 			</controls:FluidGrid>
 		</DataTemplate>

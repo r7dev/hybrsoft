@@ -30,13 +30,13 @@ public sealed partial class RelativeSuggestBox : UserControl
 
 	private IRelativeService RelativeService { get; }
 
-	#region ExcludedRelativeKeys
-	public IList<long> ExcludedRelativeKeys
+	#region ExcludedKeys
+	public IList<long> ExcludedKeys
 	{
-		get { return (IList<long>)GetValue(ExcludedRelativeKeysProperty); }
-		set { SetValue(ExcludedRelativeKeysProperty, value); }
+		get { return (IList<long>)GetValue(ExcludedKeysProperty); }
+		set { SetValue(ExcludedKeysProperty, value); }
 	}
-	public static readonly DependencyProperty ExcludedRelativeKeysProperty = DependencyProperty.Register(nameof(ExcludedRelativeKeys), typeof(IList<long>), typeof(RelativeSuggestBox), new PropertyMetadata(null));
+	public static readonly DependencyProperty ExcludedKeysProperty = DependencyProperty.Register(nameof(ExcludedKeys), typeof(IList<long>), typeof(RelativeSuggestBox), new PropertyMetadata(null));
 	#endregion
 
 	#region Items
@@ -75,14 +75,14 @@ public sealed partial class RelativeSuggestBox : UserControl
 	public static readonly DependencyProperty IsReadOnlyProperty = DependencyProperty.Register(nameof(IsReadOnly), typeof(bool), typeof(RelativeSuggestBox), new PropertyMetadata(false, IsReadOnlyChanged));
 	#endregion
 
-	#region RelativeSelectedCommand
-	public ICommand RelativeSelectedCommand
+	#region SelectedCommand
+	public ICommand SelectedCommand
 	{
-		get { return (ICommand)GetValue(RelativeSelectedCommandProperty); }
-		set { SetValue(RelativeSelectedCommandProperty, value); }
+		get { return (ICommand)GetValue(SelectedCommandProperty); }
+		set { SetValue(SelectedCommandProperty, value); }
 	}
 
-	public static readonly DependencyProperty RelativeSelectedCommandProperty = DependencyProperty.Register(nameof(RelativeSelectedCommand), typeof(ICommand), typeof(RelativeSuggestBox), new PropertyMetadata(null));
+	public static readonly DependencyProperty SelectedCommandProperty = DependencyProperty.Register(nameof(SelectedCommand), typeof(ICommand), typeof(RelativeSuggestBox), new PropertyMetadata(null));
 	#endregion
 
 	private async void OnTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
@@ -107,7 +107,7 @@ public sealed partial class RelativeSuggestBox : UserControl
 		var request = new DataRequest<Relative>()
 		{
 			Query = query,
-			Where = r => !ExcludedRelativeKeys.Contains(r.RelativeID),
+			Where = r => !ExcludedKeys.Contains(r.RelativeID),
 			OrderBy = r => r.FirstName
 		};
 		return await RelativeService.GetRelativesAsync(0, 20, request);
@@ -115,6 +115,6 @@ public sealed partial class RelativeSuggestBox : UserControl
 
 	private void OnSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
 	{
-		RelativeSelectedCommand?.TryExecute(args.SelectedItem);
+		SelectedCommand?.TryExecute(args.SelectedItem);
 	}
 }

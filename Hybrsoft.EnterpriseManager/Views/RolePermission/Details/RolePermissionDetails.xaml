@@ -15,8 +15,8 @@
 		<DataTemplate x:Key="DetailsTemplate" x:DataType="viewmodels:RolePermissionDetailsViewModel">
 			<controls:FluidGrid  Margin="12,18,6,6" Columns="2" ColumnSpacing="12" RowSpacing="12">
 				<controls:PermissionSuggestBox DisplayText="{x:Bind EditableItem.Permission.DisplayName, Mode=OneWay}"
-											   ExcludedPermissionKeys="{x:Bind AddedPermissionKeys, Mode=OneWay}"
-											   PermissionSelectedCommand="{x:Bind PermissionSelectedCommand}" />
+											   ExcludedKeys="{x:Bind AddedPermissionKeys, Mode=OneWay}"
+											   SelectedCommand="{x:Bind PermissionSelectedCommand}" />
 				<Rectangle />
 			</controls:FluidGrid>
 		</DataTemplate>
