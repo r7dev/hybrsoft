@@ -35,9 +35,9 @@ namespace Hybrsoft.EnterpriseManager.Views
 		{
 			if (sender is ComboBox comboBox)
 			{
-				if (comboBox.SelectedItem != null && comboBox.SelectedItem is RelativeTypeDto relativeType)
+				if (comboBox.SelectedItem != null && comboBox.SelectedItem is RelativeTypeDto model)
 				{
-					ViewModel.RelativeTypeSelectedCommand?.TryExecute(relativeType);
+					ViewModel.RelativeTypeSelectedCommand?.TryExecute(model);
 				}
 			}
 		}

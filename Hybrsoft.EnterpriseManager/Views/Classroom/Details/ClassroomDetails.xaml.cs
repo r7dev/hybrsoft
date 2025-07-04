@@ -41,9 +41,9 @@ namespace Hybrsoft.EnterpriseManager.Views
 		{
 			if (sender is ComboBox comboBox)
 			{
-				if (comboBox.SelectedItem != null && comboBox.SelectedItem is ScheduleTypeDto scheduleType)
+				if (comboBox.SelectedItem != null && comboBox.SelectedItem is ScheduleTypeDto model)
 				{
-					ViewModel.ClassroomDetails.ScheduleTypeSelectedCommand?.TryExecute(scheduleType);
+					ViewModel.ClassroomDetails.ScheduleTypeSelectedCommand?.TryExecute(model);
 				}
 			}
 		}
