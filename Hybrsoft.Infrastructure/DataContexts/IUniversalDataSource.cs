@@ -11,6 +11,9 @@ namespace Hybrsoft.Infrastructure.DataContexts
 	{
 		public DbSet<AppLog> AppLogs { get; set; }
 		public DbSet<Category> Categories { get; set; }
+		public DbSet<Company> Companies { get; set; }
+		public DbSet<CompanyUser> CompanyUsers { get; set; }
+		public DbSet<Country> Countries { get; set; }
 		public DbSet<NavigationItem> NavigationItems { get; set; }
 		public DbSet<Permission> Permissions { get; set; }
 		public DbSet<Role> Roles { get; set; }

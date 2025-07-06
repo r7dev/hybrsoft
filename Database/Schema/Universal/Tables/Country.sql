@@ -1,0 +1,6 @@
+﻿CREATE TABLE [Universal].[Country]
+(
+	[CountryID] SMALLINT NOT NULL PRIMARY KEY,
+	[Name] NVARCHAR(50) NOT NULL,
+	[Uid] NVARCHAR(35) NULL,
+)

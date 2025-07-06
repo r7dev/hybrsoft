@@ -11,6 +11,9 @@ namespace Hybrsoft.Infrastructure.DataContexts
 		{
 			modelBuilder.Entity<AppLog>().ToTable(nameof(AppLog), schema);
 			modelBuilder.Entity<Category>().ToTable(nameof(Category), schema);
+			modelBuilder.Entity<Company>().ToTable(nameof(Company), schema);
+			modelBuilder.Entity<CompanyUser>().ToTable(nameof(CompanyUser), schema);
+			modelBuilder.Entity<Country>().ToTable(nameof(Country), schema);
 			modelBuilder.Entity<NavigationItem>().ToTable(nameof(NavigationItem), schema);
 			modelBuilder.Entity<Permission>().ToTable(nameof(Permission), schema);
 			modelBuilder.Entity<Role>().ToTable(nameof(Role), schema);
@@ -22,6 +25,9 @@ namespace Hybrsoft.Infrastructure.DataContexts
 
 		public DbSet<AppLog> AppLogs { get; set; }
 		public DbSet<Category> Categories { get; set; }
+		public DbSet<Company> Companies { get; set; }
+		public DbSet<CompanyUser> CompanyUsers { get; set; }
+		public DbSet<Country> Countries { get; set; }
 		public DbSet<NavigationItem> NavigationItems { get; set; }
 		public DbSet<Permission> Permissions { get; set; }
 		public DbSet<Role> Roles { get; set; }

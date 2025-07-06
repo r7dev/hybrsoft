@@ -14,5 +14,7 @@
 		DismissalReader,
 		DismissalConfirmator,
 		DashboardReader,
+		CompanyReader,
+		CompanyEditor,
 	}
 }

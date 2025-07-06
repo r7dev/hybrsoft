@@ -29,6 +29,13 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 				.Any(x => x.ur.UserID == userID && x.p.Name == permissionName);
 		}
 
+		public async Task<IList<Country>> GetCountriesAsync()
+		{
+			return await _universalDataSource.Countries
+				.AsNoTracking()
+				.ToListAsync();
+		}
+
 		public async Task<IList<ScheduleType>> GetScheduleTypesAsync()
 		{
 			return await _learnDataSource.ScheduleTypes

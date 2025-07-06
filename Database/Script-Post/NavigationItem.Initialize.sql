@@ -55,6 +55,14 @@ IF NOT EXISTS(SELECT TOP 1 1 FROM [Universal].[NavigationItem] WHERE [Label] = @
 		INSERT INTO [Universal].[NavigationItem] ([Label], [Icon], [Uid], [ViewModel], [ParentID], [AppType])
 		VALUES(@LabelLevel2, CONVERT(INT, 0xE902), 'NavigationItem_Classrooms', 'ClassroomsViewModel', @ParentID, @AppType)
 	END
+-- 2.4.0
+SET @LabelLevel2 = 'Companies'
+SELECT @ParentID = [NavigationItemId] FROM [Universal].[NavigationItem] WHERE [Label] = @Label AND [AppType] = @AppType
+IF NOT EXISTS(SELECT TOP 1 1 FROM [Universal].[NavigationItem] WHERE [Label] = @LabelLevel2 AND [AppType] = @AppType)
+	BEGIN
+		INSERT INTO [Universal].[NavigationItem] ([Label], [Icon], [Uid], [ViewModel], [ParentID], [AppType])
+		VALUES(@LabelLevel2, CONVERT(INT, 0xE731), 'NavigationItem_Companies', 'CompaniesViewModel', @ParentID, @AppType)
+	END
 -- 3.0.0
 SET @Label = 'Operations'
 IF NOT EXISTS(SELECT TOP 1 1 FROM [Universal].[NavigationItem] WHERE [Label] = @Label AND [AppType] = @AppType)

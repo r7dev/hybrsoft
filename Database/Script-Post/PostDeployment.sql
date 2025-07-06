@@ -10,6 +10,7 @@ Modelo de Script Pós-Implantação
 --------------------------------------------------------------------------------------
 */
 
+:r .\Country.Initialize.sql
 :r .\NavigationItem.Initialize.sql
 :r .\Permission.Initialize.sql
 :r .\RelativeType.Initialize.sql

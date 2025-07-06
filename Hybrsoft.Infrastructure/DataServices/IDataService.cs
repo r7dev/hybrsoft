@@ -13,6 +13,8 @@ namespace Hybrsoft.Infrastructure.DataServices
 		IList<NavigationItem> GetNavigationItemByAppType(AppType appType);
 		bool HasPermission(long userID, string permissionName);
 
+		Task<IList<Country>> GetCountriesAsync();
+
 		Task<AppLog> GetAppLogAsync(long id);
 		Task<IList<AppLog>> GetAppLogsAsync(int skip, int take, DataRequest<AppLog> request);
 		Task<IList<AppLog>> GetAppLogKeysAsync(int skip, int take, DataRequest<AppLog> request);
@@ -20,6 +22,21 @@ namespace Hybrsoft.Infrastructure.DataServices
 		Task<int> CreateAppLogAsync(AppLog entity);
 		Task<int> DeleteAppLogsAsync(params AppLog[] entities);
 		Task MarkAllAsReadAsync();
+
+		Task<Company> GetCompanyAsync(long id);
+		Task<IList<Company>> GetCompaniesAsync(int skip, int take, DataRequest<Company> request);
+		Task<IList<Company>> GetCompanyKeysAsync(int skip, int take, DataRequest<Company> request);
+		Task<int> GetCompaniesCountAsync(DataRequest<Company> request);
+		Task<int> UpdateCompanyAsync(Company entity);
+		Task<int> DeleteCompaniesAsync(params Company[] entities);
+
+		Task<CompanyUser> GetCompanyUserAsync(long id);
+		Task<IList<CompanyUser>> GetCompanyUsersAsync(int skip, int take, DataRequest<CompanyUser> request);
+		Task<IList<CompanyUser>> GetCompanyUserKeysAsync(int skip, int take, DataRequest<CompanyUser> request);
+		Task<IList<long>> GetAddedUserKeysInCompanyAsync(long parentID);
+		Task<int> GetCompanyUsersCountAsync(DataRequest<CompanyUser> request);
+		Task<int> UpdateCompanyUserAsync(CompanyUser entity);
+		Task<int> DeleteCompanyUsersAsync(params CompanyUser[] entities);
 
 		Task<Permission> GetPermissionAsync(long id);
 		Task<IList<Permission>> GetPermissionsAsync(int skip, int take, DataRequest<Permission> request);
