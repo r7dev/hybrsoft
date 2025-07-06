@@ -261,4 +261,28 @@
   <data name="DismissalListViewModel_ErrorApproving0Dismissals1" xml:space="preserve">
     <value>Erro ao aprovar {0} Dispensas: {1}</value>
   </data>
+  <data name="CompanyDetailsViewModel_ErrorSavingCompany0" xml:space="preserve">
+    <value>Erro ao salvar Empresa: {0}</value>
+  </data>
+  <data name="CompanyDetailsViewModel_ErrorDeletingCompany0" xml:space="preserve">
+    <value>Erro ao excluir Empresa: {0}</value>
+  </data>
+  <data name="CompanyListViewModel_ErrorLoadingCompanies0" xml:space="preserve">
+    <value>Erro ao carregar Empresas: {0}</value>
+  </data>
+  <data name="CompanyListViewModel_ErrorDeleting0Companies1" xml:space="preserve">
+    <value>Erro ao excluir {0} Empresas: {1}</value>
+  </data>
+  <data name="CompanyUserListViewModel_ErrorLoadingCompanyUsers0" xml:space="preserve">
+    <value>Erro ao carregar Usuários da Empresa: {0}</value>
+  </data>
+  <data name="CompanyUserListViewModel_ErrorDeleting0CompanyUsers1" xml:space="preserve">
+    <value>Erro ao excluir {0} Usuários da Empresa: {1}</value>
+  </data>
+  <data name="CompanyUserDetailsViewModel_ErrorSavingCompanyUser0" xml:space="preserve">
+    <value>Erro ao salvar Usuário da Empresa: {0}</value>
+  </data>
+  <data name="CompanyUserDetailsViewModel_ErrorDeletingCompanyUser0" xml:space="preserve">
+    <value>Erro ao excluir Usuário da Empresa: {0}</value>
+  </data>
 </root>

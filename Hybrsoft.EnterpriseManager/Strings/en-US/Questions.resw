@@ -138,6 +138,18 @@
   <data name="ClassroomStudentListViewModel_AreYouSureYouWantToDeleteSelectedStudentsFromTheClassroom" xml:space="preserve">
     <value>Are you sure you want to delete selected students from the classroom?</value>
   </data>
+  <data name="CompanyDetailsViewModel_AreYouSureYouWantToDeleteCurrentCompany" xml:space="preserve">
+    <value>Are you sure you want to delete current company?</value>
+  </data>
+  <data name="CompanyListViewModel_AreYouSureYouWantToDeleteSelectedCompanies" xml:space="preserve">
+    <value>Are you sure you want to delete selected companies?</value>
+  </data>
+  <data name="CompanyUserDetailsViewModel_AreYouSureYouWantToDeleteCurrentCompanyUser" xml:space="preserve">
+    <value>Are you sure you want to delete current company user?</value>
+  </data>
+  <data name="CompanyUserListViewModel_AreYouSureYouWantToDeleteSelectedCompanyUsers" xml:space="preserve">
+    <value>Are you sure you want to delete selected company users?</value>
+  </data>
   <data name="DismissalListViewModel_AreYouSureYouWantToApproveTheSelectedDismissalRequests" xml:space="preserve">
     <value>Are you sure you want to approve the selected dismissal requests?</value>
   </data>

@@ -138,6 +138,18 @@
   <data name="ClassroomStudentListViewModel_AreYouSureYouWantToDeleteSelectedStudentsFromTheClassroom" xml:space="preserve">
     <value>Tem certeza de que deseja excluir os estudantes da sala de aula selecionados?</value>
   </data>
+  <data name="CompanyDetailsViewModel_AreYouSureYouWantToDeleteCurrentCompany" xml:space="preserve">
+    <value>Tem certeza de que deseja excluir a empresa atual?</value>
+  </data>
+  <data name="CompanyListViewModel_AreYouSureYouWantToDeleteSelectedCompanies" xml:space="preserve">
+    <value>Tem certeza de que deseja excluir as empresas selecionadas?</value>
+  </data>
+  <data name="CompanyUserDetailsViewModel_AreYouSureYouWantToDeleteCurrentCompanyUser" xml:space="preserve">
+    <value>Tem certeza de que deseja excluir o usuário da empresa atual?</value>
+  </data>
+  <data name="CompanyUserListViewModel_AreYouSureYouWantToDeleteSelectedCompanyUsers" xml:space="preserve">
+    <value>Tem certeza de que deseja excluir os usuários da empresa selecionadas?</value>
+  </data>
   <data name="DismissalListViewModel_AreYouSureYouWantToApproveTheSelectedDismissalRequests" xml:space="preserve">
     <value>Tem certeza de que deseja aprovar as solicitações de dispensa selecionadas?</value>
   </data>

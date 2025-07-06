@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+	x:Class="Hybrsoft.EnterpriseManager.Views.CompanyDetails"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:Hybrsoft.EnterpriseManager.Views"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:controls="using:Hybrsoft.EnterpriseManager.Controls"
+	xmlns:views="using:Hybrsoft.EnterpriseManager.Views"
+	xmlns:viewmodels="using:Hybrsoft.Domain.ViewModels"
+	mc:Ignorable="d">
+
+	<UserControl.Resources>
+		<DataTemplate x:Key="DetailsTemplate" x:DataType="viewmodels:CompanyDetailsViewModel">
+			<controls:FluidGrid Columns="2" ColumnSpacing="12" Margin="12,18,6,6" RowSpacing="12">
+				<TextBlock x:Uid="/UI/CompanyDetailsUserControl_Information"
+						   Style="{StaticResource FormsSection}"
+						   controls:FluidGrid.ColumnSpan="2" />
+				<controls:FormTextBox x:Uid="/UI/CompanyDetailsUserControl_LegalName"
+									  Text="{x:Bind EditableItem.LegalName, Mode=TwoWay}" />
+				<controls:FormTextBox x:Uid="/UI/CompanyDetailsUserControl_TradeName"
+									  Text="{x:Bind EditableItem.TradeName, Mode=TwoWay}" />
+
+				<controls:FormTextBox x:Uid="/UI/CompanyDetailsUserControl_FederalRegistration"
+									  Text="{x:Bind EditableItem.FederalRegistration, Mode=TwoWay}" />
+				<controls:FormTextBox x:Uid="/UI/CompanyDetailsUserControl_StateRegistration"
+									  Text="{x:Bind EditableItem.StateRegistration, Mode=TwoWay}" />
+
+				<controls:FormTextBox x:Uid="/UI/CompanyDetailsUserControl_CityLicense"
+									  Text="{x:Bind EditableItem.CityLicense, Mode=TwoWay}" />
+				<controls:FormComboBox x:Uid="/UI/CompanyDetailsUserControl_Country"
+									   ItemsSource="{x:Bind LookupTables.Countries, Mode=OneWay}"
+									   SelectedValue="{x:Bind EditableItem.CountryID, Mode=TwoWay, Converter={StaticResource Int16Converter}}"
+									   SelectedValuePath="CountryID"
+									   DisplayMemberPath="Name"
+									   SelectionChanged="FormComboBox_SelectionChanged" />
+
+				<controls:FormTextBox x:Uid="/UI/CompanyDetailsUserControl_Phone"
+									  Text="{x:Bind EditableItem.Phone, Mode=TwoWay}" />
+				<controls:FormTextBox x:Uid="/UI/CompanyDetailsUserControl_EmailAddress"
+								  Text="{x:Bind EditableItem.Email, Mode=TwoWay}" />
+			</controls:FluidGrid>
+		</DataTemplate>
+	</UserControl.Resources>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="320"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+
+		<Border BorderBrush="LightGray" BorderThickness="0,1,1,0" Background="{StaticResource DetailsViewBackgroundColor}">
+			<views:CompanyCard Margin="6" Item="{x:Bind ViewModel.CompanyDetails.Item, Mode=OneWay}" />
+		</Border>
+
+		<Grid Grid.Column="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+
+			<controls:Details x:Name="details" Margin="6"
+							  Grid.RowSpan="{x:Bind GetRowSpan(ViewModel.CompanyDetails.ItemIsNew), Mode=OneWay}"
+							  DetailsContent="{x:Bind ViewModel.CompanyDetails}"
+							  DetailsTemplate="{StaticResource DetailsTemplate}"
+							  CanGoBack="{x:Bind ViewModel.CompanyDetails.CanGoBack}"
+							  IsEditMode="{x:Bind ViewModel.CompanyDetails.IsEditMode, Mode=OneWay}"
+							  BackCommand="{x:Bind ViewModel.CompanyDetails.BackCommand}"
+							  EditCommand="{x:Bind ViewModel.CompanyDetails.EditCommand}"
+							  DeleteCommand="{x:Bind ViewModel.CompanyDetails.DeleteCommand}"
+							  SaveCommand="{x:Bind ViewModel.CompanyDetails.SaveCommand}"
+							  CancelCommand="{x:Bind ViewModel.CompanyDetails.CancelCommand}" />
+
+			<Border Grid.Row="1"
+					BorderBrush="LightGray"
+					BorderThickness="0,1,0,0"
+					Visibility="{x:Bind ViewModel.CompanyDetails.ItemIsNew, Mode=OneWay, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+				<controls:Section x:Uid="/UI/CompanyDetailsUserControl_Users"
+								  Background="{StaticResource DetailsViewBackgroundColor}">
+					<views:CompaniesCompanyUsers ViewModel="{x:Bind ViewModel.CompanyUserList}" />
+				</controls:Section>
+			</Border>
+		</Grid>
+	</Grid>
+</UserControl>

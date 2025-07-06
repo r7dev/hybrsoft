@@ -132,6 +132,15 @@
   <data name="ClassroomStudentDetailsViewModel_PropertyStudent" xml:space="preserve">
     <value>Student</value>
   </data>
+  <data name="CompanyDetailsViewModel_PropertyCountry" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="CompanyDetailsViewModel_PropertyLegalName" xml:space="preserve">
+    <value>Legal Name</value>
+  </data>
+  <data name="CompanyUserDetailsViewModel_PropertyUser" xml:space="preserve">
+    <value>User</value>
+  </data>
   <data name="DismissalDetailsViewModel_PropertyRelative" xml:space="preserve">
     <value>Relative</value>
   </data>

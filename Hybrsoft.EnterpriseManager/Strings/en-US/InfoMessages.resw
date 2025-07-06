@@ -417,4 +417,52 @@
   <data name="DashboardViewModel_DashboardLoaded" xml:space="preserve">
     <value>Dashboard loaded</value>
   </data>
+  <data name="CompanyDetailsViewModel_SavingCompany" xml:space="preserve">
+    <value>Saving company...</value>
+  </data>
+  <data name="CompanyDetailsViewModel_CompanySaved" xml:space="preserve">
+    <value>Company saved</value>
+  </data>
+  <data name="CompanyDetailsViewModel_DeletingCompany" xml:space="preserve">
+    <value>Deleting company...</value>
+  </data>
+  <data name="CompanyDetailsViewModel_CompanyDeleted" xml:space="preserve">
+    <value>Company deleted</value>
+  </data>
+  <data name="CompanyListViewModel_LoadingCompanies" xml:space="preserve">
+    <value>Loading companies...</value>
+  </data>
+  <data name="CompanyListViewModel_CompaniesLoaded" xml:space="preserve">
+    <value>Companies loaded</value>
+  </data>
+  <data name="CompanyListViewModel_Deleting0Companies" xml:space="preserve">
+    <value>Deleting {0} companies...</value>
+  </data>
+  <data name="CompanyListViewModel_0CompaniesDeleted" xml:space="preserve">
+    <value>{0} companies deleted</value>
+  </data>
+  <data name="CompanyUserListViewModel_LoadingCompanyUsers" xml:space="preserve">
+    <value>Loading company users...</value>
+  </data>
+  <data name="CompanyUserListViewModel_CompanyUsersLoaded" xml:space="preserve">
+    <value>Company Users loaded</value>
+  </data>
+  <data name="CompanyUserListViewModel_Deleting0CompanyUsers" xml:space="preserve">
+    <value>Deleting {0} company users...</value>
+  </data>
+  <data name="CompanyUserListViewModel_0CompanyUsersDeleted" xml:space="preserve">
+    <value>{0} company users deleted</value>
+  </data>
+  <data name="CompanyUserDetailsViewModel_SavingCompanyUser" xml:space="preserve">
+    <value>Saving company user...</value>
+  </data>
+  <data name="CompanyUserDetailsViewModel_CompanyUserHasBeenSaved" xml:space="preserve">
+    <value>Company User has been saved</value>
+  </data>
+  <data name="CompanyUserDetailsViewModel_DeletingCompanyUser" xml:space="preserve">
+    <value>Deleting company user...</value>
+  </data>
+  <data name="CompanyUserDetailsViewModel_CompanyUserHasBeenDeleted" xml:space="preserve">
+    <value>Company User has been deleted</value>
+  </data>
 </root>

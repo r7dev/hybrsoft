@@ -31,6 +31,8 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			serviceCollection.AddSingleton<IClassroomService, ClassroomService>();
 			serviceCollection.AddSingleton<IClassroomStudentService, ClassroomStudentService>();
 			serviceCollection.AddSingleton<IDismissalService, DismissalService>();
+			serviceCollection.AddSingleton<ICompanyService, CompanyService>();
+			serviceCollection.AddSingleton<ICompanyUserService, CompanyUserService>();
 			serviceCollection.AddSingleton<IPermissionService, PermissionService>();
 			serviceCollection.AddSingleton<IRoleService, RoleService>();
 			serviceCollection.AddSingleton<IRolePermissionService, RolePermissionService>();
@@ -75,6 +77,12 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			serviceCollection.AddTransient<DismissibleStudentsViewModel>();
 			serviceCollection.AddTransient<DismissalsViewModel>();
 			serviceCollection.AddTransient<DismissalDetailsViewModel>();
+
+			serviceCollection.AddTransient<CompaniesViewModel>();
+			serviceCollection.AddTransient<CompanyDetailsViewModel>();
+			serviceCollection.AddTransient<CompanyDetailsWithUsersViewModel>();
+
+			serviceCollection.AddTransient<CompanyUserDetailsViewModel>();
 
 			serviceCollection.AddTransient<PermissionsViewModel>();
 			serviceCollection.AddTransient<PermissionDetailsViewModel>();

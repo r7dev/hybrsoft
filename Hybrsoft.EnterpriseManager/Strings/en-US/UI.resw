@@ -777,4 +777,103 @@
   <data name="ExtendedSplash_LoadingPleaseWait.Text" xml:space="preserve">
     <value>Loading, please wait...</value>
   </data>
+  <data name="Country_UnitedStates" xml:space="preserve">
+    <value>United States</value>
+  </data>
+  <data name="Country_Brazil" xml:space="preserve">
+    <value>Brazil</value>
+  </data>
+  <data name="CompanyDetailsViewModel_Title" xml:space="preserve">
+    <value>New Company</value>
+  </data>
+  <data name="CompanyDetailsViewModel_TitleEdit" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="CompanyListViewModel_Prefix" xml:space="preserve">
+    <value>Companies</value>
+  </data>
+  <data name="CompanyUserDetailsViewModel_TitleNew" xml:space="preserve">
+    <value>New Company User, Company #{0}</value>
+  </data>
+  <data name="CompanyUserDetailsViewModel_TitleEdit" xml:space="preserve">
+    <value>User {0}, #{1}</value>
+  </data>
+  <data name="CompanyUserCardUserControl_CompanyUser.Text" xml:space="preserve">
+    <value>Company User</value>
+  </data>
+  <data name="CompanyUserCardUserControl_CompanyID.Text" xml:space="preserve">
+    <value>Company ID</value>
+  </data>
+  <data name="CompanyUserCardUserControl_User.Text" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="CompanyUserCardUserControl_UserID.Text" xml:space="preserve">
+    <value>User ID</value>
+  </data>
+  <data name="UserSuggestBoxUserControl.Header" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="UserSuggestBoxUserControl.PlaceholderText" xml:space="preserve">
+    <value>Search User</value>
+  </data>
+  <data name="CompaniesCompanyUsersUserControl_ColumnHeaderUserID.Text" xml:space="preserve">
+    <value>User ID</value>
+  </data>
+  <data name="CompaniesCompanyUsersUserControl_ColumnHeaderName.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="CompaniesCompanyUsersUserControl_New.NewLabel" xml:space="preserve">
+    <value>New Company User</value>
+  </data>
+  <data name="CompanyCardUserControl_CompanyID.Text" xml:space="preserve">
+    <value>Company ID</value>
+  </data>
+  <data name="CompanyDetailsUserControl_Information.Text" xml:space="preserve">
+    <value>Company Information</value>
+  </data>
+  <data name="CompanyDetailsUserControl_LegalName.Header" xml:space="preserve">
+    <value>Legal Name</value>
+  </data>
+  <data name="CompanyDetailsUserControl_TradeName.Header" xml:space="preserve">
+    <value>Trade Name</value>
+  </data>
+  <data name="CompanyDetailsUserControl_FederalRegistration.Header" xml:space="preserve">
+    <value>EIN</value>
+  </data>
+  <data name="CompanyDetailsUserControl_StateRegistration.Header" xml:space="preserve">
+    <value>Sales Tax Permit</value>
+  </data>
+  <data name="CompanyDetailsUserControl_CityLicense.Header" xml:space="preserve">
+    <value>Business License</value>
+  </data>
+  <data name="CompanyDetailsUserControl_Phone.Header" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="CompanyDetailsUserControl_Country.Header" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="CompanyDetailsUserControl_EmailAddress.Header" xml:space="preserve">
+    <value>Email Address</value>
+  </data>
+  <data name="CompanyListUserControl_ColumnHeaderCompanyID.Text" xml:space="preserve">
+    <value>Company ID</value>
+  </data>
+  <data name="CompanyListUserControl_ColumnHeaderName.Text" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="CompanyListUserControl_ColumnHeaderFederalRegistration.Text" xml:space="preserve">
+    <value>EIN</value>
+  </data>
+  <data name="CompanyListUserControl_ColumnHeaderPhone.Text" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="CompanyListUserControl_New.NewLabel" xml:space="preserve">
+    <value>New Company</value>
+  </data>
+  <data name="CompanysView_Details_Users.Header" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="NavigationItem_Companies" xml:space="preserve">
+    <value>Companies</value>
+  </data>
 </root>

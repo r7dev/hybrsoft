@@ -777,4 +777,103 @@
   <data name="ExtendedSplash_LoadingPleaseWait.Text" xml:space="preserve">
     <value>Carregando, por favor aguarde...</value>
   </data>
+  <data name="Country_UnitedStates" xml:space="preserve">
+    <value>Estados Unidos</value>
+  </data>
+  <data name="Country_Brazil" xml:space="preserve">
+    <value>Brasil</value>
+  </data>
+  <data name="CompanyDetailsViewModel_Title" xml:space="preserve">
+    <value>Nova Empresa</value>
+  </data>
+  <data name="CompanyDetailsViewModel_TitleEdit" xml:space="preserve">
+    <value>Empresa</value>
+  </data>
+  <data name="CompanyListViewModel_Prefix" xml:space="preserve">
+    <value>Empresas</value>
+  </data>
+  <data name="CompanyUserDetailsViewModel_TitleNew" xml:space="preserve">
+    <value>Novo Usuário da Empresa, Empresa #{0}</value>
+  </data>
+  <data name="CompanyUserDetailsViewModel_TitleEdit" xml:space="preserve">
+    <value>Usuário {0}, #{1}</value>
+  </data>
+  <data name="CompanyUserCardUserControl_CompanyUser.Text" xml:space="preserve">
+    <value>Usuário da Empresa</value>
+  </data>
+  <data name="CompanyUserCardUserControl_CompanyID.Text" xml:space="preserve">
+    <value>Empresa ID</value>
+  </data>
+  <data name="CompanyUserCardUserControl_User.Text" xml:space="preserve">
+    <value>Usuário</value>
+  </data>
+  <data name="CompanyUserCardUserControl_UserID.Text" xml:space="preserve">
+    <value>Usuário ID</value>
+  </data>
+  <data name="UserSuggestBoxUserControl.Header" xml:space="preserve">
+    <value>Usuário</value>
+  </data>
+  <data name="UserSuggestBoxUserControl.PlaceholderText" xml:space="preserve">
+    <value>Pesquisar Usuário</value>
+  </data>
+  <data name="CompaniesCompanyUsersUserControl_ColumnHeaderUserID.Text" xml:space="preserve">
+    <value>Usuário ID</value>
+  </data>
+  <data name="CompaniesCompanyUsersUserControl_ColumnHeaderName.Text" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="CompaniesCompanyUsersUserControl_New.NewLabel" xml:space="preserve">
+    <value>Novo Usuário da Empresa</value>
+  </data>
+  <data name="CompanyCardUserControl_CompanyID.Text" xml:space="preserve">
+    <value>Empresa ID</value>
+  </data>
+  <data name="CompanyDetailsUserControl_Information.Text" xml:space="preserve">
+    <value>Informações da Empresa</value>
+  </data>
+  <data name="CompanyDetailsUserControl_LegalName.Header" xml:space="preserve">
+    <value>Razão Social</value>
+  </data>
+  <data name="CompanyDetailsUserControl_TradeName.Header" xml:space="preserve">
+    <value>Nome Fantasia</value>
+  </data>
+  <data name="CompanyDetailsUserControl_FederalRegistration.Header" xml:space="preserve">
+    <value>CNPJ</value>
+  </data>
+  <data name="CompanyDetailsUserControl_StateRegistration.Header" xml:space="preserve">
+    <value>Inscrição Estadual</value>
+  </data>
+  <data name="CompanyDetailsUserControl_CityLicense.Header" xml:space="preserve">
+    <value>Inscrição Municipal</value>
+  </data>
+  <data name="CompanyDetailsUserControl_Phone.Header" xml:space="preserve">
+    <value>Telefone</value>
+  </data>
+  <data name="CompanyDetailsUserControl_Country.Header" xml:space="preserve">
+    <value>País</value>
+  </data>
+  <data name="CompanyDetailsUserControl_EmailAddress.Header" xml:space="preserve">
+    <value>Endereço Eletrônico</value>
+  </data>
+  <data name="CompanyListUserControl_ColumnHeaderCompanyID.Text" xml:space="preserve">
+    <value>Empresa ID</value>
+  </data>
+  <data name="CompanyListUserControl_ColumnHeaderName.Text" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="CompanyListUserControl_ColumnHeaderFederalRegistration.Text" xml:space="preserve">
+    <value>CNPJ</value>
+  </data>
+  <data name="CompanyListUserControl_ColumnHeaderPhone.Text" xml:space="preserve">
+    <value>Telefone</value>
+  </data>
+  <data name="CompanyListUserControl_New.NewLabel" xml:space="preserve">
+    <value>Nova Empresa</value>
+  </data>
+  <data name="CompanysView_Details_Users.Header" xml:space="preserve">
+    <value>Usuários</value>
+  </data>
+  <data name="NavigationItem_Companies" xml:space="preserve">
+    <value>Empresas</value>
+  </data>
 </root>

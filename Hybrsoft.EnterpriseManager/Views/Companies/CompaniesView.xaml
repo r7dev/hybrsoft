@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+	x:Class="Hybrsoft.EnterpriseManager.Views.CompaniesView"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:Hybrsoft.EnterpriseManager.Views"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:controls="using:Hybrsoft.EnterpriseManager.Controls"
+	xmlns:views="using:Hybrsoft.EnterpriseManager.Views"
+	mc:Ignorable="d">
+
+	<UserControl.Resources>
+		<DataTemplate x:Key="ListHeaderTemplate">
+			<StackPanel Margin="6,4,0,0" Orientation="Horizontal" VerticalAlignment="Center">
+				<TextBlock Text="{Binding}" FontSize="18" Foreground="{ThemeResource TextFillColorPrimaryBrush}" />
+			</StackPanel>
+		</DataTemplate>
+	</UserControl.Resources>
+
+	<Grid>
+		<controls:WindowTitle Prefix="{x:Bind ViewModel.CompanyList.Prefix, Mode=OneWay}"
+							  Title="{x:Bind ViewModel.CompanyList.Title, Mode=OneWay}" />
+
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+
+			<!--Companies-->
+			<Grid Grid.RowSpan="{x:Bind GetRowSpan(ViewModel.CompanyList.IsMultipleSelection), Mode=OneWay}">
+				<controls:Section Prefix="{x:Bind ViewModel.CompanyList.Prefix, Mode=OneWay}"
+								  Header="{x:Bind ViewModel.CompanyList.Title, Mode=OneWay}"
+								  HeaderTemplate="{StaticResource ListHeaderTemplate}"
+								  HeaderButtonGlyph="&#xE8A7;"
+								  HeaderButtonClick="OpenInNewView"
+								  IsButtonVisible="{x:Bind ViewModel.IsMainView}">
+					<views:CompanyList ViewModel="{x:Bind ViewModel.CompanyList}" />
+				</controls:Section>
+			</Grid>
+
+			<!--Companies Details-->
+			<Grid Grid.Row="1"
+				  BorderBrush="LightGray"
+				  BorderThickness="0,1,0,0"
+				  Visibility="{x:Bind ViewModel.CompanyList.IsMultipleSelection, Mode=OneWay, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+				<controls:Section IsEnabled="{x:Bind ViewModel.CompanyDetails.IsEnabled, Mode=OneWay}" 
+								  Background="{StaticResource DetailsViewBackgroundColor}" 
+								  Visibility="{x:Bind ViewModel.CompanyDetails.IsDataAvailable, Mode=OneWay}">
+
+					<Pivot x:Name="pivot">
+						<PivotItem x:Uid="/UI/CompanysView_Details_Users">
+							<views:CompaniesCompanyUsers Grid.Row="1" ViewModel="{x:Bind ViewModel.CompanyUserList}" />
+						</PivotItem>
+					</Pivot>
+
+				</controls:Section>
+				<!--Empty Details-->
+				<controls:Section x:Uid="/UI/GenericView_EmptyDetails"
+								  Visibility="{x:Bind ViewModel.CompanyDetails.IsDataUnavailable, Mode=OneWay}" />
+			</Grid>
+		</Grid>
+	</Grid>
+</Page>

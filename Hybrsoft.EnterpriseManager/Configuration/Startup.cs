@@ -52,6 +52,11 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			NavigationService.Register<DismissalsViewModel, DismissalsView>();
 			NavigationService.Register<DismissalDetailsViewModel, DismissalView>();
 
+			NavigationService.Register<CompaniesViewModel, CompaniesView>();
+			NavigationService.Register<CompanyDetailsViewModel, CompanyView>();
+
+			NavigationService.Register<CompanyUserDetailsViewModel, CompanyUserView>();
+
 			NavigationService.Register<PermissionsViewModel, PermissionsView>();
 			NavigationService.Register<PermissionDetailsViewModel, PermissionView>();
 

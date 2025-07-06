@@ -32,6 +32,7 @@
     <None Remove="Controls\Suggest\RelativeSuggestBox.xaml" />
     <None Remove="Controls\Suggest\RoleSuggestBox.xaml" />
     <None Remove="Controls\Suggest\StudentSuggestBox.xaml" />
+    <None Remove="Controls\Suggest\UserSuggestBox.xaml" />
     <None Remove="Controls\Toolbars\DetailToolbar.xaml" />
     <None Remove="Controls\Toolbars\ListToolbar.xaml" />
     <None Remove="Styles\Buttons.xaml" />
@@ -57,6 +58,15 @@
     <None Remove="Views\Classroom\ClassroomView.xaml" />
     <None Remove="Views\Classroom\Details\ClassroomCard.xaml" />
     <None Remove="Views\Classroom\Details\ClassroomDetails.xaml" />
+    <None Remove="Views\Companies\CompaniesView.xaml" />
+    <None Remove="Views\Companies\Details\CompaniesCompanyUsers.xaml" />
+    <None Remove="Views\Companies\List\CompanyList.xaml" />
+    <None Remove="Views\CompanyUser\CompanyUserView.xaml" />
+    <None Remove="Views\CompanyUser\Details\CompanyUserCard.xaml" />
+    <None Remove="Views\CompanyUser\Details\CompanyUserDetails.xaml" />
+    <None Remove="Views\Company\CompanyView.xaml" />
+    <None Remove="Views\Company\Details\CompanyCard.xaml" />
+    <None Remove="Views\Company\Details\CompanyDetails.xaml" />
     <None Remove="Views\Dashboard\DashboardView.xaml" />
     <None Remove="Views\Dashboard\Parts\StudentsPane.xaml" />
     <None Remove="Views\Dismissals\DismissalsView.xaml" />
@@ -191,6 +201,56 @@
   <ItemGroup>
     <Folder Include="Assets\Images\" />
     <Folder Include="Views\Roles\Details\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Companies\CompaniesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Companies\List\CompanyList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Company\CompanyView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Company\Details\CompanyDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Company\Details\CompanyCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Companies\Details\CompaniesCompanyUsers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\CompanyUser\CompanyUserView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\Suggest\UserSuggestBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\CompanyUser\Details\CompanyUserDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\CompanyUser\Details\CompanyUserCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Dashboard\Parts\StudentsPane.xaml">

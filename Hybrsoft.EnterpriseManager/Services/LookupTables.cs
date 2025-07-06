@@ -16,13 +16,43 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public ILogService LogService { get; } = logService;
 		public IResourceService ResourceService { get; } = resourceService;
 
+		public IList<CountryDto> Countries { get; private set; }
 		public IList<ScheduleTypeDto> ScheduleTypes { get; private set; }
 		public IList<RelativeTypeDto> RelativeTypes { get; private set; }
 
 		public async Task InitializeAsync()
 		{
+			Countries = await GetCountriesAsync();
 			ScheduleTypes = await GetScheduleTypesAsync();
 			RelativeTypes = await GetRelativeTypesAsync();
+		}
+
+		public string GetCountry(Int16 countryID)
+		{
+			return countryID == 0
+				? string.Empty
+				: Countries.Where(r => r.CountryID == countryID)
+				.Select(r => r.Name)
+				.FirstOrDefault();
+		}
+
+		private async Task<IList<CountryDto>> GetCountriesAsync()
+		{
+			try
+			{
+				using var dataService = DataServiceFactory.CreateDataService();
+				var items = await dataService.GetCountriesAsync();
+				return [.. items.Select(r => new CountryDto
+				{
+					CountryID = r.CountryID,
+					Name = string.IsNullOrEmpty(r.Uid) ? r.Name : ResourceService.GetString(nameof(ResourceFiles.UI), r.Uid),
+				})];
+			}
+			catch (Exception ex)
+			{
+				LogException("LookupTables", "Load Countries", ex);
+			}
+			return [];
 		}
 
 		public string GetScheduleType(Int16 scheduleTypeID)

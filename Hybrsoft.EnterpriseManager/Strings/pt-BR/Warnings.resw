@@ -132,6 +132,18 @@
   <data name="ClassroomStudentDetailsViewModel_ThisClassroomStudentHasBeenModifiedExternally" xml:space="preserve">
     <value>AVISO: Este estudante da sala de aula foi modificado externamente</value>
   </data>
+  <data name="CompanyDetailsViewModel_ThisCompanyHasBeenDeletedExternally" xml:space="preserve">
+    <value>AVISO: Esta empresa foi excluída externamente</value>
+  </data>
+  <data name="CompanyDetailsViewModel_ThisCompanyHasBeenModifiedExternally" xml:space="preserve">
+    <value>AVISO: Esta empresa foi modificada externamente</value>
+  </data>
+  <data name="CompanyUserDetailsViewModel_ThisCompanyUserHasBeenDeletedExternally" xml:space="preserve">
+    <value>AVISO: Este usuário da empresa foi excluído externamente</value>
+  </data>
+  <data name="CompanyUserDetailsViewModel_ThisCompanyUserHasBeenModifiedExternally" xml:space="preserve">
+    <value>AVISO: Este usuário da empresa foi modificado externamente</value>
+  </data>
   <data name="PermissionDetailsViewModel_ThisPermissionHasBeenDeletedExternally" xml:space="preserve">
     <value>AVISO: Esta permissão foi excluída externamente</value>
   </data>

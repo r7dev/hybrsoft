@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+	x:Class="Hybrsoft.EnterpriseManager.Views.CompanyList"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:Hybrsoft.EnterpriseManager.Views"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:models="using:Hybrsoft.Domain.Dtos"
+	xmlns:controls="using:Hybrsoft.EnterpriseManager.Controls"
+	mc:Ignorable="d">
+
+	<UserControl.Resources>
+		<DataTemplate x:Key="HeaderTemplate">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="2*"/>
+					<ColumnDefinition Width="4*"/>
+					<ColumnDefinition Width="2*"/>
+					<ColumnDefinition Width="2*"/>
+				</Grid.ColumnDefinitions>
+				<TextBlock Grid.Column="0"
+						   x:Uid="/UI/CompanyListUserControl_ColumnHeaderCompanyID"
+						   Style="{StaticResource ColumnHeaderStyle}" />
+				<TextBlock Grid.Column="1"
+						   x:Uid="/UI/CompanyListUserControl_ColumnHeaderName"
+						   Style="{StaticResource ColumnHeaderStyle}" />
+				<TextBlock Grid.Column="2"
+						   x:Uid="/UI/CompanyListUserControl_ColumnHeaderFederalRegistration"
+						   Style="{StaticResource ColumnHeaderStyle}" />
+				<TextBlock Grid.Column="3"
+						   x:Uid="/UI/CompanyListUserControl_ColumnHeaderPhone"
+						   Style="{StaticResource ColumnHeaderStyle}" />
+			</Grid>
+		</DataTemplate>
+
+		<DataTemplate x:Key="ItemTemplate" x:DataType="models:CompanyDto">
+			<Grid Height="32">
+				<Grid Visibility="{x:Bind IsEmpty, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="2*"/>
+						<ColumnDefinition Width="4*"/>
+						<ColumnDefinition Width="2*"/>
+						<ColumnDefinition Width="2*"/>
+					</Grid.ColumnDefinitions>
+					<TextBlock Grid.Column="0" Text="{x:Bind CompanyID}" Style="{StaticResource ColumnValueStyle}" />
+					<TextBlock Grid.Column="1" Text="{x:Bind FullName, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
+					<TextBlock Grid.Column="2" Text="{x:Bind FederalRegistration, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
+					<TextBlock Grid.Column="3" Text="{x:Bind Phone, Mode=OneWay}" Style="{StaticResource ColumnValueStyle}" />
+				</Grid>
+			</Grid>
+		</DataTemplate>
+	</UserControl.Resources>
+
+	<controls:DataList ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
+					   ItemSecondaryActionInvokedCommand="{x:Bind ViewModel.OpenInNewViewCommand}"
+					   x:Uid="/UI/CompanyListUserControl_New"
+					   SelectedItem="{x:Bind ViewModel.SelectedItem, Mode=TwoWay}"
+					   HeaderTemplate="{StaticResource HeaderTemplate}"
+					   ItemTemplate="{StaticResource ItemTemplate}"
+					   IsMultipleSelection="{x:Bind ViewModel.IsMultipleSelection, Mode=TwoWay}"
+					   ItemsCount="{x:Bind ViewModel.ItemsCount, Mode=OneWay}"
+					   NewCommand="{x:Bind ViewModel.NewCommand}"
+					   RefreshCommand="{x:Bind ViewModel.RefreshCommand}"
+					   Query="{x:Bind ViewModel.Query, Mode=TwoWay}"
+					   QuerySubmittedCommand="{x:Bind ViewModel.RefreshCommand}"
+					   StartSelectionCommand="{x:Bind ViewModel.StartSelectionCommand}"
+					   CancelSelectionCommand="{x:Bind ViewModel.CancelSelectionCommand}"
+					   SelectItemsCommand="{x:Bind ViewModel.SelectItemsCommand}"
+					   DeselectItemsCommand="{x:Bind ViewModel.DeselectItemsCommand}"
+					   SelectRangesCommand="{x:Bind ViewModel.SelectRangesCommand}"
+					   DeleteCommand="{x:Bind ViewModel.DeleteSelectionCommand}"/>
+</UserControl>

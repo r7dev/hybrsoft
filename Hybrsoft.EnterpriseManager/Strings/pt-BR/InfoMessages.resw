@@ -417,4 +417,52 @@
   <data name="DashboardViewModel_DashboardLoaded" xml:space="preserve">
     <value>Painel carregado</value>
   </data>
+  <data name="CompanyDetailsViewModel_SavingCompany" xml:space="preserve">
+    <value>Salvando empresa...</value>
+  </data>
+  <data name="CompanyDetailsViewModel_CompanySaved" xml:space="preserve">
+    <value>Empresa salva</value>
+  </data>
+  <data name="CompanyDetailsViewModel_DeletingCompany" xml:space="preserve">
+    <value>Excluindo empresa...</value>
+  </data>
+  <data name="CompanyDetailsViewModel_CompanyDeleted" xml:space="preserve">
+    <value>Empresa excluída</value>
+  </data>
+  <data name="CompanyListViewModel_LoadingCompanies" xml:space="preserve">
+    <value>Carregando empresas...</value>
+  </data>
+  <data name="CompanyListViewModel_CompaniesLoaded" xml:space="preserve">
+    <value>Empresas carregadas</value>
+  </data>
+  <data name="CompanyListViewModel_Deleting0Companies" xml:space="preserve">
+    <value>Excluindo {0} empresas...</value>
+  </data>
+  <data name="CompanyListViewModel_0CompaniesDeleted" xml:space="preserve">
+    <value>{0} empresas excluídas</value>
+  </data>
+  <data name="CompanyUserListViewModel_LoadingCompanyUsers" xml:space="preserve">
+    <value>Carregando usuários da empresa...</value>
+  </data>
+  <data name="CompanyUserListViewModel_CompanyUsersLoaded" xml:space="preserve">
+    <value>Usuários da Empresa carregados</value>
+  </data>
+  <data name="CompanyUserListViewModel_Deleting0CompanyUsers" xml:space="preserve">
+    <value>Excluindo {0} usuários da empresa...</value>
+  </data>
+  <data name="CompanyUserListViewModel_0CompanyUsersDeleted" xml:space="preserve">
+    <value>{0} usuários da empresa excluídos</value>
+  </data>
+  <data name="CompanyUserDetailsViewModel_SavingCompanyUser" xml:space="preserve">
+    <value>Salvando usuário da empresa...</value>
+  </data>
+  <data name="CompanyUserDetailsViewModel_CompanyUserHasBeenSaved" xml:space="preserve">
+    <value>Usuário da Empresa foi salvo</value>
+  </data>
+  <data name="CompanyUserDetailsViewModel_DeletingCompanyUser" xml:space="preserve">
+    <value>Excluindo usuário da empresa...</value>
+  </data>
+  <data name="CompanyUserDetailsViewModel_CompanyUserHasBeenDeleted" xml:space="preserve">
+    <value>Usuário da empresa foi excluído</value>
+  </data>
 </root>

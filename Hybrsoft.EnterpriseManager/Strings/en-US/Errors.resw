@@ -261,4 +261,28 @@
   <data name="DismissalListViewModel_ErrorApproving0Dismissals1" xml:space="preserve">
     <value>Error approving {0} Dismissals: {1}</value>
   </data>
+  <data name="CompanyDetailsViewModel_ErrorSavingCompany0" xml:space="preserve">
+    <value>Error saving Company: {0}</value>
+  </data>
+  <data name="CompanyDetailsViewModel_ErrorDeletingCompany0" xml:space="preserve">
+    <value>Error deleting Company: {0}</value>
+  </data>
+  <data name="CompanyListViewModel_ErrorLoadingCompanies0" xml:space="preserve">
+    <value>Error loading Companies: {0}</value>
+  </data>
+  <data name="CompanyListViewModel_ErrorDeleting0Companies1" xml:space="preserve">
+    <value>Error deleting {0} Companies: {1}</value>
+  </data>
+  <data name="CompanyUserListViewModel_ErrorLoadingCompanyUsers0" xml:space="preserve">
+    <value>Error loading Company Users: {0}</value>
+  </data>
+  <data name="CompanyUserListViewModel_ErrorDeleting0CompanyUsers1" xml:space="preserve">
+    <value>Error deleting {0} Company Users: {1}</value>
+  </data>
+  <data name="CompanyUserDetailsViewModel_ErrorSavingCompanyUser0" xml:space="preserve">
+    <value>Error saving Company User: {0}</value>
+  </data>
+  <data name="CompanyUserDetailsViewModel_ErrorDeletingCompanyUser0" xml:space="preserve">
+    <value>Error deleting Company User: {0}</value>
+  </data>
 </root>
