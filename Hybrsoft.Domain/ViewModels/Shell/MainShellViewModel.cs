@@ -79,6 +79,9 @@ namespace Hybrsoft.Domain.ViewModels
 				case nameof(DismissalsViewModel):
 					NavigationService.Navigate(viewModel, new DismissalListArgs());
 					break;
+				case nameof(CompaniesViewModel):
+					NavigationService.Navigate(viewModel, new CompanyListArgs());
+					break;
 				case nameof(PermissionsViewModel):
 					NavigationService.Navigate(viewModel, new PermissionListArgs());
 					break;
@@ -141,6 +144,10 @@ namespace Hybrsoft.Domain.ViewModels
 			if (item.ViewModel == typeof(DismissalsViewModel))
 			{
 				return UserPermissionService.HasPermission(Permissions.DismissalReader);
+			}
+			if (item.ViewModel == typeof(CompaniesViewModel))
+			{
+				return UserPermissionService.HasPermission(Permissions.CompanyReader);
 			}
 
 			var IsSecurityAdministration = UserPermissionService.HasPermission(Permissions.SecurityAdministration);

@@ -9,9 +9,11 @@ namespace Hybrsoft.Domain.Interfaces
 	{
 		Task InitializeAsync();
 
+		IList<CountryDto> Countries { get; }
 		IList<ScheduleTypeDto> ScheduleTypes { get; }
 		IList<RelativeTypeDto> RelativeTypes { get; }
 
+		string GetCountry(Int16 countryID);
 		string GetScheduleType(Int16 scheduleTypeID);
 		string GetRelativeType(Int16 relativeTypeID);
 	}
