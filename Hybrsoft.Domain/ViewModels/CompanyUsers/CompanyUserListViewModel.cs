@@ -18,12 +18,15 @@ namespace Hybrsoft.Domain.ViewModels
 	{
 		public ICompanyUserService CompanyUserService { get; } = companyUserService;
 
+		private bool _hasEditorPermission;
+
 		public CompanyUserListArgs ViewModelArgs { get; private set; }
 
 		public async Task LoadAsync(CompanyUserListArgs args, bool silent = false)
 		{
 			ViewModelArgs = args ?? CompanyUserListArgs.CreateEmpty();
 			Query = ViewModelArgs.Query;
+			_hasEditorPermission = UserPermissionService.HasPermission(Permissions.CompanyEditor);
 
 			if (silent)
 			{
@@ -118,6 +121,7 @@ namespace Hybrsoft.Domain.ViewModels
 			}
 		}
 
+		public new ICommand NewCommand => new RelayCommand(OnNew, CanNew);
 		protected override async void OnNew()
 		{
 			if (IsMainView)
@@ -131,6 +135,10 @@ namespace Hybrsoft.Domain.ViewModels
 
 			StatusReady();
 		}
+		private bool CanNew()
+		{
+			return _hasEditorPermission;
+		}
 
 		protected override async void OnRefresh()
 		{
@@ -143,6 +151,7 @@ namespace Hybrsoft.Domain.ViewModels
 			}
 		}
 
+		public new ICommand DeleteSelectionCommand => new RelayCommand(OnDeleteSelection, CanDeleteSelection);
 		protected override async void OnDeleteSelection()
 		{
 			StatusReady();
@@ -194,6 +203,10 @@ namespace Hybrsoft.Domain.ViewModels
 					EndStatusMessage($"{count} Company Users deleted", LogType.Warning);
 				}
 			}
+		}
+		private bool CanDeleteSelection()
+		{
+			return _hasEditorPermission;
 		}
 
 		private async Task DeleteItemsAsync(IEnumerable<CompanyUserDto> models)

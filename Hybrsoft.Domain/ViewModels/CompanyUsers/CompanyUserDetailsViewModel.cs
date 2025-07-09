@@ -16,6 +16,8 @@ namespace Hybrsoft.Domain.ViewModels
 		public ICompanyService CompanyService { get; } = companyService;
 		public ICompanyUserService CompanyUserService { get; } = companyUserService;
 
+		private bool _hasEditorPermission;
+
 		public override string Title => (Item?.IsNew ?? true) ? TitleNew : TitleEdit;
 		public string TitleNew
 		{
@@ -70,6 +72,7 @@ namespace Hybrsoft.Domain.ViewModels
 			CompanyID = ViewModelArgs.CompanyID;
 			var company = await CompanyService.GetCompanyAsync(CompanyID);
 			AddedUserKeys = await CompanyUserService.GetAddedUserKeysInCompanyAsync(CompanyID);
+			_hasEditorPermission = UserPermissionService.HasPermission(Permissions.CompanyEditor);
 
 			if (ViewModelArgs.IsNew)
 			{
@@ -114,6 +117,12 @@ namespace Hybrsoft.Domain.ViewModels
 			};
 		}
 
+		public new ICommand EditCommand => new RelayCommand(OnEdit, CanEdit);
+		private bool CanEdit()
+		{
+			return _hasEditorPermission;
+		}
+
 		protected override async Task<bool> SaveItemAsync(CompanyUserDto model)
 		{
 			try
@@ -138,6 +147,7 @@ namespace Hybrsoft.Domain.ViewModels
 			}
 		}
 
+		public new ICommand DeleteCommand => new RelayCommand(OnDelete, CanDelete);
 		protected override async Task<bool> DeleteItemAsync(CompanyUserDto model)
 		{
 			try
@@ -169,6 +179,10 @@ namespace Hybrsoft.Domain.ViewModels
 			string delete = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Delete");
 			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
 			return await DialogService.ShowAsync(title, content, delete, cancel);
+		}
+		private bool CanDelete()
+		{
+			return _hasEditorPermission;
 		}
 
 		override protected IEnumerable<IValidationConstraint<CompanyUserDto>> GetValidationConstraints(CompanyUserDto model)

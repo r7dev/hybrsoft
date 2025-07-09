@@ -19,6 +19,7 @@ namespace Hybrsoft.Domain.ViewModels
 		public ICompanyService CompanyService { get; } = companyService;
 
 		public string Prefix => ResourceService.GetString(nameof(ResourceFiles.UI), string.Concat(nameof(CompanyListViewModel), "_Prefix"));
+		private bool _hasEditorPermission;
 
 		public CompanyListArgs ViewModelArgs { get; private set; }
 
@@ -26,6 +27,7 @@ namespace Hybrsoft.Domain.ViewModels
 		{
 			ViewModelArgs = args ?? CompanyListArgs.CreateEmpty();
 			Query = ViewModelArgs.Query;
+			_hasEditorPermission = UserPermissionService.HasPermission(Permissions.CompanyEditor);
 
 			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(CompanyListViewModel), "_LoadingCompanies"));
 			StartStatusMessage(startMessage);
@@ -110,6 +112,7 @@ namespace Hybrsoft.Domain.ViewModels
 			}
 		}
 
+		public new ICommand NewCommand => new RelayCommand(OnNew, CanNew);
 		protected override async void OnNew()
 		{
 			if (IsMainView)
@@ -123,6 +126,10 @@ namespace Hybrsoft.Domain.ViewModels
 
 			StatusReady();
 		}
+		private bool CanNew()
+		{
+			return _hasEditorPermission;
+		}
 
 		protected override async void OnRefresh()
 		{
@@ -135,6 +142,7 @@ namespace Hybrsoft.Domain.ViewModels
 			}
 		}
 
+		public new ICommand DeleteSelectionCommand => new RelayCommand(OnDeleteSelection, CanDeleteSelection);
 		protected override async void OnDeleteSelection()
 		{
 			StatusReady();
@@ -198,6 +206,10 @@ namespace Hybrsoft.Domain.ViewModels
 					StatusError(message);
 				}
 			}
+		}
+		private bool CanDeleteSelection()
+		{
+			return _hasEditorPermission;
 		}
 
 		private async Task DeleteItemsAsync(IEnumerable<CompanyDto> models)
