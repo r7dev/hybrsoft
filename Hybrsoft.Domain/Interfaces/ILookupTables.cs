@@ -11,10 +11,15 @@ namespace Hybrsoft.Domain.Interfaces
 
 		IList<CountryDto> Countries { get; }
 		IList<ScheduleTypeDto> ScheduleTypes { get; }
+		IList<SubscriptionPlanDto> SubscriptionPlans { get; }
+		IList<SubscriptionStatusDto> SubscriptionStatuses { get; }
+		IList<SubscriptionTypeDto> SubscriptionTypes { get; }
 		IList<RelativeTypeDto> RelativeTypes { get; }
 
 		string GetCountry(Int16 countryID);
 		string GetScheduleType(Int16 scheduleTypeID);
+		string GetSubscriptionPlan(short subscriptionPlanID);
+		string GetSubscriptionStatus(short subscriptionPlanID);
 		string GetRelativeType(Int16 relativeTypeID);
 	}
 
