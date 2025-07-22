@@ -36,6 +36,13 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 				.ToListAsync();
 		}
 
+		public async Task<IList<SubscriptionPlan>> GetSubscriptionPlansAsync()
+		{
+			return await _universalDataSource.SubscriptionPlans
+				.AsNoTracking()
+				.ToListAsync();
+		}
+
 		public async Task<IList<ScheduleType>> GetScheduleTypesAsync()
 		{
 			return await _learnDataSource.ScheduleTypes

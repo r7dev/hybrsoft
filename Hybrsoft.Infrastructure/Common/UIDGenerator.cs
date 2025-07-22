@@ -6,7 +6,7 @@ namespace Hybrsoft.Infrastructure.Common
 	{
 		static private readonly DateTime DateSeed = DateTime.Parse("2025/01/01");
 
-		static public long Next(int prefix = 1)
+		public static long Next(int prefix = 1)
 		{
 			return (long)(DateTime.UtcNow - DateSeed).TotalMilliseconds + prefix * 100000000000;
 		}

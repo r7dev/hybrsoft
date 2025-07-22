@@ -90,6 +90,8 @@
     <Build Include="Schema\Universal\Tables\Company.sql" />
     <Build Include="Schema\Universal\Tables\CompanyUser.sql" />
     <Build Include="Schema\Universal\Tables\Country.sql" />
+    <Build Include="Schema\Universal\Tables\Subscription.sql" />
+    <Build Include="Schema\Universal\Tables\SubscriptionPlan.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Database.refactorlog" />
@@ -98,6 +100,7 @@
     <None Include="Script-Pre\DataBaseUsersAdd.sql" />
     <None Include="Script-Post\RelativeType.Initialize.sql" />
     <None Include="Script-Post\Country.Initialize.sql" />
+    <None Include="Script-Post\SubscriptionPlan.Initialize.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Script-Post\ScheduleType.Initialize.sql" />

@@ -1,5 +1,6 @@
 ﻿using Hybrsoft.Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Hybrsoft.Infrastructure.DataContexts
 {
@@ -18,6 +19,12 @@ namespace Hybrsoft.Infrastructure.DataContexts
 			modelBuilder.Entity<Permission>().ToTable(nameof(Permission), schema);
 			modelBuilder.Entity<Role>().ToTable(nameof(Role), schema);
 			modelBuilder.Entity<RolePermission>().ToTable(nameof(RolePermission), schema);
+			modelBuilder.Entity<Subscription>().ToTable(nameof(Subscription), schema);
+			modelBuilder.Entity<Subscription>()
+				.Property(e => e.Status)
+				.ValueGeneratedOnAddOrUpdate()
+				.Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
+			modelBuilder.Entity<SubscriptionPlan>().ToTable(nameof(SubscriptionPlan), schema);
 			modelBuilder.Entity<User>().ToTable(nameof(User), schema);
 			modelBuilder.Entity<UserRole>().ToTable(nameof(UserRole), schema);
 			base.OnModelCreating(modelBuilder);
@@ -32,6 +39,8 @@ namespace Hybrsoft.Infrastructure.DataContexts
 		public DbSet<Permission> Permissions { get; set; }
 		public DbSet<Role> Roles { get; set; }
 		public DbSet<RolePermission> RolePermissions { get; set; }
+		public DbSet<Subscription> Subscriptions { get; set; }
+		public DbSet<SubscriptionPlan> SubscriptionPlans { get; set; }
 		public DbSet<User> Users { get; set; }
 		public DbSet<UserRole> UserRoles { get; set; }
 	}

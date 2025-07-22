@@ -16,5 +16,7 @@
 		DashboardReader,
 		CompanyReader,
 		CompanyEditor,
+		SubscriptionReader,
+		SubscriptionEditor,
 	}
 }

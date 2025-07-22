@@ -15,4 +15,5 @@ Modelo de Script Pós-Implantação
 :r .\Permission.Initialize.sql
 :r .\RelativeType.Initialize.sql
 :r .\ScheduleType.Initialize.sql
+:r .\SubscriptionPlan.Initialize.sql
 :r .\User.Initialize.sql

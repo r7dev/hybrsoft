@@ -14,6 +14,7 @@ namespace Hybrsoft.Infrastructure.DataServices
 		bool HasPermission(long userID, string permissionName);
 
 		Task<IList<Country>> GetCountriesAsync();
+		Task<IList<SubscriptionPlan>> GetSubscriptionPlansAsync();
 
 		Task<AppLog> GetAppLogAsync(long id);
 		Task<IList<AppLog>> GetAppLogsAsync(int skip, int take, DataRequest<AppLog> request);
@@ -59,6 +60,13 @@ namespace Hybrsoft.Infrastructure.DataServices
 		Task<int> GetRolePermissionsCountAsync(DataRequest<RolePermission> request);
 		Task<int> UpdateRolePermissionAsync(RolePermission entity);
 		Task<int> DeleteRolePermissionsAsync(params RolePermission[] entities);
+
+		Task<Subscription> GetSubscriptionAsync(long id);
+		Task<IList<Subscription>> GetSubscriptionsAsync(int skip, int take, DataRequest<Subscription> request);
+		Task<IList<Subscription>> GetSubscriptionKeysAsync(int skip, int take, DataRequest<Subscription> request);
+		Task<int> GetSubscriptionsCountAsync(DataRequest<Subscription> request);
+		Task<int> UpdateSubscriptionAsync(Subscription entity);
+		Task<int> DeleteSubscriptionsAsync(params Subscription[] entities);
 
 		Task<User> GetUserAsync(long id);
 		Task<User> GetUserByEmailAsync(string email);
