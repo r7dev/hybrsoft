@@ -189,6 +189,15 @@
   <data name="StudentRelativeListViewModel_AreYouSureYouWantToDeleteTheSelectedRelativesOfTheStudent" xml:space="preserve">
     <value>Are you sure you want to delete the selected relatives of the student?</value>
   </data>
+  <data name="SubscriptionDetailsViewModel_AreYouSureYouWantToCancelCurrentSubscription" xml:space="preserve">
+    <value>Are you sure you want to cancel current subscription?</value>
+  </data>
+  <data name="SubscriptionDetailsViewModel_AreYouSureYouWantToDeleteCurrentSubscription" xml:space="preserve">
+    <value>Are you sure you want to delete current subscription?</value>
+  </data>
+  <data name="SubscriptionListViewModel_AreYouSureYouWantToDeleteSelectedSubscriptions" xml:space="preserve">
+    <value>Are you sure you want to delete selected subscriptions?</value>
+  </data>
   <data name="UserDetailsViewModel_AreYouSureYouWantToDeleteCurrentUser" xml:space="preserve">
     <value>Are you sure you want to delete current user?</value>
   </data>

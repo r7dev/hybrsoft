@@ -465,4 +465,28 @@
   <data name="CompanyUserDetailsViewModel_CompanyUserHasBeenDeleted" xml:space="preserve">
     <value>Company User has been deleted</value>
   </data>
+  <data name="SubscriptionDetailsViewModel_SavingSubscription" xml:space="preserve">
+    <value>Saving subscription...</value>
+  </data>
+  <data name="SubscriptionDetailsViewModel_SubscriptionSaved" xml:space="preserve">
+    <value>Subscription saved</value>
+  </data>
+  <data name="SubscriptionDetailsViewModel_DeletingSubscription" xml:space="preserve">
+    <value>Deleting subscription...</value>
+  </data>
+  <data name="SubscriptionDetailsViewModel_SubscriptionDeleted" xml:space="preserve">
+    <value>Subscription deleted</value>
+  </data>
+  <data name="SubscriptionListViewModel_LoadingSubscriptions" xml:space="preserve">
+    <value>Loading subscriptions...</value>
+  </data>
+  <data name="SubscriptionListViewModel_SubscriptionsLoaded" xml:space="preserve">
+    <value>Subscriptions loaded</value>
+  </data>
+  <data name="SubscriptionListViewModel_Deleting0Subscriptions" xml:space="preserve">
+    <value>Deleting {0} subscriptions...</value>
+  </data>
+  <data name="SubscriptionListViewModel_0SubscriptionsDeleted" xml:space="preserve">
+    <value>{0} subscriptions deleted</value>
+  </data>
 </root>

@@ -12,7 +12,8 @@ namespace Hybrsoft.EnterpriseManager.Controls
 		Save,
 		Select,
 		Refresh,
-		Accept
+		Accept,
+		CancelSecondary
 	}
 
 	public enum ListToolbarMode

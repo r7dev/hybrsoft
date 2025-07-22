@@ -186,6 +186,15 @@
   <data name="StudentRelativeDetailsViewModel_PropertyRelative" xml:space="preserve">
     <value>Parente</value>
   </data>
+  <data name="SubscriptionDetailsViewModel_PropertyCompany" xml:space="preserve">
+    <value>Empresa</value>
+  </data>
+  <data name="SubscriptionDetailsViewModel_PropertySubscriptionPlan" xml:space="preserve">
+    <value>Plano de Assinatura</value>
+  </data>
+  <data name="SubscriptionDetailsViewModel_PropertyUser" xml:space="preserve">
+    <value>Usuário</value>
+  </data>
   <data name="UserDetailsViewModel_PropertyEmail" xml:space="preserve">
     <value>E-mail</value>
   </data>

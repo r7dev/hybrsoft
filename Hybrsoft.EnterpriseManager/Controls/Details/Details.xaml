@@ -21,7 +21,8 @@
 								EditCommand="{x:Bind EditCommand}"
 								DeleteCommand="{x:Bind DeleteCommand}"
 								SaveCommand="{x:Bind SaveCommand}"
-								CancelCommand="{x:Bind CancelCommand}"/>
+								CancelCommand="{x:Bind CancelCommand}"
+								CancelSecondaryCommand="{x:Bind CancelSecondaryCommand}"/>
 		<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
 			<ContentControl x:Name="container"
 							Content="{x:Bind DetailsContent}"

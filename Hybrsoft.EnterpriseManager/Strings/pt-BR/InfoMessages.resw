@@ -465,4 +465,28 @@
   <data name="CompanyUserDetailsViewModel_CompanyUserHasBeenDeleted" xml:space="preserve">
     <value>Usuário da empresa foi excluído</value>
   </data>
+  <data name="SubscriptionDetailsViewModel_SavingSubscription" xml:space="preserve">
+    <value>Salvando assinatura...</value>
+  </data>
+  <data name="SubscriptionDetailsViewModel_SubscriptionSaved" xml:space="preserve">
+    <value>Assinatura salva</value>
+  </data>
+  <data name="SubscriptionDetailsViewModel_DeletingSubscription" xml:space="preserve">
+    <value>Excluindo assinatura...</value>
+  </data>
+  <data name="SubscriptionDetailsViewModel_SubscriptionDeleted" xml:space="preserve">
+    <value>Assinatura excluída</value>
+  </data>
+  <data name="SubscriptionListViewModel_LoadingSubscriptions" xml:space="preserve">
+    <value>Carregando assinaturas...</value>
+  </data>
+  <data name="SubscriptionListViewModel_SubscriptionsLoaded" xml:space="preserve">
+    <value>Assinaturas carregadas</value>
+  </data>
+  <data name="SubscriptionListViewModel_Deleting0Subscriptions" xml:space="preserve">
+    <value>Excluindo {0} assinaturas...</value>
+  </data>
+  <data name="SubscriptionListViewModel_0SubscriptionsDeleted" xml:space="preserve">
+    <value>{0} assinaturas excluídas</value>
+  </data>
 </root>

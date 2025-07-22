@@ -285,4 +285,16 @@
   <data name="CompanyUserDetailsViewModel_ErrorDeletingCompanyUser0" xml:space="preserve">
     <value>Error deleting Company User: {0}</value>
   </data>
+  <data name="SubscriptionDetailsViewModel_ErrorSavingSubscription0" xml:space="preserve">
+    <value>Error saving Subscription: {0}</value>
+  </data>
+  <data name="SubscriptionDetailsViewModel_ErrorDeletingSubscription0" xml:space="preserve">
+    <value>Error deleting Subscription: {0}</value>
+  </data>
+  <data name="SubscriptionListViewModel_ErrorLoadingSubscriptions0" xml:space="preserve">
+    <value />
+  </data>
+  <data name="SubscriptionListViewModel_ErrorDeleting0Subscriptions1" xml:space="preserve">
+    <value>Error deleting {0} Subscriptions: {1}</value>
+  </data>
 </root>

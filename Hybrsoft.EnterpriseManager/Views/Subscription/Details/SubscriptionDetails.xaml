@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+	x:Class="Hybrsoft.EnterpriseManager.Views.SubscriptionDetails"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:Hybrsoft.EnterpriseManager.Views"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:controls="using:Hybrsoft.EnterpriseManager.Controls"
+	xmlns:views="using:Hybrsoft.EnterpriseManager.Views"
+	xmlns:viewmodels="using:Hybrsoft.Domain.ViewModels"
+	mc:Ignorable="d">
+
+	<UserControl.Resources>
+		<DataTemplate x:Key="DetailsTemplate" x:DataType="viewmodels:SubscriptionDetailsViewModel">
+			<controls:FluidGrid Columns="2" ColumnSpacing="12" Margin="12,18,6,6" RowSpacing="12">
+				<TextBlock x:Uid="/UI/SubscriptionDetailsUserControl_Information"
+						   Style="{StaticResource FormsSection}"
+						   controls:FluidGrid.ColumnSpan="2" />
+				<controls:FormComboBox x:Uid="/UI/SubscriptionDetailsUserControl_SubscriptionPlan"
+									   ItemsSource="{x:Bind LookupTables.SubscriptionPlans, Mode=OneWay}"
+									   SelectedValue="{x:Bind EditableItem.SubscriptionPlanID, Mode=TwoWay, Converter={StaticResource Int16Converter}}"
+									   SelectedValuePath="SubscriptionPlanID"
+									   DisplayMemberPath="Name"
+									   SelectionChanged="FormComboBox_SelectionChanged" />
+				<controls:FormTextBox x:Uid="/UI/SubscriptionDetailsUserControl_DurationDays"
+									  Text="{x:Bind EditableItem.DurationDays, Mode=TwoWay}"
+									  Mode="ReadOnly" />
+				<controls:FormComboBox x:Uid="/UI/SubscriptionDetailsUserControl_Type"
+									   ItemsSource="{x:Bind LookupTables.SubscriptionTypes, Mode=OneWay}"
+									   SelectedValue="{x:Bind EditableItem.Type, Mode=TwoWay, Converter={StaticResource SubscriptionTypeConverter}}"
+									   SelectedValuePath="SubscriptionTypeID"
+									   DisplayMemberPath="DisplayName"
+									   SelectionChanged="FormComboBox_SelectionChanged" />
+				<controls:FormTextBox x:Uid="/UI/SubscriptionDetailsUserControl_Status"
+									  Text="{x:Bind EditableItem.StatusDisplayName, Mode=OneWay}"
+									  Mode="ReadOnly" />
+				<controls:CompanySuggestBox DisplayText="{x:Bind EditableItem.Company.FullName, Mode=OneWay}"
+											SelectedCommand="{x:Bind CompanySelectedCommand}"
+											Visibility="{x:Bind EditableItem.CanEditCompany, Mode=OneWay}"
+											controls:FluidGrid.ColumnSpan="2" />
+				<controls:UserSuggestBox DisplayText="{x:Bind EditableItem.User.FullName, Mode=OneWay}"
+										 SelectedCommand="{x:Bind UserSelectedCommand}"
+										 Visibility="{x:Bind EditableItem.CanEditUser, Mode=OneWay}"
+										 controls:FluidGrid.ColumnSpan="2" />
+				<controls:FormTextBox x:Uid="/UI/SubscriptionDetailsUserControl_LicenseKey"
+									  Text="{x:Bind EditableItem.LicenseKey, Mode=TwoWay}"
+									  Mode="ReadOnly" />
+				<controls:CopyButton x:Uid="/UI/GenericDetails_CopyButton"
+									 Content="&#xE8C8;"
+									 Command="{x:Bind CopyDescriptionCommand}"
+									 HorizontalAlignment="Left"
+									 Margin="0,24,0,0" />
+				<controls:FluidGrid Columns="2" ColumnSpacing="6" RowSpacing="12" MinColumnWidth="120">
+					<controls:FormCalendarDatePicker x:Uid="/UI/SubscriptionDetailsUserControl_StartDate"
+													 Date="{x:Bind EditableItem.StartDate, Mode=TwoWay}"
+													 Mode="ReadOnly" />
+					<controls:FormCalendarDatePicker x:Uid="/UI/SubscriptionDetailsUserControl_ExpirationDate"
+													 Date="{x:Bind EditableItem.ExpirationDate, Mode=TwoWay}"
+													 Mode="ReadOnly" />
+				</controls:FluidGrid>
+				<controls:FluidGrid Columns="2" ColumnSpacing="6" RowSpacing="12" MinColumnWidth="120">
+						<controls:FormCalendarDatePicker x:Uid="/UI/SubscriptionDetailsUserControl_LastValidatedOn"
+														 Date="{x:Bind EditableItem.LastValidatedOn, Mode=TwoWay}"
+														 Mode="ReadOnly" />
+						<controls:FormCalendarDatePicker x:Uid="/UI/SubscriptionDetailsUserControl_CancelledOn"
+														 Date="{x:Bind EditableItem.CancelledOn, Mode=TwoWay}"
+														 Mode="ReadOnly"
+														 Visibility="{x:Bind EditableItem.IsCancelled, Mode=OneWay}" />
+				</controls:FluidGrid>
+			</controls:FluidGrid>
+		</DataTemplate>
+	</UserControl.Resources>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="320"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+
+		<Border BorderBrush="LightGray" BorderThickness="0,1,1,0" Background="{StaticResource DetailsViewBackgroundColor}">
+			<views:SubscriptionCard Margin="6" Item="{x:Bind ViewModel.Item, Mode=OneWay}" />
+		</Border>
+
+		<controls:Details x:Name="details" Grid.Column="1" Margin="6"
+						  DefaultCommands="edit,delete,cancel_secondary"
+						  DetailsContent="{x:Bind ViewModel}"
+						  DetailsTemplate="{StaticResource DetailsTemplate}"
+						  CanGoBack="{x:Bind ViewModel.CanGoBack}"
+						  IsEditMode="{x:Bind ViewModel.IsEditMode, Mode=OneWay}"
+						  BackCommand="{x:Bind ViewModel.BackCommand}"
+						  EditCommand="{x:Bind ViewModel.EditCommand}"
+						  DeleteCommand="{x:Bind ViewModel.DeleteCommand}"
+						  SaveCommand="{x:Bind ViewModel.SaveCommand}"
+						  CancelCommand="{x:Bind ViewModel.CancelCommand}"
+						  CancelSecondaryCommand="{x:Bind ViewModel.CancelSecondaryCommand}" />
+	</Grid>
+</UserControl>

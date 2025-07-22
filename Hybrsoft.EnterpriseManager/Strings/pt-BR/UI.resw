@@ -177,7 +177,7 @@
   <data name="AppLogsDetails_DescriptionHeader.Header" xml:space="preserve">
     <value>Descrição</value>
   </data>
-  <data name="AppLogsDetails_CopyButton.ToolTipService.ToolTip" xml:space="preserve">
+  <data name="GenericDetails_CopyButton.ToolTipService.ToolTip" xml:space="preserve">
     <value>Copiar para área de transferência</value>
   </data>
   <data name="DetailToolbarUserControl_AppBarButtonDelete.Label" xml:space="preserve">
@@ -875,5 +875,95 @@
   </data>
   <data name="NavigationItem_Companies" xml:space="preserve">
     <value>Empresas</value>
+  </data>
+  <data name="SubscriptionDetailsViewModel_Title" xml:space="preserve">
+    <value>Nova Assinatura</value>
+  </data>
+  <data name="SubscriptionDetailsViewModel_TitleEdit" xml:space="preserve">
+    <value>Assinatura</value>
+  </data>
+  <data name="SubscriptionListViewModel_Prefix" xml:space="preserve">
+    <value>Assinaturas</value>
+  </data>
+  <data name="SubscriptionCardUserControl_SubscriptionID.Text" xml:space="preserve">
+    <value>Assinatura ID</value>
+  </data>
+  <data name="SubscriptionDetailsUserControl_Information.Text" xml:space="preserve">
+    <value>Informações da Assinatura</value>
+  </data>
+  <data name="SubscriptionDetailsUserControl_SubscriptionPlan.Header" xml:space="preserve">
+    <value>Plano de Assinatura</value>
+  </data>
+  <data name="SubscriptionDetailsUserControl_DurationDays.Header" xml:space="preserve">
+    <value>Duração em Dias</value>
+  </data>
+  <data name="SubscriptionDetailsUserControl_StartDate.Header" xml:space="preserve">
+    <value>Data de Início</value>
+  </data>
+  <data name="SubscriptionDetailsUserControl_ExpirationDate.Header" xml:space="preserve">
+    <value>Data de Validade</value>
+  </data>
+  <data name="SubscriptionPlan_Montly" xml:space="preserve">
+    <value>Mensal</value>
+  </data>
+  <data name="SubscriptionPlan_Quarterly" xml:space="preserve">
+    <value>Trimestral</value>
+  </data>
+  <data name="SubscriptionPlan_Yearly" xml:space="preserve">
+    <value>Anual</value>
+  </data>
+  <data name="SubscriptionListUserControl_ColumnHeaderSubscriptionID.Text" xml:space="preserve">
+    <value>Assinatura ID</value>
+  </data>
+  <data name="SubscriptionListUserControl_ColumnHeaderLicenseKey.Text" xml:space="preserve">
+    <value>Chave de Licença</value>
+  </data>
+  <data name="SubscriptionListUserControl_ColumnHeaderStatus.Text" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="SubscriptionListUserControl_ColumnHeaderExpirationDate.Text" xml:space="preserve">
+    <value>Data de Validade</value>
+  </data>
+  <data name="SubscriptionListUserControl_New.NewLabel" xml:space="preserve">
+    <value>Nova Assinatura</value>
+  </data>
+  <data name="NavigationItem_Subscriptions" xml:space="preserve">
+    <value>Assinaturas</value>
+  </data>
+  <data name="SubscriptionDetailsUserControl_Type.Header" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="SubscriptionDetailsUserControl_CancelledOn.Header" xml:space="preserve">
+    <value>Cancelado em</value>
+  </data>
+  <data name="SubscriptionDetailsUserControl_LastValidatedOn.Header" xml:space="preserve">
+    <value>Última Validação Em</value>
+  </data>
+  <data name="SubscriptionDetailsUserControl_LicenseKey.Header" xml:space="preserve">
+    <value>Chave de Licença</value>
+  </data>
+  <data name="CompanySuggestBoxUserControl.Header" xml:space="preserve">
+    <value>Empresa</value>
+  </data>
+  <data name="CompanySuggestBoxUserControl.PlaceholderText" xml:space="preserve">
+    <value>Pesquisar Empresa</value>
+  </data>
+  <data name="SubscriptionDetailsUserControl_Status.Header" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="SubscriptionStatus_Active" xml:space="preserve">
+    <value>Ativo</value>
+  </data>
+  <data name="SubscriptionStatus_Canceled" xml:space="preserve">
+    <value>Cancelado</value>
+  </data>
+  <data name="SubscriptionStatus_Expired" xml:space="preserve">
+    <value>Expirado</value>
+  </data>
+  <data name="ContentDialog_PrimaryButtonText_Confirm" xml:space="preserve">
+    <value>Confirmar</value>
+  </data>
+  <data name="ContentDialog_Title_ConfirmCancellation" xml:space="preserve">
+    <value>Confirmar Cancelamento</value>
   </data>
 </root>

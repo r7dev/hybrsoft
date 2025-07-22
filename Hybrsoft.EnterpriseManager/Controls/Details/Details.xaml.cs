@@ -149,6 +149,16 @@ namespace Hybrsoft.EnterpriseManager.Controls
 		public static readonly DependencyProperty CancelCommandProperty = DependencyProperty.Register(nameof(CancelCommand), typeof(ICommand), typeof(Details), new PropertyMetadata(null));
 		#endregion
 
+		#region CancelSecondaryCommand
+		public ICommand CancelSecondaryCommand
+		{
+			get { return (ICommand)GetValue(CancelSecondaryCommandProperty); }
+			set { SetValue(CancelSecondaryCommandProperty, value); }
+		}
+
+		public static readonly DependencyProperty CancelSecondaryCommandProperty = DependencyProperty.Register(nameof(CancelSecondaryCommand), typeof(ICommand), typeof(Details), new PropertyMetadata(null));
+		#endregion
+
 		public DetailToolbarMode ToolbarMode
 		{
 			get
@@ -184,6 +194,9 @@ namespace Hybrsoft.EnterpriseManager.Controls
 					break;
 				case ToolbarButton.Cancel:
 					CancelCommand?.TryExecute();
+					break;
+				case ToolbarButton.CancelSecondary:
+					CancelSecondaryCommand?.TryExecute();
 					break;
 			}
 		}

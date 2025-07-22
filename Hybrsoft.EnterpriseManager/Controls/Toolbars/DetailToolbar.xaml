@@ -41,6 +41,14 @@
 					  HorizontalAlignment="Left"
 					  Style="{StaticResource ToolBarButtonStyle}"
 					  Tag="cancel"/>
+		<AppBarButton x:Name="buttonCancelSecondary"
+					  Icon="Cancel"
+					  IsEnabled="{x:Bind CancelSecondaryCommand.CanExecute(x:Null)}"
+					  x:Uid="/UI/DetailToolbarUserControl_AppBarButtonCancel"
+					  LabelPosition="Default"
+					  HorizontalAlignment="Left"
+					  Style="{StaticResource ToolBarButtonStyle}"
+					  Tag="cancel_secondary"/>
 		<AppBarButton x:Name="buttonSave"
 					  Icon="Save"
 					  IsEnabled="{x:Bind SaveCommand.CanExecute(x:Null)}"

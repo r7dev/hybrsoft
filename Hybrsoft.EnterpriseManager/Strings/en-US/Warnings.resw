@@ -183,6 +183,12 @@
   <data name="StudentRelativeDetailsViewModel_ThisStudentsRelativeHasBeenModifiedExternally" xml:space="preserve">
     <value>WARNING: This student's relative has been modified externally</value>
   </data>
+  <data name="SubscriptionDetailsViewModel_ThisSubscriptionHasBeenDeletedExternally" xml:space="preserve">
+    <value>WARNING: This subscription has been deleted externally</value>
+  </data>
+  <data name="SubscriptionDetailsViewModel_ThisSubscriptionHasBeenModifiedExternally" xml:space="preserve">
+    <value>WARNING: This subscription has been modified externally</value>
+  </data>
   <data name="UserDetailsViewModel_ThisUserHasBeenDeletedExternally" xml:space="preserve">
     <value>WARNING: This user has been deleted externally</value>
   </data>

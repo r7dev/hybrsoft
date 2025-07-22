@@ -26,6 +26,7 @@
 			<converters:LogTypeConverter x:Key="LogTypeConverter" />
 			<converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
 			<converters:ObjectToImageConverter x:Key="ObjectToImageConverter" />
+			<converters:SubscriptionTypeConverter x:Key="SubscriptionTypeConverter" />
 		</ResourceDictionary>
 	</Application.Resources>
 </Application>

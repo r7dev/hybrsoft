@@ -57,6 +57,9 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 
 			NavigationService.Register<CompanyUserDetailsViewModel, CompanyUserView>();
 
+			NavigationService.Register<SubscriptionsViewModel, SubscriptionsView>();
+			NavigationService.Register<SubscriptionDetailsViewModel, SubscriptionView>();
+
 			NavigationService.Register<PermissionsViewModel, PermissionsView>();
 			NavigationService.Register<PermissionDetailsViewModel, PermissionView>();
 

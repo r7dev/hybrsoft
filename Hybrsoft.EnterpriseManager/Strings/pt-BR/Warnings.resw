@@ -183,6 +183,12 @@
   <data name="StudentRelativeDetailsViewModel_ThisStudentsRelativeHasBeenModifiedExternally" xml:space="preserve">
     <value>AVISO: Este parente do estudante foi modificado externamente</value>
   </data>
+  <data name="SubscriptionDetailsViewModel_ThisSubscriptionHasBeenDeletedExternally" xml:space="preserve">
+    <value>AVISO: Esta assinatura foi excluída externamente</value>
+  </data>
+  <data name="SubscriptionDetailsViewModel_ThisSubscriptionHasBeenModifiedExternally" xml:space="preserve">
+    <value>AVISO: Esta assinatura foi modificada externamente</value>
+  </data>
   <data name="UserDetailsViewModel_ThisUserHasBeenDeletedExternally" xml:space="preserve">
     <value>AVISO: Este usuário foi excluído externamente</value>
   </data>

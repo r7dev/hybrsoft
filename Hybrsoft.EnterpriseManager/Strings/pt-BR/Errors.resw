@@ -285,4 +285,16 @@
   <data name="CompanyUserDetailsViewModel_ErrorDeletingCompanyUser0" xml:space="preserve">
     <value>Erro ao excluir Usuário da Empresa: {0}</value>
   </data>
+  <data name="SubscriptionDetailsViewModel_ErrorSavingSubscription0" xml:space="preserve">
+    <value>Erro ao salvar Assinatura: {0}</value>
+  </data>
+  <data name="SubscriptionDetailsViewModel_ErrorDeletingSubscription0" xml:space="preserve">
+    <value>Erro ao excluir Assinatura: {0}</value>
+  </data>
+  <data name="SubscriptionListViewModel_ErrorLoadingSubscriptions0" xml:space="preserve">
+    <value>Erro ao carregar Assinaturas: {0}</value>
+  </data>
+  <data name="SubscriptionListViewModel_ErrorDeleting0Subscriptions1" xml:space="preserve">
+    <value>Erro ao excluir {0} Assinaturas: {1}</value>
+  </data>
 </root>

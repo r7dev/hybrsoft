@@ -33,6 +33,7 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			serviceCollection.AddSingleton<IDismissalService, DismissalService>();
 			serviceCollection.AddSingleton<ICompanyService, CompanyService>();
 			serviceCollection.AddSingleton<ICompanyUserService, CompanyUserService>();
+			serviceCollection.AddSingleton<ISubscriptionService, SubscriptionService>();
 			serviceCollection.AddSingleton<IPermissionService, PermissionService>();
 			serviceCollection.AddSingleton<IRoleService, RoleService>();
 			serviceCollection.AddSingleton<IRolePermissionService, RolePermissionService>();
@@ -83,6 +84,9 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			serviceCollection.AddTransient<CompanyDetailsWithUsersViewModel>();
 
 			serviceCollection.AddTransient<CompanyUserDetailsViewModel>();
+
+			serviceCollection.AddTransient<SubscriptionsViewModel>();
+			serviceCollection.AddTransient<SubscriptionDetailsViewModel>();
 
 			serviceCollection.AddTransient<PermissionsViewModel>();
 			serviceCollection.AddTransient<PermissionDetailsViewModel>();

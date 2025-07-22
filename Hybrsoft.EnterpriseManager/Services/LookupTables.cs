@@ -18,12 +18,18 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public IList<CountryDto> Countries { get; private set; }
 		public IList<ScheduleTypeDto> ScheduleTypes { get; private set; }
+		public IList<SubscriptionPlanDto> SubscriptionPlans { get; private set; }
+		public IList<SubscriptionStatusDto> SubscriptionStatuses { get; private set; }
+		public IList<SubscriptionTypeDto> SubscriptionTypes { get; private set; }
 		public IList<RelativeTypeDto> RelativeTypes { get; private set; }
 
 		public async Task InitializeAsync()
 		{
 			Countries = await GetCountriesAsync();
 			ScheduleTypes = await GetScheduleTypesAsync();
+			SubscriptionPlans = await GetSubscriptionPlansAsync();
+			SubscriptionStatuses = await GetSubscriptionStatusesAsync();
+			SubscriptionTypes = await GetSubscriptionTypesAsync();
 			RelativeTypes = await GetRelativeTypesAsync();
 		}
 
@@ -81,6 +87,64 @@ namespace Hybrsoft.EnterpriseManager.Services
 				LogException("LookupTables", "Load ScheduleTypes", ex);
 			}
 			return [];
+		}
+
+		public string GetSubscriptionPlan(short subscriptionPlanID)
+		{
+			return subscriptionPlanID == 0
+				? string.Empty
+				: SubscriptionPlans.Where(r => r.SubscriptionPlanID == subscriptionPlanID)
+				.Select(r => r.Name)
+				.FirstOrDefault();
+		}
+
+		private async Task<IList<SubscriptionPlanDto>> GetSubscriptionPlansAsync()
+		{
+			try
+			{
+				using var dataService = DataServiceFactory.CreateDataService();
+				var items = await dataService.GetSubscriptionPlansAsync();
+				return [.. items.Select(r => new SubscriptionPlanDto
+				{
+					SubscriptionPlanID = r.SubscriptionPlanID,
+					Name = string.IsNullOrEmpty(r.Uid) ? r.Name : ResourceService.GetString(nameof(ResourceFiles.UI), r.Uid),
+					DurationMonths = r.DurationMonths
+				})];
+			}
+			catch (Exception ex)
+			{
+				LogException("LookupTables", "Load SubscriptionPlans", ex);
+			}
+			return [];
+		}
+
+		public string GetSubscriptionStatus(short subscriptionStatusID)
+		{
+			return SubscriptionStatuses.Where(r => r.SubscriptionStatusID == subscriptionStatusID)
+				.Select(r => r.DisplayName)
+				.FirstOrDefault();
+		}
+
+		private async Task<IList<SubscriptionStatusDto>> GetSubscriptionStatusesAsync()
+		{
+			await Task.CompletedTask;
+			return [.. Enum.GetValues<SubscriptionStatus>()
+				.Select(r => new SubscriptionStatusDto
+				{
+					SubscriptionStatusID = (short)r,
+					DisplayName = ResourceService.GetString(nameof(ResourceFiles.UI), $"SubscriptionStatus_{r}")
+				})];
+		}
+
+		private static async Task<IList<SubscriptionTypeDto>> GetSubscriptionTypesAsync()
+		{
+			await Task.CompletedTask;
+			return [.. Enum.GetValues<SubscriptionType>()
+				.Select(r => new SubscriptionTypeDto
+				{
+					SubscriptionTypeID = (short)r,
+					DisplayName = r.ToString()
+				})];
 		}
 
 		public string GetRelativeType(Int16 relativeTypeID)

@@ -28,6 +28,7 @@
     <None Remove="Controls\Login\LoginWindowsHello.xaml" />
     <None Remove="Controls\Search\Search.xaml" />
     <None Remove="Controls\Search\SearchDateRange.xaml" />
+    <None Remove="Controls\Suggest\CompanySuggestBox.xaml" />
     <None Remove="Controls\Suggest\PermissionSuggestBox.xaml" />
     <None Remove="Controls\Suggest\RelativeSuggestBox.xaml" />
     <None Remove="Controls\Suggest\RoleSuggestBox.xaml" />
@@ -42,6 +43,7 @@
     <None Remove="Styles\ToolBar.xaml" />
     <None Remove="Themes\Controls\Buttons.xaml" />
     <None Remove="Themes\Controls\FormAutoSuggestBox.xaml" />
+    <None Remove="Themes\Controls\FormCalendarDatePicker.xaml" />
     <None Remove="Themes\Controls\FormComboBox.xaml" />
     <None Remove="Themes\Controls\FormPasswordBox.xaml" />
     <None Remove="Themes\Controls\FormTextBox.xaml" />
@@ -104,6 +106,11 @@
     <None Remove="Views\Student\Details\StudentCard.xaml" />
     <None Remove="Views\Student\Details\StudentDetails.xaml" />
     <None Remove="Views\Student\StudentView.xaml" />
+    <None Remove="Views\Subscriptions\List\SubscriptionList.xaml" />
+    <None Remove="Views\Subscriptions\SubscriptionsView.xaml" />
+    <None Remove="Views\Subscription\Details\SubscriptionCard.xaml" />
+    <None Remove="Views\Subscription\Details\SubscriptionDetails.xaml" />
+    <None Remove="Views\Subscription\SubscriptionView.xaml" />
     <None Remove="Views\UserRole\Details\UserRoleCard.xaml" />
     <None Remove="Views\UserRole\Details\UserRoleDetails.xaml" />
     <None Remove="Views\UserRole\UserRoleView.xaml" />
@@ -201,6 +208,41 @@
   <ItemGroup>
     <Folder Include="Assets\Images\" />
     <Folder Include="Views\Roles\Details\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\Suggest\CompanySuggestBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Subscriptions\SubscriptionsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Subscriptions\List\SubscriptionList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Subscription\SubscriptionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Themes\Controls\FormCalendarDatePicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Subscription\Details\SubscriptionDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Subscription\Details\SubscriptionCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Companies\CompaniesView.xaml">
