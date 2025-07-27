@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34322.80
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database", "Database\Database.sqlproj", "{4364DA23-5537-4D53-AD26-CEAAC4718FAA}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Hybrsoft.Database", "Hybrsoft.Database\Hybrsoft.Database.sqlproj", "{4364DA23-5537-4D53-AD26-CEAAC4718FAA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hybrsoft.Infrastructure", "Hybrsoft.Infrastructure\Hybrsoft.Infrastructure.csproj", "{33260B15-2C22-40B4-AB7C-52AED4F08158}"
 EndProject

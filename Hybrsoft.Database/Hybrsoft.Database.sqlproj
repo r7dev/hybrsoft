@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <Name>Database</Name>
+    <Name>Hybrsoft.Database</Name>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{4364da23-5537-4d53-ad26-ceaac4718faa}</ProjectGuid>
@@ -11,8 +11,8 @@
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
-    <RootNamespace>Database</RootNamespace>
-    <AssemblyName>Database</AssemblyName>
+    <RootNamespace>Hybrsoft.Database</RootNamespace>
+    <AssemblyName>Hybrsoft.Database</AssemblyName>
     <ModelCollation>1033, CI</ModelCollation>
     <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
     <DeployToDatabase>True</DeployToDatabase>
@@ -94,7 +94,7 @@
     <Build Include="Schema\Universal\Tables\SubscriptionPlan.sql" />
   </ItemGroup>
   <ItemGroup>
-    <RefactorLog Include="Database.refactorlog" />
+    <RefactorLog Include="Hybrsoft.Database.refactorlog" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Script-Pre\DataBaseUsersAdd.sql" />
