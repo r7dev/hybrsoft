@@ -1,7 +1,7 @@
 ﻿using Hybrsoft.Domain.Dtos;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
+using Hybrsoft.Enums;
 using Hybrsoft.Infrastructure.Common;
-using Hybrsoft.Infrastructure.Enums;
 using Hybrsoft.Infrastructure.Models;
 using Microsoft.UI.Xaml;
 using System;

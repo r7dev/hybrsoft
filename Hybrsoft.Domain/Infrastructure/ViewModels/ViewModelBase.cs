@@ -1,5 +1,5 @@
 ﻿using Hybrsoft.Domain.Interfaces.Infrastructure;
-using Hybrsoft.Infrastructure.Enums;
+using Hybrsoft.Enums;
 using System;
 using System.Diagnostics;
 
@@ -8,6 +8,7 @@ namespace Hybrsoft.Domain.Infrastructure.ViewModels
 	public partial class ViewModelBase(ICommonServices commonServices) : ObservableObject
 	{
 		private readonly Stopwatch _stopwatch = new();
+		private readonly string _statusReadyMessage = commonServices.ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(ViewModelBase), "_Ready"));
 
 		public IContextService ContextService { get; } = commonServices.ContextService;
 		public INavigationService NavigationService { get; } = commonServices.NavigationService;
@@ -59,7 +60,7 @@ namespace Hybrsoft.Domain.Infrastructure.ViewModels
 			switch (logType)
 			{
 				case LogType.Success:
-					SucessMessage(fullMessage);
+					SuccessMessage(fullMessage);
 					break;
 				case LogType.Warning:
 					WarningMessage(fullMessage);
@@ -84,13 +85,56 @@ namespace Hybrsoft.Domain.Infrastructure.ViewModels
 		{
 			MessageService.Send(this, "StatusError", message);
 		}
-		public void SucessMessage(string message)
+		public void SuccessMessage(string message)
 		{
-			MessageService.Send(this, "SucessMessage", message);
+			MessageService.Send(this, "SuccessMessage", message);
 		}
 		public void WarningMessage(string message)
 		{
 			MessageService.Send(this, "WarningMessage", message);
+		}
+
+		public void StatusMessageYourself(string message)
+		{
+			MessageService.SendYourself(this, "StatusMessage", message);
+		}
+		public void StatusErrorYourself(string message)
+		{
+			MessageService.SendYourself(this, "StatusError", message);
+		}
+		public void SuccessMessageYourselt(string message)
+		{
+			MessageService.SendYourself(this, "SuccessMessage", message);
+		}
+
+		public void EnableThisView(string message = null)
+		{
+			message = message ?? _statusReadyMessage;
+			MessageService.Send(this, "EnableThisView", message);
+		}
+		public void DisableThisView(string message)
+		{
+			MessageService.Send(this, "DisableThisView", message);
+		}
+
+		public void EnableOtherViews(string message = null)
+		{
+			message = message ?? _statusReadyMessage;
+			MessageService.Send(this, "EnableOtherViews", message);
+		}
+		public void DisableOtherViews(string message)
+		{
+			MessageService.Send(this, "DisableOtherViews", message);
+		}
+
+		public void EnableAllViews(string message = null)
+		{
+			message = message ?? _statusReadyMessage;
+			MessageService.Send(this, "EnableAllViews", message);
+		}
+		public void DisableAllViews(string message)
+		{
+			MessageService.Send(this, "DisableAllViews", message);
 		}
 	}
 }

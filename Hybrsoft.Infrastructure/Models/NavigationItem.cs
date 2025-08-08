@@ -1,4 +1,4 @@
-﻿using Hybrsoft.Infrastructure.Enums;
+﻿using Hybrsoft.Enums;
 
 namespace Hybrsoft.Infrastructure.Models
 {

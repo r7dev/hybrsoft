@@ -7,10 +7,17 @@ using System.Windows.Input;
 
 namespace Hybrsoft.Domain.ViewModels
 {
-	public partial class LoginViewModel(ILoginService loginService, ISettingsService settingsService, ICommonServices commonServices) : ViewModelBase(commonServices)
+	public partial class LoginViewModel(
+		ILoginService loginService,
+		ISettingsService settingsService,
+		ILicenseService licenseService,
+		INetworkService networkService,
+		ICommonServices commonServices) : ViewModelBase(commonServices)
 	{
 		public ILoginService LoginService { get; } = loginService;
 		public ISettingsService SettingsService { get; } = settingsService;
+		public ILicenseService LicenseService { get; } = licenseService;
+		public INetworkService NetworkService { get; } = networkService;
 
 		private ShellArgs ViewModelArgs { get; set; }
 
@@ -48,6 +55,8 @@ namespace Hybrsoft.Domain.ViewModels
 			get { return _password; }
 			set { Set(ref _password, value); }
 		}
+
+		private bool _isLicenseValid;
 
 		public ICommand ShowLoginWithPasswordCommand => new RelayCommand(ShowLoginWithPassword);
 		public ICommand LoginWithPasswordCommand => new RelayCommand(LoginWithPassword);
@@ -92,10 +101,12 @@ namespace Hybrsoft.Domain.ViewModels
 				result = await LoginService.SignInWithPasswordAsync(UserName, Password);
 				if (result.IsOk)
 				{
-					if (! await LoginService.IsWindowsHelloEnabledAsync(UserName))
+					if (!await LoginService.IsWindowsHelloEnabledAsync(UserName))
 					{
 						await LoginService.TrySetupWindowsHelloAsync(UserName);
 					}
+					_isLicenseValid = await IsLicenseValidAsync();
+					await Task.Delay(200);
 					EnterApplication();
 					return;
 				}
@@ -110,6 +121,8 @@ namespace Hybrsoft.Domain.ViewModels
 			var result = await LoginService.SignInWithWindowsHelloAsync();
 			if (result.IsOk)
 			{
+				_isLicenseValid = await IsLicenseValidAsync();
+				await Task.Delay(200);
 				EnterApplication();
 				return;
 			}
@@ -128,7 +141,14 @@ namespace Hybrsoft.Domain.ViewModels
 					PictureSource = null
 				};
 			}
-			NavigationService.Navigate<MainShellViewModel>(ViewModelArgs);
+			if (_isLicenseValid)
+			{
+				NavigationService.Navigate<MainShellViewModel>(ViewModelArgs);
+			}
+			else
+			{
+				NavigationService.Navigate<LicenseActivationViewModel>(ViewModelArgs);
+			}
 		}
 
 		private Result ValidateInput()
@@ -142,6 +162,24 @@ namespace Hybrsoft.Domain.ViewModels
 				return Result.Error("Login error", "Please, enter a valid password.");
 			}
 			return Result.Ok();
+		}
+
+		private async Task<bool> IsLicenseValidAsync()
+		{
+			if (await LicenseService.IsLicenseValidOfflineAsync())
+			{
+				return true;
+			}
+			if (await NetworkService.IsInternetAvailableAsync())
+			{
+				var license = await LicenseService.ValidateSubscriptionOnlineAsync(UserName);
+				if (license.IsActivated)
+				{
+					LicenseService.SaveLicenseLocally(LicenseService.CreateSubscriptionInfoDto(license));
+					return true;
+				}
+			}
+			return false;
 		}
 	}
 }

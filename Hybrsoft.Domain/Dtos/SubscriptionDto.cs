@@ -1,6 +1,6 @@
 ﻿using Hybrsoft.Domain.Infrastructure.ViewModels;
 using Hybrsoft.Domain.Interfaces;
-using Hybrsoft.Infrastructure.Enums;
+using Hybrsoft.Enums;
 using System;
 
 namespace Hybrsoft.Domain.Dtos
@@ -27,14 +27,14 @@ namespace Hybrsoft.Domain.Dtos
 		public DateTimeOffset CreatedOn { get; set; }
 		public DateTimeOffset? LastModifiedOn { get; set; }
 
-		public string LicencedTo => Type == Hybrsoft.Infrastructure.Enums.SubscriptionType.Enterprise ? Company.FullName : User.FullName;
+		public string LicencedTo => Type == Enums.SubscriptionType.Enterprise ? Company.FullName : User.FullName;
 		public string StatusDisplayName => LookupTablesProxy.Instance?.GetSubscriptionStatus((short)Status);
 		public virtual SubscriptionTypeDto SubscriptionType { get; set; }
 		public virtual CompanyDto Company { get; set; }
 		public virtual UserDto User { get; set; }
 
-		public bool CanEditUser => Type == Hybrsoft.Infrastructure.Enums.SubscriptionType.Individual;
-		public bool CanEditCompany => Type == Hybrsoft.Infrastructure.Enums.SubscriptionType.Enterprise;
+		public bool CanEditUser => Type == Enums.SubscriptionType.Individual;
+		public bool CanEditCompany => Type == Enums.SubscriptionType.Enterprise;
 		public bool IsCancelled => CancelledOn.HasValue;
 
 		public override void Merge(ObservableObject source)

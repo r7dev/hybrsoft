@@ -43,8 +43,10 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			serviceCollection.AddSingleton<IMessageService, MessageService>();
 			serviceCollection.AddSingleton<IDialogService, DialogService>();
 			serviceCollection.AddSingleton<IFilePickerService, FilePickerService>();
-			serviceCollection.AddSingleton<ILogService, LogService>();
+			serviceCollection.AddSingleton<ILicenseService, LicenseService>();
 			serviceCollection.AddSingleton<ILoginService, LoginService>();
+			serviceCollection.AddSingleton<ILogService, LogService>();
+			serviceCollection.AddSingleton<INetworkService, NetworkService>();
 			serviceCollection.AddSingleton<IPasswordHasher, PasswordHasher>();
 			serviceCollection.AddSingleton<IUserPermissionService, UserPermissionService>();
 			serviceCollection.AddSingleton<IResourceService, ResourceService>();
@@ -54,6 +56,7 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			serviceCollection.AddScoped<ICommonServices, CommonServices>();
 
 			serviceCollection.AddTransient<LoginViewModel>();
+			serviceCollection.AddTransient<LicenseActivationViewModel>();
 
 			serviceCollection.AddTransient<ShellViewModel>();
 			serviceCollection.AddTransient<MainShellViewModel>();

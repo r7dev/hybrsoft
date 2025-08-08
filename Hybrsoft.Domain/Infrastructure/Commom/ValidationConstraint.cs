@@ -1,5 +1,5 @@
 ﻿using Hybrsoft.Domain.Interfaces.Infrastructure;
-using Hybrsoft.Infrastructure.Enums;
+using Hybrsoft.Enums;
 using System;
 
 namespace Hybrsoft.Domain.Infrastructure.Commom

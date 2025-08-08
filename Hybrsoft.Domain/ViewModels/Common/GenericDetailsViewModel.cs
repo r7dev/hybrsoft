@@ -2,7 +2,7 @@
 using Hybrsoft.Domain.Infrastructure.ViewModels;
 using Hybrsoft.Domain.Interfaces;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
-using Hybrsoft.Infrastructure.Enums;
+using Hybrsoft.Enums;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;

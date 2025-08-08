@@ -1,6 +1,6 @@
 ﻿using Hybrsoft.Domain.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
-using Hybrsoft.Infrastructure.Enums;
+using Hybrsoft.Enums;
 
 namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 {

@@ -1,0 +1,19 @@
+@Hybrsoft.FoundationAPI_HostAddress = http://localhost:5244
+
+POST {{Hybrsoft.FoundationAPI_HostAddress}}/subscription/activate
+Content-Type: application/json
+{
+  "Email": "ricardo.machado@outlook.com.br",
+  "LicenseKey": "7ELXO-IHPAI-KBUDQ-MBGOE-BDQ3V",
+  "ProductType": 0,
+}
+###
+
+POST {{Hybrsoft.FoundationAPI_HostAddress}}/subscription/validate
+Content-Type: application/json
+{
+  "Email": "ricardo.machado@outlook.com.br",
+  "ProductType": 0
+}
+###
+

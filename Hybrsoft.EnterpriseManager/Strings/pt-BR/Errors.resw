@@ -297,4 +297,13 @@
   <data name="SubscriptionListViewModel_ErrorDeleting0Subscriptions1" xml:space="preserve">
     <value>Erro ao excluir {0} Assinaturas: {1}</value>
   </data>
+  <data name="LicenseActivationViewModel_NoInternetConnection_PleaseCheckYourConnectionAndTryAgain" xml:space="preserve">
+    <value>Sem conexão com a internet. Por favor, verifique sua conexão e tente novamente.</value>
+  </data>
+  <data name="FoundationAPI_SubscriptionService_ActivationFailed_LicenseKeyIsRequired" xml:space="preserve">
+    <value>Ativação falhou. A chave de licença é necessária.</value>
+  </data>
+  <data name="FoundationAPI_SubscriptionService_InvalidLicenseKey" xml:space="preserve">
+    <value>Chave de licença inválida.</value>
+  </data>
 </root>

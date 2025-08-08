@@ -2,7 +2,7 @@ using Hybrsoft.Domain.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.EnterpriseManager.Extensions;
 using Hybrsoft.EnterpriseManager.Tools.DependencyExpressions;
-using Hybrsoft.Infrastructure.Enums;
+using Hybrsoft.Enums;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Data;

@@ -1,5 +1,5 @@
 ﻿using Hybrsoft.Domain.Infrastructure.ViewModels;
-using Hybrsoft.Infrastructure.Enums;
+using Hybrsoft.Enums;
 using System;
 
 namespace Hybrsoft.Domain.Dtos

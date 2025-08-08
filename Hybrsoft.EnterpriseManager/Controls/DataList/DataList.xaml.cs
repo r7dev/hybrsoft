@@ -2,18 +2,18 @@ using Hybrsoft.Domain.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.EnterpriseManager.Extensions;
 using Hybrsoft.EnterpriseManager.Tools.DependencyExpressions;
-using Hybrsoft.Infrastructure.Enums;
+using Hybrsoft.Enums;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml;
-using System.Collections.Specialized;
+using System;
 using System.Collections;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows.Input;
-using System;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.

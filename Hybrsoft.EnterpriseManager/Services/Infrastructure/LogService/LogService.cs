@@ -2,8 +2,8 @@
 using Hybrsoft.Domain.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
+using Hybrsoft.Enums;
 using Hybrsoft.Infrastructure.Common;
-using Hybrsoft.Infrastructure.Enums;
 using Hybrsoft.Infrastructure.Models;
 using System;
 using System.Collections.Generic;

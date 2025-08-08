@@ -1,8 +1,9 @@
 ﻿using Hybrsoft.Domain.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Configuration;
+using Hybrsoft.Enums;
 using System.IO;
-using System.Text.Json;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
@@ -29,6 +30,12 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		public char PasswordChar
 		{
 			get => AppSettings.Current.PasswordChar;
+		}
+
+		public EnvironmentType Environment
+		{
+			get => ReadSettingAsync<EnvironmentType>(nameof(Environment)).Result;
+			set => SaveSettingAsync<EnvironmentType>(nameof(Environment), value).Wait();
 		}
 
 		public async Task<T> ReadSettingAsync<T>(string key)

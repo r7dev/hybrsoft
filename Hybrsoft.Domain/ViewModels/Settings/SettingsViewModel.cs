@@ -1,7 +1,7 @@
 ﻿using Hybrsoft.Domain.Dtos;
 using Hybrsoft.Domain.Infrastructure.ViewModels;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
-using Hybrsoft.Infrastructure.Enums;
+using Hybrsoft.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

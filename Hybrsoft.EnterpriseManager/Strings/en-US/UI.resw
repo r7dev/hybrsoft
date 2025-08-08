@@ -966,4 +966,19 @@
   <data name="ContentDialog_Title_ConfirmCancellation" xml:space="preserve">
     <value>Confirm Cancellation</value>
   </data>
+  <data name="SubscriptionStatus_WaitingActivation" xml:space="preserve">
+    <value>Waiting Activation</value>
+  </data>
+  <data name="LicenseActivationView_LicenseActivation.Text" xml:space="preserve">
+    <value>License Activation</value>
+  </data>
+  <data name="LicenseActivationView_EnterYourLicenseKey.PlaceholderText" xml:space="preserve">
+    <value>Enter your license key</value>
+  </data>
+  <data name="LicenseActivationView_Activate.Text" xml:space="preserve">
+    <value>Activate</value>
+  </data>
+  <data name="LicenseActivationView_CheckConnection.Text" xml:space="preserve">
+    <value>Check Connection</value>
+  </data>
 </root>

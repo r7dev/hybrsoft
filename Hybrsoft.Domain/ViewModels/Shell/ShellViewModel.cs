@@ -69,11 +69,11 @@ namespace Hybrsoft.Domain.ViewModels
 		{
 			switch (message)
 			{
-				case "SucessMessage":
+				case "SuccessMessage":
 					if (viewModel.ContextService.ContextID == ContextService.ContextID)
 					{
 						IsOpen = !string.IsNullOrWhiteSpace(message);
-						Severity = message == "SucessMessage" ? InfoBarSeverity.Success : InfoBarSeverity.Informational;
+						Severity = message == "SuccessMessage" ? InfoBarSeverity.Success : InfoBarSeverity.Informational;
 						SetStatus(status);
 					}
 					break;

@@ -2,8 +2,8 @@
 using Hybrsoft.Domain.Infrastructure.Commom;
 using Hybrsoft.Domain.Infrastructure.ViewModels;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
+using Hybrsoft.Enums;
 using Hybrsoft.Infrastructure.Common;
-using Hybrsoft.Infrastructure.Enums;
 using Hybrsoft.Infrastructure.Models;
 using System;
 using System.Collections.Generic;

@@ -12,6 +12,7 @@
 	[Status] AS(
 		CAST(
 			CASE 
+				WHEN [StartDate] IS NULL AND [CancelledOn] IS NULL THEN 3 -- Waiting Activation
 				WHEN [ExpirationDate] < SYSDATETIMEOFFSET() THEN 2 -- Expired
 				WHEN [CancelledOn] IS NOT NULL THEN 1 -- Canceled
 				ELSE 0 -- Active

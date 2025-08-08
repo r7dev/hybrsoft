@@ -1,4 +1,4 @@
-﻿namespace Hybrsoft.Infrastructure.Enums
+﻿namespace Hybrsoft.Enums
 {
 	public enum SubscriptionType : short
 	{

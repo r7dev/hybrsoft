@@ -1,5 +1,5 @@
-﻿using Hybrsoft.Infrastructure.Common;
-using Hybrsoft.Infrastructure.Enums;
+﻿using Hybrsoft.Enums;
+using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 using System;

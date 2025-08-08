@@ -20,6 +20,7 @@
 			<SolidColorBrush x:Key="DetailsViewBackgroundColor" Color="#F5F5F5" />
 			<!--  Converters  -->
 			<converters:BoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" FalseValue="Visible" TrueValue="Collapsed" />
+			<converters:BoolToVisibilityConverter x:Key="DefaultBoolToVisibilityConverter" FalseValue="Collapsed" TrueValue="Visible" />
 			<converters:BoolNegationConverter x:Key="BoolNegationConverter" />
 			<converters:DateTimeFormatConverter x:Key="DateTimeFormatConverter" />
 			<converters:Int16Converter x:Key="Int16Converter" />

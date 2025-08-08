@@ -1,6 +1,8 @@
-﻿using Hybrsoft.Infrastructure.Enums;
+﻿using Hybrsoft.Enums;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Security.Cryptography;
+using System.Text;
 using Windows.ApplicationModel;
 using Windows.Graphics;
 using Windows.Storage;
@@ -13,7 +15,7 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 		{
 			Current = new AppSettings();
 		}
-		static public AppSettings Current { get; }
+		public static AppSettings Current { get; }
 
 		public ApplicationDataContainer LocalSettings => ApplicationData.Current.LocalSettings;
 
@@ -75,12 +77,24 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 
 		public string SQLServerConnectionString
 		{
-			get => GetSettingsValue(nameof(SQLServerConnectionString),
-				new ConfigurationBuilder()
+			get
+			{
+				var encryptedData = GetSettingsValue(nameof(SQLServerConnectionString), string.Empty);
+				if (!string.IsNullOrEmpty(encryptedData))
+				{
+					byte[] decryptedData = ProtectedData.Unprotect(
+						Convert.FromBase64String(encryptedData),
+						null,
+						DataProtectionScope.CurrentUser);
+					return Encoding.UTF8.GetString(decryptedData);
+				}
+
+				return new ConfigurationBuilder()
 				.SetBasePath("C:\\Users\\ricar\\AppData\\Roaming\\Microsoft\\UserSecrets\\e3462127-a2fe-4121-a768-e126e4ed23f2")
 				.AddJsonFile("secrets.json")
 				.Build()
-				.GetConnectionString("EnterpriseManager_DevEnvironment"));
+				.GetConnectionString("EnterpriseManager_DevEnvironment");
+			}
 			set => SetSettingsValue(nameof(SQLServerConnectionString), value);
 		}
 

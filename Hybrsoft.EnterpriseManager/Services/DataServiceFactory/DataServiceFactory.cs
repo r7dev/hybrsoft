@@ -1,4 +1,4 @@
-﻿using Hybrsoft.Infrastructure.Enums;
+﻿using Hybrsoft.Enums;
 using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.Infrastructure.DataServices;
 using System;

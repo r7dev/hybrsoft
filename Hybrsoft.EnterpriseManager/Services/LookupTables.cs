@@ -2,7 +2,7 @@
 using Hybrsoft.Domain.Interfaces;
 using Hybrsoft.Domain.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
-using Hybrsoft.Infrastructure.Enums;
+using Hybrsoft.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;

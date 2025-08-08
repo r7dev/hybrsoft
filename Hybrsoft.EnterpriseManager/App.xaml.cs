@@ -2,7 +2,7 @@
 using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.EnterpriseManager.Extensions;
 using Hybrsoft.EnterpriseManager.Views.SplashScreen;
-using Hybrsoft.Infrastructure.Enums;
+using Hybrsoft.Enums;
 using Microsoft.UI.Xaml;
 using Microsoft.Windows.AppLifecycle;
 using System;

@@ -489,4 +489,13 @@
   <data name="SubscriptionListViewModel_0SubscriptionsDeleted" xml:space="preserve">
     <value>{0} assinaturas excluídas</value>
   </data>
+  <data name="LicenseActivationViewModel_InternetConnectionIsAvailable" xml:space="preserve">
+    <value>Conexão com a internet está disponível.</value>
+  </data>
+  <data name="FoundationAPI_SubscriptionService_LicenseKeyIsAlreadyActive" xml:space="preserve">
+    <value>A chave de licença já está ativa.</value>
+  </data>
+  <data name="FoundationAPI_SubscriptionService_YourLicenseHasBeenSuccessfullyActivated" xml:space="preserve">
+    <value>Sua licença foi ativada com sucesso.</value>
+  </data>
 </root>

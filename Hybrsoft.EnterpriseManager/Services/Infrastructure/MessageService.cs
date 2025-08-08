@@ -95,6 +95,20 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			}
 		}
 
+		public void SendYourself<TSender, TArgs>(TSender sender, string message, TArgs args) where TSender : class
+		{
+			ArgumentNullException.ThrowIfNull(sender);
+
+			var subscriber = _subscribers
+				.Where(r => r.Target == sender)
+				.FirstOrDefault();
+
+			if (subscriber == null)
+				return; // No subscriber for the sender
+
+			subscriber.TryInvoke(sender, message, args);
+		}
+
 		private Subscriber[] GetSubscribersSnapshot()
 		{
 			lock (_sync)

@@ -1,6 +1,6 @@
 ﻿using Hybrsoft.Domain.Dtos;
+using Hybrsoft.Enums;
 using Hybrsoft.Infrastructure.Common;
-using Hybrsoft.Infrastructure.Enums;
 using Hybrsoft.Infrastructure.Models;
 using System;
 using System.Collections.Generic;

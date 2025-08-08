@@ -12,5 +12,6 @@ namespace Hybrsoft.Domain.Interfaces.Infrastructure
 		void Unsubscribe<TSender, TArgs>(object target) where TSender : class;
 
 		void Send<TSender, TArgs>(TSender sender, string message, TArgs args) where TSender : class;
+		void SendYourself<TSender, TArgs>(TSender sender, string message, TArgs args) where TSender : class;
 	}
 }

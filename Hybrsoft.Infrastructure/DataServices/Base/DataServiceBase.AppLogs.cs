@@ -1,4 +1,5 @@
-﻿using Hybrsoft.Infrastructure.Common;
+﻿using Hybrsoft.Enums;
+using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -96,7 +97,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		public async Task MarkAllAsReadAsync()
 		{
 			await _universalDataSource.AppLogs
-				.Where(r => !r.IsRead && r.AppType == Enums.AppType.EnterpriseManager)
+				.Where(r => !r.IsRead && r.AppType == AppType.EnterpriseManager)
 				.ExecuteUpdateAsync(r => r.SetProperty(x => x.IsRead, true));
 		}
 	}

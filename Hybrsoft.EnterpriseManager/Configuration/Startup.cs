@@ -3,7 +3,7 @@ using Hybrsoft.Domain.Interfaces.Infrastructure;
 using Hybrsoft.Domain.ViewModels;
 using Hybrsoft.EnterpriseManager.Services;
 using Hybrsoft.EnterpriseManager.Views;
-using Hybrsoft.Infrastructure.Enums;
+using Hybrsoft.Enums;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 
@@ -17,7 +17,16 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 		{
 			ServiceLocator.Configure(_serviceCollection);
 
+			AppConfig.Initialize();
+
 			ConfigureNavigation();
+
+			var settingsService = ServiceLocator.Current.GetService<ISettingsService>();
+#if DEBUG
+			settingsService.Environment = EnvironmentType.Development;
+#else
+			settingsService.Environment = EnvironmentType.Production;
+#endif
 
 			var logService = ServiceLocator.Current.GetService<ILogService>();
 			await logService.WriteAsync(LogType.Information, "Startup", "Configuration", "Application Start", $"Application started.");
@@ -30,6 +39,8 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 
 		private static void ConfigureNavigation()
 		{
+			NavigationService.Register<LicenseActivationViewModel, LicenseActivationView>();
+
 			NavigationService.Register<ShellViewModel, ShellView>();
 			NavigationService.Register<MainShellViewModel, MainShellView>();
 

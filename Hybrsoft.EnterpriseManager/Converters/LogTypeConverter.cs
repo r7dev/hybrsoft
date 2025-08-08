@@ -1,4 +1,4 @@
-﻿using Hybrsoft.Infrastructure.Enums;
+﻿using Hybrsoft.Enums;
 using Microsoft.UI;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Media;

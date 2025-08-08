@@ -4,7 +4,7 @@ using Hybrsoft.Domain.ViewModels;
 using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.EnterpriseManager.Extensions;
 using Hybrsoft.EnterpriseManager.Services;
-using Hybrsoft.Infrastructure.Enums;
+using Hybrsoft.Enums;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
