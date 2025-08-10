@@ -109,7 +109,7 @@ namespace Hybrsoft.EnterpriseManager.Views
 			{
 				var loginService = ServiceLocator.Current.GetService<ILoginService>();
 				loginService.Logoff();
-				if (Frame.CanGoBack)
+				while (Frame.CanGoBack)
 				{
 					Frame.GoBack();
 				}
