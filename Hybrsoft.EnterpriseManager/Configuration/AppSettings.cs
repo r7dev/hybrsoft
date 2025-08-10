@@ -90,10 +90,9 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 				}
 
 				return new ConfigurationBuilder()
-				.SetBasePath("C:\\Users\\ricar\\AppData\\Roaming\\Microsoft\\UserSecrets\\e3462127-a2fe-4121-a768-e126e4ed23f2")
-				.AddJsonFile("secrets.json")
+				.AddUserSecrets<AppSettings>()
 				.Build()
-				.GetConnectionString("EnterpriseManager_DevEnvironment");
+				.GetConnectionString("SQLServerDev");
 			}
 			set => SetSettingsValue(nameof(SQLServerConnectionString), value);
 		}
