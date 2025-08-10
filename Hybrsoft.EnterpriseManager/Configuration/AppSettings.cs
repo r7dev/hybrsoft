@@ -1,6 +1,7 @@
 ﻿using Hybrsoft.Enums;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using Windows.ApplicationModel;
@@ -89,10 +90,9 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 					return Encoding.UTF8.GetString(decryptedData);
 				}
 
-				return new ConfigurationBuilder()
-				.AddUserSecrets<AppSettings>()
-				.Build()
-				.GetConnectionString("SQLServerDev");
+				return AppConfig.IsDevelopment
+					? GetSQLServerDevelopmentConnectionString()
+					: GetSQLServerProductionConnectionString();
 			}
 			set => SetSettingsValue(nameof(SQLServerConnectionString), value);
 		}
@@ -128,6 +128,24 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 		private void SetSettingsValue(string name, object value)
 		{
 			LocalSettings.Values[name] = value;
+		}
+
+		private static string GetSQLServerDevelopmentConnectionString()
+		{
+			return new ConfigurationBuilder()
+				.AddUserSecrets<AppSettings>(false, true)
+				.Build()
+				.GetConnectionString("SQLServerDev");
+		}
+
+		private static string GetSQLServerProductionConnectionString()
+		{
+			string configPath = Path.Combine(AppContext.BaseDirectory, "Configuration");
+			return new ConfigurationBuilder()
+				.SetBasePath(configPath)
+				.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+				.Build()
+				.GetConnectionString("SQLServerProd");
 		}
 	}
 }
