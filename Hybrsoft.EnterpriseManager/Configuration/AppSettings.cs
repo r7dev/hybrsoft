@@ -143,7 +143,7 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			string configPath = Path.Combine(AppContext.BaseDirectory, "Configuration");
 			return new ConfigurationBuilder()
 				.SetBasePath(configPath)
-				.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+				.AddJsonFile("appsettings.json", false, true)
 				.Build()
 				.GetConnectionString("SQLServerProd");
 		}
