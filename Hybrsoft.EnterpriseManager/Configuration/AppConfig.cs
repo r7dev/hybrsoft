@@ -27,5 +27,6 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 
 		public static string ApiBaseUrl => Configuration["AppSettings:ApiBaseUrl" + (IsDevelopment ? "Dev" : "Prod")];
 
+		public static string SQLServerProdConnectionString => Configuration.GetConnectionString("SQLServerProd");
 	}
 }

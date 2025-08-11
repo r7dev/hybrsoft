@@ -4,6 +4,8 @@ using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.Graphics;
 using Windows.Storage;
@@ -80,21 +82,11 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 		{
 			get
 			{
-				var encryptedData = GetSettingsValue(nameof(SQLServerConnectionString), string.Empty);
-				if (!string.IsNullOrEmpty(encryptedData))
-				{
-					byte[] decryptedData = ProtectedData.Unprotect(
-						Convert.FromBase64String(encryptedData),
-						null,
-						DataProtectionScope.CurrentUser);
-					return Encoding.UTF8.GetString(decryptedData);
-				}
-
-				return AppConfig.IsDevelopment
-					? GetSQLServerDevelopmentConnectionString()
-					: GetSQLServerProductionConnectionString();
+				string defaultConnectionString = GetDefaultSQLServerConnectionString(AppConfig.IsDevelopment);
+				var valueEncrypted = GetSettingsValueAsync(nameof(SQLServerConnectionString), EncryptData(defaultConnectionString)).Result;
+				return DecryptData<string>(valueEncrypted);
 			}
-			set => SetSettingsValue(nameof(SQLServerConnectionString), value);
+			set => SetSettingsValueAsync(nameof(SQLServerConnectionString), EncryptData(value));
 		}
 
 		public bool IsRandomErrorsEnabled
@@ -130,22 +122,78 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			LocalSettings.Values[name] = value;
 		}
 
-		private static string GetSQLServerDevelopmentConnectionString()
+		private async Task<TResult> GetSettingsValueAsync<TResult>(string key, TResult defaultValue)
 		{
-			return new ConfigurationBuilder()
-				.AddUserSecrets<AppSettings>(false, true)
-				.Build()
-				.GetConnectionString("SQLServerDev");
+			try
+			{
+				if (LocalSettings.Values.TryGetValue(key, out object value))
+				{
+					using MemoryStream memoryStream = new(Encoding.UTF8.GetBytes((string)value));
+					return await JsonSerializer.DeserializeAsync<TResult>(memoryStream);
+				}
+
+				SetSettingsValueAsync(key, defaultValue);
+				return defaultValue;
+			}
+			catch (Exception ex)
+			{
+				System.Diagnostics.Debug.WriteLine(ex.Message);
+				return defaultValue;
+			}
+		}
+		private async void SetSettingsValueAsync(string key, object value)
+		{
+			try
+			{
+				using MemoryStream memoryStream = new();
+				await JsonSerializer.SerializeAsync(memoryStream, value);
+				memoryStream.Position = 0; // Reset the stream position
+
+				using StreamReader reader = new(memoryStream);
+				string jsonString = await reader.ReadToEndAsync();
+				LocalSettings.Values[key] = jsonString;
+			}
+			catch (Exception ex)
+			{
+				System.Diagnostics.Debug.WriteLine(ex.Message);
+			}
 		}
 
-		private static string GetSQLServerProductionConnectionString()
+		private static string EncryptData(object value)
 		{
-			string configPath = Path.Combine(AppContext.BaseDirectory, "Configuration");
-			return new ConfigurationBuilder()
-				.SetBasePath(configPath)
-				.AddJsonFile("appsettings.json", false, true)
-				.Build()
-				.GetConnectionString("SQLServerProd");
+			byte[] encryptedData = ProtectedData.Protect(
+				Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value)),
+				null,
+				DataProtectionScope.CurrentUser);
+
+			return Convert.ToBase64String(encryptedData);
+		}
+
+		private static TResult DecryptData<TResult>(string encryptedData)
+		{
+			if (string.IsNullOrEmpty(encryptedData))
+			{
+				return default;
+			}
+			// Decrypt the data using ProtectedData
+			// Note: Ensure that the encryptedData is in Base64 format before calling this method
+			byte[] decryptedData = ProtectedData.Unprotect(
+				Convert.FromBase64String(encryptedData),
+				null,
+				DataProtectionScope.CurrentUser);
+			return JsonSerializer.Deserialize<TResult>(Encoding.UTF8.GetString(decryptedData));
+		}
+
+		private static string GetDefaultSQLServerConnectionString(bool isDevelopment)
+		{
+			if (isDevelopment)
+			{
+				return new ConfigurationBuilder()
+					.AddUserSecrets<AppSettings>(false, true)
+					.Build()
+					.GetConnectionString("SQLServerDev");
+			}
+			return AppConfig.SQLServerProdConnectionString;
 		}
 	}
 }
