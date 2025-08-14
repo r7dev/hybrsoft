@@ -40,6 +40,12 @@ namespace Hybrsoft.Domain.ViewModels
 		public void Unload()
 		{
 			ViewModelArgs.Query = Query;
+
+			// Release heavy collections.
+			(Items as IDisposable)?.Dispose();
+			Items = null;
+			SelectedItems = null;
+			SelectedIndexRanges = null;
 		}
 		public void Subscribe()
 		{

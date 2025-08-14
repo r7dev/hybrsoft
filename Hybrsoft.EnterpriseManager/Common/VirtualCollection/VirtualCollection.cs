@@ -46,7 +46,7 @@ namespace Hybrsoft.EnterpriseManager.Common.VirtualCollection
 
 		public void RangesChanged(ItemIndexRange visibleRange, IReadOnlyList<ItemIndexRange> trackedItems)
 		{
-			FetchRanges(trackedItems.Normalize().ToArray());
+			FetchRanges([.. trackedItems.Normalize()]);
 		}
 
 		private readonly Lock _sync = new();
@@ -146,7 +146,15 @@ namespace Hybrsoft.EnterpriseManager.Common.VirtualCollection
 			}
 		}
 
-		virtual public void Dispose() { GC.SuppressFinalize(this); }
+		virtual public void Dispose()
+		{
+			_timer.Stop();
+			_timer.Tick -= OnTimerTick;
+
+			Ranges.Clear();
+
+			GC.SuppressFinalize(this);
+		}
 
 		abstract protected T DefaultItem { get; }
 		abstract protected Task<IList<T>> FetchDataAsync(int pageIndex, int pageSize);

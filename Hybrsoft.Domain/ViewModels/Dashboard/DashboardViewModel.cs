@@ -32,6 +32,8 @@ namespace Hybrsoft.Domain.ViewModels
 		}
 		public void Unload()
 		{
+			// Release heavy collections.
+			(Students as IDisposable)?.Dispose();
 			Students = null;
 		}
 
