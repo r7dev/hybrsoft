@@ -1,5 +1,5 @@
-using Hybrsoft.Domain.Dtos;
-using Hybrsoft.Domain.ViewModels;
+using Hybrsoft.UI.Windows.Dtos;
+using Hybrsoft.UI.Windows.ViewModels;
 using Hybrsoft.EnterpriseManager.Extensions;
 using Hybrsoft.Infrastructure.Models;
 using Microsoft.UI.Xaml;

@@ -1,4 +1,4 @@
-using Hybrsoft.Domain.Dtos;
+using Hybrsoft.UI.Windows.Dtos;
 using Hybrsoft.EnterpriseManager.Extensions;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;

@@ -1,5 +1,5 @@
-﻿using Hybrsoft.Domain.Dtos;
-using Hybrsoft.Domain.Interfaces.Infrastructure;
+﻿using Hybrsoft.UI.Windows.Dtos;
+using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Hybrsoft.DTOs;
 using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.Enums;

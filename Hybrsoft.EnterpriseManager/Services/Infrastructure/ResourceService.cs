@@ -1,5 +1,5 @@
-﻿using Hybrsoft.Domain.Dtos;
-using Hybrsoft.Domain.Interfaces.Infrastructure;
+﻿using Hybrsoft.UI.Windows.Dtos;
+using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Microsoft.Windows.ApplicationModel.Resources;
 using System;
 using System.Collections.Generic;

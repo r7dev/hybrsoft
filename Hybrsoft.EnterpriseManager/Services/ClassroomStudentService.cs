@@ -1,5 +1,5 @@
-﻿using Hybrsoft.Domain.Dtos;
-using Hybrsoft.Domain.Interfaces;
+﻿using Hybrsoft.UI.Windows.Dtos;
+using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
 using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.DataServices;

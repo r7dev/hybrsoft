@@ -1,5 +1,5 @@
-﻿using Hybrsoft.Domain.Infrastructure.Commom;
-using Hybrsoft.Domain.Interfaces.Infrastructure;
+﻿using Hybrsoft.UI.Windows.Infrastructure.Commom;
+using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;

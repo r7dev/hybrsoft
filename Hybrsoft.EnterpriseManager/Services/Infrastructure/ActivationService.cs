@@ -1,5 +1,5 @@
-﻿using Hybrsoft.Domain.Infrastructure.ViewModels;
-using Hybrsoft.Domain.ViewModels;
+﻿using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
+using Hybrsoft.UI.Windows.ViewModels;
 using Hybrsoft.EnterpriseManager.Extensions;
 using System;
 using Windows.ApplicationModel.Activation;

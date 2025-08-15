@@ -1,4 +1,4 @@
-using Hybrsoft.Domain.ViewModels;
+using Hybrsoft.UI.Windows.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 

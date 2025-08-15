@@ -1,4 +1,4 @@
-﻿using Hybrsoft.Domain.Interfaces.Infrastructure;
+﻿using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Extensions;
 using Hybrsoft.Enums;
 using Microsoft.UI.Xaml;

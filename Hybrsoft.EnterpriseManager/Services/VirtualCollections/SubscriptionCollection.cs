@@ -1,6 +1,6 @@
-﻿using Hybrsoft.Domain.Dtos;
-using Hybrsoft.Domain.Interfaces;
-using Hybrsoft.Domain.Interfaces.Infrastructure;
+﻿using Hybrsoft.UI.Windows.Dtos;
+using Hybrsoft.UI.Windows.Interfaces;
+using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Common.VirtualCollection;
 using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.Models;

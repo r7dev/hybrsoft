@@ -1,7 +1,7 @@
-﻿using Hybrsoft.Domain.Dtos;
-using Hybrsoft.Domain.Infrastructure.Commom;
-using Hybrsoft.Domain.Interfaces;
-using Hybrsoft.Domain.Interfaces.Infrastructure;
+﻿using Hybrsoft.UI.Windows.Dtos;
+using Hybrsoft.UI.Windows.Infrastructure.Commom;
+using Hybrsoft.UI.Windows.Interfaces;
+using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Configuration;
 using System;
 using System.Threading.Tasks;

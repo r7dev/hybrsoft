@@ -7,7 +7,7 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Hybrsoft.Database", "Hybrso
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hybrsoft.Infrastructure", "Hybrsoft.Infrastructure\Hybrsoft.Infrastructure.csproj", "{33260B15-2C22-40B4-AB7C-52AED4F08158}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hybrsoft.Domain", "Hybrsoft.Domain\Hybrsoft.Domain.csproj", "{11C9BD29-4433-45C3-8CD7-10683A1BC2B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hybrsoft.UI.Windows", "Hybrsoft.UI.Windows\Hybrsoft.UI.Windows.csproj", "{11C9BD29-4433-45C3-8CD7-10683A1BC2B9}"
 	ProjectSection(ProjectDependencies) = postProject
 		{33260B15-2C22-40B4-AB7C-52AED4F08158} = {33260B15-2C22-40B4-AB7C-52AED4F08158}
 	EndProjectSection

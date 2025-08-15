@@ -1,6 +1,6 @@
-﻿using Hybrsoft.Domain.Interfaces;
-using Hybrsoft.Domain.Interfaces.Infrastructure;
-using Hybrsoft.Domain.ViewModels;
+﻿using Hybrsoft.UI.Windows.Interfaces;
+using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
+using Hybrsoft.UI.Windows.ViewModels;
 using Hybrsoft.EnterpriseManager.Services;
 using Hybrsoft.EnterpriseManager.Views;
 using Hybrsoft.Enums;

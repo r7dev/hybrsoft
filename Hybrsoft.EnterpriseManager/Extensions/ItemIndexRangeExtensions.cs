@@ -1,4 +1,4 @@
-﻿using Hybrsoft.Domain.Infrastructure.Commom;
+﻿using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Microsoft.UI.Xaml.Data;
 using System;
 using System.Collections.Generic;

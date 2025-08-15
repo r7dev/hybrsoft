@@ -6,7 +6,7 @@
 	xmlns:local="using:Hybrsoft.EnterpriseManager.Views"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:viewmodels="using:Hybrsoft.Domain.ViewModels"
+	xmlns:viewmodels="using:Hybrsoft.UI.Windows.ViewModels"
 	xmlns:controls="using:Hybrsoft.EnterpriseManager.Controls"
 	mc:Ignorable="d">
 

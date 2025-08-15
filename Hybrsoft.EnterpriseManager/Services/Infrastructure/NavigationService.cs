@@ -1,6 +1,6 @@
-﻿using Hybrsoft.Domain.Dtos;
-using Hybrsoft.Domain.Interfaces.Infrastructure;
-using Hybrsoft.Domain.ViewModels;
+﻿using Hybrsoft.UI.Windows.Dtos;
+using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
+using Hybrsoft.UI.Windows.ViewModels;
 using Hybrsoft.EnterpriseManager.Extensions;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
 using Hybrsoft.EnterpriseManager.Views;
