@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
@@ -17,37 +17,37 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
 		public ILogService LogService { get; } = logService;
 
-		public async Task<StudentDto> GetStudentAsync(long id)
+		public async Task<StudentModel> GetStudentAsync(long id)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
 			return await GetStudentAsync(dataService, id);
 		}
 
-		private static async Task<StudentDto> GetStudentAsync(IDataService dataService, long id)
+		private static async Task<StudentModel> GetStudentAsync(IDataService dataService, long id)
 		{
 			var item = await dataService.GetStudentAsync(id);
 			if (item != null)
 			{
-				return await CreateStudentDtoAsync(item, includeAllFields: true);
+				return await CreateStudentModelAsync(item, includeAllFields: true);
 			}
 			return null;
 		}
 
-		public async Task<IList<StudentDto>> GetStudentsAsync(DataRequest<Student> request)
+		public async Task<IList<StudentModel>> GetStudentsAsync(DataRequest<Student> request)
 		{
 			var collection = new StudentCollection(this, LogService);
 			await collection.LoadAsync(request);
 			return collection;
 		}
 
-		public async Task<IList<StudentDto>> GetStudentsAsync(int skip, int take, DataRequest<Student> request)
+		public async Task<IList<StudentModel>> GetStudentsAsync(int skip, int take, DataRequest<Student> request)
 		{
-			var models = new List<StudentDto>();
+			var models = new List<StudentModel>();
 			using var dataService = DataServiceFactory.CreateDataService();
 			var items = await dataService.GetStudentsAsync(skip, take, request);
 			foreach (var item in items)
 			{
-				models.Add(await CreateStudentDtoAsync(item, includeAllFields: false));
+				models.Add(await CreateStudentModelAsync(item, includeAllFields: false));
 			}
 			return models;
 		}
@@ -58,21 +58,21 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.GetStudentsCountAsync(request);
 		}
 
-		public async Task<int> UpdateStudentAsync(StudentDto model)
+		public async Task<int> UpdateStudentAsync(StudentModel model)
 		{
 			long id = model.StudentID;
 			using var dataService = DataServiceFactory.CreateDataService();
 			var item = id > 0 ? await dataService.GetStudentAsync(model.StudentID) : new Student();
 			if (item != null)
 			{
-				UpdateStudentFromDto(item, model);
+				UpdateStudentFromModel(item, model);
 				await dataService.UpdateStudentAsync(item);
 				model.Merge(await GetStudentAsync(dataService, item.StudentID));
 			}
 			return 0;
 		}
 
-		public async Task<int> DeleteStudentAsync(StudentDto model)
+		public async Task<int> DeleteStudentAsync(StudentModel model)
 		{
 			var item = new Student { StudentID = model.StudentID };
 			using var dataService = DataServiceFactory.CreateDataService();
@@ -86,9 +86,9 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.DeleteStudentsAsync([.. items]);
 		}
 
-		public static async Task<StudentDto> CreateStudentDtoAsync(Student source, bool includeAllFields)
+		public static async Task<StudentModel> CreateStudentModelAsync(Student source, bool includeAllFields)
 		{
-			var model = new StudentDto()
+			var model = new StudentModel()
 			{
 				StudentID = source.StudentID,
 				FirstName = source.FirstName,
@@ -108,7 +108,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return model;
 		}
 
-		private static void UpdateStudentFromDto(Student target, StudentDto source)
+		private static void UpdateStudentFromModel(Student target, StudentModel source)
 		{
 			target.FirstName = source.FirstName;
 			target.MiddleName = source.MiddleName;

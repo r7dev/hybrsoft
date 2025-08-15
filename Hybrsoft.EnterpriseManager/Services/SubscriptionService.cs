@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
@@ -17,37 +17,37 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
 		public ILogService LogService { get; } = logService;
 
-		public async Task<SubscriptionDto> GetSubscriptionAsync(long id)
+		public async Task<SubscriptionModel> GetSubscriptionAsync(long id)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
 			return await GetSubscriptionAsync(dataService, id);
 		}
 
-		private static async Task<SubscriptionDto> GetSubscriptionAsync(IDataService dataService, long id)
+		private static async Task<SubscriptionModel> GetSubscriptionAsync(IDataService dataService, long id)
 		{
 			var item = await dataService.GetSubscriptionAsync(id);
 			if (item != null)
 			{
-				return await CreateSubscriptionDtoAsync(item, includeAllFields: true);
+				return await CreateSubscriptionModelAsync(item, includeAllFields: true);
 			}
 			return null;
 		}
 
-		public async Task<IList<SubscriptionDto>> GetSubscriptionsAsync(DataRequest<Subscription> request)
+		public async Task<IList<SubscriptionModel>> GetSubscriptionsAsync(DataRequest<Subscription> request)
 		{
 			var collection = new SubscriptionCollection(this, LogService);
 			await collection.LoadAsync(request);
 			return collection;
 		}
 
-		public async Task<IList<SubscriptionDto>> GetSubscriptionsAsync(int skip, int take, DataRequest<Subscription> request)
+		public async Task<IList<SubscriptionModel>> GetSubscriptionsAsync(int skip, int take, DataRequest<Subscription> request)
 		{
-			var models = new List<SubscriptionDto>();
+			var models = new List<SubscriptionModel>();
 			using var dataService = DataServiceFactory.CreateDataService();
 			var items = await dataService.GetSubscriptionsAsync(skip, take, request);
 			foreach (var item in items)
 			{
-				models.Add(await CreateSubscriptionDtoAsync(item, includeAllFields: false));
+				models.Add(await CreateSubscriptionModelAsync(item, includeAllFields: false));
 			}
 			return models;
 		}
@@ -58,21 +58,21 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.GetSubscriptionsCountAsync(request);
 		}
 
-		public async Task<int> UpdateSubscriptionAsync(SubscriptionDto model)
+		public async Task<int> UpdateSubscriptionAsync(SubscriptionModel model)
 		{
 			long id = model.SubscriptionID;
 			using var dataService = DataServiceFactory.CreateDataService();
 			var item = id > 0 ? await dataService.GetSubscriptionAsync(model.SubscriptionID) : new Subscription();
 			if (item != null)
 			{
-				UpdateSubscriptionFromDto(item, model);
+				UpdateSubscriptionFromModel(item, model);
 				await dataService.UpdateSubscriptionAsync(item);
 				model.Merge(await GetSubscriptionAsync(dataService, item.SubscriptionID));
 			}
 			return 0;
 		}
 
-		public async Task<int> DeleteSubscriptionAsync(SubscriptionDto model)
+		public async Task<int> DeleteSubscriptionAsync(SubscriptionModel model)
 		{
 			var item = new Subscription { SubscriptionID = model.SubscriptionID };
 			using var dataService = DataServiceFactory.CreateDataService();
@@ -86,9 +86,9 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.DeleteSubscriptionsAsync([.. items]);
 		}
 
-		public static async Task<SubscriptionDto> CreateSubscriptionDtoAsync(Subscription source, bool includeAllFields)
+		public static async Task<SubscriptionModel> CreateSubscriptionModelAsync(Subscription source, bool includeAllFields)
 		{
-			var model = new SubscriptionDto()
+			var model = new SubscriptionModel()
 			{
 				SubscriptionID = source.SubscriptionID,
 				LicenseKey = source.LicenseKey,
@@ -104,12 +104,12 @@ namespace Hybrsoft.EnterpriseManager.Services
 				if (model.Type == SubscriptionType.Enterprise)
 				{
 					model.CompanyID = source.CompanyID ?? 0;
-					model.Company = await CompanyService.CreateCompanyDtoAsync(source.Company, includeAllFields);
+					model.Company = await CompanyService.CreateCompanyModelAsync(source.Company, includeAllFields);
 				}
 				else if (model.Type == SubscriptionType.Individual)
 				{
 					model.UserID = source.UserID ?? 0;
-					model.User = await UserService.CreateUserDtoAsync(source.User, includeAllFields);
+					model.User = await UserService.CreateUserModelAsync(source.User, includeAllFields);
 				}
 				model.CancelledOn = source.CancelledOn;
 				model.LastValidatedOn = source.LastValidatedOn;
@@ -119,7 +119,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return model;
 		}
 
-		private static void UpdateSubscriptionFromDto(Subscription target, SubscriptionDto source)
+		private static void UpdateSubscriptionFromModel(Subscription target, SubscriptionModel source)
 		{
 			target.SubscriptionPlanID = source.SubscriptionPlanID;
 			target.DurationDays = source.DurationDays;

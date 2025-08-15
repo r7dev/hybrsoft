@@ -6,7 +6,7 @@
 	xmlns:local="using:Hybrsoft.EnterpriseManager.Views"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:models="using:Hybrsoft.UI.Windows.Dtos"
+	xmlns:models="using:Hybrsoft.UI.Windows.Models"
 	xmlns:controls="using:Hybrsoft.EnterpriseManager.Controls"
 	mc:Ignorable="d">
 
@@ -27,7 +27,7 @@
 			</Grid>
 		</DataTemplate>
 
-		<DataTemplate x:Key="ItemTemplate" x:DataType="models:RelativeDto">
+		<DataTemplate x:Key="ItemTemplate" x:DataType="models:RelativeModel">
 			<Grid Height="32">
 				<Grid Visibility="{x:Bind IsEmpty, Converter={StaticResource InverseBoolToVisibilityConverter}}">
 					<Grid.ColumnDefinitions>

@@ -6,12 +6,12 @@
 	xmlns:local="using:Hybrsoft.EnterpriseManager.Controls"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:dtos="using:Hybrsoft.UI.Windows.Dtos"
+	xmlns:models="using:Hybrsoft.UI.Windows.Models"
 	mc:Ignorable="d">
 
 	<UserControl.Resources>
 		<x:Double x:Key="CardPictureRadius">72</x:Double>
-		<DataTemplate x:Key="ItemTemplate" x:DataType="dtos:RelativeDto">
+		<DataTemplate x:Key="ItemTemplate" x:DataType="models:RelativeModel">
 			<Grid Margin="16">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="Auto" />

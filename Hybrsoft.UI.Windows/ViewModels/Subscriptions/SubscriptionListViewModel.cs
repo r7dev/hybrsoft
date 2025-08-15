@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using Hybrsoft.UI.Windows.Interfaces;
@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class SubscriptionListViewModel(ISubscriptionService subscriptionService, ICommonServices commonServices) : GenericListViewModel<SubscriptionDto>(commonServices)
+	public partial class SubscriptionListViewModel(ISubscriptionService subscriptionService, ICommonServices commonServices) : GenericListViewModel<SubscriptionModel>(commonServices)
 	{
 		public ISubscriptionService SubscriptionService { get; } = subscriptionService;
 
@@ -99,7 +99,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return isOk;
 		}
 
-		private async Task<IList<SubscriptionDto>> GetItemsAsync()
+		private async Task<IList<SubscriptionModel>> GetItemsAsync()
 		{
 			if (!ViewModelArgs.IsEmpty)
 			{
@@ -218,7 +218,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return _hasEditorPermission;
 		}
 
-		private async Task DeleteItemsAsync(IEnumerable<SubscriptionDto> models)
+		private async Task DeleteItemsAsync(IEnumerable<SubscriptionModel> models)
 		{
 			foreach (var model in models)
 			{
@@ -231,7 +231,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			DataRequest<Subscription> request = BuildDataRequest();
 
-			List<SubscriptionDto> models = [];
+			List<SubscriptionModel> models = [];
 			foreach (var range in ranges)
 			{
 				var items = await SubscriptionService.GetSubscriptionsAsync(range.Index, range.Length, request);
@@ -258,7 +258,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			};
 		}
 
-		private void LogWarning(SubscriptionDto model)
+		private void LogWarning(SubscriptionModel model)
 		{
 			LogWarning("Subscription", "Delete", "Subscription deleted", $"Subscription {model.SubscriptionID} '{model.FullName}' was deleted.");
 		}

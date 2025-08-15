@@ -1,11 +1,11 @@
 ﻿using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using System;
 
-namespace Hybrsoft.UI.Windows.Dtos
+namespace Hybrsoft.UI.Windows.Models
 {
-	public partial class ClassroomDto : ObservableObject
+	public partial class ClassroomModel : ObservableObject
 	{
-		static public ClassroomDto CreateEmpty() => new() { ClassroomID = -1, IsEmpty = true };
+		static public ClassroomModel CreateEmpty() => new() { ClassroomID = -1, IsEmpty = true };
 		public long ClassroomID { get; set; }
 		public string Name { get; set; }
 		public Int16 Year { get; set; }
@@ -20,17 +20,17 @@ namespace Hybrsoft.UI.Windows.Dtos
 		public DateTimeOffset CreatedOn { get; set; }
 		public DateTimeOffset? LastModifiedOn { get; set; }
 
-		public ScheduleTypeDto ScheduleType { get; set; }
+		public ScheduleTypeModel ScheduleType { get; set; }
 
 		public override void Merge(ObservableObject source)
 		{
-			if (source is ClassroomDto model)
+			if (source is ClassroomModel model)
 			{
 				Merge(model);
 			}
 		}
 
-		public void Merge(ClassroomDto source)
+		public void Merge(ClassroomModel source)
 		{
 			if (source != null)
 			{

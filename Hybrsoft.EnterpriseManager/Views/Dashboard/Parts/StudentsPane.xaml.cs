@@ -1,4 +1,4 @@
-using Hybrsoft.UI.Windows.Dtos;
+using Hybrsoft.UI.Windows.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System.Collections.Generic;
@@ -16,13 +16,13 @@ namespace Hybrsoft.EnterpriseManager.Views
 		}
 
 		#region ItemsSource
-		public IList<StudentDto> ItemsSource
+		public IList<StudentModel> ItemsSource
 		{
-			get { return (IList<StudentDto>)GetValue(ItemsSourceProperty); }
+			get { return (IList<StudentModel>)GetValue(ItemsSourceProperty); }
 			set { SetValue(ItemsSourceProperty, value); }
 		}
 
-		public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSource", typeof(IList<StudentDto>), typeof(StudentsPane), new PropertyMetadata(null));
+		public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSource", typeof(IList<StudentModel>), typeof(StudentsPane), new PropertyMetadata(null));
 		#endregion
 	}
 }

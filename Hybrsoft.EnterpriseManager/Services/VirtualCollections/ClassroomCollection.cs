@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Common.VirtualCollection;
@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services.VirtualCollections
 {
-	public partial class ClassroomCollection(IClassroomService classroomService, ILogService logService) : VirtualCollection<ClassroomDto>(logService)
+	public partial class ClassroomCollection(IClassroomService classroomService, ILogService logService) : VirtualCollection<ClassroomModel>(logService)
 	{
 		private DataRequest<Classroom> _dataRequest = null;
 
 		public IClassroomService ClassroomService { get; } = classroomService;
 
-		private readonly ClassroomDto _defaultItem = ClassroomDto.CreateEmpty();
-		protected override ClassroomDto DefaultItem => _defaultItem;
+		private readonly ClassroomModel _defaultItem = ClassroomModel.CreateEmpty();
+		protected override ClassroomModel DefaultItem => _defaultItem;
 
 		public async Task LoadAsync(DataRequest<Classroom> dataRequest)
 		{
@@ -34,7 +34,7 @@ namespace Hybrsoft.EnterpriseManager.Services.VirtualCollections
 			}
 		}
 
-		protected override async Task<IList<ClassroomDto>> FetchDataAsync(int rangeIndex, int rangeSize)
+		protected override async Task<IList<ClassroomModel>> FetchDataAsync(int rangeIndex, int rangeSize)
 		{
 			try
 			{

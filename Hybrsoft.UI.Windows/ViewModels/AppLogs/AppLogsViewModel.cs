@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using System;
@@ -61,7 +61,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			AppLogDetails.Item = selected;
 		}
 
-		private async Task PopulateDetails(AppLogDto selected)
+		private async Task PopulateDetails(AppLogModel selected)
 		{
 			try
 			{

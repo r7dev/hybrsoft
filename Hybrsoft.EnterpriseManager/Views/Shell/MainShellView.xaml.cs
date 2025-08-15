@@ -1,4 +1,4 @@
-using Hybrsoft.UI.Windows.Dtos;
+using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Hybrsoft.UI.Windows.ViewModels;
 using Hybrsoft.EnterpriseManager.Configuration;
@@ -61,7 +61,7 @@ namespace Hybrsoft.EnterpriseManager.Views
 
 		private void OnSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
 		{
-			if (args.SelectedItem is NavigationItemDto item)
+			if (args.SelectedItem is NavigationItemModel item)
 			{
 				if (item.ViewModel != null)
 				{

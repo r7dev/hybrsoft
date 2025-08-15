@@ -1,11 +1,11 @@
 ﻿using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using System;
 
-namespace Hybrsoft.UI.Windows.Dtos
+namespace Hybrsoft.UI.Windows.Models
 {
-	public partial class DismissibleStudentDto : ObservableObject
+	public partial class DismissibleStudentModel : ObservableObject
 	{
-		static public DismissibleStudentDto CreateEmpty() => new() { IsEmpty = true };
+		static public DismissibleStudentModel CreateEmpty() => new() { IsEmpty = true };
 
 		public long ClassroomID { get; set; }
 		public string ClassroomName { get; set; }
@@ -21,13 +21,13 @@ namespace Hybrsoft.UI.Windows.Dtos
 
 		public override void Merge(ObservableObject source)
 		{
-			if (source is DismissibleStudentDto model)
+			if (source is DismissibleStudentModel model)
 			{
 				Merge(model);
 			}
 		}
 
-		public void Merge(DismissibleStudentDto source)
+		public void Merge(DismissibleStudentModel source)
 		{
 			if (source != null)
 			{

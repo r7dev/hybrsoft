@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class PermissionDetailsViewModel(IPermissionService permissionService, ICommonServices commonServices) : GenericDetailsViewModel<PermissionDto>(commonServices)
+	public partial class PermissionDetailsViewModel(IPermissionService permissionService, ICommonServices commonServices) : GenericDetailsViewModel<PermissionModel>(commonServices)
 	{
 		public IPermissionService PermissionService { get; } = permissionService;
 
@@ -51,7 +51,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 			if (ViewModelArgs.IsNew)
 			{
-				Item = new PermissionDto { IsEnabled = true };
+				Item = new PermissionModel { IsEnabled = true };
 				IsEditMode = true;
 			}
 			else
@@ -59,7 +59,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				try
 				{
 					var item = await PermissionService.GetPermissionAsync(ViewModelArgs.PermissionID);
-					Item = item ?? new PermissionDto { PermissionID = ViewModelArgs.PermissionID, IsEmpty = true };
+					Item = item ?? new PermissionModel { PermissionID = ViewModelArgs.PermissionID, IsEmpty = true };
 					IsEnabled = item.IsEnabled;
 				}
 				catch (Exception ex)
@@ -76,7 +76,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public void Subscribe()
 		{
-			MessageService.Subscribe<PermissionDetailsViewModel, PermissionDto>(this, OnDetailsMessage);
+			MessageService.Subscribe<PermissionDetailsViewModel, PermissionModel>(this, OnDetailsMessage);
 			MessageService.Subscribe<PermissionListViewModel>(this, OnListMessage);
 		}
 
@@ -85,7 +85,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			MessageService.Unsubscribe(this);
 		}
 
-		protected override async Task<bool> SaveItemAsync(PermissionDto model)
+		protected override async Task<bool> SaveItemAsync(PermissionModel model)
 		{
 			try
 			{
@@ -109,7 +109,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		protected override async Task<bool> DeleteItemAsync(PermissionDto model)
+		protected override async Task<bool> DeleteItemAsync(PermissionModel model)
 		{
 			try
 			{
@@ -142,24 +142,24 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return await DialogService.ShowAsync(title, content, delete, cancel);
 		}
 
-		override protected IEnumerable<IValidationConstraint<PermissionDto>> GetValidationConstraints(PermissionDto model)
+		override protected IEnumerable<IValidationConstraint<PermissionModel>> GetValidationConstraints(PermissionModel model)
 		{
 			string resourceKeyForName = string.Concat(nameof(PermissionDetailsViewModel), "_PropertyName");
 			string propertyName = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForName);
-			var requiredName = new RequiredConstraint<PermissionDto>(propertyName, m => m.Name);
+			var requiredName = new RequiredConstraint<PermissionModel>(propertyName, m => m.Name);
 			requiredName.SetResourceService(ResourceService);
 
-			var nameIsAlphanumeric = new AlphanumericValidationConstraint<PermissionDto>(propertyName, m => m.Name);
+			var nameIsAlphanumeric = new AlphanumericValidationConstraint<PermissionModel>(propertyName, m => m.Name);
 			nameIsAlphanumeric.SetResourceService(ResourceService);
 
 			string resourceKeyForDisplayName = string.Concat(nameof(PermissionDetailsViewModel), "_PropertyDisplayName");
 			string propertyDisplayName = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForDisplayName);
-			var requiredDisplayName = new RequiredConstraint<PermissionDto>(propertyDisplayName, m => m.DisplayName);
+			var requiredDisplayName = new RequiredConstraint<PermissionModel>(propertyDisplayName, m => m.DisplayName);
 			requiredDisplayName.SetResourceService(ResourceService);
 
 			string resourceKeyForDescription = string.Concat(nameof(PermissionDetailsViewModel), "_PropertyDescription");
 			string propertyDescription = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForDescription);
-			var requiredDescription = new RequiredConstraint<PermissionDto>(propertyDescription, m => m.Description);
+			var requiredDescription = new RequiredConstraint<PermissionModel>(propertyDescription, m => m.Description);
 			requiredDescription.SetResourceService(ResourceService);
 
 			yield return requiredName;
@@ -169,7 +169,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		}
 
 		#region Handle external messages
-		private async void OnDetailsMessage(PermissionDetailsViewModel sender, string message, PermissionDto changed)
+		private async void OnDetailsMessage(PermissionDetailsViewModel sender, string message, PermissionModel changed)
 		{
 			var current = Item;
 			if (current != null)
@@ -184,7 +184,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 								try
 								{
 									var item = await PermissionService.GetPermissionAsync(current.PermissionID);
-									item ??= new PermissionDto { PermissionID = current.PermissionID, IsEmpty = true };
+									item ??= new PermissionModel { PermissionID = current.PermissionID, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
 									NotifyPropertyChanged(nameof(Title));
@@ -217,7 +217,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				switch (message)
 				{
 					case "ItemsDeleted":
-						if (args is IList<PermissionDto> deletedModels)
+						if (args is IList<PermissionModel> deletedModels)
 						{
 							if (deletedModels.Any(r => r.PermissionID == current.PermissionID))
 							{

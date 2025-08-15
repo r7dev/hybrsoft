@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Hybrsoft.UI.Windows.Dtos
+namespace Hybrsoft.UI.Windows.Models
 {
-	public class LicenseInfoDto
+	public class LicenseInfoModel
 	{
 		public bool IsActivated { get; set; }
 		public DateTimeOffset? StartDate { get; set; }

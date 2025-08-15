@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using Hybrsoft.UI.Windows.Interfaces;
@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class ClassroomListViewModel(IClassroomService classroomService, ICommonServices commonServices) : GenericListViewModel<ClassroomDto>(commonServices)
+	public partial class ClassroomListViewModel(IClassroomService classroomService, ICommonServices commonServices) : GenericListViewModel<ClassroomModel>(commonServices)
 	{
 		public IClassroomService ClassroomService { get; } = classroomService;
 
@@ -97,7 +97,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return isOk;
 		}
 
-		private async Task<IList<ClassroomDto>> GetItemsAsync()
+		private async Task<IList<ClassroomModel>> GetItemsAsync()
 		{
 			if (!ViewModelArgs.IsEmpty)
 			{
@@ -206,7 +206,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		private async Task DeleteItemsAsync(IEnumerable<ClassroomDto> models)
+		private async Task DeleteItemsAsync(IEnumerable<ClassroomModel> models)
 		{
 			foreach (var model in models)
 			{
@@ -219,7 +219,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			DataRequest<Classroom> request = BuildDataRequest();
 
-			List<ClassroomDto> models = [];
+			List<ClassroomModel> models = [];
 			foreach (var range in ranges)
 			{
 				var items = await ClassroomService.GetClassroomsAsync(range.Index, range.Length, request);
@@ -246,7 +246,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			};
 		}
 
-		private void LogWarning(ClassroomDto model)
+		private void LogWarning(ClassroomModel model)
 		{
 			LogWarning("Classroom", "Delete", "Classroom deleted", $"Classroom {model.ClassroomID} '{model.Name}' was deleted.");
 		}

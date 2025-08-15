@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class RelativeDetailsViewModel(IRelativeService relativeService, IFilePickerService filePickerService, ICommonServices commonServices) : GenericDetailsViewModel<RelativeDto>(commonServices)
+	public partial class RelativeDetailsViewModel(IRelativeService relativeService, IFilePickerService filePickerService, ICommonServices commonServices) : GenericDetailsViewModel<RelativeModel>(commonServices)
 	{
 		public IRelativeService RelativeService { get; } = relativeService;
 
@@ -48,8 +48,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public RelativeDetailsArgs ViewModelArgs { get; private set; }
 
-		public ICommand RelativeTypeSelectedCommand => new RelayCommand<RelativeTypeDto>(RelativeTypeSelected);
-		private void RelativeTypeSelected(RelativeTypeDto relativeType)
+		public ICommand RelativeTypeSelectedCommand => new RelayCommand<RelativeTypeModel>(RelativeTypeSelected);
+		private void RelativeTypeSelected(RelativeTypeModel relativeType)
 		{
 			EditableItem.RelativeType = relativeType;
 			EditableItem.NotifyChanges();
@@ -61,7 +61,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 			if (ViewModelArgs.IsNew)
 			{
-				Item = new RelativeDto();
+				Item = new RelativeModel();
 				IsEditMode = true;
 			}
 			else
@@ -69,7 +69,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				try
 				{
 					var item = await RelativeService.GetRelativeAsync(ViewModelArgs.RelativeID);
-					Item = item ?? new RelativeDto { RelativeID = ViewModelArgs.RelativeID, IsEmpty = true };
+					Item = item ?? new RelativeModel { RelativeID = ViewModelArgs.RelativeID, IsEmpty = true };
 					await Task.Delay(200);
 					EditableItem.NotifyChanges();
 				}
@@ -87,7 +87,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public void Subscribe()
 		{
-			MessageService.Subscribe<RelativeDetailsViewModel, RelativeDto>(this, OnDetailsMessage);
+			MessageService.Subscribe<RelativeDetailsViewModel, RelativeModel>(this, OnDetailsMessage);
 			MessageService.Subscribe<RelativeListViewModel>(this, OnListMessage);
 		}
 
@@ -132,7 +132,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		protected override async Task<bool> SaveItemAsync(RelativeDto model)
+		protected override async Task<bool> SaveItemAsync(RelativeModel model)
 		{
 			try
 			{
@@ -156,7 +156,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		protected override async Task<bool> DeleteItemAsync(RelativeDto model)
+		protected override async Task<bool> DeleteItemAsync(RelativeModel model)
 		{
 			try
 			{
@@ -189,21 +189,21 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return await DialogService.ShowAsync(title, content, delete, cancel);
 		}
 
-		override protected IEnumerable<IValidationConstraint<RelativeDto>> GetValidationConstraints(RelativeDto model)
+		override protected IEnumerable<IValidationConstraint<RelativeModel>> GetValidationConstraints(RelativeModel model)
 		{
 			string resourceKeyForFirstName = string.Concat(nameof(RelativeDetailsViewModel), "_PropertyFirstName");
 			string propertyFirstName = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForFirstName);
-			var requiredFirstName = new RequiredConstraint<RelativeDto>(propertyFirstName, m => m.FirstName);
+			var requiredFirstName = new RequiredConstraint<RelativeModel>(propertyFirstName, m => m.FirstName);
 			requiredFirstName.SetResourceService(ResourceService);
 
 			string resourceKeyForLastName = string.Concat(nameof(RelativeDetailsViewModel), "_PropertyLastName");
 			string propertyLastName = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForLastName);
-			var requiredLastName = new RequiredConstraint<RelativeDto>(propertyLastName, m => m.LastName);
+			var requiredLastName = new RequiredConstraint<RelativeModel>(propertyLastName, m => m.LastName);
 			requiredLastName.SetResourceService(ResourceService);
 
 			string resourceKeyForRelativeType = string.Concat(nameof(RelativeDetailsViewModel), "_PropertyRelativeType");
 			string propertyRelativeType = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForRelativeType);
-			var requiredRelativeType = new RequiredGreaterThanZeroConstraint<RelativeDto>(propertyRelativeType, m => m.RelativeTypeID);
+			var requiredRelativeType = new RequiredGreaterThanZeroConstraint<RelativeModel>(propertyRelativeType, m => m.RelativeTypeID);
 			requiredRelativeType.SetResourceService(ResourceService);
 
 			yield return requiredFirstName;
@@ -212,7 +212,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		}
 
 		#region Handle external messages
-		private async void OnDetailsMessage(RelativeDetailsViewModel sender, string message, RelativeDto changed)
+		private async void OnDetailsMessage(RelativeDetailsViewModel sender, string message, RelativeModel changed)
 		{
 			var current = Item;
 			if (current != null)
@@ -227,7 +227,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 								try
 								{
 									var item = await RelativeService.GetRelativeAsync(current.RelativeID);
-									item ??= new RelativeDto { RelativeID = current.RelativeID, IsEmpty = true };
+									item ??= new RelativeModel { RelativeID = current.RelativeID, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
 									NotifyPropertyChanged(nameof(Title));
@@ -260,7 +260,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				switch (message)
 				{
 					case "ItemsDeleted":
-						if (args is IList<RelativeDto> deletedModels)
+						if (args is IList<RelativeModel> deletedModels)
 						{
 							if (deletedModels.Any(r => r.RelativeID == current.RelativeID))
 							{

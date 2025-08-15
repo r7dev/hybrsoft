@@ -1,9 +1,9 @@
 ﻿using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using System;
 
-namespace Hybrsoft.UI.Windows.Dtos
+namespace Hybrsoft.UI.Windows.Models
 {
-	public partial class RolePermissionDto : ObservableObject
+	public partial class RolePermissionModel : ObservableObject
 	{
 		public long RolePermissionID { get; set; }
 
@@ -13,19 +13,19 @@ namespace Hybrsoft.UI.Windows.Dtos
 		public DateTimeOffset CreatedOn { get; set; }
 		public DateTimeOffset? LastModifiedOn { get; set; }
 
-		public PermissionDto Permission { get; set; }
+		public PermissionModel Permission { get; set; }
 
 		public bool IsNew => RolePermissionID <= 0;
 
 		public override void Merge(ObservableObject source)
 		{
-			if (source is RolePermissionDto model)
+			if (source is RolePermissionModel model)
 			{
 				Merge(model);
 			}
 		}
 
-		public void Merge(RolePermissionDto source)
+		public void Merge(RolePermissionModel source)
 		{
 			if (source != null)
 			{

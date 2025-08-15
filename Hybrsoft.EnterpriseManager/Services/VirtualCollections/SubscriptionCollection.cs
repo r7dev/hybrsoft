@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Common.VirtualCollection;
@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services.VirtualCollections
 {
-	public partial class SubscriptionCollection(ISubscriptionService subscriptionService, ILogService logService) : VirtualCollection<SubscriptionDto>(logService)
+	public partial class SubscriptionCollection(ISubscriptionService subscriptionService, ILogService logService) : VirtualCollection<SubscriptionModel>(logService)
 	{
 		private DataRequest<Subscription> _dataRequest = null;
 
 		public ISubscriptionService SubscriptionService { get; } = subscriptionService;
 
-		private readonly SubscriptionDto _defaultItem = SubscriptionDto.CreateEmpty();
-		protected override SubscriptionDto DefaultItem => _defaultItem;
+		private readonly SubscriptionModel _defaultItem = SubscriptionModel.CreateEmpty();
+		protected override SubscriptionModel DefaultItem => _defaultItem;
 
 		public async Task LoadAsync(DataRequest<Subscription> dataRequest)
 		{
@@ -34,7 +34,7 @@ namespace Hybrsoft.EnterpriseManager.Services.VirtualCollections
 			}
 		}
 
-		protected override async Task<IList<SubscriptionDto>> FetchDataAsync(int rangeIndex, int rangeSize)
+		protected override async Task<IList<SubscriptionModel>> FetchDataAsync(int rangeIndex, int rangeSize)
 		{
 			try
 			{

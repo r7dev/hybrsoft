@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class StudentRelativeDetailsViewModel(IStudentRelativeService studentRelativeService, ICommonServices commonServices) : GenericDetailsViewModel<StudentRelativeDto>(commonServices)
+	public partial class StudentRelativeDetailsViewModel(IStudentRelativeService studentRelativeService, ICommonServices commonServices) : GenericDetailsViewModel<StudentRelativeModel>(commonServices)
 	{
 		IStudentRelativeService StudentRelativeService { get; } = studentRelativeService;
 
@@ -54,8 +54,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		public ICommand RelativeSelectedCommand => new RelayCommand<RelativeDto>(RelativeSelected);
-		private void RelativeSelected(RelativeDto model)
+		public ICommand RelativeSelectedCommand => new RelayCommand<RelativeModel>(RelativeSelected);
+		private void RelativeSelected(RelativeModel model)
 		{
 			EditableItem.RelativeID = model?.RelativeID ?? 0;
 			EditableItem.Relative = model;
@@ -71,7 +71,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 			if (ViewModelArgs.IsNew)
 			{
-				Item = new StudentRelativeDto() { StudentID = StudentID };
+				Item = new StudentRelativeModel() { StudentID = StudentID };
 				IsEditMode = true;
 			}
 			else
@@ -79,7 +79,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				try
 				{
 					var item = await StudentRelativeService.GetStudentRelativeAsync(StudentRelativeID);
-					Item = item ?? new StudentRelativeDto() { StudentRelativeID = StudentRelativeID, StudentID = StudentID, IsEmpty = true };
+					Item = item ?? new StudentRelativeModel() { StudentRelativeID = StudentRelativeID, StudentID = StudentID, IsEmpty = true };
 				}
 				catch (Exception ex)
 				{
@@ -94,7 +94,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public void Subscribe()
 		{
-			MessageService.Subscribe<StudentRelativeDetailsViewModel, StudentRelativeDto>(this, OnDetailsMessage);
+			MessageService.Subscribe<StudentRelativeDetailsViewModel, StudentRelativeModel>(this, OnDetailsMessage);
 			MessageService.Subscribe<StudentRelativeListViewModel>(this, OnListMessage);
 		}
 		public void Unsubscribe()
@@ -111,7 +111,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			};
 		}
 
-		protected override async Task<bool> SaveItemAsync(StudentRelativeDto model)
+		protected override async Task<bool> SaveItemAsync(StudentRelativeModel model)
 		{
 			try
 			{
@@ -135,7 +135,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		protected override async Task<bool> DeleteItemAsync(StudentRelativeDto model)
+		protected override async Task<bool> DeleteItemAsync(StudentRelativeModel model)
 		{
 			try
 			{
@@ -168,18 +168,18 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return await DialogService.ShowAsync(title, content, delete, cancel);
 		}
 
-		override protected IEnumerable<IValidationConstraint<StudentRelativeDto>> GetValidationConstraints(StudentRelativeDto model)
+		override protected IEnumerable<IValidationConstraint<StudentRelativeModel>> GetValidationConstraints(StudentRelativeModel model)
 		{
 			string resourceKeyForRelative = string.Concat(nameof(StudentRelativeDetailsViewModel), "_PropertyRelative");
 			string propertyRelative = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForRelative);
-			var requiredRelative = new RequiredGreaterThanZeroConstraint<StudentRelativeDto>(propertyRelative, m => m.RelativeID);
+			var requiredRelative = new RequiredGreaterThanZeroConstraint<StudentRelativeModel>(propertyRelative, m => m.RelativeID);
 			requiredRelative.SetResourceService(ResourceService);
 
 			yield return requiredRelative;
 		}
 
 		#region Handle external messages
-		private async void OnDetailsMessage(StudentRelativeDetailsViewModel sender, string message, StudentRelativeDto changed)
+		private async void OnDetailsMessage(StudentRelativeDetailsViewModel sender, string message, StudentRelativeModel changed)
 		{
 			var current = Item;
 			if (current != null)
@@ -194,7 +194,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 								try
 								{
 									var item = await StudentRelativeService.GetStudentRelativeAsync(current.StudentRelativeID);
-									item ??= new StudentRelativeDto { StudentRelativeID = StudentRelativeID, StudentID = StudentID, IsEmpty = true };
+									item ??= new StudentRelativeModel { StudentRelativeID = StudentRelativeID, StudentID = StudentID, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
 									NotifyPropertyChanged(nameof(Title));
@@ -227,7 +227,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				switch (message)
 				{
 					case "ItemsDeleted":
-						if (args is IList<StudentRelativeDto> deletedModels)
+						if (args is IList<StudentRelativeModel> deletedModels)
 						{
 							if (deletedModels.Any(r => r.StudentRelativeID == current.StudentRelativeID))
 							{

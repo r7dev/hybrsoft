@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class ClassroomDetailsViewModel(IClassroomService classroomService, ICommonServices commonServices) : GenericDetailsViewModel<ClassroomDto>(commonServices)
+	public partial class ClassroomDetailsViewModel(IClassroomService classroomService, ICommonServices commonServices) : GenericDetailsViewModel<ClassroomModel>(commonServices)
 	{
 		public IClassroomService ClassroomService { get; } = classroomService;
 
@@ -46,8 +46,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public ClassroomDetailsArgs ViewModelArgs { get; private set; }
 
-		public ICommand ScheduleTypeSelectedCommand => new RelayCommand<ScheduleTypeDto>(ScheduleTypeSelected);
-		private void ScheduleTypeSelected(ScheduleTypeDto scheduleType)
+		public ICommand ScheduleTypeSelectedCommand => new RelayCommand<ScheduleTypeModel>(ScheduleTypeSelected);
+		private void ScheduleTypeSelected(ScheduleTypeModel scheduleType)
 		{
 			EditableItem.ScheduleType = scheduleType;
 			EditableItem.NotifyChanges();
@@ -59,7 +59,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 			if (ViewModelArgs.IsNew)
 			{
-				Item = new ClassroomDto() {
+				Item = new ClassroomModel() {
 					MinimumYear = 2025,
 					MaximumYear = 2030,
 					MinimumEducationLevel = 0,
@@ -74,7 +74,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				try
 				{
 					var item = await ClassroomService.GetClassroomAsync(ViewModelArgs.ClassroomID);
-					Item = item ?? new ClassroomDto { ClassroomID = ViewModelArgs.ClassroomID, IsEmpty = true };
+					Item = item ?? new ClassroomModel { ClassroomID = ViewModelArgs.ClassroomID, IsEmpty = true };
 					await Task.Delay(200);
 					EditableItem.NotifyChanges();
 				}
@@ -93,7 +93,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public void Subscribe()
 		{
-			MessageService.Subscribe<ClassroomDetailsViewModel, ClassroomDto>(this, OnDetailsMessage);
+			MessageService.Subscribe<ClassroomDetailsViewModel, ClassroomModel>(this, OnDetailsMessage);
 			MessageService.Subscribe<ClassroomListViewModel>(this, OnListMessage);
 		}
 
@@ -107,7 +107,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			base.BeginEdit();
 		}
 
-		protected override async Task<bool> SaveItemAsync(ClassroomDto model)
+		protected override async Task<bool> SaveItemAsync(ClassroomModel model)
 		{
 			try
 			{
@@ -131,7 +131,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		protected override async Task<bool> DeleteItemAsync(ClassroomDto model)
+		protected override async Task<bool> DeleteItemAsync(ClassroomModel model)
 		{
 			try
 			{
@@ -164,26 +164,26 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return await DialogService.ShowAsync(title, content, delete, cancel);
 		}
 
-		override protected IEnumerable<IValidationConstraint<ClassroomDto>> GetValidationConstraints(ClassroomDto model)
+		override protected IEnumerable<IValidationConstraint<ClassroomModel>> GetValidationConstraints(ClassroomModel model)
 		{
 			string resourceKeyForName = string.Concat(nameof(ClassroomDetailsViewModel), "_PropertyName");
 			string propertyName = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForName);
-			var requiredName = new RequiredConstraint<ClassroomDto>(propertyName, m => m.Name);
+			var requiredName = new RequiredConstraint<ClassroomModel>(propertyName, m => m.Name);
 			requiredName.SetResourceService(ResourceService);
 
 			string resourceKeyForYear = string.Concat(nameof(ClassroomDetailsViewModel), "_PropertyYear");
 			string propertyYear = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForYear);
-			var requiredYear = new RequiredGreaterThanZeroConstraint<ClassroomDto>(propertyYear, m => m.Year);
+			var requiredYear = new RequiredGreaterThanZeroConstraint<ClassroomModel>(propertyYear, m => m.Year);
 			requiredYear.SetResourceService(ResourceService);
 
 			string resourceKeyEducationLevel = string.Concat(nameof(ClassroomDetailsViewModel), "_PropertyEducationLevel");
 			string propertyEducationLevel = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyEducationLevel);
-			var requiredEducationLevel = new RequiredGreaterThanZeroConstraint<ClassroomDto>(propertyEducationLevel, m => m.EducationLevel);
+			var requiredEducationLevel = new RequiredGreaterThanZeroConstraint<ClassroomModel>(propertyEducationLevel, m => m.EducationLevel);
 			requiredEducationLevel.SetResourceService(ResourceService);
 
 			string resourceKeyForScheduleType = string.Concat(nameof(ClassroomDetailsViewModel), "_PropertyScheduleType");
 			string propertyScheduleType = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForScheduleType);
-			var requiredScheduleType = new RequiredGreaterThanZeroConstraint<ClassroomDto>(propertyScheduleType, m => m.ScheduleTypeID);
+			var requiredScheduleType = new RequiredGreaterThanZeroConstraint<ClassroomModel>(propertyScheduleType, m => m.ScheduleTypeID);
 			requiredScheduleType.SetResourceService(ResourceService);
 
 			yield return requiredName;
@@ -193,7 +193,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		}
 
 		#region Handle external messages
-		private async void OnDetailsMessage(ClassroomDetailsViewModel sender, string message, ClassroomDto changed)
+		private async void OnDetailsMessage(ClassroomDetailsViewModel sender, string message, ClassroomModel changed)
 		{
 			var current = Item;
 			if (current != null)
@@ -208,7 +208,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 								try
 								{
 									var item = await ClassroomService.GetClassroomAsync(current.ClassroomID);
-									item ??= new ClassroomDto { ClassroomID = current.ClassroomID, IsEmpty = true };
+									item ??= new ClassroomModel { ClassroomID = current.ClassroomID, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
 									NotifyPropertyChanged(nameof(Title));
@@ -241,7 +241,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				switch (message)
 				{
 					case "ItemsDeleted":
-						if (args is IList<ClassroomDto> deletedModels)
+						if (args is IList<ClassroomModel> deletedModels)
 						{
 							if (deletedModels.Any(r => r.ClassroomID == current.ClassroomID))
 							{

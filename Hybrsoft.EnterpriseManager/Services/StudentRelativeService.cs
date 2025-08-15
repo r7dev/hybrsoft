@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
 using Hybrsoft.Infrastructure.Common;
@@ -13,35 +13,35 @@ namespace Hybrsoft.EnterpriseManager.Services
 	{
 		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
 
-		public async Task<StudentRelativeDto> GetStudentRelativeAsync(long id)
+		public async Task<StudentRelativeModel> GetStudentRelativeAsync(long id)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
 			return await GetStudentRelativeAsync(dataService, id);
 		}
-		private static async Task<StudentRelativeDto> GetStudentRelativeAsync(IDataService dataService, long id)
+		private static async Task<StudentRelativeModel> GetStudentRelativeAsync(IDataService dataService, long id)
 		{
 			var item = await dataService.GetStudentRelativeAsync(id);
 			if (item != null)
 			{
-				return await CreateStudentRelativeDtoAsync(item, includeAllFields: true);
+				return await CreateStudentRelativeModelAsync(item, includeAllFields: true);
 			}
 			return null;
 		}
 
-		public Task<IList<StudentRelativeDto>> GetStudentRelativesAsync(DataRequest<StudentRelative> request)
+		public Task<IList<StudentRelativeModel>> GetStudentRelativesAsync(DataRequest<StudentRelative> request)
 		{
 			// StudentRelatives are not virtualized
 			return GetStudentRelativesAsync(0, 100, request);
 		}
 
-		public async Task<IList<StudentRelativeDto>> GetStudentRelativesAsync(int skip, int take, DataRequest<StudentRelative> request)
+		public async Task<IList<StudentRelativeModel>> GetStudentRelativesAsync(int skip, int take, DataRequest<StudentRelative> request)
 		{
-			var models = new List<StudentRelativeDto>();
+			var models = new List<StudentRelativeModel>();
 			using var dataService = DataServiceFactory.CreateDataService();
 			var items = await dataService.GetStudentRelativesAsync(skip, take, request);
 			foreach (var item in items)
 			{
-				models.Add(await CreateStudentRelativeDtoAsync(item, includeAllFields: false));
+				models.Add(await CreateStudentRelativeModelAsync(item, includeAllFields: false));
 			}
 			return models;
 		}
@@ -58,7 +58,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.GetStudentRelativesCountAsync(request);
 		}
 
-		public async Task<int> UpdateStudentRelativeAsync(StudentRelativeDto model)
+		public async Task<int> UpdateStudentRelativeAsync(StudentRelativeModel model)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
 			var item = model.StudentRelativeID > 0
@@ -66,14 +66,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 				: new StudentRelative() { Relative = new Relative() };
 			if (item != null)
 			{
-				UpdateStudentRelativeFromDto(item, model);
+				UpdateStudentRelativeFromModel(item, model);
 				await dataService.UpdateStudentRelativeAsync(item);
 				model.Merge(await GetStudentRelativeAsync(dataService, item.StudentRelativeID));
 			}
 			return 0;
 		}
 
-		public async Task<int> DeleteStudentRelativeAsync(StudentRelativeDto model)
+		public async Task<int> DeleteStudentRelativeAsync(StudentRelativeModel model)
 		{
 			var item = new StudentRelative() { StudentRelativeID = model.StudentRelativeID };
 			using var dataService = DataServiceFactory.CreateDataService();
@@ -87,14 +87,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.DeleteStudentRelativesAsync([.. items]);
 		}
 
-		public static async Task<StudentRelativeDto> CreateStudentRelativeDtoAsync(StudentRelative source, bool includeAllFields)
+		public static async Task<StudentRelativeModel> CreateStudentRelativeModelAsync(StudentRelative source, bool includeAllFields)
 		{
-			var model = new StudentRelativeDto()
+			var model = new StudentRelativeModel()
 			{
 				StudentRelativeID = source.StudentRelativeID,
 				StudentID = source.StudentID,
 				RelativeID = source.RelativeID,
-				Relative = await RelativeService.CreateRelativeDtoAsync(source.Relative, includeAllFields),
+				Relative = await RelativeService.CreateRelativeModelAsync(source.Relative, includeAllFields),
 				CreatedOn = source.CreatedOn,
 				LastModifiedOn = source.LastModifiedOn
 			};
@@ -102,7 +102,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return model;
 		}
 
-		private static void UpdateStudentRelativeFromDto(StudentRelative target, StudentRelativeDto source)
+		private static void UpdateStudentRelativeFromModel(StudentRelative target, StudentRelativeModel source)
 		{
 			target.StudentID = source.StudentID;
 			target.RelativeID = source.RelativeID;

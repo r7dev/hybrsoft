@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Hybrsoft.Enums;
 using Hybrsoft.Infrastructure.Common;
@@ -27,8 +27,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			set => Set(ref _isPaneOpen, value);
 		}
 
-		private IEnumerable<NavigationItemDto> _navigationItems;
-		public IEnumerable<NavigationItemDto> NavigationItems
+		private IEnumerable<NavigationItemModel> _navigationItems;
+		public IEnumerable<NavigationItemModel> NavigationItems
 		{
 			get => _navigationItems;
 			set => Set(ref _navigationItems, value);
@@ -107,12 +107,12 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		private IEnumerable<NavigationItemDto> GetItems()
+		private IEnumerable<NavigationItemModel> GetItems()
 		{
 			return NavigationService.GetItems().Where(HasUserPermission);
 		}
 
-		private bool HasUserPermission(NavigationItemDto item)
+		private bool HasUserPermission(NavigationItemModel item)
 		{
 			if (item.ViewModel is null && item.Children != null)
 			{

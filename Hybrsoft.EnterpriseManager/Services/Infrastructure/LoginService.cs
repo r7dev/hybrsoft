@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
@@ -36,7 +36,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 
 		public async Task<Result> SignInWithPasswordAsync(string userName, string password)
 		{
-			UserDto user = await UserService.GetUserByEmailAsync(userName, true);
+			UserModel user = await UserService.GetUserByEmailAsync(userName, true);
 			bool isUserAuthenticated = user != null && PasswordHasher.VerifyHashedPassword(user.Password, password);
 			AppSettings.Current.UserID = isUserAuthenticated ? user.UserID : default;
 			AppSettings.Current.UserName = isUserAuthenticated ? userName : default;

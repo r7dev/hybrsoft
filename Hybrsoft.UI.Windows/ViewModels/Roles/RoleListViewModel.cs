@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using Hybrsoft.UI.Windows.Interfaces;
@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class RoleListViewModel(IRoleService roleService, ICommonServices commonServices) : GenericListViewModel<RoleDto>(commonServices)
+	public partial class RoleListViewModel(IRoleService roleService, ICommonServices commonServices) : GenericListViewModel<RoleModel>(commonServices)
 	{
 		public IRoleService RoleService { get; } = roleService;
 
@@ -96,7 +96,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return isOk;
 		}
 
-		private async Task<IList<RoleDto>> GetItemsAsync()
+		private async Task<IList<RoleModel>> GetItemsAsync()
 		{
 			if (!ViewModelArgs.IsEmpty)
 			{
@@ -205,7 +205,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		private async Task DeleteItemsAsync(IEnumerable<RoleDto> models)
+		private async Task DeleteItemsAsync(IEnumerable<RoleModel> models)
 		{
 			foreach (var model in models)
 			{
@@ -218,7 +218,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			DataRequest<Role> request = BuildDataRequest();
 
-			List<RoleDto> models = [];
+			List<RoleModel> models = [];
 			foreach (var range in ranges)
 			{
 				var items = await RoleService.GetRolesAsync(range.Index, range.Length, request);
@@ -245,7 +245,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			};
 		}
 
-		private void LogWarning(RoleDto model)
+		private void LogWarning(RoleModel model)
 		{
 			LogWarning("Role", "Delete", "Role deleted", $"Role {model.RoleID} '{model.Name}' was deleted.");
 		}

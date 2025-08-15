@@ -1,4 +1,4 @@
-using Hybrsoft.UI.Windows.Dtos;
+using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.ViewModels;
 using Hybrsoft.EnterpriseManager.Extensions;
 using Hybrsoft.Infrastructure.Models;
@@ -39,11 +39,11 @@ namespace Hybrsoft.EnterpriseManager.Views
 			{
 				if (comboBox.SelectedItem != null)
 				{
-					if (comboBox.SelectedItem is SubscriptionPlanDto model)
+					if (comboBox.SelectedItem is SubscriptionPlanModel model)
 					{
 						ViewModel.SubscriptionPlanSelectedCommand?.TryExecute(model);
 					}
-					else if (comboBox.SelectedItem is SubscriptionTypeDto modelType)
+					else if (comboBox.SelectedItem is SubscriptionTypeModel modelType)
 					{
 						ViewModel.SubscriptionTypeSelectedCommand?.TryExecute(modelType);
 					}

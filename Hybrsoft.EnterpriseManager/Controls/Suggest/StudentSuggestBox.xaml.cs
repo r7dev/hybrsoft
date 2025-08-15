@@ -1,4 +1,4 @@
-using Hybrsoft.UI.Windows.Dtos;
+using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.EnterpriseManager.Extensions;
@@ -40,13 +40,13 @@ namespace Hybrsoft.EnterpriseManager.Controls
 		#endregion
 
 		#region Items
-		public IList<StudentDto> Items
+		public IList<StudentModel> Items
 		{
-			get { return (IList<StudentDto>)GetValue(ItemsProperty); }
+			get { return (IList<StudentModel>)GetValue(ItemsProperty); }
 			set { SetValue(ItemsProperty, value); }
 		}
 
-		public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register(nameof(Items), typeof(IList<StudentDto>), typeof(StudentSuggestBox), new PropertyMetadata(null));
+		public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register(nameof(Items), typeof(IList<StudentModel>), typeof(StudentSuggestBox), new PropertyMetadata(null));
 		#endregion
 
 		#region DisplayText
@@ -102,7 +102,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			}
 		}
 
-		private async Task<IList<StudentDto>> GetItems(string query)
+		private async Task<IList<StudentModel>> GetItems(string query)
 		{
 			var request = new DataRequest<Student>()
 			{

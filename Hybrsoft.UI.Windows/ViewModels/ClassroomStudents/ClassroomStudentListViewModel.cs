@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using Hybrsoft.UI.Windows.Interfaces;
@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class ClassroomStudentListViewModel(IClassroomStudentService classroomStudentService, ICommonServices commonServices) : GenericListViewModel<ClassroomStudentDto>(commonServices)
+	public partial class ClassroomStudentListViewModel(IClassroomStudentService classroomStudentService, ICommonServices commonServices) : GenericListViewModel<ClassroomStudentModel>(commonServices)
 	{
 		public IClassroomStudentService ClassroomStudentService { get; } = classroomStudentService;
 
@@ -105,7 +105,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return isOk;
 		}
 
-		private async Task<IList<ClassroomStudentDto>> GetItemsAsync()
+		private async Task<IList<ClassroomStudentModel>> GetItemsAsync()
 		{
 			if (!ViewModelArgs.IsEmpty)
 			{
@@ -202,7 +202,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		private async Task DeleteItemsAsync(IEnumerable<ClassroomStudentDto> models)
+		private async Task DeleteItemsAsync(IEnumerable<ClassroomStudentModel> models)
 		{
 			foreach (var model in models)
 			{
@@ -215,7 +215,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			DataRequest<ClassroomStudent> request = BuildDataRequest();
 
-			List<ClassroomStudentDto> models = [];
+			List<ClassroomStudentModel> models = [];
 			foreach (var range in ranges)
 			{
 				var items = await ClassroomStudentService.GetClassroomStudentsAsync(range.Index, range.Length, request);
@@ -246,7 +246,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return request;
 		}
 
-		private void LogWarning(ClassroomStudentDto model)
+		private void LogWarning(ClassroomStudentModel model)
 		{
 			LogWarning("ClassroomStudent", "Delete", "Student in the classroom deleted", $"Student in the classroom #{model.ClassroomID}, '{model.Student.FullName}' was deleted.");
 		}

@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Common.VirtualCollection;
@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services.VirtualCollections
 {
-	public partial class RelativeCollection(IRelativeService relativeService, ILogService logService) : VirtualCollection<RelativeDto>(logService)
+	public partial class RelativeCollection(IRelativeService relativeService, ILogService logService) : VirtualCollection<RelativeModel>(logService)
 	{
 		private DataRequest<Relative> _dataRequest = null;
 
 		public IRelativeService RelativeService { get; } = relativeService;
 
-		private readonly RelativeDto _defaultItem = RelativeDto.CreateEmpty();
-		protected override RelativeDto DefaultItem => _defaultItem;
+		private readonly RelativeModel _defaultItem = RelativeModel.CreateEmpty();
+		protected override RelativeModel DefaultItem => _defaultItem;
 
 		public async Task LoadAsync(DataRequest<Relative> dataRequest)
 		{
@@ -34,7 +34,7 @@ namespace Hybrsoft.EnterpriseManager.Services.VirtualCollections
 			}
 		}
 
-		protected override async Task<IList<RelativeDto>> FetchDataAsync(int rangeIndex, int rangeSize)
+		protected override async Task<IList<RelativeModel>> FetchDataAsync(int rangeIndex, int rangeSize)
 		{
 			try
 			{

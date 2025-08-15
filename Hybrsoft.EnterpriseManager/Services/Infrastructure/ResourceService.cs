@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Microsoft.Windows.ApplicationModel.Resources;
 using System;
@@ -17,8 +17,8 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		private readonly ResourceManager _resourceManager;
 		private readonly ResourceContext _resourceContext;
 
-		private LanguageDto _currentLanguageItem = new() { DisplayName = "English", Tag = "en-US" };
-		public List<LanguageDto> LanguageOptions { get; } = [];
+		private LanguageModel _currentLanguageItem = new() { DisplayName = "English", Tag = "en-US" };
+		public List<LanguageModel> LanguageOptions { get; } = [];
 
 		public ResourceService(ISettingsService settingsService)
 		{
@@ -35,14 +35,14 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 
 			string savedLanguageTag = await GetLanguageTagFromSettingsAsync();
 
-			if (savedLanguageTag is not null && GetLanguageItem(savedLanguageTag) is LanguageDto savedLanguage)
+			if (savedLanguageTag is not null && GetLanguageItem(savedLanguageTag) is LanguageModel savedLanguage)
 			{
 				await SetLanguageAsync(savedLanguage);
 			}
 			else
 			{
 				string systemLanguageTag = CultureInfo.CurrentCulture.Name;
-				if (GetLanguageItem(systemLanguageTag) is LanguageDto systemLanguage)
+				if (GetLanguageItem(systemLanguageTag) is LanguageModel systemLanguage)
 				{
 					await SetLanguageAsync(systemLanguage);
 				}
@@ -53,7 +53,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			}
 		}
 
-		public LanguageDto GetCurrentLanguageItem() => _currentLanguageItem;
+		public LanguageModel GetCurrentLanguageItem() => _currentLanguageItem;
 
 		public string GetString(string resourceFile, string key)
 		{
@@ -69,7 +69,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			}
 		}
 
-		public async Task SetLanguageAsync(LanguageDto language)
+		public async Task SetLanguageAsync(LanguageModel language)
 		{
 			if (LanguageOptions.Contains(language) is true)
 			{
@@ -87,7 +87,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			return _resourceContext;
 		}
 
-		private LanguageDto GetLanguageItem(string tag)
+		private LanguageModel GetLanguageItem(string tag)
 		{
 			return LanguageOptions.FirstOrDefault(item => item.Tag == tag);
 		}
@@ -104,7 +104,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			for (uint i = 0; i < resourceMap.ResourceCount; i++)
 			{
 				var resource = resourceMap.GetValueByIndex(i);
-				LanguageOptions.Add(new LanguageDto() { DisplayName = resource.Value.ValueAsString, Tag = resource.Key });
+				LanguageOptions.Add(new LanguageModel() { DisplayName = resource.Value.ValueAsString, Tag = resource.Key });
 			}
 		}
 	}

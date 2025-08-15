@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using Hybrsoft.UI.Windows.Interfaces;
@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class PermissionListViewModel(IPermissionService permissionService, ICommonServices commonServices) : GenericListViewModel<PermissionDto>(commonServices)
+	public partial class PermissionListViewModel(IPermissionService permissionService, ICommonServices commonServices) : GenericListViewModel<PermissionModel>(commonServices)
 	{
 		public IPermissionService PermissionService { get; } = permissionService;
 
@@ -97,7 +97,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return isOk;
 		}
 
-		private async Task<IList<PermissionDto>> GetItemsAsync()
+		private async Task<IList<PermissionModel>> GetItemsAsync()
 		{
 			if (!ViewModelArgs.IsEmpty)
 			{
@@ -206,7 +206,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		private async Task DeleteItemsAsync(IEnumerable<PermissionDto> models)
+		private async Task DeleteItemsAsync(IEnumerable<PermissionModel> models)
 		{
 			foreach (var model in models)
 			{
@@ -219,7 +219,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			DataRequest<Permission> request = BuildDataRequest();
 
-			List<PermissionDto> models = [];
+			List<PermissionModel> models = [];
 			foreach (var range in ranges)
 			{
 				var items = await PermissionService.GetPermissionsAsync(range.Index, range.Length, request);
@@ -256,7 +256,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			};
 		}
 
-		private void LogWarning(PermissionDto model)
+		private void LogWarning(PermissionModel model)
 		{
 			LogWarning("Permission", "Delete", "Permission deleted", $"Permission {model.PermissionID} '{model.FullName}' was deleted.");
 		}

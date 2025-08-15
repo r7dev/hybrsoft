@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
@@ -17,21 +17,21 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
 		public ILogService LogService { get; } = logService;
 
-		public async Task<IList<DismissibleStudentDto>> GetDismissibleStudentsAsync(DataRequest<ClassroomStudent> request)
+		public async Task<IList<DismissibleStudentModel>> GetDismissibleStudentsAsync(DataRequest<ClassroomStudent> request)
 		{
 			var collection = new DismissibleStudentCollection(this, LogService);
 			await collection.LoadAsync(request);
 			return collection;
 		}
 
-		public async Task<IList<DismissibleStudentDto>> GetDismissibleStudentsAsync(int skip, int take, DataRequest<ClassroomStudent> request)
+		public async Task<IList<DismissibleStudentModel>> GetDismissibleStudentsAsync(int skip, int take, DataRequest<ClassroomStudent> request)
 		{
-			var models = new List<DismissibleStudentDto>();
+			var models = new List<DismissibleStudentModel>();
 			using var dataService = DataServiceFactory.CreateDataService();
 			var items = await dataService.GetDismissibleStudentsAsync(skip, take, request);
 			foreach (var item in items)
 			{
-				models.Add(await CreateDismissibleStudentDtoAsync(item, includeAllFields: false));
+				models.Add(await CreateDismissibleStudentModelAsync(item, includeAllFields: false));
 			}
 			return models;
 		}
@@ -42,9 +42,9 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.GetDismissibleStudentsCountAsync(request);
 		}
 
-		public static async Task<DismissibleStudentDto> CreateDismissibleStudentDtoAsync(ClassroomStudent item, bool includeAllFields = false)
+		public static async Task<DismissibleStudentModel> CreateDismissibleStudentModelAsync(ClassroomStudent item, bool includeAllFields = false)
 		{
-			var model = new DismissibleStudentDto
+			var model = new DismissibleStudentModel
 			{
 				ClassroomID = item.ClassroomID,
 				ClassroomName = item.Classroom.Name,
@@ -58,37 +58,37 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return model;
 		}
 
-		public async Task<DismissalDto> GetDismissalAsync(long id)
+		public async Task<DismissalModel> GetDismissalAsync(long id)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
 			return await GetDismissalAsync(dataService, id);
 		}
 
-		private static async Task<DismissalDto> GetDismissalAsync(IDataService dataService, long id)
+		private static async Task<DismissalModel> GetDismissalAsync(IDataService dataService, long id)
 		{
 			var item = await dataService.GetDismissalAsync(id);
 			if (item != null)
 			{
-				return await CreateDismissalDtoAsync(item, includeAllFields: true);
+				return await CreateDismissalModelAsync(item, includeAllFields: true);
 			}
 			return null;
 		}
 
-		public async Task<IList<DismissalDto>> GetDismissalsAsync(DataRequest<Dismissal> request)
+		public async Task<IList<DismissalModel>> GetDismissalsAsync(DataRequest<Dismissal> request)
 		{
 			var collection = new DismissalCollection(this, LogService);
 			await collection.LoadAsync(request);
 			return collection;
 		}
 
-		public async Task<IList<DismissalDto>> GetDismissalsAsync(int skip, int take, DataRequest<Dismissal> request)
+		public async Task<IList<DismissalModel>> GetDismissalsAsync(int skip, int take, DataRequest<Dismissal> request)
 		{
-			var models = new List<DismissalDto>();
+			var models = new List<DismissalModel>();
 			using var dataService = DataServiceFactory.CreateDataService();
 			var items = await dataService.GetDismissalsAsync(skip, take, request);
 			foreach (var item in items)
 			{
-				models.Add(await CreateDismissalDtoAsync(item, includeAllFields: true));
+				models.Add(await CreateDismissalModelAsync(item, includeAllFields: true));
 			}
 			return models;
 		}
@@ -99,7 +99,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.GetDismissalsCountAsync(request);
 		}
 
-		public async Task<int> UpdateDismissalAsync(DismissalDto model)
+		public async Task<int> UpdateDismissalAsync(DismissalModel model)
 		{
 			long id = model.DismissalID;
 			using var dataService = DataServiceFactory.CreateDataService();
@@ -108,7 +108,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 				: new Dismissal() { Classroom = new Classroom(), Student = new Student(), Relative = new Relative() };
 			if (item != null)
 			{
-				UpdateDismissalFromDto(item, model);
+				UpdateDismissalFromModel(item, model);
 				await dataService.UpdateDismissalAsync(item);
 				model.Merge(await GetDismissalAsync(dataService, item.DismissalID));
 			}
@@ -116,7 +116,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		}
 
 
-		public async Task<int> ApproveDismissalAsync(DismissalDto model)
+		public async Task<int> ApproveDismissalAsync(DismissalModel model)
 		{
 			var item = new Dismissal { DismissalID = model.DismissalID };
 			using var dataService = DataServiceFactory.CreateDataService();
@@ -130,9 +130,9 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.ApproveDismissalsAsync([.. items]);
 		}
 
-		public static async Task<DismissalDto> CreateDismissalDtoAsync(Dismissal source, bool includeAllFields)
+		public static async Task<DismissalModel> CreateDismissalModelAsync(Dismissal source, bool includeAllFields)
 		{
-			var model = new DismissalDto()
+			var model = new DismissalModel()
 			{
 				DismissalID = source.DismissalID,
 				ClassroomID = source.ClassroomID,
@@ -143,14 +143,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 			};
 			if (includeAllFields)
 			{
-				model.Classroom = await ClassroomService.CreateClassroomDtoAsync(source.Classroom, includeAllFields);
-				model.Student = await StudentService.CreateStudentDtoAsync(source.Student, includeAllFields);
-				model.Relative = await RelativeService.CreateRelativeDtoAsync(source.Relative, includeAllFields);
+				model.Classroom = await ClassroomService.CreateClassroomModelAsync(source.Classroom, includeAllFields);
+				model.Student = await StudentService.CreateStudentModelAsync(source.Student, includeAllFields);
+				model.Relative = await RelativeService.CreateRelativeModelAsync(source.Relative, includeAllFields);
 			}
 			return model;
 		}
 
-		private static void UpdateDismissalFromDto(Dismissal target, DismissalDto source)
+		private static void UpdateDismissalFromModel(Dismissal target, DismissalModel source)
 		{
 			target.ClassroomID = source.ClassroomID;
 			target.StudentID = source.StudentID;

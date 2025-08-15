@@ -1,4 +1,4 @@
-using Hybrsoft.UI.Windows.Dtos;
+using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.EnterpriseManager.Extensions;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -42,7 +42,7 @@ public sealed partial class RelativeSelect : UserControl
 		if (e.AddedItems?.Count > 0)
 		{
 			var selectedItem = e.AddedItems[0];
-			if (selectedItem is RelativeDto relative)
+			if (selectedItem is RelativeModel relative)
 			{
 				RelativeSelectedCommand?.TryExecute(relative);
 			}

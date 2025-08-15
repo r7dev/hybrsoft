@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
@@ -18,37 +18,37 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public ILogService LogService { get; } = logService;
 		public static ILookupTables LookupTables => LookupTablesProxy.Instance;
 
-		public async Task<RelativeDto> GetRelativeAsync(long id)
+		public async Task<RelativeModel> GetRelativeAsync(long id)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
 			return await GetRelativeAsync(dataService, id);
 		}
 
-		private static async Task<RelativeDto> GetRelativeAsync(IDataService dataService, long id)
+		private static async Task<RelativeModel> GetRelativeAsync(IDataService dataService, long id)
 		{
 			var item = await dataService.GetRelativeAsync(id);
 			if (item != null)
 			{
-				return await CreateRelativeDtoAsync(item, includeAllFields: true);
+				return await CreateRelativeModelAsync(item, includeAllFields: true);
 			}
 			return null;
 		}
 
-		public async Task<IList<RelativeDto>> GetRelativesAsync(DataRequest<Relative> request)
+		public async Task<IList<RelativeModel>> GetRelativesAsync(DataRequest<Relative> request)
 		{
 			var collection = new RelativeCollection(this, LogService);
 			await collection.LoadAsync(request);
 			return collection;
 		}
 
-		public async Task<IList<RelativeDto>> GetRelativesAsync(int skip, int take, DataRequest<Relative> request)
+		public async Task<IList<RelativeModel>> GetRelativesAsync(int skip, int take, DataRequest<Relative> request)
 		{
-			var models = new List<RelativeDto>();
+			var models = new List<RelativeModel>();
 			using var dataService = DataServiceFactory.CreateDataService();
 			var items = await dataService.GetRelativesAsync(skip, take, request);
 			foreach (var item in items)
 			{
-				models.Add(await CreateRelativeDtoAsync(item, includeAllFields: false));
+				models.Add(await CreateRelativeModelAsync(item, includeAllFields: false));
 			}
 			return models;
 		}
@@ -59,21 +59,21 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.GetRelativesCountAsync(request);
 		}
 
-		public async Task<int> UpdateRelativeAsync(RelativeDto model)
+		public async Task<int> UpdateRelativeAsync(RelativeModel model)
 		{
 			long id = model.RelativeID;
 			using var dataService = DataServiceFactory.CreateDataService();
 			var item = id > 0 ? await dataService.GetRelativeAsync(model.RelativeID) : new Relative();
 			if (item != null)
 			{
-				UpdateRelativeFromDto(item, model);
+				UpdateRelativeFromModel(item, model);
 				await dataService.UpdateRelativeAsync(item);
 				model.Merge(await GetRelativeAsync(dataService, item.RelativeID));
 			}
 			return 0;
 		}
 
-		public async Task<int> DeleteRelativeAsync(RelativeDto model)
+		public async Task<int> DeleteRelativeAsync(RelativeModel model)
 		{
 			var item = new Relative { RelativeID = model.RelativeID };
 			using var dataService = DataServiceFactory.CreateDataService();
@@ -87,9 +87,9 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.DeleteRelativesAsync([.. items]);
 		}
 
-		public static async Task<RelativeDto> CreateRelativeDtoAsync(Relative source, bool includeAllFields)
+		public static async Task<RelativeModel> CreateRelativeModelAsync(Relative source, bool includeAllFields)
 		{
-			var model = new RelativeDto()
+			var model = new RelativeModel()
 			{
 				RelativeID = source.RelativeID,
 				FirstName = source.FirstName,
@@ -104,7 +104,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			{
 				model.MiddleName = source.MiddleName;
 				model.RelativeTypeID = source.RelativeTypeID;
-				model.RelativeType = await CreateRelativeTypeDtoAsync(source.RelativeType, includeAllFields);
+				model.RelativeType = await CreateRelativeTypeModelAsync(source.RelativeType, includeAllFields);
 				model.DocumentNumber = source.DocumentNumber;
 				model.Email = source.Email;
 				model.Picture = source.Picture;
@@ -113,7 +113,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return model;
 		}
 
-		private static void UpdateRelativeFromDto(Relative target, RelativeDto source)
+		private static void UpdateRelativeFromModel(Relative target, RelativeModel source)
 		{
 			target.FirstName = source.FirstName;
 			target.MiddleName = source.MiddleName;
@@ -128,9 +128,9 @@ namespace Hybrsoft.EnterpriseManager.Services
 			target.LastModifiedOn = source.LastModifiedOn;
 		}
 
-		public static async Task<RelativeTypeDto> CreateRelativeTypeDtoAsync(RelativeType source, bool includeAllFields)
+		public static async Task<RelativeTypeModel> CreateRelativeTypeModelAsync(RelativeType source, bool includeAllFields)
 		{
-			var model = new RelativeTypeDto()
+			var model = new RelativeTypeModel()
 			{
 				RelativeTypeID = source.RelativeTypeID,
 				Name = string.IsNullOrEmpty(source.Uid)

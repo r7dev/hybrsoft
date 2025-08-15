@@ -3,15 +3,15 @@ using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.ObjectModel;
 
-namespace Hybrsoft.UI.Windows.Dtos
+namespace Hybrsoft.UI.Windows.Models
 {
-	public partial class NavigationItemDto(Type viewModel) : ObservableObject
+	public partial class NavigationItemModel(Type viewModel) : ObservableObject
 	{
-		public NavigationItemDto(string label,
+		public NavigationItemModel(string label,
 			int glyph,
 			string tag,
 			int? parentID,
-			ObservableCollection<NavigationItemDto> children,
+			ObservableCollection<NavigationItemModel> children,
 			Type viewModel) : this(viewModel)
 		{
 			Label = label;
@@ -26,7 +26,7 @@ namespace Hybrsoft.UI.Windows.Dtos
 		public readonly SymbolIcon Icon;
 		public readonly string Tag;
 		public readonly int? ParentID;
-		public ObservableCollection<NavigationItemDto> Children;
+		public ObservableCollection<NavigationItemModel> Children;
 		public readonly Type ViewModel = viewModel;
 
 		private InfoBadge _badge = null;

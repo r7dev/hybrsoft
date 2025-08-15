@@ -1,4 +1,4 @@
-using Hybrsoft.UI.Windows.Dtos;
+using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -26,13 +26,13 @@ namespace Hybrsoft.EnterpriseManager.Views
 		#endregion
 
 		#region Item
-		public RelativeDto Item
+		public RelativeModel Item
 		{
-			get { return (RelativeDto)GetValue(ItemProperty); }
+			get { return (RelativeModel)GetValue(ItemProperty); }
 			set { SetValue(ItemProperty, value); }
 		}
 
-		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register(nameof(Item), typeof(RelativeDto), typeof(RelativeCard), new PropertyMetadata(null));
+		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register(nameof(Item), typeof(RelativeModel), typeof(RelativeCard), new PropertyMetadata(null));
 		#endregion
 	}
 }

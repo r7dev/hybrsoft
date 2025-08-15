@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Hybrsoft.UI.Windows.ViewModels;
 using Hybrsoft.EnterpriseManager.Extensions;
@@ -127,16 +127,16 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public IDataServiceFactory DataServiceFactory { get; }
 		private static IResourceService ResourceService { get; set; }
 
-		public IEnumerable<NavigationItemDto> GetItems()
+		public IEnumerable<NavigationItemModel> GetItems()
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
 			return GetNavigationItemByParentId(dataService.GetNavigationItemByAppType(AppType.EnterpriseManager), null);
 		}
 
-		private static IEnumerable<NavigationItemDto> GetNavigationItemByParentId(IList<NavigationItem> items, int? parentId)
+		private static IEnumerable<NavigationItemModel> GetNavigationItemByParentId(IList<NavigationItem> items, int? parentId)
 		{
 			return items.Where(f => f.ParentID == parentId)
-				.Select(f => new NavigationItemDto(
+				.Select(f => new NavigationItemModel(
 					string.IsNullOrEmpty(f.Uid) ? f.Label : ResourceService.GetString(nameof(ResourceFiles.UI), f.Uid),
 					f.Icon.Value,
 					f.ViewModel,

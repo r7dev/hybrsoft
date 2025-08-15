@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
@@ -97,7 +97,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				return;
 			}
 
-			LicenseActivationDto license = new()
+			LicenseActivationModel license = new()
 			{
 				Email = ViewModelArgs.UserInfo.AccountName,
 				LicenseKey = LicenseKey,

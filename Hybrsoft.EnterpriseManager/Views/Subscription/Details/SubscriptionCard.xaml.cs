@@ -1,4 +1,4 @@
-using Hybrsoft.UI.Windows.Dtos;
+using Hybrsoft.UI.Windows.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
@@ -15,13 +15,13 @@ namespace Hybrsoft.EnterpriseManager.Views
 		}
 
 		#region Item
-		public SubscriptionDto Item
+		public SubscriptionModel Item
 		{
-			get { return (SubscriptionDto)GetValue(ItemProperty); }
+			get { return (SubscriptionModel)GetValue(ItemProperty); }
 			set { SetValue(ItemProperty, value); }
 		}
 
-		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register(nameof(Item), typeof(SubscriptionDto), typeof(SubscriptionCard), new PropertyMetadata(null));
+		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register(nameof(Item), typeof(SubscriptionModel), typeof(SubscriptionCard), new PropertyMetadata(null));
 		#endregion
 	}
 }

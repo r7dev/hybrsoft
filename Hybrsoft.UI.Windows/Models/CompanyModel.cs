@@ -1,11 +1,11 @@
 ﻿using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using System;
 
-namespace Hybrsoft.UI.Windows.Dtos
+namespace Hybrsoft.UI.Windows.Models
 {
-	public partial class CompanyDto : ObservableObject
+	public partial class CompanyModel : ObservableObject
 	{
-		static public CompanyDto CreateEmpty() => new() { CompanyID = -1, IsEmpty = true };
+		static public CompanyModel CreateEmpty() => new() { CompanyID = -1, IsEmpty = true };
 		public long CompanyID { get; set; }
 		public string LegalName { get; set; }
 		public string TradeName { get; set; }
@@ -22,17 +22,17 @@ namespace Hybrsoft.UI.Windows.Dtos
 		public DateTimeOffset CreatedOn { get; set; }
 		public DateTimeOffset? LastModifiedOn { get; set; }
 
-		public CountryDto Country { get; set; }
+		public CountryModel Country { get; set; }
 
 		public override void Merge(ObservableObject source)
 		{
-			if (source is CompanyDto model)
+			if (source is CompanyModel model)
 			{
 				Merge(model);
 			}
 		}
 
-		public void Merge(CompanyDto source)
+		public void Merge(CompanyModel source)
 		{
 			if (source != null)
 			{

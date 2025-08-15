@@ -1,11 +1,11 @@
 ﻿using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using System;
 
-namespace Hybrsoft.UI.Windows.Dtos
+namespace Hybrsoft.UI.Windows.Models
 {
-	public partial class UserDto : ObservableObject
+	public partial class UserModel : ObservableObject
 	{
-		static public UserDto CreateEmpty() => new() { UserID = -1, IsEmpty = true };
+		static public UserModel CreateEmpty() => new() { UserID = -1, IsEmpty = true };
 		public long UserID { get; set; }
 		public string FirstName { get; set; }
 		public string MiddleName { get; set; }
@@ -23,13 +23,13 @@ namespace Hybrsoft.UI.Windows.Dtos
 
 		public override void Merge(ObservableObject source)
 		{
-			if (source is UserDto model)
+			if (source is UserModel model)
 			{
 				Merge(model);
 			}
 		}
 
-		public void Merge(UserDto source)
+		public void Merge(UserModel source)
 		{
 			if (source != null)
 			{

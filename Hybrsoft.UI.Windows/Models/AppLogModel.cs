@@ -2,11 +2,11 @@
 using Hybrsoft.Enums;
 using System;
 
-namespace Hybrsoft.UI.Windows.Dtos
+namespace Hybrsoft.UI.Windows.Models
 {
-	public partial class AppLogDto : ObservableObject
+	public partial class AppLogModel : ObservableObject
 	{
-		static public AppLogDto CreateEmpty() => new() { AppLogID = -1, IsEmpty = true };
+		static public AppLogModel CreateEmpty() => new() { AppLogID = -1, IsEmpty = true };
 
 		public long AppLogID { get; set; }
 		public bool IsRead { get; set; }

@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class RolePermissionDetailsViewModel(IRolePermissionService rolePermissionService, ICommonServices commonServices) : GenericDetailsViewModel<RolePermissionDto>(commonServices)
+	public partial class RolePermissionDetailsViewModel(IRolePermissionService rolePermissionService, ICommonServices commonServices) : GenericDetailsViewModel<RolePermissionModel>(commonServices)
 	{
 		public IRolePermissionService RolePermissionService { get; } = rolePermissionService;
 
@@ -54,8 +54,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		public ICommand PermissionSelectedCommand => new RelayCommand<PermissionDto>(PermissionSelected);
-		private void PermissionSelected(PermissionDto model)
+		public ICommand PermissionSelectedCommand => new RelayCommand<PermissionModel>(PermissionSelected);
+		private void PermissionSelected(PermissionModel model)
 		{
 			EditableItem.PermissionID = model?.PermissionID ?? 0;
 			EditableItem.Permission = model;
@@ -72,7 +72,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 			if (ViewModelArgs.IsNew)
 			{
-				Item = new RolePermissionDto { RoleID = RoleId };
+				Item = new RolePermissionModel { RoleID = RoleId };
 				IsEditMode = true;
 			}
 			else
@@ -80,7 +80,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				try
 				{
 					var item = await RolePermissionService.GetRolePermissionAsync(RolePermissionId);
-					Item = item ?? new RolePermissionDto { RolePermissionID = RolePermissionId, RoleID = RoleId, IsEmpty = true };
+					Item = item ?? new RolePermissionModel { RolePermissionID = RolePermissionId, RoleID = RoleId, IsEmpty = true };
 				}
 				catch (Exception ex)
 				{
@@ -95,7 +95,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public void Subscribe()
 		{
-			MessageService.Subscribe<RolePermissionDetailsViewModel, RolePermissionDto>(this, OnDetailsMessage);
+			MessageService.Subscribe<RolePermissionDetailsViewModel, RolePermissionModel>(this, OnDetailsMessage);
 			MessageService.Subscribe<RolePermissionListViewModel>(this, OnListMessage);
 		}
 		public void Unsubscribe()
@@ -112,7 +112,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			};
 		}
 
-		protected override async Task<bool> SaveItemAsync(RolePermissionDto model)
+		protected override async Task<bool> SaveItemAsync(RolePermissionModel model)
 		{
 			try
 			{
@@ -136,7 +136,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		protected override async Task<bool> DeleteItemAsync(RolePermissionDto model)
+		protected override async Task<bool> DeleteItemAsync(RolePermissionModel model)
 		{
 			try
 			{
@@ -169,18 +169,18 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return await DialogService.ShowAsync(title, content, delete, cancel);
 		}
 
-		override protected IEnumerable<IValidationConstraint<RolePermissionDto>> GetValidationConstraints(RolePermissionDto model)
+		override protected IEnumerable<IValidationConstraint<RolePermissionModel>> GetValidationConstraints(RolePermissionModel model)
 		{
 			string resourceKeyForPermission = string.Concat(nameof(RolePermissionDetailsViewModel), "_PropertyPermission");
 			string propertyPermission = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForPermission);
-			var requiredPermission = new RequiredGreaterThanZeroConstraint<RolePermissionDto>(propertyPermission, m => m.PermissionID);
+			var requiredPermission = new RequiredGreaterThanZeroConstraint<RolePermissionModel>(propertyPermission, m => m.PermissionID);
 			requiredPermission.SetResourceService(ResourceService);
 
 			yield return requiredPermission;
 		}
 
 		#region Handle external messages
-		private async void OnDetailsMessage(RolePermissionDetailsViewModel sender, string message, RolePermissionDto changed)
+		private async void OnDetailsMessage(RolePermissionDetailsViewModel sender, string message, RolePermissionModel changed)
 		{
 			var current = Item;
 			if (current != null)
@@ -195,7 +195,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 								try
 								{
 									var item = await RolePermissionService.GetRolePermissionAsync(current.RolePermissionID);
-									item ??= new RolePermissionDto { RolePermissionID = RolePermissionId, RoleID = RoleId, IsEmpty = true };
+									item ??= new RolePermissionModel { RolePermissionID = RolePermissionId, RoleID = RoleId, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
 									NotifyPropertyChanged(nameof(Title));
@@ -228,7 +228,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				switch (message)
 				{
 					case "ItemsDeleted":
-						if (args is IList<RolePermissionDto> deletedModels)
+						if (args is IList<RolePermissionModel> deletedModels)
 						{
 							if (deletedModels.Any(r => r.RolePermissionID == current.RolePermissionID))
 							{

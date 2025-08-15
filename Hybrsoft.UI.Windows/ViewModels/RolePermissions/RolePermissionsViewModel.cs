@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
@@ -66,7 +66,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			RolePermissionDetails.Item = selected;
 		}
 
-		private async Task PopulateDetails(RolePermissionDto selected)
+		private async Task PopulateDetails(RolePermissionModel selected)
 		{
 			try
 			{

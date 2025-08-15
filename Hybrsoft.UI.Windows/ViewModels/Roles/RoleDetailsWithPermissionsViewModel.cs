@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
@@ -34,7 +34,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public void Subscribe()
 		{
-			MessageService.Subscribe<RoleDetailsViewModel, RoleDto>(this, OnMessage);
+			MessageService.Subscribe<RoleDetailsViewModel, RoleModel>(this, OnMessage);
 			RoleDetails.Subscribe();
 			RolePermissionList.Subscribe();
 		}
@@ -46,7 +46,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			RolePermissionList.Unsubscribe();
 		}
 
-		private async void OnMessage(RoleDetailsViewModel viewModel, string message, RoleDto role)
+		private async void OnMessage(RoleDetailsViewModel viewModel, string message, RoleModel role)
 		{
 			if (viewModel == RoleDetails && (message == "NewItemSaved" || message == "ItemChanged"))
 			{

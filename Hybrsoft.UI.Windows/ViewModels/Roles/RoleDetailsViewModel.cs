@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class RoleDetailsViewModel(IRoleService roleService, ICommonServices commonServices) : GenericDetailsViewModel<RoleDto>(commonServices)
+	public partial class RoleDetailsViewModel(IRoleService roleService, ICommonServices commonServices) : GenericDetailsViewModel<RoleModel>(commonServices)
 	{
 		public IRoleService RoleService { get; } = roleService;
 
@@ -46,7 +46,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			ViewModelArgs = args ?? RoleDetailsArgs.CreateDefault();
 			if (ViewModelArgs.IsNew)
 			{
-				Item = new RoleDto();
+				Item = new RoleModel();
 				IsEditMode = true;
 			}
 			else
@@ -54,7 +54,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				try
 				{
 					var item = await RoleService.GetRoleAsync(ViewModelArgs.RoleID);
-					Item = item ?? new RoleDto { RoleID = ViewModelArgs.RoleID, IsEmpty = true };
+					Item = item ?? new RoleModel { RoleID = ViewModelArgs.RoleID, IsEmpty = true };
 				}
 				catch (Exception ex)
 				{
@@ -71,7 +71,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public void Subscribe()
 		{
-			MessageService.Subscribe<RoleDetailsViewModel, RoleDto>(this, OnDetailsMessage);
+			MessageService.Subscribe<RoleDetailsViewModel, RoleModel>(this, OnDetailsMessage);
 			MessageService.Subscribe<RoleListViewModel>(this, OnListMessage);
 		}
 
@@ -80,7 +80,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			MessageService.Unsubscribe(this);
 		}
 
-		protected override async Task<bool> SaveItemAsync(RoleDto model)
+		protected override async Task<bool> SaveItemAsync(RoleModel model)
 		{
 			try
 			{
@@ -104,7 +104,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		protected override async Task<bool> DeleteItemAsync(RoleDto model)
+		protected override async Task<bool> DeleteItemAsync(RoleModel model)
 		{
 			try
 			{
@@ -137,14 +137,14 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return await DialogService.ShowAsync(title, content, delete, cancel);
 		}
 
-		override protected IEnumerable<IValidationConstraint<RoleDto>> GetValidationConstraints(RoleDto model)
+		override protected IEnumerable<IValidationConstraint<RoleModel>> GetValidationConstraints(RoleModel model)
 		{
 			string resourceKeyForName = string.Concat(nameof(RoleDetailsViewModel), "_PropertyName");
 			string propertyName = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForName);
-			var requiredName = new RequiredConstraint<RoleDto>(propertyName, m => m.Name);
+			var requiredName = new RequiredConstraint<RoleModel>(propertyName, m => m.Name);
 			requiredName.SetResourceService(ResourceService);
 
-			var nameIsAlphanumeric = new AlphanumericValidationConstraint<RoleDto>(propertyName, m => m.Name);
+			var nameIsAlphanumeric = new AlphanumericValidationConstraint<RoleModel>(propertyName, m => m.Name);
 			nameIsAlphanumeric.SetResourceService(ResourceService);
 
 			yield return requiredName;
@@ -152,7 +152,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		}
 
 		#region Handle external messages
-		private async void OnDetailsMessage(RoleDetailsViewModel sender, string message, RoleDto changed)
+		private async void OnDetailsMessage(RoleDetailsViewModel sender, string message, RoleModel changed)
 		{
 			var current = Item;
 			if (current != null)
@@ -167,7 +167,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 								try
 								{
 									var item = await RoleService.GetRoleAsync(current.RoleID);
-									item ??= new RoleDto { RoleID = current.RoleID, IsEmpty = true };
+									item ??= new RoleModel { RoleID = current.RoleID, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
 									NotifyPropertyChanged(nameof(Title));
@@ -200,7 +200,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				switch (message)
 				{
 					case "ItemsDeleted":
-						if (args is IList<RoleDto> deletedModels)
+						if (args is IList<RoleModel> deletedModels)
 						{
 							if (deletedModels.Any(r => r.RoleID == current.RoleID))
 							{

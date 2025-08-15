@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using Hybrsoft.UI.Windows.Interfaces;
@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class RelativeListViewModel(IRelativeService relativeService, ICommonServices commonServices) : GenericListViewModel<RelativeDto>(commonServices)
+	public partial class RelativeListViewModel(IRelativeService relativeService, ICommonServices commonServices) : GenericListViewModel<RelativeModel>(commonServices)
 	{
 		public IRelativeService RelativeService { get; } = relativeService;
 
@@ -97,7 +97,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return isOk;
 		}
 
-		private async Task<IList<RelativeDto>> GetItemsAsync()
+		private async Task<IList<RelativeModel>> GetItemsAsync()
 		{
 			if (!ViewModelArgs.IsEmpty)
 			{
@@ -206,7 +206,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		private async Task DeleteItemsAsync(IEnumerable<RelativeDto> models)
+		private async Task DeleteItemsAsync(IEnumerable<RelativeModel> models)
 		{
 			foreach (var model in models)
 			{
@@ -219,7 +219,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			DataRequest<Relative> request = BuildDataRequest();
 
-			List<RelativeDto> models = [];
+			List<RelativeModel> models = [];
 			foreach (var range in ranges)
 			{
 				var items = await RelativeService.GetRelativesAsync(range.Index, range.Length, request);
@@ -246,7 +246,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			};
 		}
 
-		private void LogWarning(RelativeDto model)
+		private void LogWarning(RelativeModel model)
 		{
 			LogWarning("Relative", "Delete", "Relative deleted", $"Relative {model.RelativeID} '{model.FullName}' was deleted.");
 		}

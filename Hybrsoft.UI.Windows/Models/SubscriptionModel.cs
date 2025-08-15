@@ -3,11 +3,11 @@ using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.Enums;
 using System;
 
-namespace Hybrsoft.UI.Windows.Dtos
+namespace Hybrsoft.UI.Windows.Models
 {
-	public partial class SubscriptionDto : ObservableObject
+	public partial class SubscriptionModel : ObservableObject
 	{
-		static public SubscriptionDto CreateEmpty() => new() { SubscriptionID = -1, IsEmpty = true };
+		static public SubscriptionModel CreateEmpty() => new() { SubscriptionID = -1, IsEmpty = true };
 		public long SubscriptionID { get; set; }
 		public short SubscriptionPlanID { get; set; }
 		public short DurationDays { get; set; }
@@ -29,9 +29,9 @@ namespace Hybrsoft.UI.Windows.Dtos
 
 		public string LicencedTo => Type == Enums.SubscriptionType.Enterprise ? Company.FullName : User.FullName;
 		public string StatusDisplayName => LookupTablesProxy.Instance?.GetSubscriptionStatus((short)Status);
-		public virtual SubscriptionTypeDto SubscriptionType { get; set; }
-		public virtual CompanyDto Company { get; set; }
-		public virtual UserDto User { get; set; }
+		public virtual SubscriptionTypeModel SubscriptionType { get; set; }
+		public virtual CompanyModel Company { get; set; }
+		public virtual UserModel User { get; set; }
 
 		public bool CanEditUser => Type == Enums.SubscriptionType.Individual;
 		public bool CanEditCompany => Type == Enums.SubscriptionType.Enterprise;
@@ -39,12 +39,12 @@ namespace Hybrsoft.UI.Windows.Dtos
 
 		public override void Merge(ObservableObject source)
 		{
-			if (source is SubscriptionDto model)
+			if (source is SubscriptionModel model)
 			{
 				Merge(model);
 			}
 		}
-		public void Merge(SubscriptionDto source)
+		public void Merge(SubscriptionModel source)
 		{
 			if (source != null)
 			{

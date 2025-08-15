@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,12 +9,12 @@ namespace Hybrsoft.UI.Windows.Interfaces
 	{
 		Task InitializeAsync();
 
-		IList<CountryDto> Countries { get; }
-		IList<ScheduleTypeDto> ScheduleTypes { get; }
-		IList<SubscriptionPlanDto> SubscriptionPlans { get; }
-		IList<SubscriptionStatusDto> SubscriptionStatuses { get; }
-		IList<SubscriptionTypeDto> SubscriptionTypes { get; }
-		IList<RelativeTypeDto> RelativeTypes { get; }
+		IList<CountryModel> Countries { get; }
+		IList<ScheduleTypeModel> ScheduleTypes { get; }
+		IList<SubscriptionPlanModel> SubscriptionPlans { get; }
+		IList<SubscriptionStatusModel> SubscriptionStatuses { get; }
+		IList<SubscriptionTypeModel> SubscriptionTypes { get; }
+		IList<RelativeTypeModel> RelativeTypes { get; }
 
 		string GetCountry(Int16 countryID);
 		string GetScheduleType(Int16 scheduleTypeID);

@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
 using Hybrsoft.Infrastructure.Common;
@@ -13,35 +13,35 @@ namespace Hybrsoft.EnterpriseManager.Services
 	{
 		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
 
-		public async Task<UserRoleDto> GetUserRoleAsync(long id)
+		public async Task<UserRoleModel> GetUserRoleAsync(long id)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
 			return await GetUserRoleAsync(dataService, id);
 		}
-		private static async Task<UserRoleDto> GetUserRoleAsync(IDataService dataService, long id)
+		private static async Task<UserRoleModel> GetUserRoleAsync(IDataService dataService, long id)
 		{
 			var item = await dataService.GetUserRoleAsync(id);
 			if (item != null)
 			{
-				return await CreateUserRoleDtoAsync(item, includeAllFields: true);
+				return await CreateUserRoleModelAsync(item, includeAllFields: true);
 			}
 			return null;
 		}
 
-		public Task<IList<UserRoleDto>> GetUserRolesAsync(DataRequest<UserRole> request)
+		public Task<IList<UserRoleModel>> GetUserRolesAsync(DataRequest<UserRole> request)
 		{
 			// UserRoles are not virtualized
 			return GetUserRolesAsync(0, 100, request);
 		}
 
-		public async Task<IList<UserRoleDto>> GetUserRolesAsync(int skip, int take, DataRequest<UserRole> request)
+		public async Task<IList<UserRoleModel>> GetUserRolesAsync(int skip, int take, DataRequest<UserRole> request)
 		{
-			var models = new List<UserRoleDto>();
+			var models = new List<UserRoleModel>();
 			using var dataService = DataServiceFactory.CreateDataService();
 			var items = await dataService.GetUserRolesAsync(skip, take, request);
 			foreach (var item in items)
 			{
-				models.Add(await CreateUserRoleDtoAsync(item, includeAllFields: false));
+				models.Add(await CreateUserRoleModelAsync(item, includeAllFields: false));
 			}
 			return models;
 		}
@@ -58,7 +58,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.GetUserRolesCountAsync(request);
 		}
 
-		public async Task<int> UpdateUserRoleAsync(UserRoleDto model)
+		public async Task<int> UpdateUserRoleAsync(UserRoleModel model)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
 			var item = model.UserRoleID > 0
@@ -66,14 +66,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 				: new UserRole() { Role = new Role() };
 			if (item != null)
 			{
-				UpdateUserRoleFromDto(item, model);
+				UpdateUserRoleFromModel(item, model);
 				await dataService.UpdateUserRoleAsync(item);
 				model.Merge(await GetUserRoleAsync(dataService, item.UserRoleID));
 			}
 			return 0;
 		}
 
-		public async Task<int> DeleteUserRoleAsync(UserRoleDto model)
+		public async Task<int> DeleteUserRoleAsync(UserRoleModel model)
 		{
 			var item = new UserRole() { UserRoleID = model.UserRoleID };
 			using var dataService = DataServiceFactory.CreateDataService();
@@ -87,21 +87,21 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.DeleteUserRolesAsync([..items]);
 		}
 
-		public static async Task<UserRoleDto> CreateUserRoleDtoAsync(UserRole source, bool includeAllFields)
+		public static async Task<UserRoleModel> CreateUserRoleModelAsync(UserRole source, bool includeAllFields)
 		{
-			var model = new UserRoleDto()
+			var model = new UserRoleModel()
 			{
 				UserRoleID = source.UserRoleID,
 				UserID = source.UserID,
 				RoleID = source.RoleID,
-				Role = await RoleService.CreateRoleDtoAsync(source.Role, includeAllFields),
+				Role = await RoleService.CreateRoleModelAsync(source.Role, includeAllFields),
 				CreatedOn = source.CreatedOn,
 				LastModifiedOn = source.LastModifiedOn
 			};
 			return model;
 		}
 
-		private static void UpdateUserRoleFromDto(UserRole target, UserRoleDto source)
+		private static void UpdateUserRoleFromModel(UserRole target, UserRoleModel source)
 		{
 			target.UserID = source.UserID;
 			target.RoleID = source.RoleID;

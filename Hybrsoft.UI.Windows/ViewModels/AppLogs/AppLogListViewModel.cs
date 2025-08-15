@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class AppLogListViewModel(ICommonServices commonServices) : GenericListViewModel<AppLogDto>(commonServices)
+	public partial class AppLogListViewModel(ICommonServices commonServices) : GenericListViewModel<AppLogModel>(commonServices)
 	{
 		public string Prefix => ResourceService.GetString(nameof(ResourceFiles.UI), string.Concat(nameof(AppLogListViewModel), "_Prefix"));
 
@@ -97,7 +97,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return isOk;
 		}
 
-		private async Task<IList<AppLogDto>> GetItemsAsync()
+		private async Task<IList<AppLogModel>> GetItemsAsync()
 		{
 			if (!ViewModelArgs.IsEmpty)
 			{
@@ -176,7 +176,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		private async Task DeleteItemsAsync(IEnumerable<AppLogDto> models)
+		private async Task DeleteItemsAsync(IEnumerable<AppLogModel> models)
 		{
 			foreach (var model in models)
 			{

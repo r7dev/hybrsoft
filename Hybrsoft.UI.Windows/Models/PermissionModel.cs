@@ -1,11 +1,11 @@
 ﻿using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using System;
 
-namespace Hybrsoft.UI.Windows.Dtos
+namespace Hybrsoft.UI.Windows.Models
 {
-	public partial class PermissionDto : ObservableObject
+	public partial class PermissionModel : ObservableObject
 	{
-		static public PermissionDto CreateEmpty() => new() { PermissionID = -1, IsEmpty = true };
+		static public PermissionModel CreateEmpty() => new() { PermissionID = -1, IsEmpty = true };
 		public long PermissionID { get; set; }
 		public string Name { get; set; }
 		public string DisplayName { get; set; }
@@ -20,13 +20,13 @@ namespace Hybrsoft.UI.Windows.Dtos
 
 		public override void Merge(ObservableObject source)
 		{
-			if (source is PermissionDto model)
+			if (source is PermissionModel model)
 			{
 				Merge(model);
 			}
 		}
 
-		public void Merge(PermissionDto source)
+		public void Merge(PermissionModel source)
 		{
 			if (source != null)
 			{

@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
@@ -18,37 +18,37 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public ILogService LogService { get; } = logService;
 		public static ILookupTables LookupTables => LookupTablesProxy.Instance;
 
-		public async Task<ClassroomDto> GetClassroomAsync(long id)
+		public async Task<ClassroomModel> GetClassroomAsync(long id)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
 			return await GetClassroomAsync(dataService, id);
 		}
 
-		private static async Task<ClassroomDto> GetClassroomAsync(IDataService dataService, long id)
+		private static async Task<ClassroomModel> GetClassroomAsync(IDataService dataService, long id)
 		{
 			var item = await dataService.GetClassroomAsync(id);
 			if (item != null)
 			{
-				return await CreateClassroomDtoAsync(item, includeAllFields: true);
+				return await CreateClassroomModelAsync(item, includeAllFields: true);
 			}
 			return null;
 		}
 
-		public async Task<IList<ClassroomDto>> GetClassroomsAsync(DataRequest<Classroom> request)
+		public async Task<IList<ClassroomModel>> GetClassroomsAsync(DataRequest<Classroom> request)
 		{
 			var collection = new ClassroomCollection(this, LogService);
 			await collection.LoadAsync(request);
 			return collection;
 		}
 
-		public async Task<IList<ClassroomDto>> GetClassroomsAsync(int skip, int take, DataRequest<Classroom> request)
+		public async Task<IList<ClassroomModel>> GetClassroomsAsync(int skip, int take, DataRequest<Classroom> request)
 		{
-			var models = new List<ClassroomDto>();
+			var models = new List<ClassroomModel>();
 			using var dataService = DataServiceFactory.CreateDataService();
 			var items = await dataService.GetClassroomsAsync(skip, take, request);
 			foreach (var item in items)
 			{
-				models.Add(await CreateClassroomDtoAsync(item, includeAllFields: false));
+				models.Add(await CreateClassroomModelAsync(item, includeAllFields: false));
 			}
 			return models;
 		}
@@ -59,7 +59,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.GetClassroomsCountAsync(request);
 		}
 
-		public async Task<int> UpdateClassroomAsync(ClassroomDto model)
+		public async Task<int> UpdateClassroomAsync(ClassroomModel model)
 		{
 			long id = model.ClassroomID;
 			using var dataService = DataServiceFactory.CreateDataService();
@@ -68,14 +68,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 				: new Classroom() { ScheduleType = new ScheduleType() };
 			if (item != null)
 			{
-				UpdateClassroomFromDto(item, model);
+				UpdateClassroomFromModel(item, model);
 				await dataService.UpdateClassroomAsync(item);
 				model.Merge(await GetClassroomAsync(dataService, item.ClassroomID));
 			}
 			return 0;
 		}
 
-		public async Task<int> DeleteClassroomAsync(ClassroomDto model)
+		public async Task<int> DeleteClassroomAsync(ClassroomModel model)
 		{
 			var item = new Classroom { ClassroomID = model.ClassroomID };
 			using var dataService = DataServiceFactory.CreateDataService();
@@ -89,15 +89,15 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.DeleteClassroomsAsync([.. items]);
 		}
 
-		public static async Task<ClassroomDto> CreateClassroomDtoAsync(Classroom source, bool includeAllFields)
+		public static async Task<ClassroomModel> CreateClassroomModelAsync(Classroom source, bool includeAllFields)
 		{
-			var model = new ClassroomDto()
+			var model = new ClassroomModel()
 			{
 				ClassroomID = source.ClassroomID,
 				Name = source.Name,
 				Year = source.Year,
 				EducationLevel = source.EducationLevel,
-				ScheduleType = await CreateSchedulerTypeDtoAsync(source.ScheduleType, includeAllFields),
+				ScheduleType = await CreateSchedulerTypeModelAsync(source.ScheduleType, includeAllFields),
 				CreatedOn = source.CreatedOn,
 				LastModifiedOn = source.LastModifiedOn
 			};
@@ -112,7 +112,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return model;
 		}
 
-		private static void UpdateClassroomFromDto(Classroom target, ClassroomDto source)
+		private static void UpdateClassroomFromModel(Classroom target, ClassroomModel source)
 		{
 			target.Name = source.Name;
 			target.Year = source.Year;
@@ -127,9 +127,9 @@ namespace Hybrsoft.EnterpriseManager.Services
 			target.SearchTerms = source.ScheduleType?.Name;
 		}
 
-		private static async Task<ScheduleTypeDto> CreateSchedulerTypeDtoAsync(ScheduleType source, bool includeAllFields)
+		private static async Task<ScheduleTypeModel> CreateSchedulerTypeModelAsync(ScheduleType source, bool includeAllFields)
 		{
-			var model = new ScheduleTypeDto()
+			var model = new ScheduleTypeModel()
 			{
 				ScheduleTypeID = source.ScheduleTypeID,
 				Name = string.IsNullOrEmpty(source.Uid)

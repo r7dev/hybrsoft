@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
@@ -48,32 +48,32 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 			MessageService.Send(this, "LogAdded", appLog);
 		}
 
-		public async Task<AppLogDto> GetLogAsync(long id)
+		public async Task<AppLogModel> GetLogAsync(long id)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
 			var item = await dataService.GetAppLogAsync(id);
 			if (item != null)
 			{
-				return CreateAppLogDto(item);
+				return CreateAppLogModel(item);
 			}
 			return null;
 		}
 
-		public async Task<IList<AppLogDto>> GetLogsAsync(DataRequest<AppLog> request)
+		public async Task<IList<AppLogModel>> GetLogsAsync(DataRequest<AppLog> request)
 		{
 			var collection = new LogCollection(this);
 			await collection.LoadAsync(request);
 			return collection;
 		}
 
-		public async Task<IList<AppLogDto>> GetLogsAsync(int skip, int take, DataRequest<AppLog> request)
+		public async Task<IList<AppLogModel>> GetLogsAsync(int skip, int take, DataRequest<AppLog> request)
 		{
-			var models = new List<AppLogDto>();
+			var models = new List<AppLogModel>();
 			using var dataSource = DataServiceFactory.CreateDataService();
 			var items = await dataSource.GetAppLogsAsync(skip, take, request);
 			foreach (var item in items)
 			{
-				models.Add(CreateAppLogDto(item));
+				models.Add(CreateAppLogModel(item));
 			}
 			return models;
 		}
@@ -90,7 +90,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 			return await dataService.CreateAppLogAsync(model);
 		}
 
-		public async Task<int> DeleteLogAsync(AppLogDto model)
+		public async Task<int> DeleteLogAsync(AppLogModel model)
 		{
 			var item = new AppLog { AppLogID = model.AppLogID };
 			using var dataSource = DataServiceFactory.CreateDataService();
@@ -110,9 +110,9 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 			await dataSource.MarkAllAsReadAsync();
 		}
 
-		private static AppLogDto CreateAppLogDto(AppLog source)
+		private static AppLogModel CreateAppLogModel(AppLog source)
 		{
-			return new AppLogDto()
+			return new AppLogModel()
 			{
 				AppLogID = source.AppLogID,
 				IsRead = source.IsRead,

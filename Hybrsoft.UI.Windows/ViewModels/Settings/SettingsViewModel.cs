@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Hybrsoft.Enums;
@@ -21,15 +21,15 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			set => Set(ref _isBusy, value);
 		}
 
-		private List<LanguageDto> _availableLanguages;
-		public List<LanguageDto> AvailableLanguages
+		private List<LanguageModel> _availableLanguages;
+		public List<LanguageModel> AvailableLanguages
 		{
 			get { return _availableLanguages; }
 			set { Set(ref _availableLanguages, value); }
 		}
 
-		private LanguageDto _selectedLanguage;
-		public LanguageDto SelectedLanguage
+		private LanguageModel _selectedLanguage;
+		public LanguageModel SelectedLanguage
 		{
 			get { return _selectedLanguage; }
 			set
@@ -40,7 +40,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				}
 			}
 		}
-		private void OnSelectedLanguageChanged(LanguageDto value)
+		private void OnSelectedLanguageChanged(LanguageModel value)
 		{
 			string resourceKey = string.Concat(nameof(SettingsViewModel), "_TheLanguageHasBeenChangedAndTheApplicationMustBeRestarted");
 			string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);

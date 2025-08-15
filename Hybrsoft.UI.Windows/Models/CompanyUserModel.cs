@@ -1,9 +1,9 @@
 ﻿using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using System;
 
-namespace Hybrsoft.UI.Windows.Dtos
+namespace Hybrsoft.UI.Windows.Models
 {
-	public partial class CompanyUserDto : ObservableObject
+	public partial class CompanyUserModel : ObservableObject
 	{
 		public long CompanyUserID { get; set; }
 
@@ -13,20 +13,20 @@ namespace Hybrsoft.UI.Windows.Dtos
 		public DateTimeOffset CreatedOn { get; set; }
 		public DateTimeOffset? LastModifiedOn { get; set; }
 
-		public CompanyDto Company { get; set; }
-		public UserDto User { get; set; }
+		public CompanyModel Company { get; set; }
+		public UserModel User { get; set; }
 
 		public bool IsNew => CompanyUserID <= 0;
 
 		public override void Merge(ObservableObject source)
 		{
-			if (source is CompanyUserDto model)
+			if (source is CompanyUserModel model)
 			{
 				Merge(model);
 			}
 		}
 
-		public void Merge(CompanyUserDto source)
+		public void Merge(CompanyUserModel source)
 		{
 			if (source != null)
 			{

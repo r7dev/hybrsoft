@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
@@ -16,37 +16,37 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
 		public ILogService LogService { get; } = logService;
 
-		public async Task<RoleDto> GetRoleAsync(long id)
+		public async Task<RoleModel> GetRoleAsync(long id)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
 			return await GetRoleAsync(dataService, id);
 		}
 
-		private static async Task<RoleDto> GetRoleAsync(IDataService dataService, long id)
+		private static async Task<RoleModel> GetRoleAsync(IDataService dataService, long id)
 		{
 			var item = await dataService.GetRoleAsync(id);
 			if (item != null)
 			{
-				return await CreateRoleDtoAsync(item, includeAllFields: true);
+				return await CreateRoleModelAsync(item, includeAllFields: true);
 			}
 			return null;
 		}
 
-		public async Task<IList<RoleDto>> GetRolesAsync(DataRequest<Role> request)
+		public async Task<IList<RoleModel>> GetRolesAsync(DataRequest<Role> request)
 		{
 			var collection = new RoleCollection(this, LogService);
 			await collection.LoadAsync(request);
 			return collection;
 		}
 
-		public async Task<IList<RoleDto>> GetRolesAsync(int skip, int take, DataRequest<Role> request)
+		public async Task<IList<RoleModel>> GetRolesAsync(int skip, int take, DataRequest<Role> request)
 		{
-			var models = new List<RoleDto>();
+			var models = new List<RoleModel>();
 			using var dataService = DataServiceFactory.CreateDataService();
 			var items = await dataService.GetRolesAsync(skip, take, request);
 			foreach (var item in items)
 			{
-				models.Add(await CreateRoleDtoAsync(item, includeAllFields: false));
+				models.Add(await CreateRoleModelAsync(item, includeAllFields: false));
 			}
 			return models;
 		}
@@ -57,21 +57,21 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.GetRolesCountAsync(request);
 		}
 
-		public async Task<int> UpdateRoleAsync(RoleDto model)
+		public async Task<int> UpdateRoleAsync(RoleModel model)
 		{
 			long id = model.RoleID;
 			using var dataService = DataServiceFactory.CreateDataService();
 			var item = id > 0 ? await dataService.GetRoleAsync(model.RoleID) : new Role();
 			if (item != null)
 			{
-				UpdateRoleFromDto(item, model);
+				UpdateRoleFromModel(item, model);
 				await dataService.UpdateRoleAsync(item);
 				model.Merge(await GetRoleAsync(dataService, item.RoleID));
 			}
 			return 0;
 		}
 
-		public async Task<int> DeleteRoleAsync(RoleDto model)
+		public async Task<int> DeleteRoleAsync(RoleModel model)
 		{
 			var item = new Role { RoleID = model.RoleID };
 			using var dataService = DataServiceFactory.CreateDataService();
@@ -85,9 +85,9 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.DeleteRolesAsync([.. items]);
 		}
 
-		public static async Task<RoleDto> CreateRoleDtoAsync(Role source, bool includeAllFields)
+		public static async Task<RoleModel> CreateRoleModelAsync(Role source, bool includeAllFields)
 		{
-			var model = new RoleDto()
+			var model = new RoleModel()
 			{
 				RoleID = source.RoleID,
 				Name = source.Name,
@@ -99,7 +99,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return model;
 		}
 
-		private static void UpdateRoleFromDto(Role target, RoleDto source)
+		private static void UpdateRoleFromModel(Role target, RoleModel source)
 		{
 			target.Name = source.Name;
 			target.CreatedOn = source.CreatedOn;

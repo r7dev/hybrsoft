@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class UserDetailsViewModel(IUserService userService, ICommonServices commonServices) : GenericDetailsViewModel<UserDto>(commonServices)
+	public partial class UserDetailsViewModel(IUserService userService, ICommonServices commonServices) : GenericDetailsViewModel<UserModel>(commonServices)
 	{
 		public IUserService UserService { get; } = userService;
 
@@ -51,7 +51,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 			if (ViewModelArgs.IsNew)
 			{
-				Item = new UserDto();
+				Item = new UserModel();
 				IsEditMode = true;
 			}
 			else
@@ -59,7 +59,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				try
 				{
 					var item = await UserService.GetUserAsync(ViewModelArgs.UserID);
-					Item = item ?? new UserDto { UserID = ViewModelArgs.UserID, IsEmpty = true };
+					Item = item ?? new UserModel { UserID = ViewModelArgs.UserID, IsEmpty = true };
 				}
 				catch (Exception ex)
 				{
@@ -75,7 +75,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public void Subscribe()
 		{
-			MessageService.Subscribe<UserDetailsViewModel, UserDto>(this, OnDetailsMessage);
+			MessageService.Subscribe<UserDetailsViewModel, UserModel>(this, OnDetailsMessage);
 			MessageService.Subscribe<UserListViewModel>(this, OnListMessage);
 		}
 
@@ -84,7 +84,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			MessageService.Unsubscribe(this);
 		}
 
-		protected override async Task<bool> SaveItemAsync(UserDto model)
+		protected override async Task<bool> SaveItemAsync(UserModel model)
 		{
 			try
 			{
@@ -108,7 +108,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		protected override async Task<bool> DeleteItemAsync(UserDto model)
+		protected override async Task<bool> DeleteItemAsync(UserModel model)
 		{
 			try
 			{
@@ -141,28 +141,28 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return await DialogService.ShowAsync(title, "Are you sure you want to delete current user?", delete, cancel);
 		}
 
-		override protected IEnumerable<IValidationConstraint<UserDto>> GetValidationConstraints(UserDto model)
+		override protected IEnumerable<IValidationConstraint<UserModel>> GetValidationConstraints(UserModel model)
 		{
 			string resourceKeyForFirstName = string.Concat(nameof(UserDetailsViewModel), "_PropertyFirstName");
 			string propertyFirstName = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForFirstName);
-			var requiredFirstName = new RequiredConstraint<UserDto>(propertyFirstName, m => m.FirstName);
+			var requiredFirstName = new RequiredConstraint<UserModel>(propertyFirstName, m => m.FirstName);
 			requiredFirstName.SetResourceService(ResourceService);
 
 			string resourceKeyForLastName = string.Concat(nameof(UserDetailsViewModel), "_PropertyLastName");
 			string propertyLastName = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForLastName);
-			var requiredLastName = new RequiredConstraint<UserDto>(propertyLastName, m => m.LastName);
+			var requiredLastName = new RequiredConstraint<UserModel>(propertyLastName, m => m.LastName);
 			requiredLastName.SetResourceService(ResourceService);
 
 			string resourceKeyForEmail = string.Concat(nameof(UserDetailsViewModel), "_PropertyEmail");
 			string propertyEmail = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForEmail);
-			var requiredEmail = new RequiredConstraint<UserDto>(propertyEmail, m => m.Email);
+			var requiredEmail = new RequiredConstraint<UserModel>(propertyEmail, m => m.Email);
 			requiredEmail.SetResourceService(ResourceService);
-			var emailIsValid = new EmailValidationConstraint<UserDto>(propertyEmail, m => m.Email);
+			var emailIsValid = new EmailValidationConstraint<UserModel>(propertyEmail, m => m.Email);
 			emailIsValid.SetResourceService(ResourceService);
 
 			string resourceKeyForPassword = string.Concat(nameof(UserDetailsViewModel), "_PropertyPassword");
 			string propertyPassword = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForPassword);
-			var requiredPassword = new RequiredConstraint<UserDto>(propertyPassword, m => m.Password);
+			var requiredPassword = new RequiredConstraint<UserModel>(propertyPassword, m => m.Password);
 			requiredPassword.SetResourceService(ResourceService);
 
 			yield return requiredFirstName;
@@ -173,7 +173,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		}
 
 		#region Handle external messages
-		private async void OnDetailsMessage(UserDetailsViewModel sender, string message, UserDto changed)
+		private async void OnDetailsMessage(UserDetailsViewModel sender, string message, UserModel changed)
 		{
 			var current = Item;
 			if (current != null)
@@ -188,7 +188,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 								try
 								{
 									var item = await UserService.GetUserAsync(current.UserID);
-									item ??= new UserDto { UserID = current.UserID, IsEmpty = true };
+									item ??= new UserModel { UserID = current.UserID, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
 									NotifyPropertyChanged(nameof(Title));
@@ -221,7 +221,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				switch (message)
 				{
 					case "ItemsDeleted":
-						if (args is IList<UserDto> deletedModels)
+						if (args is IList<UserModel> deletedModels)
 						{
 							if (deletedModels.Any(r => r.UserID == current.UserID))
 							{

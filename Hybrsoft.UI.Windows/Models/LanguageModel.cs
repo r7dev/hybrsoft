@@ -1,9 +1,9 @@
 ﻿using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using System;
 
-namespace Hybrsoft.UI.Windows.Dtos
+namespace Hybrsoft.UI.Windows.Models
 {
-	public partial class LanguageDto : ObservableObject
+	public partial class LanguageModel : ObservableObject
 	{
 		public string DisplayName { get; set; }
 		public string Tag { get; set; }
@@ -11,7 +11,7 @@ namespace Hybrsoft.UI.Windows.Dtos
 		#region Fix object bind SelectedItem in ComboBox
 		public override bool Equals(object obj)
 		{
-			if (obj is LanguageDto other)
+			if (obj is LanguageModel other)
 			{
 				return Tag == other.Tag && DisplayName == other.DisplayName;
 			}

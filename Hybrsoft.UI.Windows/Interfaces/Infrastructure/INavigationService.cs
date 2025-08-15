@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -22,6 +22,6 @@ namespace Hybrsoft.UI.Windows.Interfaces.Infrastructure
 
 		Task CloseViewAsync();
 
-		IEnumerable<NavigationItemDto> GetItems();
+		IEnumerable<NavigationItemModel> GetItems();
 	}
 }

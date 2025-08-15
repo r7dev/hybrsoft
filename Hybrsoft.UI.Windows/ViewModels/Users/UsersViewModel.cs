@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
@@ -82,7 +82,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			UserDetails.Item = selected;
 		}
 
-		private async Task PopulateDetails(UserDto selected)
+		private async Task PopulateDetails(UserModel selected)
 		{
 			try
 			{
@@ -95,7 +95,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		private async Task PopulateUserRoles(UserDto selectedItem)
+		private async Task PopulateUserRoles(UserModel selectedItem)
 		{
 			try
 			{

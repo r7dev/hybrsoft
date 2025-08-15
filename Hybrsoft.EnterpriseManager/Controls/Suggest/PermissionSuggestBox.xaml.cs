@@ -1,4 +1,4 @@
-using Hybrsoft.UI.Windows.Dtos;
+using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.EnterpriseManager.Extensions;
@@ -40,13 +40,13 @@ namespace Hybrsoft.EnterpriseManager.Controls
 		#endregion
 
 		#region Items
-		public IList<PermissionDto> Items
+		public IList<PermissionModel> Items
 		{
-			get { return (IList<PermissionDto>)GetValue(ItemsProperty); }
+			get { return (IList<PermissionModel>)GetValue(ItemsProperty); }
 			set { SetValue(ItemsProperty, value); }
 		}
 
-		public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register(nameof(Items), typeof(IList<PermissionDto>), typeof(PermissionSuggestBox), new PropertyMetadata(null));
+		public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register(nameof(Items), typeof(IList<PermissionModel>), typeof(PermissionSuggestBox), new PropertyMetadata(null));
 		#endregion
 
 		#region DisplayText
@@ -102,7 +102,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			}
 		}
 
-		private async Task<IList<PermissionDto>> GetItems(string query)
+		private async Task<IList<PermissionModel>> GetItems(string query)
 		{
 			var request = new DataRequest<Permission>()
 			{

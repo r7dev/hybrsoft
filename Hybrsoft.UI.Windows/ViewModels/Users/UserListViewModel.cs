@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using Hybrsoft.UI.Windows.Interfaces;
@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class UserListViewModel(IUserService userService, ICommonServices commonServices) : GenericListViewModel<UserDto>(commonServices)
+	public partial class UserListViewModel(IUserService userService, ICommonServices commonServices) : GenericListViewModel<UserModel>(commonServices)
 	{
 		public IUserService UserService { get; } = userService;
 
@@ -96,7 +96,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return isOk;
 		}
 
-		private async Task<IList<UserDto>> GetItemsAsync()
+		private async Task<IList<UserModel>> GetItemsAsync()
 		{
 			if (!ViewModelArgs.IsEmpty)
 			{
@@ -193,7 +193,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		private async Task DeleteItemsAsync(IEnumerable<UserDto> models)
+		private async Task DeleteItemsAsync(IEnumerable<UserModel> models)
 		{
 			foreach (var model in models)
 			{
@@ -206,7 +206,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			DataRequest<User> request = BuildDataRequest();
 
-			List<UserDto> models = [];
+			List<UserModel> models = [];
 			foreach (var range in ranges)
 			{
 				var items = await UserService.GetUsersAsync(range.Index, range.Length, request);
@@ -232,7 +232,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			};
 		}
 
-		private void LogWarning(UserDto model)
+		private void LogWarning(UserModel model)
 		{
 			LogWarning("User", "Delete", "User deleted", $"User {model.UserID} '{model.FullName}' was deleted.");
 		}

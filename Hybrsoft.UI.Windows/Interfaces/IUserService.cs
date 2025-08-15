@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.Models;
 using System.Collections.Generic;
@@ -8,15 +8,15 @@ namespace Hybrsoft.UI.Windows.Interfaces
 {
 	public interface IUserService
 	{
-		Task<UserDto> GetUserAsync(long id, bool includePassword = false);
-		Task<UserDto> GetUserByEmailAsync(string email, bool includePassword = false);
-		Task<IList<UserDto>> GetUsersAsync(DataRequest<User> request);
-		Task<IList<UserDto>> GetUsersAsync(int skip, int take, DataRequest<User> request);
+		Task<UserModel> GetUserAsync(long id, bool includePassword = false);
+		Task<UserModel> GetUserByEmailAsync(string email, bool includePassword = false);
+		Task<IList<UserModel>> GetUsersAsync(DataRequest<User> request);
+		Task<IList<UserModel>> GetUsersAsync(int skip, int take, DataRequest<User> request);
 		Task<int> GetUsersCountAsync(DataRequest<User> request);
 
-		Task<int> UpdateUserAsync(UserDto model);
+		Task<int> UpdateUserAsync(UserModel model);
 
-		Task<int> DeleteUserAsync(UserDto model);
+		Task<int> DeleteUserAsync(UserModel model);
 		Task<int> DeleteUserRangeAsync(int index, int length, DataRequest<User> request);
 	}
 }

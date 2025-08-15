@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class UserRoleDetailsViewModel(IUserRoleService userRoleService, ICommonServices commonServices) : GenericDetailsViewModel<UserRoleDto>(commonServices)
+	public partial class UserRoleDetailsViewModel(IUserRoleService userRoleService, ICommonServices commonServices) : GenericDetailsViewModel<UserRoleModel>(commonServices)
 	{
 		public IUserRoleService UserRoleService { get; } = userRoleService;
 
@@ -54,8 +54,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		public ICommand RoleSelectedCommand => new RelayCommand<RoleDto>(RoleSelected);
-		private void RoleSelected(RoleDto role)
+		public ICommand RoleSelectedCommand => new RelayCommand<RoleModel>(RoleSelected);
+		private void RoleSelected(RoleModel role)
 		{
 			EditableItem.RoleID = role?.RoleID ?? 0;
 			EditableItem.Role = role;
@@ -72,7 +72,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 			if (ViewModelArgs.IsNew)
 			{
-				Item = new UserRoleDto { UserID = UserId };
+				Item = new UserRoleModel { UserID = UserId };
 				IsEditMode = true;
 			}
 			else
@@ -80,7 +80,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				try
 				{
 					var item = await UserRoleService.GetUserRoleAsync(UserRoleId);
-					Item = item ?? new UserRoleDto { UserRoleID = UserRoleId, UserID = UserId, IsEmpty = true };
+					Item = item ?? new UserRoleModel { UserRoleID = UserRoleId, UserID = UserId, IsEmpty = true };
 				}
 				catch (Exception ex)
 				{
@@ -95,7 +95,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public void Subscribe()
 		{
-			MessageService.Subscribe<UserRoleDetailsViewModel, UserRoleDto>(this, OnDetailsMessage);
+			MessageService.Subscribe<UserRoleDetailsViewModel, UserRoleModel>(this, OnDetailsMessage);
 			MessageService.Subscribe<UserRoleListViewModel>(this, OnListMessage);
 		}
 		public void Unsubscribe()
@@ -112,7 +112,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			};
 		}
 
-		protected override async Task<bool> SaveItemAsync(UserRoleDto model)
+		protected override async Task<bool> SaveItemAsync(UserRoleModel model)
 		{
 			try
 			{
@@ -136,7 +136,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		protected override async Task<bool> DeleteItemAsync(UserRoleDto model)
+		protected override async Task<bool> DeleteItemAsync(UserRoleModel model)
 		{
 			try
 			{
@@ -169,18 +169,18 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return await DialogService.ShowAsync(title, content, delete, cancel);
 		}
 
-		override protected IEnumerable<IValidationConstraint<UserRoleDto>> GetValidationConstraints(UserRoleDto model)
+		override protected IEnumerable<IValidationConstraint<UserRoleModel>> GetValidationConstraints(UserRoleModel model)
 		{
 			string resourceKeyForRole = string.Concat(nameof(UserRoleDetailsViewModel), "_PropertyRole");
 			string propertyRole = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForRole);
-			var requiredRole = new RequiredGreaterThanZeroConstraint<UserRoleDto>(propertyRole, m => m.RoleID);
+			var requiredRole = new RequiredGreaterThanZeroConstraint<UserRoleModel>(propertyRole, m => m.RoleID);
 			requiredRole.SetResourceService(ResourceService);
 
 			yield return requiredRole;
 		}
 
 		#region Handle external messages
-		private async void OnDetailsMessage(UserRoleDetailsViewModel sender, string message, UserRoleDto changed)
+		private async void OnDetailsMessage(UserRoleDetailsViewModel sender, string message, UserRoleModel changed)
 		{
 			var current = Item;
 			if (current != null)
@@ -195,7 +195,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 								try
 								{
 									var item = await UserRoleService.GetUserRoleAsync(current.UserRoleID);
-									item ??= new UserRoleDto { UserRoleID = UserRoleId, UserID = UserId, IsEmpty = true };
+									item ??= new UserRoleModel { UserRoleID = UserRoleId, UserID = UserId, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
 									NotifyPropertyChanged(nameof(Title));
@@ -228,7 +228,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				switch (message)
 				{
 					case "ItemsDeleted":
-						if (args is IList<UserRoleDto> deletedModels)
+						if (args is IList<UserRoleModel> deletedModels)
 						{
 							if (deletedModels.Any(r => r.UserRoleID == current.UserRoleID))
 							{

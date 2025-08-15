@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Common.VirtualCollection;
@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services.VirtualCollections
 {
-	public partial class DismissalCollection(IDismissalService dismissalService, ILogService logService) : VirtualCollection<DismissalDto>(logService)
+	public partial class DismissalCollection(IDismissalService dismissalService, ILogService logService) : VirtualCollection<DismissalModel>(logService)
 	{
 		private DataRequest<Dismissal> _dataRequest = null;
 
 		public IDismissalService DismissalService { get; } = dismissalService;
 
-		private readonly DismissalDto _defaultItem = DismissalDto.CreateEmpty();
-		protected override DismissalDto DefaultItem => _defaultItem;
+		private readonly DismissalModel _defaultItem = DismissalModel.CreateEmpty();
+		protected override DismissalModel DefaultItem => _defaultItem;
 
 		public async Task LoadAsync(DataRequest<Dismissal> dataRequest)
 		{
@@ -34,7 +34,7 @@ namespace Hybrsoft.EnterpriseManager.Services.VirtualCollections
 			}
 		}
 
-		protected override async Task<IList<DismissalDto>> FetchDataAsync(int rangeIndex, int rangeSize)
+		protected override async Task<IList<DismissalModel>> FetchDataAsync(int rangeIndex, int rangeSize)
 		{
 			try
 			{

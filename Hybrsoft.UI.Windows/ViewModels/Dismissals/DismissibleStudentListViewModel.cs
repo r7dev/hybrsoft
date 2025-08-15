@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using Hybrsoft.UI.Windows.Interfaces;
@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class DismissibleStudentListViewModel(IDismissalService dismissalService, ICommonServices commonServices) : GenericListViewModel<DismissibleStudentDto>(commonServices)
+	public partial class DismissibleStudentListViewModel(IDismissalService dismissalService, ICommonServices commonServices) : GenericListViewModel<DismissibleStudentModel>(commonServices)
 	{
 		IDismissalService DismissalService { get; } = dismissalService;
 
@@ -99,7 +99,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return isOk;
 		}
 
-		private async Task<IList<DismissibleStudentDto>> GetItemsAsync()
+		private async Task<IList<DismissibleStudentModel>> GetItemsAsync()
 		{
 			if (!ViewModelArgs.IsEmpty)
 			{
@@ -109,8 +109,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return [];
 		}
 
-		public ICommand ItemInvokedCommand => new RelayCommand<DismissibleStudentDto>(OnItemInvoked, CanItemInvoked);
-		private async void OnItemInvoked(DismissibleStudentDto dismissible)
+		public ICommand ItemInvokedCommand => new RelayCommand<DismissibleStudentModel>(OnItemInvoked, CanItemInvoked);
+		private async void OnItemInvoked(DismissibleStudentModel dismissible)
 		{
 			if (dismissible != null)
 			{
@@ -119,7 +119,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			await Task.CompletedTask;
 		}
 
-		private bool CanItemInvoked(DismissibleStudentDto dismissible)
+		private bool CanItemInvoked(DismissibleStudentModel dismissible)
 		{
 			return HasPermissionToItemInvoke;
 		}

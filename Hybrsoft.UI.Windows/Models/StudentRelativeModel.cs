@@ -1,9 +1,9 @@
 ﻿using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using System;
 
-namespace Hybrsoft.UI.Windows.Dtos
+namespace Hybrsoft.UI.Windows.Models
 {
-	public partial class StudentRelativeDto : ObservableObject
+	public partial class StudentRelativeModel : ObservableObject
 	{
 		public long StudentRelativeID { get; set; }
 
@@ -13,19 +13,19 @@ namespace Hybrsoft.UI.Windows.Dtos
 		public DateTimeOffset CreatedOn { get; set; }
 		public DateTimeOffset? LastModifiedOn { get; set; }
 
-		public RelativeDto Relative { get; set; }
+		public RelativeModel Relative { get; set; }
 
 		public bool IsNew => StudentRelativeID <= 0;
 
 		public override void Merge(ObservableObject source)
 		{
-			if (source is StudentRelativeDto model)
+			if (source is StudentRelativeModel model)
 			{
 				Merge(model);
 			}
 		}
 
-		public void Merge(StudentRelativeDto source)
+		public void Merge(StudentRelativeModel source)
 		{
 			if (source != null)
 			{

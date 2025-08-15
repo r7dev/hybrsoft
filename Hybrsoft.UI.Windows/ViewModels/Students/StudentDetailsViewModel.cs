@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class StudentDetailsViewModel(IStudentService studentService, IFilePickerService filePickerService, ICommonServices commonServices) : GenericDetailsViewModel<StudentDto>(commonServices)
+	public partial class StudentDetailsViewModel(IStudentService studentService, IFilePickerService filePickerService, ICommonServices commonServices) : GenericDetailsViewModel<StudentModel>(commonServices)
 	{
 		public IStudentService StudentService { get; } = studentService;
 
@@ -54,7 +54,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 			if (ViewModelArgs.IsNew)
 			{
-				Item = new StudentDto();
+				Item = new StudentModel();
 				IsEditMode = true;
 			}
 			else
@@ -62,7 +62,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				try
 				{
 					var item = await StudentService.GetStudentAsync(ViewModelArgs.StudentID);
-					Item = item ?? new StudentDto { StudentID = ViewModelArgs.StudentID, IsEmpty = true };
+					Item = item ?? new StudentModel { StudentID = ViewModelArgs.StudentID, IsEmpty = true };
 				}
 				catch (Exception ex)
 				{
@@ -79,7 +79,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public void Subscribe()
 		{
-			MessageService.Subscribe<StudentDetailsViewModel, StudentDto>(this, OnDetailsMessage);
+			MessageService.Subscribe<StudentDetailsViewModel, StudentModel>(this, OnDetailsMessage);
 			MessageService.Subscribe<StudentListViewModel>(this, OnListMessage);
 		}
 
@@ -124,7 +124,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		protected override async Task<bool> SaveItemAsync(StudentDto model)
+		protected override async Task<bool> SaveItemAsync(StudentModel model)
 		{
 			try
 			{
@@ -148,7 +148,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		protected override async Task<bool> DeleteItemAsync(StudentDto model)
+		protected override async Task<bool> DeleteItemAsync(StudentModel model)
 		{
 			try
 			{
@@ -181,23 +181,23 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return await DialogService.ShowAsync(title, content, delete, cancel);
 		}
 
-		override protected IEnumerable<IValidationConstraint<StudentDto>> GetValidationConstraints(StudentDto model)
+		override protected IEnumerable<IValidationConstraint<StudentModel>> GetValidationConstraints(StudentModel model)
 		{
 			string resourceKeyForFirstName = string.Concat(nameof(StudentDetailsViewModel), "_PropertyFirstName");
 			string propertyFirstName = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForFirstName);
-			var requiredFirstName = new RequiredConstraint<StudentDto>(propertyFirstName, m => m.FirstName);
+			var requiredFirstName = new RequiredConstraint<StudentModel>(propertyFirstName, m => m.FirstName);
 			requiredFirstName.SetResourceService(ResourceService);
 
 			string resourceKeyForLastName = string.Concat(nameof(StudentDetailsViewModel), "_PropertyLastName");
 			string propertyLastName = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForLastName);
-			var requiredLastName = new RequiredConstraint<StudentDto>(propertyLastName, m => m.LastName);
+			var requiredLastName = new RequiredConstraint<StudentModel>(propertyLastName, m => m.LastName);
 			requiredLastName.SetResourceService(ResourceService);
 
 			string resourceKeyForEmail = string.Concat(nameof(StudentDetailsViewModel), "_PropertyEmail");
 			string propertyEmail = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForEmail);
-			var requiredEmail = new RequiredConstraint<StudentDto>(propertyEmail, m => m.Email);
+			var requiredEmail = new RequiredConstraint<StudentModel>(propertyEmail, m => m.Email);
 			requiredEmail.SetResourceService(ResourceService);
-			var emailIsValid = new EmailValidationConstraint<StudentDto>(propertyEmail, m => m.Email);
+			var emailIsValid = new EmailValidationConstraint<StudentModel>(propertyEmail, m => m.Email);
 			emailIsValid.SetResourceService(ResourceService);
 
 			yield return requiredFirstName;
@@ -207,7 +207,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		}
 
 		#region Handle external messages
-		private async void OnDetailsMessage(StudentDetailsViewModel sender, string message, StudentDto changed)
+		private async void OnDetailsMessage(StudentDetailsViewModel sender, string message, StudentModel changed)
 		{
 			var current = Item;
 			if (current != null)
@@ -222,7 +222,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 								try
 								{
 									var item = await StudentService.GetStudentAsync(current.StudentID);
-									item ??= new StudentDto { StudentID = current.StudentID, IsEmpty = true };
+									item ??= new StudentModel { StudentID = current.StudentID, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
 									NotifyPropertyChanged(nameof(Title));
@@ -255,7 +255,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				switch (message)
 				{
 					case "ItemsDeleted":
-						if (args is IList<StudentDto> deletedModels)
+						if (args is IList<StudentModel> deletedModels)
 						{
 							if (deletedModels.Any(r => r.StudentID == current.StudentID))
 							{

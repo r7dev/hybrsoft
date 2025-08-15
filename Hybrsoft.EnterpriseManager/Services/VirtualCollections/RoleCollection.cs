@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Common.VirtualCollection;
@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services.VirtualCollections
 {
-	public partial class RoleCollection(IRoleService roleService, ILogService logService) : VirtualCollection<RoleDto>(logService)
+	public partial class RoleCollection(IRoleService roleService, ILogService logService) : VirtualCollection<RoleModel>(logService)
 	{
 		private DataRequest<Role> _dataRequest = null;
 
 		public IRoleService RoleService { get; } = roleService;
 
-		private readonly RoleDto _defaultItem = RoleDto.CreateEmpty();
-		protected override RoleDto DefaultItem => _defaultItem;
+		private readonly RoleModel _defaultItem = RoleModel.CreateEmpty();
+		protected override RoleModel DefaultItem => _defaultItem;
 
 		public async Task LoadAsync(DataRequest<Role> dataRequest)
 		{
@@ -34,7 +34,7 @@ namespace Hybrsoft.EnterpriseManager.Services.VirtualCollections
 			}
 		}
 
-		protected override async Task<IList<RoleDto>> FetchDataAsync(int rangeIndex, int rangeSize)
+		protected override async Task<IList<RoleModel>> FetchDataAsync(int rangeIndex, int rangeSize)
 		{
 			try
 			{

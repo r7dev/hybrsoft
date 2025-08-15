@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Common.VirtualCollection;
@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services.VirtualCollections
 {
-	public partial class CompanyCollection(ICompanyService companyService, ILogService logService) : VirtualCollection<CompanyDto>(logService)
+	public partial class CompanyCollection(ICompanyService companyService, ILogService logService) : VirtualCollection<CompanyModel>(logService)
 	{
 		private DataRequest<Company> _dataRequest = null;
 
 		public ICompanyService CompanyService { get; } = companyService;
 
-		private readonly CompanyDto _defaultItem = CompanyDto.CreateEmpty();
-		protected override CompanyDto DefaultItem => _defaultItem;
+		private readonly CompanyModel _defaultItem = CompanyModel.CreateEmpty();
+		protected override CompanyModel DefaultItem => _defaultItem;
 
 		public async Task LoadAsync(DataRequest<Company> dataRequest)
 		{
@@ -34,7 +34,7 @@ namespace Hybrsoft.EnterpriseManager.Services.VirtualCollections
 			}
 		}
 
-		protected override async Task<IList<CompanyDto>> FetchDataAsync(int rangeIndex, int rangeSize)
+		protected override async Task<IList<CompanyModel>> FetchDataAsync(int rangeIndex, int rangeSize)
 		{
 			try
 			{

@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
@@ -12,7 +12,7 @@ using Windows.ApplicationModel.DataTransfer;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class SubscriptionDetailsViewModel(ISubscriptionService subscriptionService, ICommonServices commonServices) : GenericDetailsViewModel<SubscriptionDto>(commonServices)
+	public partial class SubscriptionDetailsViewModel(ISubscriptionService subscriptionService, ICommonServices commonServices) : GenericDetailsViewModel<SubscriptionModel>(commonServices)
 	{
 		public ISubscriptionService SubscriptionService { get; } = subscriptionService;
 
@@ -56,7 +56,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 			if (ViewModelArgs.IsNew)
 			{
-				Item = new SubscriptionDto();
+				Item = new SubscriptionModel();
 				IsEditMode = true;
 			}
 			else
@@ -64,7 +64,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				try
 				{
 					var item = await SubscriptionService.GetSubscriptionAsync(ViewModelArgs.SubscriptionID);
-					Item = item ?? new SubscriptionDto { SubscriptionID = ViewModelArgs.SubscriptionID, IsEmpty = true };
+					Item = item ?? new SubscriptionModel { SubscriptionID = ViewModelArgs.SubscriptionID, IsEmpty = true };
 				}
 				catch (Exception ex)
 				{
@@ -80,7 +80,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public void Subscribe()
 		{
-			MessageService.Subscribe<SubscriptionDetailsViewModel, SubscriptionDto>(this, OnDetailsMessage);
+			MessageService.Subscribe<SubscriptionDetailsViewModel, SubscriptionModel>(this, OnDetailsMessage);
 			MessageService.Subscribe<SubscriptionListViewModel>(this, OnListMessage);
 		}
 
@@ -89,8 +89,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			MessageService.Unsubscribe(this);
 		}
 
-		public ICommand SubscriptionPlanSelectedCommand => new RelayCommand<SubscriptionPlanDto>(SubscriptionPlanSelected);
-		private void SubscriptionPlanSelected(SubscriptionPlanDto subscriptionPlan)
+		public ICommand SubscriptionPlanSelectedCommand => new RelayCommand<SubscriptionPlanModel>(SubscriptionPlanSelected);
+		private void SubscriptionPlanSelected(SubscriptionPlanModel subscriptionPlan)
 		{
 			if (subscriptionPlan?.DurationMonths == 12)
 			{
@@ -103,23 +103,23 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			EditableItem.NotifyChanges();
 		}
 
-		public ICommand SubscriptionTypeSelectedCommand => new RelayCommand<SubscriptionTypeDto>(SubscriptionTypeSelected);
-		private void SubscriptionTypeSelected(SubscriptionTypeDto subscriptionType)
+		public ICommand SubscriptionTypeSelectedCommand => new RelayCommand<SubscriptionTypeModel>(SubscriptionTypeSelected);
+		private void SubscriptionTypeSelected(SubscriptionTypeModel subscriptionType)
 		{
 			EditableItem.SubscriptionType = subscriptionType;
 			EditableItem.NotifyChanges();
 		}
 
-		public ICommand CompanySelectedCommand => new RelayCommand<CompanyDto>(CompanySelected);
-		private void CompanySelected(CompanyDto model)
+		public ICommand CompanySelectedCommand => new RelayCommand<CompanyModel>(CompanySelected);
+		private void CompanySelected(CompanyModel model)
 		{
 			EditableItem.CompanyID = model?.CompanyID ?? 0;
 			EditableItem.Company = model;
 			EditableItem.NotifyChanges();
 		}
 
-		public ICommand UserSelectedCommand => new RelayCommand<UserDto>(UserSelected);
-		private void UserSelected(UserDto model)
+		public ICommand UserSelectedCommand => new RelayCommand<UserModel>(UserSelected);
+		private void UserSelected(UserModel model)
 		{
 			EditableItem.UserID = model?.UserID ?? 0;
 			EditableItem.User = model;
@@ -169,7 +169,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return _hasEditorPermission;
 		}
 
-		protected override async Task<bool> SaveItemAsync(SubscriptionDto model)
+		protected override async Task<bool> SaveItemAsync(SubscriptionModel model)
 		{
 			try
 			{
@@ -204,7 +204,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		}
 
 		public new ICommand DeleteCommand => new RelayCommand(OnDelete, CanDelete);
-		protected override async Task<bool> DeleteItemAsync(SubscriptionDto model)
+		protected override async Task<bool> DeleteItemAsync(SubscriptionModel model)
 		{
 			try
 			{
@@ -241,11 +241,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return _hasEditorPermission;
 		}
 
-		override protected IEnumerable<IValidationConstraint<SubscriptionDto>> GetValidationConstraints(SubscriptionDto model)
+		override protected IEnumerable<IValidationConstraint<SubscriptionModel>> GetValidationConstraints(SubscriptionModel model)
 		{
 			string resourceKeyForSubscriptionPlan = string.Concat(nameof(SubscriptionDetailsViewModel), "_PropertySubscriptionPlan");
 			string propertySubscriptionPlan = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForSubscriptionPlan);
-			var requiredSubscriptionPlan = new RequiredGreaterThanZeroConstraint<SubscriptionDto>(propertySubscriptionPlan, m => m.SubscriptionPlanID);
+			var requiredSubscriptionPlan = new RequiredGreaterThanZeroConstraint<SubscriptionModel>(propertySubscriptionPlan, m => m.SubscriptionPlanID);
 			requiredSubscriptionPlan.SetResourceService(ResourceService);
 			yield return requiredSubscriptionPlan;
 
@@ -253,7 +253,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				string resourceKeyForCompany = string.Concat(nameof(SubscriptionDetailsViewModel), "_PropertyCompany");
 				string propertyCompany = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForCompany);
-				var requiredCompany = new RequiredGreaterThanZeroConstraint<SubscriptionDto>(propertyCompany, m => m.CompanyID);
+				var requiredCompany = new RequiredGreaterThanZeroConstraint<SubscriptionModel>(propertyCompany, m => m.CompanyID);
 				requiredCompany.SetResourceService(ResourceService);
 
 				yield return requiredCompany;
@@ -262,7 +262,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				string resourceKeyForUser = string.Concat(nameof(SubscriptionDetailsViewModel), "_PropertyUser");
 				string propertyUser = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForUser);
-				var requiredUser = new RequiredGreaterThanZeroConstraint<SubscriptionDto>(propertyUser, m => m.UserID);
+				var requiredUser = new RequiredGreaterThanZeroConstraint<SubscriptionModel>(propertyUser, m => m.UserID);
 				requiredUser.SetResourceService(ResourceService);
 
 				yield return requiredUser;
@@ -270,7 +270,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		}
 
 		#region Handle external messages
-		private async void OnDetailsMessage(SubscriptionDetailsViewModel sender, string message, SubscriptionDto changed)
+		private async void OnDetailsMessage(SubscriptionDetailsViewModel sender, string message, SubscriptionModel changed)
 		{
 			var current = Item;
 			if (current != null)
@@ -285,7 +285,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 								try
 								{
 									var item = await SubscriptionService.GetSubscriptionAsync(current.SubscriptionID);
-									item ??= new SubscriptionDto { SubscriptionID = current.SubscriptionID, IsEmpty = true };
+									item ??= new SubscriptionModel { SubscriptionID = current.SubscriptionID, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
 									NotifyPropertyChanged(nameof(Title));
@@ -318,7 +318,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				switch (message)
 				{
 					case "ItemsDeleted":
-						if (args is IList<SubscriptionDto> deletedModels)
+						if (args is IList<SubscriptionModel> deletedModels)
 						{
 							if (deletedModels.Any(r => r.SubscriptionID == current.SubscriptionID))
 							{

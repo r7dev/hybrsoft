@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Hybrsoft.Enums;
@@ -11,7 +11,7 @@ using Windows.ApplicationModel.DataTransfer;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class AppLogDetailsViewModel(ICommonServices commonServices) : GenericDetailsViewModel<AppLogDto>(commonServices)
+	public partial class AppLogDetailsViewModel(ICommonServices commonServices) : GenericDetailsViewModel<AppLogModel>(commonServices)
 	{
 		override public string Title => "Activity Logs";
 
@@ -26,7 +26,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			try
 			{
 				var item = await LogService.GetLogAsync(ViewModelArgs.AppLogID);
-				Item = item ?? new AppLogDto { AppLogID = 0, IsEmpty = true };
+				Item = item ?? new AppLogModel { AppLogID = 0, IsEmpty = true };
 			}
 			catch (Exception ex)
 			{
@@ -40,7 +40,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public void Subscribe()
 		{
-			MessageService.Subscribe<AppLogDetailsViewModel, AppLogDto>(this, OnDetailsMessage);
+			MessageService.Subscribe<AppLogDetailsViewModel, AppLogModel>(this, OnDetailsMessage);
 			MessageService.Subscribe<AppLogListViewModel>(this, OnListMessage);
 		}
 		public void Unsubscribe()
@@ -71,12 +71,12 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			Clipboard.SetContent(dataPackage);
 		}
 
-		protected override Task<bool> SaveItemAsync(AppLogDto model)
+		protected override Task<bool> SaveItemAsync(AppLogModel model)
 		{
 			throw new NotImplementedException();
 		}
 
-		protected override async Task<bool> DeleteItemAsync(AppLogDto model)
+		protected override async Task<bool> DeleteItemAsync(AppLogModel model)
 		{
 			try
 			{
@@ -107,7 +107,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		}
 
 		#region Handle external messages
-		private async void OnDetailsMessage(AppLogDetailsViewModel sender, string message, AppLogDto changed)
+		private async void OnDetailsMessage(AppLogDetailsViewModel sender, string message, AppLogModel changed)
 		{
 			var current = Item;
 			if (current != null)
@@ -132,7 +132,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				switch (message)
 				{
 					case "ItemsDeleted":
-						if (args is IList<AppLogDto> deletedModels)
+						if (args is IList<AppLogModel> deletedModels)
 						{
 							if (deletedModels.Any(r => r.AppLogID == current.AppLogID))
 							{

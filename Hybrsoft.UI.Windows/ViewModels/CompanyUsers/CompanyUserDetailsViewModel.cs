@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class CompanyUserDetailsViewModel(ICompanyService companyService, ICompanyUserService companyUserService, ICommonServices commonServices) : GenericDetailsViewModel<CompanyUserDto>(commonServices)
+	public partial class CompanyUserDetailsViewModel(ICompanyService companyService, ICompanyUserService companyUserService, ICommonServices commonServices) : GenericDetailsViewModel<CompanyUserModel>(commonServices)
 	{
 		public ICompanyService CompanyService { get; } = companyService;
 		public ICompanyUserService CompanyUserService { get; } = companyUserService;
@@ -57,8 +57,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		public ICommand UserSelectedCommand => new RelayCommand<UserDto>(UserSelected);
-		private void UserSelected(UserDto model)
+		public ICommand UserSelectedCommand => new RelayCommand<UserModel>(UserSelected);
+		private void UserSelected(UserModel model)
 		{
 			EditableItem.UserID = model?.UserID ?? 0;
 			EditableItem.User = model;
@@ -76,7 +76,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 			if (ViewModelArgs.IsNew)
 			{
-				Item = new CompanyUserDto() { CompanyID = CompanyID, Company = company };
+				Item = new CompanyUserModel() { CompanyID = CompanyID, Company = company };
 				IsEditMode = true;
 			}
 			else
@@ -84,7 +84,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				try
 				{
 					var item = await CompanyUserService.GetCompanyUserAsync(CompanyUserID);
-					Item = item ?? new CompanyUserDto() { CompanyUserID = CompanyUserID, CompanyID = CompanyID, IsEmpty = true };
+					Item = item ?? new CompanyUserModel() { CompanyUserID = CompanyUserID, CompanyID = CompanyID, IsEmpty = true };
 					Item.Company = company;
 				}
 				catch (Exception ex)
@@ -100,7 +100,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public void Subscribe()
 		{
-			MessageService.Subscribe<CompanyUserDetailsViewModel, CompanyUserDto>(this, OnDetailsMessage);
+			MessageService.Subscribe<CompanyUserDetailsViewModel, CompanyUserModel>(this, OnDetailsMessage);
 			MessageService.Subscribe<CompanyUserListViewModel>(this, OnListMessage);
 		}
 		public void Unsubscribe()
@@ -123,7 +123,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return _hasEditorPermission;
 		}
 
-		protected override async Task<bool> SaveItemAsync(CompanyUserDto model)
+		protected override async Task<bool> SaveItemAsync(CompanyUserModel model)
 		{
 			try
 			{
@@ -148,7 +148,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		}
 
 		public new ICommand DeleteCommand => new RelayCommand(OnDelete, CanDelete);
-		protected override async Task<bool> DeleteItemAsync(CompanyUserDto model)
+		protected override async Task<bool> DeleteItemAsync(CompanyUserModel model)
 		{
 			try
 			{
@@ -185,18 +185,18 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return _hasEditorPermission;
 		}
 
-		override protected IEnumerable<IValidationConstraint<CompanyUserDto>> GetValidationConstraints(CompanyUserDto model)
+		override protected IEnumerable<IValidationConstraint<CompanyUserModel>> GetValidationConstraints(CompanyUserModel model)
 		{
 			string resourceKeyForUser = string.Concat(nameof(CompanyUserDetailsViewModel), "_PropertyUser");
 			string propertyUser = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForUser);
-			var requiredUser = new RequiredGreaterThanZeroConstraint<CompanyUserDto>(propertyUser, m => m.UserID);
+			var requiredUser = new RequiredGreaterThanZeroConstraint<CompanyUserModel>(propertyUser, m => m.UserID);
 			requiredUser.SetResourceService(ResourceService);
 
 			yield return requiredUser;
 		}
 
 		#region Handle external messages
-		private async void OnDetailsMessage(CompanyUserDetailsViewModel sender, string message, CompanyUserDto changed)
+		private async void OnDetailsMessage(CompanyUserDetailsViewModel sender, string message, CompanyUserModel changed)
 		{
 			var current = Item;
 			if (current != null)
@@ -211,7 +211,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 								try
 								{
 									var item = await CompanyUserService.GetCompanyUserAsync(current.CompanyUserID);
-									item ??= new CompanyUserDto { CompanyUserID = CompanyUserID, CompanyID = CompanyID, IsEmpty = true };
+									item ??= new CompanyUserModel { CompanyUserID = CompanyUserID, CompanyID = CompanyID, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
 									NotifyPropertyChanged(nameof(Title));
@@ -244,7 +244,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				switch (message)
 				{
 					case "ItemsDeleted":
-						if (args is IList<CompanyUserDto> deletedModels)
+						if (args is IList<CompanyUserModel> deletedModels)
 						{
 							if (deletedModels.Any(r => r.CompanyUserID == current.CompanyUserID))
 							{

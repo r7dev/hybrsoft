@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using Hybrsoft.UI.Windows.Interfaces;
@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class StudentListViewModel(IStudentService studentService, ICommonServices commonServices) : GenericListViewModel<StudentDto>(commonServices)
+	public partial class StudentListViewModel(IStudentService studentService, ICommonServices commonServices) : GenericListViewModel<StudentModel>(commonServices)
 	{
 		public IStudentService StudentService { get; } = studentService;
 
@@ -97,7 +97,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return isOk;
 		}
 
-		private async Task<IList<StudentDto>> GetItemsAsync()
+		private async Task<IList<StudentModel>> GetItemsAsync()
 		{
 			if (!ViewModelArgs.IsEmpty)
 			{
@@ -206,7 +206,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		private async Task DeleteItemsAsync(IEnumerable<StudentDto> models)
+		private async Task DeleteItemsAsync(IEnumerable<StudentModel> models)
 		{
 			foreach (var model in models)
 			{
@@ -219,7 +219,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			DataRequest<Student> request = BuildDataRequest();
 
-			List<StudentDto> models = [];
+			List<StudentModel> models = [];
 			foreach (var range in ranges)
 			{
 				var items = await StudentService.GetStudentsAsync(range.Index, range.Length, request);
@@ -246,7 +246,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			};
 		}
 
-		private void LogWarning(StudentDto model)
+		private void LogWarning(StudentModel model)
 		{
 			LogWarning("Student", "Delete", "Student deleted", $"Student {model.StudentID} '{model.FullName}' was deleted.");
 		}

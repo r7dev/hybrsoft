@@ -1,4 +1,4 @@
-using Hybrsoft.UI.Windows.Dtos;
+using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.EnterpriseManager.Extensions;
@@ -40,13 +40,13 @@ namespace Hybrsoft.EnterpriseManager.Controls
 		#endregion
 
 		#region Items
-		public IList<RoleDto> Items
+		public IList<RoleModel> Items
 		{
-			get { return (IList<RoleDto>)GetValue(ItemsProperty); }
+			get { return (IList<RoleModel>)GetValue(ItemsProperty); }
 			set { SetValue(ItemsProperty, value); }
 		}
 
-		public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register(nameof(Items), typeof(IList<RoleDto>), typeof(RoleSuggestBox), new PropertyMetadata(null));
+		public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register(nameof(Items), typeof(IList<RoleModel>), typeof(RoleSuggestBox), new PropertyMetadata(null));
 		#endregion
 
 		#region DisplayText
@@ -102,7 +102,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			}
 		}
 
-		private async Task<IList<RoleDto>> GetItems(string query)
+		private async Task<IList<RoleModel>> GetItems(string query)
 		{
 			var request = new DataRequest<Role>()
 			{

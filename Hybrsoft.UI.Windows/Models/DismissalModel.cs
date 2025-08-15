@@ -1,11 +1,11 @@
 ﻿using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using System;
 
-namespace Hybrsoft.UI.Windows.Dtos
+namespace Hybrsoft.UI.Windows.Models
 {
-	public partial class DismissalDto : ObservableObject
+	public partial class DismissalModel : ObservableObject
 	{
-		static public DismissalDto CreateEmpty() => new() { DismissalID = -1, IsEmpty = true };
+		static public DismissalModel CreateEmpty() => new() { DismissalID = -1, IsEmpty = true };
 		public long DismissalID { get; set; }
 		public long ClassroomID { get; set; }
 		public long StudentID { get; set; }
@@ -16,19 +16,19 @@ namespace Hybrsoft.UI.Windows.Dtos
 		public DateTimeOffset CreatedOn { get; set; }
 		public DateTimeOffset? DismissedOn { get; set; }
 
-		public virtual ClassroomDto Classroom { get; set; }
-		public virtual StudentDto Student { get; set; }
-		public virtual RelativeDto Relative { get; set; }
+		public virtual ClassroomModel Classroom { get; set; }
+		public virtual StudentModel Student { get; set; }
+		public virtual RelativeModel Relative { get; set; }
 
 		public override void Merge(ObservableObject source)
 		{
-			if (source is DismissalDto model)
+			if (source is DismissalModel model)
 			{
 				Merge(model);
 			}
 		}
 
-		public void Merge(DismissalDto source)
+		public void Merge(DismissalModel source)
 		{
 			if (source != null)
 			{

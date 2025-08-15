@@ -7,11 +7,11 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:controls="using:Hybrsoft.EnterpriseManager.Controls"
-	xmlns:dtos="using:Hybrsoft.UI.Windows.Dtos"
+	xmlns:models="using:Hybrsoft.UI.Windows.Models"
 	mc:Ignorable="d">
 
 	<UserControl.Resources>
-		<DataTemplate x:Key="ItemTemplate" x:DataType="dtos:UserDto">
+		<DataTemplate x:Key="ItemTemplate" x:DataType="models:UserModel">
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="Auto"/>

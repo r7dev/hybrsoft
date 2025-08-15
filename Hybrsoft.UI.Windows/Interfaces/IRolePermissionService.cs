@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.Models;
 using System.Collections.Generic;
@@ -8,15 +8,15 @@ namespace Hybrsoft.UI.Windows.Interfaces
 {
 	public interface IRolePermissionService
 	{
-		Task<RolePermissionDto> GetRolePermissionAsync(long id);
-		Task<IList<RolePermissionDto>> GetRolePermissionsAsync(DataRequest<RolePermission> request);
-		Task<IList<RolePermissionDto>> GetRolePermissionsAsync(int skip, int take, DataRequest<RolePermission> request);
+		Task<RolePermissionModel> GetRolePermissionAsync(long id);
+		Task<IList<RolePermissionModel>> GetRolePermissionsAsync(DataRequest<RolePermission> request);
+		Task<IList<RolePermissionModel>> GetRolePermissionsAsync(int skip, int take, DataRequest<RolePermission> request);
 		Task<IList<long>> GetAddedPermissionKeysInRoleAsync(long parentID);
 		Task<int> GetRolePermissionsCountAsync(DataRequest<RolePermission> request);
 
-		Task<int> UpdateRolePermissionAsync(RolePermissionDto model);
+		Task<int> UpdateRolePermissionAsync(RolePermissionModel model);
 
-		Task<int> DeleteRolePermissionAsync(RolePermissionDto model);
+		Task<int> DeleteRolePermissionAsync(RolePermissionModel model);
 		Task<int> DeleteRolePermissionRangeAsync(int index, int length, DataRequest<RolePermission> request);
 	}
 }

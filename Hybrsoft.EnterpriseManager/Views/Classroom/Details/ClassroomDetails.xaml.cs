@@ -1,4 +1,4 @@
-using Hybrsoft.UI.Windows.Dtos;
+using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.ViewModels;
 using Hybrsoft.EnterpriseManager.Extensions;
 using Microsoft.UI.Xaml;
@@ -41,7 +41,7 @@ namespace Hybrsoft.EnterpriseManager.Views
 		{
 			if (sender is ComboBox comboBox)
 			{
-				if (comboBox.SelectedItem != null && comboBox.SelectedItem is ScheduleTypeDto model)
+				if (comboBox.SelectedItem != null && comboBox.SelectedItem is ScheduleTypeModel model)
 				{
 					ViewModel.ClassroomDetails.ScheduleTypeSelectedCommand?.TryExecute(model);
 				}

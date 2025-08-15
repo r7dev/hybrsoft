@@ -1,8 +1,8 @@
 ﻿using Hybrsoft.Enums;
 
-namespace Hybrsoft.UI.Windows.Dtos
+namespace Hybrsoft.UI.Windows.Models
 {
-	public class LicenseActivationDto
+	public class LicenseActivationModel
 	{
 		public string Email { get; set; }
 		public string LicenseKey { get; set; }

@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class ClassroomStudentDetailsViewModel(IClassroomService classroomService, IClassroomStudentService classroomStudentService, ICommonServices commonServices) : GenericDetailsViewModel<ClassroomStudentDto>(commonServices)
+	public partial class ClassroomStudentDetailsViewModel(IClassroomService classroomService, IClassroomStudentService classroomStudentService, ICommonServices commonServices) : GenericDetailsViewModel<ClassroomStudentModel>(commonServices)
 	{
 		public IClassroomService ClassroomService { get; } = classroomService;
 		public IClassroomStudentService ClassroomStudentService { get; } = classroomStudentService;
@@ -55,8 +55,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		public ICommand StudentSelectedCommand => new RelayCommand<StudentDto>(StudentSelected);
-		private void StudentSelected(StudentDto model)
+		public ICommand StudentSelectedCommand => new RelayCommand<StudentModel>(StudentSelected);
+		private void StudentSelected(StudentModel model)
 		{
 			EditableItem.StudentID = model?.StudentID ?? 0;
 			EditableItem.Student = model;
@@ -73,7 +73,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 			if (ViewModelArgs.IsNew)
 			{
-				Item = new ClassroomStudentDto() { ClassroomID = ClassroomID, Classroom = classroom};
+				Item = new ClassroomStudentModel() { ClassroomID = ClassroomID, Classroom = classroom};
 				IsEditMode = true;
 			}
 			else
@@ -81,7 +81,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				try
 				{
 					var item = await ClassroomStudentService.GetClassroomStudentAsync(ClassroomStudentID);
-					Item = item ?? new ClassroomStudentDto() { ClassroomStudentID = ClassroomStudentID, ClassroomID = ClassroomID, IsEmpty = true };
+					Item = item ?? new ClassroomStudentModel() { ClassroomStudentID = ClassroomStudentID, ClassroomID = ClassroomID, IsEmpty = true };
 					Item.Classroom = classroom;
 				}
 				catch (Exception ex)
@@ -97,7 +97,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public void Subscribe()
 		{
-			MessageService.Subscribe<ClassroomStudentDetailsViewModel, ClassroomStudentDto>(this, OnDetailsMessage);
+			MessageService.Subscribe<ClassroomStudentDetailsViewModel, ClassroomStudentModel>(this, OnDetailsMessage);
 			MessageService.Subscribe<ClassroomStudentListViewModel>(this, OnListMessage);
 		}
 		public void Unsubscribe()
@@ -114,7 +114,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			};
 		}
 
-		protected override async Task<bool> SaveItemAsync(ClassroomStudentDto model)
+		protected override async Task<bool> SaveItemAsync(ClassroomStudentModel model)
 		{
 			try
 			{
@@ -138,7 +138,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		protected override async Task<bool> DeleteItemAsync(ClassroomStudentDto model)
+		protected override async Task<bool> DeleteItemAsync(ClassroomStudentModel model)
 		{
 			try
 			{
@@ -171,18 +171,18 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return await DialogService.ShowAsync(title, content, delete, cancel);
 		}
 
-		override protected IEnumerable<IValidationConstraint<ClassroomStudentDto>> GetValidationConstraints(ClassroomStudentDto model)
+		override protected IEnumerable<IValidationConstraint<ClassroomStudentModel>> GetValidationConstraints(ClassroomStudentModel model)
 		{
 			string resourceKeyForStudent = string.Concat(nameof(ClassroomStudentDetailsViewModel), "_PropertyStudent");
 			string propertyStudent = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForStudent);
-			var requiredStudent = new RequiredGreaterThanZeroConstraint<ClassroomStudentDto>(propertyStudent, m => m.StudentID);
+			var requiredStudent = new RequiredGreaterThanZeroConstraint<ClassroomStudentModel>(propertyStudent, m => m.StudentID);
 			requiredStudent.SetResourceService(ResourceService);
 
 			yield return requiredStudent;
 		}
 
 		#region Handle external messages
-		private async void OnDetailsMessage(ClassroomStudentDetailsViewModel sender, string message, ClassroomStudentDto changed)
+		private async void OnDetailsMessage(ClassroomStudentDetailsViewModel sender, string message, ClassroomStudentModel changed)
 		{
 			var current = Item;
 			if (current != null)
@@ -197,7 +197,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 								try
 								{
 									var item = await ClassroomStudentService.GetClassroomStudentAsync(current.ClassroomStudentID);
-									item ??= new ClassroomStudentDto { ClassroomStudentID = ClassroomStudentID, ClassroomID = ClassroomID, IsEmpty = true };
+									item ??= new ClassroomStudentModel { ClassroomStudentID = ClassroomStudentID, ClassroomID = ClassroomID, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
 									NotifyPropertyChanged(nameof(Title));
@@ -230,7 +230,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				switch (message)
 				{
 					case "ItemsDeleted":
-						if (args is IList<ClassroomStudentDto> deletedModels)
+						if (args is IList<ClassroomStudentModel> deletedModels)
 						{
 							if (deletedModels.Any(r => r.ClassroomStudentID == current.ClassroomStudentID))
 							{

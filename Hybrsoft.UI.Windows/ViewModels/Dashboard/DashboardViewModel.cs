@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
@@ -15,8 +15,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 	{
 		public IStudentService StudentService { get; } = studentService;
 
-		private IList<StudentDto> _students = null;
-		public IList<StudentDto> Students
+		private IList<StudentModel> _students = null;
+		public IList<StudentModel> Students
 		{
 			get => _students;
 			set => Set(ref _students, value);

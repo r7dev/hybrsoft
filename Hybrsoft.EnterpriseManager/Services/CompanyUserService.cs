@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
 using Hybrsoft.Infrastructure.Common;
@@ -13,35 +13,35 @@ namespace Hybrsoft.EnterpriseManager.Services
 	{
 		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
 
-		public async Task<CompanyUserDto> GetCompanyUserAsync(long id)
+		public async Task<CompanyUserModel> GetCompanyUserAsync(long id)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
 			return await GetCompanyUserAsync(dataService, id);
 		}
-		private static async Task<CompanyUserDto> GetCompanyUserAsync(IDataService dataService, long id)
+		private static async Task<CompanyUserModel> GetCompanyUserAsync(IDataService dataService, long id)
 		{
 			var item = await dataService.GetCompanyUserAsync(id);
 			if (item != null)
 			{
-				return await CreateCompanyUserDtoAsync(item, includeAllFields: true);
+				return await CreateCompanyUserModelAsync(item, includeAllFields: true);
 			}
 			return null;
 		}
 
-		public Task<IList<CompanyUserDto>> GetCompanyUsersAsync(DataRequest<CompanyUser> request)
+		public Task<IList<CompanyUserModel>> GetCompanyUsersAsync(DataRequest<CompanyUser> request)
 		{
 			// CompanyUsers are not virtualized
 			return GetCompanyUsersAsync(0, 100, request);
 		}
 
-		public async Task<IList<CompanyUserDto>> GetCompanyUsersAsync(int skip, int take, DataRequest<CompanyUser> request)
+		public async Task<IList<CompanyUserModel>> GetCompanyUsersAsync(int skip, int take, DataRequest<CompanyUser> request)
 		{
-			var models = new List<CompanyUserDto>();
+			var models = new List<CompanyUserModel>();
 			using var dataService = DataServiceFactory.CreateDataService();
 			var items = await dataService.GetCompanyUsersAsync(skip, take, request);
 			foreach (var item in items)
 			{
-				models.Add(await CreateCompanyUserDtoAsync(item, includeAllFields: false));
+				models.Add(await CreateCompanyUserModelAsync(item, includeAllFields: false));
 			}
 			return models;
 		}
@@ -58,7 +58,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.GetCompanyUsersCountAsync(request);
 		}
 
-		public async Task<int> UpdateCompanyUserAsync(CompanyUserDto model)
+		public async Task<int> UpdateCompanyUserAsync(CompanyUserModel model)
 		{
 			using var dataService = DataServiceFactory.CreateDataService();
 			var item = model.CompanyUserID > 0
@@ -66,14 +66,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 				: new CompanyUser() { User = new User() };
 			if (item != null)
 			{
-				UpdateCompanyUserFromDto(item, model);
+				UpdateCompanyUserFromModel(item, model);
 				await dataService.UpdateCompanyUserAsync(item);
 				model.Merge(await GetCompanyUserAsync(dataService, item.CompanyUserID));
 			}
 			return 0;
 		}
 
-		public async Task<int> DeleteCompanyUserAsync(CompanyUserDto model)
+		public async Task<int> DeleteCompanyUserAsync(CompanyUserModel model)
 		{
 			var item = new CompanyUser() { CompanyUserID = model.CompanyUserID };
 			using var dataService = DataServiceFactory.CreateDataService();
@@ -87,14 +87,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return await dataService.DeleteCompanyUsersAsync([.. items]);
 		}
 
-		public static async Task<CompanyUserDto> CreateCompanyUserDtoAsync(CompanyUser source, bool includeAllFields)
+		public static async Task<CompanyUserModel> CreateCompanyUserModelAsync(CompanyUser source, bool includeAllFields)
 		{
-			var model = new CompanyUserDto
+			var model = new CompanyUserModel
 			{
 				CompanyUserID = source.CompanyUserID,
 				CompanyID = source.CompanyID,
 				UserID = source.UserID,
-				User = await UserService.CreateUserDtoAsync(source.User, includeAllFields)
+				User = await UserService.CreateUserModelAsync(source.User, includeAllFields)
 			};
 			if (includeAllFields)
 			{
@@ -104,7 +104,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return model;
 		}
 
-		private static void UpdateCompanyUserFromDto(CompanyUser target, CompanyUserDto source)
+		private static void UpdateCompanyUserFromModel(CompanyUser target, CompanyUserModel source)
 		{
 			target.CompanyID = source.CompanyID;
 			target.UserID = source.UserID;

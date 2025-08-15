@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.Models;
 using System.Collections.Generic;
@@ -8,14 +8,14 @@ namespace Hybrsoft.UI.Windows.Interfaces
 {
 	public interface IRoleService
 	{
-		Task<RoleDto> GetRoleAsync(long id);
-		Task<IList<RoleDto>> GetRolesAsync(DataRequest<Role> request);
-		Task<IList<RoleDto>> GetRolesAsync(int skip, int take, DataRequest<Role> request);
+		Task<RoleModel> GetRoleAsync(long id);
+		Task<IList<RoleModel>> GetRolesAsync(DataRequest<Role> request);
+		Task<IList<RoleModel>> GetRolesAsync(int skip, int take, DataRequest<Role> request);
 		Task<int> GetRolesCountAsync(DataRequest<Role> request);
 
-		Task<int> UpdateRoleAsync(RoleDto model);
+		Task<int> UpdateRoleAsync(RoleModel model);
 
-		Task<int> DeleteRoleAsync(RoleDto model);
+		Task<int> DeleteRoleAsync(RoleModel model);
 		Task<int> DeleteRoleRangeAsync(int index, int length, DataRequest<Role> request);
 	}
 }

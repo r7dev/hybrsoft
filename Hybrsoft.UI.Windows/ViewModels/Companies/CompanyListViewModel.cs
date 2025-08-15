@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using Hybrsoft.UI.Windows.Interfaces;
@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class CompanyListViewModel(ICompanyService companyService, ICommonServices commonServices) : GenericListViewModel<CompanyDto>(commonServices)
+	public partial class CompanyListViewModel(ICompanyService companyService, ICommonServices commonServices) : GenericListViewModel<CompanyModel>(commonServices)
 	{
 		public ICompanyService CompanyService { get; } = companyService;
 
@@ -99,7 +99,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return isOk;
 		}
 
-		private async Task<IList<CompanyDto>> GetItemsAsync()
+		private async Task<IList<CompanyModel>> GetItemsAsync()
 		{
 			if (!ViewModelArgs.IsEmpty)
 			{
@@ -218,7 +218,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return _hasEditorPermission;
 		}
 
-		private async Task DeleteItemsAsync(IEnumerable<CompanyDto> models)
+		private async Task DeleteItemsAsync(IEnumerable<CompanyModel> models)
 		{
 			foreach (var model in models)
 			{
@@ -231,7 +231,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			DataRequest<Company> request = BuildDataRequest();
 
-			List<CompanyDto> models = [];
+			List<CompanyModel> models = [];
 			foreach (var range in ranges)
 			{
 				var items = await CompanyService.GetCompaniesAsync(range.Index, range.Length, request);
@@ -258,7 +258,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			};
 		}
 
-		private void LogWarning(CompanyDto model)
+		private void LogWarning(CompanyModel model)
 		{
 			LogWarning("Company", "Delete", "Company deleted", $"Company {model.CompanyID} '{model.LegalName}' was deleted.");
 		}

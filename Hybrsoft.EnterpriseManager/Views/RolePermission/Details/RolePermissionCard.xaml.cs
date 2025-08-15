@@ -1,4 +1,4 @@
-using Hybrsoft.UI.Windows.Dtos;
+using Hybrsoft.UI.Windows.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
@@ -15,13 +15,13 @@ namespace Hybrsoft.EnterpriseManager.Views
 		}
 
 		#region Item
-		public RolePermissionDto Item
+		public RolePermissionModel Item
 		{
-			get { return (RolePermissionDto)GetValue(ItemProperty); }
+			get { return (RolePermissionModel)GetValue(ItemProperty); }
 			set { SetValue(ItemProperty, value); }
 		}
 
-		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register(nameof(Item), typeof(RolePermissionDto), typeof(RolePermissionCard), new PropertyMetadata(null));
+		public static readonly DependencyProperty ItemProperty = DependencyProperty.Register(nameof(Item), typeof(RolePermissionModel), typeof(RolePermissionCard), new PropertyMetadata(null));
 		#endregion
 	}
 }

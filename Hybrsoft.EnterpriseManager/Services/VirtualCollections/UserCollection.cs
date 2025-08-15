@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Common.VirtualCollection;
@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services.VirtualCollections
 {
-	public partial class UserCollection(IUserService userService, ILogService logService) : VirtualCollection<UserDto>(logService)
+	public partial class UserCollection(IUserService userService, ILogService logService) : VirtualCollection<UserModel>(logService)
 	{
 		private DataRequest<User> _dataRequest = null;
 
 		public IUserService UserService { get; } = userService;
 
-		private readonly UserDto _defaultItem = UserDto.CreateEmpty();
-		protected override UserDto DefaultItem => _defaultItem;
+		private readonly UserModel _defaultItem = UserModel.CreateEmpty();
+		protected override UserModel DefaultItem => _defaultItem;
 
 		public async Task LoadAsync(DataRequest<User> dataRequest)
 		{
@@ -34,7 +34,7 @@ namespace Hybrsoft.EnterpriseManager.Services.VirtualCollections
 			}
 		}
 
-		protected override async Task<IList<UserDto>> FetchDataAsync(int rangeIndex, int rangeSize)
+		protected override async Task<IList<UserModel>> FetchDataAsync(int rangeIndex, int rangeSize)
 		{
 			try
 			{

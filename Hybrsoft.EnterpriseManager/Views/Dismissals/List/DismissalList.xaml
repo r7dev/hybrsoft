@@ -6,13 +6,13 @@
 	xmlns:local="using:Hybrsoft.EnterpriseManager.Views"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:models="using:Hybrsoft.UI.Windows.Dtos"
+	xmlns:models="using:Hybrsoft.UI.Windows.Models"
 	xmlns:controls="using:Hybrsoft.EnterpriseManager.Controls"
 	mc:Ignorable="d">
 
 	<UserControl.Resources>
 		<x:Double x:Key="CardPictureRadius">38</x:Double>
-		<DataTemplate x:Key="ItemTemplate" x:DataType="models:DismissalDto">
+		<DataTemplate x:Key="ItemTemplate" x:DataType="models:DismissalModel">
 			<Grid BorderThickness="1" BorderBrush="Gainsboro" Background="White">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="10*"/>

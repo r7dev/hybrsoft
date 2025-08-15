@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using Hybrsoft.UI.Windows.Interfaces;
@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class CompanyUserListViewModel(ICompanyUserService companyUserService, ICommonServices commonServices) : GenericListViewModel<CompanyUserDto>(commonServices)
+	public partial class CompanyUserListViewModel(ICompanyUserService companyUserService, ICommonServices commonServices) : GenericListViewModel<CompanyUserModel>(commonServices)
 	{
 		public ICompanyUserService CompanyUserService { get; } = companyUserService;
 
@@ -108,7 +108,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return isOk;
 		}
 
-		private async Task<IList<CompanyUserDto>> GetItemsAsync()
+		private async Task<IList<CompanyUserModel>> GetItemsAsync()
 		{
 			if (!ViewModelArgs.IsEmpty)
 			{
@@ -215,7 +215,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return _hasEditorPermission;
 		}
 
-		private async Task DeleteItemsAsync(IEnumerable<CompanyUserDto> models)
+		private async Task DeleteItemsAsync(IEnumerable<CompanyUserModel> models)
 		{
 			foreach (var model in models)
 			{
@@ -228,7 +228,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			DataRequest<CompanyUser> request = BuildDataRequest();
 
-			List<CompanyUserDto> models = [];
+			List<CompanyUserModel> models = [];
 			foreach (var range in ranges)
 			{
 				var items = await CompanyUserService.GetCompanyUsersAsync(range.Index, range.Length, request);
@@ -259,7 +259,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return request;
 		}
 
-		private void LogWarning(CompanyUserDto model)
+		private void LogWarning(CompanyUserModel model)
 		{
 			LogWarning("CompanyUser", "Delete", "Company User deleted", $"Company User #{model.CompanyID}, '{model.User.FullName}' was deleted.");
 		}

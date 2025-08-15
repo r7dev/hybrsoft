@@ -1,4 +1,4 @@
-using Hybrsoft.UI.Windows.Dtos;
+using Hybrsoft.UI.Windows.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
@@ -15,12 +15,12 @@ public sealed partial class StudentRelativeCard : UserControl
 	}
 
 	#region Item
-	public StudentRelativeDto Item
+	public StudentRelativeModel Item
 	{
-		get { return (StudentRelativeDto)GetValue(ItemProperty); }
+		get { return (StudentRelativeModel)GetValue(ItemProperty); }
 		set { SetValue(ItemProperty, value); }
 	}
 
-	public static readonly DependencyProperty ItemProperty = DependencyProperty.Register(nameof(Item), typeof(StudentRelativeDto), typeof(StudentRelativeCard), new PropertyMetadata(null));
+	public static readonly DependencyProperty ItemProperty = DependencyProperty.Register(nameof(Item), typeof(StudentRelativeModel), typeof(StudentRelativeCard), new PropertyMetadata(null));
 	#endregion
 }

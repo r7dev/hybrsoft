@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Hybrsoft.DTOs;
 using Hybrsoft.EnterpriseManager.Configuration;
@@ -25,7 +25,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		public ISettingsService SettingsService { get; } = settingsService;
 		public ILogService LogService { get; } = logService;
 
-		public async Task<LicenseResponse> ActivateSubscriptionOnlineAsync(LicenseActivationDto license)
+		public async Task<LicenseResponse> ActivateSubscriptionOnlineAsync(LicenseActivationModel license)
 		{
 			try
 			{

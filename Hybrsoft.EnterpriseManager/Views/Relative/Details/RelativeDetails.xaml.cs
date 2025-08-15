@@ -1,4 +1,4 @@
-using Hybrsoft.UI.Windows.Dtos;
+using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.ViewModels;
 using Hybrsoft.EnterpriseManager.Extensions;
 using Microsoft.UI.Xaml;
@@ -35,7 +35,7 @@ namespace Hybrsoft.EnterpriseManager.Views
 		{
 			if (sender is ComboBox comboBox)
 			{
-				if (comboBox.SelectedItem != null && comboBox.SelectedItem is RelativeTypeDto model)
+				if (comboBox.SelectedItem != null && comboBox.SelectedItem is RelativeTypeModel model)
 				{
 					ViewModel.RelativeTypeSelectedCommand?.TryExecute(model);
 				}

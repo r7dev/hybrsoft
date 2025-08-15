@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Common.VirtualCollection;
 using Hybrsoft.Infrastructure.Common;
@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 {
-	public partial class LogCollection(ILogService logService) : VirtualCollection<AppLogDto>(logService)
+	public partial class LogCollection(ILogService logService) : VirtualCollection<AppLogModel>(logService)
 	{
 		private DataRequest<AppLog> _dataRequest = null;
 
-		private readonly AppLogDto _defaultItem = AppLogDto.CreateEmpty();
-		protected override AppLogDto DefaultItem => _defaultItem;
+		private readonly AppLogModel _defaultItem = AppLogModel.CreateEmpty();
+		protected override AppLogModel DefaultItem => _defaultItem;
 
 		public async Task LoadAsync(DataRequest<AppLog> dataRequest)
 		{
@@ -31,7 +31,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 			}
 		}
 
-		protected override async Task<IList<AppLogDto>> FetchDataAsync(int rangeIndex, int rangeSize)
+		protected override async Task<IList<AppLogModel>> FetchDataAsync(int rangeIndex, int rangeSize)
 		{
 			try
 			{

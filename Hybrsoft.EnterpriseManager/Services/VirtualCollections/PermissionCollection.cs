@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Common.VirtualCollection;
@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services.VirtualCollections
 {
-	public partial class PermissionCollection(IPermissionService permissionService, ILogService logService) : VirtualCollection<PermissionDto>(logService)
+	public partial class PermissionCollection(IPermissionService permissionService, ILogService logService) : VirtualCollection<PermissionModel>(logService)
 	{
 		private DataRequest<Permission> _dataRequest = null;
 
 		public IPermissionService PermissionService { get; } = permissionService;
 
-		private readonly PermissionDto _defaultItem = PermissionDto.CreateEmpty();
-		protected override PermissionDto DefaultItem => _defaultItem;
+		private readonly PermissionModel _defaultItem = PermissionModel.CreateEmpty();
+		protected override PermissionModel DefaultItem => _defaultItem;
 
 		public async Task LoadAsync(DataRequest<Permission> dataRequest)
 		{
@@ -34,7 +34,7 @@ namespace Hybrsoft.EnterpriseManager.Services.VirtualCollections
 			}
 		}
 
-		protected override async Task<IList<PermissionDto>> FetchDataAsync(int rangeIndex, int rangeSize)
+		protected override async Task<IList<PermissionModel>> FetchDataAsync(int rangeIndex, int rangeSize)
 		{
 			try
 			{

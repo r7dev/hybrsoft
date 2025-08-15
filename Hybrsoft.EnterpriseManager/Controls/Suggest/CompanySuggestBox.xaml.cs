@@ -1,4 +1,4 @@
-using Hybrsoft.UI.Windows.Dtos;
+using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.EnterpriseManager.Extensions;
@@ -40,13 +40,13 @@ public sealed partial class CompanySuggestBox : UserControl
 	#endregion
 
 	#region Items
-	public IList<CompanyDto> Items
+	public IList<CompanyModel> Items
 	{
-		get { return (IList<CompanyDto>)GetValue(ItemsProperty); }
+		get { return (IList<CompanyModel>)GetValue(ItemsProperty); }
 		set { SetValue(ItemsProperty, value); }
 	}
 
-	public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register(nameof(Items), typeof(IList<CompanyDto>), typeof(CompanySuggestBox), new PropertyMetadata(null));
+	public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register(nameof(Items), typeof(IList<CompanyModel>), typeof(CompanySuggestBox), new PropertyMetadata(null));
 	#endregion
 
 	#region DisplayText
@@ -102,7 +102,7 @@ public sealed partial class CompanySuggestBox : UserControl
 		}
 	}
 
-	private async Task<IList<CompanyDto>> GetItems(string query)
+	private async Task<IList<CompanyModel>> GetItems(string query)
 	{
 		var request = new DataRequest<Company>()
 		{

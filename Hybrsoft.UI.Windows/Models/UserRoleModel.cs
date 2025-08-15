@@ -1,35 +1,38 @@
 ﻿using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using System;
 
-namespace Hybrsoft.UI.Windows.Dtos
+namespace Hybrsoft.UI.Windows.Models
 {
-	public partial class RoleDto : ObservableObject
+	public partial class UserRoleModel : ObservableObject
 	{
-		static public RoleDto CreateEmpty() => new() { RoleID = -1, IsEmpty = true };
+		public long UserRoleID { get; set; }
 
+		public long UserID { get; set; }
 		public long RoleID { get; set; }
-
-		public string Name { get; set; }
 
 		public DateTimeOffset CreatedOn { get; set; }
 		public DateTimeOffset? LastModifiedOn { get; set; }
 
-		public bool IsNew => RoleID <= 0;
+		public RoleModel Role { get; set; }
+
+		public bool IsNew => UserRoleID <= 0;
 
 		public override void Merge(ObservableObject source)
 		{
-			if (source is RoleDto model)
+			if (source is UserRoleModel model)
 			{
 				Merge(model);
 			}
 		}
 
-		public void Merge(RoleDto source)
+		public void Merge(UserRoleModel source)
 		{
 			if (source != null)
 			{
+				UserRoleID = source.UserRoleID;
+				UserID = source.UserID;
 				RoleID = source.RoleID;
-				Name = source.Name;
+				Role = source.Role;
 				CreatedOn = source.CreatedOn;
 				LastModifiedOn = source.LastModifiedOn;
 			}

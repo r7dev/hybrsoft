@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
@@ -17,16 +17,16 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		IStudentService studentService,
 		IStudentRelativeService studentRelativeService,
 		IClassroomService classroomService,
-		ICommonServices commonServices) : GenericDetailsViewModel<DismissalDto>(commonServices)
+		ICommonServices commonServices) : GenericDetailsViewModel<DismissalModel>(commonServices)
 	{
 		public IDismissalService DismissalService { get; } = dismissalService;
 		public IStudentService StudentService { get; } = studentService;
 		public IStudentRelativeService StudentRelativeService { get; } = studentRelativeService;
 		public IClassroomService ClassroomService { get; } = classroomService;
 
-		public IList<RelativeDto> Relatives { get; set; } = [];
-		public ICommand RelativeSelectedCommand => new RelayCommand<RelativeDto>(RelativeSelected);
-		private void RelativeSelected(RelativeDto relative)
+		public IList<RelativeModel> Relatives { get; set; } = [];
+		public ICommand RelativeSelectedCommand => new RelayCommand<RelativeModel>(RelativeSelected);
+		private void RelativeSelected(RelativeModel relative)
 		{
 			EditableItem.RelativeID = relative?.RelativeID ?? 0;
 			EditableItem.Relative = relative;
@@ -70,7 +70,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 			if (ViewModelArgs.IsNew)
 			{
-				Item = new DismissalDto() { ClassroomID = ViewModelArgs.ClassroomID, StudentID = ViewModelArgs.StudentID };
+				Item = new DismissalModel() { ClassroomID = ViewModelArgs.ClassroomID, StudentID = ViewModelArgs.StudentID };
 				var student = await StudentService.GetStudentAsync(Item.StudentID);
 				if (student is not null)
 				{
@@ -96,7 +96,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				try
 				{
 					var item = await DismissalService.GetDismissalAsync(ViewModelArgs.DismissalID);
-					Item = item ?? new DismissalDto { DismissalID = ViewModelArgs.DismissalID, IsEmpty = true };
+					Item = item ?? new DismissalModel { DismissalID = ViewModelArgs.DismissalID, IsEmpty = true };
 				}
 				catch (Exception ex)
 				{
@@ -112,7 +112,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public void Subscribe()
 		{
-			MessageService.Subscribe<DismissalDetailsViewModel, DismissalDto>(this, OnDetailsMessage);
+			MessageService.Subscribe<DismissalDetailsViewModel, DismissalModel>(this, OnDetailsMessage);
 		}
 
 		public void Unsubscribe()
@@ -120,7 +120,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			MessageService.Unsubscribe(this);
 		}
 
-		protected override async Task<bool> SaveItemAsync(DismissalDto model)
+		protected override async Task<bool> SaveItemAsync(DismissalModel model)
 		{
 			try
 			{
@@ -145,7 +145,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		protected override async Task<bool> DeleteItemAsync(DismissalDto model)
+		protected override async Task<bool> DeleteItemAsync(DismissalModel model)
 		{
 			await Task.CompletedTask;
 			throw new NotImplementedException("DeleteItemAsync is not implemented for DismissalDetailsViewModel.");
@@ -157,18 +157,18 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			throw new NotImplementedException("ConfirmDeleteAsync is not implemented for DismissalDetailsViewModel.");
 		}
 
-		override protected IEnumerable<IValidationConstraint<DismissalDto>> GetValidationConstraints(DismissalDto model)
+		override protected IEnumerable<IValidationConstraint<DismissalModel>> GetValidationConstraints(DismissalModel model)
 		{
 			string resourceKeyForRelative = string.Concat(nameof(DismissalDetailsViewModel), "_PropertyRelative");
 			string propertyRelative = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForRelative);
-			var requiredRelative = new RequiredGreaterThanZeroConstraint<DismissalDto>(propertyRelative, m => m.RelativeID);
+			var requiredRelative = new RequiredGreaterThanZeroConstraint<DismissalModel>(propertyRelative, m => m.RelativeID);
 			requiredRelative.SetResourceService(ResourceService);
 
 			yield return requiredRelative;
 		}
 
 		#region Handle external messages
-		private async void OnDetailsMessage(DismissalDetailsViewModel sender, string message, DismissalDto changed)
+		private async void OnDetailsMessage(DismissalDetailsViewModel sender, string message, DismissalModel changed)
 		{
 			var current = Item;
 			if (current != null)
@@ -183,7 +183,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 								try
 								{
 									var item = await DismissalService.GetDismissalAsync(current.DismissalID);
-									item ??= new DismissalDto { DismissalID = current.DismissalID, IsEmpty = true };
+									item ??= new DismissalModel { DismissalID = current.DismissalID, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
 									NotifyPropertyChanged(nameof(Title));

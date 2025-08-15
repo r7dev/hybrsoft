@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
@@ -16,12 +16,12 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public ILogService LogService { get; } = logService;
 		public IResourceService ResourceService { get; } = resourceService;
 
-		public IList<CountryDto> Countries { get; private set; }
-		public IList<ScheduleTypeDto> ScheduleTypes { get; private set; }
-		public IList<SubscriptionPlanDto> SubscriptionPlans { get; private set; }
-		public IList<SubscriptionStatusDto> SubscriptionStatuses { get; private set; }
-		public IList<SubscriptionTypeDto> SubscriptionTypes { get; private set; }
-		public IList<RelativeTypeDto> RelativeTypes { get; private set; }
+		public IList<CountryModel> Countries { get; private set; }
+		public IList<ScheduleTypeModel> ScheduleTypes { get; private set; }
+		public IList<SubscriptionPlanModel> SubscriptionPlans { get; private set; }
+		public IList<SubscriptionStatusModel> SubscriptionStatuses { get; private set; }
+		public IList<SubscriptionTypeModel> SubscriptionTypes { get; private set; }
+		public IList<RelativeTypeModel> RelativeTypes { get; private set; }
 
 		public async Task InitializeAsync()
 		{
@@ -42,13 +42,13 @@ namespace Hybrsoft.EnterpriseManager.Services
 				.FirstOrDefault();
 		}
 
-		private async Task<IList<CountryDto>> GetCountriesAsync()
+		private async Task<IList<CountryModel>> GetCountriesAsync()
 		{
 			try
 			{
 				using var dataService = DataServiceFactory.CreateDataService();
 				var items = await dataService.GetCountriesAsync();
-				return [.. items.Select(r => new CountryDto
+				return [.. items.Select(r => new CountryModel
 				{
 					CountryID = r.CountryID,
 					Name = string.IsNullOrEmpty(r.Uid) ? r.Name : ResourceService.GetString(nameof(ResourceFiles.UI), r.Uid),
@@ -70,13 +70,13 @@ namespace Hybrsoft.EnterpriseManager.Services
 				.FirstOrDefault();
 		}
 
-		private async Task<IList<ScheduleTypeDto>> GetScheduleTypesAsync()
+		private async Task<IList<ScheduleTypeModel>> GetScheduleTypesAsync()
 		{
 			try
 			{
 				using var dataService = DataServiceFactory.CreateDataService();
 				var items = await dataService.GetScheduleTypesAsync();
-				return [.. items.Select(r => new ScheduleTypeDto
+				return [.. items.Select(r => new ScheduleTypeModel
 				{
 					ScheduleTypeID = r.ScheduleTypeID,
 					Name = string.IsNullOrEmpty(r.Uid) ? r.Name : ResourceService.GetString(nameof(ResourceFiles.UI), r.Uid),
@@ -98,13 +98,13 @@ namespace Hybrsoft.EnterpriseManager.Services
 				.FirstOrDefault();
 		}
 
-		private async Task<IList<SubscriptionPlanDto>> GetSubscriptionPlansAsync()
+		private async Task<IList<SubscriptionPlanModel>> GetSubscriptionPlansAsync()
 		{
 			try
 			{
 				using var dataService = DataServiceFactory.CreateDataService();
 				var items = await dataService.GetSubscriptionPlansAsync();
-				return [.. items.Select(r => new SubscriptionPlanDto
+				return [.. items.Select(r => new SubscriptionPlanModel
 				{
 					SubscriptionPlanID = r.SubscriptionPlanID,
 					Name = string.IsNullOrEmpty(r.Uid) ? r.Name : ResourceService.GetString(nameof(ResourceFiles.UI), r.Uid),
@@ -125,22 +125,22 @@ namespace Hybrsoft.EnterpriseManager.Services
 				.FirstOrDefault();
 		}
 
-		private async Task<IList<SubscriptionStatusDto>> GetSubscriptionStatusesAsync()
+		private async Task<IList<SubscriptionStatusModel>> GetSubscriptionStatusesAsync()
 		{
 			await Task.CompletedTask;
 			return [.. Enum.GetValues<SubscriptionStatus>()
-				.Select(r => new SubscriptionStatusDto
+				.Select(r => new SubscriptionStatusModel
 				{
 					SubscriptionStatusID = (short)r,
 					DisplayName = ResourceService.GetString(nameof(ResourceFiles.UI), $"SubscriptionStatus_{r}")
 				})];
 		}
 
-		private static async Task<IList<SubscriptionTypeDto>> GetSubscriptionTypesAsync()
+		private static async Task<IList<SubscriptionTypeModel>> GetSubscriptionTypesAsync()
 		{
 			await Task.CompletedTask;
 			return [.. Enum.GetValues<SubscriptionType>()
-				.Select(r => new SubscriptionTypeDto
+				.Select(r => new SubscriptionTypeModel
 				{
 					SubscriptionTypeID = (short)r,
 					DisplayName = r.ToString()
@@ -156,13 +156,13 @@ namespace Hybrsoft.EnterpriseManager.Services
 				.FirstOrDefault();
 		}
 
-		private async Task<IList<RelativeTypeDto>> GetRelativeTypesAsync()
+		private async Task<IList<RelativeTypeModel>> GetRelativeTypesAsync()
 		{
 			try
 			{
 				using var dataService = DataServiceFactory.CreateDataService();
 				var items = await dataService.GetRelativeTypesAsync();
-				return [.. items.Select(r => new RelativeTypeDto
+				return [.. items.Select(r => new RelativeTypeModel
 				{
 					RelativeTypeID = r.RelativeTypeID,
 					Name = string.IsNullOrEmpty(r.Uid) ? r.Name : ResourceService.GetString(nameof(ResourceFiles.UI), r.Uid),

@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using Hybrsoft.UI.Windows.Interfaces;
@@ -14,7 +14,7 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class UserRoleListViewModel(IUserRoleService userRoleService, ICommonServices commonServices) : GenericListViewModel<UserRoleDto>(commonServices)
+	public partial class UserRoleListViewModel(IUserRoleService userRoleService, ICommonServices commonServices) : GenericListViewModel<UserRoleModel>(commonServices)
 	{
 		public IUserRoleService UserRoleService { get; } = userRoleService;
 
@@ -105,7 +105,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return isOk;
 		}
 
-		private async Task<IList<UserRoleDto>> GetItemsAsync()
+		private async Task<IList<UserRoleModel>> GetItemsAsync()
 		{
 			if (!ViewModelArgs.IsEmpty)
 			{
@@ -202,7 +202,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		private async Task DeleteItemsAsync(IEnumerable<UserRoleDto> models)
+		private async Task DeleteItemsAsync(IEnumerable<UserRoleModel> models)
 		{
 			foreach (var model in models)
 			{
@@ -215,7 +215,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			DataRequest<UserRole> request = BuildDataRequest();
 
-			List<UserRoleDto> models = [];
+			List<UserRoleModel> models = [];
 			foreach (var range in ranges)
 			{
 				var items = await UserRoleService.GetUserRolesAsync(range.Index, range.Length, request);
@@ -246,7 +246,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return request;
 		}
 
-		private void LogWarning(UserRoleDto model)
+		private void LogWarning(UserRoleModel model)
 		{
 			LogWarning("UserRole", "Delete", "User Role deleted", $"User Role #{model.UserID}, '{model.Role.Name}' was deleted.");
 		}

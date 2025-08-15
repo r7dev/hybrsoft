@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Dtos;
+﻿using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using Hybrsoft.UI.Windows.Interfaces;
 using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
@@ -34,7 +34,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public void Subscribe()
 		{
-			MessageService.Subscribe<StudentDetailsViewModel, StudentDto>(this, OnMessage);
+			MessageService.Subscribe<StudentDetailsViewModel, StudentModel>(this, OnMessage);
 			StudentDetails.Subscribe();
 			StudentRelativeList.Subscribe();
 		}
@@ -46,7 +46,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			StudentRelativeList.Unsubscribe();
 		}
 
-		private async void OnMessage(StudentDetailsViewModel viewModel, string message, StudentDto student)
+		private async void OnMessage(StudentDetailsViewModel viewModel, string message, StudentModel student)
 		{
 			if (viewModel == StudentDetails && (message == "NewItemSaved" || message == "ItemChanged"))
 			{
