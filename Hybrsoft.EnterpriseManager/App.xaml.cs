@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
+﻿using Hybrsoft.UI.Windows.Services;
 using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.EnterpriseManager.Extensions;
 using Hybrsoft.EnterpriseManager.Views.SplashScreen;

@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
+﻿using Hybrsoft.UI.Windows.Services;
 
 namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 {

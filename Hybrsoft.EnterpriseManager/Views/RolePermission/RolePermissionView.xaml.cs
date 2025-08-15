@@ -1,6 +1,6 @@
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
-using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
+using Hybrsoft.UI.Windows.Services;
 using Hybrsoft.UI.Windows.ViewModels;
 using Hybrsoft.EnterpriseManager.Configuration;
 using System.Threading.Tasks;

@@ -1,6 +1,5 @@
 ﻿using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
-using Hybrsoft.UI.Windows.Interfaces;
-using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
+using Hybrsoft.UI.Windows.Services;
 using System.Threading.Tasks;
 
 namespace Hybrsoft.UI.Windows.ViewModels

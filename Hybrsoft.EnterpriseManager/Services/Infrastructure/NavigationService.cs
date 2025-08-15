@@ -1,5 +1,5 @@
 ﻿using Hybrsoft.UI.Windows.Models;
-using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
+using Hybrsoft.UI.Windows.Services;
 using Hybrsoft.UI.Windows.ViewModels;
 using Hybrsoft.EnterpriseManager.Extensions;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;

@@ -1,4 +1,4 @@
-﻿using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
+﻿using Hybrsoft.UI.Windows.Services;
 using Microsoft.UI.Dispatching;
 using System;
 using System.Threading.Tasks;

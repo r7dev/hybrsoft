@@ -1,5 +1,5 @@
 ﻿using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
-using Hybrsoft.UI.Windows.Interfaces;
+using Hybrsoft.UI.Windows.Services;
 using Hybrsoft.Enums;
 using System;
 

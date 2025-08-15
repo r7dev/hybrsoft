@@ -1,4 +1,4 @@
-﻿namespace Hybrsoft.UI.Windows.Interfaces.Infrastructure
+﻿namespace Hybrsoft.UI.Windows.Services
 {
 	public interface ICommonServices
 	{

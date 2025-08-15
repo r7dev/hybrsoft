@@ -4,7 +4,7 @@ using Hybrsoft.Infrastructure.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Hybrsoft.UI.Windows.Interfaces
+namespace Hybrsoft.UI.Windows.Services
 {
 	public interface IClassroomStudentService
 	{

@@ -1,5 +1,5 @@
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
-using Hybrsoft.UI.Windows.Interfaces.Infrastructure; //Used with SKIP_LOGIN
+using Hybrsoft.UI.Windows.Services; //Used with SKIP_LOGIN
 using Hybrsoft.UI.Windows.ViewModels;
 using Hybrsoft.EnterpriseManager.Configuration; //Used with SKIP_LOGIN
 using Hybrsoft.EnterpriseManager.Extensions;

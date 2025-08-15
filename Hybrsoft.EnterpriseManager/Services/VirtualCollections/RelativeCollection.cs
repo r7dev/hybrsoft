@@ -1,6 +1,5 @@
 ﻿using Hybrsoft.UI.Windows.Models;
-using Hybrsoft.UI.Windows.Interfaces;
-using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
+using Hybrsoft.UI.Windows.Services;
 using Hybrsoft.EnterpriseManager.Common.VirtualCollection;
 using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.Models;

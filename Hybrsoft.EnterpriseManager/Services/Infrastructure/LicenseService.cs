@@ -1,5 +1,5 @@
 ﻿using Hybrsoft.UI.Windows.Models;
-using Hybrsoft.UI.Windows.Interfaces.Infrastructure;
+using Hybrsoft.UI.Windows.Services;
 using Hybrsoft.DTOs;
 using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.Enums;

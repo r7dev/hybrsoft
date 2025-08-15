@@ -3,7 +3,7 @@ using Microsoft.Windows.ApplicationModel.Resources;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Hybrsoft.UI.Windows.Interfaces.Infrastructure
+namespace Hybrsoft.UI.Windows.Services
 {
 	public interface IResourceService
 	{
