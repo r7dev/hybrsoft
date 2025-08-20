@@ -3,6 +3,7 @@ using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.Enums;
 using System;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Windows.Networking.Connectivity;
 
@@ -32,7 +33,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			}
 		}
 
-		public HttpClient GetHttpClient()
+		public HttpClient GetHttpClient(string jwtToken = null)
 		{
 			try
 			{
@@ -40,6 +41,8 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 				{
 					_httpClient.BaseAddress = new Uri(AppConfig.ApiBaseUrl);
 				}
+				_httpClient.DefaultRequestHeaders.Authorization = string.IsNullOrEmpty(jwtToken) ? null : new AuthenticationHeaderValue("Bearer", jwtToken);
+
 				return _httpClient;
 			}
 			catch (Exception ex)

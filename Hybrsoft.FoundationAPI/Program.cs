@@ -1,5 +1,8 @@
 using Hybrsoft.FoundationAPI.Configuration;
 using Hybrsoft.FoundationAPI.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +17,34 @@ builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSet
 // Register custom services
 builder.Services.Configure();
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+.AddJwtBearer(options =>
+{
+	options.TokenValidationParameters = new TokenValidationParameters
+	{
+		ValidateIssuerSigningKey = true,
+		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
+		ValidateIssuer = false,
+		ValidateAudience = false,
+		ValidateLifetime = true
+	};
+	options.Events = new JwtBearerEvents
+	{
+		OnAuthenticationFailed = context =>
+		{
+			Console.WriteLine("Token inválido: " + context.Exception.Message);
+			return Task.CompletedTask;
+		},
+		OnTokenValidated = context =>
+		{
+			Console.WriteLine("Token validado com sucesso.");
+			return Task.CompletedTask;
+		}
+	};
+});
+// Add Authorization
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -24,6 +55,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

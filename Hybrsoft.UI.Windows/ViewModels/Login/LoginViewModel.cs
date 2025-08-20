@@ -1,5 +1,7 @@
-﻿using Hybrsoft.UI.Windows.Infrastructure.Commom;
+﻿using Hybrsoft.Enums;
+using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
+using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Services;
 using System;
 using System.Threading.Tasks;
@@ -147,6 +149,12 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 			else
 			{
+				ViewModelArgs.Parameter = new LicenseActivationModel
+				{
+					Email = UserName,
+					Password = Password,
+					ProductType = AppType.EnterpriseManager
+				};
 				NavigationService.Navigate<LicenseActivationViewModel>(ViewModelArgs);
 			}
 		}
@@ -172,7 +180,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 			if (await NetworkService.IsInternetAvailableAsync())
 			{
-				var license = await LicenseService.ValidateSubscriptionOnlineAsync(UserName);
+				var license = await LicenseService.ValidateSubscriptionOnlineAsync(UserName, Password);
 				if (license.IsActivated)
 				{
 					LicenseService.SaveLicenseLocally(LicenseService.CreateSubscriptionInfoDto(license));

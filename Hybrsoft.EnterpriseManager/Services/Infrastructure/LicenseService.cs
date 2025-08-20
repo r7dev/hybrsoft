@@ -1,9 +1,10 @@
-﻿using Hybrsoft.UI.Windows.Models;
-using Hybrsoft.UI.Windows.Services;
-using Hybrsoft.DTOs;
+﻿using Hybrsoft.DTOs;
 using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.Enums;
+using Hybrsoft.UI.Windows.Models;
+using Hybrsoft.UI.Windows.Services;
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 {
 	public class LicenseService(
+		IUserService userService,
 		INetworkService networkService,
 		ISettingsService settingsService,
 		ILogService logService) : ILicenseService
@@ -20,7 +22,9 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		private const string _licenseData = "LicenseData";
 		private const string _lastLicenseSync = "LastLicenseSync";
 		private readonly JsonSerializerOptions _jsonOptions = new() { PropertyNameCaseInsensitive = true };
+		private string _jwtToken;
 
+		private IUserService _userService = userService;
 		public INetworkService NetworkService { get; } = networkService;
 		public ISettingsService SettingsService { get; } = settingsService;
 		public ILogService LogService { get; } = logService;
@@ -29,10 +33,16 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		{
 			try
 			{
-				var client = NetworkService.GetHttpClient();
+				_jwtToken = await AuthenticateAsync(license.Email, license.Password);
+				if (string.IsNullOrEmpty(_jwtToken))
+				{
+					return new LicenseResponse { IsActivated = false, Message = "Authentication failed." };
+				}
+
+				var client = NetworkService.GetHttpClient(_jwtToken);
 				var payload = new { license.Email, license.LicenseKey, ProductType = AppType.EnterpriseManager };
 				var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
-				var response = await client.PostAsync(AppConfig.ApiBaseUrl + "subscription/activate", content);
+				var response = await client.PostAsync(AppConfig.ApiBaseUrl + "/subscription/activate", content);
 				var json = await response.Content.ReadAsStringAsync();
 				return JsonSerializer.Deserialize<LicenseResponse>(json, _jsonOptions);
 			}
@@ -43,14 +53,20 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			}
 		}
 
-		public async Task<LicenseResponse> ValidateSubscriptionOnlineAsync(string email)
+		public async Task<LicenseResponse> ValidateSubscriptionOnlineAsync(string email, string password)
 		{
 			try
 			{
-				var client  = NetworkService.GetHttpClient();
+				_jwtToken = await AuthenticateAsync(email, password);
+				if (string.IsNullOrEmpty(_jwtToken))
+				{
+					return new LicenseResponse { IsActivated = false, Message = "Authentication failed." };
+				}
+
+				var client  = NetworkService.GetHttpClient(_jwtToken);
 				var payload = new { Email = email, ProductType = AppType.EnterpriseManager };
 				var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
-				var response = await client.PostAsync(AppConfig.ApiBaseUrl + "subscription/validate", content);
+				var response = await client.PostAsync(AppConfig.ApiBaseUrl + "/subscription/validate", content);
 				if (response.IsSuccessStatusCode)
 				{
 					var json = await response.Content.ReadAsStringAsync();
@@ -116,6 +132,56 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 				LicenseData = source.LicenseData,
 				Message = source.Message,
 			};
+		}
+
+		private async Task<string> AuthenticateAsync(string email, string password)
+		{
+			try
+			{
+				if (IsTokenValid())
+				{
+					return AppSettings.Current.JwtToken;
+				}
+
+				bool isPasswordEncrypted = false;
+				if (string.IsNullOrEmpty(password))
+				{
+					var user = await _userService.GetUserByEmailAsync(email, true);
+					var parts = user?.Password?.Split('-');
+					password = parts?.Length > 1 ? parts[0] : user?.Password;
+					isPasswordEncrypted = true;
+				}
+
+				var client = NetworkService.GetHttpClient();
+				var payload = new
+				{
+					Username = email,
+					Password = password,
+					IsEncrypted = isPasswordEncrypted
+				};
+				var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
+				var response = await client.PostAsync(AppConfig.ApiBaseUrl + "/auth/login", content);
+				var json = await response.Content.ReadAsStringAsync();
+				var result = JsonSerializer.Deserialize<AuthenticateResponse>(json, _jsonOptions);
+
+				AppSettings.Current.JwtToken = result?.Token;
+				var handler = new JwtSecurityTokenHandler();
+				var jwt = handler.ReadJwtToken(result?.Token);
+				AppSettings.Current.JwtTokenExpiration = jwt.ValidTo.ToLocalTime();
+
+				return result?.Token;
+			}
+			catch (Exception ex)
+			{
+				await LogService.WriteAsync(LogType.Error, "License", "Authenticate", ex.Message, ex.ToString());
+				return null;
+			}
+		}
+
+		private static bool IsTokenValid()
+		{
+			return !string.IsNullOrEmpty(AppSettings.Current.JwtToken)
+				&& AppSettings.Current.JwtTokenExpiration > DateTime.Now;
 		}
 	}
 }

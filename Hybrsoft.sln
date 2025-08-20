@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hybrsoft.DTOs", "Hybrsoft.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hybrsoft.Enums", "Hybrsoft.Enums\Hybrsoft.Enums.csproj", "{BF1DFB8D-9B11-4D77-A644-5288AD190707}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hybrsoft.Domain", "Hybrsoft.Domain\Hybrsoft.Domain.csproj", "{9B05E915-1159-4577-A7FC-A33142DA65A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -160,6 +162,22 @@ Global
 		{BF1DFB8D-9B11-4D77-A644-5288AD190707}.Release|x64.Build.0 = Release|Any CPU
 		{BF1DFB8D-9B11-4D77-A644-5288AD190707}.Release|x86.ActiveCfg = Release|Any CPU
 		{BF1DFB8D-9B11-4D77-A644-5288AD190707}.Release|x86.Build.0 = Release|Any CPU
+		{9B05E915-1159-4577-A7FC-A33142DA65A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B05E915-1159-4577-A7FC-A33142DA65A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B05E915-1159-4577-A7FC-A33142DA65A8}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{9B05E915-1159-4577-A7FC-A33142DA65A8}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{9B05E915-1159-4577-A7FC-A33142DA65A8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9B05E915-1159-4577-A7FC-A33142DA65A8}.Debug|x64.Build.0 = Debug|Any CPU
+		{9B05E915-1159-4577-A7FC-A33142DA65A8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9B05E915-1159-4577-A7FC-A33142DA65A8}.Debug|x86.Build.0 = Debug|Any CPU
+		{9B05E915-1159-4577-A7FC-A33142DA65A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B05E915-1159-4577-A7FC-A33142DA65A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B05E915-1159-4577-A7FC-A33142DA65A8}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{9B05E915-1159-4577-A7FC-A33142DA65A8}.Release|ARM64.Build.0 = Release|Any CPU
+		{9B05E915-1159-4577-A7FC-A33142DA65A8}.Release|x64.ActiveCfg = Release|Any CPU
+		{9B05E915-1159-4577-A7FC-A33142DA65A8}.Release|x64.Build.0 = Release|Any CPU
+		{9B05E915-1159-4577-A7FC-A33142DA65A8}.Release|x86.ActiveCfg = Release|Any CPU
+		{9B05E915-1159-4577-A7FC-A33142DA65A8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -97,12 +97,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				return;
 			}
 
-			LicenseActivationModel license = new()
-			{
-				Email = ViewModelArgs.UserInfo.AccountName,
-				LicenseKey = LicenseKey,
-				ProductType = AppType.EnterpriseManager
-			};
+			LicenseActivationModel license = (LicenseActivationModel)ViewModelArgs.Parameter;
+			license.LicenseKey = LicenseKey;
 			var response = await LicenseService.ActivateSubscriptionOnlineAsync(license);
 			await Task.Delay(200);
 

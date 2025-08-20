@@ -101,6 +101,26 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			set => SetSettingsValue(nameof(PasswordChar), value);
 		}
 
+		public string JwtToken
+		{
+			get
+			{
+				var encryptedData = GetSettingsValueAsync(nameof(JwtToken), EncryptData(default(string))).Result;
+				return DecryptData<string>(encryptedData);
+			}
+			set => SetSettingsValueAsync(nameof(JwtToken), EncryptData(value));
+		}
+
+		public DateTimeOffset JwtTokenExpiration
+		{
+			get
+			{
+				var encryptedData = GetSettingsValueAsync(nameof(JwtTokenExpiration), EncryptData(DateTimeOffset.MinValue)).Result;
+				return DecryptData<DateTimeOffset>(encryptedData);
+			}
+			set => SetSettingsValueAsync(nameof(JwtTokenExpiration), EncryptData(value));
+		}
+
 		private TResult GetSettingsValue<TResult>(string name, TResult defaultValue)
 		{
 			try

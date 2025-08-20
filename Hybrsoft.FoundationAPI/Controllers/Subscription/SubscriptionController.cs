@@ -1,17 +1,19 @@
 ﻿using Hybrsoft.DTOs;
 using Hybrsoft.FoundationAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hybrsoft.FoundationAPI.Controllers
 {
 	[ApiController]
-	[Route("[controller]")]
+	[Route("api/[controller]")]
 	public class SubscriptionController(ISubscriptionService subscriptionService) : ControllerBase
 	{
 		private readonly ISubscriptionService _subscriptionService = subscriptionService;
 
+		[Authorize]
 		[HttpPost("activate")]
-		public async Task<object> Activate([FromBody] ActivationRequest request)
+		public async Task<ActionResult<LicenseResponse>> Activate([FromBody] ActivationRequest request)
 		{
 			var subscription = await _subscriptionService.Activate(request.LicenseKey);
 			if (!subscription.IsActivated)
@@ -33,8 +35,9 @@ namespace Hybrsoft.FoundationAPI.Controllers
 			});
 		}
 
+		[Authorize]
 		[HttpPost("validate")]
-		public async Task<object> Validate([FromBody] ValidationRequest request)
+		public async Task<ActionResult<LicenseResponse>> Validate([FromBody] ValidationRequest request)
 		{
 			var subscription = await _subscriptionService.Validate(request.Email, request.ProductType);
 			if (!subscription.IsActivated)

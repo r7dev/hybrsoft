@@ -1,19 +1,31 @@
 @Hybrsoft.FoundationAPI_HostAddress = http://localhost:5244
+@Hybrsoft.FoundationAPI_HostAddressSecure = https://localhost:7288/api
+@Hybrsoft.Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6InJpY2FyZG8ubWFjaGFkb0BvdXRsb29rLmNvbS5iciIsIm5iZiI6MTc1NTM4NTE3NiwiZXhwIjoxNzU1Mzg4Nzc2LCJpYXQiOjE3NTUzODUxNzZ9.Sx0fI__hA6BM4vCUqSsYHcO-fN93vGpjVwLiX530L94
 
-POST {{Hybrsoft.FoundationAPI_HostAddress}}/subscription/activate
+POST {{Hybrsoft.FoundationAPI_HostAddress}}/auth/login
 Content-Type: application/json
 {
-  "Email": "ricardo.machado@outlook.com.br",
-  "LicenseKey": "7ELXO-IHPAI-KBUDQ-MBGOE-BDQ3V",
-  "ProductType": 0,
+  "Username": "ricardo.machado@outlook.com.br",
+  "Password": "F72BB7F1A193404C2E19A73BCD1F8F01DA011BDFA987A33D30D032F2C9B0F5F9",
+  "IsEncrypted": true
 }
 ###
 
-POST {{Hybrsoft.FoundationAPI_HostAddress}}/subscription/validate
+POST {{Hybrsoft.FoundationAPI_HostAddressSecure}}/subscription/activate
 Content-Type: application/json
+Authorization: Bearer {{Hybrsoft.Token}}
+{
+  "Email": "ricardo.machado@outlook.com.br",
+  "LicenseKey": "7ELXO-IHPAI-KBUDQ-MBGOE-BDQ3V",
+  "ProductType": 0
+}
+###
+
+POST {{Hybrsoft.FoundationAPI_HostAddressSecure}}/subscription/validate
+Content-Type: application/json
+Authorization: Bearer {{Hybrsoft.Token}}
 {
   "Email": "ricardo.machado@outlook.com.br",
   "ProductType": 0
 }
 ###
-

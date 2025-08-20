@@ -8,7 +8,7 @@ namespace Hybrsoft.UI.Windows.Services
 	{
 		Task<LicenseResponse> ActivateSubscriptionOnlineAsync(LicenseActivationModel license);
 
-		Task<LicenseResponse> ValidateSubscriptionOnlineAsync(string email);
+		Task<LicenseResponse> ValidateSubscriptionOnlineAsync(string email, string password);
 		void SaveLicenseLocally(SubscriptionInfoDto model);
 		Task<bool> IsLicenseValidOfflineAsync();
 

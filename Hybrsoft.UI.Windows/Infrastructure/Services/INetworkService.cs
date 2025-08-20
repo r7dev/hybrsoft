@@ -6,6 +6,6 @@ namespace Hybrsoft.UI.Windows.Services
 	public interface INetworkService
 	{
 		Task<bool> IsInternetAvailableAsync();
-		HttpClient GetHttpClient();
+		HttpClient GetHttpClient(string jwtToken = null);
 	}
 }
