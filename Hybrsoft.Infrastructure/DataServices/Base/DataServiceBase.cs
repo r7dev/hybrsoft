@@ -21,12 +21,21 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 				.AsNoTracking()];
 		}
 
-		public bool HasPermission(long userID, string permissionName)
+		public async Task<IList<Permission>> GetPermissionsByUserAsync(long userID)
 		{
-			return _universalDataSource.UserRoles
+			var records = await _universalDataSource.UserRoles
 				.Join(_universalDataSource.RolePermissions, ur => ur.RoleID, rp => rp.RoleID, (ur, rp) => new { ur, rp })
 				.Join(_universalDataSource.Permissions, urrp => urrp.rp.PermissionID, p => p.PermissionID, (urrp, p) => new { urrp.ur, urrp.rp, p })
-				.Any(x => x.ur.UserID == userID && x.p.Name == permissionName);
+				.Where(x => x.ur.UserID == userID)
+				.Select(x => new Permission
+				{
+					PermissionID = x.p.PermissionID,
+					Name = x.p.Name
+				})
+				.AsNoTracking()
+				.ToListAsync();
+
+			return records;
 		}
 
 		public async Task<IList<Country>> GetCountriesAsync()

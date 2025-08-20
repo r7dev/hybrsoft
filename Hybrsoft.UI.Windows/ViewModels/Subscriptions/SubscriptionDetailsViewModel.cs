@@ -51,7 +51,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		public async Task LoadAsync(SubscriptionDetailsArgs args)
 		{
 			ViewModelArgs = args ?? SubscriptionDetailsArgs.CreateDefault();
-			_hasEditorPermission = UserPermissionService.HasPermission(Permissions.SubscriptionEditor);
+			_hasEditorPermission = AuthorizationService.HasPermission(Permissions.SubscriptionEditor);
 
 			if (ViewModelArgs.IsNew)
 			{

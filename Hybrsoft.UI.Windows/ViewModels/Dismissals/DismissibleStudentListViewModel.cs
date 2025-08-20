@@ -26,7 +26,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			ViewModelArgs = args ?? DismissibleStudentListArgs.CreateEmpty();
 			Query = ViewModelArgs.Query;
-			HasPermissionToItemInvoke = UserPermissionService.HasPermission(Permissions.DismissibleStudentsRequester);
+			HasPermissionToItemInvoke = AuthorizationService.HasPermission(Permissions.DismissibleStudentsRequester);
 
 			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(DismissibleStudentListViewModel), "_LoadingDismissibleStudents"));
 			StartStatusMessage(startMessage);

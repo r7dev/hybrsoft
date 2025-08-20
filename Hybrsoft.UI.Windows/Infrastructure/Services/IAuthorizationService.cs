@@ -2,7 +2,7 @@
 
 namespace Hybrsoft.UI.Windows.Services
 {
-	public interface IUserPermissionService
+	public interface IAuthorizationService
 	{
 		bool HasPermission(Permissions permission);
 	}

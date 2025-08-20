@@ -11,7 +11,7 @@ namespace Hybrsoft.Infrastructure.DataServices
 	{
 		#region Schema Universal
 		IList<NavigationItem> GetNavigationItemByAppType(AppType appType);
-		bool HasPermission(long userID, string permissionName);
+		Task<IList<Permission>> GetPermissionsByUserAsync(long userID);
 
 		Task<IList<Country>> GetCountriesAsync();
 		Task<IList<SubscriptionPlan>> GetSubscriptionPlansAsync();

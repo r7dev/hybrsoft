@@ -26,7 +26,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			ViewModelArgs = args ?? SubscriptionListArgs.CreateEmpty();
 			Query = ViewModelArgs.Query;
-			_hasEditorPermission = UserPermissionService.HasPermission(Permissions.SubscriptionEditor);
+			_hasEditorPermission = AuthorizationService.HasPermission(Permissions.SubscriptionEditor);
 
 			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(SubscriptionListViewModel), "_LoadingSubscriptions"));
 			StartStatusMessage(startMessage);

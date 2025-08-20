@@ -126,38 +126,38 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 			if (item.ViewModel == typeof(DashboardViewModel))
 			{
-				return UserPermissionService.HasPermission(Permissions.DashboardReader);
+				return AuthorizationService.HasPermission(Permissions.DashboardReader);
 			}
 			if (item.ViewModel == typeof(RelativesViewModel))
 			{
-				return UserPermissionService.HasPermission(Permissions.RelativeReader);
+				return AuthorizationService.HasPermission(Permissions.RelativeReader);
 			}
 			if (item.ViewModel == typeof(StudentsViewModel))
 			{
-				return UserPermissionService.HasPermission(Permissions.StudentReader);
+				return AuthorizationService.HasPermission(Permissions.StudentReader);
 			}
 			if (item.ViewModel == typeof(ClassroomsViewModel))
 			{
-				return UserPermissionService.HasPermission(Permissions.ClassroomReader);
+				return AuthorizationService.HasPermission(Permissions.ClassroomReader);
 			}
 			if (item.ViewModel == typeof(DismissibleStudentsViewModel))
 			{
-				return UserPermissionService.HasPermission(Permissions.DismissibleStudentsReader);
+				return AuthorizationService.HasPermission(Permissions.DismissibleStudentsReader);
 			}
 			if (item.ViewModel == typeof(DismissalsViewModel))
 			{
-				return UserPermissionService.HasPermission(Permissions.DismissalReader);
+				return AuthorizationService.HasPermission(Permissions.DismissalReader);
 			}
 			if (item.ViewModel == typeof(CompaniesViewModel))
 			{
-				return UserPermissionService.HasPermission(Permissions.CompanyReader);
+				return AuthorizationService.HasPermission(Permissions.CompanyReader);
 			}
 			if (item.ViewModel == typeof(SubscriptionsViewModel))
 			{
-				return UserPermissionService.HasPermission(Permissions.SubscriptionReader);
+				return AuthorizationService.HasPermission(Permissions.SubscriptionReader);
 			}
 
-			var IsSecurityAdministration = UserPermissionService.HasPermission(Permissions.SecurityAdministration);
+			var IsSecurityAdministration = AuthorizationService.HasPermission(Permissions.SecurityAdministration);
 			return (item.ViewModel == typeof(PermissionsViewModel)
 				|| item.ViewModel == typeof(RolesViewModel)
 				|| item.ViewModel == typeof(UsersViewModel)

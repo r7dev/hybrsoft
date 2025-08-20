@@ -71,7 +71,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			CompanyID = ViewModelArgs.CompanyID;
 			var company = await CompanyService.GetCompanyAsync(CompanyID);
 			AddedUserKeys = await CompanyUserService.GetAddedUserKeysInCompanyAsync(CompanyID);
-			_hasEditorPermission = UserPermissionService.HasPermission(Permissions.CompanyEditor);
+			_hasEditorPermission = AuthorizationService.HasPermission(Permissions.CompanyEditor);
 
 			if (ViewModelArgs.IsNew)
 			{

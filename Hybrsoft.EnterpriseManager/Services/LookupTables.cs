@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Hybrsoft.EnterpriseManager.Configuration;
 
 namespace Hybrsoft.EnterpriseManager.Services
 {
@@ -16,6 +17,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public IResourceService ResourceService { get; } = resourceService;
 
 		public IList<CountryModel> Countries { get; private set; }
+		public IList<PermissionModel> Permissions { get; private set; }
 		public IList<ScheduleTypeModel> ScheduleTypes { get; private set; }
 		public IList<SubscriptionPlanModel> SubscriptionPlans { get; private set; }
 		public IList<SubscriptionStatusModel> SubscriptionStatuses { get; private set; }
@@ -25,6 +27,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task InitializeAsync()
 		{
 			Countries = await GetCountriesAsync();
+			Permissions = await GetPermissionsByUserAsync(AppSettings.Current.UserID);
 			ScheduleTypes = await GetScheduleTypesAsync();
 			SubscriptionPlans = await GetSubscriptionPlansAsync();
 			SubscriptionStatuses = await GetSubscriptionStatusesAsync();
@@ -56,6 +59,25 @@ namespace Hybrsoft.EnterpriseManager.Services
 			catch (Exception ex)
 			{
 				LogException("LookupTables", "Load Countries", ex);
+			}
+			return [];
+		}
+
+		private async Task<IList<PermissionModel>> GetPermissionsByUserAsync(long userID)
+		{
+			try
+			{
+				using var dataService = DataServiceFactory.CreateDataService();
+				var items = await dataService.GetPermissionsByUserAsync(userID);
+				return [.. items.Select(r => new PermissionModel
+				{
+					PermissionID = r.PermissionID,
+					Name = r.Name,
+				})];
+			}
+			catch (Exception ex)
+			{
+				LogException("LookupTables", "Load Permissions", ex);
 			}
 			return [];
 		}

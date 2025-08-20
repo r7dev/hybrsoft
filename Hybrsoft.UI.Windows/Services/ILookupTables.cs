@@ -10,6 +10,7 @@ namespace Hybrsoft.UI.Windows.Services
 		Task InitializeAsync();
 
 		IList<CountryModel> Countries { get; }
+		IList<PermissionModel> Permissions { get; }
 		IList<ScheduleTypeModel> ScheduleTypes { get; }
 		IList<SubscriptionPlanModel> SubscriptionPlans { get; }
 		IList<SubscriptionStatusModel> SubscriptionStatuses { get; }

@@ -25,7 +25,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			ViewModelArgs = args ?? CompanyUserListArgs.CreateEmpty();
 			Query = ViewModelArgs.Query;
-			_hasEditorPermission = UserPermissionService.HasPermission(Permissions.CompanyEditor);
+			_hasEditorPermission = AuthorizationService.HasPermission(Permissions.CompanyEditor);
 
 			if (silent)
 			{

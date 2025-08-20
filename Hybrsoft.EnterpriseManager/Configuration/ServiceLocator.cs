@@ -49,7 +49,7 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			serviceCollection.AddSingleton<INetworkService, NetworkService>();
 			serviceCollection.AddSingleton<IResourceService, ResourceService>();
 			serviceCollection.AddSingleton<ISecurityService, SecurityService>();
-			serviceCollection.AddSingleton<IUserPermissionService, UserPermissionService>();
+			serviceCollection.AddSingleton<IAuthorizationService, AuthorizationService>();
 
 			serviceCollection.AddScoped<IContextService, ContextService>();
 			serviceCollection.AddScoped<INavigationService, NavigationService>();

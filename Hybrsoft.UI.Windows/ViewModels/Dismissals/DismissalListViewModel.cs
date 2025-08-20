@@ -26,7 +26,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			ViewModelArgs = args ?? DismissalListArgs.CreateEmpty();
 			Query = ViewModelArgs.Query;
-			HasPermissionToAccept = UserPermissionService.HasPermission(Permissions.DismissalConfirmator);
+			HasPermissionToAccept = AuthorizationService.HasPermission(Permissions.DismissalConfirmator);
 
 			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(DismissalListViewModel), "_LoadingDismissals"));
 			StartStatusMessage(startMessage);

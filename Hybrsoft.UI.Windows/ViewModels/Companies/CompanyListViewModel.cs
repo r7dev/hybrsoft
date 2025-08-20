@@ -26,7 +26,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			ViewModelArgs = args ?? CompanyListArgs.CreateEmpty();
 			Query = ViewModelArgs.Query;
-			_hasEditorPermission = UserPermissionService.HasPermission(Permissions.CompanyEditor);
+			_hasEditorPermission = AuthorizationService.HasPermission(Permissions.CompanyEditor);
 
 			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(CompanyListViewModel), "_LoadingCompanies"));
 			StartStatusMessage(startMessage);
