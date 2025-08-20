@@ -1,10 +1,11 @@
-﻿using Hybrsoft.UI.Windows.Services;
-using Hybrsoft.UI.Windows.ViewModels;
+﻿using Hybrsoft.Domain.Services;
 using Hybrsoft.EnterpriseManager.Extensions;
 using Hybrsoft.EnterpriseManager.Services;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
 using Hybrsoft.EnterpriseManager.Services.Infrastructure;
 using Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService;
+using Hybrsoft.UI.Windows.Services;
+using Hybrsoft.UI.Windows.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using System;
@@ -39,16 +40,16 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			serviceCollection.AddSingleton<IUserService, UserService>();
 			serviceCollection.AddSingleton<IUserRoleService, UserRoleService>();
 
-			serviceCollection.AddSingleton<IMessageService, MessageService>();
 			serviceCollection.AddSingleton<IDialogService, DialogService>();
 			serviceCollection.AddSingleton<IFilePickerService, FilePickerService>();
 			serviceCollection.AddSingleton<ILicenseService, LicenseService>();
 			serviceCollection.AddSingleton<ILoginService, LoginService>();
 			serviceCollection.AddSingleton<ILogService, LogService>();
+			serviceCollection.AddSingleton<IMessageService, MessageService>();
 			serviceCollection.AddSingleton<INetworkService, NetworkService>();
-			serviceCollection.AddSingleton<IPasswordHasher, PasswordHasher>();
-			serviceCollection.AddSingleton<IUserPermissionService, UserPermissionService>();
 			serviceCollection.AddSingleton<IResourceService, ResourceService>();
+			serviceCollection.AddSingleton<ISecurityService, SecurityService>();
+			serviceCollection.AddSingleton<IUserPermissionService, UserPermissionService>();
 
 			serviceCollection.AddScoped<IContextService, ContextService>();
 			serviceCollection.AddScoped<INavigationService, NavigationService>();

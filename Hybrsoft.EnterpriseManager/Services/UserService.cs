@@ -1,21 +1,22 @@
-﻿using Hybrsoft.UI.Windows.Models;
-using Hybrsoft.UI.Windows.Services;
+﻿using Hybrsoft.Domain.Services;
 using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
 using Hybrsoft.EnterpriseManager.Services.VirtualCollections;
 using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.DataServices;
 using Hybrsoft.Infrastructure.Models;
+using Hybrsoft.UI.Windows.Models;
+using Hybrsoft.UI.Windows.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services
 {
-	public class UserService(IDataServiceFactory dataServiceFactory, ILogService logService, IPasswordHasher passwordHasher) : IUserService
+	public class UserService(IDataServiceFactory dataServiceFactory, ILogService logService, ISecurityService securityService) : IUserService
 	{
 		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
 		public ILogService LogService { get; } = logService;
-		public IPasswordHasher PasswordHasher { get; } = passwordHasher;
+		private ISecurityService SecurityService { get; } = securityService;
 
 		public async Task<UserModel> GetUserAsync(long id, bool includePassword = false)
 		{
@@ -83,7 +84,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			{
 				model.PasswordLength = model.Password?.Length ?? 0;
 				model.Password = model.PasswordChanged
-					? PasswordHasher.HashPassword(model.Password)
+					? SecurityService.HashPassword(model.Password)
 					: item.Password;
 				UpdateUserFromModel(item, model);
 				await dataService.UpdateUserAsync(item);

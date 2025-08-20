@@ -1,7 +1,8 @@
-﻿using Hybrsoft.UI.Windows.Models;
-using Hybrsoft.UI.Windows.Infrastructure.Commom;
-using Hybrsoft.UI.Windows.Services;
+﻿using Hybrsoft.Domain.Services;
 using Hybrsoft.EnterpriseManager.Configuration;
+using Hybrsoft.UI.Windows.Infrastructure.Commom;
+using Hybrsoft.UI.Windows.Models;
+using Hybrsoft.UI.Windows.Services;
 using System;
 using System.Threading.Tasks;
 using Windows.Security.Credentials;
@@ -11,12 +12,12 @@ using Windows.Storage.Streams;
 
 namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 {
-	public class LoginService(IMessageService messageService, IDialogService dialogService, IUserService userService, IPasswordHasher passwordHasher) : ILoginService
+	public class LoginService(IMessageService messageService, IDialogService dialogService, IUserService userService, ISecurityService securityService) : ILoginService
 	{
 		public IMessageService MessageService { get; } = messageService;
 		public IDialogService DialogService { get; } = dialogService;
 		public IUserService UserService { get; } = userService;
-		public IPasswordHasher PasswordHasher { get; } = passwordHasher;
+		private ISecurityService SecurityService { get; } = securityService;
 
 		public bool IsAuthenticated { get; set; } = false;
 
@@ -36,7 +37,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		public async Task<Result> SignInWithPasswordAsync(string userName, string password)
 		{
 			UserModel user = await UserService.GetUserByEmailAsync(userName, true);
-			bool isUserAuthenticated = user != null && PasswordHasher.VerifyHashedPassword(user.Password, password);
+			bool isUserAuthenticated = user != null && SecurityService.VerifyHashedPassword(user.Password, password);
 			AppSettings.Current.UserID = isUserAuthenticated ? user.UserID : default;
 			AppSettings.Current.UserName = isUserAuthenticated ? userName : default;
 			UpdateAuthenticationStatus(isUserAuthenticated);
