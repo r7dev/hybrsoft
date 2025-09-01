@@ -11,14 +11,14 @@
 	Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
 	<Grid>
-		<controls:WindowTitle Title="" />
 		<Grid>
 			<Grid.RowDefinitions>
+				<RowDefinition Height="48"/>
 				<RowDefinition Height="2*"/>
 				<RowDefinition Height="1*" />
 			</Grid.RowDefinitions>
 
-			<Grid>
+			<Grid Grid.Row="1">
 				<Border x:Name="background">
 					<Image Source="ms-appx:///Assets/Images/LoginBackground.jpg"
 						   Stretch="UniformToFill"
@@ -27,10 +27,15 @@
 						   Opacity="0.9" />
 				</Border>
 			</Grid>
+			<StackPanel VerticalAlignment="Top"
+						Height="48"
+						Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+				<controls:ModernTitle x:Name="ModernTitleBar" IsUserInfoHidden="True"/>
+			</StackPanel>
 
-			<TextBox Grid.RowSpan="2" GotFocus="OnBackgroundFocus" Opacity="0" />
+			<TextBox Grid.RowSpan="3" GotFocus="OnBackgroundFocus" Opacity="0" />
 
-			<Grid>
+			<Grid Grid.Row="1">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="1*"/>
 					<RowDefinition Height="1*"/>
@@ -55,9 +60,9 @@
 				</StackPanel>
 			</Grid>
 
-			<Grid Grid.Row="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" IsHitTestVisible="False" />
+			<Grid Grid.Row="2" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" IsHitTestVisible="False" />
 
-			<Grid Grid.Row="1">
+			<Grid Grid.Row="2">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="1*"/>
 					<RowDefinition Height="3*"/>

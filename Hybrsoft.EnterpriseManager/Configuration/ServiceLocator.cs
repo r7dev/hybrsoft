@@ -4,6 +4,7 @@ using Hybrsoft.EnterpriseManager.Services;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
 using Hybrsoft.EnterpriseManager.Services.Infrastructure;
 using Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService;
+using Hybrsoft.UI.Windows.Infrastructure.Services;
 using Hybrsoft.UI.Windows.Services;
 using Hybrsoft.UI.Windows.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
@@ -50,6 +51,7 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			serviceCollection.AddSingleton<IResourceService, ResourceService>();
 			serviceCollection.AddSingleton<ISecurityService, SecurityService>();
 			serviceCollection.AddSingleton<IAuthorizationService, AuthorizationService>();
+			serviceCollection.AddSingleton<ITitleService, TitleService>();
 
 			serviceCollection.AddScoped<IContextService, ContextService>();
 			serviceCollection.AddScoped<INavigationService, NavigationService>();

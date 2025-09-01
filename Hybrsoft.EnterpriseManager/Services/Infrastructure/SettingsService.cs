@@ -1,6 +1,6 @@
-﻿using Hybrsoft.UI.Windows.Services;
-using Hybrsoft.EnterpriseManager.Configuration;
+﻿using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.Enums;
+using Hybrsoft.UI.Windows.Services;
 using System.IO;
 using System.Text;
 using System.Text.Json;
@@ -14,12 +14,6 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 
 		public string AppName => AppSettings.Current.AppName;
 		public string Version => AppSettings.Current.Version;
-
-		public long UserID
-		{
-			get => AppSettings.Current.UserID;
-			set => AppSettings.Current.UserID = value;
-		}
 
 		public string UserName
 		{

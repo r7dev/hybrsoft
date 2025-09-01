@@ -23,6 +23,7 @@ namespace Hybrsoft.EnterpriseManager.Views
 			ViewModel = ServiceLocator.Current.GetService<LoginViewModel>();
 			InitializeContext();
 			this.InitializeComponent();
+			ModernTitleBar.InitializeTitleBar(((App)Application.Current).CurrentView);
 		}
 
 		public LoginViewModel ViewModel { get; }

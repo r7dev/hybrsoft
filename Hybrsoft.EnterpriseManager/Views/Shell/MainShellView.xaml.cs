@@ -1,10 +1,10 @@
-using Hybrsoft.UI.Windows.Models;
-using Hybrsoft.UI.Windows.Services;
-using Hybrsoft.UI.Windows.ViewModels;
 using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.EnterpriseManager.Extensions;
 using Hybrsoft.EnterpriseManager.Services;
 using Hybrsoft.Enums;
+using Hybrsoft.UI.Windows.Models;
+using Hybrsoft.UI.Windows.Services;
+using Hybrsoft.UI.Windows.ViewModels;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
@@ -27,6 +27,7 @@ namespace Hybrsoft.EnterpriseManager.Views
 			ViewModel = ServiceLocator.Current.GetService<MainShellViewModel>();
 			InitializeContext();
 			this.InitializeComponent();
+			ModernTitleBar.InitializeTitleBar(((App)Application.Current).CurrentView);
 			InitializeNavigation();
 		}
 
@@ -101,9 +102,10 @@ namespace Hybrsoft.EnterpriseManager.Views
 
 		private async void OnLogoff(object sender, RoutedEventArgs e)
 		{
-			string title = ViewModel.ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmLogoff");
-			string content = ViewModel.ResourceService.GetString(nameof(ResourceFiles.Questions), "AreYouSureYouWantToLogoff");
-			string cancel = ViewModel.ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
+			var resourceService = ServiceLocator.Current.GetService<IResourceService>();
+			string title = resourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmLogoff");
+			string content = resourceService.GetString(nameof(ResourceFiles.Questions), "AreYouSureYouWantToLogoff");
+			string cancel = resourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
 			var dialogService = ServiceLocator.Current.GetService<IDialogService>();
 			if (await dialogService.ShowAsync(title, content, "Ok", cancel))
 			{

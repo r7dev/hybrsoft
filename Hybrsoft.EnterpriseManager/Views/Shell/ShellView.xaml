@@ -6,15 +6,21 @@
 	xmlns:local="using:Hybrsoft.EnterpriseManager.Views"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:controls="using:Hybrsoft.EnterpriseManager.Controls"
 	mc:Ignorable="d">
 
 	<Grid>
 		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="*"/>
 			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 
-		<Grid Grid.Row="0">
+		<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+			<controls:ModernTitle x:Name="ModernTitleBar" IsUserInfoHidden="True"/>
+		</Grid>
+
+		<Grid Grid.Row="1">
 			<Frame x:Name="frame" IsEnabled="{x:Bind ViewModel.IsEnabled, Mode=OneWay}">
 				<Frame.ContentTransitions>
 					<TransitionCollection>
@@ -24,7 +30,7 @@
 			</Frame>
 		</Grid>
 
-		<Grid Grid.Row="1">
+		<Grid Grid.Row="2">
 			<InfoBar IsOpen="{x:Bind ViewModel.IsOpen, Mode=TwoWay}"
 					 Severity="{x:Bind ViewModel.Severity, Mode=TwoWay}"
 					 Message="{x:Bind ViewModel.Message, Mode=OneWay}" />

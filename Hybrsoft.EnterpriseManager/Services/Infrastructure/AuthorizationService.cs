@@ -1,5 +1,5 @@
-﻿using Hybrsoft.UI.Windows.Services;
-using Hybrsoft.Enums;
+﻿using Hybrsoft.Enums;
+using Hybrsoft.UI.Windows.Services;
 using System.Linq;
 
 namespace Hybrsoft.EnterpriseManager.Services.Infrastructure

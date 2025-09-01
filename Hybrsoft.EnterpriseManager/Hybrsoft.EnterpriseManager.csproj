@@ -37,6 +37,7 @@
     <None Remove="Controls\Suggest\UserSuggestBox.xaml" />
     <None Remove="Controls\Toolbars\DetailToolbar.xaml" />
     <None Remove="Controls\Toolbars\ListToolbar.xaml" />
+    <None Remove="Controls\WindowTitle\ModernTitle.xaml" />
     <None Remove="Styles\Buttons.xaml" />
     <None Remove="Styles\Cards.xaml" />
     <None Remove="Styles\DataGrid.xaml" />
@@ -214,6 +215,11 @@
   <ItemGroup>
     <Folder Include="Assets\Images\" />
     <Folder Include="Views\Roles\Details\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\WindowTitle\ModernTitle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\License\LicenseActivationView.xaml">

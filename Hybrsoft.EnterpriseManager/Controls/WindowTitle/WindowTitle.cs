@@ -1,12 +1,20 @@
-﻿using Hybrsoft.EnterpriseManager.Extensions;
+﻿using Hybrsoft.EnterpriseManager.Configuration;
+using Hybrsoft.UI.Windows.Infrastructure.Services;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Windows.ApplicationModel;
 
 namespace Hybrsoft.EnterpriseManager.Controls
 {
 	public partial class WindowTitle : Control
 	{
+		private readonly ITitleService _titleService;
+
+		public WindowTitle()
+		{
+			_titleService = ServiceLocator.Current.GetService<ITitleService>();
+			this.Loaded += WindowTitle_Loaded;
+		}
+
 		public string Prefix
 		{
 			get { return (string)GetValue(PrefixProperty); }
@@ -23,13 +31,13 @@ namespace Hybrsoft.EnterpriseManager.Controls
 
 		private static void TitleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{
-			var window = ((App)Application.Current).CurrentView;
-			var appWindow = AppWindowExtensions.GetAppWindow(window);
 			var control = d as WindowTitle;
-			string title = !string.IsNullOrEmpty(control.Title)
-				? control.Title
-				: AppInfo.Current.DisplayInfo.DisplayName;
-			appWindow.Title = $"{control.Prefix}{title}";
+			control._titleService.Title = $"{control.Prefix}{control.Title}";
+		}
+
+		private void WindowTitle_Loaded(object sender, RoutedEventArgs e)
+		{
+			_titleService.Title = Title;
 		}
 	}
 }

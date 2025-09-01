@@ -44,7 +44,7 @@ namespace Hybrsoft.EnterpriseManager
 		/// <param name="args">Details about the launch request and process.</param>
 		protected override async void OnLaunched(LaunchActivatedEventArgs args)
 		{
-			AppActivationArguments activatedArgs = Microsoft.Windows.AppLifecycle.AppInstance.GetCurrent().GetActivatedEventArgs();
+			AppActivationArguments activatedArgs = AppInstance.GetCurrent().GetActivatedEventArgs();
 			await ActivateAsync(activatedArgs.Data as Windows.ApplicationModel.Activation.LaunchActivatedEventArgs);
 		}
 
