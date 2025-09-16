@@ -1,3 +1,4 @@
+using Hybrsoft.EnterpriseManager.Common;
 using Hybrsoft.EnterpriseManager.Configuration;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
@@ -15,7 +16,7 @@ namespace Hybrsoft.EnterpriseManager.Views.SplashScreen
 		public ExtendedSplash()
 		{
 			this.InitializeComponent();
-			((App)Application.Current).CurrentView = this;
+			WindowTracker.Register(this);
 
 			OverlappedPresenter presenter = this.AppWindow.Presenter as OverlappedPresenter;
 			presenter.IsAlwaysOnTop = true;

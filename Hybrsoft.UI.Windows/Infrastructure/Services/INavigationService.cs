@@ -20,7 +20,7 @@ namespace Hybrsoft.UI.Windows.Services
 
 		void GoBack();
 
-		Task CloseViewAsync();
+		void CloseView();
 
 		IEnumerable<NavigationItemModel> GetItems();
 	}

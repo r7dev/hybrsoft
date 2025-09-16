@@ -1,9 +1,10 @@
-﻿using Microsoft.UI.Xaml.Hosting;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Composition;
+﻿using Hybrsoft.EnterpriseManager.Common;
 using Microsoft.Graphics.Canvas.Effects;
-using System.Numerics;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Hosting;
 using System;
+using System.Numerics;
 
 namespace Hybrsoft.EnterpriseManager.Extensions
 {
@@ -127,7 +128,7 @@ namespace Hybrsoft.EnterpriseManager.Extensions
 
 		private static Compositor GetCurrentCompositor()
 		{
-			return ((App)Application.Current).CurrentView.Compositor;
+			return WindowTracker.GetCurrentView().Window.Compositor;
 		}
 	}
 }

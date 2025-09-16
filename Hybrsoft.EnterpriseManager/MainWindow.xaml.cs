@@ -1,3 +1,4 @@
+using Hybrsoft.EnterpriseManager.Common;
 using Hybrsoft.EnterpriseManager.Configuration; //Used with SKIP_LOGIN
 using Hybrsoft.EnterpriseManager.Extensions;
 using Hybrsoft.EnterpriseManager.Services.Infrastructure;
@@ -25,8 +26,7 @@ namespace Hybrsoft.EnterpriseManager
 		public MainWindow(IActivatedEventArgs args)
 		{
 			this.InitializeComponent();
-			((App)Application.Current).MainWindow = this;
-			((App)Application.Current).CurrentView = this;
+			WindowTracker.Register(this);
 			ThemeExtensions.TrySetMicaBackdrop(this, true);
 
 			Navigate(args);

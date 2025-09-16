@@ -1,8 +1,8 @@
-﻿using Hybrsoft.UI.Windows.Services;
-using Hybrsoft.EnterpriseManager.Configuration;
+﻿using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.EnterpriseManager.Extensions;
 using Hybrsoft.EnterpriseManager.Views.SplashScreen;
 using Hybrsoft.Enums;
+using Hybrsoft.UI.Windows.Services;
 using Microsoft.UI.Xaml;
 using Microsoft.Windows.AppLifecycle;
 using System;
@@ -21,9 +21,6 @@ namespace Hybrsoft.EnterpriseManager
 		private Window m_window;
 		private ExtendedSplash splash_Screen;
 		private bool disposedValue;
-
-		public Window MainWindow { get; set; }
-		public Window CurrentView { get; set; }
 
 		/// <summary>
 		/// Initializes the singleton application object.  This is the first line of authored code
@@ -57,6 +54,7 @@ namespace Hybrsoft.EnterpriseManager
 			splash_Screen.SetDefaultWindowSize();
 			await splash_Screen.SetWindowPositionToCenterAsync();
 			splash_Screen.Activate();
+			splash_Screen.Closed += (_, _) => { ServiceLocator.DisposeByViewID(splash_Screen.AppWindow.Id.Value); };
 			await Task.Delay(2000);
 
 			m_window = new MainWindow(args);
@@ -64,7 +62,7 @@ namespace Hybrsoft.EnterpriseManager
 			m_window.SetDefaultWindowSize();
 			await m_window.SetWindowPositionToCenterAsync();
 			m_window.Activate();
-			m_window.Closed += async (s, e) =>
+			m_window.Closed += async (_, _) =>
 			{
 				var logService = ServiceLocator.Current.GetService<ILogService>();
 				await logService.WriteAsync(LogType.Information, "App", "Closing", "Application End", $"Application ended by '{AppSettings.Current.UserName}'.");

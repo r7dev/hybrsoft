@@ -104,7 +104,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				}
 				else
 				{
-					NavigationService.CloseViewAsync();
+					NavigationService.CloseView();
 				}
 				return;
 			}

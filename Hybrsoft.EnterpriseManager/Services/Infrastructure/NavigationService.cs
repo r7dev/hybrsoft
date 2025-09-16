@@ -1,4 +1,5 @@
-﻿using Hybrsoft.EnterpriseManager.Extensions;
+﻿using Hybrsoft.EnterpriseManager.Common;
+using Hybrsoft.EnterpriseManager.Extensions;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
 using Hybrsoft.EnterpriseManager.Views;
 using Hybrsoft.Enums;
@@ -13,8 +14,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Core;
-using Windows.UI.ViewManagement;
 
 namespace Hybrsoft.EnterpriseManager.Services
 {
@@ -24,9 +23,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public NavigationService(IDataServiceFactory dataServiceFactory, IResourceService resourceService)
 		{
-			Window currentView = ((App)Application.Current).CurrentView;
-			var appWindow = AppWindowExtensions.GetAppWindow(currentView);
-			MainViewId = (int)appWindow.Id.Value;
+			MainViewId = (int)WindowTracker.MainID;
 			DataServiceFactory = dataServiceFactory;
 			ResourceService = resourceService;
 		}
@@ -60,7 +57,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return type ?? throw new InvalidOperationException($"View not registered for ViewModel '{view.FullName}'");
 		}
 
-		public bool IsMainView => CoreApplication.GetCurrentView().IsMain;
+		public bool IsMainView => WindowTracker.GetCurrentView().IsMain;
 
 		public Frame Frame { get; private set; }
 
@@ -93,10 +90,10 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<int> CreateNewViewAsync(Type viewModelType, object parameter = null)
 		{
 			Window newWindow = new();
+			WindowTracker.Register(newWindow);
 			newWindow.SetDefaultIcon();
 			newWindow.SetDefaultWindowSize();
 			await newWindow.SetWindowPositionToCenterAsync();
-			((App)Application.Current).CurrentView = newWindow;
 
 			var frame = new Frame();
 			var args = new ShellArgs
@@ -107,10 +104,6 @@ namespace Hybrsoft.EnterpriseManager.Services
 			frame.Navigate(typeof(ShellView), args);
 			newWindow.Content = frame;
 
-			newWindow.Closed += (s, e) =>
-			{
-				((App)Application.Current).CurrentView = ((App)Application.Current).MainWindow;
-			};
 			await Task.Delay(200);
 			newWindow.Activate();
 			ThemeExtensions.TrySetMicaBackdrop(newWindow, true);
@@ -118,10 +111,10 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return (int)newWindow.AppWindow.Id.Value;
 		}
 
-		public async Task CloseViewAsync()
+		public void CloseView()
 		{
-			int currentId = ApplicationView.GetForCurrentView().Id;
-			await ApplicationViewSwitcher.SwitchAsync(MainViewId, currentId, ApplicationViewSwitchingOptions.ConsolidateViews);
+			var currentView = WindowTracker.GetCurrentView();
+			currentView?.Window.Close();
 		}
 
 		public IDataServiceFactory DataServiceFactory { get; }

@@ -1,4 +1,5 @@
-﻿using Hybrsoft.UI.Windows.Infrastructure.Commom;
+﻿using Hybrsoft.EnterpriseManager.Common;
+using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Services;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -33,7 +34,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			{
 				dialog.CloseButtonText = cancel;
 			}
-			Window currentView = ((App)Application.Current).CurrentView;
+			Window currentView = WindowTracker.GetCurrentView().Window;
 			dialog.XamlRoot = currentView.Content.XamlRoot;
 			var result = await dialog.ShowAsync();
 			return result == ContentDialogResult.Primary;

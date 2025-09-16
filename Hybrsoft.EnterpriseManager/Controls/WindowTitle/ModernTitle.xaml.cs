@@ -1,3 +1,4 @@
+using Hybrsoft.EnterpriseManager.Common;
 using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.UI.Windows.Infrastructure.Services;
 using Microsoft.UI.Input;
@@ -18,6 +19,8 @@ namespace Hybrsoft.EnterpriseManager.Controls
 	{
 		private readonly ITitleService _titleService;
 		private static string AppDisplayName => AppSettings.Current.AppName;
+		private Window m_Window;
+
 		public ModernTitle()
 		{
 			InitializeComponent();
@@ -33,54 +36,6 @@ namespace Hybrsoft.EnterpriseManager.Controls
 				: appDisplayName;
 		}
 
-		public string Title
-		{
-			get => (string)GetValue(TitleProperty);
-			set => SetValue(TitleProperty, value);
-		}
-		public static readonly DependencyProperty TitleProperty =
-			DependencyProperty.Register(nameof(Title), typeof(string), typeof(ModernTitle),
-				new PropertyMetadata(AppDisplayName));
-
-		public string DisplayName
-		{
-			get { return (string)GetValue(DisplayNameProperty); }
-			set { SetValue(DisplayNameProperty, value); }
-		}
-		public static readonly DependencyProperty DisplayNameProperty =
-			DependencyProperty.Register(nameof(DisplayName), typeof(string), typeof(ModernTitle), new PropertyMetadata(null));
-
-		public object PictureSource
-		{
-			get { return (object)GetValue(PictureSourceProperty); }
-			set { SetValue(PictureSourceProperty, value); }
-		}
-		public static readonly DependencyProperty PictureSourceProperty =
-			DependencyProperty.Register(nameof(PictureSource), typeof(object), typeof(ModernTitle), new PropertyMetadata(null));
-
-		public string AccountName
-		{
-			get { return (string)GetValue(AccountNameProperty); }
-			set { SetValue(AccountNameProperty, value); }
-		}
-		public static readonly DependencyProperty AccountNameProperty =
-			DependencyProperty.Register(nameof(AccountName), typeof(string), typeof(ModernTitle), new PropertyMetadata(null));
-
-		public event RoutedEventHandler LogoffClicked;
-		private void OnLogoff(object sender, RoutedEventArgs e)
-			=> LogoffClicked?.Invoke(this, e);
-
-		public bool IsUserInfoHidden
-		{
-			get { return (bool)GetValue(IsUserInfoHiddenProperty); }
-			set { SetValue(IsUserInfoHiddenProperty, value); }
-		}
-		public static readonly DependencyProperty IsUserInfoHiddenProperty =
-			DependencyProperty.Register(nameof(IsUserInfoHidden), typeof(bool), typeof(ModernTitle), new PropertyMetadata(false));
-
-		public UIElement DragRegion => AppTitleBar;
-
-		private Window m_Window;
 		public void InitializeTitleBar(Window window)
 		{
 			if (AppWindowTitleBar.IsCustomizationSupported())
@@ -155,6 +110,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 				// Set the initial interactive regions.
 				SetRegionsForCustomTitleBar();
 			}
+			WindowTracker.SetCurrentWindowTitle(AppDisplayName);
 		}
 
 		private void AppTitleBar_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -195,5 +151,63 @@ namespace Hybrsoft.EnterpriseManager.Controls
 				_Height: (int)Math.Round(bounds.Height * scale)
 			);
 		}
+
+		public event RoutedEventHandler LogoffClicked;
+		private void OnLogoff(object sender, RoutedEventArgs e)
+			=> LogoffClicked?.Invoke(this, e);
+
+		#region Properties
+		public UIElement DragRegion => AppTitleBar;
+
+		public string Title
+		{
+			get => (string)GetValue(TitleProperty);
+			set => SetValue(TitleProperty, value);
+		}
+		public static readonly DependencyProperty TitleProperty =
+			DependencyProperty.Register(nameof(Title), typeof(string), typeof(ModernTitle),
+				new PropertyMetadata(AppDisplayName, OnTitleChanged));
+		private static void OnTitleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			if (d is ModernTitle)
+			{
+				var newTitle = e.NewValue as string;
+				WindowTracker.SetCurrentWindowTitle(newTitle ?? AppDisplayName);
+			}
+		}
+
+		public string DisplayName
+		{
+			get { return (string)GetValue(DisplayNameProperty); }
+			set { SetValue(DisplayNameProperty, value); }
+		}
+		public static readonly DependencyProperty DisplayNameProperty =
+			DependencyProperty.Register(nameof(DisplayName), typeof(string), typeof(ModernTitle), new PropertyMetadata(null));
+
+		public object PictureSource
+		{
+			get { return (object)GetValue(PictureSourceProperty); }
+			set { SetValue(PictureSourceProperty, value); }
+		}
+		public static readonly DependencyProperty PictureSourceProperty =
+			DependencyProperty.Register(nameof(PictureSource), typeof(object), typeof(ModernTitle), new PropertyMetadata(null));
+
+		public string AccountName
+		{
+			get { return (string)GetValue(AccountNameProperty); }
+			set { SetValue(AccountNameProperty, value); }
+		}
+		public static readonly DependencyProperty AccountNameProperty =
+			DependencyProperty.Register(nameof(AccountName), typeof(string), typeof(ModernTitle), new PropertyMetadata(null));
+
+		public bool IsUserInfoHidden
+		{
+			get { return (bool)GetValue(IsUserInfoHiddenProperty); }
+			set { SetValue(IsUserInfoHiddenProperty, value); }
+		}
+		public static readonly DependencyProperty IsUserInfoHiddenProperty =
+			DependencyProperty.Register(nameof(IsUserInfoHidden), typeof(bool), typeof(ModernTitle), new PropertyMetadata(false));
+
+		#endregion
 	}
 }

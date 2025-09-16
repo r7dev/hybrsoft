@@ -1,4 +1,5 @@
-﻿using Hybrsoft.EnterpriseManager.Configuration;
+﻿using Hybrsoft.EnterpriseManager.Common;
+using Hybrsoft.EnterpriseManager.Configuration;
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
@@ -27,12 +28,6 @@ namespace Hybrsoft.EnterpriseManager.Extensions
 		public static void SetDefaultIcon(this Window window)
 		{
 			window.AppWindow.SetIcon("Assets/default.ico");
-		}
-
-		public static bool IsMain(this Window window)
-		{
-			WindowId mainWindowId = ((App)Application.Current).MainWindow.AppWindow.Id;
-			return window.AppWindow.Id == mainWindowId;
 		}
 
 		public static async Task SetWindowPositionToCenterAsync(this Window window)

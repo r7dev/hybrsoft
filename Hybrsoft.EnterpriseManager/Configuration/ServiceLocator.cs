@@ -1,5 +1,5 @@
 ﻿using Hybrsoft.Domain.Services;
-using Hybrsoft.EnterpriseManager.Extensions;
+using Hybrsoft.EnterpriseManager.Common;
 using Hybrsoft.EnterpriseManager.Services;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
 using Hybrsoft.EnterpriseManager.Services.Infrastructure;
@@ -8,20 +8,18 @@ using Hybrsoft.UI.Windows.Infrastructure.Services;
 using Hybrsoft.UI.Windows.Services;
 using Hybrsoft.UI.Windows.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Concurrent;
-using Windows.UI.ViewManagement;
 
 namespace Hybrsoft.EnterpriseManager.Configuration
 {
 	public partial class ServiceLocator : IDisposable
 	{
-		static private readonly ConcurrentDictionary<int, ServiceLocator> _serviceLocators = new();
+		static private readonly ConcurrentDictionary<ulong, ServiceLocator> _serviceLocators = new();
 
-		static private ServiceProvider _rootServiceProvider = null;
+		private static ServiceProvider _rootServiceProvider = null;
 
-		static public void Configure(IServiceCollection serviceCollection)
+		public static void Configure(IServiceCollection serviceCollection)
 		{
 			serviceCollection.AddSingleton<ISettingsService, SettingsService>();
 			serviceCollection.AddSingleton<IDataServiceFactory, DataServiceFactory>();
@@ -51,11 +49,11 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			serviceCollection.AddSingleton<IResourceService, ResourceService>();
 			serviceCollection.AddSingleton<ISecurityService, SecurityService>();
 			serviceCollection.AddSingleton<IAuthorizationService, AuthorizationService>();
-			serviceCollection.AddSingleton<ITitleService, TitleService>();
 
 			serviceCollection.AddScoped<IContextService, ContextService>();
 			serviceCollection.AddScoped<INavigationService, NavigationService>();
 			serviceCollection.AddScoped<ICommonServices, CommonServices>();
+			serviceCollection.AddScoped<ITitleService, TitleService>();
 
 			serviceCollection.AddTransient<LoginViewModel>();
 			serviceCollection.AddTransient<LicenseActivationViewModel>();
@@ -119,19 +117,24 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 		{
 			get
 			{
-				Window currentView = ((App)Application.Current).CurrentView;
-				var appWindow = AppWindowExtensions.GetAppWindow(currentView);
-				int currentViewId = (int)appWindow.Id.Value;
+				ulong currentViewId = WindowTracker.GetCurrentView().ID;
 				return _serviceLocators.GetOrAdd(currentViewId, key => new ServiceLocator());
 			}
 		}
 
 		static public void DisposeCurrent()
 		{
-			int currentViewId = ApplicationView.GetForCurrentView().Id;
+			ulong currentViewId = WindowTracker.GetCurrentView().ID;
 			if (_serviceLocators.TryRemove(currentViewId, out ServiceLocator current))
 			{
 				current.Dispose();
+			}
+		}
+		static public void DisposeByViewID(ulong viewID)
+		{
+			if (_serviceLocators.TryRemove(viewID, out ServiceLocator service))
+			{
+				service.Dispose();
 			}
 		}
 
@@ -149,11 +152,9 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 
 		public T GetService<T>(bool isRequired)
 		{
-			if (isRequired)
-			{
-				return _serviceScope.ServiceProvider.GetRequiredService<T>();
-			}
-			return _serviceScope.ServiceProvider.GetService<T>();
+			return isRequired
+				? _serviceScope.ServiceProvider.GetRequiredService<T>()
+				: _serviceScope.ServiceProvider.GetService<T>();
 		}
 
 		#region Dispose

@@ -1,8 +1,8 @@
-﻿using Hybrsoft.UI.Windows.Infrastructure.Commom;
-using Hybrsoft.UI.Windows.Services;
+﻿using Hybrsoft.EnterpriseManager.Common;
 using Hybrsoft.EnterpriseManager.Extensions;
 using Hybrsoft.EnterpriseManager.Tools;
-using Microsoft.UI.Xaml;
+using Hybrsoft.UI.Windows.Infrastructure.Commom;
+using Hybrsoft.UI.Windows.Services;
 using SkiaSharp;
 using System;
 using System.IO;
@@ -27,8 +27,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			picker.FileTypeFilter.Add(".bmp");
 			picker.FileTypeFilter.Add(".gif");
 
-			var window = ((App)Application.Current).CurrentView;
-			window.InitializeWithObject(picker);
+			WindowTracker.GetCurrentView().Window.InitializeWithObject(picker);
 
 			var file = await picker.PickSingleFileAsync();
 			if (file != null)

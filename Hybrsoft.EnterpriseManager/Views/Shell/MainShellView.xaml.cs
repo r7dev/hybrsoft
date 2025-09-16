@@ -1,5 +1,5 @@
+using Hybrsoft.EnterpriseManager.Common;
 using Hybrsoft.EnterpriseManager.Configuration;
-using Hybrsoft.EnterpriseManager.Extensions;
 using Hybrsoft.EnterpriseManager.Services;
 using Hybrsoft.Enums;
 using Hybrsoft.UI.Windows.Models;
@@ -27,7 +27,7 @@ namespace Hybrsoft.EnterpriseManager.Views
 			ViewModel = ServiceLocator.Current.GetService<MainShellViewModel>();
 			InitializeContext();
 			this.InitializeComponent();
-			ModernTitleBar.InitializeTitleBar(((App)Application.Current).CurrentView);
+			ModernTitleBar.InitializeTitleBar(WindowTracker.GetCurrentView().Window);
 			InitializeNavigation();
 		}
 
@@ -36,9 +36,8 @@ namespace Hybrsoft.EnterpriseManager.Views
 		private void InitializeContext()
 		{
 			var context = ServiceLocator.Current.GetService<IContextService>();
-			Window currentView = ((App)Application.Current).CurrentView;
-			var appWindow = AppWindowExtensions.GetAppWindow(currentView);
-			context.Initialize(DispatcherQueue, (int)appWindow.Id.Value, currentView.IsMain());
+			var currentView = WindowTracker.GetCurrentView();
+			context.Initialize(DispatcherQueue, (int)currentView.ID, currentView.IsMain);
 		}
 
 		private void InitializeNavigation()
