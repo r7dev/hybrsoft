@@ -1,5 +1,4 @@
-﻿using Hybrsoft.EnterpriseManager.Common;
-using Hybrsoft.EnterpriseManager.Configuration;
+﻿using Hybrsoft.EnterpriseManager.Configuration;
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
@@ -53,12 +52,6 @@ namespace Hybrsoft.EnterpriseManager.Extensions
 		{
 			AppWindow appWindow = GetAppWindow(window);
 			appWindow.Resize(AppSettings.Current.WindowSizeDefault);
-		}
-
-		public static void InitializeWithObject(this Window window, object obj)
-		{
-			IntPtr windowHandle = WindowNative.GetWindowHandle(window);
-			InitializeWithWindow.Initialize(obj, windowHandle);
 		}
 	}
 }

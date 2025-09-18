@@ -1,14 +1,13 @@
 ﻿using Hybrsoft.EnterpriseManager.Common;
-using Hybrsoft.EnterpriseManager.Extensions;
 using Hybrsoft.EnterpriseManager.Tools;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Services;
+using Microsoft.Windows.Storage.Pickers;
 using SkiaSharp;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
-using Windows.Storage.Pickers;
 
 namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 {
@@ -16,7 +15,8 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 	{
 		public async Task<ImagePickerResult> OpenImagePickerAsync()
 		{
-			var picker = new FileOpenPicker
+			var windowId = WindowTracker.GetCurrentView().Window.AppWindow.Id;
+			var picker = new FileOpenPicker(windowId)
 			{
 				ViewMode = PickerViewMode.Thumbnail,
 				SuggestedStartLocation = PickerLocationId.PicturesLibrary
@@ -27,10 +27,12 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			picker.FileTypeFilter.Add(".bmp");
 			picker.FileTypeFilter.Add(".gif");
 
-			WindowTracker.GetCurrentView().Window.InitializeWithObject(picker);
+			var result = await picker.PickSingleFileAsync();
+			if (result is null)
+				return null;
 
-			var file = await picker.PickSingleFileAsync();
-			if (file != null)
+			var file = await StorageFile.GetFileFromPathAsync(result.Path);
+			if (file is not null)
 			{
 				var bytes = await GetImageBytesAsync(file);
 				var bytesResized = await GetResizedImageBytesAsync(file, 200, 200);
