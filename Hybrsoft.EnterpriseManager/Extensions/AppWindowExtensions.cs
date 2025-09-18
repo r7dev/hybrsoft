@@ -1,29 +1,15 @@
 ﻿using Hybrsoft.EnterpriseManager.Configuration;
-using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using System;
 using System.Threading.Tasks;
 using Windows.Devices.Display;
 using Windows.Devices.Enumeration;
-using WinRT.Interop;
 
 namespace Hybrsoft.EnterpriseManager.Extensions
 {
 	public static class AppWindowExtensions
 	{
-		public static AppWindow GetAppWindow(this Window window)
-		{
-			IntPtr windowHandle = WindowNative.GetWindowHandle(window);
-			return GetAppWindowFromWindowHandle(windowHandle);
-		}
-
-		private static AppWindow GetAppWindowFromWindowHandle(IntPtr windowHandle)
-		{
-			WindowId windowId = Win32Interop.GetWindowIdFromWindow(windowHandle);
-			return AppWindow.GetFromWindowId(windowId);
-		}
-
 		public static void SetDefaultIcon(this Window window)
 		{
 			window.AppWindow.SetIcon("Assets/default.ico");
@@ -41,7 +27,7 @@ namespace Hybrsoft.EnterpriseManager.Extensions
 			var Height = monitorInfo.NativeResolutionInRawPixels.Height;
 			var Width = monitorInfo.NativeResolutionInRawPixels.Width;
 
-			AppWindow appWindow = GetAppWindow(window);
+			AppWindow appWindow = window.AppWindow;
 			var CenterPosition = appWindow.Position;
 			CenterPosition.X = (Width - appWindow.Size.Width) / 2;
 			CenterPosition.Y = (Height - appWindow.Size.Height) / 2;
@@ -50,8 +36,7 @@ namespace Hybrsoft.EnterpriseManager.Extensions
 
 		public static void SetDefaultWindowSize(this Window window)
 		{
-			AppWindow appWindow = GetAppWindow(window);
-			appWindow.Resize(AppSettings.Current.WindowSizeDefault);
+			window.AppWindow.Resize(AppSettings.Current.WindowSizeDefault);
 		}
 	}
 }
