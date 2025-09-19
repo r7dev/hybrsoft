@@ -1,9 +1,11 @@
-﻿using Hybrsoft.UI.Windows.Services;
-using Hybrsoft.EnterpriseManager.Configuration;
+﻿using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.Enums;
+using Hybrsoft.UI.Windows.Services;
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Security;
 using System.Threading.Tasks;
 using Windows.Networking.Connectivity;
 
@@ -16,8 +18,16 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		private static readonly SocketsHttpHandler _handler = new()
 		{
 			PooledConnectionLifetime = TimeSpan.FromMinutes(5),
+			SslOptions = new SslClientAuthenticationOptions()
+			{
+				ApplicationProtocols = [SslApplicationProtocol.Http3]
+			}
 		};
-		private static readonly HttpClient _httpClient = new(_handler);
+		private static readonly HttpClient _httpClient = new(_handler)
+		{
+			DefaultRequestVersion = HttpVersion.Version30,
+			DefaultVersionPolicy = HttpVersionPolicy.RequestVersionExact
+		};
 
 		public async Task<bool> IsInternetAvailableAsync()
 		{

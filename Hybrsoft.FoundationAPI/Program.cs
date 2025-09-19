@@ -1,6 +1,7 @@
 using Hybrsoft.FoundationAPI.Configuration;
 using Hybrsoft.FoundationAPI.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -44,6 +45,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 });
 // Add Authorization
 builder.Services.AddAuthorization();
+
+builder.WebHost.UseKestrel((context, options) =>
+{
+	options.ListenAnyIP(443, listenOptions =>
+	{
+		listenOptions.Protocols = HttpProtocols.Http1AndHttp2AndHttp3;
+		listenOptions.UseHttps();
+	});
+});
 
 var app = builder.Build();
 
