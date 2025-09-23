@@ -8,6 +8,7 @@ namespace Hybrsoft.UI.Windows.Services
 	public interface ILookupTables
 	{
 		Task InitializeAsync();
+		Task LoadAfterLoginAsync();
 
 		IList<CountryModel> Countries { get; }
 		IList<PermissionModel> Permissions { get; }

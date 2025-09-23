@@ -14,12 +14,14 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		ISettingsService settingsService,
 		ILicenseService licenseService,
 		INetworkService networkService,
+		ILookupTables lookupTables,
 		ICommonServices commonServices) : ViewModelBase(commonServices)
 	{
 		public ILoginService LoginService { get; } = loginService;
 		public ISettingsService SettingsService { get; } = settingsService;
 		public ILicenseService LicenseService { get; } = licenseService;
 		public INetworkService NetworkService { get; } = networkService;
+		private readonly ILookupTables _lookupTables = lookupTables;
 
 		private ShellArgs ViewModelArgs { get; set; }
 
@@ -107,6 +109,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 					{
 						await LoginService.TrySetupWindowsHelloAsync(UserName);
 					}
+					await _lookupTables.LoadAfterLoginAsync();
 					_isLicenseValid = await IsLicenseValidAsync();
 					await Task.Delay(200);
 					EnterApplication();
@@ -123,6 +126,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			var result = await LoginService.SignInWithWindowsHelloAsync();
 			if (result.IsOk)
 			{
+				await _lookupTables.LoadAfterLoginAsync();
 				_isLicenseValid = await IsLicenseValidAsync();
 				await Task.Delay(200);
 				EnterApplication();

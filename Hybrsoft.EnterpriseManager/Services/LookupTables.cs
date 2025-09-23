@@ -27,12 +27,23 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task InitializeAsync()
 		{
 			Countries = await GetCountriesAsync();
-			Permissions = await GetPermissionsByUserAsync(AppSettings.Current.UserID);
 			ScheduleTypes = await GetScheduleTypesAsync();
 			SubscriptionPlans = await GetSubscriptionPlansAsync();
 			SubscriptionStatuses = await GetSubscriptionStatusesAsync();
 			SubscriptionTypes = await GetSubscriptionTypesAsync();
 			RelativeTypes = await GetRelativeTypesAsync();
+		}
+
+		/// <summary>
+		/// Loads the necessary data after a user logs in.
+		/// </summary>
+		/// <remarks>This method retrieves and initializes the permissions for the currently logged-in user. Ensure
+		/// that the user is authenticated and <see cref="AppSettings.Current.UserID"/> is set before calling this
+		/// method.</remarks>
+		/// <returns>A task that represents the asynchronous operation.</returns>
+		public async Task LoadAfterLoginAsync()
+		{
+			Permissions = await GetPermissionsByUserAsync(AppSettings.Current.UserID);
 		}
 
 		public string GetCountry(Int16 countryID)
