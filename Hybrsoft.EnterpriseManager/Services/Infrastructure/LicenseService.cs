@@ -6,7 +6,6 @@ using Hybrsoft.UI.Windows.Services;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -15,6 +14,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 {
 	public class LicenseService(
 		IUserService userService,
+		IWindowsSecurityService windowsSecurityService,
 		INetworkService networkService,
 		ISettingsService settingsService,
 		ILogService logService) : ILicenseService
@@ -24,7 +24,8 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		private readonly JsonSerializerOptions _jsonOptions = new() { PropertyNameCaseInsensitive = true };
 		private string _jwtToken;
 
-		private IUserService _userService = userService;
+		private readonly IUserService _userService = userService;
+		private readonly IWindowsSecurityService _windowsSecurityService = windowsSecurityService;
 		public INetworkService NetworkService { get; } = networkService;
 		public ISettingsService SettingsService { get; } = settingsService;
 		public ILogService LogService { get; } = logService;
@@ -83,12 +84,8 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 
 		public void SaveLicenseLocally(SubscriptionInfoDto model)
 		{
-			byte[] encryptedData = ProtectedData.Protect(
-				Encoding.UTF8.GetBytes(JsonSerializer.Serialize(model)),
-				null,
-				DataProtectionScope.CurrentUser);
-
-			SettingsService.SaveSettingAsync(_licenseData, Convert.ToBase64String(encryptedData));
+			var encryptedData = _windowsSecurityService.EncryptData(model);
+			SettingsService.SaveSettingAsync(_licenseData, encryptedData);
 			SettingsService.SaveSettingAsync(_lastLicenseSync, DateTimeOffset.Now.ToString("o"));
 		}
 
@@ -107,11 +104,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 
 				try
 				{
-					byte[] decryptedData = ProtectedData.Unprotect(
-						Convert.FromBase64String(encryptedData),
-						null,
-						DataProtectionScope.CurrentUser);
-					var license = JsonSerializer.Deserialize<SubscriptionInfoDto>(Encoding.UTF8.GetString(decryptedData));
+					var license = _windowsSecurityService.DecryptData<SubscriptionInfoDto>(encryptedData);
 					return license.IsActivated && license.ExpirationDate > DateTimeOffset.Now;
 				}
 				catch
@@ -130,6 +123,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 				StartDate = source.StartDate,
 				ExpirationDate = source.ExpirationDate,
 				LicenseData = source.LicenseData,
+				LicensedTo = source.LicensedTo,
 				Message = source.Message,
 			};
 		}

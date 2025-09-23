@@ -48,6 +48,7 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			serviceCollection.AddSingleton<INetworkService, NetworkService>();
 			serviceCollection.AddSingleton<IResourceService, ResourceService>();
 			serviceCollection.AddSingleton<ISecurityService, SecurityService>();
+			serviceCollection.AddSingleton<IWindowsSecurityService, WindowsSecurityService>();
 			serviceCollection.AddSingleton<IAuthorizationService, AuthorizationService>();
 
 			serviceCollection.AddScoped<IContextService, ContextService>();

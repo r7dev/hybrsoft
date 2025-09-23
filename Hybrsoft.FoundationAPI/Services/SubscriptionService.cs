@@ -116,6 +116,9 @@ namespace Hybrsoft.FoundationAPI.Services
 				StartDate = subscription?.StartDate,
 				ExpirationDate = subscription?.ExpirationDate,
 				LicenseData = subscription?.LicenseKey,
+				LicensedTo = subscription?.Type == SubscriptionType.Enterprise
+					? $"{subscription.Company.LegalName}"
+					: $"{subscription.User.FirstName} {subscription.User.LastName}",
 				Message = "Subscription is valid."
 			};
 		}

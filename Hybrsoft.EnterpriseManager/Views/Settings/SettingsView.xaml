@@ -72,10 +72,11 @@
 							   IsTextSelectionEnabled="True"
 							   Text="{x:Bind ViewModel.Version}" />
 					<toolkit:SettingsExpander.Items>
+						<toolkit:SettingsCard Header="{x:Bind ViewModel.LicenseTo, Mode=OneWay}" />
 						<toolkit:SettingsCard x:Uid="/UI/SettingsView_AboutCard"
 											  HorizontalContentAlignment="Left"
 											  ContentAlignment="Vertical">
-							<StackPanel Margin="-12,0,0,0" Orientation="Vertical">
+							<StackPanel Margin="0,0,0,0" Orientation="Vertical">
 								<HyperlinkButton Content="Hybrsoft Corporation Website" NavigateUri="http://www.hybrsoft.com" />
 							</StackPanel>
 						</toolkit:SettingsCard>

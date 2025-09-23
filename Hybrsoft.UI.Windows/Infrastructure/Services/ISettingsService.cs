@@ -11,6 +11,8 @@ namespace Hybrsoft.UI.Windows.Services
 		char PasswordChar { get; }
 		EnvironmentType Environment { get; set; }
 
+		Task<string> GetLicensedToAsync();
+
 		Task<T> ReadSettingAsync<T>(string key);
 		Task SaveSettingAsync<T>(string key, T value);
 	}

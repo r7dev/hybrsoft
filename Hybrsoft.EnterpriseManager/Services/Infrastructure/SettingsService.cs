@@ -1,4 +1,5 @@
-﻿using Hybrsoft.EnterpriseManager.Configuration;
+﻿using Hybrsoft.DTOs;
+using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.Enums;
 using Hybrsoft.UI.Windows.Services;
 using System.IO;
@@ -8,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 {
-	public class SettingsService(IDialogService dialogService) : ISettingsService
+	public class SettingsService(IWindowsSecurityService windowsSecurityService) : ISettingsService
 	{
-		public IDialogService DialogService { get; } = dialogService;
+		private readonly IWindowsSecurityService _windowsSecurityService = windowsSecurityService;
 
 		public string AppName => AppSettings.Current.AppName;
 		public string Version => AppSettings.Current.Version;
@@ -30,6 +31,13 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		{
 			get => ReadSettingAsync<EnvironmentType>(nameof(Environment)).Result;
 			set => SaveSettingAsync<EnvironmentType>(nameof(Environment), value).Wait();
+		}
+
+		public async Task<string> GetLicensedToAsync()
+		{
+			var encryptedData = await ReadSettingAsync<string>("LicenseData");
+			var license = _windowsSecurityService.DecryptData<SubscriptionInfoDto>(encryptedData);
+			return license.LicensedTo;
 		}
 
 		public async Task<T> ReadSettingAsync<T>(string key)

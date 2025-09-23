@@ -1,7 +1,7 @@
-﻿using Hybrsoft.UI.Windows.Models;
+﻿using Hybrsoft.Enums;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
+using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Services;
-using Hybrsoft.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,6 +13,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public string AppName => $"{SettingsService.AppName}";
 		public string Version => $"{SettingsService.Version}";
+		public string LicenseTo;
 
 		private bool _isBusy = false;
 		public bool IsBusy
@@ -52,15 +53,18 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public SettingsArgs ViewModelArgs { get; private set; }
 
-		public Task LoadAsync(SettingsArgs args)
+		public async Task LoadAsync(SettingsArgs args)
 		{
 			ViewModelArgs = args ?? SettingsArgs.CreateDefault();
 			_availableLanguages = ResourceService.LanguageOptions;
 			_selectedLanguage = ResourceService.GetCurrentLanguageItem();
 
-			StatusReady();
+			string resourceKey = string.Concat(nameof(SettingsViewModel), "_LicensedTo_Prefix");
+			string licenseToPrefix = ResourceService.GetString(nameof(ResourceFiles.UI), resourceKey);
+			var licenseTo = await SettingsService.GetLicensedToAsync();
+			LicenseTo = licenseToPrefix + licenseTo;
 
-			return Task.CompletedTask;
+			StatusReady();
 		}
 	}
 }

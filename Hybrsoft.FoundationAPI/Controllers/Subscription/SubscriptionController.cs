@@ -54,6 +54,7 @@ namespace Hybrsoft.FoundationAPI.Controllers
 				StartDate = subscription.StartDate,
 				ExpirationDate = subscription.ExpirationDate,
 				LicenseData = subscription.LicenseData,
+				LicensedTo = subscription.LicensedTo,
 				Message = subscription.Message
 			});
 		}

@@ -1,9 +1,8 @@
 ﻿using Hybrsoft.Enums;
-using Hybrsoft.UI.Windows.Infrastructure.Commom;
+using Hybrsoft.UI.Windows.Services;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -20,6 +19,8 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			Current = new AppSettings();
 		}
 		public static AppSettings Current { get; }
+
+		private static IWindowsSecurityService WindowsSecurityService => ServiceLocator.Current.GetService<IWindowsSecurityService>();
 
 		public ApplicationDataContainer LocalSettings => ApplicationData.Current.LocalSettings;
 
@@ -84,10 +85,10 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			get
 			{
 				string defaultConnectionString = GetDefaultSQLServerConnectionString(AppConfig.IsDevelopment);
-				var valueEncrypted = GetSettingsValueAsync(nameof(SQLServerConnectionString), EncryptData(defaultConnectionString)).Result;
-				return DecryptData<string>(valueEncrypted);
+				var valueEncrypted = GetSettingsValueAsync(nameof(SQLServerConnectionString), WindowsSecurityService.EncryptData(defaultConnectionString)).Result;
+				return WindowsSecurityService.DecryptData<string>(valueEncrypted);
 			}
-			set => SetSettingsValueAsync(nameof(SQLServerConnectionString), EncryptData(value));
+			set => SetSettingsValueAsync(nameof(SQLServerConnectionString), WindowsSecurityService.EncryptData(value));
 		}
 
 		public bool IsRandomErrorsEnabled
@@ -106,20 +107,20 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 		{
 			get
 			{
-				var encryptedData = GetSettingsValueAsync(nameof(JwtToken), EncryptData(default(string))).Result;
-				return DecryptData<string>(encryptedData);
+				var encryptedData = GetSettingsValueAsync(nameof(JwtToken), WindowsSecurityService.EncryptData(default(string))).Result;
+				return WindowsSecurityService.DecryptData<string>(encryptedData);
 			}
-			set => SetSettingsValueAsync(nameof(JwtToken), EncryptData(value));
+			set => SetSettingsValueAsync(nameof(JwtToken), WindowsSecurityService.EncryptData(value));
 		}
 
 		public DateTimeOffset JwtTokenExpiration
 		{
 			get
 			{
-				var encryptedData = GetSettingsValueAsync(nameof(JwtTokenExpiration), EncryptData(DateTimeOffset.MinValue)).Result;
-				return DecryptData<DateTimeOffset>(encryptedData);
+				var encryptedData = GetSettingsValueAsync(nameof(JwtTokenExpiration), WindowsSecurityService.EncryptData(DateTimeOffset.MinValue)).Result;
+				return WindowsSecurityService.DecryptData<DateTimeOffset>(encryptedData);
 			}
-			set => SetSettingsValueAsync(nameof(JwtTokenExpiration), EncryptData(value));
+			set => SetSettingsValueAsync(nameof(JwtTokenExpiration), WindowsSecurityService.EncryptData(value));
 		}
 
 		private TResult GetSettingsValue<TResult>(string name, TResult defaultValue)
@@ -178,31 +179,6 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			{
 				System.Diagnostics.Debug.WriteLine(ex.Message);
 			}
-		}
-
-		private static string EncryptData(object value)
-		{
-			byte[] encryptedData = ProtectedData.Protect(
-				Encoding.UTF8.GetBytes(JsonSerializer.Serialize(value)),
-				null,
-				DataProtectionScope.CurrentUser);
-
-			return Convert.ToBase64String(encryptedData);
-		}
-
-		private static TResult DecryptData<TResult>(string encryptedData)
-		{
-			if (string.IsNullOrEmpty(encryptedData))
-			{
-				return default;
-			}
-			// Decrypt the data using ProtectedData
-			// Note: Ensure that the encryptedData is in Base64 format before calling this method
-			byte[] decryptedData = ProtectedData.Unprotect(
-				Convert.FromBase64String(encryptedData),
-				null,
-				DataProtectionScope.CurrentUser);
-			return JsonSerializer.Deserialize<TResult>(Encoding.UTF8.GetString(decryptedData));
 		}
 
 		private static string GetDefaultSQLServerConnectionString(bool isDevelopment)

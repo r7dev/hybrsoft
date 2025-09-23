@@ -981,4 +981,7 @@
   <data name="LicenseActivationView_CheckConnection.Text" xml:space="preserve">
     <value>Verificar Conexão</value>
   </data>
+  <data name="SettingsViewModel_LicensedTo_Prefix" xml:space="preserve">
+    <value>Licenciado para: </value>
+  </data>
 </root>
