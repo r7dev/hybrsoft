@@ -5,6 +5,7 @@ using Hybrsoft.EnterpriseManager.Services.Infrastructure;
 using Hybrsoft.EnterpriseManager.Tools;
 using Hybrsoft.EnterpriseManager.Views;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
+using Hybrsoft.UI.Windows.Models; //Used with SKIP_LOGIN
 using Hybrsoft.UI.Windows.Services; //Used with SKIP_LOGIN
 using Hybrsoft.UI.Windows.ViewModels;
 using Microsoft.UI.Xaml;
@@ -42,6 +43,14 @@ namespace Hybrsoft.EnterpriseManager
 				UserInfo = await TryGetUserInfoAsync(args as IActivatedEventArgsWithUser)
 			};
 #if SKIP_LOGIN
+			var UserService = ServiceLocator.Current.GetService<IUserService>();
+			UserModel user = await UserService.GetUserByEmailAsync(shellArgs.UserInfo.AccountName);
+			if (user is not null)
+			{
+				AppSettings.Current.UserID = user.UserID;
+				var LookupTables = ServiceLocator.Current.GetService<ILookupTables>();
+				await LookupTables.LoadAfterLoginAsync();
+			}
 			rootFrame.Navigate(typeof(MainShellView), shellArgs);
 			var loginService = ServiceLocator.Current.GetService<ILoginService>();
 			loginService.IsAuthenticated = true;
