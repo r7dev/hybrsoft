@@ -15,6 +15,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		ILicenseService licenseService,
 		INetworkService networkService,
 		ILookupTables lookupTables,
+		IAuthorizationService authorizationService,
 		ICommonServices commonServices) : ViewModelBase(commonServices)
 	{
 		public ILoginService LoginService { get; } = loginService;
@@ -22,6 +23,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		public ILicenseService LicenseService { get; } = licenseService;
 		public INetworkService NetworkService { get; } = networkService;
 		private readonly ILookupTables _lookupTables = lookupTables;
+		private readonly IAuthorizationService _authorizationService = authorizationService;
 
 		private ShellArgs ViewModelArgs { get; set; }
 
@@ -60,6 +62,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			set { Set(ref _password, value); }
 		}
 
+		private bool _hasSecurityAdministration;
 		private bool _isLicenseValid;
 
 		public ICommand ShowLoginWithPasswordCommand => new RelayCommand(ShowLoginWithPassword);
@@ -105,14 +108,13 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				result = await LoginService.SignInWithPasswordAsync(UserName, Password);
 				if (result.IsOk)
 				{
+					await LoadPermissionsAsync();
 					if (!await LoginService.IsWindowsHelloEnabledAsync(UserName))
 					{
 						await LoginService.TrySetupWindowsHelloAsync(UserName);
 					}
-					await _lookupTables.LoadAfterLoginAsync();
-					_isLicenseValid = await IsLicenseValidAsync();
-					await Task.Delay(200);
-					EnterApplication();
+					await VerifyLicenseAsync();
+					await EnterApplication();
 					return;
 				}
 			}
@@ -126,17 +128,16 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			var result = await LoginService.SignInWithWindowsHelloAsync();
 			if (result.IsOk)
 			{
-				await _lookupTables.LoadAfterLoginAsync();
-				_isLicenseValid = await IsLicenseValidAsync();
-				await Task.Delay(200);
-				EnterApplication();
+				await LoadPermissionsAsync();
+				await VerifyLicenseAsync();
+				await EnterApplication();
 				return;
 			}
 			await DialogService.ShowAsync(result.Message, result.Description);
 			IsBusy = false;
 		}
 
-		private void EnterApplication()
+		private Task EnterApplication()
 		{
 			if (ViewModelArgs.UserInfo.AccountName != UserName)
 			{
@@ -147,7 +148,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 					PictureSource = null
 				};
 			}
-			if (_isLicenseValid)
+			if (_hasSecurityAdministration || _isLicenseValid)
 			{
 				NavigationService.Navigate<MainShellViewModel>(ViewModelArgs);
 			}
@@ -161,6 +162,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				};
 				NavigationService.Navigate<LicenseActivationViewModel>(ViewModelArgs);
 			}
+			return Task.CompletedTask;
 		}
 
 		private Result ValidateInput()
@@ -174,6 +176,20 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				return Result.Error("Login error", "Please, enter a valid password.");
 			}
 			return Result.Ok();
+		}
+
+		private async Task LoadPermissionsAsync()
+		{
+			await _lookupTables.LoadAfterLoginAsync();
+			_hasSecurityAdministration = _authorizationService.HasPermission(Permissions.SecurityAdministration);
+		}
+
+		private async Task VerifyLicenseAsync()
+		{
+			if (!_hasSecurityAdministration)
+			{
+				_isLicenseValid = await IsLicenseValidAsync();
+			}
 		}
 
 		private async Task<bool> IsLicenseValidAsync()
