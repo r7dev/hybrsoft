@@ -37,7 +37,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		{
 			var encryptedData = await ReadSettingAsync<string>("LicenseData");
 			var license = _windowsSecurityService.DecryptData<SubscriptionInfoDto>(encryptedData);
-			return license.LicensedTo;
+			return license?.LicensedTo ?? "Security Administration";
 		}
 
 		public async Task<T> ReadSettingAsync<T>(string key)
