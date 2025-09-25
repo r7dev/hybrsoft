@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Hybrsoft.AspireServiceDefaults\Hybrsoft.AspireServiceDefaults.csproj" />
     <ProjectReference Include="..\Hybrsoft.Domain\Hybrsoft.Domain.csproj" />
     <ProjectReference Include="..\Hybrsoft.DTOs\Hybrsoft.DTOs.csproj" />
     <ProjectReference Include="..\Hybrsoft.Infrastructure\Hybrsoft.Infrastructure.csproj" />
