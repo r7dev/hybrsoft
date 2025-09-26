@@ -32,32 +32,10 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			EditableItem.NotifyChanges();
 		}
 
-		public override string Title
-		{
-			get
-			{
-				if (Item?.IsNew ?? true)
-				{
-					string resourceKey = string.Concat(nameof(DismissalDetailsViewModel), "_Title");
-					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.UI), resourceKey);
-					return resourceValue;
-				}
-				return TitleEdit;
-			}
-		}
-		public string TitleEdit
-		{
-			get
-			{
-				if (Item == null)
-				{
-					string resourceKey = string.Concat(nameof(DismissalDetailsViewModel), "_TitleEdit");
-					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.UI), resourceKey);
-					return resourceValue;
-				}
-				return $"{Item.Student.FullName}";
-			}
-		}
+		public override string Title =>
+			ItemIsNew
+				? ResourceService.GetString(nameof(ResourceFiles.UI), $"{nameof(DismissalDetailsViewModel)}_TitleNew")
+				: Item.Student.FullName;
 
 		public override bool ItemIsNew => Item?.IsNew ?? true;
 

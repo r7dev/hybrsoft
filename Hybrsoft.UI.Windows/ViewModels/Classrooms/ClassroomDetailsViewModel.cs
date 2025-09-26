@@ -14,32 +14,10 @@ namespace Hybrsoft.UI.Windows.ViewModels
 	{
 		public IClassroomService ClassroomService { get; } = classroomService;
 
-		public override string Title
-		{
-			get
-			{
-				if (Item?.IsNew ?? true)
-				{
-					string resourceKey = string.Concat(nameof(ClassroomDetailsViewModel), "_Title");
-					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.UI), resourceKey);
-					return resourceValue;
-				}
-				return TitleEdit;
-			}
-		}
-		public string TitleEdit
-		{
-			get
-			{
-				if (Item == null)
-				{
-					string resourceKey = string.Concat(nameof(ClassroomDetailsViewModel), "_TitleEdit");
-					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.UI), resourceKey);
-					return resourceValue;
-				}
-				return $"{Item.Name}";
-			}
-		}
+		public override string Title =>
+			ItemIsNew
+				? ResourceService.GetString(nameof(ResourceFiles.UI), $"{nameof(ClassroomDetailsViewModel)}_TitleNew")
+				: Item.Name;
 
 		public override bool ItemIsNew => Item?.IsNew ?? true;
 

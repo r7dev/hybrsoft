@@ -17,22 +17,10 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			get
 			{
-				if (Item?.IsNew ?? true)
-				{
-					string resourceKey = string.Concat(nameof(RoleDetailsViewModel), "_Title");
-					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.UI), resourceKey);
-					return resourceValue;
-				}
-				return TitleEdit;
-			}
-		}
-		public string TitleEdit
-		{
-			get
-			{
-				string resourceKey = string.Concat(nameof(RoleDetailsViewModel), "_TitleEdit");
+				string suffix = ItemIsNew ? "New" : "Edit";
+				string resourceKey = $"{nameof(RoleDetailsViewModel)}_Title{suffix}";
 				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.UI), resourceKey);
-				return Item == null ? resourceValue : $"{resourceValue} #{Item?.RoleID}";
+				return ItemIsNew ? resourceValue : $"{resourceValue} #{Item.RoleID}";
 			}
 		}
 

@@ -273,11 +273,8 @@
   <data name="ListToolbarUserControl_AppBarButtonDelete.Label" xml:space="preserve">
     <value>Excluir</value>
   </data>
-  <data name="PermissionDetailsViewModel_Title" xml:space="preserve">
+  <data name="PermissionDetailsViewModel_TitleNew" xml:space="preserve">
     <value>Nova Permissão</value>
-  </data>
-  <data name="PermissionDetailsViewModel_TitleEdit" xml:space="preserve">
-    <value>Permissão</value>
   </data>
   <data name="ContentDialog_CloseButtonText_Cancel" xml:space="preserve">
     <value>Cancelar</value>
@@ -327,7 +324,7 @@
   <data name="RolesRolePermissionsUserControl_New.NewLabel" xml:space="preserve">
     <value>Nova Permissão de Função</value>
   </data>
-  <data name="RoleDetailsViewModel_Title" xml:space="preserve">
+  <data name="RoleDetailsViewModel_TitleNew" xml:space="preserve">
     <value>Nova Função</value>
   </data>
   <data name="RoleDetailsViewModel_TitleEdit" xml:space="preserve">
@@ -396,11 +393,8 @@
   <data name="UsersUserRolesUserControl_New.NewLabel" xml:space="preserve">
     <value>Nova Função de Usuário</value>
   </data>
-  <data name="UserDetailsViewModel_Title" xml:space="preserve">
+  <data name="UserDetailsViewModel_TitleNew" xml:space="preserve">
     <value>Novo Usuário</value>
-  </data>
-  <data name="UserDetailsViewModel_TitleEdit" xml:space="preserve">
-    <value>Usuário</value>
   </data>
   <data name="UserDetailsUserControl_Information.Text" xml:space="preserve">
     <value>Informações do Usuário</value>
@@ -450,11 +444,8 @@
   <data name="StudentListViewModel_Prefix" xml:space="preserve">
     <value>Estudantes</value>
   </data>
-  <data name="StudentDetailsViewModel_Title" xml:space="preserve">
+  <data name="StudentDetailsViewModel_TitleNew" xml:space="preserve">
     <value>Novo Estudante</value>
-  </data>
-  <data name="StudentDetailsViewModel_TitleEdit" xml:space="preserve">
-    <value>Estudante</value>
   </data>
   <data name="StudentCardUserControl_StudentID.Text" xml:space="preserve">
     <value>Estudante ID</value>
@@ -501,11 +492,8 @@
   <data name="ContentDialog_Title_ConfirmLogoff" xml:space="preserve">
     <value>Confirmar logoff</value>
   </data>
-  <data name="ClassroomDetailsViewModel_Title" xml:space="preserve">
+  <data name="ClassroomDetailsViewModel_TitleNew" xml:space="preserve">
     <value>Nova Sala de Aula</value>
-  </data>
-  <data name="ClassroomDetailsViewModel_TitleEdit" xml:space="preserve">
-    <value>Sala de Aula</value>
   </data>
   <data name="GenericCardUserControl_General.Text" xml:space="preserve">
     <value>Geral</value>
@@ -594,11 +582,8 @@
   <data name="ClassroomDetailsUserControl_Students.Header" xml:space="preserve">
     <value>Estudantes</value>
   </data>
-  <data name="RelativeDetailsViewModel_Title" xml:space="preserve">
+  <data name="RelativeDetailsViewModel_TitleNew" xml:space="preserve">
     <value>Novo Parente</value>
-  </data>
-  <data name="RelativeDetailsViewModel_TitleEdit" xml:space="preserve">
-    <value>Parente</value>
   </data>
   <data name="RelativeListViewModel_Prefix" xml:space="preserve">
     <value>Parentes</value>
@@ -714,11 +699,8 @@
   <data name="ScheduleType_Nocturnal" xml:space="preserve">
     <value>Noturno</value>
   </data>
-  <data name="DismissalDetailsViewModel_Title" xml:space="preserve">
+  <data name="DismissalDetailsViewModel_TitleNew" xml:space="preserve">
     <value>Nova Dispensa</value>
-  </data>
-  <data name="DismissalDetailsViewModel_TitleEdit" xml:space="preserve">
-    <value>Dispensa</value>
   </data>
   <data name="DismissalDetailsUserControl_Information.Text" xml:space="preserve">
     <value>Informações da Dispensa</value>
@@ -783,11 +765,8 @@
   <data name="Country_Brazil" xml:space="preserve">
     <value>Brasil</value>
   </data>
-  <data name="CompanyDetailsViewModel_Title" xml:space="preserve">
+  <data name="CompanyDetailsViewModel_TitleNew" xml:space="preserve">
     <value>Nova Empresa</value>
-  </data>
-  <data name="CompanyDetailsViewModel_TitleEdit" xml:space="preserve">
-    <value>Empresa</value>
   </data>
   <data name="CompanyListViewModel_Prefix" xml:space="preserve">
     <value>Empresas</value>
@@ -876,11 +855,8 @@
   <data name="NavigationItem_Companies" xml:space="preserve">
     <value>Empresas</value>
   </data>
-  <data name="SubscriptionDetailsViewModel_Title" xml:space="preserve">
+  <data name="SubscriptionDetailsViewModel_TitleNew" xml:space="preserve">
     <value>Nova Assinatura</value>
-  </data>
-  <data name="SubscriptionDetailsViewModel_TitleEdit" xml:space="preserve">
-    <value>Assinatura</value>
   </data>
   <data name="SubscriptionListViewModel_Prefix" xml:space="preserve">
     <value>Assinaturas</value>

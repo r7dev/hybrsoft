@@ -16,32 +16,10 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public IFilePickerService FilePickerService { get; } = filePickerService;
 
-		public override string Title
-		{
-			get
-			{
-				if (Item?.IsNew ?? true)
-				{
-					string resourceKey = string.Concat(nameof(StudentDetailsViewModel), "_Title");
-					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.UI), resourceKey);
-					return resourceValue;
-				}
-				return TitleEdit;
-			}
-		}
-		public string TitleEdit
-		{
-			get
-			{
-				if (Item == null)
-				{
-					string resourceKey = string.Concat(nameof(StudentDetailsViewModel), "_TitleEdit");
-					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.UI), resourceKey);
-					return resourceValue;
-				}
-				return $"{Item.FullName}";
-			}
-		}
+		public override string Title =>
+			ItemIsNew
+				? ResourceService.GetString(nameof(ResourceFiles.UI), $"{nameof(StudentDetailsViewModel)}_TitleNew")
+				: Item.FullName;
 
 		public override bool ItemIsNew => Item?.IsNew ?? true;
 

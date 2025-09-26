@@ -16,32 +16,10 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		private bool _hasEditorPermission;
 
-		public override string Title
-		{
-			get
-			{
-				if (Item?.IsNew ?? true)
-				{
-					string resourceKey = string.Concat(nameof(CompanyDetailsViewModel), "_Title");
-					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.UI), resourceKey);
-					return resourceValue;
-				}
-				return TitleEdit;
-			}
-		}
-		public string TitleEdit
-		{
-			get
-			{
-				if (Item == null)
-				{
-					string resourceKey = string.Concat(nameof(CompanyDetailsViewModel), "_TitleEdit");
-					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.UI), resourceKey);
-					return resourceValue;
-				}
-				return $"{Item.LegalName}";
-			}
-		}
+		public override string Title =>
+			ItemIsNew
+				? ResourceService.GetString(nameof(ResourceFiles.UI), $"{nameof(CompanyDetailsViewModel)}_TitleNew")
+				: Item.LegalName;
 
 		public override bool ItemIsNew => Item?.IsNew ?? true;
 

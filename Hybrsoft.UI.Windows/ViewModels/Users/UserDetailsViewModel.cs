@@ -13,32 +13,10 @@ namespace Hybrsoft.UI.Windows.ViewModels
 	{
 		public IUserService UserService { get; } = userService;
 
-		public override string Title
-		{
-			get
-			{
-				if (Item?.IsNew ?? true)
-				{
-					string resourceKey = string.Concat(nameof(UserDetailsViewModel), "_Title");
-					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.UI), resourceKey);
-					return resourceValue;
-				}
-				return TitleEdit;
-			}
-		}
-		public string TitleEdit
-		{
-			get
-			{
-				if (Item == null)
-				{
-					string resourceKey = string.Concat(nameof(UserDetailsViewModel), "_TitleEdit");
-					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.UI), resourceKey);
-					return resourceValue;
-				}
-				return $"{Item.FullName}";
-			}
-		}
+		public override string Title =>
+			ItemIsNew
+				? ResourceService.GetString(nameof(ResourceFiles.UI), $"{nameof(UserDetailsViewModel)}_TitleNew")
+				: Item.FullName;
 
 		public override bool ItemIsNew => Item?.IsNew ?? true;
 
