@@ -1,6 +1,6 @@
 ﻿namespace Hybrsoft.Enums
 {
-	public enum AppType
+	public enum AppType : short
 	{
 		EnterpriseManager,
 		Awards

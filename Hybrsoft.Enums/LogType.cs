@@ -1,6 +1,6 @@
 ﻿namespace Hybrsoft.Enums
 {
-	public enum LogType
+	public enum LogType : short
 	{
 		Information,
 		Success,

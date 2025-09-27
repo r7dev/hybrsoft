@@ -1,6 +1,6 @@
 ﻿namespace Hybrsoft.Enums
 {
-	public enum DataProviderType
+	public enum DataProviderType : short
 	{
 		SQLServer,
 		SQLite,

@@ -1,6 +1,6 @@
 ﻿namespace Hybrsoft.Enums
 {
-	public enum Permissions
+	public enum Permissions : short
 	{
 		SecurityAdministration,
 		RelativeReader,

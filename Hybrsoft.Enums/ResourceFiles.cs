@@ -1,6 +1,6 @@
 ﻿namespace Hybrsoft.Enums
 {
-	public enum ResourceFiles
+	public enum ResourceFiles : short
 	{
 		Errors,
 		InfoMessages,

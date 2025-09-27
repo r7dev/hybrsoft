@@ -6,7 +6,7 @@
 	[Uid] NVARCHAR(50) NULL,
 	[ViewModel] NVARCHAR(50) NULL,
 	[ParentID] INT NULL,
-	[AppType] INT NOT NULL,
+	[AppType] SMALLINT NOT NULL,
 	CONSTRAINT FK_NavigationItem_ParentID FOREIGN KEY ([ParentID]) REFERENCES [Universal].[NavigationItem] ([NavigationItemID])
 )
 GO
