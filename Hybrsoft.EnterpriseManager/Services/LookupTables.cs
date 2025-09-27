@@ -46,7 +46,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			Permissions = await GetPermissionsByUserAsync(AppSettings.Current.UserID);
 		}
 
-		public string GetCountry(Int16 countryID)
+		public string GetCountry(short countryID)
 		{
 			return countryID == 0
 				? string.Empty
@@ -93,7 +93,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			return [];
 		}
 
-		public string GetScheduleType(Int16 scheduleTypeID)
+		public string GetScheduleType(short scheduleTypeID)
 		{
 			return scheduleTypeID == 0
 				? string.Empty
@@ -179,7 +179,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 				})];
 		}
 
-		public string GetRelativeType(Int16 relativeTypeID)
+		public string GetRelativeType(short relativeTypeID)
 		{
 			return relativeTypeID == 0
 				? string.Empty

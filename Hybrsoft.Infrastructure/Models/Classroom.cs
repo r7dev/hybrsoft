@@ -6,13 +6,13 @@ namespace Hybrsoft.Infrastructure.Models
 	{
 		public long ClassroomID { get; set; }
 		public string Name { get; set; }
-		public Int16 Year { get; set; }
-		public Int16 MinimumYear { get; set; }
-		public Int16 MaximumYear { get; set; }
-		public Int16 EducationLevel { get; set; }
-		public Int16 MinimumEducationLevel { get; set; }
-		public Int16 MaximumEducationLevel { get; set; }
-		public Int16 ScheduleTypeID { get; set; }
+		public short Year { get; set; }
+		public short MinimumYear { get; set; }
+		public short MaximumYear { get; set; }
+		public short EducationLevel { get; set; }
+		public short MinimumEducationLevel { get; set; }
+		public short MaximumEducationLevel { get; set; }
+		public short ScheduleTypeID { get; set; }
 
 		public DateTimeOffset CreatedOn { get; set; }
 		public DateTimeOffset? LastModifiedOn { get; set; }

@@ -12,7 +12,7 @@ namespace Hybrsoft.UI.Windows.Models
 		public string FederalRegistration { get; set; }
 		public string StateRegistration { get; set; }
 		public string CityLicense { get; set; }
-		public Int16 CountryID { get; set; }
+		public short CountryID { get; set; }
 		public string Phone { get; set; }
 		public string Email { get; set; }
 
