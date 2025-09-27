@@ -306,4 +306,34 @@
   <data name="FoundationAPI_SubscriptionService_InvalidLicenseKey" xml:space="preserve">
     <value>Chave de licença inválida.</value>
   </data>
+  <data name="LoginService_LoginError" xml:space="preserve">
+    <value>Erro de login</value>
+  </data>
+  <data name="LoginService_PleaseEnterValidUsernameAndPassword" xml:space="preserve">
+    <value>Por favor, insira um nome de usuário e senha válidos.</value>
+  </data>
+  <data name="LoginService_CannotSignInWithWindowsHello" xml:space="preserve">
+    <value>Não é possível entrar com Windows Hello:</value>
+  </data>
+  <data name="LoginService_WindowsHelloIsNotEnabledForCurrentUser" xml:space="preserve">
+    <value>O Windows Hello não está ativado para o usuário atual.</value>
+  </data>
+  <data name="LoginService_ToProceedWindowsHelloNeedsToBeConfiguredInWindowsSettings" xml:space="preserve">
+    <value>Para prosseguir, o Windows Hello precisa ser configurado nas Configurações do Windows (Contas -&gt; Opções de entrada)</value>
+  </data>
+  <data name="LoginService_TheKeyCredentialCouldNotBeCreatedPleaseTryAgain" xml:space="preserve">
+    <value>A credencial da chave não pôde ser criada. Por favor, tente novamente.</value>
+  </data>
+  <data name="LoginService_WindowsHelloError" xml:space="preserve">
+    <value>Erro do Windows Hello</value>
+  </data>
+  <data name="LoginViewModel_LoginError" xml:space="preserve">
+    <value>Erro de login</value>
+  </data>
+  <data name="LoginViewModel_PleaseEnterValidUsername" xml:space="preserve">
+    <value>Por favor, insira um nome de usuário válido.</value>
+  </data>
+  <data name="LoginViewModel_PleaseEnterValidPassword" xml:space="preserve">
+    <value>Por favor, insira uma senha válida.</value>
+  </data>
 </root>

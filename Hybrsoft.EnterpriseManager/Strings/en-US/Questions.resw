@@ -153,6 +153,12 @@
   <data name="DismissalListViewModel_AreYouSureYouWantToApproveTheSelectedDismissalRequests" xml:space="preserve">
     <value>Are you sure you want to approve the selected dismissal requests?</value>
   </data>
+  <data name="LoginService_DoYouWantToEnableWindowsHelloForYourNextSignInWithThisUser" xml:space="preserve">
+    <value>Do you want to enable Windows Hello for your next sign in with this user?</value>
+  </data>
+  <data name="LoginService_YourDeviceSupportsWindowsHelloAndYouCanUseItToAuthenticateWithTheApp" xml:space="preserve">
+    <value>Your device supports Windows Hello and you can use it to authenticate with the app.</value>
+  </data>
   <data name="PermissionDetailsViewModel_AreYouSureYouWantToDeleteCurrentPermission" xml:space="preserve">
     <value>Are you sure you want to delete current permission?</value>
   </data>

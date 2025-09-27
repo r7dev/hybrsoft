@@ -1,5 +1,6 @@
 ﻿using Hybrsoft.Domain.Services;
 using Hybrsoft.EnterpriseManager.Configuration;
+using Hybrsoft.Enums;
 using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Services;
@@ -12,12 +13,11 @@ using Windows.Storage.Streams;
 
 namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 {
-	public class LoginService(IMessageService messageService, IDialogService dialogService, IUserService userService, ISecurityService securityService) : ILoginService
+	public class LoginService(IUserService userService, ISecurityService securityService, ICommonServices commonServices) : ILoginService
 	{
-		public IMessageService MessageService { get; } = messageService;
-		public IDialogService DialogService { get; } = dialogService;
-		public IUserService UserService { get; } = userService;
-		private ISecurityService SecurityService { get; } = securityService;
+		private readonly IUserService _userService = userService;
+		private readonly ISecurityService _securityService = securityService;
+		private readonly ICommonServices _commonServices = commonServices;
 
 		public bool IsAuthenticated { get; set; } = false;
 
@@ -36,14 +36,17 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 
 		public async Task<Result> SignInWithPasswordAsync(string userName, string password)
 		{
-			UserModel user = await UserService.GetUserByEmailAsync(userName, true);
-			bool isUserAuthenticated = user != null && SecurityService.VerifyHashedPassword(user.Password, password);
+			UserModel user = await _userService.GetUserByEmailAsync(userName, true);
+			bool isUserAuthenticated = user != null && _securityService.VerifyHashedPassword(user.Password, password);
 			AppSettings.Current.UserID = isUserAuthenticated ? user.UserID : default;
 			AppSettings.Current.UserName = isUserAuthenticated ? userName : default;
 			UpdateAuthenticationStatus(isUserAuthenticated);
-			return isUserAuthenticated
-				? Result.Ok()
-				: Result.Error("Login error", "Please, enter a valid username and password.");
+			if (isUserAuthenticated)
+				return Result.Ok();
+
+			string message = _commonServices.ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginService)}_LoginError");
+			string description = _commonServices.ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginService)}_PleaseEnterValidUsernameAndPassword");
+			return Result.Error(message, description);
 		}
 
 		public async Task<Result> SignInWithWindowsHelloAsync()
@@ -62,11 +65,14 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 						UpdateAuthenticationStatus(true);
 						return Result.Ok();
 					}
-					return Result.Error("Windows Hello", $"Cannot sign in with Windows Hello: {result.Status}");
+					string description = _commonServices.ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginService)}_CannotSignInWithWindowsHello");
+					return Result.Error("Windows Hello", $"{description} {result.Status}");
 				}
-				return Result.Error("Windows Hello", $"Cannot sign in with Windows Hello: {retrieveResult.Status}");
+				string description2 = _commonServices.ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginService)}_CannotSignInWithWindowsHello");
+				return Result.Error("Windows Hello", $"{description2} {retrieveResult.Status}");
 			}
-			return Result.Error("Windows Hello", "Windows Hello is not enabled for current user.");
+			string description3 = _commonServices.ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginService)}_WindowsHelloIsNotEnabledForCurrentUser");
+			return Result.Error("Windows Hello", description3);
 		}
 
 		public void Logoff()
@@ -77,14 +83,18 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		private void UpdateAuthenticationStatus(bool isAuthenticated)
 		{
 			IsAuthenticated = isAuthenticated;
-			MessageService.Send(this, "AuthenticationChanged", IsAuthenticated);
+			_commonServices.MessageService.Send(this, "AuthenticationChanged", IsAuthenticated);
 		}
 
 		public async Task TrySetupWindowsHelloAsync(string userName)
 		{
 			if (await KeyCredentialManager.IsSupportedAsync())
 			{
-				if (await DialogService.ShowAsync("Windows Hello", "Your device supports Windows Hello and you can use it to authenticate with the app.\r\n\r\nDo you want to enable Windows Hello for your next sign in with this user?", "Ok", "Maybe later"))
+				string content = _commonServices.ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(LoginService)}_YourDeviceSupportsWindowsHelloAndYouCanUseItToAuthenticateWithTheApp");
+				content += "\r\n\r\n";
+				content += _commonServices.ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(LoginService)}_DoYouWantToEnableWindowsHelloForYourNextSignInWithThisUser");
+				string cancel = _commonServices.ResourceService.GetString(nameof(ResourceFiles.UI),$"{nameof(LoginService)}_MaybeLater");
+				if (await _commonServices.DialogService.ShowAsync("Windows Hello", content, "Ok", cancel))
 				{
 					await SetupWindowsHelloAsync(userName);
 				}
@@ -128,11 +138,14 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			}
 			else if (keyCreationResult.Status == KeyCredentialStatus.NotFound)
 			{
-				await DialogService.ShowAsync("Windows Hello", "To proceed, Windows Hello needs to be configured in Windows Settings (Accounts -> Sign-in options)");
+				string content = _commonServices.ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginService)}_ToProceedWindowsHelloNeedsToBeConfiguredInWindowsSettings");
+				await _commonServices.DialogService.ShowAsync("Windows Hello", content);
 			}
 			else if (keyCreationResult.Status == KeyCredentialStatus.UnknownError)
 			{
-				await DialogService.ShowAsync("Windows Hello Error", "The key credential could not be created. Please try again.");
+				string title = _commonServices.ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginService)}_WindowsHelloError");
+				string content = _commonServices.ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginService)}_TheKeyCredentialCouldNotBeCreatedPleaseTryAgain");
+				await _commonServices.DialogService.ShowAsync(title, content);
 			}
 
 			return null;

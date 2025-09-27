@@ -153,6 +153,12 @@
   <data name="DismissalListViewModel_AreYouSureYouWantToApproveTheSelectedDismissalRequests" xml:space="preserve">
     <value>Tem certeza de que deseja aprovar as solicitações de dispensa selecionadas?</value>
   </data>
+  <data name="LoginService_DoYouWantToEnableWindowsHelloForYourNextSignInWithThisUser" xml:space="preserve">
+    <value>Você quer ativar o Windows Hello para o próximo login com este usuário?</value>
+  </data>
+  <data name="LoginService_YourDeviceSupportsWindowsHelloAndYouCanUseItToAuthenticateWithTheApp" xml:space="preserve">
+    <value>Seu dispositivo suporta o Windows Hello e você pode usá-lo para autenticar-se no aplicativo.</value>
+  </data>
   <data name="PermissionDetailsViewModel_AreYouSureYouWantToDeleteCurrentPermission" xml:space="preserve">
     <value>Tem certeza de que deseja excluir a permissão atual?</value>
   </data>

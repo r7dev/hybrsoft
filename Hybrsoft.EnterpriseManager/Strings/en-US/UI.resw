@@ -960,4 +960,7 @@
   <data name="SettingsViewModel_LicensedTo_Prefix" xml:space="preserve">
     <value>Licensed to: </value>
   </data>
+  <data name="LoginService_MaybeLater" xml:space="preserve">
+    <value>Maybe later</value>
+  </data>
 </root>

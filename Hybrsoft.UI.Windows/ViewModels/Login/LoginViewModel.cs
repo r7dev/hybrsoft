@@ -15,7 +15,6 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		ILicenseService licenseService,
 		INetworkService networkService,
 		ILookupTables lookupTables,
-		IAuthorizationService authorizationService,
 		ICommonServices commonServices) : ViewModelBase(commonServices)
 	{
 		public ILoginService LoginService { get; } = loginService;
@@ -23,7 +22,6 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		public ILicenseService LicenseService { get; } = licenseService;
 		public INetworkService NetworkService { get; } = networkService;
 		private readonly ILookupTables _lookupTables = lookupTables;
-		private readonly IAuthorizationService _authorizationService = authorizationService;
 
 		private ShellArgs ViewModelArgs { get; set; }
 
@@ -169,11 +167,15 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			if (String.IsNullOrWhiteSpace(UserName))
 			{
-				return Result.Error("Login error", "Please, enter a valid user name.");
+				string message = ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginViewModel)}_LoginError");
+				string description = ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginViewModel)}_PleaseEnterValidUsername");
+				return Result.Error(message, description);
 			}
 			if (String.IsNullOrWhiteSpace(Password))
 			{
-				return Result.Error("Login error", "Please, enter a valid password.");
+				string message = ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginViewModel)}_LoginError");
+				string description = ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginViewModel)}_PleaseEnterValidPassword");
+				return Result.Error(message, description);
 			}
 			return Result.Ok();
 		}
@@ -181,7 +183,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		private async Task LoadPermissionsAsync()
 		{
 			await _lookupTables.LoadAfterLoginAsync();
-			_hasSecurityAdministration = _authorizationService.HasPermission(Permissions.SecurityAdministration);
+			_hasSecurityAdministration = AuthorizationService.HasPermission(Permissions.SecurityAdministration);
 		}
 
 		private async Task VerifyLicenseAsync()
