@@ -91,7 +91,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			IsInternetAvailable = await NetworkService.IsInternetAvailableAsync();
 			if (!IsInternetAvailable)
 			{
-				string resourceKey = string.Concat(nameof(LicenseActivationViewModel), "_NoInternetConnection_PleaseCheckYourConnectionAndTryAgain");
+				string resourceKey = $"{nameof(LicenseActivationViewModel)}_NoInternetConnection_PleaseCheckYourConnectionAndTryAgain";
 				string message = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 				StatusErrorYourself(message);
 				return;
@@ -139,7 +139,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			IsInternetAvailable = await NetworkService.IsInternetAvailableAsync();
 			if (IsInternetAvailable)
 			{
-				string resourceKey = string.Concat(nameof(LicenseActivationViewModel), "_InternetConnectionIsAvailable");
+				string resourceKey = $"{nameof(LicenseActivationViewModel)}_InternetConnectionIsAvailable";
 				string message = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
 				StatusMessageYourself(message);
 				IsBusy = false;

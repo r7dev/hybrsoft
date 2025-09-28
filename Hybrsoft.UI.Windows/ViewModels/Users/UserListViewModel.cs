@@ -17,7 +17,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 	{
 		public IUserService UserService { get; } = userService;
 
-		public string Prefix => ResourceService.GetString(nameof(ResourceFiles.UI), string.Concat(nameof(UserListViewModel), "_Prefix"));
+		public string Prefix => ResourceService.GetString(nameof(ResourceFiles.UI), $"{nameof(UserListViewModel)}_Prefix");
 
 		public UserListArgs ViewModelArgs { get; private set; }
 
@@ -25,11 +25,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			ViewModelArgs = args ?? UserListArgs.CreateEmpty();
 			Query = ViewModelArgs.Query;
-			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(UserListViewModel), "_LoadingUsers"));
+			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(UserListViewModel)}_LoadingUsers");
 			StartStatusMessage(startMessage);
 			if (await RefreshAsync())
 			{
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(UserListViewModel), "_UsersLoaded"));
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(UserListViewModel)}_UsersLoaded");
 				EndStatusMessage(endMessage);
 			}
 		}
@@ -77,7 +77,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			catch (Exception ex)
 			{
 				Items = [];
-				string resourceKey = string.Concat(nameof(UserListViewModel), "_ErrorLoadingUsers0");
+				string resourceKey = $"{nameof(UserListViewModel)}_ErrorLoadingUsers0";
 				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 				string message = string.Format(resourceValue, ex.Message);
 				StatusError($"Error loading Users: {ex.Message}");
@@ -130,11 +130,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		protected override async void OnRefresh()
 		{
-			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(UserListViewModel), "_LoadingUsers"));
+			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(UserListViewModel)}_LoadingUsers");
 			StartStatusMessage(startMessage);
 			if (await RefreshAsync())
 			{
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(UserListViewModel), "_UsersLoaded"));
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(UserListViewModel)}_UsersLoaded");
 				EndStatusMessage(endMessage);
 			}
 		}
@@ -143,7 +143,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			StatusReady();
 			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDelete");
-			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), string.Concat(nameof(UserListViewModel), "_AreYouSureYouWantToDeleteSelectedUsers"));
+			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(UserListViewModel)}_AreYouSureYouWantToDeleteSelectedUsers");
 			string delete = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Delete");
 			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
 			if (await DialogService.ShowAsync(title, "Are you sure you want to delete selected users?", delete, cancel))
@@ -151,7 +151,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				int count = 0;
 				try
 				{
-					string resourceKey = string.Concat(nameof(UserListViewModel), "_Deleting0Users");
+					string resourceKey = $"{nameof(UserListViewModel)}_Deleting0Users";
 					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
 					if (SelectedIndexRanges != null)
 					{
@@ -172,7 +172,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				}
 				catch (Exception ex)
 				{
-					string resourceKey = string.Concat(nameof(UserListViewModel), "_ErrorDeleting0Users1");
+					string resourceKey = $"{nameof(UserListViewModel)}_ErrorDeleting0Users1";
 					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 					string message = string.Format(resourceValue, count, ex.Message);
 					StatusError(message);
@@ -184,7 +184,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				SelectedItems = null;
 				if (count > 0)
 				{
-					string resourceKey = string.Concat(nameof(UserListViewModel), "_0UsersDeleted");
+					string resourceKey = $"{nameof(UserListViewModel)}_0UsersDeleted";
 					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
 					string message = string.Format(resourceValue, count);
 					EndStatusMessage(message, LogType.Warning);

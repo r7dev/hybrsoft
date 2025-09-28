@@ -105,18 +105,18 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(StudentDetailsViewModel), "_SavingStudent"));
+				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(StudentDetailsViewModel)}_SavingStudent");
 				StartStatusMessage(startMessage);
 				await Task.Delay(100);
 				await StudentService.UpdateStudentAsync(model);
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(StudentDetailsViewModel), "_StudentSaved"));
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(StudentDetailsViewModel)}_StudentSaved");
 				EndStatusMessage(endMessage, LogType.Success);
 				LogSuccess("Student", "Save", "Student saved successfully", $"Student {model.StudentID} '{model.FullName}' was saved successfully.");
 				return true;
 			}
 			catch (Exception ex)
 			{
-				string resourceKey = string.Concat(nameof(StudentDetailsViewModel), "_ErrorSavingStudent0");
+				string resourceKey = $"{nameof(StudentDetailsViewModel)}_ErrorSavingStudent0";
 				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 				string message = string.Format(resourceValue, ex.Message);
 				StatusError(message);
@@ -129,18 +129,18 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(StudentDetailsViewModel), "_DeletingStudent"));
+				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(StudentDetailsViewModel)}_DeletingStudent");
 				StartStatusMessage(startMessage);
 				await Task.Delay(100);
 				await StudentService.DeleteStudentAsync(model);
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(StudentDetailsViewModel), "_StudentDeleted"));
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(StudentDetailsViewModel)}_StudentDeleted");
 				EndStatusMessage(endMessage, LogType.Warning);
 				LogWarning("Student", "Delete", "Student saved successfully", $"Student {model.StudentID} '{model.FullName}' was deleted.");
 				return true;
 			}
 			catch (Exception ex)
 			{
-				string resourceKey = string.Concat(nameof(StudentDetailsViewModel), "_ErrorDeletingStudent0");
+				string resourceKey = $"{nameof(StudentDetailsViewModel)}_ErrorDeletingStudent0";
 				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 				string message = string.Format(resourceValue, ex.Message);
 				StatusError(message);
@@ -152,7 +152,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		protected override async Task<bool> ConfirmDeleteAsync()
 		{
 			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDelete");
-			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), string.Concat(nameof(StudentDetailsViewModel), "_AreYouSureYouWantToDeleteCurrentStudent"));
+			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(StudentDetailsViewModel)}_AreYouSureYouWantToDeleteCurrentStudent");
 			string delete = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Delete");
 			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
 			return await DialogService.ShowAsync(title, content, delete, cancel);
@@ -160,17 +160,17 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		override protected IEnumerable<IValidationConstraint<StudentModel>> GetValidationConstraints(StudentModel model)
 		{
-			string resourceKeyForFirstName = string.Concat(nameof(StudentDetailsViewModel), "_PropertyFirstName");
+			string resourceKeyForFirstName = $"{nameof(StudentDetailsViewModel)}_PropertyFirstName";
 			string propertyFirstName = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForFirstName);
 			var requiredFirstName = new RequiredConstraint<StudentModel>(propertyFirstName, m => m.FirstName);
 			requiredFirstName.SetResourceService(ResourceService);
 
-			string resourceKeyForLastName = string.Concat(nameof(StudentDetailsViewModel), "_PropertyLastName");
+			string resourceKeyForLastName = $"{nameof(StudentDetailsViewModel)}_PropertyLastName";
 			string propertyLastName = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForLastName);
 			var requiredLastName = new RequiredConstraint<StudentModel>(propertyLastName, m => m.LastName);
 			requiredLastName.SetResourceService(ResourceService);
 
-			string resourceKeyForEmail = string.Concat(nameof(StudentDetailsViewModel), "_PropertyEmail");
+			string resourceKeyForEmail = $"{nameof(StudentDetailsViewModel)}_PropertyEmail";
 			string propertyEmail = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForEmail);
 			var requiredEmail = new RequiredConstraint<StudentModel>(propertyEmail, m => m.Email);
 			requiredEmail.SetResourceService(ResourceService);
@@ -205,7 +205,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 									NotifyPropertyChanged(nameof(Title));
 									if (IsEditMode)
 									{
-										string resourceKey = string.Concat(nameof(StudentDetailsViewModel), "_ThisStudentHasBeenModifiedExternally");
+										string resourceKey = $"{nameof(StudentDetailsViewModel)}_ThisStudentHasBeenModifiedExternally";
 										string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
 										WarningMessage(message);
 									}
@@ -264,7 +264,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				CancelEdit();
 				IsEnabled = false;
-				string resourceKey = string.Concat(nameof(StudentDetailsViewModel), "_ThisStudentHasBeenDeletedExternally");
+				string resourceKey = $"{nameof(StudentDetailsViewModel)}_ThisStudentHasBeenDeletedExternally";
 				string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
 				WarningMessage(message);
 			});

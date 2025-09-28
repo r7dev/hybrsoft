@@ -17,7 +17,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 	{
 		public IRoleService RoleService { get; } = roleService;
 
-		public string Prefix => ResourceService.GetString(nameof(ResourceFiles.UI), string.Concat(nameof(RoleListViewModel), "_Prefix"));
+		public string Prefix => ResourceService.GetString(nameof(ResourceFiles.UI), $"{nameof(RoleListViewModel)}_Prefix");
 
 		public RoleListArgs ViewModelArgs { get; private set; }
 
@@ -25,11 +25,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			ViewModelArgs = args ?? RoleListArgs.CreateEmpty();
 			Query = ViewModelArgs.Query;
-			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(RoleListViewModel), "_LoadingRoles"));
+			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(RoleListViewModel)}_LoadingRoles");
 			StartStatusMessage(startMessage);
 			if (await RefreshAsync())
 			{
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(RoleListViewModel), "_RolesLoaded"));
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(RoleListViewModel)}_RolesLoaded");
 				EndStatusMessage(endMessage);
 			}
 		}
@@ -77,7 +77,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			catch (Exception ex)
 			{
 				Items = [];
-				string resourceKey = string.Concat(nameof(RoleListViewModel), "_ErrorLoadingRoles0");
+				string resourceKey = $"{nameof(RoleListViewModel)}_ErrorLoadingRoles0";
 				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 				string message = string.Format(resourceValue, ex.Message);
 				StatusError(message);
@@ -130,11 +130,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		protected override async void OnRefresh()
 		{
-			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(RoleListViewModel), "_LoadingRoles"));
+			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(RoleListViewModel)}_LoadingRoles");
 			StartStatusMessage(startMessage);
 			if (await RefreshAsync())
 			{
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(RoleListViewModel), "_RolesLoaded"));
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(RoleListViewModel)}_RolesLoaded");
 				EndStatusMessage(endMessage);
 			}
 		}
@@ -143,7 +143,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			StatusReady();
 			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDelete");
-			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), string.Concat(nameof(RoleListViewModel), "_AreYouSureYouWantToDeleteSelectedRoles"));
+			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(RoleListViewModel)}_AreYouSureYouWantToDeleteSelectedRoles");
 			string delete = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Delete");
 			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
 			if (await DialogService.ShowAsync(title, content, delete, cancel))
@@ -152,7 +152,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				int count = 0;
 				try
 				{
-					string resourceKey = string.Concat(nameof(RoleListViewModel), "_Deleting0Roles");
+					string resourceKey = $"{nameof(RoleListViewModel)}_Deleting0Roles";
 					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
 					if (SelectedIndexRanges != null)
 					{
@@ -176,7 +176,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				}
 				catch (Exception ex)
 				{
-					string resourceKey = string.Concat(nameof(RoleListViewModel), "_ErrorDeleting0Roles1");
+					string resourceKey = $"{nameof(RoleListViewModel)}_ErrorDeleting0Roles1";
 					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 					string message = string.Format(resourceValue, count, ex.Message);
 					StatusError(message);
@@ -190,7 +190,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 					SelectedItems = null;
 					if (count > 0)
 					{
-						string resourceKey = string.Concat(nameof(RoleListViewModel), "_0RolesDeleted");
+						string resourceKey = $"{nameof(RoleListViewModel)}_0RolesDeleted";
 						string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
 						string message = string.Format(resourceValue, count);
 						EndStatusMessage(message, LogType.Warning);

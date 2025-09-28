@@ -113,18 +113,18 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(RelativeDetailsViewModel), "_SavingRelative"));
+				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(RelativeDetailsViewModel)}_SavingRelative");
 				StartStatusMessage(startMessage);
 				await Task.Delay(100);
 				await RelativeService.UpdateRelativeAsync(model);
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(RelativeDetailsViewModel), "_RelativeSaved"));
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(RelativeDetailsViewModel)}_RelativeSaved");
 				EndStatusMessage(endMessage, LogType.Success);
 				LogSuccess("Relative", "Save", "Relative saved successfully", $"Relative {model.RelativeID} '{model.FullName}' was saved successfully.");
 				return true;
 			}
 			catch (Exception ex)
 			{
-				string resourceKey = string.Concat(nameof(RelativeDetailsViewModel), "_ErrorSavingRelative0");
+				string resourceKey = $"{nameof(RelativeDetailsViewModel)}_ErrorSavingRelative0";
 				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 				string message = string.Format(resourceValue, ex.Message);
 				StatusError(message);
@@ -137,18 +137,18 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(RelativeDetailsViewModel), "_DeletingRelative"));
+				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(RelativeDetailsViewModel)}_DeletingRelative");
 				StartStatusMessage(startMessage);
 				await Task.Delay(100);
 				await RelativeService.DeleteRelativeAsync(model);
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(RelativeDetailsViewModel), "_RelativeDeleted"));
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(RelativeDetailsViewModel)}_RelativeDeleted");
 				EndStatusMessage(endMessage, LogType.Warning);
 				LogWarning("Relative", "Delete", "Relative saved successfully", $"Relative {model.RelativeID} '{model.FullName}' was deleted.");
 				return true;
 			}
 			catch (Exception ex)
 			{
-				string resourceKey = string.Concat(nameof(RelativeDetailsViewModel), "_ErrorDeletingRelative0");
+				string resourceKey = $"{nameof(RelativeDetailsViewModel)}_ErrorDeletingRelative0";
 				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 				string message = string.Format(resourceValue, ex.Message);
 				StatusError(message);
@@ -160,7 +160,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		protected override async Task<bool> ConfirmDeleteAsync()
 		{
 			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDelete");
-			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), string.Concat(nameof(RelativeDetailsViewModel), "_AreYouSureYouWantToDeleteCurrentRelative"));
+			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(RelativeDetailsViewModel)}_AreYouSureYouWantToDeleteCurrentRelative");
 			string delete = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Delete");
 			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
 			return await DialogService.ShowAsync(title, content, delete, cancel);
@@ -168,17 +168,17 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		override protected IEnumerable<IValidationConstraint<RelativeModel>> GetValidationConstraints(RelativeModel model)
 		{
-			string resourceKeyForFirstName = string.Concat(nameof(RelativeDetailsViewModel), "_PropertyFirstName");
+			string resourceKeyForFirstName = $"{nameof(RelativeDetailsViewModel)}_PropertyFirstName";
 			string propertyFirstName = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForFirstName);
 			var requiredFirstName = new RequiredConstraint<RelativeModel>(propertyFirstName, m => m.FirstName);
 			requiredFirstName.SetResourceService(ResourceService);
 
-			string resourceKeyForLastName = string.Concat(nameof(RelativeDetailsViewModel), "_PropertyLastName");
+			string resourceKeyForLastName = $"{nameof(RelativeDetailsViewModel)}_PropertyLastName";
 			string propertyLastName = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForLastName);
 			var requiredLastName = new RequiredConstraint<RelativeModel>(propertyLastName, m => m.LastName);
 			requiredLastName.SetResourceService(ResourceService);
 
-			string resourceKeyForRelativeType = string.Concat(nameof(RelativeDetailsViewModel), "_PropertyRelativeType");
+			string resourceKeyForRelativeType = $"{nameof(RelativeDetailsViewModel)}_PropertyRelativeType";
 			string propertyRelativeType = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForRelativeType);
 			var requiredRelativeType = new RequiredGreaterThanZeroConstraint<RelativeModel>(propertyRelativeType, m => m.RelativeTypeID);
 			requiredRelativeType.SetResourceService(ResourceService);
@@ -210,7 +210,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 									NotifyPropertyChanged(nameof(Title));
 									if (IsEditMode)
 									{
-										string resourceKey = string.Concat(nameof(RelativeDetailsViewModel), "_ThisRelativeHasBeenModifiedExternally");
+										string resourceKey = $"{nameof(RelativeDetailsViewModel)}_ThisRelativeHasBeenModifiedExternally";
 										string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
 										WarningMessage(message);
 									}
@@ -269,7 +269,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				CancelEdit();
 				IsEnabled = false;
-				string resourceKey = string.Concat(nameof(RelativeDetailsViewModel), "_ThisRelativeHasBeenDeletedExternally");
+				string resourceKey = $"{nameof(RelativeDetailsViewModel)}_ThisRelativeHasBeenDeletedExternally";
 				string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
 				WarningMessage(message);
 			});

@@ -17,7 +17,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 	{
 		public IPermissionService PermissionService { get; } = permissionService;
 
-		public string Prefix => ResourceService.GetString(nameof(ResourceFiles.UI), string.Concat(nameof(PermissionListViewModel), "_Prefix"));
+		public string Prefix => ResourceService.GetString(nameof(ResourceFiles.UI), $"{nameof(PermissionListViewModel)}_Prefix");
 
 		public PermissionListArgs ViewModelArgs { get; private set; }
 
@@ -26,11 +26,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			ViewModelArgs = args ?? PermissionListArgs.CreateEmpty();
 			Query = ViewModelArgs.Query;
 
-			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(PermissionListViewModel), "_LoadingPermissions"));
+			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(PermissionListViewModel)}_LoadingPermissions");
 			StartStatusMessage(startMessage);
 			if (await RefreshAsync())
 			{
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(PermissionListViewModel), "_PermissionsLoaded"));
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(PermissionListViewModel)}_PermissionsLoaded");
 				EndStatusMessage(endMessage);
 			}
 		}
@@ -78,7 +78,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			catch (Exception ex)
 			{
 				Items = [];
-				string resourceKey = string.Concat(nameof(PermissionListViewModel), "_ErrorLoadingPermissions0");
+				string resourceKey = $"{nameof(PermissionListViewModel)}_ErrorLoadingPermissions0";
 				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 				string message = string.Format(resourceValue, ex.Message);
 				StatusError(message);
@@ -131,11 +131,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		protected override async void OnRefresh()
 		{
-			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(PermissionListViewModel), "_LoadingPermissions"));
+			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(PermissionListViewModel)}_LoadingPermissions");
 			StartStatusMessage(startMessage);
 			if (await RefreshAsync())
 			{
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(PermissionListViewModel), "_PermissionsLoaded"));
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(PermissionListViewModel)}_PermissionsLoaded");
 				EndStatusMessage(endMessage);
 			}
 		}
@@ -144,7 +144,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			StatusReady();
 			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDelete");
-			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), string.Concat(nameof(PermissionListViewModel), "_AreYouSureYouWantToDeleteSelectedPermissions"));
+			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(PermissionListViewModel)}_AreYouSureYouWantToDeleteSelectedPermissions");
 			string delete = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Delete");
 			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
 			if (await DialogService.ShowAsync(title, content, delete, cancel))
@@ -153,7 +153,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				int count = 0;
 				try
 				{
-					string resourceKey = string.Concat(nameof(PermissionListViewModel), "_Deleting0Permissions");
+					string resourceKey = $"{nameof(PermissionListViewModel)}_Deleting0Permissions";
 					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
 					if (SelectedIndexRanges != null)
 					{
@@ -177,7 +177,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				}
 				catch (Exception ex)
 				{
-					string resourceKey = string.Concat(nameof(PermissionListViewModel), "_ErrorDeleting0Permissions1");
+					string resourceKey = $"{nameof(PermissionListViewModel)}_ErrorDeleting0Permissions1";
 					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 					string message = string.Format(resourceValue, count, ex.Message);
 					StatusError(message);
@@ -191,7 +191,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 					SelectedItems = null;
 					if (count > 0)
 					{
-						string resourceKey = string.Concat(nameof(PermissionListViewModel), "_0PermissionsDeleted");
+						string resourceKey = $"{nameof(PermissionListViewModel)}_0PermissionsDeleted";
 						string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
 						string message = string.Format(resourceValue, count);
 						EndStatusMessage(message, LogType.Warning);
@@ -226,7 +226,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				if (item != null)
 				{
 					string title = ResourceService.GetString(nameof(ResourceFiles.Errors), "DeleteNotAllowed");
-					string resourceKey = string.Concat(nameof(PermissionListViewModel), "_DeselectThe0Permission");
+					string resourceKey = $"{nameof(PermissionListViewModel)}_DeselectThe0Permission";
 					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 					string message = string.Format(resourceValue, item.DisplayName);
 					await DialogService.ShowAsync(title, new ArgumentException(message));

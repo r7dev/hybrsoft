@@ -8,7 +8,7 @@ namespace Hybrsoft.UI.Windows.Infrastructure.ViewModels
 	public partial class ViewModelBase(ICommonServices commonServices) : ObservableObject
 	{
 		private readonly Stopwatch _stopwatch = new();
-		private readonly string _statusReadyMessage = commonServices.ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(ViewModelBase), "_Ready"));
+		private readonly string _statusReadyMessage = commonServices.ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(ViewModelBase)}_Ready");
 
 		public IContextService ContextService { get; } = commonServices.ContextService;
 		public INavigationService NavigationService { get; } = commonServices.NavigationService;
@@ -55,7 +55,7 @@ namespace Hybrsoft.UI.Windows.Infrastructure.ViewModels
 		public void EndStatusMessage(string message, LogType logType = LogType.Information)
 		{
 			_stopwatch.Stop();
-			string finalMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(ViewModelBase), "_Seconds"));
+			string finalMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(ViewModelBase)}_Seconds");
 			string fullMessage = $"{message} ({_stopwatch.Elapsed.TotalSeconds:#0.000} {finalMessage})";
 			switch (logType)
 			{
@@ -73,7 +73,7 @@ namespace Hybrsoft.UI.Windows.Infrastructure.ViewModels
 
 		public void StatusReady()
 		{
-			string message = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(ViewModelBase), "_Ready"));
+			string message = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(ViewModelBase)}_Ready");
 			MessageService.Send(this, "StatusMessage", message);
 		}
 

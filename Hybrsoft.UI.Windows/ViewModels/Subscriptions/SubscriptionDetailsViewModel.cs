@@ -115,7 +115,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		private async Task<bool> ConfirmCancellationAsync()
 		{
 			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmCancellation");
-			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), string.Concat(nameof(SubscriptionDetailsViewModel), "_AreYouSureYouWantToCancelCurrentSubscription"));
+			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(SubscriptionDetailsViewModel)}_AreYouSureYouWantToCancelCurrentSubscription");
 			string confirm = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Confirm");
 			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
 			return await DialogService.ShowAsync(title, content, confirm, cancel);
@@ -160,18 +160,18 @@ namespace Hybrsoft.UI.Windows.ViewModels
 					EditableItem.CompanyID = 0;
 					EditableItem.Company = null;
 				}
-				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(SubscriptionDetailsViewModel), "_SavingSubscription"));
+				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(SubscriptionDetailsViewModel)}_SavingSubscription");
 				StartStatusMessage(startMessage);
 				await Task.Delay(100);
 				await SubscriptionService.UpdateSubscriptionAsync(model);
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(SubscriptionDetailsViewModel), "_SubscriptionSaved"));
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(SubscriptionDetailsViewModel)}_SubscriptionSaved");
 				EndStatusMessage(endMessage, LogType.Success);
 				LogSuccess("Subscription", "Save", "Subscription saved successfully", $"Subscription {model.SubscriptionID} '{model.FullName}' was saved successfully.");
 				return true;
 			}
 			catch (Exception ex)
 			{
-				string resourceKey = string.Concat(nameof(SubscriptionDetailsViewModel), "_ErrorSavingSubscription0");
+				string resourceKey = $"{nameof(SubscriptionDetailsViewModel)}_ErrorSavingSubscription0";
 				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 				string message = string.Format(resourceValue, ex.Message);
 				StatusError(message);
@@ -185,18 +185,18 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(SubscriptionDetailsViewModel), "_DeletingSubscription"));
+				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(SubscriptionDetailsViewModel)}_DeletingSubscription");
 				StartStatusMessage(startMessage);
 				await Task.Delay(100);
 				await SubscriptionService.DeleteSubscriptionAsync(model);
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(SubscriptionDetailsViewModel), "_SubscriptionDeleted"));
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(SubscriptionDetailsViewModel)}_SubscriptionDeleted");
 				EndStatusMessage(endMessage, LogType.Warning);
 				LogWarning("Subscription", "Delete", "Subscription deleted", $"Subscription {model.SubscriptionID} '{model.FullName}' was deleted.");
 				return true;
 			}
 			catch (Exception ex)
 			{
-				string resourceKey = string.Concat(nameof(SubscriptionDetailsViewModel), "_ErrorDeletingSubscription0");
+				string resourceKey = $"{nameof(SubscriptionDetailsViewModel)}_ErrorDeletingSubscription0";
 				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 				string message = string.Format(resourceValue, ex.Message);
 				StatusError(message);
@@ -208,7 +208,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		protected override async Task<bool> ConfirmDeleteAsync()
 		{
 			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDelete");
-			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), string.Concat(nameof(SubscriptionDetailsViewModel), "_AreYouSureYouWantToDeleteCurrentSubscription"));
+			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(SubscriptionDetailsViewModel)}_AreYouSureYouWantToDeleteCurrentSubscription");
 			string delete = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Delete");
 			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
 			return await DialogService.ShowAsync(title, content, delete, cancel);
@@ -220,7 +220,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		override protected IEnumerable<IValidationConstraint<SubscriptionModel>> GetValidationConstraints(SubscriptionModel model)
 		{
-			string resourceKeyForSubscriptionPlan = string.Concat(nameof(SubscriptionDetailsViewModel), "_PropertySubscriptionPlan");
+			string resourceKeyForSubscriptionPlan = $"{nameof(SubscriptionDetailsViewModel)}_PropertySubscriptionPlan";
 			string propertySubscriptionPlan = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForSubscriptionPlan);
 			var requiredSubscriptionPlan = new RequiredGreaterThanZeroConstraint<SubscriptionModel>(propertySubscriptionPlan, m => m.SubscriptionPlanID);
 			requiredSubscriptionPlan.SetResourceService(ResourceService);
@@ -228,7 +228,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 			if (model.Type == SubscriptionType.Enterprise)
 			{
-				string resourceKeyForCompany = string.Concat(nameof(SubscriptionDetailsViewModel), "_PropertyCompany");
+				string resourceKeyForCompany = $"{nameof(SubscriptionDetailsViewModel)}_PropertyCompany";
 				string propertyCompany = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForCompany);
 				var requiredCompany = new RequiredGreaterThanZeroConstraint<SubscriptionModel>(propertyCompany, m => m.CompanyID);
 				requiredCompany.SetResourceService(ResourceService);
@@ -237,7 +237,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 			else if (model.Type == SubscriptionType.Individual)
 			{
-				string resourceKeyForUser = string.Concat(nameof(SubscriptionDetailsViewModel), "_PropertyUser");
+				string resourceKeyForUser = $"{nameof(SubscriptionDetailsViewModel)}_PropertyUser";
 				string propertyUser = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForUser);
 				var requiredUser = new RequiredGreaterThanZeroConstraint<SubscriptionModel>(propertyUser, m => m.UserID);
 				requiredUser.SetResourceService(ResourceService);
@@ -268,7 +268,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 									NotifyPropertyChanged(nameof(Title));
 									if (IsEditMode)
 									{
-										string resourceKey = string.Concat(nameof(SubscriptionDetailsViewModel), "_ThisSubscriptionHasBeenModifiedExternally");
+										string resourceKey = $"{nameof(SubscriptionDetailsViewModel)}_ThisSubscriptionHasBeenModifiedExternally";
 										string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
 										WarningMessage(message);
 									}
@@ -327,7 +327,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				CancelEdit();
 				IsEnabled = false;
-				string resourceKey = string.Concat(nameof(SubscriptionDetailsViewModel), "_ThisSubscriptionHasBeenDeletedExternally");
+				string resourceKey = $"{nameof(SubscriptionDetailsViewModel)}_ThisSubscriptionHasBeenDeletedExternally";
 				string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
 				WarningMessage(message);
 			});

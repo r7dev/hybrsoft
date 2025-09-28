@@ -33,11 +33,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 			else
 			{
-				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(CompanyUserListViewModel), "_LoadingCompanyUsers"));
+				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(CompanyUserListViewModel)}_LoadingCompanyUsers");
 				StartStatusMessage(startMessage);
 				if (await RefreshAsync())
 				{
-					string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(CompanyUserListViewModel), "_CompanyUsersLoaded"));
+					string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(CompanyUserListViewModel)}_CompanyUsersLoaded");
 					EndStatusMessage(endMessage);
 				}
 			}
@@ -89,7 +89,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			catch (Exception ex)
 			{
 				Items = [];
-				string resourceKey = string.Concat(nameof(CompanyUserListViewModel), "_ErrorLoadingCompanyUsers0");
+				string resourceKey = $"{nameof(CompanyUserListViewModel)}_ErrorLoadingCompanyUsers0";
 				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 				string message = string.Format(resourceValue, ex.Message);
 				StatusError(message);
@@ -147,11 +147,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		protected override async void OnRefresh()
 		{
-			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(CompanyUserListViewModel), "_LoadingCompanyUsers"));
+			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(CompanyUserListViewModel)}_LoadingCompanyUsers");
 			StartStatusMessage(startMessage);
 			if (await RefreshAsync())
 			{
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(CompanyUserListViewModel), "_CompanyUsersLoaded"));
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(CompanyUserListViewModel)}_CompanyUsersLoaded");
 				EndStatusMessage(endMessage);
 			}
 		}
@@ -161,7 +161,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			StatusReady();
 			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDelete");
-			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), string.Concat(nameof(CompanyUserListViewModel), "_AreYouSureYouWantToDeleteSelectedCompanyUsers"));
+			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(CompanyUserListViewModel)}_AreYouSureYouWantToDeleteSelectedCompanyUsers");
 			string delete = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Delete");
 			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
 			if (await DialogService.ShowAsync(title, content, delete, cancel))
@@ -169,7 +169,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				int count = 0;
 				try
 				{
-					string resourceKey = string.Concat(nameof(CompanyUserListViewModel), "_Deleting0CompanyUsers");
+					string resourceKey = $"{nameof(CompanyUserListViewModel)}_Deleting0CompanyUsers";
 					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
 					if (SelectedIndexRanges != null)
 					{
@@ -190,7 +190,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				}
 				catch (Exception ex)
 				{
-					string resourceKey = string.Concat(nameof(CompanyUserListViewModel), "_ErrorDeleting0CompanyUsers1");
+					string resourceKey = $"{nameof(CompanyUserListViewModel)}_ErrorDeleting0CompanyUsers1";
 					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 					string message = string.Format(resourceValue, count, ex.Message);
 					StatusError(message);
@@ -202,7 +202,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				SelectedItems = null;
 				if (count > 0)
 				{
-					string resourceKey = string.Concat(nameof(CompanyUserListViewModel), "_0CompanyUsersDeleted");
+					string resourceKey = $"{nameof(CompanyUserListViewModel)}_0CompanyUsersDeleted";
 					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
 					string message = string.Format(resourceValue, count);
 					EndStatusMessage($"{count} Company Users deleted", LogType.Warning);

@@ -20,7 +20,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			get
 			{
-				string resourceKey = string.Concat(nameof(ClassroomStudentDetailsViewModel), "_TitleNew");
+				string resourceKey = $"{nameof(ClassroomStudentDetailsViewModel)}_TitleNew";
 				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.UI), resourceKey);
 				string message = string.Format(resourceValue, ClassroomID);
 				return message;
@@ -30,7 +30,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			get
 			{
-				string resourceKey = string.Concat(nameof(ClassroomStudentDetailsViewModel), "_TitleEdit");
+				string resourceKey = $"{nameof(ClassroomStudentDetailsViewModel)}_TitleEdit";
 				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.UI), resourceKey);
 				string message = string.Format(resourceValue, Item?.ClassroomStudentID, Item?.ClassroomID);
 				return message ?? String.Empty;
@@ -117,18 +117,18 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(ClassroomStudentDetailsViewModel), "_SavingStudentInTheClassroom"));
+				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(ClassroomStudentDetailsViewModel)}_SavingStudentInTheClassroom");
 				StartStatusMessage(startMessage);
 				await Task.Delay(100);
 				await ClassroomStudentService.UpdateClassroomStudentAsync(model);
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(ClassroomStudentDetailsViewModel), "_StudentInTheClassroomHasBeenSaved"));
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(ClassroomStudentDetailsViewModel)}_StudentInTheClassroomHasBeenSaved");
 				EndStatusMessage(endMessage, LogType.Success);
 				LogSuccess("ClassroomStudent", "Save", "Student in the classroom saved successfully", $"Student in the classroom #{model.ClassroomID}, {model.Student.FullName} was saved successfully.");
 				return true;
 			}
 			catch (Exception ex)
 			{
-				string resourceKey = string.Concat(nameof(ClassroomStudentDetailsViewModel), "_ErrorSavingStudentInTheClassroom0");
+				string resourceKey = $"{nameof(ClassroomStudentDetailsViewModel)}_ErrorSavingStudentInTheClassroom0";
 				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 				string message = string.Format(resourceValue, ex.Message);
 				StatusError(message);
@@ -141,18 +141,18 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(ClassroomStudentDetailsViewModel), "_DeletingStudentFromClassroom"));
+				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(ClassroomStudentDetailsViewModel)}_DeletingStudentFromClassroom");
 				StartStatusMessage(startMessage);
 				await Task.Delay(100);
 				await ClassroomStudentService.DeleteClassroomStudentAsync(model);
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(ClassroomStudentDetailsViewModel), "_StudentInTheClassroomHasBeenDeleted"));
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(ClassroomStudentDetailsViewModel)}_StudentInTheClassroomHasBeenDeleted");
 				EndStatusMessage(endMessage, LogType.Warning);
 				LogWarning("ClassroomStudent", "Delete", "Student in the classroom deleted", $"Student in the classroom #{model.ClassroomID}, {model.Student.FullName} was deleted.");
 				return true;
 			}
 			catch (Exception ex)
 			{
-				string resourceKey = string.Concat(nameof(ClassroomStudentDetailsViewModel), "_ErrorDeletingStudentFromTheClassroom0");
+				string resourceKey = $"{nameof(ClassroomStudentDetailsViewModel)}_ErrorDeletingStudentFromTheClassroom0";
 				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 				string message = string.Format(resourceValue, ex.Message);
 				StatusError(message);
@@ -164,7 +164,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		protected override async Task<bool> ConfirmDeleteAsync()
 		{
 			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDelete");
-			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), string.Concat(nameof(ClassroomStudentDetailsViewModel), "_AreYouSureYouWantToDeleteCurrentStudentFromTheClassroom"));
+			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(ClassroomStudentDetailsViewModel)}_AreYouSureYouWantToDeleteCurrentStudentFromTheClassroom");
 			string delete = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Delete");
 			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
 			return await DialogService.ShowAsync(title, content, delete, cancel);
@@ -172,7 +172,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		override protected IEnumerable<IValidationConstraint<ClassroomStudentModel>> GetValidationConstraints(ClassroomStudentModel model)
 		{
-			string resourceKeyForStudent = string.Concat(nameof(ClassroomStudentDetailsViewModel), "_PropertyStudent");
+			string resourceKeyForStudent = $"{nameof(ClassroomStudentDetailsViewModel)}_PropertyStudent";
 			string propertyStudent = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForStudent);
 			var requiredStudent = new RequiredGreaterThanZeroConstraint<ClassroomStudentModel>(propertyStudent, m => m.StudentID);
 			requiredStudent.SetResourceService(ResourceService);
@@ -202,7 +202,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 									NotifyPropertyChanged(nameof(Title));
 									if (IsEditMode)
 									{
-										string resourceKey = string.Concat(nameof(ClassroomStudentDetailsViewModel), "_ThisClassroomStudentHasBeenModifiedExternally");
+										string resourceKey = $"{nameof(ClassroomStudentDetailsViewModel)}_ThisClassroomStudentHasBeenModifiedExternally";
 										string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
 										StatusMessage(message);
 									}
@@ -261,7 +261,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				CancelEdit();
 				IsEnabled = false;
-				string resourceKey = string.Concat(nameof(ClassroomStudentDetailsViewModel), "_ThisClassroomStudentHasBeenDeletedExternally");
+				string resourceKey = $"{nameof(ClassroomStudentDetailsViewModel)}_ThisClassroomStudentHasBeenDeletedExternally";
 				string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
 				StatusMessage(message);
 			});

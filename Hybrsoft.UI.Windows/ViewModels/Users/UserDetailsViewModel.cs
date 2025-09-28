@@ -65,18 +65,18 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(UserDetailsViewModel), "_SavingUser"));
+				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(UserDetailsViewModel)}_SavingUser");
 				StartStatusMessage(startMessage);
 				await Task.Delay(100);
 				await UserService.UpdateUserAsync(model);
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(UserDetailsViewModel), "_UserSaved"));
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(UserDetailsViewModel)}_UserSaved");
 				EndStatusMessage(endMessage, LogType.Success);
 				LogSuccess("User", "Save", "User saved successfully", $"User {model.UserID} '{model.FullName}' was saved successfully.");
 				return true;
 			}
 			catch (Exception ex)
 			{
-				string resourceKey = string.Concat(nameof(UserDetailsViewModel), "_ErrorSavingUser0");
+				string resourceKey = $"{nameof(UserDetailsViewModel)}_ErrorSavingUser0";
 				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 				string message = string.Format(resourceValue, ex.Message);
 				StatusError(message);
@@ -89,18 +89,18 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(UserDetailsViewModel), "_DeletingUser"));
+				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(UserDetailsViewModel)}_DeletingUser");
 				StartStatusMessage(startMessage);
 				await Task.Delay(100);
 				await UserService.DeleteUserAsync(model);
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(UserDetailsViewModel), "_UserDeleted"));
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(UserDetailsViewModel)}_UserDeleted");
 				EndStatusMessage(endMessage, LogType.Warning);
 				LogWarning("User", "Delete", "User deleted", $"User {model.UserID} '{model.FullName}' was deleted.");
 				return true;
 			}
 			catch (Exception ex)
 			{
-				string resourceKey = string.Concat(nameof(UserDetailsViewModel), "_ErrorDeletingUser0");
+				string resourceKey = $"{nameof(UserDetailsViewModel)}_ErrorDeletingUser0";
 				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 				string message = string.Format(resourceValue, ex.Message);
 				StatusError(message);
@@ -112,7 +112,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		protected override async Task<bool> ConfirmDeleteAsync()
 		{
 			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDelete");
-			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), string.Concat(nameof(UserDetailsViewModel), "_AreYouSureYouWantToDeleteCurrentUser"));
+			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(UserDetailsViewModel)}_AreYouSureYouWantToDeleteCurrentUser");
 			string delete = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Delete");
 			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
 			return await DialogService.ShowAsync(title, "Are you sure you want to delete current user?", delete, cancel);
@@ -120,24 +120,24 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		override protected IEnumerable<IValidationConstraint<UserModel>> GetValidationConstraints(UserModel model)
 		{
-			string resourceKeyForFirstName = string.Concat(nameof(UserDetailsViewModel), "_PropertyFirstName");
+			string resourceKeyForFirstName = $"{nameof(UserDetailsViewModel)}_PropertyFirstName";
 			string propertyFirstName = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForFirstName);
 			var requiredFirstName = new RequiredConstraint<UserModel>(propertyFirstName, m => m.FirstName);
 			requiredFirstName.SetResourceService(ResourceService);
 
-			string resourceKeyForLastName = string.Concat(nameof(UserDetailsViewModel), "_PropertyLastName");
+			string resourceKeyForLastName = $"{nameof(UserDetailsViewModel)}_PropertyLastName";
 			string propertyLastName = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForLastName);
 			var requiredLastName = new RequiredConstraint<UserModel>(propertyLastName, m => m.LastName);
 			requiredLastName.SetResourceService(ResourceService);
 
-			string resourceKeyForEmail = string.Concat(nameof(UserDetailsViewModel), "_PropertyEmail");
+			string resourceKeyForEmail = $"{nameof(UserDetailsViewModel)}_PropertyEmail";
 			string propertyEmail = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForEmail);
 			var requiredEmail = new RequiredConstraint<UserModel>(propertyEmail, m => m.Email);
 			requiredEmail.SetResourceService(ResourceService);
 			var emailIsValid = new EmailValidationConstraint<UserModel>(propertyEmail, m => m.Email);
 			emailIsValid.SetResourceService(ResourceService);
 
-			string resourceKeyForPassword = string.Concat(nameof(UserDetailsViewModel), "_PropertyPassword");
+			string resourceKeyForPassword = $"{nameof(UserDetailsViewModel)}_PropertyPassword";
 			string propertyPassword = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForPassword);
 			var requiredPassword = new RequiredConstraint<UserModel>(propertyPassword, m => m.Password);
 			requiredPassword.SetResourceService(ResourceService);
@@ -171,7 +171,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 									NotifyPropertyChanged(nameof(Title));
 									if (IsEditMode)
 									{
-										string resourceKey = string.Concat(nameof(UserDetailsViewModel), "_ThisUserHasBeenModifiedExternally");
+										string resourceKey = $"{nameof(UserDetailsViewModel)}_ThisUserHasBeenModifiedExternally";
 										string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
 										StatusMessage(message);
 									}
@@ -230,7 +230,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				CancelEdit();
 				IsEnabled = false;
-				string resourceKey = string.Concat(nameof(UserDetailsViewModel), "_ThisUserHasBeenDeletedExternally");
+				string resourceKey = $"{nameof(UserDetailsViewModel)}_ThisUserHasBeenDeletedExternally";
 				string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
 				StatusMessage(message);
 			});

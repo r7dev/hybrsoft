@@ -80,17 +80,17 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(AppLogDetailsViewModel), "_DeletingLog"));
+				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(AppLogDetailsViewModel)}_DeletingLog");
 				StartStatusMessage(startMessage);
 				await Task.Delay(100);
 				await LogService.DeleteLogAsync(model);
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(AppLogDetailsViewModel), "_LogDeleted"));
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(AppLogDetailsViewModel)}_LogDeleted");
 				EndStatusMessage(endMessage, LogType.Warning);
 				return true;
 			}
 			catch (Exception ex)
 			{
-				string message = ResourceService.GetString(nameof(ResourceFiles.Errors), string.Concat(nameof(AppLogDetailsViewModel), "_ErrorDeletingLog0"));
+				string message = ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(AppLogDetailsViewModel)}_ErrorDeletingLog0");
 				StatusError(string.Format(message, ex.Message));
 				LogException("AppLog", "Delete", ex);
 				return false;
@@ -100,7 +100,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		protected override async Task<bool> ConfirmDeleteAsync()
 		{
 			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDelete");
-			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), string.Concat(nameof(AppLogDetailsViewModel), "_AreYouSureYouWantToDeleteCurrentLog"));
+			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(AppLogDetailsViewModel)}_AreYouSureYouWantToDeleteCurrentLog");
 			string delete = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Delete");
 			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
 			return await DialogService.ShowAsync(title, content, delete, cancel);
@@ -157,7 +157,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				CancelEdit();
 				IsEnabled = false;
-				string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), string.Concat(nameof(AppLogDetailsViewModel), "_ThisLogHasBeenDeletedExternally"));
+				string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), $"{nameof(AppLogDetailsViewModel)}_ThisLogHasBeenDeletedExternally");
 				WarningMessage(message);
 			});
 		}

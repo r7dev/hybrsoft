@@ -101,11 +101,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(DismissalDetailsViewModel), "_SavingDismissal"));
+				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(DismissalDetailsViewModel)}_SavingDismissal");
 				StartStatusMessage(startMessage);
 				await Task.Delay(100);
 				await DismissalService.UpdateDismissalAsync(model);
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(DismissalDetailsViewModel), "_DismissalSaved"));
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(DismissalDetailsViewModel)}_DismissalSaved");
 				EndStatusMessage(endMessage, LogType.Success);
 				LogSuccess("Dismissal", "Save", "Dismissal saved successfully", $"Dismissal {model.DismissalID} '{model.Student.FullName}' of '{model.Classroom.Name}' with requester '{model.Relative.FullName}' was saved successfully.");
 				BackAfterSave = true;
@@ -113,7 +113,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 			catch (Exception ex)
 			{
-				string resourceKey = string.Concat(nameof(DismissalDetailsViewModel), "_ErrorSavingDismissal0");
+				string resourceKey = $"{nameof(DismissalDetailsViewModel)}_ErrorSavingDismissal0";
 				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 				string message = string.Format(resourceValue, ex.Message);
 				StatusError(message);
@@ -136,7 +136,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		override protected IEnumerable<IValidationConstraint<DismissalModel>> GetValidationConstraints(DismissalModel model)
 		{
-			string resourceKeyForRelative = string.Concat(nameof(DismissalDetailsViewModel), "_PropertyRelative");
+			string resourceKeyForRelative = $"{nameof(DismissalDetailsViewModel)}_PropertyRelative";
 			string propertyRelative = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForRelative);
 			var requiredRelative = new RequiredGreaterThanZeroConstraint<DismissalModel>(propertyRelative, m => m.RelativeID);
 			requiredRelative.SetResourceService(ResourceService);
@@ -166,7 +166,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 									NotifyPropertyChanged(nameof(Title));
 									if (IsEditMode)
 									{
-										string resourceKey = string.Concat(nameof(DismissalDetailsViewModel), "_ThisDismissalHasBeenModifiedExternally");
+										string resourceKey = $"{nameof(DismissalDetailsViewModel)}_ThisDismissalHasBeenModifiedExternally";
 										string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
 										WarningMessage(message);
 									}
@@ -191,7 +191,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				CancelEdit();
 				IsEnabled = false;
-				string resourceKey = string.Concat(nameof(DismissalDetailsViewModel), "_ThisDismissalHasBeenDeletedExternally");
+				string resourceKey = $"{nameof(DismissalDetailsViewModel)}_ThisDismissalHasBeenDeletedExternally";
 				string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
 				WarningMessage(message);
 			});

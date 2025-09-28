@@ -19,7 +19,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				{
 					return $" ({ItemsCount})";
 				}
-				string message = ResourceService.GetString(nameof(ResourceFiles.UI), string.Concat(nameof(GenericListViewModel<TModel>), "_Title"));
+				string message = ResourceService.GetString(nameof(ResourceFiles.UI), $"{nameof(GenericListViewModel<TModel>)}_Title");
 				return $" ({ItemsCount} {message} \"{Query}\")";
 			}
 		}
@@ -91,7 +91,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		public ICommand StartSelectionCommand => new RelayCommand(OnStartSelection);
 		virtual protected void OnStartSelection()
 		{
-			string message = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(GenericListViewModel<TModel>), "_StartSelection"));
+			string message = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(GenericListViewModel<TModel>)}_StartSelection");
 			StatusMessage(message);
 			SelectedItem = null;
 			SelectedItems = [];
@@ -116,7 +116,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			if (IsMultipleSelection)
 			{
 				SelectedItems.AddRange(items.Cast<TModel>());
-				string message = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(GenericListViewModel<TModel>), "_0ItemsSelected"));
+				string message = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(GenericListViewModel<TModel>)}_0ItemsSelected");
 				StatusMessage(string.Format(message, SelectedItems.Count));
 			}
 		}
@@ -134,7 +134,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				{
 					SelectedItems.Remove(item);
 				}
-				string message = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(GenericListViewModel<TModel>), "_0ItemsSelected"));
+				string message = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(GenericListViewModel<TModel>)}_0ItemsSelected");
 				StatusMessage(string.Format(message, SelectedItems.Count));
 			}
 		}
@@ -144,7 +144,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			SelectedIndexRanges = indexRanges;
 			int count = SelectedIndexRanges?.Sum(r => r.Length) ?? 0;
-			string message = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(GenericListViewModel<TModel>), "_0ItemsSelected"));
+			string message = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(GenericListViewModel<TModel>)}_0ItemsSelected");
 			StatusMessage(string.Format(message, count));
 		}
 

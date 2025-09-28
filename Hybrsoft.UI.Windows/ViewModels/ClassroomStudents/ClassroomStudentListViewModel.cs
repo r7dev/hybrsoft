@@ -30,11 +30,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 			else
 			{
-				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(ClassroomStudentListViewModel), "_LoadingStudentsInTheClassroom"));
+				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(ClassroomStudentListViewModel)}_LoadingStudentsInTheClassroom");
 				StartStatusMessage(startMessage);
 				if (await RefreshAsync())
 				{
-					string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(ClassroomStudentListViewModel), "_StudentsInTheClassroomLoaded"));
+					string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(ClassroomStudentListViewModel)}_StudentsInTheClassroomLoaded");
 					EndStatusMessage(endMessage);
 				}
 			}
@@ -86,7 +86,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			catch (Exception ex)
 			{
 				Items = [];
-				string resourceKey = string.Concat(nameof(ClassroomStudentListViewModel), "_ErrorLoadingStudentsInTheClassroom0");
+				string resourceKey = $"{nameof(ClassroomStudentListViewModel)}_ErrorLoadingStudentsInTheClassroom0";
 				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 				string message = string.Format(resourceValue, ex.Message);
 				StatusError(message);
@@ -139,11 +139,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		protected override async void OnRefresh()
 		{
-			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(ClassroomStudentListViewModel), "_LoadingStudentsInTheClassroom"));
+			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(ClassroomStudentListViewModel)}_LoadingStudentsInTheClassroom");
 			StartStatusMessage(startMessage);
 			if (await RefreshAsync())
 			{
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(ClassroomStudentListViewModel), "_StudentsInTheClassroomLoaded"));
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(ClassroomStudentListViewModel)}_StudentsInTheClassroomLoaded");
 				EndStatusMessage(endMessage);
 			}
 		}
@@ -152,7 +152,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			StatusReady();
 			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDelete");
-			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), string.Concat(nameof(ClassroomStudentListViewModel), "_AreYouSureYouWantToDeleteSelectedStudentsFromTheClassroom"));
+			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(ClassroomStudentListViewModel)}_AreYouSureYouWantToDeleteSelectedStudentsFromTheClassroom");
 			string delete = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Delete");
 			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
 			if (await DialogService.ShowAsync(title, content, delete, cancel))
@@ -160,7 +160,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				int count = 0;
 				try
 				{
-					string resourceKey = string.Concat(nameof(ClassroomStudentListViewModel), "_Deleting0ClassroomStudents");
+					string resourceKey = $"{nameof(ClassroomStudentListViewModel)}_Deleting0ClassroomStudents";
 					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
 					if (SelectedIndexRanges != null)
 					{
@@ -181,7 +181,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				}
 				catch (Exception ex)
 				{
-					string resourceKey = string.Concat(nameof(ClassroomStudentListViewModel), "_ErrorDeleting0StudentsFromTheClassroom1");
+					string resourceKey = $"{nameof(ClassroomStudentListViewModel)}_ErrorDeleting0StudentsFromTheClassroom1";
 					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 					string message = string.Format(resourceValue, count, ex.Message);
 					StatusError(message);
@@ -193,7 +193,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				SelectedItems = null;
 				if (count > 0)
 				{
-					string resourceKey = string.Concat(nameof(ClassroomStudentListViewModel), "_0StudentsInTheClassroomDeleted");
+					string resourceKey = $"{nameof(ClassroomStudentListViewModel)}_0StudentsInTheClassroomDeleted";
 					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
 					string message = string.Format(resourceValue, count);
 					EndStatusMessage($"{count} Students in the classroom deleted", LogType.Warning);

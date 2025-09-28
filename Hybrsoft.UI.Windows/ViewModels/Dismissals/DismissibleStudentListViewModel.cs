@@ -17,7 +17,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 	{
 		IDismissalService DismissalService { get; } = dismissalService;
 
-		public string Prefix => ResourceService.GetString(nameof(ResourceFiles.UI), string.Concat(nameof(DismissibleStudentListViewModel), "_Prefix"));
+		public string Prefix => ResourceService.GetString(nameof(ResourceFiles.UI), $"{nameof(DismissibleStudentListViewModel)}_Prefix");
 		private bool HasPermissionToItemInvoke;
 
 		public DismissibleStudentListArgs ViewModelArgs { get; private set; }
@@ -28,11 +28,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			Query = ViewModelArgs.Query;
 			HasPermissionToItemInvoke = AuthorizationService.HasPermission(Permissions.DismissibleStudentsRequester);
 
-			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(DismissibleStudentListViewModel), "_LoadingDismissibleStudents"));
+			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(DismissibleStudentListViewModel)}_LoadingDismissibleStudents");
 			StartStatusMessage(startMessage);
 			if (await RefreshAsync())
 			{
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(DismissibleStudentListViewModel), "_DismissibleStudentsLoaded"));
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(DismissibleStudentListViewModel)}_DismissibleStudentsLoaded");
 				EndStatusMessage(endMessage);
 			}
 		}
@@ -80,7 +80,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			catch (Exception ex)
 			{
 				Items = [];
-				string resourceKey = string.Concat(nameof(DismissibleStudentListViewModel), "_ErrorLoadingDismissibleStudents0");
+				string resourceKey = $"{nameof(DismissibleStudentListViewModel)}_ErrorLoadingDismissibleStudents0";
 				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 				string message = string.Format(resourceValue, ex.Message);
 				StatusError(message);
@@ -131,11 +131,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		protected override async void OnRefresh()
 		{
-			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(DismissibleStudentListViewModel), "_LoadingDismissibleStudents"));
+			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(DismissibleStudentListViewModel)}_LoadingDismissibleStudents");
 			StartStatusMessage(startMessage);
 			if (await RefreshAsync())
 			{
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(DismissibleStudentListViewModel), "_DismissibleStudentsLoaded"));
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(DismissibleStudentListViewModel)}_DismissibleStudentsLoaded");
 				EndStatusMessage(endMessage);
 			}
 		}

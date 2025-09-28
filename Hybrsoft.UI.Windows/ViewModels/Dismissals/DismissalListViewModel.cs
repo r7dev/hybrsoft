@@ -17,7 +17,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 	{
 		IDismissalService DismissalService { get; } = dismissalService;
 
-		public string Prefix => ResourceService.GetString(nameof(ResourceFiles.UI), string.Concat(nameof(DismissalListViewModel), "_Prefix"));
+		public string Prefix => ResourceService.GetString(nameof(ResourceFiles.UI), $"{nameof(DismissalListViewModel)}_Prefix");
 		private bool HasPermissionToAccept;
 
 		public DismissalListArgs ViewModelArgs { get; private set; }
@@ -28,11 +28,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			Query = ViewModelArgs.Query;
 			HasPermissionToAccept = AuthorizationService.HasPermission(Permissions.DismissalConfirmator);
 
-			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(DismissalListViewModel), "_LoadingDismissals"));
+			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(DismissalListViewModel)}_LoadingDismissals");
 			StartStatusMessage(startMessage);
 			if (await RefreshAsync())
 			{
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(DismissalListViewModel), "_DismissalsLoaded"));
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(DismissalListViewModel)}_DismissalsLoaded");
 				EndStatusMessage(endMessage);
 			}
 		}
@@ -80,7 +80,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			catch (Exception ex)
 			{
 				Items = [];
-				string resourceKey = string.Concat(nameof(DismissalListViewModel), "_ErrorLoadingDismissals0");
+				string resourceKey = $"{nameof(DismissalListViewModel)}_ErrorLoadingDismissals0";
 				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 				string message = string.Format(resourceValue, ex.Message);
 				StatusError(message);
@@ -113,7 +113,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			StatusReady();
 			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDismissal");
-			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), string.Concat(nameof(DismissalListViewModel), "_AreYouSureYouWantToApproveTheSelectedDismissalRequests"));
+			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(DismissalListViewModel)}_AreYouSureYouWantToApproveTheSelectedDismissalRequests");
 			string approve = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Approve");
 			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
 			if (await DialogService.ShowAsync(title, content, approve, cancel))
@@ -122,7 +122,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				int count = 0;
 				try
 				{
-					string resourceKey = string.Concat(nameof(DismissalListViewModel), "_Approving0Dismissals");
+					string resourceKey = $"{nameof(DismissalListViewModel)}_Approving0Dismissals";
 					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
 					if (SelectedIndexRanges != null)
 					{
@@ -146,7 +146,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				}
 				catch (Exception ex)
 				{
-					string resourceKey = string.Concat(nameof(DismissalListViewModel), "_ErrorApproving0Dismissals1");
+					string resourceKey = $"{nameof(DismissalListViewModel)}_ErrorApproving0Dismissals1";
 					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 					string message = string.Format(resourceValue, count, ex.Message);
 					StatusError(message);
@@ -160,7 +160,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 					SelectedItems = null;
 					if (count > 0)
 					{
-						string resourceKey = string.Concat(nameof(DismissalListViewModel), "_0DismissalsApproved");
+						string resourceKey = $"{nameof(DismissalListViewModel)}_0DismissalsApproved";
 						string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
 						string message = string.Format(resourceValue, count);
 						EndStatusMessage(message, LogType.Success);
@@ -213,11 +213,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		protected override async void OnRefresh()
 		{
-			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(DismissalListViewModel), "_LoadingDismissals"));
+			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(DismissalListViewModel)}_LoadingDismissals");
 			StartStatusMessage(startMessage);
 			if (await RefreshAsync())
 			{
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(DismissalListViewModel), "_DismissalsLoaded"));
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(DismissalListViewModel)}_DismissalsLoaded");
 				EndStatusMessage(endMessage);
 			}
 		}

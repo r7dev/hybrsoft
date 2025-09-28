@@ -17,7 +17,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 	{
 		public ICompanyService CompanyService { get; } = companyService;
 
-		public string Prefix => ResourceService.GetString(nameof(ResourceFiles.UI), string.Concat(nameof(CompanyListViewModel), "_Prefix"));
+		public string Prefix => ResourceService.GetString(nameof(ResourceFiles.UI), $"{nameof(CompanyListViewModel)}_Prefix");
 		private bool _hasEditorPermission;
 
 		public CompanyListArgs ViewModelArgs { get; private set; }
@@ -28,11 +28,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			Query = ViewModelArgs.Query;
 			_hasEditorPermission = AuthorizationService.HasPermission(Permissions.CompanyEditor);
 
-			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(CompanyListViewModel), "_LoadingCompanies"));
+			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(CompanyListViewModel)}_LoadingCompanies");
 			StartStatusMessage(startMessage);
 			if (await RefreshAsync())
 			{
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(CompanyListViewModel), "_CompaniesLoaded"));
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(CompanyListViewModel)}_CompaniesLoaded");
 				EndStatusMessage(endMessage);
 			}
 		}
@@ -80,7 +80,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			catch (Exception ex)
 			{
 				Items = [];
-				string resourceKey = string.Concat(nameof(CompanyListViewModel), "_ErrorLoadingCompanies0");
+				string resourceKey = $"{nameof(CompanyListViewModel)}_ErrorLoadingCompanies0";
 				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 				string message = string.Format(resourceValue, ex.Message);
 				StatusError(message);
@@ -138,11 +138,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		protected override async void OnRefresh()
 		{
-			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(CompanyListViewModel), "_LoadingCompanies"));
+			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(CompanyListViewModel)}_LoadingCompanies");
 			StartStatusMessage(startMessage);
 			if (await RefreshAsync())
 			{
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(CompanyListViewModel), "_CompaniesLoaded"));
+				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(CompanyListViewModel)}_CompaniesLoaded");
 				EndStatusMessage(endMessage);
 			}
 		}
@@ -152,7 +152,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			StatusReady();
 			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDelete");
-			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), string.Concat(nameof(CompanyListViewModel), "_AreYouSureYouWantToDeleteSelectedCompanies"));
+			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(CompanyListViewModel)}_AreYouSureYouWantToDeleteSelectedCompanies");
 			string delete = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Delete");
 			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
 			if (await DialogService.ShowAsync(title, content, delete, cancel))
@@ -161,7 +161,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				int count = 0;
 				try
 				{
-					string resourceKey = string.Concat(nameof(CompanyListViewModel), "_Deleting0Companies");
+					string resourceKey = $"{nameof(CompanyListViewModel)}_Deleting0Companies";
 					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
 					if (SelectedIndexRanges != null)
 					{
@@ -185,7 +185,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				}
 				catch (Exception ex)
 				{
-					string resourceKey = string.Concat(nameof(CompanyListViewModel), "_ErrorDeleting0Companies1");
+					string resourceKey = $"{nameof(CompanyListViewModel)}_ErrorDeleting0Companies1";
 					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
 					string message = string.Format(resourceValue, count, ex.Message);
 					StatusError(message);
@@ -199,7 +199,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 					SelectedItems = null;
 					if (count > 0)
 					{
-						string resourceKey = string.Concat(nameof(CompanyListViewModel), "_0CompaniesDeleted");
+						string resourceKey = $"{nameof(CompanyListViewModel)}_0CompaniesDeleted";
 						string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
 						string message = string.Format(resourceValue, count);
 						EndStatusMessage(message, LogType.Warning);

@@ -23,10 +23,10 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public async Task LoadAsync()
 		{
-			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(DashboardViewModel), "_LoadingDashboard"));
+			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(DashboardViewModel)}_LoadingDashboard");
 			StartStatusMessage(startMessage);
 			await LoadStudentsAsync();
-			string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), string.Concat(nameof(DashboardViewModel), "_DashboardLoaded")); ;
+			string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(DashboardViewModel)}_DashboardLoaded"); ;
 			EndStatusMessage(endMessage);
 		}
 		public void Unload()
