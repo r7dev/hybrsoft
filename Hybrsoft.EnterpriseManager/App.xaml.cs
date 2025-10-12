@@ -30,8 +30,6 @@ namespace Hybrsoft.EnterpriseManager
 		{
 			this.InitializeComponent();
 
-			AppMutex.Initialize();
-
 			this.UnhandledException += OnUnhandledException;
 		}
 

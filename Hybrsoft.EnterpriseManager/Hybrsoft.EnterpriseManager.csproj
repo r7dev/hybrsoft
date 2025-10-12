@@ -18,6 +18,7 @@
     <UserSecretsId>e3462127-a2fe-4121-a768-e126e4ed23f2</UserSecretsId>
     <ApplicationIcon>Assets\default.ico</ApplicationIcon>
 	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	<DefineConstants>$(DefineConstants);DISABLE_XAML_GENERATED_MAIN</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Configuration\appsettings.json" />
