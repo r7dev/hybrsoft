@@ -15,6 +15,13 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			set => Set(ref _isEnabled, value);
 		}
 
+		private string _messageTitle;
+		public string MessageTitle
+		{
+			get => _messageTitle;
+			set => Set(ref _messageTitle, value);
+		}
+
 		private string _message = "Ready";
 		public string Message
 		{
@@ -57,7 +64,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		virtual public void Subscribe()
 		{
-			MessageService.Subscribe<ViewModelBase, string>(this, OnMessage);
+			MessageService.Subscribe<ViewModelBase, StatusInfoDto>(this, OnMessage);
 		}
 
 		virtual public void Unsubscribe()
@@ -65,7 +72,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			MessageService.Unsubscribe(this);
 		}
 
-		private async void OnMessage(ViewModelBase viewModel, string message, string status)
+		private async void OnMessage(ViewModelBase viewModel, string message, StatusInfoDto status)
 		{
 			switch (message)
 			{
@@ -127,9 +134,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		private void SetStatus(string message)
+		private void SetStatus(StatusInfoDto status)
 		{
-			message ??= "";
+			MessageTitle = status.Title ?? "";
+
+			string message = status.Message ?? "";
 			message = message.Replace("\r\n", " ").Replace("\r", " ").Replace("\n", " ");
 			Message = message;
 		}

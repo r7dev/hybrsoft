@@ -1,8 +1,9 @@
-﻿using Hybrsoft.UI.Windows.Models;
-using Hybrsoft.UI.Windows.Services;
-using Hybrsoft.Enums;
+﻿using Hybrsoft.Enums;
 using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.Models;
+using Hybrsoft.UI.Windows.Infrastructure.Commom;
+using Hybrsoft.UI.Windows.Models;
+using Hybrsoft.UI.Windows.Services;
 using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,10 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class MainShellViewModel(ICommonServices commonServices) : ShellViewModel(commonServices)
+	public partial class MainShellViewModel(ILicenseService licenseService, ICommonServices commonServices) : ShellViewModel(commonServices)
 	{
+		private readonly ILicenseService _licenseService = licenseService;
+
 		private object _selectedItem;
 		public object SelectedItem
 		{
@@ -39,6 +42,18 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			NavigationItems = [.. GetItems()];
 			await base.LoadAsync(args);
 			await UpdateAppLogBadge();
+		}
+
+		public async Task ShowLicenseExpirationWarningAsync()
+		{
+			int? remainingDays = await _licenseService.GetRemainingDaysAsync();
+			if (remainingDays.HasValue && remainingDays.Value <= 5)
+			{
+				string title = ResourceService.GetString(nameof(ResourceFiles.Warnings), $"{nameof(MainShellViewModel)}_LicenseExpiringSoon");
+				string message = string.Format(ResourceService.GetString(nameof(ResourceFiles.Warnings), $"{nameof(MainShellViewModel)}_YouLicenseWillExpireIn0Days"), remainingDays.Value);
+				await Task.Delay(3000);
+				WarningMessageYourself(new StatusInfoDto(title, message));
+			}
 		}
 
 		override public void Subscribe()

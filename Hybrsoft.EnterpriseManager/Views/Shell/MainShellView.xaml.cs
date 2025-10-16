@@ -51,6 +51,7 @@ namespace Hybrsoft.EnterpriseManager.Views
 		{
 			await ViewModel.LoadAsync(e.Parameter as ShellArgs);
 			ViewModel.Subscribe();
+			await ViewModel.ShowLicenseExpirationWarningAsync();
 		}
 
 		protected override void OnNavigatedFrom(NavigationEventArgs e)

@@ -144,6 +144,12 @@
   <data name="CompanyUserDetailsViewModel_ThisCompanyUserHasBeenModifiedExternally" xml:space="preserve">
     <value>AVISO: Este usuário da empresa foi modificado externamente</value>
   </data>
+  <data name="MainShellViewModel_YouLicenseWillExpireIn0Days" xml:space="preserve">
+    <value>Sua licença expira em {0} dias.</value>
+  </data>
+  <data name="MainShellViewModel_LicenseExpiringSoon" xml:space="preserve">
+    <value>Licença prestes a expirar.</value>
+  </data>
   <data name="PermissionDetailsViewModel_ThisPermissionHasBeenDeletedExternally" xml:space="preserve">
     <value>AVISO: Esta permissão foi excluída externamente</value>
   </data>

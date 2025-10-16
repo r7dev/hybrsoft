@@ -13,5 +13,7 @@ namespace Hybrsoft.UI.Windows.Services
 		Task<bool> IsLicenseValidOfflineAsync();
 
 		SubscriptionInfoDto CreateSubscriptionInfoDto(LicenseResponse source);
+
+		Task<int?> GetRemainingDaysAsync();
 	}
 }

@@ -103,10 +103,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 				.Where(r => r.Target == sender)
 				.FirstOrDefault();
 
-			if (subscriber == null)
-				return; // No subscriber for the sender
-
-			subscriber.TryInvoke(sender, message, args);
+			subscriber?.TryInvoke(sender, message, args);
 		}
 
 		private Subscriber[] GetSubscribersSnapshot()

@@ -1,5 +1,6 @@
-﻿using Hybrsoft.UI.Windows.Services;
-using Hybrsoft.Enums;
+﻿using Hybrsoft.Enums;
+using Hybrsoft.UI.Windows.Infrastructure.Commom;
+using Hybrsoft.UI.Windows.Services;
 using System;
 using System.Diagnostics;
 
@@ -74,37 +75,41 @@ namespace Hybrsoft.UI.Windows.Infrastructure.ViewModels
 		public void StatusReady()
 		{
 			string message = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(ViewModelBase)}_Ready");
-			MessageService.Send(this, "StatusMessage", message);
+			MessageService.Send(this, "StatusMessage", new StatusInfoDto("", message));
 		}
 
 		public void StatusMessage(string message)
 		{
-			MessageService.Send(this, "StatusMessage", message);
+			MessageService.Send(this, "StatusMessage", new StatusInfoDto("", message));
 		}
 		public void StatusError(string message)
 		{
-			MessageService.Send(this, "StatusError", message);
+			MessageService.Send(this, "StatusError", new StatusInfoDto("", message));
 		}
 		public void SuccessMessage(string message)
 		{
-			MessageService.Send(this, "SuccessMessage", message);
+			MessageService.Send(this, "SuccessMessage", new StatusInfoDto("", message));
 		}
 		public void WarningMessage(string message)
 		{
-			MessageService.Send(this, "WarningMessage", message);
+			MessageService.Send(this, "WarningMessage", new StatusInfoDto("", message));
 		}
 
 		public void StatusMessageYourself(string message)
 		{
-			MessageService.SendYourself(this, "StatusMessage", message);
+			MessageService.SendYourself(this, "StatusMessage", new StatusInfoDto("", message));
 		}
 		public void StatusErrorYourself(string message)
 		{
-			MessageService.SendYourself(this, "StatusError", message);
+			MessageService.SendYourself(this, "StatusError", new StatusInfoDto("", message));
 		}
 		public void SuccessMessageYourselt(string message)
 		{
-			MessageService.SendYourself(this, "SuccessMessage", message);
+			MessageService.SendYourself(this, "SuccessMessage", new StatusInfoDto("", message));
+		}
+		public void WarningMessageYourself(StatusInfoDto status)
+		{
+			MessageService.SendYourself(this, "WarningMessage", status);
 		}
 
 		public void EnableThisView(string message = null)

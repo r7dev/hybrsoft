@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.Infrastructure.DataServices.Base
 {
-	abstract public partial class DataServiceBase(IUniversalDataSource universalDataSource, ILearnDataSource learnDataSource) : IDataService, IDisposable
+	public abstract partial class DataServiceBase(IUniversalDataSource universalDataSource, ILearnDataSource learnDataSource) : IDataService, IDisposable
 	{
 		private readonly IUniversalDataSource _universalDataSource = universalDataSource;
 		private readonly ILearnDataSource _learnDataSource = learnDataSource;

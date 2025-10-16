@@ -177,5 +177,27 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			return !string.IsNullOrEmpty(AppSettings.Current.JwtToken)
 				&& AppSettings.Current.JwtTokenExpiration > DateTime.Now;
 		}
+
+		public async Task<int?> GetRemainingDaysAsync()
+		{
+			var encryptedData = await SettingsService.ReadSettingAsync<string>(_licenseData);
+			if (string.IsNullOrEmpty(encryptedData))
+				return null;
+
+			try
+			{
+				var license = _windowsSecurityService.DecryptData<SubscriptionInfoDto>(encryptedData);
+
+				if (!license.IsActivated || license.ExpirationDate <= DateTimeOffset.Now)
+					return 0;
+
+				var remainingDays = (license.ExpirationDate.Value - DateTimeOffset.Now).Days;
+				return remainingDays;
+			}
+			catch
+			{
+				return null;
+			}
+		}
 	}
 }
