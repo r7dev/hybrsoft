@@ -30,19 +30,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 		ValidateAudience = false,
 		ValidateLifetime = true
 	};
-	options.Events = new JwtBearerEvents
-	{
-		OnAuthenticationFailed = context =>
-		{
-			Console.WriteLine("Token inválido: " + context.Exception.Message);
-			return Task.CompletedTask;
-		},
-		OnTokenValidated = context =>
-		{
-			Console.WriteLine("Token validado com sucesso.");
-			return Task.CompletedTask;
-		}
-	};
 });
 // Add Authorization
 builder.Services.AddAuthorization();
