@@ -297,11 +297,11 @@
   <data name="SubscriptionListViewModel_ErrorDeleting0Subscriptions1" xml:space="preserve">
     <value>Error deleting {0} Subscriptions: {1}</value>
   </data>
-  <data name="LicenseActivationViewModel_NoInternetConnection_PleaseCheckYourConnectionAndTryAgain" xml:space="preserve">
-    <value>No internet connection. Please check your connection and try again.</value>
+  <data name="LicenseActivationViewModel_PleaseCheckYourConnectionAndTryAgain" xml:space="preserve">
+    <value>Please check your connection and try again.</value>
   </data>
-  <data name="FoundationAPI_SubscriptionService_ActivationFailed_LicenseKeyIsRequired" xml:space="preserve">
-    <value>Activation Failed. License key is required.</value>
+  <data name="FoundationAPI_SubscriptionService_LicenseKeyIsRequired" xml:space="preserve">
+    <value>License key is required.</value>
   </data>
   <data name="FoundationAPI_SubscriptionService_InvalidLicenseKey" xml:space="preserve">
     <value>Invalid license key.</value>
@@ -335,5 +335,11 @@
   </data>
   <data name="LoginViewModel_PleaseEnterValidPassword" xml:space="preserve">
     <value>Please, enter a valid password.</value>
+  </data>
+  <data name="LicenseActivationViewModel_NoInternetConnection" xml:space="preserve">
+    <value>No internet connection.</value>
+  </data>
+  <data name="FoundationAPI_SubscriptionService_ActivationFailed" xml:space="preserve">
+    <value>Activation Failed.</value>
   </data>
 </root>

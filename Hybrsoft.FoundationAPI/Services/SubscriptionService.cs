@@ -19,7 +19,8 @@ namespace Hybrsoft.FoundationAPI.Services
 				{
 					IsActivated = false,
 					Message = "Activation Failed. License key is required.",
-					Uid =  $"{_uidPrefix}ActivationFailed_LicenseKeyIsRequired"
+					TitleUid = $"{_uidPrefix}ActivationFailed",
+					MessageUid =  $"{_uidPrefix}LicenseKeyIsRequired"
 				};
 			}
 
@@ -36,8 +37,9 @@ namespace Hybrsoft.FoundationAPI.Services
 				return new SubscriptionInfoDto
 				{
 					IsActivated = false,
-					Message = "Invalid license key.",
-					Uid = $"{_uidPrefix}InvalidLicenseKey"
+					Message = "Activation Failed. Invalid license key.",
+					TitleUid = $"{_uidPrefix}ActivationFailed",
+					MessageUid = $"{_uidPrefix}InvalidLicenseKey"
 				};
 			}
 			var subscription = subscriptions
@@ -55,8 +57,9 @@ namespace Hybrsoft.FoundationAPI.Services
 					IsActivated = true,
 					StartDate = subscription?.StartDate,
 					ExpirationDate = subscription?.ExpirationDate,
-					Message = "License key is already active.",
-					Uid = $"{_uidPrefix}LicenseKeyIsAlreadyActive"
+					Message = "Activation Successful. License key is already active.",
+					TitleUid = $"{_uidPrefix}ActivationSuccessful",
+					MessageUid = $"{_uidPrefix}LicenseKeyIsAlreadyActive"
 				};
 			}
 			else
@@ -75,8 +78,9 @@ namespace Hybrsoft.FoundationAPI.Services
 				IsActivated = true,
 				StartDate = subscription.StartDate,
 				ExpirationDate = subscription.ExpirationDate,
-				Message = "Your license has been successfully activated.",
-				Uid = $"{_uidPrefix}YourLicenseHasBeenSuccessfullyActivated"
+				Message = "Activation Successful. Your license has been successfully activated.",
+				TitleUid = $"{_uidPrefix}ActivationSuccessful",
+				MessageUid = $"{_uidPrefix}YourLicenseHasBeenSuccessfullyActivated"
 			};
 		}
 

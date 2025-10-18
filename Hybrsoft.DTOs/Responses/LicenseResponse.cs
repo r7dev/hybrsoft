@@ -8,6 +8,8 @@
 		public string? LicenseData { get; set; }
 		public string? LicensedTo { get; set; }
 		public string? Message { get; set; }
-		public string? Uid { get; set; }
+
+		public string? TitleUid { get; set; }
+		public string? MessageUid { get; set; }
 	}
 }

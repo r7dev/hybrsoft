@@ -95,17 +95,17 @@ namespace Hybrsoft.UI.Windows.Infrastructure.ViewModels
 			MessageService.Send(this, "WarningMessage", new StatusInfoDto("", message));
 		}
 
-		public void StatusMessageYourself(string message)
+		public void StatusMessageYourself(StatusInfoDto status)
 		{
-			MessageService.SendYourself(this, "StatusMessage", new StatusInfoDto("", message));
+			MessageService.SendYourself(this, "StatusMessage", status);
 		}
-		public void StatusErrorYourself(string message)
+		public void StatusErrorYourself(StatusInfoDto status)
 		{
-			MessageService.SendYourself(this, "StatusError", new StatusInfoDto("", message));
+			MessageService.SendYourself(this, "StatusError", status);
 		}
-		public void SuccessMessageYourselt(string message)
+		public void SuccessMessageYourselt(StatusInfoDto status)
 		{
-			MessageService.SendYourself(this, "SuccessMessage", new StatusInfoDto("", message));
+			MessageService.SendYourself(this, "SuccessMessage", status);
 		}
 		public void WarningMessageYourself(StatusInfoDto status)
 		{

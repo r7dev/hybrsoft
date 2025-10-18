@@ -498,4 +498,10 @@
   <data name="FoundationAPI_SubscriptionService_YourLicenseHasBeenSuccessfullyActivated" xml:space="preserve">
     <value>Sua licença foi ativada com sucesso.</value>
   </data>
+  <data name="LicenseActivationViewModel_ConnectionRestored" xml:space="preserve">
+    <value>Conexão Restaurada.</value>
+  </data>
+  <data name="FoundationAPI_SubscriptionService_ActivationSuccessful" xml:space="preserve">
+    <value>Ativação Bem-Sucedida.</value>
+  </data>
 </root>

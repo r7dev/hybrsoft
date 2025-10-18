@@ -3,7 +3,6 @@ using Hybrsoft.UI.Windows.Infrastructure.Commom;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Services;
-using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -165,13 +164,13 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		private Result ValidateInput()
 		{
-			if (String.IsNullOrWhiteSpace(UserName))
+			if (string.IsNullOrWhiteSpace(UserName))
 			{
 				string message = ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginViewModel)}_LoginError");
 				string description = ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginViewModel)}_PleaseEnterValidUsername");
 				return Result.Error(message, description);
 			}
-			if (String.IsNullOrWhiteSpace(Password))
+			if (string.IsNullOrWhiteSpace(Password))
 			{
 				string message = ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginViewModel)}_LoginError");
 				string description = ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginViewModel)}_PleaseEnterValidPassword");

@@ -91,9 +91,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			IsInternetAvailable = await NetworkService.IsInternetAvailableAsync();
 			if (!IsInternetAvailable)
 			{
-				string resourceKey = $"{nameof(LicenseActivationViewModel)}_NoInternetConnection_PleaseCheckYourConnectionAndTryAgain";
-				string message = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
-				StatusErrorYourself(message);
+				string resourceKeyTitle = $"{nameof(LicenseActivationViewModel)}_NoInternetConnection";
+				string title = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKeyTitle);
+				string resourceKeyMessage = $"{nameof(LicenseActivationViewModel)}_PleaseCheckYourConnectionAndTryAgain";
+				string message = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKeyMessage);
+				StatusErrorYourself(new StatusInfoDto(title, message));
 				return;
 			}
 
@@ -110,10 +112,14 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				InfoForeground = new SolidColorBrush(Colors.Green);
 				HasInfo = true;
 
-				string message = response.Uid != null
-					? ResourceService.GetString(nameof(ResourceFiles.InfoMessages), response.Uid)
+				string title = response.TitleUid != null
+					? ResourceService.GetString(nameof(ResourceFiles.InfoMessages), response.TitleUid)
+					: string.Empty;
+
+				string message = response.MessageUid != null
+					? ResourceService.GetString(nameof(ResourceFiles.InfoMessages), response.MessageUid)
 					: response.Message;
-				SuccessMessageYourselt(message);
+				SuccessMessageYourselt(new StatusInfoDto(title, message));
 
 				await Task.Delay(4000);
 				EnterApplication();
@@ -124,10 +130,14 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				InfoForeground = new SolidColorBrush(Colors.Red);
 				HasInfo = true;
 
-				string message = response.Uid != null
-					? ResourceService.GetString(nameof(ResourceFiles.Errors), response.Uid)
+				string title = response.TitleUid != null
+					? ResourceService.GetString(nameof(ResourceFiles.Errors), response.TitleUid)
+					: string.Empty;
+
+				string message = response.MessageUid != null
+					? ResourceService.GetString(nameof(ResourceFiles.Errors), response.MessageUid)
 					: response.Message;
-				StatusErrorYourself(message);
+				StatusErrorYourself(new StatusInfoDto(title, message));
 			}
 			IsBusy = false;
 		}
@@ -139,9 +149,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			IsInternetAvailable = await NetworkService.IsInternetAvailableAsync();
 			if (IsInternetAvailable)
 			{
-				string resourceKey = $"{nameof(LicenseActivationViewModel)}_InternetConnectionIsAvailable";
-				string message = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
-				StatusMessageYourself(message);
+				string resourceKeyTitle = $"{nameof(LicenseActivationViewModel)}_ConnectionRestored";
+				string title = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKeyTitle);
+				string resourceKeyMessage = $"{nameof(LicenseActivationViewModel)}_InternetConnectionIsAvailable";
+				string message = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKeyMessage);
+				StatusMessageYourself(new StatusInfoDto(title, message));
 				IsBusy = false;
 			}
 		}

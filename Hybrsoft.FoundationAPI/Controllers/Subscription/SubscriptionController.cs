@@ -22,7 +22,8 @@ namespace Hybrsoft.FoundationAPI.Controllers
 				{
 					IsActivated = subscription.IsActivated,
 					Message = subscription.Message,
-					Uid = subscription.Uid
+					TitleUid = subscription.TitleUid,
+					MessageUid = subscription.MessageUid
 				});
 			}
 			return Ok(new LicenseResponse
@@ -31,7 +32,8 @@ namespace Hybrsoft.FoundationAPI.Controllers
 				StartDate = subscription.StartDate,
 				ExpirationDate = subscription.ExpirationDate,
 				Message = subscription.Message,
-				Uid = subscription.Uid
+				TitleUid = subscription.TitleUid,
+				MessageUid = subscription.MessageUid
 			});
 		}
 
