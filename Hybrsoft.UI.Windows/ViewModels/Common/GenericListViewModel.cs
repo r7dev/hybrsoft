@@ -15,7 +15,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			get
 			{
-				if (String.IsNullOrEmpty(Query))
+				if (string.IsNullOrEmpty(Query))
 				{
 					return $" ({ItemsCount})";
 				}

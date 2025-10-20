@@ -2,7 +2,6 @@ using Hybrsoft.EnterpriseManager.Common;
 using Hybrsoft.EnterpriseManager.Extensions;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using System;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -148,7 +147,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 				_content.RowDefinitions[2].Height = Footer == null ? GridLengths.Zero : GridLengths.Auto;
 				if (_button != null)
 				{
-					_button.Visibility = IsButtonVisible && !String.IsNullOrEmpty($"{HeaderButtonGlyph}{HeaderButtonLabel}") ? Visibility.Visible : Visibility.Collapsed;
+					_button.Visibility = IsButtonVisible && !string.IsNullOrEmpty($"{HeaderButtonGlyph}{HeaderButtonLabel}") ? Visibility.Visible : Visibility.Collapsed;
 				}
 				UpdateContainer();
 			}

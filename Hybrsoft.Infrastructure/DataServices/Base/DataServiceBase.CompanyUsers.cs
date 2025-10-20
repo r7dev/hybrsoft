@@ -64,7 +64,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			IQueryable<CompanyUser> items = _universalDataSource.CompanyUsers;
 
 			// Query
-			if (!String.IsNullOrEmpty(request.Query))
+			if (!string.IsNullOrEmpty(request.Query))
 			{
 				items = items.Where(r => EF.Functions.Like(r.SearchTerms, "%" + request.Query + "%"));
 			}

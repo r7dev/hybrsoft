@@ -72,7 +72,7 @@ namespace Hybrsoft.EnterpriseManager
 				};
 				if (!userInfo.IsEmpty)
 				{
-					if (String.IsNullOrEmpty(userInfo.AccountName))
+					if (string.IsNullOrEmpty(userInfo.AccountName))
 					{
 						userInfo.AccountName = $"{userInfo.FirstName} {userInfo.LastName}";
 					}

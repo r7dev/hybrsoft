@@ -64,7 +64,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			IQueryable<RolePermission> items = _universalDataSource.RolePermissions;
 
 			// Query
-			if (!String.IsNullOrEmpty(request.Query))
+			if (!string.IsNullOrEmpty(request.Query))
 			{
 				items = items.Where(r => EF.Functions.Like(r.SearchTerms, "%" + request.Query + "%"));
 			}

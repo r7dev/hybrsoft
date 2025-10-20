@@ -91,8 +91,8 @@ public sealed partial class UserSuggestBox : UserControl
 		{
 			if (args.CheckCurrent())
 			{
-				Items = String.IsNullOrEmpty(sender.Text) ? null : await GetItems(sender.Text);
-				if (String.IsNullOrEmpty(sender.Text) && !string.IsNullOrEmpty(DisplayText))
+				Items = string.IsNullOrEmpty(sender.Text) ? null : await GetItems(sender.Text);
+				if (string.IsNullOrEmpty(sender.Text) && !string.IsNullOrEmpty(DisplayText))
 				{
 					DisplayText = string.Empty;
 					var argsChosen = (AutoSuggestBoxSuggestionChosenEventArgs)Activator.CreateInstance(typeof(AutoSuggestBoxSuggestionChosenEventArgs), true);

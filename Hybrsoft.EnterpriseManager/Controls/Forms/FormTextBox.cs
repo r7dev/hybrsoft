@@ -181,7 +181,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 		private void OnBeforeTextChanging(TextBox sender, TextBoxBeforeTextChangingEventArgs args)
 		{
 			string str = args.NewText;
-			if (String.IsNullOrEmpty(str) || str == "-")
+			if (string.IsNullOrEmpty(str) || str == "-")
 			{
 				return;
 			}

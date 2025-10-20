@@ -60,7 +60,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			IQueryable<Classroom> items = _learnDataSource.Classrooms;
 
 			// Query
-			if (!String.IsNullOrEmpty(request.Query))
+			if (!string.IsNullOrEmpty(request.Query))
 			{
 				items = items.Where(r => EF.Functions.Like(r.SearchTerms, "%" + request.Query + "%"));
 			}

@@ -49,7 +49,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			IQueryable<AppLog> items = _universalDataSource.AppLogs;
 
 			// Query
-			if (!String.IsNullOrEmpty(request.Query))
+			if (!string.IsNullOrEmpty(request.Query))
 			{
 				items = items.Where(r => EF.Functions.Like(r.Message, "%" + request.Query + "%"));
 			}

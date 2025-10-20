@@ -60,7 +60,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			IQueryable<ClassroomStudent> items = _learnDataSource.ClassroomStudents;
 
 			// Query
-			if (!String.IsNullOrEmpty(request.Query))
+			if (!string.IsNullOrEmpty(request.Query))
 			{
 				items = items.Where(r => EF.Functions.Like(r.SearchTermsDismissibleStudent, "%" + request.Query + "%"));
 			}
@@ -164,7 +164,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			IQueryable<Dismissal> items = _learnDataSource.Dismissals;
 
 			// Query
-			if (!String.IsNullOrEmpty(request.Query))
+			if (!string.IsNullOrEmpty(request.Query))
 			{
 				items = items.Where(r => EF.Functions.Like(r.SearchTerms, "%" + request.Query + "%"));
 			}

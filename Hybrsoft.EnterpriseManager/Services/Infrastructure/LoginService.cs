@@ -24,7 +24,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		public async Task<bool> IsWindowsHelloEnabledAsync(string userName)
 		{
 			bool keyCredentialAvailable = await KeyCredentialManager.IsSupportedAsync();
-			if (keyCredentialAvailable && !String.IsNullOrEmpty(userName))
+			if (keyCredentialAvailable && !string.IsNullOrEmpty(userName))
 			{
 				if (userName.Equals(AppSettings.Current.UserName, StringComparison.OrdinalIgnoreCase))
 				{
