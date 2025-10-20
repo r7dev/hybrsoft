@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Hybrsoft.UI.Windows.Infrastructure.Commom
+namespace Hybrsoft.UI.Windows.Infrastructure.Common
 {
 	public partial class RelayCommand(Action execute, Func<bool> canExecute) : ICommand
 	{

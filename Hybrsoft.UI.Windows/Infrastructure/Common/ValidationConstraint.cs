@@ -3,7 +3,7 @@ using Hybrsoft.UI.Windows.Services;
 using System;
 using System.Text.RegularExpressions;
 
-namespace Hybrsoft.UI.Windows.Infrastructure.Commom
+namespace Hybrsoft.UI.Windows.Infrastructure.Common
 {
 	public interface IValidationConstraint<T>
 	{

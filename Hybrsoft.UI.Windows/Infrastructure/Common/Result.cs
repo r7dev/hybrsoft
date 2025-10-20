@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Hybrsoft.UI.Windows.Infrastructure.Commom
+namespace Hybrsoft.UI.Windows.Infrastructure.Common
 {
 	public class Result
 	{
