@@ -1,6 +1,7 @@
-﻿using Hybrsoft.UI.Windows.Services;
-using Hybrsoft.Enums;
+﻿using Hybrsoft.Enums;
+using Hybrsoft.UI.Windows.Services;
 using System;
+using System.Text.RegularExpressions;
 
 namespace Hybrsoft.UI.Windows.Infrastructure.Commom
 {
@@ -17,7 +18,8 @@ namespace Hybrsoft.UI.Windows.Infrastructure.Commom
 		protected IResourceService _resourceService;
 		protected string MessageKey => _messageKey;
 		public Func<T, bool> Validate { get; set; } = validate;
-		public virtual string Message => _resourceService?.GetString(nameof(ResourceFiles.ValidationErrors), _messageKey) ?? _messageKey;
+		public virtual string Message => _resourceService?
+			.GetString(nameof(ResourceFiles.ValidationErrors), _messageKey) ?? _messageKey;
 
 		public void SetResourceService(IResourceService resourceService)
 		{
@@ -28,31 +30,30 @@ namespace Hybrsoft.UI.Windows.Infrastructure.Commom
 	public class RequiredConstraint<T>(string propertyName, Func<T, object> propertyValue)
 		: ValidationConstraint<T>("ValidationConstraint_RequiredError", model => ValidateProperty(model, propertyValue))
 	{
-		public string PropertyName { get; set; } = propertyName;
-		public Func<T, object> PropertyValue { get; set; } = propertyValue;
+		public string PropertyName { get; } = propertyName;
 
 		private static bool ValidateProperty(T model, Func<T, object> propertyValue)
 		{
 			var value = propertyValue(model);
-			return value != null && !string.IsNullOrEmpty(value.ToString());
+			return value is not null && !string.IsNullOrEmpty(value.ToString());
 		}
 
-		public override string Message => _resourceService?.GetString(nameof(ResourceFiles.ValidationErrors), MessageKey)
-			?.Replace("{PropertyName}", PropertyName) ?? $"Property '{PropertyName}' cannot be empty.";
+		public override string Message => _resourceService?
+			.GetString(nameof(ResourceFiles.ValidationErrors), MessageKey)?
+			.Replace("{PropertyName}", PropertyName);
 	}
 
 	public class RequiredGreaterThanZeroConstraint<T>(string propertyName, Func<T, object> propertyValue)
 		: ValidationConstraint<T>("ValidationConstraint_RequiredGreaterThanZeroError", model => ValidateProperty(model, propertyValue))
 	{
-		public string PropertyName { get; set; } = propertyName;
-		public Func<T, object> PropertyValue { get; set; } = propertyValue;
+		public string PropertyName { get; } = propertyName;
 
 		private static bool ValidateProperty(T model, Func<T, object> propertyValue)
 		{
 			var value = propertyValue(model);
-			if (value != null)
+			if (value is not null)
 			{
-				if (Double.TryParse(value.ToString(), out double d))
+				if (double.TryParse(value.ToString(), out double d))
 				{
 					return d > 0;
 				}
@@ -60,22 +61,22 @@ namespace Hybrsoft.UI.Windows.Infrastructure.Commom
 			return true;
 		}
 
-		public override string Message => _resourceService?.GetString(nameof(ResourceFiles.ValidationErrors), MessageKey)
-			?.Replace("{PropertyName}", PropertyName) ?? $"Property '{PropertyName}' cannot be empty.";
+		public override string Message => _resourceService?
+			.GetString(nameof(ResourceFiles.ValidationErrors), MessageKey)?
+			.Replace("{PropertyName}", PropertyName);
 	}
 
 	public class PositiveConstraint<T>(string propertyName, Func<T, object> propertyValue)
 		: ValidationConstraint<T>("ValidationConstraint_PositiveError", model => ValidateProperty(model, propertyValue))
 	{
-		public string PropertyName { get; set; } = propertyName;
-		public Func<T, object> PropertyValue { get; set; } = propertyValue;
+		public string PropertyName { get; } = propertyName;
 
 		private static bool ValidateProperty(T model, Func<T, object> propertyValue)
 		{
 			var value = propertyValue(model);
-			if (value != null)
+			if (value is not null)
 			{
-				if (Double.TryParse(value.ToString(), out double d))
+				if (double.TryParse(value.ToString(), out double d))
 				{
 					return d >= 0;
 				}
@@ -83,22 +84,22 @@ namespace Hybrsoft.UI.Windows.Infrastructure.Commom
 			return true;
 		}
 
-		public override string Message => _resourceService?.GetString(nameof(ResourceFiles.ValidationErrors), MessageKey)
-			?.Replace("{PropertyName}", PropertyName) ?? $"Property '{PropertyName}' must be positive.";
+		public override string Message => _resourceService?
+			.GetString(nameof(ResourceFiles.ValidationErrors), MessageKey)?
+			.Replace("{PropertyName}", PropertyName);
 	}
 
 	public class NonZeroConstraint<T>(string propertyName, Func<T, object> propertyValue)
 		: ValidationConstraint<T>("ValidationConstraint_NonZeroError", model => ValidateProperty(model, propertyValue))
 	{
-		public string PropertyName { get; set; } = propertyName;
-		public Func<T, object> PropertyValue { get; set; } = propertyValue;
+		public string PropertyName { get; } = propertyName;
 
 		private static bool ValidateProperty(T model, Func<T, object> propertyValue)
 		{
 			var value = propertyValue(model);
-			if (value != null)
+			if (value is not null)
 			{
-				if (Double.TryParse(value.ToString(), out double d))
+				if (double.TryParse(value.ToString(), out double d))
 				{
 					return d != 0;
 				}
@@ -106,23 +107,23 @@ namespace Hybrsoft.UI.Windows.Infrastructure.Commom
 			return true;
 		}
 
-		public override string Message => _resourceService?.GetString(nameof(ResourceFiles.ValidationErrors), MessageKey)
-			?.Replace("{PropertyName}", PropertyName) ?? $"Property '{PropertyName}' cannot be zero";
+		public override string Message => _resourceService?
+			.GetString(nameof(ResourceFiles.ValidationErrors), MessageKey)?
+			.Replace("{PropertyName}", PropertyName);
 	}
 
 	public class GreaterThanConstraint<T>(string propertyName, Func<T, object> propertyValue, double value)
 		: ValidationConstraint<T>("ValidationConstraint_GreaterThanError", model => ValidateProperty(model, propertyValue, value))
 	{
-		public string PropertyName { get; set; } = propertyName;
-		public Func<T, object> PropertyValue { get; set; } = propertyValue;
-		public double Value { get; set; } = value;
+		public string PropertyName { get; } = propertyName;
+		public double Value { get; } = value;
 
 		private static bool ValidateProperty(T model, Func<T, object> propertyValue, double value)
 		{
 			var val = propertyValue(model);
 			if (val != null)
 			{
-				if (Double.TryParse(value.ToString(), out double d))
+				if (double.TryParse(val.ToString(), out double d))
 				{
 					return d > value;
 				}
@@ -135,28 +136,18 @@ namespace Hybrsoft.UI.Windows.Infrastructure.Commom
 			.Replace("{Value}", Value.ToString()) ?? $"Property '{PropertyName}' must be greater than {Value}.";
 	}
 
-	public class NonGreaterThanConstraint<T> : ValidationConstraint<T>
+	public class NonGreaterThanConstraint<T>(string propertyName, Func<T, object> propertyValue, double value, string valueDesc = null)
+		: ValidationConstraint<T>("ValidationConstraint_NonGreaterThanError", model => ValidateProperty(model, propertyValue, value))
 	{
-		public NonGreaterThanConstraint(string propertyName, Func<T, object> propertyValue, double value, string valueDesc = null)
-			: base("ValidationConstraint_NonGreaterThanError", model => ValidateProperty(model, propertyValue, value))
-		{
-			PropertyName = propertyName;
-			PropertyValue = propertyValue;
-			Value = value;
-			ValueDesc = valueDesc ?? Value.ToString();
-		}
-
-		public string PropertyName { get; set; }
-		public Func<T, object> PropertyValue { get; set; }
-		public double Value { get; set; }
-		public string ValueDesc { get; set; }
+		public string PropertyName { get; } = propertyName;
+		public string ValueDesc { get; } = valueDesc ?? value.ToString();
 
 		private static bool ValidateProperty(T model, Func<T, object> propertyValue, double value)
 		{
 			var val = propertyValue(model);
 			if (val != null)
 			{
-				if (Double.TryParse(value.ToString(), out double d))
+				if (double.TryParse(val.ToString(), out double d))
 				{
 					return d <= value;
 				}
@@ -172,16 +163,15 @@ namespace Hybrsoft.UI.Windows.Infrastructure.Commom
 	public class LessThanConstraint<T>(string propertyName, Func<T, object> propertyValue, double value)
 		: ValidationConstraint<T>("ValidationConstraint_LessThanError", model => ValidateProperty(model, propertyValue, value))
 	{
-		public string PropertyName { get; set; } = propertyName;
-		public Func<T, object> PropertyValue { get; set; } = propertyValue;
-		public double Value { get; set; } = value;
+		public string PropertyName { get; } = propertyName;
+		public double Value { get; } = value;
 
 		private static bool ValidateProperty(T model, Func<T, object> propertyValue, double value)
 		{
 			var val = propertyValue(model);
-			if (val != null)
+			if (val is not null)
 			{
-				if (Double.TryParse(value.ToString(), out double d))
+				if (double.TryParse(val.ToString(), out double d))
 				{
 					return d < value;
 				}
@@ -189,16 +179,17 @@ namespace Hybrsoft.UI.Windows.Infrastructure.Commom
 			return true;
 		}
 
-		public override string Message => _resourceService?.GetString(nameof(ResourceFiles.ValidationErrors), MessageKey)
-			?.Replace("{PropertyName}", PropertyName)
-			.Replace("{Value}", Value.ToString()) ?? $"Property '{PropertyName}' must be less than {Value}.";
+		public override string Message => _resourceService?
+			.GetString(nameof(ResourceFiles.ValidationErrors), MessageKey)?
+			.Replace("{PropertyName}", PropertyName)
+			.Replace("{Value}", Value.ToString());
 	}
 
 	public class EmailValidationConstraint<T>(string propertyName, Func<T, string> propertyValue)
 		: ValidationConstraint<T>("ValidationConstraint_EmailValidationError", model => ValidateProperty(model, propertyValue))
 	{
-		public string PropertyName { get; set; } = propertyName;
-		public Func<T, string> PropertyValue { get; set; } = propertyValue;
+		public string PropertyName { get; } = propertyName;
+
 		private static readonly string _pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
 
 		private static bool ValidateProperty(T model, Func<T, string> propertyValue)
@@ -208,18 +199,19 @@ namespace Hybrsoft.UI.Windows.Infrastructure.Commom
 			{
 				return false;
 			}
-			return System.Text.RegularExpressions.Regex.IsMatch(value, _pattern);
+			return Regex.IsMatch(value, _pattern);
 		}
 
-		public override string Message => _resourceService?.GetString(nameof(ResourceFiles.ValidationErrors), MessageKey)
-			?.Replace("{PropertyName}", PropertyName) ?? $"Property '{PropertyName}' is not a valid email address.";
+		public override string Message => _resourceService?
+			.GetString(nameof(ResourceFiles.ValidationErrors), MessageKey)?
+			.Replace("{PropertyName}", PropertyName);
 	}
 
 	public class AlphanumericValidationConstraint<T>(string propertyName, Func<T, string> propertyValue)
 		: ValidationConstraint<T>("ValidationConstraint_AlphanumericValidationError", model => ValidateProperty(model, propertyValue))
 	{
-		public string PropertyName { get; set; } = propertyName;
-		public Func<T, string> PropertyValue { get; set; } = propertyValue;
+		public string PropertyName { get; } = propertyName;
+
 		private static readonly string _pattern = @"^[a-zA-Z0-9]*$";
 
 		private static bool ValidateProperty(T model, Func<T, string> propertyValue)
@@ -229,10 +221,11 @@ namespace Hybrsoft.UI.Windows.Infrastructure.Commom
 			{
 				return false;
 			}
-			return System.Text.RegularExpressions.Regex.IsMatch(value, _pattern);
+			return Regex.IsMatch(value, _pattern);
 		}
 
-		public override string Message => _resourceService?.GetString(nameof(ResourceFiles.ValidationErrors), MessageKey)
-			?.Replace("{PropertyName}", PropertyName) ?? $"Property '{PropertyName}' must be alphanumeric.";
+		public override string Message => _resourceService?
+			.GetString(nameof(ResourceFiles.ValidationErrors), MessageKey)?
+			.Replace("{PropertyName}", PropertyName);
 	}
 }
