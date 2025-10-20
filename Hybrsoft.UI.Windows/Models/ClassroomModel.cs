@@ -5,7 +5,7 @@ namespace Hybrsoft.UI.Windows.Models
 {
 	public partial class ClassroomModel : ObservableObject
 	{
-		static public ClassroomModel CreateEmpty() => new() { ClassroomID = -1, IsEmpty = true };
+		public static ClassroomModel CreateEmpty() => new() { ClassroomID = -1, IsEmpty = true };
 		public long ClassroomID { get; set; }
 		public string Name { get; set; }
 		public short Year { get; set; }

@@ -5,7 +5,7 @@ namespace Hybrsoft.UI.Windows.Models
 {
 	public partial class PermissionModel : ObservableObject
 	{
-		static public PermissionModel CreateEmpty() => new() { PermissionID = -1, IsEmpty = true };
+		public static PermissionModel CreateEmpty() => new() { PermissionID = -1, IsEmpty = true };
 		public long PermissionID { get; set; }
 		public string Name { get; set; }
 		public string DisplayName { get; set; }

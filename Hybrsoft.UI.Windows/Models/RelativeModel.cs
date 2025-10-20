@@ -5,7 +5,7 @@ namespace Hybrsoft.UI.Windows.Models
 {
 	public partial class RelativeModel : ObservableObject
 	{
-		static public RelativeModel CreateEmpty() => new() { RelativeID = -1, IsEmpty = true };
+		public static RelativeModel CreateEmpty() => new() { RelativeID = -1, IsEmpty = true };
 		public long RelativeID { get; set; }
 		public string FirstName { get; set; }
 		public string MiddleName { get; set; }

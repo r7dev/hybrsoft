@@ -5,7 +5,7 @@ namespace Hybrsoft.UI.Windows.Models
 {
 	public partial class CompanyModel : ObservableObject
 	{
-		static public CompanyModel CreateEmpty() => new() { CompanyID = -1, IsEmpty = true };
+		public static CompanyModel CreateEmpty() => new() { CompanyID = -1, IsEmpty = true };
 		public long CompanyID { get; set; }
 		public string LegalName { get; set; }
 		public string TradeName { get; set; }

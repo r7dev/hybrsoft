@@ -5,7 +5,7 @@ namespace Hybrsoft.UI.Windows.Models
 {
 	public partial class DismissalModel : ObservableObject
 	{
-		static public DismissalModel CreateEmpty() => new() { DismissalID = -1, IsEmpty = true };
+		public static DismissalModel CreateEmpty() => new() { DismissalID = -1, IsEmpty = true };
 		public long DismissalID { get; set; }
 		public long ClassroomID { get; set; }
 		public long StudentID { get; set; }

@@ -7,7 +7,7 @@ namespace Hybrsoft.UI.Windows.Models
 {
 	public partial class SubscriptionModel : ObservableObject
 	{
-		static public SubscriptionModel CreateEmpty() => new() { SubscriptionID = -1, IsEmpty = true };
+		public static SubscriptionModel CreateEmpty() => new() { SubscriptionID = -1, IsEmpty = true };
 		public long SubscriptionID { get; set; }
 		public short SubscriptionPlanID { get; set; }
 		public short DurationDays { get; set; }

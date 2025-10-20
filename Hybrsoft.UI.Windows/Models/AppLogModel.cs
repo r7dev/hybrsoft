@@ -6,7 +6,7 @@ namespace Hybrsoft.UI.Windows.Models
 {
 	public partial class AppLogModel : ObservableObject
 	{
-		static public AppLogModel CreateEmpty() => new() { AppLogID = -1, IsEmpty = true };
+		public static AppLogModel CreateEmpty() => new() { AppLogID = -1, IsEmpty = true };
 
 		public long AppLogID { get; set; }
 		public bool IsRead { get; set; }

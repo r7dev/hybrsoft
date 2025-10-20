@@ -5,7 +5,7 @@ namespace Hybrsoft.UI.Windows.Models
 {
 	public partial class RoleModel : ObservableObject
 	{
-		static public RoleModel CreateEmpty() => new() { RoleID = -1, IsEmpty = true };
+		public static RoleModel CreateEmpty() => new() { RoleID = -1, IsEmpty = true };
 
 		public long RoleID { get; set; }
 
