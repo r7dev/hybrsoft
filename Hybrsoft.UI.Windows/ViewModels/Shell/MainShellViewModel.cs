@@ -15,6 +15,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 	public partial class MainShellViewModel(ILicenseService licenseService, ICommonServices commonServices) : ShellViewModel(commonServices)
 	{
 		private readonly ILicenseService _licenseService = licenseService;
+		private bool _hasSecurityAdministration;
 
 		private object _selectedItem;
 		public object SelectedItem
@@ -39,6 +40,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public override async Task LoadAsync(ShellArgs args)
 		{
+			_hasSecurityAdministration = AuthorizationService.HasPermission(Permissions.SecurityAdministration);
 			NavigationItems = [.. GetItems()];
 			await base.LoadAsync(args);
 			await UpdateAppLogBadge();
@@ -46,6 +48,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public async Task ShowLicenseExpirationWarningAsync()
 		{
+			if (!_hasSecurityAdministration)
+			{
 			int? remainingDays = await _licenseService.GetRemainingDaysAsync();
 			if (remainingDays.HasValue && remainingDays.Value <= 5)
 			{
@@ -172,12 +176,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				return AuthorizationService.HasPermission(Permissions.SubscriptionReader);
 			}
 
-			var IsSecurityAdministration = AuthorizationService.HasPermission(Permissions.SecurityAdministration);
 			return (item.ViewModel == typeof(PermissionsViewModel)
 				|| item.ViewModel == typeof(RolesViewModel)
 				|| item.ViewModel == typeof(UsersViewModel)
 				|| item.ViewModel == typeof(AppLogsViewModel))
-				&& IsSecurityAdministration;
+				&& _hasSecurityAdministration;
 		}
 
 		private async void OnLogServiceMessage(ILogService logService, string message, AppLog log)
