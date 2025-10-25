@@ -1,7 +1,8 @@
-﻿using Hybrsoft.UI.Windows.Models;
+﻿using Hybrsoft.Enums;
+using Hybrsoft.Infrastructure.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Common;
+using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Services;
-using Hybrsoft.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,26 +16,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		public IRolePermissionService RolePermissionService { get; } = rolePermissionService;
 
 		public override string Title => (Item?.IsNew ?? true) ? TitleNew : TitleEdit;
-		public string TitleNew
-		{
-			get
-			{
-				string resourceKey = $"{nameof(RolePermissionDetailsViewModel)}_TitleNew";
-				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.UI), resourceKey);
-				string message = string.Format(resourceValue, RoleId);
-				return message;
-			}
-		}
-		public string TitleEdit
-		{
-			get
-			{
-				string resourceKey = $"{nameof(RolePermissionDetailsViewModel)}_TitleEdit";
-				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.UI), resourceKey);
-				string message = string.Format(resourceValue, Item?.PermissionID, Item?.RoleID);
-				return message ?? String.Empty;
-			}
-		}
+		public string TitleNew => string.Format(ResourceService.GetString<RolePermissionDetailsViewModel>(ResourceFiles.UI, "TitleNew"), RoleId);
+		public string TitleEdit => string.Format(ResourceService.GetString<RolePermissionDetailsViewModel>(ResourceFiles.UI, "TitleEdit"), Item?.PermissionID, Item?.RoleID);
 
 		public override bool ItemIsNew => Item?.IsNew ?? true;
 
@@ -115,21 +98,22 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(RolePermissionDetailsViewModel)}_SavingRolePermission");
-				StartStatusMessage(startMessage);
+				string startTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
+				string startMessage = ResourceService.GetString<RolePermissionDetailsViewModel>(ResourceFiles.InfoMessages, "SavingRolePermission");
+				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
 				await RolePermissionService.UpdateRolePermissionAsync(model);
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(RolePermissionDetailsViewModel)}_RolePermissionSaved");
-				EndStatusMessage(endMessage, LogType.Success);
+				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "SaveSuccessful");
+				string endMessage = ResourceService.GetString<RolePermissionDetailsViewModel>(ResourceFiles.InfoMessages, "RolePermissionSaved");
+				EndStatusMessage(endTitle, endMessage, LogType.Success);
 				LogSuccess("RolePermission", "Save", "Role permission saved successfully", $"Role permission #{model.RoleID}, {model.Permission.DisplayName} was saved successfully.");
 				return true;
 			}
 			catch (Exception ex)
 			{
-				string resourceKey = $"{nameof(RolePermissionDetailsViewModel)}_ErrorSavingRolePermission0";
-				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
-				string message = string.Format(resourceValue, ex.Message);
-				StatusError(message);
+				string title = ResourceService.GetString(ResourceFiles.Errors, "SaveFailed");
+				string message = ResourceService.GetString<RolePermissionDetailsViewModel>(ResourceFiles.Errors, "ErrorSavingRolePermission0");
+				StatusError(title, string.Format(message, ex.Message));
 				LogException("RolePermission", "Save", ex);
 				return false;
 			}
@@ -139,21 +123,22 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(RolePermissionDetailsViewModel)}_DeletingRolePermission");
-				StartStatusMessage(startMessage);
+				string startTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
+				string startMessage = ResourceService.GetString<RolePermissionDetailsViewModel>(ResourceFiles.InfoMessages, "DeletingRolePermission");
+				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
 				await RolePermissionService.DeleteRolePermissionAsync(model);
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(RolePermissionDetailsViewModel)}_RolePermissionDeleted");
-				EndStatusMessage(endMessage, LogType.Warning);
+				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "DeletionSuccessful");
+				string endMessage = ResourceService.GetString<RolePermissionDetailsViewModel>(ResourceFiles.InfoMessages, "RolePermissionDeleted");
+				EndStatusMessage(endTitle, endMessage, LogType.Warning);
 				LogWarning("RolePermission", "Delete", "Role permission deleted", $"Role permission #{model.RoleID}, {model.Permission.DisplayName} was deleted.");
 				return true;
 			}
 			catch (Exception ex)
 			{
-				string resourceKey = $"{nameof(RolePermissionDetailsViewModel)}_ErrorDeletingRolePermission0";
-				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
-				string message = string.Format(resourceValue, ex.Message);
-				StatusError(message);
+				string title = ResourceService.GetString(ResourceFiles.Errors, "DeletionFailed");
+				string message = ResourceService.GetString<RolePermissionDetailsViewModel>(ResourceFiles.Errors, "ErrorDeletingRolePermission0");
+				StatusError(title, string.Format(message, ex.Message));
 				LogException("RolePermission", "Delete", ex);
 				return false;
 			}
@@ -161,17 +146,16 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		protected override async Task<bool> ConfirmDeleteAsync()
 		{
-			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDelete");
-			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(RolePermissionDetailsViewModel)}_AreYouSureYouWantToDeleteCurrentRolePermission");
-			string delete = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Delete");
-			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
+			string title = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_Title_ConfirmDelete");
+			string content = ResourceService.GetString<RolePermissionDetailsViewModel>(ResourceFiles.Questions, "AreYouSureYouWantToDeleteCurrentRolePermission");
+			string delete = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_PrimaryButtonText_Delete");
+			string cancel = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_CloseButtonText_Cancel");
 			return await DialogService.ShowAsync(title, content, delete, cancel);
 		}
 
 		override protected IEnumerable<IValidationConstraint<RolePermissionModel>> GetValidationConstraints(RolePermissionModel model)
 		{
-			string resourceKeyForPermission = $"{nameof(RolePermissionDetailsViewModel)}_PropertyPermission";
-			string propertyPermission = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForPermission);
+			string propertyPermission = ResourceService.GetString<RolePermissionDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyPermission");
 			var requiredPermission = new RequiredGreaterThanZeroConstraint<RolePermissionModel>(propertyPermission, m => m.PermissionID);
 			requiredPermission.SetResourceService(ResourceService);
 
@@ -200,9 +184,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 									NotifyPropertyChanged(nameof(Title));
 									if (IsEditMode)
 									{
-										string resourceKey = $"{nameof(RolePermissionDetailsViewModel)}_ThisRolePermissionHasBeenModifiedExternally";
-										string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
-										WarningMessage(message);
+										string title = ResourceService.GetString(ResourceFiles.Warnings, "ExternalModification");
+										string message = ResourceService.GetString<RolePermissionDetailsViewModel>(ResourceFiles.Warnings, "ThisRolePermissionHasBeenModifiedExternally");
+										WarningMessage(title, message);
 									}
 								}
 								catch (Exception ex)
@@ -259,9 +243,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				CancelEdit();
 				IsEnabled = false;
-				string resourceKey = $"{nameof(RolePermissionDetailsViewModel)}_ThisRolePermissionHasBeenDeletedExternally";
-				string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
-				WarningMessage(message);
+				string title = ResourceService.GetString(ResourceFiles.Warnings, "ExternalDeletion");
+				string message = ResourceService.GetString<RolePermissionDetailsViewModel>(ResourceFiles.Warnings, "ThisRolePermissionHasBeenDeletedExternally");
+				WarningMessage(title, message);
 			});
 		}
 		#endregion

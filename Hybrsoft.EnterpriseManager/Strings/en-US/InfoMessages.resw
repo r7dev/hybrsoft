@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="GenericListViewModel_0ItemsSelected" xml:space="preserve">
-    <value>{0} items selected</value>
+    <value>{0} items selected.</value>
   </data>
   <data name="AppLogListViewModel_0LogsDeleted" xml:space="preserve">
     <value>{0} logs deleted</value>
@@ -144,8 +144,8 @@
   <data name="ViewModelBase_Seconds" xml:space="preserve">
     <value>seconds</value>
   </data>
-  <data name="GenericListViewModel_StartSelection" xml:space="preserve">
-    <value>Start selection</value>
+  <data name="GenericListViewModel_SelectionStarted" xml:space="preserve">
+    <value>Selection Started.</value>
   </data>
   <data name="PermissionListViewModel_LoadingPermissions" xml:space="preserve">
     <value>Loading permissions...</value>
@@ -503,5 +503,26 @@
   </data>
   <data name="FoundationAPI_SubscriptionService_ActivationSuccessful" xml:space="preserve">
     <value>Activation Successful.</value>
+  </data>
+  <data name="Processing" xml:space="preserve">
+    <value>Processing.</value>
+  </data>
+  <data name="SaveSuccessful" xml:space="preserve">
+    <value>Save Successful.</value>
+  </data>
+  <data name="DeletionSuccessful" xml:space="preserve">
+    <value>Deletion Successful.</value>
+  </data>
+  <data name="LoadSuccessful" xml:space="preserve">
+    <value>Load Successful.</value>
+  </data>
+  <data name="ApprovalSuccessful" xml:space="preserve">
+    <value>Approval Successful.</value>
+  </data>
+  <data name="GenericListViewModel_SelectTheDesiredItems" xml:space="preserve">
+    <value>Select the desired items.</value>
+  </data>
+  <data name="GenericListViewModel_Selecting" xml:space="preserve">
+    <value>Selecting.</value>
   </data>
 </root>

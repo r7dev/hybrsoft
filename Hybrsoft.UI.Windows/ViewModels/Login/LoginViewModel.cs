@@ -166,14 +166,14 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			if (string.IsNullOrWhiteSpace(UserName))
 			{
-				string message = ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginViewModel)}_LoginError");
-				string description = ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginViewModel)}_PleaseEnterValidUsername");
+				string message = ResourceService.GetString<LoginViewModel>(ResourceFiles.Errors, "LoginError");
+				string description = ResourceService.GetString<LoginViewModel>(ResourceFiles.Errors, "PleaseEnterValidUsername");
 				return Result.Error(message, description);
 			}
 			if (string.IsNullOrWhiteSpace(Password))
 			{
-				string message = ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginViewModel)}_LoginError");
-				string description = ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginViewModel)}_PleaseEnterValidPassword");
+				string message = ResourceService.GetString<LoginViewModel>(ResourceFiles.Errors, "LoginError");
+				string description = ResourceService.GetString<LoginViewModel>(ResourceFiles.Errors, "PleaseEnterValidPassword");
 				return Result.Error(message, description);
 			}
 			return Result.Ok();

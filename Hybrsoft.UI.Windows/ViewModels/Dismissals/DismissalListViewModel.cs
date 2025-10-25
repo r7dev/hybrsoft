@@ -17,8 +17,12 @@ namespace Hybrsoft.UI.Windows.ViewModels
 	{
 		IDismissalService DismissalService { get; } = dismissalService;
 
-		public string Prefix => ResourceService.GetString(nameof(ResourceFiles.UI), $"{nameof(DismissalListViewModel)}_Prefix");
-		private bool HasPermissionToAccept;
+		private bool _hasPermissionToAccept;
+		private string StartTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
+		private string StartMessage => ResourceService.GetString<DismissalListViewModel>(ResourceFiles.InfoMessages, "LoadingDismissals");
+		private string EndTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "LoadSuccessful");
+		private string EndMessage => ResourceService.GetString<DismissalListViewModel>(ResourceFiles.InfoMessages, "DismissalsLoaded");
+		public string Prefix => ResourceService.GetString<DismissalListViewModel>(ResourceFiles.UI, "Prefix");
 
 		public DismissalListArgs ViewModelArgs { get; private set; }
 
@@ -26,15 +30,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			ViewModelArgs = args ?? DismissalListArgs.CreateEmpty();
 			Query = ViewModelArgs.Query;
-			HasPermissionToAccept = AuthorizationService.HasPermission(Permissions.DismissalConfirmator);
+			_hasPermissionToAccept = AuthorizationService.HasPermission(Permissions.DismissalConfirmator);
 
-			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(DismissalListViewModel)}_LoadingDismissals");
-			StartStatusMessage(startMessage);
-			if (await RefreshAsync())
-			{
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(DismissalListViewModel)}_DismissalsLoaded");
-				EndStatusMessage(endMessage);
-			}
+			await RefreshWithStatusAsync();
 		}
 		public void Unload()
 		{
@@ -80,10 +78,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			catch (Exception ex)
 			{
 				Items = [];
-				string resourceKey = $"{nameof(DismissalListViewModel)}_ErrorLoadingDismissals0";
-				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
-				string message = string.Format(resourceValue, ex.Message);
-				StatusError(message);
+				string title = ResourceService.GetString(ResourceFiles.Errors, "LoadFailed");
+				string message = ResourceService.GetString<DismissalListViewModel>(ResourceFiles.Errors, "ErrorLoadingDismissals0");
+				StatusError(title, string.Format(message, ex.Message));
 				LogException("Dismissals", "Refresh", ex);
 				isOk = false;
 			}
@@ -112,23 +109,21 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		private async void OnAcceptSelection()
 		{
 			StatusReady();
-			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDismissal");
-			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(DismissalListViewModel)}_AreYouSureYouWantToApproveTheSelectedDismissalRequests");
-			string approve = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Approve");
-			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
-			if (await DialogService.ShowAsync(title, content, approve, cancel))
+			string dialogTitle = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_Title_ConfirmDismissal");
+			string content = ResourceService.GetString<DismissalListViewModel>(ResourceFiles.Questions, "AreYouSureYouWantToApproveTheSelectedDismissalRequests");
+			string approve = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_PrimaryButtonText_Approve");
+			string cancel = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_CloseButtonText_Cancel");
+			if (await DialogService.ShowAsync(dialogTitle, content, approve, cancel))
 			{
 				bool success = false;
 				int count = 0;
 				try
 				{
-					string resourceKey = $"{nameof(DismissalListViewModel)}_Approving0Dismissals";
-					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
+					string message = ResourceService.GetString<DismissalListViewModel>(ResourceFiles.InfoMessages, "Approving0Dismissals");
 					if (SelectedIndexRanges != null)
 					{
 						count = SelectedIndexRanges.Sum(r => r.Length);
-						string message = string.Format(resourceValue, count);
-						StartStatusMessage(message);
+						StartStatusMessage(StartTitle, string.Format(message, count));
 						success = await ApproveRangesAsync(SelectedIndexRanges);
 						if (success)
 						{
@@ -138,18 +133,16 @@ namespace Hybrsoft.UI.Windows.ViewModels
 					else if (SelectedItems != null)
 					{
 						count = SelectedItems.Count;
-						string message = string.Format(resourceValue, count);
-						StartStatusMessage(message);
+						StartStatusMessage(StartTitle, string.Format(message, count));
 						await ApproveItemsAsync(SelectedItems);
 						MessageService.Send(this, "ItemsAprroved", SelectedItems);
 					}
 				}
 				catch (Exception ex)
 				{
-					string resourceKey = $"{nameof(DismissalListViewModel)}_ErrorApproving0Dismissals1";
-					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
-					string message = string.Format(resourceValue, count, ex.Message);
-					StatusError(message);
+					string title = ResourceService.GetString(ResourceFiles.Errors, "ApprovalFailed");
+					string message = ResourceService.GetString<DismissalListViewModel>(ResourceFiles.Errors, "ErrorApproving0Dismissals1");
+					StatusError(title, string.Format(message, count, ex.Message));
 					LogException("Dismissals", "Accept", ex);
 					count = 0;
 				}
@@ -160,10 +153,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 					SelectedItems = null;
 					if (count > 0)
 					{
-						string resourceKey = $"{nameof(DismissalListViewModel)}_0DismissalsApproved";
-						string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
-						string message = string.Format(resourceValue, count);
-						EndStatusMessage(message, LogType.Success);
+						string title = ResourceService.GetString(ResourceFiles.InfoMessages, "ApprovalSuccessful");
+						string message = ResourceService.GetString<DismissalListViewModel>(ResourceFiles.InfoMessages, "0DismissalsApproved");
+						EndStatusMessage(title, string.Format(message, count), LogType.Success);
 					}
 				}
 			}
@@ -172,7 +164,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		private bool CanAcceptSelection()
 		{
-			return HasPermissionToAccept;
+			return _hasPermissionToAccept;
 		}
 
 		private async Task ApproveItemsAsync(IEnumerable<DismissalModel> models)
@@ -213,13 +205,18 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		protected override async void OnRefresh()
 		{
-			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(DismissalListViewModel)}_LoadingDismissals");
-			StartStatusMessage(startMessage);
-			if (await RefreshAsync())
+			await RefreshWithStatusAsync();
+		}
+
+		private async Task<bool> RefreshWithStatusAsync()
+		{
+			StartStatusMessage(StartTitle, StartMessage);
+			bool isOk = await RefreshAsync();
+			if (isOk)
 			{
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(DismissalListViewModel)}_DismissalsLoaded");
-				EndStatusMessage(endMessage);
+				EndStatusMessage(EndTitle, EndMessage);
 			}
+			return isOk;
 		}
 
 		protected override async void OnDeleteSelection()

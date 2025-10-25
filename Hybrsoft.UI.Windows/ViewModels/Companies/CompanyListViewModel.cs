@@ -17,8 +17,12 @@ namespace Hybrsoft.UI.Windows.ViewModels
 	{
 		public ICompanyService CompanyService { get; } = companyService;
 
-		public string Prefix => ResourceService.GetString(nameof(ResourceFiles.UI), $"{nameof(CompanyListViewModel)}_Prefix");
 		private bool _hasEditorPermission;
+		private string StartTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
+		private string StartMessage => ResourceService.GetString<CompanyListViewModel>(ResourceFiles.InfoMessages, "LoadingCompanies");
+		private string EndTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "LoadSuccessful");
+		private string EndMessage => ResourceService.GetString<CompanyListViewModel>(ResourceFiles.InfoMessages, "CompaniesLoaded");
+		public string Prefix => ResourceService.GetString<CompanyListViewModel>(ResourceFiles.UI, "Prefix");
 
 		public CompanyListArgs ViewModelArgs { get; private set; }
 
@@ -28,13 +32,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			Query = ViewModelArgs.Query;
 			_hasEditorPermission = AuthorizationService.HasPermission(Permissions.CompanyEditor);
 
-			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(CompanyListViewModel)}_LoadingCompanies");
-			StartStatusMessage(startMessage);
-			if (await RefreshAsync())
-			{
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(CompanyListViewModel)}_CompaniesLoaded");
-				EndStatusMessage(endMessage);
-			}
+			await RefreshWithStatusAsync();
 		}
 		public void Unload()
 		{
@@ -80,10 +78,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			catch (Exception ex)
 			{
 				Items = [];
-				string resourceKey = $"{nameof(CompanyListViewModel)}_ErrorLoadingCompanies0";
-				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
-				string message = string.Format(resourceValue, ex.Message);
-				StatusError(message);
+				string title = ResourceService.GetString(ResourceFiles.Errors, "LoadFailed");
+				string message = ResourceService.GetString<CompanyListViewModel>(ResourceFiles.Errors, "ErrorLoadingCompanies0");
+				StatusError(title, string.Format(message, ex.Message));
 				LogException("Companies", "Refresh", ex);
 				isOk = false;
 			}
@@ -138,36 +135,39 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		protected override async void OnRefresh()
 		{
-			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(CompanyListViewModel)}_LoadingCompanies");
-			StartStatusMessage(startMessage);
-			if (await RefreshAsync())
+			await RefreshWithStatusAsync();
+		}
+
+		private async Task<bool> RefreshWithStatusAsync()
+		{
+			StartStatusMessage(StartTitle, StartMessage);
+			bool isOk = await RefreshAsync();
+			if (isOk)
 			{
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(CompanyListViewModel)}_CompaniesLoaded");
-				EndStatusMessage(endMessage);
+				EndStatusMessage(EndTitle, EndMessage);
 			}
+			return isOk;
 		}
 
 		public new ICommand DeleteSelectionCommand => new RelayCommand(OnDeleteSelection, CanDeleteSelection);
 		protected override async void OnDeleteSelection()
 		{
 			StatusReady();
-			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDelete");
-			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(CompanyListViewModel)}_AreYouSureYouWantToDeleteSelectedCompanies");
-			string delete = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Delete");
-			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
-			if (await DialogService.ShowAsync(title, content, delete, cancel))
+			string dialogTitle = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_Title_ConfirmDelete");
+			string content = ResourceService.GetString<CompanyListViewModel>(ResourceFiles.Questions, "AreYouSureYouWantToDeleteSelectedCompanies");
+			string delete = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_PrimaryButtonText_Delete");
+			string cancel = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_CloseButtonText_Cancel");
+			if (await DialogService.ShowAsync(dialogTitle, content, delete, cancel))
 			{
 				bool success = false;
 				int count = 0;
 				try
 				{
-					string resourceKey = $"{nameof(CompanyListViewModel)}_Deleting0Companies";
-					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
+					string message = ResourceService.GetString<CompanyListViewModel>(ResourceFiles.InfoMessages, "Deleting0Companies");
 					if (SelectedIndexRanges != null)
 					{
 						count = SelectedIndexRanges.Sum(r => r.Length);
-						string message = string.Format(resourceValue, count);
-						StartStatusMessage(message);
+						StartStatusMessage(StartTitle, string.Format(message, count));
 						success = await DeleteRangesAsync(SelectedIndexRanges);
 						if (success)
 						{
@@ -177,18 +177,16 @@ namespace Hybrsoft.UI.Windows.ViewModels
 					else if (SelectedItems != null)
 					{
 						count = SelectedItems.Count;
-						string message = string.Format(resourceValue, count);
-						StartStatusMessage(message);
+						StartStatusMessage(StartTitle, string.Format(message, count));
 						await DeleteItemsAsync(SelectedItems);
 						MessageService.Send(this, "ItemsDeleted", SelectedItems);
 					}
 				}
 				catch (Exception ex)
 				{
-					string resourceKey = $"{nameof(CompanyListViewModel)}_ErrorDeleting0Companies1";
-					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
-					string message = string.Format(resourceValue, count, ex.Message);
-					StatusError(message);
+					string title = ResourceService.GetString(ResourceFiles.Errors, "DeletionFailed");
+					string message = ResourceService.GetString<CompanyListViewModel>(ResourceFiles.Errors, "ErrorDeleting0Companies1");
+					StatusError(title, string.Format(message, count, ex.Message));
 					LogException("Companies", "Delete", ex);
 					count = 0;
 				}
@@ -199,16 +197,16 @@ namespace Hybrsoft.UI.Windows.ViewModels
 					SelectedItems = null;
 					if (count > 0)
 					{
-						string resourceKey = $"{nameof(CompanyListViewModel)}_0CompaniesDeleted";
-						string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
-						string message = string.Format(resourceValue, count);
-						EndStatusMessage(message, LogType.Warning);
+						string title = ResourceService.GetString(ResourceFiles.InfoMessages, "DeletionSuccessful");
+						string message = ResourceService.GetString<CompanyListViewModel>(ResourceFiles.InfoMessages, "0CompaniesDeleted");
+						EndStatusMessage(title, string.Format(message, count), LogType.Warning);
 					}
 				}
 				else
 				{
-					string message = ResourceService.GetString(nameof(ResourceFiles.Errors), "DeleteNotAllowed");
-					StatusError(message);
+					string title = ResourceService.GetString(ResourceFiles.Errors, "DeletionFailed");
+					string message = ResourceService.GetString(ResourceFiles.Errors, "DeleteNotAllowed");
+					StatusError(title, message);
 				}
 			}
 		}

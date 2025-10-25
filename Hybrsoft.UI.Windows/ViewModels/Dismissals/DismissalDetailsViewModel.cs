@@ -32,9 +32,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			EditableItem.NotifyChanges();
 		}
 
-		public override string Title =>
-			ItemIsNew
-				? ResourceService.GetString(nameof(ResourceFiles.UI), $"{nameof(DismissalDetailsViewModel)}_TitleNew")
+		public override string Title => ItemIsNew
+				? ResourceService.GetString<DismissalDetailsViewModel>(ResourceFiles.UI, "TitleNew")
 				: Item.Student.FullName;
 
 		public override bool ItemIsNew => Item?.IsNew ?? true;
@@ -101,22 +100,23 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(DismissalDetailsViewModel)}_SavingDismissal");
-				StartStatusMessage(startMessage);
+				string startTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
+				string startMessage = ResourceService.GetString<DismissalDetailsViewModel>(ResourceFiles.InfoMessages, "SavingDismissal");
+				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
 				await DismissalService.UpdateDismissalAsync(model);
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(DismissalDetailsViewModel)}_DismissalSaved");
-				EndStatusMessage(endMessage, LogType.Success);
+				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "SaveSuccessful");
+				string endMessage = ResourceService.GetString<DismissalDetailsViewModel>(ResourceFiles.InfoMessages, "DismissalSaved");
+				EndStatusMessage(endTitle, endMessage, LogType.Success);
 				LogSuccess("Dismissal", "Save", "Dismissal saved successfully", $"Dismissal {model.DismissalID} '{model.Student.FullName}' of '{model.Classroom.Name}' with requester '{model.Relative.FullName}' was saved successfully.");
 				BackAfterSave = true;
 				return true;
 			}
 			catch (Exception ex)
 			{
-				string resourceKey = $"{nameof(DismissalDetailsViewModel)}_ErrorSavingDismissal0";
-				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
-				string message = string.Format(resourceValue, ex.Message);
-				StatusError(message);
+				string title = ResourceService.GetString(ResourceFiles.Errors, "SaveFailed");
+				string message = ResourceService.GetString<DismissalDetailsViewModel>(ResourceFiles.Errors, "ErrorSavingDismissal0");
+				StatusError(title, string.Format(message, ex.Message));
 				LogException("Dismissal", "Save", ex);
 				return false;
 			}
@@ -136,8 +136,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		override protected IEnumerable<IValidationConstraint<DismissalModel>> GetValidationConstraints(DismissalModel model)
 		{
-			string resourceKeyForRelative = $"{nameof(DismissalDetailsViewModel)}_PropertyRelative";
-			string propertyRelative = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForRelative);
+			string propertyRelative = ResourceService.GetString<DismissalDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyRelative");
 			var requiredRelative = new RequiredGreaterThanZeroConstraint<DismissalModel>(propertyRelative, m => m.RelativeID);
 			requiredRelative.SetResourceService(ResourceService);
 
@@ -166,9 +165,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 									NotifyPropertyChanged(nameof(Title));
 									if (IsEditMode)
 									{
-										string resourceKey = $"{nameof(DismissalDetailsViewModel)}_ThisDismissalHasBeenModifiedExternally";
-										string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
-										WarningMessage(message);
+										string title = ResourceService.GetString(ResourceFiles.Warnings, "ExternalModification");
+										string message = ResourceService.GetString<DismissalDetailsViewModel>(ResourceFiles.Warnings, "ThisDismissalHasBeenModifiedExternally");
+										WarningMessage(title, message);
 									}
 								}
 								catch (Exception ex)
@@ -191,9 +190,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				CancelEdit();
 				IsEnabled = false;
-				string resourceKey = $"{nameof(DismissalDetailsViewModel)}_ThisDismissalHasBeenDeletedExternally";
-				string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
-				WarningMessage(message);
+				string title = ResourceService.GetString(ResourceFiles.Warnings, "ExternalDeletion");
+				string message = ResourceService.GetString<DismissalDetailsViewModel>(ResourceFiles.Warnings, "ThisDismissalHasBeenDeletedExternally");
+				WarningMessage(title, message);
 			});
 		}
 		#endregion

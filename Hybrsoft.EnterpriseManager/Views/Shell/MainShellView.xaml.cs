@@ -103,9 +103,9 @@ namespace Hybrsoft.EnterpriseManager.Views
 		private async void OnLogoff(object sender, RoutedEventArgs e)
 		{
 			var resourceService = ServiceLocator.Current.GetService<IResourceService>();
-			string title = resourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmLogoff");
-			string content = resourceService.GetString(nameof(ResourceFiles.Questions), "AreYouSureYouWantToLogoff");
-			string cancel = resourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
+			string title = resourceService.GetString(ResourceFiles.UI, "ContentDialog_Title_ConfirmLogoff");
+			string content = resourceService.GetString(ResourceFiles.Questions, "AreYouSureYouWantToLogoff");
+			string cancel = resourceService.GetString(ResourceFiles.UI, "ContentDialog_CloseButtonText_Cancel");
 			var dialogService = ServiceLocator.Current.GetService<IDialogService>();
 			if (await dialogService.ShowAsync(title, content, "Ok", cancel))
 			{

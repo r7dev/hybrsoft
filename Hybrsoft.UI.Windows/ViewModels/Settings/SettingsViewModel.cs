@@ -43,9 +43,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		}
 		private void OnSelectedLanguageChanged(LanguageModel value)
 		{
-			string resourceKey = $"{nameof(SettingsViewModel)}_TheLanguageHasBeenChangedAndTheApplicationMustBeRestarted";
-			string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
-			WarningMessage(message);
+			string title = ResourceService.GetString<SettingsViewModel>(ResourceFiles.Warnings, "TheLanguageHasBeenSuccessfullyChanged");
+			string message = ResourceService.GetString<SettingsViewModel>(ResourceFiles.Warnings, "PleaseRestartTheAppForTheChangesToBeFullyApplied");
+			WarningMessage(title, message);
 			LogSuccess("Settings", "LanguageChanged", "Language changed successfully",$"The language has been successfully changed to {value.DisplayName} ({value.Tag}).");
 
 			_ = ResourceService.SetLanguageAsync(value);
@@ -59,8 +59,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			_availableLanguages = ResourceService.LanguageOptions;
 			_selectedLanguage = ResourceService.GetCurrentLanguageItem();
 
-			string resourceKey = $"{nameof(SettingsViewModel)}_LicensedTo_Prefix";
-			string licenseToPrefix = ResourceService.GetString(nameof(ResourceFiles.UI), resourceKey);
+			string licenseToPrefix = ResourceService.GetString<SettingsViewModel>(ResourceFiles.UI, "LicensedTo_Prefix");
 			var licenseTo = await SettingsService.GetLicensedToAsync();
 			LicenseTo = licenseToPrefix + licenseTo;
 

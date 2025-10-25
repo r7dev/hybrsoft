@@ -44,8 +44,8 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			if (isUserAuthenticated)
 				return Result.Ok();
 
-			string message = _commonServices.ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginService)}_LoginError");
-			string description = _commonServices.ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginService)}_PleaseEnterValidUsernameAndPassword");
+			string message = _commonServices.ResourceService.GetString<LoginService>(ResourceFiles.Errors, "LoginError");
+			string description = _commonServices.ResourceService.GetString<LoginService>(ResourceFiles.Errors, "PleaseEnterValidUsernameAndPassword");
 			return Result.Error(message, description);
 		}
 
@@ -65,13 +65,13 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 						UpdateAuthenticationStatus(true);
 						return Result.Ok();
 					}
-					string description = _commonServices.ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginService)}_CannotSignInWithWindowsHello");
+					string description = _commonServices.ResourceService.GetString<LoginService>(ResourceFiles.Errors, "CannotSignInWithWindowsHello");
 					return Result.Error("Windows Hello", $"{description} {result.Status}");
 				}
-				string description2 = _commonServices.ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginService)}_CannotSignInWithWindowsHello");
+				string description2 = _commonServices.ResourceService.GetString<LoginService>(ResourceFiles.Errors, "CannotSignInWithWindowsHello");
 				return Result.Error("Windows Hello", $"{description2} {retrieveResult.Status}");
 			}
-			string description3 = _commonServices.ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginService)}_WindowsHelloIsNotEnabledForCurrentUser");
+			string description3 = _commonServices.ResourceService.GetString<LoginService>(ResourceFiles.Errors, "WindowsHelloIsNotEnabledForCurrentUser");
 			return Result.Error("Windows Hello", description3);
 		}
 
@@ -90,10 +90,10 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		{
 			if (await KeyCredentialManager.IsSupportedAsync())
 			{
-				string content = _commonServices.ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(LoginService)}_YourDeviceSupportsWindowsHelloAndYouCanUseItToAuthenticateWithTheApp");
+				string content = _commonServices.ResourceService.GetString<LoginService>(ResourceFiles.Questions, "YourDeviceSupportsWindowsHelloAndYouCanUseItToAuthenticateWithTheApp");
 				content += "\r\n\r\n";
-				content += _commonServices.ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(LoginService)}_DoYouWantToEnableWindowsHelloForYourNextSignInWithThisUser");
-				string cancel = _commonServices.ResourceService.GetString(nameof(ResourceFiles.UI),$"{nameof(LoginService)}_MaybeLater");
+				content += _commonServices.ResourceService.GetString<LoginService>(ResourceFiles.Questions, "DoYouWantToEnableWindowsHelloForYourNextSignInWithThisUser");
+				string cancel = _commonServices.ResourceService.GetString<LoginService>(ResourceFiles.UI,"MaybeLater");
 				if (await _commonServices.DialogService.ShowAsync("Windows Hello", content, "Ok", cancel))
 				{
 					await SetupWindowsHelloAsync(userName);
@@ -138,13 +138,13 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			}
 			else if (keyCreationResult.Status == KeyCredentialStatus.NotFound)
 			{
-				string content = _commonServices.ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginService)}_ToProceedWindowsHelloNeedsToBeConfiguredInWindowsSettings");
+				string content = _commonServices.ResourceService.GetString<LoginService>(ResourceFiles.Errors, "ToProceedWindowsHelloNeedsToBeConfiguredInWindowsSettings");
 				await _commonServices.DialogService.ShowAsync("Windows Hello", content);
 			}
 			else if (keyCreationResult.Status == KeyCredentialStatus.UnknownError)
 			{
-				string title = _commonServices.ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginService)}_WindowsHelloError");
-				string content = _commonServices.ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(LoginService)}_TheKeyCredentialCouldNotBeCreatedPleaseTryAgain");
+				string title = _commonServices.ResourceService.GetString<LoginService>(ResourceFiles.Errors, "WindowsHelloError");
+				string content = _commonServices.ResourceService.GetString<LoginService>(ResourceFiles.Errors, "TheKeyCredentialCouldNotBeCreatedPleaseTryAgain");
 				await _commonServices.DialogService.ShowAsync(title, content);
 			}
 

@@ -118,31 +118,31 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AppLogDetailsViewModel_ThisLogHasBeenDeletedExternally" xml:space="preserve">
-    <value>AVISO: Este log foi excluído externamente</value>
+    <value>Este log foi excluído externamente</value>
   </data>
   <data name="ClassroomDetailsViewModel_ThisClassroomHasBeenDeletedExternally" xml:space="preserve">
-    <value>AVISO: Esta sala de aula foi excluído externamente</value>
+    <value>Esta sala de aula foi excluído externamente</value>
   </data>
   <data name="ClassroomDetailsViewModel_ThisClassroomHasBeenModifiedExternally" xml:space="preserve">
-    <value>AVISO: Esta sala de aula foi modificado externamente</value>
+    <value>Esta sala de aula foi modificado externamente</value>
   </data>
   <data name="ClassroomStudentDetailsViewModel_ThisClassroomStudentHasBeenDeletedExternally" xml:space="preserve">
-    <value>AVISO: Este estudante da sala de aula foi excluído externamente</value>
+    <value>Este estudante da sala de aula foi excluído externamente</value>
   </data>
   <data name="ClassroomStudentDetailsViewModel_ThisClassroomStudentHasBeenModifiedExternally" xml:space="preserve">
-    <value>AVISO: Este estudante da sala de aula foi modificado externamente</value>
+    <value>Este estudante da sala de aula foi modificado externamente</value>
   </data>
   <data name="CompanyDetailsViewModel_ThisCompanyHasBeenDeletedExternally" xml:space="preserve">
-    <value>AVISO: Esta empresa foi excluída externamente</value>
+    <value>Esta empresa foi excluída externamente</value>
   </data>
   <data name="CompanyDetailsViewModel_ThisCompanyHasBeenModifiedExternally" xml:space="preserve">
-    <value>AVISO: Esta empresa foi modificada externamente</value>
+    <value>Esta empresa foi modificada externamente</value>
   </data>
   <data name="CompanyUserDetailsViewModel_ThisCompanyUserHasBeenDeletedExternally" xml:space="preserve">
-    <value>AVISO: Este usuário da empresa foi excluído externamente</value>
+    <value>Este usuário da empresa foi excluído externamente</value>
   </data>
   <data name="CompanyUserDetailsViewModel_ThisCompanyUserHasBeenModifiedExternally" xml:space="preserve">
-    <value>AVISO: Este usuário da empresa foi modificado externamente</value>
+    <value>Este usuário da empresa foi modificado externamente</value>
   </data>
   <data name="MainShellViewModel_YouLicenseWillExpireIn0Days" xml:space="preserve">
     <value>Sua licença expira em {0} dias.</value>
@@ -151,60 +151,69 @@
     <value>Licença prestes a expirar.</value>
   </data>
   <data name="PermissionDetailsViewModel_ThisPermissionHasBeenDeletedExternally" xml:space="preserve">
-    <value>AVISO: Esta permissão foi excluída externamente</value>
+    <value>Esta permissão foi excluída externamente</value>
   </data>
   <data name="PermissionDetailsViewModel_ThisPermissionHasBeenModifiedExternally" xml:space="preserve">
-    <value>AVISO: Esta permissão foi modificada externamente</value>
+    <value>Esta permissão foi modificada externamente</value>
   </data>
   <data name="RelativeDetailsViewModel_ThisRelativeHasBeenDeletedExternally" xml:space="preserve">
-    <value>AVISO: Este parente foi excluído externamente</value>
+    <value>Este parente foi excluído externamente</value>
   </data>
   <data name="RelativeDetailsViewModel_ThisRelativeHasBeenModifiedExternally" xml:space="preserve">
-    <value>AVISO: Este parente foi modificado externamente</value>
+    <value>Este parente foi modificado externamente</value>
   </data>
   <data name="RoleDetailsViewModel_ThisRoleHasBeenDeletedExternally" xml:space="preserve">
-    <value>AVISO: Esta função foi excluída externamente</value>
+    <value>Esta função foi excluída externamente</value>
   </data>
   <data name="RoleDetailsViewModel_ThisRoleHasBeenModifiedExternally" xml:space="preserve">
-    <value>AVISO: Esta função foi modificada externamente</value>
+    <value>Esta função foi modificada externamente</value>
   </data>
   <data name="RolePermissionDetailsViewModel_ThisRolePermissionHasBeenDeletedExternally" xml:space="preserve">
-    <value>AVISO: Esta permissão de função foi excluída externamente</value>
+    <value>Esta permissão de função foi excluída externamente</value>
   </data>
   <data name="RolePermissionDetailsViewModel_ThisRolePermissionHasBeenModifiedExternally" xml:space="preserve">
-    <value>AVISO: Esta permissão de função foi modificada externamente</value>
+    <value>Esta permissão de função foi modificada externamente</value>
   </data>
-  <data name="SettingsViewModel_TheLanguageHasBeenChangedAndTheApplicationMustBeRestarted" xml:space="preserve">
-    <value>AVISO: O idioma foi alterado com sucesso. Por favor, reinicie a aplicação para que as alterações sejam aplicadas por completo.</value>
+  <data name="SettingsViewModel_PleaseRestartTheAppForTheChangesToBeFullyApplied" xml:space="preserve">
+    <value>Por favor, reinicie a aplicação para que as alterações sejam aplicadas por completo.</value>
   </data>
   <data name="StudentDetailsViewModel_ThisStudentHasBeenDeletedExternally" xml:space="preserve">
-    <value>AVISO: Este estudante foi excluído externamente</value>
+    <value>Este estudante foi excluído externamente</value>
   </data>
   <data name="StudentDetailsViewModel_ThisStudentHasBeenModifiedExternally" xml:space="preserve">
-    <value>AVISO: Este estudante foi modificado externamente</value>
+    <value>Este estudante foi modificado externamente</value>
   </data>
   <data name="StudentRelativeDetailsViewModel_ThisStudentsRelativeHasBeenDeletedExternally" xml:space="preserve">
-    <value>AVISO: Este parente do estudante foi excluído externamente</value>
+    <value>Este parente do estudante foi excluído externamente</value>
   </data>
   <data name="StudentRelativeDetailsViewModel_ThisStudentsRelativeHasBeenModifiedExternally" xml:space="preserve">
-    <value>AVISO: Este parente do estudante foi modificado externamente</value>
+    <value>Este parente do estudante foi modificado externamente</value>
   </data>
   <data name="SubscriptionDetailsViewModel_ThisSubscriptionHasBeenDeletedExternally" xml:space="preserve">
-    <value>AVISO: Esta assinatura foi excluída externamente</value>
+    <value>Esta assinatura foi excluída externamente</value>
   </data>
   <data name="SubscriptionDetailsViewModel_ThisSubscriptionHasBeenModifiedExternally" xml:space="preserve">
-    <value>AVISO: Esta assinatura foi modificada externamente</value>
+    <value>Esta assinatura foi modificada externamente</value>
   </data>
   <data name="UserDetailsViewModel_ThisUserHasBeenDeletedExternally" xml:space="preserve">
-    <value>AVISO: Este usuário foi excluído externamente</value>
+    <value>Este usuário foi excluído externamente</value>
   </data>
   <data name="UserDetailsViewModel_ThisUserHasBeenModifiedExternally" xml:space="preserve">
-    <value>AVISO: Este usuário foi modificado externamente</value>
+    <value>Este usuário foi modificado externamente</value>
   </data>
   <data name="UserRoleDetailsViewModel_ThisUserRoleHasBeenDeletedExternally" xml:space="preserve">
-    <value>AVISO: Esta função de usuário foi excluída externamente</value>
+    <value>Esta função de usuário foi excluída externamente</value>
   </data>
   <data name="UserRoleDetailsViewModel_ThisUserRoleHasBeenModifiedExternally" xml:space="preserve">
-    <value>AVISO: Esta função de usuário foi modificada externamente</value>
+    <value>Esta função de usuário foi modificada externamente</value>
+  </data>
+  <data name="ExternalDeletion" xml:space="preserve">
+    <value>Exclusão Externa.</value>
+  </data>
+  <data name="ExternalModification" xml:space="preserve">
+    <value>Modificação Externa.</value>
+  </data>
+  <data name="SettingsViewModel_TheLanguageHasBeenSuccessfullyChanged" xml:space="preserve">
+    <value>Idioma Alterado com Sucesso.</value>
   </data>
 </root>

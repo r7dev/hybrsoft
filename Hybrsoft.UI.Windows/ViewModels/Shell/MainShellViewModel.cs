@@ -50,13 +50,14 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			if (!_hasSecurityAdministration)
 			{
-			int? remainingDays = await _licenseService.GetRemainingDaysAsync();
-			if (remainingDays.HasValue && remainingDays.Value <= 5)
-			{
-				string title = ResourceService.GetString(nameof(ResourceFiles.Warnings), $"{nameof(MainShellViewModel)}_LicenseExpiringSoon");
-				string message = string.Format(ResourceService.GetString(nameof(ResourceFiles.Warnings), $"{nameof(MainShellViewModel)}_YouLicenseWillExpireIn0Days"), remainingDays.Value);
-				await Task.Delay(3000);
-				WarningMessageYourself(new StatusInfoDto(title, message));
+				int? remainingDays = await _licenseService.GetRemainingDaysAsync();
+				if (remainingDays.HasValue && remainingDays.Value <= 5)
+				{
+					string title = ResourceService.GetString<MainShellViewModel>(ResourceFiles.Warnings, "LicenseExpiringSoon");
+					string message = string.Format(ResourceService.GetString<MainShellViewModel>(ResourceFiles.Warnings, "YouLicenseWillExpireIn0Days"), remainingDays.Value);
+					await Task.Delay(3000);
+					WarningMessageYourself(title, message);
+				}
 			}
 		}
 

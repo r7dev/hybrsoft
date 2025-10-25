@@ -16,9 +16,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		private bool _hasEditorPermission;
 
-		public override string Title =>
-			ItemIsNew
-				? ResourceService.GetString(nameof(ResourceFiles.UI), $"{nameof(CompanyDetailsViewModel)}_TitleNew")
+		public override string Title => ItemIsNew
+				? ResourceService.GetString<CompanyDetailsViewModel>(ResourceFiles.UI, "TitleNew")
 				: Item.LegalName;
 
 		public override bool ItemIsNew => Item?.IsNew ?? true;
@@ -89,21 +88,22 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(CompanyDetailsViewModel)}_SavingCompany");
-				StartStatusMessage(startMessage);
+				string startTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
+				string startMessage = ResourceService.GetString<CompanyDetailsViewModel>(ResourceFiles.InfoMessages, "SavingCompany");
+				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
 				await CompanyService.UpdateCompanyAsync(model);
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(CompanyDetailsViewModel)}_CompanySaved");
-				EndStatusMessage(endMessage, LogType.Success);
+				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "SaveSuccessful");
+				string endMessage = ResourceService.GetString<CompanyDetailsViewModel>(ResourceFiles.InfoMessages, "CompanySaved");
+				EndStatusMessage(endTitle, endMessage, LogType.Success);
 				LogSuccess("Company", "Save", "Company saved successfully", $"Company {model.CompanyID} '{model.LegalName}' was saved successfully.");
 				return true;
 			}
 			catch (Exception ex)
 			{
-				string resourceKey = $"{nameof(CompanyDetailsViewModel)}_ErrorSavingCompany0";
-				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
-				string message = string.Format(resourceValue, ex.Message);
-				StatusError(message);
+				string title = ResourceService.GetString(ResourceFiles.Errors, "SaveFailed");
+				string message = ResourceService.GetString<CompanyDetailsViewModel>(ResourceFiles.Errors, "ErrorSavingCompany0");
+				StatusError(title, string.Format(message, ex.Message));
 				LogException("Company", "Save", ex);
 				return false;
 			}
@@ -114,21 +114,22 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(CompanyDetailsViewModel)}_DeletingCompany");
-				StartStatusMessage(startMessage);
+				string startTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
+				string startMessage = ResourceService.GetString<CompanyDetailsViewModel>(ResourceFiles.InfoMessages, "DeletingCompany");
+				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
 				await CompanyService.DeleteCompanyAsync(model);
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(CompanyDetailsViewModel)}_CompanyDeleted");
-				EndStatusMessage(endMessage, LogType.Warning);
-				LogWarning("Company", "Delete", "Company saved successfully", $"Company {model.CompanyID} '{model.LegalName}' was deleted.");
+				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "DeletionSuccessful");
+				string endMessage = ResourceService.GetString<CompanyDetailsViewModel>(ResourceFiles.InfoMessages, "CompanyDeleted");
+				EndStatusMessage(endTitle, endMessage, LogType.Warning);
+				LogWarning("Company", "Delete", "Company deleted", $"Company {model.CompanyID} '{model.LegalName}' was deleted.");
 				return true;
 			}
 			catch (Exception ex)
 			{
-				string resourceKey = $"{nameof(CompanyDetailsViewModel)}_ErrorDeletingCompany0";
-				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
-				string message = string.Format(resourceValue, ex.Message);
-				StatusError(message);
+				string title = ResourceService.GetString(ResourceFiles.Errors, "DeletionFailed");
+				string message = ResourceService.GetString<CompanyDetailsViewModel>(ResourceFiles.Errors, "ErrorDeletingCompany0");
+				StatusError(title, string.Format(message, ex.Message));
 				LogException("Company", "Delete", ex);
 				return false;
 			}
@@ -136,10 +137,10 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		protected override async Task<bool> ConfirmDeleteAsync()
 		{
-			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDelete");
-			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(CompanyDetailsViewModel)}_AreYouSureYouWantToDeleteCurrentCompany");
-			string delete = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Delete");
-			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
+			string title = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_Title_ConfirmDelete");
+			string content = ResourceService.GetString<CompanyDetailsViewModel>(ResourceFiles.Questions, "AreYouSureYouWantToDeleteCurrentCompany");
+			string delete = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_PrimaryButtonText_Delete");
+			string cancel = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_CloseButtonText_Cancel");
 			return await DialogService.ShowAsync(title, content, delete, cancel);
 		}
 		private bool CanDelete()
@@ -149,13 +150,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		override protected IEnumerable<IValidationConstraint<CompanyModel>> GetValidationConstraints(CompanyModel model)
 		{
-			string resourceKeyForLegalName = $"{nameof(CompanyDetailsViewModel)}_PropertyLegalName";
-			string propertyLegalName = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForLegalName);
+			string propertyLegalName = ResourceService.GetString<CompanyDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyLegalName");
 			var requiredLegalName = new RequiredConstraint<CompanyModel>(propertyLegalName, m => m.LegalName);
 			requiredLegalName.SetResourceService(ResourceService);
 
-			string resourceKeyForCountry = $"{nameof(CompanyDetailsViewModel)}_PropertyCountry";
-			string propertyCountry = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForCountry);
+			string propertyCountry = ResourceService.GetString<CompanyDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyCountry");
 			var requiredCountry = new RequiredGreaterThanZeroConstraint<CompanyModel>(propertyCountry, m => m.CountryID);
 			requiredCountry.SetResourceService(ResourceService);
 
@@ -185,9 +184,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 									NotifyPropertyChanged(nameof(Title));
 									if (IsEditMode)
 									{
-										string resourceKey = $"{nameof(CompanyDetailsViewModel)}_ThisCompanyHasBeenModifiedExternally";
-										string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
-										WarningMessage(message);
+										string title = ResourceService.GetString(ResourceFiles.Warnings, "ExternalModification");
+										string message = ResourceService.GetString<CompanyDetailsViewModel>(ResourceFiles.Warnings, "ThisCompanyHasBeenModifiedExternally");
+										WarningMessage(title, message);
 									}
 								}
 								catch (Exception ex)
@@ -244,9 +243,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				CancelEdit();
 				IsEnabled = false;
-				string resourceKey = $"{nameof(CompanyDetailsViewModel)}_ThisCompanyHasBeenDeletedExternally";
-				string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
-				WarningMessage(message);
+				string title = ResourceService.GetString(ResourceFiles.Warnings, "ExternalDeletion");
+				string message = ResourceService.GetString<CompanyDetailsViewModel>(ResourceFiles.Warnings, "ThisCompanyHasBeenDeletedExternally");
+				WarningMessage(title, message);
 			});
 		}
 		#endregion

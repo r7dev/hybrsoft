@@ -19,7 +19,7 @@ namespace Hybrsoft.UI.Windows.Infrastructure.Common
 		protected string MessageKey => _messageKey;
 		public Func<T, bool> Validate { get; set; } = validate;
 		public virtual string Message => _resourceService?
-			.GetString(nameof(ResourceFiles.ValidationErrors), _messageKey) ?? _messageKey;
+			.GetString(ResourceFiles.ValidationErrors, _messageKey) ?? _messageKey;
 
 		public void SetResourceService(IResourceService resourceService)
 		{
@@ -39,7 +39,7 @@ namespace Hybrsoft.UI.Windows.Infrastructure.Common
 		}
 
 		public override string Message => _resourceService?
-			.GetString(nameof(ResourceFiles.ValidationErrors), MessageKey)?
+			.GetString(ResourceFiles.ValidationErrors, MessageKey)?
 			.Replace("{PropertyName}", PropertyName);
 	}
 
@@ -62,7 +62,7 @@ namespace Hybrsoft.UI.Windows.Infrastructure.Common
 		}
 
 		public override string Message => _resourceService?
-			.GetString(nameof(ResourceFiles.ValidationErrors), MessageKey)?
+			.GetString(ResourceFiles.ValidationErrors, MessageKey)?
 			.Replace("{PropertyName}", PropertyName);
 	}
 
@@ -85,7 +85,7 @@ namespace Hybrsoft.UI.Windows.Infrastructure.Common
 		}
 
 		public override string Message => _resourceService?
-			.GetString(nameof(ResourceFiles.ValidationErrors), MessageKey)?
+			.GetString(ResourceFiles.ValidationErrors, MessageKey)?
 			.Replace("{PropertyName}", PropertyName);
 	}
 
@@ -108,7 +108,7 @@ namespace Hybrsoft.UI.Windows.Infrastructure.Common
 		}
 
 		public override string Message => _resourceService?
-			.GetString(nameof(ResourceFiles.ValidationErrors), MessageKey)?
+			.GetString(ResourceFiles.ValidationErrors, MessageKey)?
 			.Replace("{PropertyName}", PropertyName);
 	}
 
@@ -131,7 +131,7 @@ namespace Hybrsoft.UI.Windows.Infrastructure.Common
 			return true;
 		}
 
-		public override string Message => _resourceService?.GetString(nameof(ResourceFiles.ValidationErrors), MessageKey)
+		public override string Message => _resourceService?.GetString(ResourceFiles.ValidationErrors, MessageKey)
 			?.Replace("{PropertyName}", PropertyName)
 			.Replace("{Value}", Value.ToString()) ?? $"Property '{PropertyName}' must be greater than {Value}.";
 	}
@@ -155,7 +155,7 @@ namespace Hybrsoft.UI.Windows.Infrastructure.Common
 			return true;
 		}
 
-		public override string Message => _resourceService?.GetString(nameof(ResourceFiles.ValidationErrors), MessageKey)
+		public override string Message => _resourceService?.GetString(ResourceFiles.ValidationErrors, MessageKey)
 			?.Replace("{PropertyName}", PropertyName)
 			.Replace("{ValueDesc}", ValueDesc) ?? $"Property '{PropertyName}' cannot be greater than {ValueDesc}.";
 	}
@@ -180,7 +180,7 @@ namespace Hybrsoft.UI.Windows.Infrastructure.Common
 		}
 
 		public override string Message => _resourceService?
-			.GetString(nameof(ResourceFiles.ValidationErrors), MessageKey)?
+			.GetString(ResourceFiles.ValidationErrors, MessageKey)?
 			.Replace("{PropertyName}", PropertyName)
 			.Replace("{Value}", Value.ToString());
 	}
@@ -203,7 +203,7 @@ namespace Hybrsoft.UI.Windows.Infrastructure.Common
 		}
 
 		public override string Message => _resourceService?
-			.GetString(nameof(ResourceFiles.ValidationErrors), MessageKey)?
+			.GetString(ResourceFiles.ValidationErrors, MessageKey)?
 			.Replace("{PropertyName}", PropertyName);
 	}
 
@@ -225,7 +225,7 @@ namespace Hybrsoft.UI.Windows.Infrastructure.Common
 		}
 
 		public override string Message => _resourceService?
-			.GetString(nameof(ResourceFiles.ValidationErrors), MessageKey)?
+			.GetString(ResourceFiles.ValidationErrors, MessageKey)?
 			.Replace("{PropertyName}", PropertyName);
 	}
 }

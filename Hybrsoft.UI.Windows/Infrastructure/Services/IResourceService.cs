@@ -1,4 +1,5 @@
-﻿using Hybrsoft.UI.Windows.Models;
+﻿using Hybrsoft.Enums;
+using Hybrsoft.UI.Windows.Models;
 using Microsoft.Windows.ApplicationModel.Resources;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,7 +11,8 @@ namespace Hybrsoft.UI.Windows.Services
 		List<LanguageModel> LanguageOptions { get; }
 		LanguageModel GetCurrentLanguageItem();
 
-		string GetString(string resourceFile, string key);
+		string GetString<TViewModel>(ResourceFiles resource, string sufix);
+		string GetString(ResourceFiles resource, string key);
 
 		Task InitializeAsync();
 		Task SetLanguageAsync(LanguageModel language);

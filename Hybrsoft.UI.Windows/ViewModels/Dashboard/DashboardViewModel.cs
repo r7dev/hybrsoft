@@ -14,6 +14,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 	{
 		public IStudentService StudentService { get; } = studentService;
 
+		private string StartTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
+		private string StartMessage => ResourceService.GetString<DashboardViewModel>(ResourceFiles.InfoMessages, "LoadingDashboard");
+		private string EndTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "LoadSuccessful");
+		private string EndMessage => ResourceService.GetString<DashboardViewModel>(ResourceFiles.InfoMessages, "DashboardLoaded");
+
 		private IList<StudentModel> _students = null;
 		public IList<StudentModel> Students
 		{
@@ -23,11 +28,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public async Task LoadAsync()
 		{
-			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(DashboardViewModel)}_LoadingDashboard");
-			StartStatusMessage(startMessage);
+			StartStatusMessage(StartTitle, StartMessage);
 			await LoadStudentsAsync();
-			string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(DashboardViewModel)}_DashboardLoaded"); ;
-			EndStatusMessage(endMessage);
+			EndStatusMessage(EndTitle, EndMessage);
 		}
 		public void Unload()
 		{

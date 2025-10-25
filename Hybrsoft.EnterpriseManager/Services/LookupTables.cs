@@ -64,7 +64,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 				return [.. items.Select(r => new CountryModel
 				{
 					CountryID = r.CountryID,
-					Name = string.IsNullOrEmpty(r.Uid) ? r.Name : ResourceService.GetString(nameof(ResourceFiles.UI), r.Uid),
+					Name = string.IsNullOrEmpty(r.Uid) ? r.Name : ResourceService.GetString(ResourceFiles.UI, r.Uid),
 				})];
 			}
 			catch (Exception ex)
@@ -111,7 +111,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 				return [.. items.Select(r => new ScheduleTypeModel
 				{
 					ScheduleTypeID = r.ScheduleTypeID,
-					Name = string.IsNullOrEmpty(r.Uid) ? r.Name : ResourceService.GetString(nameof(ResourceFiles.UI), r.Uid),
+					Name = string.IsNullOrEmpty(r.Uid) ? r.Name : ResourceService.GetString(ResourceFiles.UI, r.Uid),
 				})];
 			}
 			catch (Exception ex)
@@ -139,7 +139,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 				return [.. items.Select(r => new SubscriptionPlanModel
 				{
 					SubscriptionPlanID = r.SubscriptionPlanID,
-					Name = string.IsNullOrEmpty(r.Uid) ? r.Name : ResourceService.GetString(nameof(ResourceFiles.UI), r.Uid),
+					Name = string.IsNullOrEmpty(r.Uid) ? r.Name : ResourceService.GetString(ResourceFiles.UI, r.Uid),
 					DurationMonths = r.DurationMonths
 				})];
 			}
@@ -164,7 +164,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 				.Select(r => new SubscriptionStatusModel
 				{
 					SubscriptionStatusID = (short)r,
-					DisplayName = ResourceService.GetString(nameof(ResourceFiles.UI), $"SubscriptionStatus_{r}")
+					DisplayName = ResourceService.GetString(ResourceFiles.UI, $"SubscriptionStatus_{r}")
 				})];
 		}
 
@@ -197,7 +197,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 				return [.. items.Select(r => new RelativeTypeModel
 				{
 					RelativeTypeID = r.RelativeTypeID,
-					Name = string.IsNullOrEmpty(r.Uid) ? r.Name : ResourceService.GetString(nameof(ResourceFiles.UI), r.Uid),
+					Name = string.IsNullOrEmpty(r.Uid) ? r.Name : ResourceService.GetString(ResourceFiles.UI, r.Uid),
 				})];
 			}
 			catch (Exception ex)

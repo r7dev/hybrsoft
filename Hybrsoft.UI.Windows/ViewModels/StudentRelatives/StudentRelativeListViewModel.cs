@@ -17,6 +17,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 	{
 		public IStudentRelativeService StudentRelativeService { get; } = studentRelativeService;
 
+		private string StartTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
+		private string StartMessage => ResourceService.GetString<StudentRelativeListViewModel>(ResourceFiles.InfoMessages, "LoadingStudentRelatives");
+		private string EndTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "LoadSuccessful");
+		private string EndMessage => ResourceService.GetString<StudentRelativeListViewModel>(ResourceFiles.InfoMessages, "StudentsRelativesLoaded");
+
 		public StudentRelativeListArgs ViewModelArgs { get; private set; }
 
 		public async Task LoadAsync(StudentRelativeListArgs args, bool silent = false)
@@ -30,13 +35,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 			else
 			{
-				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(StudentRelativeListViewModel)}_LoadingStudentRelatives");
-				StartStatusMessage(startMessage);
-				if (await RefreshAsync())
-				{
-					string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(StudentRelativeListViewModel)}_StudentsRelativesLoaded");
-					EndStatusMessage(endMessage);
-				}
+				await RefreshWithStatusAsync();
 			}
 		}
 		public void Unload()
@@ -86,10 +85,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			catch (Exception ex)
 			{
 				Items = [];
-				string resourceKey = $"{nameof(StudentRelativeListViewModel)}_ErrorLoadingStudentsRelatives0";
-				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
-				string message = string.Format(resourceValue, ex.Message);
-				StatusError(message);
+				string title = ResourceService.GetString(ResourceFiles.Errors, "LoadFailed");
+				string message = ResourceService.GetString<StudentRelativeListViewModel>(ResourceFiles.Errors, "ErrorLoadingStudentsRelatives0");
+				StatusError(title, string.Format(message, ex.Message));
 				LogException("StudentRelatives", "Refresh", ex);
 				isOk = false;
 			}
@@ -139,52 +137,53 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		protected override async void OnRefresh()
 		{
-			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(StudentRelativeListViewModel)}_LoadingStudentRelatives");
-			StartStatusMessage(startMessage);
-			if (await RefreshAsync())
+			await RefreshWithStatusAsync();
+		}
+
+		private async Task<bool> RefreshWithStatusAsync()
+		{
+			StartStatusMessage(StartTitle, StartMessage);
+			bool isOk = await RefreshAsync();
+			if (isOk)
 			{
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(StudentRelativeListViewModel)}_StudentsRelativesLoaded");
-				EndStatusMessage(endMessage);
+				EndStatusMessage(EndTitle, EndMessage);
 			}
+			return isOk;
 		}
 
 		protected override async void OnDeleteSelection()
 		{
 			StatusReady();
-			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDelete");
-			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(StudentRelativeListViewModel)}_AreYouSureYouWantToDeleteTheSelectedRelativesOfTheStudent");
-			string delete = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Delete");
-			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
-			if (await DialogService.ShowAsync(title, content, delete, cancel))
+			string dialogTitle = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_Title_ConfirmDelete");
+			string content = ResourceService.GetString<StudentRelativeListViewModel>(ResourceFiles.Questions, "AreYouSureYouWantToDeleteTheSelectedRelativesOfTheStudent");
+			string delete = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_PrimaryButtonText_Delete");
+			string cancel = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_CloseButtonText_Cancel");
+			if (await DialogService.ShowAsync(dialogTitle, content, delete, cancel))
 			{
 				int count = 0;
 				try
 				{
-					string resourceKey = $"{nameof(StudentRelativeListViewModel)}_Deleting0StudentRelatives";
-					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
+					string message = ResourceService.GetString<StudentRelativeListViewModel>(ResourceFiles.InfoMessages, "Deleting0StudentRelatives");
 					if (SelectedIndexRanges != null)
 					{
 						count = SelectedIndexRanges.Sum(r => r.Length);
-						string message = string.Format(resourceValue, count);
-						StartStatusMessage(message);
+						StartStatusMessage(StartTitle, string.Format(message, count));
 						await DeleteRangesAsync(SelectedIndexRanges);
 						MessageService.Send(this, "ItemRangesDeleted", SelectedIndexRanges);
 					}
 					else if (SelectedItems != null)
 					{
 						count = SelectedItems.Count;
-						string message = string.Format(resourceValue, count);
-						StartStatusMessage(message);
+						StartStatusMessage(StartTitle, string.Format(message, count));
 						await DeleteItemsAsync(SelectedItems);
 						MessageService.Send(this, "ItemsDeleted", SelectedItems);
 					}
 				}
 				catch (Exception ex)
 				{
-					string resourceKey = $"{nameof(StudentRelativeListViewModel)}_ErrorDeleting0RelativesOfTheStudent1";
-					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
-					string message = string.Format(resourceValue, count, ex.Message);
-					StatusError(message);
+					string errorTitle = ResourceService.GetString(ResourceFiles.Errors, "DeletionFailed");
+					string message = ResourceService.GetString<StudentRelativeListViewModel>(ResourceFiles.Errors, "ErrorDeleting0RelativesOfTheStudent1");
+					StatusError(dialogTitle, string.Format(message, count, ex.Message));
 					LogException("StudentRelatives", "Delete", ex);
 					count = 0;
 				}
@@ -193,10 +192,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				SelectedItems = null;
 				if (count > 0)
 				{
-					string resourceKey = $"{nameof(StudentRelativeListViewModel)}_0StudentRelativesDeleted";
-					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
-					string message = string.Format(resourceValue, count);
-					EndStatusMessage($"{count} user relatives deleted", LogType.Warning);
+					string title = ResourceService.GetString(ResourceFiles.InfoMessages, "DeletionSuccessful");
+					string message = ResourceService.GetString<StudentRelativeListViewModel>(ResourceFiles.InfoMessages, "0StudentRelativesDeleted");
+					EndStatusMessage(title, string.Format(message, count), LogType.Warning);
 				}
 			}
 		}

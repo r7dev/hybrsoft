@@ -1,4 +1,5 @@
-﻿using Hybrsoft.UI.Windows.Models;
+﻿using Hybrsoft.Enums;
+using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Services;
 using Microsoft.Windows.ApplicationModel.Resources;
 using System;
@@ -55,17 +56,23 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 
 		public LanguageModel GetCurrentLanguageItem() => _currentLanguageItem;
 
-		public string GetString(string resourceFile, string key)
+		public string GetString<TViewModel>(ResourceFiles resource, string sufix)
 		{
-			var resourceMap = _resourceManager.MainResourceMap.GetSubtree(resourceFile);
+			string name = typeof(TViewModel).Name;
+			string cleanName = name.Contains('`') ? name[..name.IndexOf('`')] : name;
+			return GetString(resource, $"{cleanName}_{sufix}");
+		}
+		public string GetString(ResourceFiles resourceName, string key)
+		{
+			var resourceMap = _resourceManager.MainResourceMap.GetSubtree(resourceName.ToString());
 			try
 			{
 				var resource = resourceMap.GetValue(key, _resourceContext);
-				return resource?.ValueAsString ?? $"[{resourceFile}/{key} not found]";
+				return resource?.ValueAsString ?? $"[{resourceName}/{key} not found]";
 			}
 			catch (Exception ex)
 			{
-				throw new ArgumentException($"Error fetching resource {resourceFile}/{key}", ex);
+				throw new ArgumentException($"Error fetching resource {resourceName}/{key}", ex);
 			}
 		}
 

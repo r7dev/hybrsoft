@@ -340,6 +340,21 @@
     <value>Sem conexão com a internet.</value>
   </data>
   <data name="FoundationAPI_SubscriptionService_ActivationFailed" xml:space="preserve">
-    <value>Ativação Falhou.</value>
+    <value>Falha na Ativação.</value>
+  </data>
+  <data name="DeletionFailed" xml:space="preserve">
+    <value>Falha na Exclusão.</value>
+  </data>
+  <data name="SaveFailed" xml:space="preserve">
+    <value>Falha ao Salvar.</value>
+  </data>
+  <data name="LoadFailed" xml:space="preserve">
+    <value>Falha ao Carregar.</value>
+  </data>
+  <data name="AppLogListViewModel_ErrorLoadingLogs0" xml:space="preserve">
+    <value>Erro ao carregar Logs: {0}</value>
+  </data>
+  <data name="ApprovalFailed" xml:space="preserve">
+    <value>Falha na Aprovação.</value>
   </data>
 </root>

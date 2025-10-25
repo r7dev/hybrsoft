@@ -17,8 +17,12 @@ namespace Hybrsoft.UI.Windows.ViewModels
 	{
 		IDismissalService DismissalService { get; } = dismissalService;
 
-		public string Prefix => ResourceService.GetString(nameof(ResourceFiles.UI), $"{nameof(DismissibleStudentListViewModel)}_Prefix");
-		private bool HasPermissionToItemInvoke;
+		private bool _hasPermissionToItemInvoke;
+		private string StartTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
+		private string StartMessage => ResourceService.GetString<DismissibleStudentListViewModel>(ResourceFiles.InfoMessages, "LoadingDismissibleStudents");
+		private string EndTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "LoadSuccessful");
+		private string EndMessage => ResourceService.GetString<DismissibleStudentListViewModel>(ResourceFiles.InfoMessages, "DismissibleStudentsLoaded");
+		public string Prefix => ResourceService.GetString<DismissibleStudentListViewModel>(ResourceFiles.UI, "Prefix");
 
 		public DismissibleStudentListArgs ViewModelArgs { get; private set; }
 
@@ -26,15 +30,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			ViewModelArgs = args ?? DismissibleStudentListArgs.CreateEmpty();
 			Query = ViewModelArgs.Query;
-			HasPermissionToItemInvoke = AuthorizationService.HasPermission(Permissions.DismissibleStudentsRequester);
+			_hasPermissionToItemInvoke = AuthorizationService.HasPermission(Permissions.DismissibleStudentsRequester);
 
-			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(DismissibleStudentListViewModel)}_LoadingDismissibleStudents");
-			StartStatusMessage(startMessage);
-			if (await RefreshAsync())
-			{
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(DismissibleStudentListViewModel)}_DismissibleStudentsLoaded");
-				EndStatusMessage(endMessage);
-			}
+			await RefreshWithStatusAsync();
 		}
 		public void Unload()
 		{
@@ -80,10 +78,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			catch (Exception ex)
 			{
 				Items = [];
-				string resourceKey = $"{nameof(DismissibleStudentListViewModel)}_ErrorLoadingDismissibleStudents0";
-				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
-				string message = string.Format(resourceValue, ex.Message);
-				StatusError(message);
+				string title = ResourceService.GetString(ResourceFiles.Errors, "LoadFailed");
+				string message = ResourceService.GetString<DismissibleStudentListViewModel>(ResourceFiles.Errors, "ErrorLoadingDismissibleStudents0");
+				StatusError(title, string.Format(message, ex.Message));
 				LogException("DismissibleStudents", "Refresh", ex);
 				isOk = false;
 			}
@@ -120,7 +117,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		private bool CanItemInvoked(DismissibleStudentModel dismissible)
 		{
-			return HasPermissionToItemInvoke;
+			return _hasPermissionToItemInvoke;
 		}
 
 		protected override async void OnNew()
@@ -131,13 +128,18 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		protected override async void OnRefresh()
 		{
-			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(DismissibleStudentListViewModel)}_LoadingDismissibleStudents");
-			StartStatusMessage(startMessage);
-			if (await RefreshAsync())
+			await RefreshWithStatusAsync();
+		}
+
+		private async Task<bool> RefreshWithStatusAsync()
+		{
+			StartStatusMessage(StartTitle, StartMessage);
+			bool isOk = await RefreshAsync();
+			if (isOk)
 			{
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(DismissibleStudentListViewModel)}_DismissibleStudentsLoaded");
-				EndStatusMessage(endMessage);
+				EndStatusMessage(EndTitle, EndMessage);
 			}
+			return isOk;
 		}
 
 		protected override async void OnDeleteSelection()

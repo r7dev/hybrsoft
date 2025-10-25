@@ -13,9 +13,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 	{
 		public IPermissionService PermissionService { get; } = permissionService;
 
-		public override string Title =>
-			ItemIsNew
-				? ResourceService.GetString(nameof(ResourceFiles.UI), $"{nameof(PermissionDetailsViewModel)}_TitleNew")
+		public override string Title => ItemIsNew
+				? ResourceService.GetString<PermissionDetailsViewModel>(ResourceFiles.UI, "TitleNew")
 				: Item.FullName;
 
 		public override bool ItemIsNew => Item?.IsNew ?? true;
@@ -66,21 +65,22 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(PermissionDetailsViewModel)}_SavingPermission");
-				StartStatusMessage(startMessage);
+				string startTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
+				string startMessage = ResourceService.GetString<PermissionDetailsViewModel>(ResourceFiles.InfoMessages, "SavingPermission");
+				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
 				await PermissionService.UpdatePermissionAsync(model);
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(PermissionDetailsViewModel)}_PermissionSaved");
-				EndStatusMessage(endMessage, LogType.Success);
+				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "SaveSuccessful");
+				string endMessage = ResourceService.GetString<PermissionDetailsViewModel>(ResourceFiles.InfoMessages, "PermissionSaved");
+				EndStatusMessage(endTitle, endMessage, LogType.Success);
 				LogSuccess("Permission", "Save", "Permission saved successfully", $"Permission {model.PermissionID} '{model.FullName}' was saved successfully.");
 				return true;
 			}
 			catch (Exception ex)
 			{
-				string resourceKey = $"{nameof(PermissionDetailsViewModel)}_ErrorSavingPermission0";
-				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
-				string message = string.Format(resourceValue, ex.Message);
-				StatusError(message);
+				string title = ResourceService.GetString(ResourceFiles.Errors, "SaveFailed");
+				string message = ResourceService.GetString<PermissionDetailsViewModel>(ResourceFiles.Errors, "ErrorSavingPermission0");
+				StatusError(title, string.Format(message, ex.Message));
 				LogException("Permission", "Save", ex);
 				return false;
 			}
@@ -90,21 +90,22 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(PermissionDetailsViewModel)}_DeletingPermission");
-				StartStatusMessage(startMessage);
+				string startTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
+				string startMessage = ResourceService.GetString<PermissionDetailsViewModel>(ResourceFiles.InfoMessages, "DeletingPermission");
+				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
 				await PermissionService.DeletePermissionAsync(model);
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(PermissionDetailsViewModel)}_PermissionDeleted");
-				EndStatusMessage(endMessage, LogType.Warning);
+				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "DeletionSuccessful");
+				string endMessage = ResourceService.GetString<PermissionDetailsViewModel>(ResourceFiles.InfoMessages, "PermissionDeleted");
+				EndStatusMessage(endTitle, endMessage, LogType.Warning);
 				LogWarning("Permission", "Delete", "Permission deleted", $"Permission {model.PermissionID} '{model.FullName}' was deleted.");
 				return true;
 			}
 			catch (Exception ex)
 			{
-				string resourceKey = $"{nameof(PermissionDetailsViewModel)}_ErrorDeletingPermission0";
-				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
-				string message = string.Format(resourceValue, ex.Message);
-				StatusError(message);
+				string title = ResourceService.GetString(ResourceFiles.Errors, "DeletionFailed");
+				string message = ResourceService.GetString<PermissionDetailsViewModel>(ResourceFiles.Errors, "ErrorDeletingPermission0");
+				StatusError(title, string.Format(message, ex.Message));
 				LogException("Permission", "Delete", ex);
 				return false;
 			}
@@ -112,30 +113,27 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		protected override async Task<bool> ConfirmDeleteAsync()
 		{
-			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDelete");
-			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(PermissionDetailsViewModel)}_AreYouSureYouWantToDeleteCurrentPermission");
-			string delete = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Delete");
-			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
+			string title = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_Title_ConfirmDelete");
+			string content = ResourceService.GetString<PermissionDetailsViewModel>(ResourceFiles.Questions, "AreYouSureYouWantToDeleteCurrentPermission");
+			string delete = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_PrimaryButtonText_Delete");
+			string cancel = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_CloseButtonText_Cancel");
 			return await DialogService.ShowAsync(title, content, delete, cancel);
 		}
 
 		override protected IEnumerable<IValidationConstraint<PermissionModel>> GetValidationConstraints(PermissionModel model)
 		{
-			string resourceKeyForName = $"{nameof(PermissionDetailsViewModel)}_PropertyName";
-			string propertyName = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForName);
+			string propertyName = ResourceService.GetString<PermissionDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyName");
 			var requiredName = new RequiredConstraint<PermissionModel>(propertyName, m => m.Name);
 			requiredName.SetResourceService(ResourceService);
 
 			var nameIsAlphanumeric = new AlphanumericValidationConstraint<PermissionModel>(propertyName, m => m.Name);
 			nameIsAlphanumeric.SetResourceService(ResourceService);
 
-			string resourceKeyForDisplayName = $"{nameof(PermissionDetailsViewModel)}_PropertyDisplayName";
-			string propertyDisplayName = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForDisplayName);
+			string propertyDisplayName = ResourceService.GetString<PermissionDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyDisplayName");
 			var requiredDisplayName = new RequiredConstraint<PermissionModel>(propertyDisplayName, m => m.DisplayName);
 			requiredDisplayName.SetResourceService(ResourceService);
 
-			string resourceKeyForDescription = $"{nameof(PermissionDetailsViewModel)}_PropertyDescription";
-			string propertyDescription = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForDescription);
+			string propertyDescription = ResourceService.GetString<PermissionDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyDescription");
 			var requiredDescription = new RequiredConstraint<PermissionModel>(propertyDescription, m => m.Description);
 			requiredDescription.SetResourceService(ResourceService);
 
@@ -167,9 +165,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 									NotifyPropertyChanged(nameof(Title));
 									if (IsEditMode)
 									{
-										string resourceKey = $"{nameof(PermissionDetailsViewModel)}_ThisPermissionHasBeenModifiedExternally";
-										string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
-										WarningMessage(message);
+										string title = ResourceService.GetString(ResourceFiles.Warnings, "ExternalModification");
+										string message = ResourceService.GetString<PermissionDetailsViewModel>(ResourceFiles.Warnings, "ThisPermissionHasBeenModifiedExternally");
+										WarningMessage(title, message);
 									}
 								}
 								catch (Exception ex)
@@ -226,9 +224,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				CancelEdit();
 				IsEnabled = false;
-				string resourceKey = $"{nameof(PermissionDetailsViewModel)}_ThisPermissionHasBeenDeletedExternally";
-				string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
-				WarningMessage(message);
+				string title = ResourceService.GetString(ResourceFiles.Warnings, "ExternalDeletion");
+				string message = ResourceService.GetString<PermissionDetailsViewModel>(ResourceFiles.Warnings, "ThisPermissionHasBeenDeletedExternally");
+				WarningMessage(title, message);
 			});
 		}
 		#endregion

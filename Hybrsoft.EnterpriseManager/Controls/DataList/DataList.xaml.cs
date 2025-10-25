@@ -334,14 +334,14 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			{
 				if (ItemsSource == null)
 				{
-					return ResourceService.GetString(nameof(ResourceFiles.UI), "DataListUserControl_Loading");
+					return ResourceService.GetString(ResourceFiles.UI, "DataListUserControl_Loading");
 				}
 				else
 				{
-					string searchMessage = ResourceService.GetString(nameof(ResourceFiles.UI), "DataListUserControl_NoItemsFound");
+					string searchMessage = ResourceService.GetString(ResourceFiles.UI, "DataListUserControl_NoItemsFound");
 					if (DefaultCommands.Contains("new"))
 					{
-						string newItemMessage = ResourceService.GetString(nameof(ResourceFiles.UI), "DataListUserControl_NewItem");
+						string newItemMessage = ResourceService.GetString(ResourceFiles.UI, "DataListUserControl_NewItem");
 						return $"{searchMessage} {newItemMessage}";
 					}
 					return searchMessage;

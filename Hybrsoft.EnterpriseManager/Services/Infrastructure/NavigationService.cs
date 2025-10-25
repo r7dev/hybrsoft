@@ -130,7 +130,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			return items.Where(f => f.ParentID == parentId)
 				.Select(f => new NavigationItemModel(
-					string.IsNullOrEmpty(f.Uid) ? f.Label : ResourceService.GetString(nameof(ResourceFiles.UI), f.Uid),
+					string.IsNullOrEmpty(f.Uid) ? f.Label : ResourceService.GetString(ResourceFiles.UI, f.Uid),
 					f.Icon.Value,
 					f.ViewModel,
 					f.ParentID,

@@ -14,7 +14,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 {
 	public partial class AppLogListViewModel(ICommonServices commonServices) : GenericListViewModel<AppLogModel>(commonServices)
 	{
-		public string Prefix => ResourceService.GetString(nameof(ResourceFiles.UI), $"{nameof(AppLogListViewModel)}_Prefix");
+		private string StartTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
+		private string StartMessage => ResourceService.GetString<AppLogListViewModel>(ResourceFiles.InfoMessages, "LoadingLogs");
+		private string EndTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "LoadSuccessful");
+		private string EndMessage => ResourceService.GetString<AppLogListViewModel>(ResourceFiles.InfoMessages, "LogsLoaded");
+		public string Prefix => ResourceService.GetString<AppLogListViewModel>(ResourceFiles.UI, "Prefix");
 
 		public AppLogListArgs ViewModelArgs { get; private set; }
 
@@ -25,13 +29,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			EndDate = ViewModelArgs.EndDate;
 			Query = ViewModelArgs.Query;
 
-			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(AppLogListViewModel)}_LoadingLogs");
-			StartStatusMessage(startMessage);
-			if (await RefreshAsync())
-			{
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(AppLogListViewModel)}_LogsLoaded");
-				EndStatusMessage(endMessage);
-			}
+			await RefreshWithStatusAsync();
 		}
 		public void Unload()
 		{
@@ -82,7 +80,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			catch (Exception ex)
 			{
 				Items = [];
-				StatusError($"Error loading Logs: {ex.Message}");
+				string title = ResourceService.GetString(ResourceFiles.Errors, "LoadFailed");
+				string message = ResourceService.GetString<AppLogListViewModel>(ResourceFiles.Errors, "ErrorLoadingLogs0");
+				StatusError(title, string.Format(message, ex.Message));
 				LogException("AppLogs", "Refresh", ex);
 				isOk = false;
 			}
@@ -114,52 +114,53 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		protected override async void OnRefresh()
 		{
-			string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(AppLogListViewModel)}_LoadingLogs");
-			StartStatusMessage(startMessage);
-			if (await RefreshAsync())
+			await RefreshWithStatusAsync();
+		}
+
+		private async Task<bool> RefreshWithStatusAsync()
+		{
+			StartStatusMessage(StartTitle, StartMessage);
+			bool isOk = await RefreshAsync();
+			if (isOk)
 			{
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(AppLogListViewModel)}_LogsLoaded");
-				EndStatusMessage(endMessage);
+				EndStatusMessage(EndTitle, EndMessage);
 			}
+			return isOk;
 		}
 
 		protected override async void OnDeleteSelection()
 		{
 			StatusReady();
-			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDelete");
-			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(AppLogListViewModel)}_AreYouSureYouWantToDeleteSelectedLogs");
-			string delete = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Delete");
-			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
-			if (await DialogService.ShowAsync(title, content, delete, cancel))
+			string dialogTitle = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_Title_ConfirmDelete");
+			string content = ResourceService.GetString<AppLogListViewModel>(ResourceFiles.Questions, "AreYouSureYouWantToDeleteSelectedLogs");
+			string delete = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_PrimaryButtonText_Delete");
+			string cancel = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_CloseButtonText_Cancel");
+			if (await DialogService.ShowAsync(dialogTitle, content, delete, cancel))
 			{
 				int count = 0;
 				try
 				{
-					string resourceKey = $"{nameof(AppLogListViewModel)}_Deleting0Logs";
-					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
+					string message = ResourceService.GetString<AppLogListViewModel>(ResourceFiles.InfoMessages, "Deleting0Logs");
 					if (SelectedIndexRanges != null)
 					{
 						count = SelectedIndexRanges.Sum(r => r.Length);
-						string message = string.Format(resourceValue, count);
-						StartStatusMessage(message);
+						StartStatusMessage(StartTitle, string.Format(message, count));
 						await DeleteRangesAsync(SelectedIndexRanges);
 						MessageService.Send(this, "ItemRangesDeleted", SelectedIndexRanges);
 					}
 					else if (SelectedItems != null)
 					{
 						count = SelectedItems.Count;
-						string message = string.Format(resourceValue, count);
-						StartStatusMessage(message);
+						StartStatusMessage(StartTitle, string.Format(message, count));
 						await DeleteItemsAsync(SelectedItems);
 						MessageService.Send(this, "ItemsDeleted", SelectedItems);
 					}
 				}
 				catch (Exception ex)
 				{
-					string resourceKey = $"{nameof(AppLogListViewModel)}_ErrorDeleting0Logs1";
-					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
-					string message = string.Format(resourceValue, count, ex.Message);
-					StatusError(message);
+					string title = ResourceService.GetString(ResourceFiles.Errors, "DeletionFailed");
+					string message = ResourceService.GetString<AppLogListViewModel>(ResourceFiles.Errors, "ErrorDeleting0Logs1");
+					StatusError(title, string.Format(message, count, ex.Message));
 					LogException("AppLogs", "Delete", ex);
 					count = 0;
 				}
@@ -168,10 +169,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				SelectedItems = null;
 				if (count > 0)
 				{
-					string resourceKey = $"{nameof(AppLogListViewModel)}_0LogsDeleted";
-					string resourceValue = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), resourceKey);
-					string message = string.Format(resourceValue, count);
-					EndStatusMessage(message, LogType.Warning);
+					string title = ResourceService.GetString(ResourceFiles.InfoMessages, "DeletionSuccessful");
+					string message = ResourceService.GetString<AppLogListViewModel>(ResourceFiles.InfoMessages, "0LogsDeleted");
+					EndStatusMessage(title, string.Format(message, count), LogType.Warning);
 				}
 			}
 		}

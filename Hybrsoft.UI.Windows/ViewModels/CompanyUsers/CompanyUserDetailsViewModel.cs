@@ -18,26 +18,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		private bool _hasEditorPermission;
 
 		public override string Title => (Item?.IsNew ?? true) ? TitleNew : TitleEdit;
-		public string TitleNew
-		{
-			get
-			{
-				string resourceKey = $"{nameof(CompanyUserDetailsViewModel)}_TitleNew";
-				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.UI), resourceKey);
-				string message = string.Format(resourceValue, CompanyID);
-				return message;
-			}
-		}
-		public string TitleEdit
-		{
-			get
-			{
-				string resourceKey = $"{nameof(CompanyUserDetailsViewModel)}_TitleEdit";
-				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.UI), resourceKey);
-				string message = string.Format(resourceValue, Item?.CompanyUserID, Item?.CompanyID);
-				return message ?? String.Empty;
-			}
-		}
+		public string TitleNew => string.Format(ResourceService.GetString<CompanyUserDetailsViewModel>(ResourceFiles.UI, "TitleNew"), CompanyID);
+		public string TitleEdit => string.Format(ResourceService.GetString<CompanyUserDetailsViewModel>(ResourceFiles.UI, "TitleEdit"), Item?.CompanyUserID, Item?.CompanyID);
 
 		public override bool ItemIsNew => Item?.IsNew ?? true;
 
@@ -126,21 +108,22 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(CompanyUserDetailsViewModel)}_SavingCompanyUser");
-				StartStatusMessage(startMessage);
+				string startTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
+				string startMessage = ResourceService.GetString<CompanyUserDetailsViewModel>(ResourceFiles.InfoMessages, "SavingCompanyUser");
+				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
 				await CompanyUserService.UpdateCompanyUserAsync(model);
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(CompanyUserDetailsViewModel)}_CompanyUserHasBeenSaved");
-				EndStatusMessage(endMessage, LogType.Success);
+				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "SaveSuccessful");
+				string endMessage = ResourceService.GetString<CompanyUserDetailsViewModel>(ResourceFiles.InfoMessages, "CompanyUserHasBeenSaved");
+				EndStatusMessage(endTitle, endMessage, LogType.Success);
 				LogSuccess("CompanyUser", "Save", "Company User saved successfully", $"Company User #{model.CompanyID}, {model.User.FullName} was saved successfully.");
 				return true;
 			}
 			catch (Exception ex)
 			{
-				string resourceKey = $"{nameof(CompanyUserDetailsViewModel)}_ErrorSavingCompanyUser0";
-				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
-				string message = string.Format(resourceValue, ex.Message);
-				StatusError(message);
+				string title = ResourceService.GetString(ResourceFiles.Errors, "SaveFailed");
+				string message = ResourceService.GetString<CompanyUserDetailsViewModel>(ResourceFiles.Errors, "ErrorSavingCompanyUser0");
+				StatusError(title, string.Format(message, ex.Message));
 				LogException("CompanyUser", "Save", ex);
 				return false;
 			}
@@ -151,21 +134,22 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(CompanyUserDetailsViewModel)}_DeletingCompanyUser");
-				StartStatusMessage(startMessage);
+				string startTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
+				string startMessage = ResourceService.GetString<CompanyUserDetailsViewModel>(ResourceFiles.InfoMessages, "DeletingCompanyUser");
+				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
 				await CompanyUserService.DeleteCompanyUserAsync(model);
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(CompanyUserDetailsViewModel)}_CompanyUserHasBeenDeleted");
-				EndStatusMessage(endMessage, LogType.Warning);
+				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "DeletionSuccessful");
+				string endMessage = ResourceService.GetString<CompanyUserDetailsViewModel>(ResourceFiles.InfoMessages, "CompanyUserHasBeenDeleted");
+				EndStatusMessage(endTitle, endMessage, LogType.Warning);
 				LogWarning("CompanyUser", "Delete", "Company User deleted", $"Company User #{model.CompanyID}, {model.User.FullName} was deleted.");
 				return true;
 			}
 			catch (Exception ex)
 			{
-				string resourceKey = $"{nameof(CompanyUserDetailsViewModel)}_ErrorDeletingCompanyUser0";
-				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
-				string message = string.Format(resourceValue, ex.Message);
-				StatusError(message);
+				string title = ResourceService.GetString(ResourceFiles.Errors, "DeletionFailed");
+				string message = ResourceService.GetString<CompanyUserDetailsViewModel>(ResourceFiles.Errors, "ErrorDeletingCompanyUser0");
+				StatusError(title, string.Format(message, ex.Message));
 				LogException("CompanyUser", "Delete", ex);
 				return false;
 			}
@@ -173,10 +157,10 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		protected override async Task<bool> ConfirmDeleteAsync()
 		{
-			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDelete");
-			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(CompanyUserDetailsViewModel)}_AreYouSureYouWantToDeleteCurrentCompanyUser");
-			string delete = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Delete");
-			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
+			string title = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_Title_ConfirmDelete");
+			string content = ResourceService.GetString<CompanyUserDetailsViewModel>(ResourceFiles.Questions, "AreYouSureYouWantToDeleteCurrentCompanyUser");
+			string delete = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_PrimaryButtonText_Delete");
+			string cancel = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_CloseButtonText_Cancel");
 			return await DialogService.ShowAsync(title, content, delete, cancel);
 		}
 		private bool CanDelete()
@@ -186,8 +170,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		override protected IEnumerable<IValidationConstraint<CompanyUserModel>> GetValidationConstraints(CompanyUserModel model)
 		{
-			string resourceKeyForUser = $"{nameof(CompanyUserDetailsViewModel)}_PropertyUser";
-			string propertyUser = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForUser);
+			string propertyUser = ResourceService.GetString<CompanyUserDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyUser");
 			var requiredUser = new RequiredGreaterThanZeroConstraint<CompanyUserModel>(propertyUser, m => m.UserID);
 			requiredUser.SetResourceService(ResourceService);
 
@@ -216,9 +199,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 									NotifyPropertyChanged(nameof(Title));
 									if (IsEditMode)
 									{
-										string resourceKey = $"{nameof(CompanyUserDetailsViewModel)}_ThisCompanyUserHasBeenModifiedExternally";
-										string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
-										StatusMessage(message);
+										string title = ResourceService.GetString(ResourceFiles.Warnings, "ExternalModification");
+										string message = ResourceService.GetString<CompanyUserDetailsViewModel>(ResourceFiles.Warnings, "ThisCompanyUserHasBeenModifiedExternally");
+										StatusMessage(title, message);
 									}
 								}
 								catch (Exception ex)
@@ -275,9 +258,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				CancelEdit();
 				IsEnabled = false;
-				string resourceKey = $"{nameof(CompanyUserDetailsViewModel)}_ThisCompanyUserHasBeenDeletedExternally";
-				string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
-				StatusMessage(message);
+				string title = ResourceService.GetString(ResourceFiles.Warnings, "ExternalDeletion");
+				string message = ResourceService.GetString<CompanyUserDetailsViewModel>(ResourceFiles.Warnings, "ThisCompanyUserHasBeenDeletedExternally");
+				StatusMessage(title, message);
 			});
 		}
 		#endregion

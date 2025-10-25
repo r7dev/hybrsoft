@@ -1,7 +1,7 @@
-﻿using Hybrsoft.UI.Windows.Models;
+﻿using Hybrsoft.Enums;
 using Hybrsoft.UI.Windows.Infrastructure.Common;
+using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Services;
-using Hybrsoft.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,18 +80,21 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(AppLogDetailsViewModel)}_DeletingLog");
-				StartStatusMessage(startMessage);
+				string startTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
+				string startMessage = ResourceService.GetString<AppLogDetailsViewModel>(ResourceFiles.InfoMessages, "DeletingLog");
+				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
 				await LogService.DeleteLogAsync(model);
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(AppLogDetailsViewModel)}_LogDeleted");
-				EndStatusMessage(endMessage, LogType.Warning);
+				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "DeletionSuccessful");
+				string endMessage = ResourceService.GetString<AppLogDetailsViewModel>(ResourceFiles.InfoMessages, "LogDeleted");
+				EndStatusMessage(endTitle, endMessage, LogType.Warning);
 				return true;
 			}
 			catch (Exception ex)
 			{
-				string message = ResourceService.GetString(nameof(ResourceFiles.Errors), $"{nameof(AppLogDetailsViewModel)}_ErrorDeletingLog0");
-				StatusError(string.Format(message, ex.Message));
+				string title = ResourceService.GetString(ResourceFiles.Errors, "DeletionFailed");
+				string message = ResourceService.GetString<AppLogDetailsViewModel>(ResourceFiles.Errors, "ErrorDeletingLog0");
+				StatusError(title, string.Format(message, ex.Message));
 				LogException("AppLog", "Delete", ex);
 				return false;
 			}
@@ -99,10 +102,10 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		protected override async Task<bool> ConfirmDeleteAsync()
 		{
-			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDelete");
-			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(AppLogDetailsViewModel)}_AreYouSureYouWantToDeleteCurrentLog");
-			string delete = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Delete");
-			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
+			string title = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_Title_ConfirmDelete");
+			string content = ResourceService.GetString<AppLogDetailsViewModel>(ResourceFiles.Questions, "AreYouSureYouWantToDeleteCurrentLog");
+			string delete = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_PrimaryButtonText_Delete");
+			string cancel = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_CloseButtonText_Cancel");
 			return await DialogService.ShowAsync(title, content, delete, cancel);
 		}
 
@@ -157,8 +160,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				CancelEdit();
 				IsEnabled = false;
-				string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), $"{nameof(AppLogDetailsViewModel)}_ThisLogHasBeenDeletedExternally");
-				WarningMessage(message);
+				string title = ResourceService.GetString(ResourceFiles.Warnings, "ExternalDeletion");
+				string message = ResourceService.GetString<AppLogDetailsViewModel>(ResourceFiles.Warnings, "ThisLogHasBeenDeletedExternally");
+				WarningMessage(title, message);
 			});
 		}
 		#endregion

@@ -9,7 +9,7 @@ namespace Hybrsoft.UI.Windows.Infrastructure.ViewModels
 	public partial class ViewModelBase(ICommonServices commonServices) : ObservableObject
 	{
 		private readonly Stopwatch _stopwatch = new();
-		private readonly string _statusReadyMessage = commonServices.ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(ViewModelBase)}_Ready");
+		private readonly string _statusReadyMessage = commonServices.ResourceService.GetString<ViewModelBase>(ResourceFiles.InfoMessages, "Ready");
 
 		public IContextService ContextService { get; } = commonServices.ContextService;
 		public INavigationService NavigationService { get; } = commonServices.NavigationService;
@@ -47,69 +47,69 @@ namespace Hybrsoft.UI.Windows.Infrastructure.ViewModels
 			await LogService.WriteAsync(LogType.Error, source, action, message, description);
 		}
 
-		public void StartStatusMessage(string message)
+		public void StartStatusMessage(string title, string message)
 		{
-			StatusMessage(message);
+			StatusMessage(title, message);
 			_stopwatch.Reset();
 			_stopwatch.Start();
 		}
-		public void EndStatusMessage(string message, LogType logType = LogType.Information)
+		public void EndStatusMessage(string title, string message, LogType logType = LogType.Information)
 		{
 			_stopwatch.Stop();
-			string finalMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(ViewModelBase)}_Seconds");
+			string finalMessage = ResourceService.GetString<ViewModelBase>(ResourceFiles.InfoMessages, "Seconds");
 			string fullMessage = $"{message} ({_stopwatch.Elapsed.TotalSeconds:#0.000} {finalMessage})";
 			switch (logType)
 			{
 				case LogType.Success:
-					SuccessMessage(fullMessage);
+					SuccessMessage(title, fullMessage);
 					break;
 				case LogType.Warning:
-					WarningMessage(fullMessage);
+					WarningMessage(title, fullMessage);
 					break;
 				default:
-					StatusMessage(fullMessage);
+					StatusMessage(title, fullMessage);
 					break;
 			}
 		}
 
 		public void StatusReady()
 		{
-			string message = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(ViewModelBase)}_Ready");
+			string message = ResourceService.GetString<ViewModelBase>(ResourceFiles.InfoMessages, "Ready");
 			MessageService.Send(this, "StatusMessage", new StatusInfoDto("", message));
 		}
 
-		public void StatusMessage(string message)
+		public void StatusMessage(string title, string message)
 		{
-			MessageService.Send(this, "StatusMessage", new StatusInfoDto("", message));
+			MessageService.Send(this, "StatusMessage", new StatusInfoDto(title, message));
 		}
-		public void StatusError(string message)
+		public void StatusError(string title, string message)
 		{
-			MessageService.Send(this, "StatusError", new StatusInfoDto("", message));
+			MessageService.Send(this, "StatusError", new StatusInfoDto(title, message));
 		}
-		public void SuccessMessage(string message)
+		public void SuccessMessage(string title, string message)
 		{
-			MessageService.Send(this, "SuccessMessage", new StatusInfoDto("", message));
+			MessageService.Send(this, "SuccessMessage", new StatusInfoDto(title, message));
 		}
-		public void WarningMessage(string message)
+		public void WarningMessage(string title, string message)
 		{
-			MessageService.Send(this, "WarningMessage", new StatusInfoDto("", message));
+			MessageService.Send(this, "WarningMessage", new StatusInfoDto(title, message));
 		}
 
-		public void StatusMessageYourself(StatusInfoDto status)
+		public void StatusMessageYourself(string title, string message)
 		{
-			MessageService.SendYourself(this, "StatusMessage", status);
+			MessageService.SendYourself(this, "StatusMessage", new StatusInfoDto(title, message));
 		}
-		public void StatusErrorYourself(StatusInfoDto status)
+		public void StatusErrorYourself(string title, string message)
 		{
-			MessageService.SendYourself(this, "StatusError", status);
+			MessageService.SendYourself(this, "StatusError", new StatusInfoDto(title, message));
 		}
-		public void SuccessMessageYourselt(StatusInfoDto status)
+		public void SuccessMessageYourselt(string title, string message)
 		{
-			MessageService.SendYourself(this, "SuccessMessage", status);
+			MessageService.SendYourself(this, "SuccessMessage", new StatusInfoDto(title, message));
 		}
-		public void WarningMessageYourself(StatusInfoDto status)
+		public void WarningMessageYourself(string title, string message)
 		{
-			MessageService.SendYourself(this, "WarningMessage", status);
+			MessageService.SendYourself(this, "WarningMessage", new StatusInfoDto(title, message));
 		}
 
 		public void EnableThisView(string message = null)

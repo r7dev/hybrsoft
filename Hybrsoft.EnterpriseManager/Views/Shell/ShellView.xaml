@@ -33,6 +33,7 @@
 		<Grid Grid.Row="2">
 			<InfoBar IsOpen="{x:Bind ViewModel.IsOpen, Mode=TwoWay}"
 					 Severity="{x:Bind ViewModel.Severity, Mode=TwoWay}"
+					 Title="{x:Bind ViewModel.MessageTitle, Mode=OneWay}"
 					 Message="{x:Bind ViewModel.Message, Mode=OneWay}" />
 		</Grid>
 	</Grid>

@@ -128,10 +128,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 			else
 			{
-				string resourceKey = $"{nameof(GenericDetailsViewModel<TModel>)}_0PleaseCorrectTheErrorAndTryAgain";
-				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKey);
-				string content = string.Format(resourceValue, result.Description);
-				await DialogService.ShowAsync(result.Message, content);
+				string message = ResourceService.GetString<GenericDetailsViewModel<TModel>>(ResourceFiles.ValidationErrors, "0PleaseCorrectTheErrorAndTryAgain");
+				await DialogService.ShowAsync(result.Message, string.Format(message, result.Description));
 			}
 		}
 		virtual public async Task SaveAsync()
@@ -203,7 +201,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 			if (errors.Length > 0)
 			{
-				string message = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), $"{nameof(GenericDetailsViewModel<TModel>)}_ValidationError");
+				string message = ResourceService.GetString<GenericDetailsViewModel<TModel>>(ResourceFiles.ValidationErrors, "ValidationError");
 				return Result.Error(message, errors.ToString());
 			}
 			return Result.Ok();

@@ -18,8 +18,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			get
 			{
 				string suffix = ItemIsNew ? "New" : "Edit";
-				string resourceKey = $"{nameof(RoleDetailsViewModel)}_Title{suffix}";
-				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.UI), resourceKey);
+				string resourceValue = ResourceService.GetString<RoleDetailsViewModel>(ResourceFiles.UI, $"Title{suffix}");
 				return ItemIsNew ? resourceValue : $"{resourceValue} #{Item.RoleID}";
 			}
 		}
@@ -71,21 +70,22 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(RoleDetailsViewModel)}_SavingRole");
-				StartStatusMessage(startMessage);
+				string startTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
+				string startMessage = ResourceService.GetString<RoleDetailsViewModel>(ResourceFiles.InfoMessages, "SavingRole");
+				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
 				await RoleService.UpdateRoleAsync(model);
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(RoleDetailsViewModel)}_RoleSaved");
-				EndStatusMessage(endMessage, LogType.Success);
+				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "SaveSuccessful");
+				string endMessage = ResourceService.GetString<RoleDetailsViewModel>(ResourceFiles.InfoMessages, "RoleSaved");
+				EndStatusMessage(endTitle, endMessage, LogType.Success);
 				LogSuccess("Role", "Save", "Role saved successfully", $"Role {model.RoleID} '{model.Name}' was saved successfully.");
 				return true;
 			}
 			catch (Exception ex)
 			{
-				string resourceKey = $"{nameof(RoleDetailsViewModel)}_ErrorSavingRole0";
-				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
-				string message = string.Format(resourceValue, ex.Message);
-				StatusError(message);
+				string title = ResourceService.GetString(ResourceFiles.Errors, "SaveFailed");
+				string message = ResourceService.GetString<RoleDetailsViewModel>(ResourceFiles.Errors, "ErrorSavingRole0");
+				StatusError(title, string.Format(message, ex.Message));
 				LogException("Role", "Save", ex);
 				return false;
 			}
@@ -95,21 +95,22 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				string startMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(RoleDetailsViewModel)}_DeletingRole");
-				StartStatusMessage(startMessage);
+				string startTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
+				string startMessage = ResourceService.GetString<RoleDetailsViewModel>(ResourceFiles.InfoMessages, "DeletingRole");
+				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
 				await RoleService.DeleteRoleAsync(model);
-				string endMessage = ResourceService.GetString(nameof(ResourceFiles.InfoMessages), $"{nameof(RoleDetailsViewModel)}_RoleDeleted");
-				EndStatusMessage(endMessage, LogType.Warning);
+				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "DeletionSuccessful");
+				string endMessage = ResourceService.GetString<RoleDetailsViewModel>(ResourceFiles.InfoMessages, "RoleDeleted");
+				EndStatusMessage(endTitle, endMessage, LogType.Warning);
 				LogWarning("Role", "Delete", "Role deleted", $"Role {model.RoleID} '{model.Name}' was deleted.");
 				return true;
 			}
 			catch (Exception ex)
 			{
-				string resourceKey = $"{nameof(RoleDetailsViewModel)}_ErrorDeletingRole0";
-				string resourceValue = ResourceService.GetString(nameof(ResourceFiles.Errors), resourceKey);
-				string message = string.Format(resourceValue, ex.Message);
-				StatusError(message);
+				string title = ResourceService.GetString(ResourceFiles.Errors, "DeletionFailed");
+				string message = ResourceService.GetString<RoleDetailsViewModel>(ResourceFiles.Errors, "ErrorDeletingRole0");
+				StatusError(title, string.Format(message, ex.Message));
 				LogException("Role", "Delete", ex);
 				return false;
 			}
@@ -117,17 +118,16 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		protected override async Task<bool> ConfirmDeleteAsync()
 		{
-			string title = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_Title_ConfirmDelete");
-			string content = ResourceService.GetString(nameof(ResourceFiles.Questions), $"{nameof(RoleDetailsViewModel)}_AreYouSureYouWantToDeleteCurrentRole");
-			string delete = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_PrimaryButtonText_Delete");
-			string cancel = ResourceService.GetString(nameof(ResourceFiles.UI), "ContentDialog_CloseButtonText_Cancel");
+			string title = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_Title_ConfirmDelete");
+			string content = ResourceService.GetString<RoleDetailsViewModel>(ResourceFiles.Questions, "AreYouSureYouWantToDeleteCurrentRole");
+			string delete = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_PrimaryButtonText_Delete");
+			string cancel = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_CloseButtonText_Cancel");
 			return await DialogService.ShowAsync(title, content, delete, cancel);
 		}
 
 		override protected IEnumerable<IValidationConstraint<RoleModel>> GetValidationConstraints(RoleModel model)
 		{
-			string resourceKeyForName = $"{nameof(RoleDetailsViewModel)}_PropertyName";
-			string propertyName = ResourceService.GetString(nameof(ResourceFiles.ValidationErrors), resourceKeyForName);
+			string propertyName = ResourceService.GetString<RoleDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyName");
 			var requiredName = new RequiredConstraint<RoleModel>(propertyName, m => m.Name);
 			requiredName.SetResourceService(ResourceService);
 
@@ -160,9 +160,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 									NotifyPropertyChanged(nameof(Title));
 									if (IsEditMode)
 									{
-										string resourceKey = $"{nameof(RoleDetailsViewModel)}_ThisRoleHasBeenModifiedExternally";
-										string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
-										WarningMessage(message);
+										string title = ResourceService.GetString(ResourceFiles.Warnings, "ExternalModification");
+										string message = ResourceService.GetString<RoleDetailsViewModel>(ResourceFiles.Warnings, "ThisRoleHasBeenModifiedExternally");
+										WarningMessage(title, message);
 									}
 								}
 								catch (Exception ex)
@@ -219,9 +219,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				CancelEdit();
 				IsEnabled = false;
-				string resourceKey = $"{nameof(RoleDetailsViewModel)}_ThisRoleHasBeenDeletedExternally";
-				string message = ResourceService.GetString(nameof(ResourceFiles.Warnings), resourceKey);
-				WarningMessage(message);
+				string title = ResourceService.GetString(ResourceFiles.Warnings, "ExternalDeletion");
+				string message = ResourceService.GetString<RoleDetailsViewModel>(ResourceFiles.Warnings, "ThisRoleHasBeenDeletedExternally");
+				WarningMessage(title, message);
 			});
 		}
 		#endregion

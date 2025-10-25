@@ -342,4 +342,19 @@
   <data name="FoundationAPI_SubscriptionService_ActivationFailed" xml:space="preserve">
     <value>Activation Failed.</value>
   </data>
+  <data name="DeletionFailed" xml:space="preserve">
+    <value>Deletion Failed.</value>
+  </data>
+  <data name="SaveFailed" xml:space="preserve">
+    <value>Save Failed.</value>
+  </data>
+  <data name="LoadFailed" xml:space="preserve">
+    <value>Load Failed.</value>
+  </data>
+  <data name="AppLogListViewModel_ErrorLoadingLogs0" xml:space="preserve">
+    <value>Error loading Logs: {0}</value>
+  </data>
+  <data name="ApprovalFailed" xml:space="preserve">
+    <value>Approval Failed.</value>
+  </data>
 </root>
