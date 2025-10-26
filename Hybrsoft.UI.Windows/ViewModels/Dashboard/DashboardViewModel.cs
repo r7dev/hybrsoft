@@ -1,9 +1,9 @@
-﻿using Hybrsoft.UI.Windows.Models;
-using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
-using Hybrsoft.UI.Windows.Services;
-using Hybrsoft.Enums;
+﻿using Hybrsoft.Enums;
 using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.Models;
+using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
+using Hybrsoft.UI.Windows.Models;
+using Hybrsoft.UI.Windows.Services;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -45,7 +45,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				var request = new DataRequest<Student>
 				{
-					OrderByDesc = r => r.CreatedOn
+					OrderBys = [(r => r.CreatedOn, OrderBy.Desc)]
 				};
 				Students = await StudentService.GetStudentsAsync(0, 5, request);
 			}
@@ -60,7 +60,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			switch (item)
 			{
 				case "Students":
-					NavigationService.Navigate<StudentsViewModel>(new StudentListArgs { OrderByDesc = r => r.CreatedOn});
+					NavigationService.Navigate<StudentsViewModel>(new StudentListArgs { OrderBys = [(r => r.CreatedOn, OrderBy.Desc)] });
 					break;
 				default:
 					break;

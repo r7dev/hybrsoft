@@ -64,8 +64,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return new ClassroomStudentListArgs
 			{
 				Query = Query,
-				OrderBy = ViewModelArgs.OrderBy,
-				OrderByDesc = ViewModelArgs.OrderByDesc,
+				OrderBys = ViewModelArgs.OrderBys,
 				ClassroomID = ViewModelArgs.ClassroomID
 			};
 		}
@@ -233,8 +232,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			var request = new DataRequest<ClassroomStudent>()
 			{
 				Query = Query,
-				OrderBy = ViewModelArgs.OrderBy,
-				OrderByDesc = ViewModelArgs.OrderByDesc
+				OrderBys = ViewModelArgs.OrderBys
 			};
 			if (ViewModelArgs.ClassroomID > 0)
 			{

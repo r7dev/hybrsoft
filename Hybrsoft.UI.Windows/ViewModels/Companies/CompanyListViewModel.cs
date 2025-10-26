@@ -58,8 +58,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return new CompanyListArgs
 			{
 				Query = Query,
-				OrderBy = ViewModelArgs.OrderBy,
-				OrderByDesc = ViewModelArgs.OrderByDesc
+				OrderBys = ViewModelArgs.OrderBys
 			};
 		}
 
@@ -250,8 +249,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return new DataRequest<Company>()
 			{
 				Query = Query,
-				OrderBy = ViewModelArgs.OrderBy,
-				OrderByDesc = ViewModelArgs.OrderByDesc
+				OrderBys = ViewModelArgs.OrderBys
 			};
 		}
 

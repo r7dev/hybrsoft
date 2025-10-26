@@ -1,5 +1,7 @@
-﻿using Hybrsoft.Infrastructure.Models;
+﻿using Hybrsoft.Enums;
+using Hybrsoft.Infrastructure.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace Hybrsoft.UI.Windows.ViewModels
@@ -10,7 +12,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public RolePermissionListArgs()
 		{
-			OrderBy = r => r.Permission.DisplayName;
+			OrderBys = [(r => r.Permission.DisplayName, OrderBy.Asc)];
 		}
 
 		public long RoleId { get; set; }
@@ -19,7 +21,6 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public string Query { get; set; }
 
-		public Expression<Func<RolePermission, object>> OrderBy { get; set; }
-		public Expression<Func<RolePermission, object>> OrderByDesc { get; set; }
+		public List<(Expression<Func<RolePermission, object>> KeySelector, OrderBy OrderBy)> OrderBys { get; set; }
 	}
 }

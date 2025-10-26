@@ -1,4 +1,5 @@
-﻿using Hybrsoft.Infrastructure.Common;
+﻿using Hybrsoft.Enums;
+using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -69,13 +70,25 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			}
 
 			// Order By
-			if (!skipSorting && request.OrderBy != null)
+			if (!skipSorting && request.OrderBys.Count != 0)
 			{
-				items = items.OrderBy(request.OrderBy);
-			}
-			if (!skipSorting && request.OrderByDesc != null)
-			{
-				items = items.OrderByDescending(request.OrderByDesc);
+				bool first = true;
+				foreach (var (keySelector, orderBy) in request.OrderBys)
+				{
+					if (first)
+					{
+						items = orderBy == OrderBy.Desc
+							? items.OrderByDescending(keySelector)
+							: items.OrderBy(keySelector);
+						first = false;
+					}
+					else
+					{
+						items = orderBy == OrderBy.Desc
+							? ((IOrderedQueryable<Student>)items).ThenByDescending(keySelector)
+							: ((IOrderedQueryable<Student>)items).ThenBy(keySelector);
+					}
+				}
 			}
 
 			return items;

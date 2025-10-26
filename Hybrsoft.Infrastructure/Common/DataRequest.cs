@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Hybrsoft.Enums;
+using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace Hybrsoft.Infrastructure.Common
@@ -8,7 +10,6 @@ namespace Hybrsoft.Infrastructure.Common
 		public string Query { get; set; }
 
 		public Expression<Func<T, bool>> Where { get; set; }
-		public Expression<Func<T, object>> OrderBy { get; set; }
-		public Expression<Func<T, object>> OrderByDesc { get; set; }
+		public List<(Expression<Func<T, object>> KeySelector, OrderBy OrderBy)> OrderBys { get; set; } = [];
 	}
 }

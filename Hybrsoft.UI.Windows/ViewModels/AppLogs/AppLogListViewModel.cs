@@ -60,8 +60,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				StartDate = StartDate ?? DateRangeTools.GetStartDate(),
 				EndDate = EndDate ?? DateRangeTools.GetEndDate(),
 				Query = Query,
-				OrderBy = ViewModelArgs.OrderBy,
-				OrderByDesc = ViewModelArgs.OrderByDesc
+				OrderBys = ViewModelArgs.OrderBys
 			};
 		}
 
@@ -201,8 +200,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				Where = r => r.AppType == AppType.EnterpriseManager
 					&& r.CreateOn >= StartDate
 					&& r.CreateOn <= EndDate,
-				OrderBy = ViewModelArgs.OrderBy,
-				OrderByDesc = ViewModelArgs.OrderByDesc
+				OrderBys = ViewModelArgs.OrderBys
 			};
 		}
 

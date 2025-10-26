@@ -1,9 +1,10 @@
-using Hybrsoft.UI.Windows.Models;
-using Hybrsoft.UI.Windows.Services;
 using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.EnterpriseManager.Extensions;
+using Hybrsoft.Enums;
 using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.Models;
+using Hybrsoft.UI.Windows.Models;
+using Hybrsoft.UI.Windows.Services;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
@@ -108,7 +109,7 @@ public sealed partial class RelativeSuggestBox : UserControl
 		{
 			Query = query,
 			Where = r => !ExcludedKeys.Contains(r.RelativeID),
-			OrderBy = r => r.FirstName
+			OrderBys = [(r => r.FirstName, OrderBy.Asc)]
 		};
 		return await RelativeService.GetRelativesAsync(0, 20, request);
 	}

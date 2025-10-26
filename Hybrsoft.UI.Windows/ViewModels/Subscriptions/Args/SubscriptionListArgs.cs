@@ -1,6 +1,8 @@
-﻿using Hybrsoft.UI.Windows.Infrastructure.Common;
+﻿using Hybrsoft.Enums;
 using Hybrsoft.Infrastructure.Models;
+using Hybrsoft.UI.Windows.Infrastructure.Common;
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace Hybrsoft.UI.Windows.ViewModels
@@ -18,7 +20,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			StartDate = DateRangeTools.GetStartDate();
 			EndDate = DateRangeTools.GetEndDate();
-			OrderByDesc = s => s.CreatedOn;
+			OrderBys = [(r => r.CreatedOn, OrderBy.Desc)];
 		}
 
 		public long SubscriptionID { get; set; }
@@ -29,7 +31,6 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		public DateTimeOffset EndDate { get; set; }
 		public string Query { get; set; }
 
-		public Expression<Func<Subscription, object>> OrderBy { get; set; }
-		public Expression<Func<Subscription, object>> OrderByDesc { get; set; }	
+		public List<(Expression<Func<Subscription, object>> KeySelector, OrderBy OrderBy)> OrderBys { get; set; }
 	}
 }

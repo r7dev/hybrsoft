@@ -56,8 +56,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return new UserListArgs
 			{
 				Query = Query,
-				OrderBy = ViewModelArgs.OrderBy,
-				OrderByDesc = ViewModelArgs.OrderByDesc
+				OrderBys = ViewModelArgs.OrderBys
 			};
 		}
 
@@ -224,8 +223,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return new DataRequest<User>()
 			{
 				Query = Query,
-				OrderBy = ViewModelArgs.OrderBy,
-				OrderByDesc = ViewModelArgs.OrderByDesc
+				OrderBys = ViewModelArgs.OrderBys
 			};
 		}
 

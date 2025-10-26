@@ -64,8 +64,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return new UserRoleListArgs
 			{
 				Query = Query,
-				OrderBy = ViewModelArgs.OrderBy,
-				OrderByDesc = ViewModelArgs.OrderByDesc,
+				OrderBys = ViewModelArgs.OrderBys,
 				UserId = ViewModelArgs.UserId
 			};
 		}
@@ -233,8 +232,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			var request = new DataRequest<UserRole>()
 			{
 				Query = Query,
-				OrderBy = ViewModelArgs.OrderBy,
-				OrderByDesc = ViewModelArgs.OrderByDesc
+				OrderBys = ViewModelArgs.OrderBys
 			};
 			if (ViewModelArgs.UserId > 0)
 			{

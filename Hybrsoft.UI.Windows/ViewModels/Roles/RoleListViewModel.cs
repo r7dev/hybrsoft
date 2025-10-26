@@ -1,10 +1,10 @@
-﻿using Hybrsoft.UI.Windows.Models;
-using Hybrsoft.UI.Windows.Infrastructure.Common;
-using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
-using Hybrsoft.UI.Windows.Services;
-using Hybrsoft.Enums;
+﻿using Hybrsoft.Enums;
 using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.Models;
+using Hybrsoft.UI.Windows.Infrastructure.Common;
+using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
+using Hybrsoft.UI.Windows.Models;
+using Hybrsoft.UI.Windows.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,8 +56,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return new RoleListArgs
 			{
 				Query = Query,
-				OrderBy = ViewModelArgs.OrderBy,
-				OrderByDesc = ViewModelArgs.OrderByDesc
+				OrderBys = ViewModelArgs.OrderBys
 			};
 		}
 
@@ -238,8 +237,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return new DataRequest<Role>()
 			{
 				Query = Query,
-				OrderBy = ViewModelArgs.OrderBy,
-				OrderByDesc = ViewModelArgs.OrderByDesc
+				OrderBys = ViewModelArgs.OrderBys
 			};
 		}
 

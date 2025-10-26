@@ -1,5 +1,7 @@
-﻿using Hybrsoft.Infrastructure.Models;
+﻿using Hybrsoft.Enums;
+using Hybrsoft.Infrastructure.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace Hybrsoft.UI.Windows.ViewModels
@@ -10,7 +12,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public UserRoleListArgs()
 		{
-			OrderBy = r => r.Role.Name;
+			OrderBys = [(r => r.Role.Name, OrderBy.Asc)];
 		}
 
 		public long UserId { get; set; }
@@ -19,7 +21,6 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public string Query { get; set; }
 
-		public Expression<Func<UserRole, object>> OrderBy { get; set; }
-		public Expression<Func<UserRole, object>> OrderByDesc { get; set; }
+		public List<(Expression<Func<UserRole, object>> KeySelector, OrderBy OrderBy)> OrderBys { get; set; }
 	}
 }

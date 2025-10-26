@@ -58,8 +58,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return new SubscriptionListArgs
 			{
 				Query = Query,
-				OrderBy = ViewModelArgs.OrderBy,
-				OrderByDesc = ViewModelArgs.OrderByDesc
+				OrderBys = ViewModelArgs.OrderBys
 			};
 		}
 
@@ -251,8 +250,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return new DataRequest<Subscription>()
 			{
 				Query = Query,
-				OrderBy = ViewModelArgs.OrderBy,
-				OrderByDesc = ViewModelArgs.OrderByDesc
+				OrderBys = ViewModelArgs.OrderBys
 			};
 		}
 

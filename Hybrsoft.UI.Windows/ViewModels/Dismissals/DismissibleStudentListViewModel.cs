@@ -58,8 +58,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return new DismissibleStudentListArgs
 			{
 				Query = Query,
-				OrderBy = ViewModelArgs.OrderBy,
-				OrderByDesc = ViewModelArgs.OrderByDesc
+				OrderBys = ViewModelArgs.OrderBys
 			};
 		}
 
@@ -163,8 +162,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				Query = Query,
 				Where = r => r.Classroom.Year == now.Year
 					&& scheduleTypeIds.Contains(r.Classroom.ScheduleType.ScheduleTypeID),
-				OrderBy = ViewModelArgs.OrderBy,
-				OrderByDesc = ViewModelArgs.OrderByDesc
+				OrderBys = ViewModelArgs.OrderBys
 			};
 		}
 

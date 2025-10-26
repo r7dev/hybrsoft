@@ -56,8 +56,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return new PermissionListArgs
 			{
 				Query = Query,
-				OrderBy = ViewModelArgs.OrderBy,
-				OrderByDesc = ViewModelArgs.OrderByDesc
+				OrderBys = ViewModelArgs.OrderBys
 			};
 		}
 
@@ -246,8 +245,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return new DataRequest<Permission>()
 			{
 				Query = Query,
-				OrderBy = ViewModelArgs.OrderBy,
-				OrderByDesc = ViewModelArgs.OrderByDesc
+				OrderBys = ViewModelArgs.OrderBys
 			};
 		}
 

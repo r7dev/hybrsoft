@@ -64,8 +64,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return new StudentRelativeListArgs
 			{
 				Query = Query,
-				OrderBy = ViewModelArgs.OrderBy,
-				OrderByDesc = ViewModelArgs.OrderByDesc,
+				OrderBys = ViewModelArgs.OrderBys,
 				StudentID = ViewModelArgs.StudentID
 			};
 		}
@@ -233,8 +232,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			var request = new DataRequest<StudentRelative>()
 			{
 				Query = Query,
-				OrderBy = ViewModelArgs.OrderBy,
-				OrderByDesc = ViewModelArgs.OrderByDesc
+				OrderBys = ViewModelArgs.OrderBys
 			};
 			if (ViewModelArgs.StudentID > 0)
 			{

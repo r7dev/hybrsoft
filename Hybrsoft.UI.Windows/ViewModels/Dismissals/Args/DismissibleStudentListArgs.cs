@@ -1,5 +1,7 @@
-﻿using Hybrsoft.Infrastructure.Models;
+﻿using Hybrsoft.Enums;
+using Hybrsoft.Infrastructure.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace Hybrsoft.UI.Windows.ViewModels
@@ -10,14 +12,13 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public DismissibleStudentListArgs()
 		{
-			OrderBy = r => r.Student.FirstName;
+			OrderBys = [(r => r.Student.FirstName, OrderBy.Asc)];
 		}
 
 		public bool IsEmpty { get; set; }
 
 		public string Query { get; set; }
 
-		public Expression<Func<ClassroomStudent, object>> OrderBy { get; set; }
-		public Expression<Func<ClassroomStudent, object>> OrderByDesc { get; set; }
+		public List<(Expression<Func<ClassroomStudent, object>> KeySelector, OrderBy OrderBy)> OrderBys { get; set; }
 	}
 }

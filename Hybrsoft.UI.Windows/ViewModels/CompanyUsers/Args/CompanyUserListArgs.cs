@@ -1,5 +1,7 @@
-﻿using Hybrsoft.Infrastructure.Models;
+﻿using Hybrsoft.Enums;
+using Hybrsoft.Infrastructure.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace Hybrsoft.UI.Windows.ViewModels
@@ -10,7 +12,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public CompanyUserListArgs()
 		{
-			OrderBy = r => r.User.FirstName;
+			OrderBys = [(r => r.User.FirstName, OrderBy.Asc)];
 		}
 
 		public long CompanyID { get; set; }
@@ -19,7 +21,6 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		public string Query { get; set; }
 
-		public Expression<Func<CompanyUser, object>> OrderBy { get; set; }
-		public Expression<Func<CompanyUser, object>> OrderByDesc { get; set; }
+		public List<(Expression<Func<CompanyUser, object>> KeySelector, OrderBy OrderBy)> OrderBys { get; set; }
 	}
 }

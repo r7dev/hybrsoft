@@ -1,9 +1,10 @@
-using Hybrsoft.UI.Windows.Models;
-using Hybrsoft.UI.Windows.Services;
 using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.EnterpriseManager.Extensions;
+using Hybrsoft.Enums;
 using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.Models;
+using Hybrsoft.UI.Windows.Models;
+using Hybrsoft.UI.Windows.Services;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
@@ -108,7 +109,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			{
 				Query = query,
 				Where = r => !ExcludedKeys.Contains(r.RoleID),
-				OrderBy = r => r.Name
+				OrderBys = [(r => r.Name, OrderBy.Asc)]
 			};
 			return await RoleService.GetRolesAsync(0, 20, request);
 		}

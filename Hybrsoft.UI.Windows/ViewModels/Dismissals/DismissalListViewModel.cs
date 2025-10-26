@@ -58,8 +58,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return new DismissalListArgs
 			{
 				Query = Query,
-				OrderBy = ViewModelArgs.OrderBy,
-				OrderByDesc = ViewModelArgs.OrderByDesc
+				OrderBys = ViewModelArgs.OrderBys
 			};
 		}
 
@@ -231,8 +230,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				Query = Query,
 				Where = r => r.DismissedOn == null,
-				OrderBy = ViewModelArgs.OrderBy,
-				OrderByDesc = ViewModelArgs.OrderByDesc
+				OrderBys = ViewModelArgs.OrderBys
 			};
 		}
 

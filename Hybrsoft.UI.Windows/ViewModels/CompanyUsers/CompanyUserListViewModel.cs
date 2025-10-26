@@ -66,8 +66,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return new CompanyUserListArgs
 			{
 				Query = Query,
-				OrderBy = ViewModelArgs.OrderBy,
-				OrderByDesc = ViewModelArgs.OrderByDesc,
+				OrderBys = ViewModelArgs.OrderBys,
 				CompanyID = ViewModelArgs.CompanyID
 			};
 		}
@@ -245,8 +244,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			var request = new DataRequest<CompanyUser>()
 			{
 				Query = Query,
-				OrderBy = ViewModelArgs.OrderBy,
-				OrderByDesc = ViewModelArgs.OrderByDesc
+				OrderBys = ViewModelArgs.OrderBys
 			};
 			if (ViewModelArgs.CompanyID > 0)
 			{
