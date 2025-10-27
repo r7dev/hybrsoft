@@ -13,10 +13,14 @@ using Windows.Storage.Streams;
 
 namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 {
-	public class LoginService(IUserService userService, ISecurityService securityService, ICommonServices commonServices) : ILoginService
+	public class LoginService(IUserService userService,
+		ISecurityService securityService,
+		ISettingsService settingsService,
+		ICommonServices commonServices) : ILoginService
 	{
 		private readonly IUserService _userService = userService;
 		private readonly ISecurityService _securityService = securityService;
+		private readonly ISettingsService _settingsService = settingsService;
 		private readonly ICommonServices _commonServices = commonServices;
 
 		public bool IsAuthenticated { get; set; } = false;
@@ -40,6 +44,8 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			bool isUserAuthenticated = user != null && _securityService.VerifyHashedPassword(user.Password, password);
 			AppSettings.Current.UserID = isUserAuthenticated ? user.UserID : default;
 			AppSettings.Current.UserName = isUserAuthenticated ? userName : default;
+			_settingsService.UserFirstName = isUserAuthenticated ? user?.FirstName : default;
+			_settingsService.UserLastName = isUserAuthenticated ? user?.LastName : default;
 			UpdateAuthenticationStatus(isUserAuthenticated);
 			if (isUserAuthenticated)
 				return Result.Ok();

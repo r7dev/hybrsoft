@@ -22,6 +22,18 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			set => AppSettings.Current.UserName = value;
 		}
 
+		public string UserFirstName
+		{
+			get => ReadSettingAsync<string>(nameof(UserFirstName)).Result;
+			set => SaveSettingAsync(nameof(UserFirstName), value).Wait();
+		}
+
+		public string UserLastName
+		{
+			get => ReadSettingAsync<string>(nameof(UserLastName)).Result;
+			set => SaveSettingAsync(nameof(UserLastName), value).Wait();
+		}
+
 		public char PasswordChar
 		{
 			get => AppSettings.Current.PasswordChar;

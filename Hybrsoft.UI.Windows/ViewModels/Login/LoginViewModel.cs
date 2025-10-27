@@ -141,7 +141,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				ViewModelArgs.UserInfo = new UserInfo
 				{
 					AccountName = UserName,
-					FirstName = UserName,
+					FirstName = SettingsService.UserFirstName,
+					LastName = SettingsService.UserLastName,
 					PictureSource = null
 				};
 			}

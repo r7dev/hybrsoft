@@ -8,6 +8,8 @@ namespace Hybrsoft.UI.Windows.Services
 		string AppName { get; }
 		string Version { get; }
 		string UserName { get; set; }
+		string UserFirstName { get; set; }
+		string UserLastName { get; set; }
 		char PasswordChar { get; }
 		EnvironmentType Environment { get; set; }
 
