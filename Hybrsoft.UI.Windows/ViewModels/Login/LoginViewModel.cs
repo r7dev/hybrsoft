@@ -110,6 +110,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 					{
 						await LoginService.TrySetupWindowsHelloAsync(UserName);
 					}
+					// It can only be assigned to the settings after verification in IsWindowsHelloEnabledAsync.
+					// Where it will be detected in case the user entered at login is different from the last logged-in user.
+					SettingsService.UserName = UserName;
 					await VerifyLicenseAsync();
 					await EnterApplication();
 					return;

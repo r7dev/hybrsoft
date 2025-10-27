@@ -43,7 +43,6 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			UserModel user = await _userService.GetUserByEmailAsync(userName, true);
 			bool isUserAuthenticated = user != null && _securityService.VerifyHashedPassword(user.Password, password);
 			AppSettings.Current.UserID = isUserAuthenticated ? user.UserID : default;
-			AppSettings.Current.UserName = isUserAuthenticated ? userName : default;
 			_settingsService.UserFirstName = isUserAuthenticated ? user?.FirstName : default;
 			_settingsService.UserLastName = isUserAuthenticated ? user?.LastName : default;
 			UpdateAuthenticationStatus(isUserAuthenticated);
