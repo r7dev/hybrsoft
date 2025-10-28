@@ -9,6 +9,7 @@
 	xmlns:controls="using:Hybrsoft.EnterpriseManager.Controls"
 	xmlns:views="using:Hybrsoft.EnterpriseManager.Views"
 	xmlns:viewmodels="using:Hybrsoft.UI.Windows.ViewModels"
+	xmlns:commons="using:Hybrsoft.UI.Windows.Infrastructure.Common"
 	mc:Ignorable="d">
 
 	<UserControl.Resources>
@@ -18,17 +19,22 @@
 						   Style="{StaticResource FormsSection}"
 						   controls:FluidGrid.ColumnSpan="2" />
 				<controls:FormTextBox x:Uid="/UI/CompanyDetailsUserControl_LegalName"
-									  Text="{x:Bind EditableItem.LegalName, Mode=TwoWay}" />
+									  Text="{x:Bind EditableItem.LegalName, Mode=TwoWay}"
+									  MaxLength="{x:Bind commons:FieldLengths.LegalName, Mode=OneTime}"/>
 				<controls:FormTextBox x:Uid="/UI/CompanyDetailsUserControl_TradeName"
-									  Text="{x:Bind EditableItem.TradeName, Mode=TwoWay}" />
-
+									  Text="{x:Bind EditableItem.TradeName, Mode=TwoWay}"
+									  MaxLength="{x:Bind commons:FieldLengths.TradeName, Mode=OneTime}"/>
+				
 				<controls:FormTextBox x:Uid="/UI/CompanyDetailsUserControl_FederalRegistration"
-									  Text="{x:Bind EditableItem.FederalRegistration, Mode=TwoWay}" />
+									  Text="{x:Bind EditableItem.FederalRegistration, Mode=TwoWay}"
+									  MaxLength="{x:Bind commons:FieldLengths.FederalRegistration, Mode=OneTime}"/>
 				<controls:FormTextBox x:Uid="/UI/CompanyDetailsUserControl_StateRegistration"
-									  Text="{x:Bind EditableItem.StateRegistration, Mode=TwoWay}" />
-
+									  Text="{x:Bind EditableItem.StateRegistration, Mode=TwoWay}"
+									  MaxLength="{x:Bind commons:FieldLengths.StateRegistration, Mode=OneTime}"/>
+				
 				<controls:FormTextBox x:Uid="/UI/CompanyDetailsUserControl_CityLicense"
-									  Text="{x:Bind EditableItem.CityLicense, Mode=TwoWay}" />
+									  Text="{x:Bind EditableItem.CityLicense, Mode=TwoWay}"
+									  MaxLength="{x:Bind commons:FieldLengths.CityLicense, Mode=OneTime}"/>
 				<controls:FormComboBox x:Uid="/UI/CompanyDetailsUserControl_Country"
 									   ItemsSource="{x:Bind LookupTables.Countries, Mode=OneWay}"
 									   SelectedValue="{x:Bind EditableItem.CountryID, Mode=TwoWay, Converter={StaticResource Int16Converter}}"
@@ -37,9 +43,11 @@
 									   SelectionChanged="FormComboBox_SelectionChanged" />
 
 				<controls:FormTextBox x:Uid="/UI/CompanyDetailsUserControl_Phone"
-									  Text="{x:Bind EditableItem.Phone, Mode=TwoWay}" />
+									  Text="{x:Bind EditableItem.Phone, Mode=TwoWay}"
+									  MaxLength="{x:Bind commons:FieldLengths.Phone, Mode=OneTime}"/>
 				<controls:FormTextBox x:Uid="/UI/CompanyDetailsUserControl_EmailAddress"
-								  Text="{x:Bind EditableItem.Email, Mode=TwoWay}" />
+									  Text="{x:Bind EditableItem.Email, Mode=TwoWay}"
+									  MaxLength="{x:Bind commons:FieldLengths.Email, Mode=OneTime}"/>
 			</controls:FluidGrid>
 		</DataTemplate>
 	</UserControl.Resources>

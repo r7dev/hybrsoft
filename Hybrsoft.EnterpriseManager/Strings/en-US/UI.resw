@@ -963,4 +963,7 @@
   <data name="LoginService_MaybeLater" xml:space="preserve">
     <value>Maybe later</value>
   </data>
+  <data name="RelativeDetailsUserControl_DocumentNumber.Header" xml:space="preserve">
+    <value>Document Number</value>
+  </data>
 </root>

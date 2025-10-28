@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [Learn].[Classroom]
 (
 	[ClassroomID] BIGINT NOT NULL PRIMARY KEY,
-	[Name] NVARCHAR(150) NOT NULL,
+	[Name] NVARCHAR(50) NOT NULL,
 	[Year] SMALLINT NOT NULL,
 	[MinimumYear] SMALLINT NOT NULL,
 	[MaximumYear] SMALLINT NOT NULL,

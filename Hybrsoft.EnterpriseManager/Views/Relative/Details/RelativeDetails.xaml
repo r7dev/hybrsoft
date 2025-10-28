@@ -9,6 +9,7 @@
 	xmlns:controls="using:Hybrsoft.EnterpriseManager.Controls"
 	xmlns:views="using:Hybrsoft.EnterpriseManager.Views"
 	xmlns:viewmodels="using:Hybrsoft.UI.Windows.ViewModels"
+	xmlns:commons="using:Hybrsoft.UI.Windows.Infrastructure.Common"
 	mc:Ignorable="d">
 
 	<UserControl.Resources>
@@ -18,22 +19,30 @@
 						   Style="{StaticResource FormsSection}"
 						   controls:FluidGrid.ColumnSpan="2" />
 				<controls:FormTextBox x:Uid="/UI/RelativeDetailsUserControl_FirstName"
-									  Text="{x:Bind EditableItem.FirstName, Mode=TwoWay}"/>
+									  Text="{x:Bind EditableItem.FirstName, Mode=TwoWay}"
+									  MaxLength="{x:Bind commons:FieldLengths.FirstName, Mode=OneTime}"/>
 				<controls:FormTextBox x:Uid="/UI/RelativeDetailsUserControl_LastName"
-									  Text="{x:Bind EditableItem.LastName, Mode=TwoWay}"/>
+									  Text="{x:Bind EditableItem.LastName, Mode=TwoWay}"
+									  MaxLength="{x:Bind commons:FieldLengths.LastName, Mode=OneTime}"/>
 				<controls:FormTextBox x:Uid="/UI/RelativeDetailsUserControl_MiddleName"
-									  Text="{x:Bind EditableItem.MiddleName, Mode=TwoWay}"/>
+									  Text="{x:Bind EditableItem.MiddleName, Mode=TwoWay}"
+									  MaxLength="{x:Bind commons:FieldLengths.MiddleName, Mode=OneTime}"/>
 				<controls:FormComboBox x:Uid="/UI/RelativeDetailsUserControl_Type"
 									   ItemsSource="{x:Bind LookupTables.RelativeTypes, Mode=OneWay}"
 									   SelectedValue="{x:Bind EditableItem.RelativeTypeID, Mode=TwoWay, Converter={StaticResource Int16Converter}}"
 									   SelectedValuePath="RelativeTypeID"
 									   DisplayMemberPath="Name"
 									   SelectionChanged="FormComboBox_SelectionChanged" />
+				<controls:FormTextBox x:Uid="/UI/RelativeDetailsUserControl_DocumentNumber"
+									  Text="{x:Bind EditableItem.DocumentNumber, Mode=TwoWay}"
+									  MaxLength="{x:Bind commons:FieldLengths.DocumentNumber, Mode=OneTime}"/>
 				<controls:FormTextBox x:Uid="/UI/RelativeDetailsUserControl_Phone"
-									  Text="{x:Bind EditableItem.Phone, Mode=TwoWay}"/>
+									  Text="{x:Bind EditableItem.Phone, Mode=TwoWay}"
+									  MaxLength="{x:Bind commons:FieldLengths.Phone, Mode=OneTime}"/>
 				<controls:FormTextBox x:Uid="/UI/RelativeDetailsUserControl_EmailAddress"
 									  Text="{x:Bind EditableItem.Email, Mode=TwoWay}"
-									  IsSpellCheckEnabled="False"/>
+									  IsSpellCheckEnabled="False"
+									  MaxLength="{x:Bind commons:FieldLengths.Email, Mode=OneTime}"/>
 			</controls:FluidGrid>
 		</DataTemplate>
 	</UserControl.Resources>

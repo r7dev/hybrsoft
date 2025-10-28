@@ -9,6 +9,7 @@
 	xmlns:controls="using:Hybrsoft.EnterpriseManager.Controls"
 	xmlns:views="using:Hybrsoft.EnterpriseManager.Views"
 	xmlns:viewmodels="using:Hybrsoft.UI.Windows.ViewModels"
+	xmlns:commons="using:Hybrsoft.UI.Windows.Infrastructure.Common"
 	mc:Ignorable="d">
 
 	<UserControl.Resources>
@@ -18,14 +19,18 @@
 						   Style="{StaticResource FormsSection}"
 						   controls:FluidGrid.ColumnSpan="2" />
 				<controls:FormTextBox x:Uid="/UI/UserDetailsUserControl_FirstName"
-									  Text="{x:Bind EditableItem.FirstName, Mode=TwoWay}" />
+									  Text="{x:Bind EditableItem.FirstName, Mode=TwoWay}"
+									  MaxLength="{x:Bind commons:FieldLengths.FirstName, Mode=OneTime}"/>
 				<controls:FormTextBox x:Uid="/UI/UserDetailsUserControl_LastName"
-									  Text="{x:Bind EditableItem.LastName, Mode=TwoWay}" />
+									  Text="{x:Bind EditableItem.LastName, Mode=TwoWay}"
+									  MaxLength="{x:Bind commons:FieldLengths.LastName, Mode=OneTime}"/>
 				<controls:FormTextBox x:Uid="/UI/UserDetailsUserControl_MiddleName"
-									  Text="{x:Bind EditableItem.MiddleName, Mode=TwoWay}" />
+									  Text="{x:Bind EditableItem.MiddleName, Mode=TwoWay}"
+									  MaxLength="{x:Bind commons:FieldLengths.MiddleName, Mode=OneTime}"/>
 				<controls:FormTextBox x:Uid="/UI/UserDetailsUserControl_EmailAddress"
 									  Text="{x:Bind EditableItem.Email, Mode=TwoWay}"
-									  IsSpellCheckEnabled="False" />
+									  IsSpellCheckEnabled="False"
+									  MaxLength="{x:Bind commons:FieldLengths.Email, Mode=OneTime}"/>
 				<controls:FormPasswordBox x:Uid="/UI/UserDetailsUserControl_Password"
 										  Password="{x:Bind EditableItem.Password, Mode=TwoWay}"
 										  PasswordChanged="FormPasswordBox_PasswordChanged" />

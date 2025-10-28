@@ -9,6 +9,7 @@
 	xmlns:controls="using:Hybrsoft.EnterpriseManager.Controls"
 	xmlns:views="using:Hybrsoft.EnterpriseManager.Views"
 	xmlns:viewmodels="using:Hybrsoft.UI.Windows.ViewModels"
+	xmlns:commons="using:Hybrsoft.UI.Windows.Infrastructure.Common"
 	mc:Ignorable="d">
 
 	<UserControl.Resources>
@@ -18,7 +19,8 @@
 						   Style="{StaticResource FormsSection}"
 						   controls:FluidGrid.ColumnSpan="2" />
 				<controls:FormTextBox x:Uid="/UI/RoleDetailsUserControl_Name"
-									  Text="{x:Bind EditableItem.Name, Mode=TwoWay}" />
+									  Text="{x:Bind EditableItem.Name, Mode=TwoWay}"
+									  MaxLength="{x:Bind commons:FieldLengths.Name, Mode=OneTime}"/>
 			</controls:FluidGrid>
 		</DataTemplate>
 	</UserControl.Resources>
