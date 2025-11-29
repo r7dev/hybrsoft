@@ -12,12 +12,12 @@ namespace Hybrsoft.EnterpriseManager.Services
 {
 	public class RoleService(IDataServiceFactory dataServiceFactory, ILogService logService) : IRoleService
 	{
-		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
-		public ILogService LogService { get; } = logService;
+		private readonly IDataServiceFactory _dataServiceFactory = dataServiceFactory;
+		private readonly ILogService _logService = logService;
 
 		public async Task<RoleModel> GetRoleAsync(long id)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await GetRoleAsync(dataService, id);
 		}
 
@@ -33,7 +33,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<IList<RoleModel>> GetRolesAsync(DataRequest<Role> request)
 		{
-			var collection = new RoleCollection(this, LogService);
+			var collection = new RoleCollection(this, _logService);
 			await collection.LoadAsync(request);
 			return collection;
 		}
@@ -41,7 +41,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<IList<RoleModel>> GetRolesAsync(int skip, int take, DataRequest<Role> request)
 		{
 			var models = new List<RoleModel>();
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var items = await dataService.GetRolesAsync(skip, take, request);
 			foreach (var item in items)
 			{
@@ -52,14 +52,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<int> GetRolesCountAsync(DataRequest<Role> request)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.GetRolesCountAsync(request);
 		}
 
 		public async Task<int> UpdateRoleAsync(RoleModel model)
 		{
 			long id = model.RoleID;
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var item = id > 0 ? await dataService.GetRoleAsync(model.RoleID) : new Role();
 			if (item != null)
 			{
@@ -73,13 +73,13 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<int> DeleteRoleAsync(RoleModel model)
 		{
 			var item = new Role { RoleID = model.RoleID };
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.DeleteRolesAsync(item);
 		}
 
 		public async Task<int> DeleteRoleRangeAsync(int index, int length, DataRequest<Role> request)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var items = await dataService.GetRoleKeysAsync(index, length, request);
 			return await dataService.DeleteRolesAsync([.. items]);
 		}

@@ -11,9 +11,10 @@ using Windows.ApplicationModel.DataTransfer;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class SubscriptionDetailsViewModel(ISubscriptionService subscriptionService, ICommonServices commonServices) : GenericDetailsViewModel<SubscriptionModel>(commonServices)
+	public partial class SubscriptionDetailsViewModel(ISubscriptionService subscriptionService,
+		ICommonServices commonServices) : GenericDetailsViewModel<SubscriptionModel>(commonServices)
 	{
-		public ISubscriptionService SubscriptionService { get; } = subscriptionService;
+		private readonly ISubscriptionService _subscriptionService = subscriptionService;
 
 		private bool _hasEditorPermission;
 
@@ -39,7 +40,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				try
 				{
-					var item = await SubscriptionService.GetSubscriptionAsync(ViewModelArgs.SubscriptionID);
+					var item = await _subscriptionService.GetSubscriptionAsync(ViewModelArgs.SubscriptionID);
 					Item = item ?? new SubscriptionModel { SubscriptionID = ViewModelArgs.SubscriptionID, IsEmpty = true };
 				}
 				catch (Exception ex)
@@ -163,7 +164,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string startMessage = ResourceService.GetString<SubscriptionDetailsViewModel>(ResourceFiles.InfoMessages, "SavingSubscription");
 				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
-				await SubscriptionService.UpdateSubscriptionAsync(model);
+				await _subscriptionService.UpdateSubscriptionAsync(model);
 				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "SaveSuccessful");
 				string endMessage = ResourceService.GetString<SubscriptionDetailsViewModel>(ResourceFiles.InfoMessages, "SubscriptionSaved");
 				EndStatusMessage(endTitle, endMessage, LogType.Success);
@@ -189,7 +190,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string startMessage = ResourceService.GetString<SubscriptionDetailsViewModel>(ResourceFiles.InfoMessages, "DeletingSubscription");
 				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
-				await SubscriptionService.DeleteSubscriptionAsync(model);
+				await _subscriptionService.DeleteSubscriptionAsync(model);
 				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "DeletionSuccessful");
 				string endMessage = ResourceService.GetString<SubscriptionDetailsViewModel>(ResourceFiles.InfoMessages, "SubscriptionDeleted");
 				EndStatusMessage(endTitle, endMessage, LogType.Warning);
@@ -259,7 +260,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 							{
 								try
 								{
-									var item = await SubscriptionService.GetSubscriptionAsync(current.SubscriptionID);
+									var item = await _subscriptionService.GetSubscriptionAsync(current.SubscriptionID);
 									item ??= new SubscriptionModel { SubscriptionID = current.SubscriptionID, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
@@ -304,7 +305,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 					case "ItemRangesDeleted":
 						try
 						{
-							var model = await SubscriptionService.GetSubscriptionAsync(current.SubscriptionID);
+							var model = await _subscriptionService.GetSubscriptionAsync(current.SubscriptionID);
 							if (model == null)
 							{
 								await OnItemDeletedExternally();

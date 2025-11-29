@@ -13,9 +13,10 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class DismissibleStudentListViewModel(IDismissalService dismissalService, ICommonServices commonServices) : GenericListViewModel<DismissibleStudentModel>(commonServices)
+	public partial class DismissibleStudentListViewModel(IDismissalService dismissalService,
+		ICommonServices commonServices) : GenericListViewModel<DismissibleStudentModel>(commonServices)
 	{
-		IDismissalService DismissalService { get; } = dismissalService;
+		private readonly IDismissalService _dismissalService = dismissalService;
 
 		private bool _hasPermissionToItemInvoke;
 		private string StartTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
@@ -99,7 +100,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			if (!ViewModelArgs.IsEmpty)
 			{
 				DataRequest<ClassroomStudent> request = BuildDataRequest();
-				return await DismissalService.GetDismissibleStudentsAsync(request);
+				return await _dismissalService.GetDismissibleStudentsAsync(request);
 			}
 			return [];
 		}

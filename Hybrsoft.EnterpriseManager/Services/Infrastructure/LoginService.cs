@@ -159,7 +159,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		const int NTE_NO_KEY = unchecked((int)0x8009000D);
 		const int NTE_PERM = unchecked((int)0x80090010);
 
-		static private async Task<bool> TryDeleteCredentialAccountAsync(string userName)
+		private static async Task<bool> TryDeleteCredentialAccountAsync(string userName)
 		{
 			try
 			{
@@ -185,7 +185,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			return false;
 		}
 
-		static private Task<bool> RegisterPassportCredentialWithServerAsync(IBuffer publicKey)
+		private static Task<bool> RegisterPassportCredentialWithServerAsync(IBuffer publicKey)
 		{
 			// TODO:
 			// Register the public key and attestation of the key credential with the server

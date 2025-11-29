@@ -13,9 +13,10 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class ClassroomListViewModel(IClassroomService classroomService, ICommonServices commonServices) : GenericListViewModel<ClassroomModel>(commonServices)
+	public partial class ClassroomListViewModel(IClassroomService classroomService,
+		ICommonServices commonServices) : GenericListViewModel<ClassroomModel>(commonServices)
 	{
-		public IClassroomService ClassroomService { get; } = classroomService;
+		private readonly IClassroomService _classroomService = classroomService;
 
 		private string StartTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
 		private string StartMessage => ResourceService.GetString<ClassroomListViewModel>(ResourceFiles.InfoMessages, "LoadingClassrooms");
@@ -97,7 +98,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			if (!ViewModelArgs.IsEmpty)
 			{
 				DataRequest<Classroom> request = BuildDataRequest();
-				return await ClassroomService.GetClassroomsAsync(request);
+				return await _classroomService.GetClassroomsAsync(request);
 			}
 			return [];
 		}
@@ -205,7 +206,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			foreach (var model in models)
 			{
-				await ClassroomService.DeleteClassroomAsync(model);
+				await _classroomService.DeleteClassroomAsync(model);
 				LogWarning(model);
 			}
 		}
@@ -217,12 +218,12 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			List<ClassroomModel> models = [];
 			foreach (var range in ranges)
 			{
-				var items = await ClassroomService.GetClassroomsAsync(range.Index, range.Length, request);
+				var items = await _classroomService.GetClassroomsAsync(range.Index, range.Length, request);
 				models.AddRange(items);
 			}
 			foreach (var range in ranges.Reverse())
 			{
-				await ClassroomService.DeleteClassroomRangeAsync(range.Index, range.Length, request);
+				await _classroomService.DeleteClassroomRangeAsync(range.Index, range.Length, request);
 			}
 			foreach (var model in models)
 			{

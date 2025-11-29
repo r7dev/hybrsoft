@@ -10,9 +10,10 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class ClassroomDetailsViewModel(IClassroomService classroomService, ICommonServices commonServices) : GenericDetailsViewModel<ClassroomModel>(commonServices)
+	public partial class ClassroomDetailsViewModel(IClassroomService classroomService,
+		ICommonServices commonServices) : GenericDetailsViewModel<ClassroomModel>(commonServices)
 	{
-		public IClassroomService ClassroomService { get; } = classroomService;
+		private readonly IClassroomService _classroomService = classroomService;
 
 		public override string Title =>
 			ItemIsNew
@@ -50,7 +51,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				try
 				{
-					var item = await ClassroomService.GetClassroomAsync(ViewModelArgs.ClassroomID);
+					var item = await _classroomService.GetClassroomAsync(ViewModelArgs.ClassroomID);
 					Item = item ?? new ClassroomModel { ClassroomID = ViewModelArgs.ClassroomID, IsEmpty = true };
 					await Task.Delay(200);
 					EditableItem.NotifyChanges();
@@ -92,7 +93,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string startMessage = ResourceService.GetString<ClassroomDetailsViewModel>(ResourceFiles.InfoMessages, "SavingClassroom");
 				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
-				await ClassroomService.UpdateClassroomAsync(model);
+				await _classroomService.UpdateClassroomAsync(model);
 				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "SaveSuccessful");
 				string endMessage = ResourceService.GetString<ClassroomDetailsViewModel>(ResourceFiles.InfoMessages, "ClassroomSaved");
 				EndStatusMessage(endTitle, endMessage, LogType.Success);
@@ -117,7 +118,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string startMessage = ResourceService.GetString<ClassroomDetailsViewModel>(ResourceFiles.InfoMessages, "DeletingClassroom");
 				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
-				await ClassroomService.DeleteClassroomAsync(model);
+				await _classroomService.DeleteClassroomAsync(model);
 				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "DeletionSuccessful");
 				string endMessage = ResourceService.GetString<ClassroomDetailsViewModel>(ResourceFiles.InfoMessages, "ClassroomDeleted");
 				EndStatusMessage(endTitle, endMessage, LogType.Warning);
@@ -182,7 +183,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 							{
 								try
 								{
-									var item = await ClassroomService.GetClassroomAsync(current.ClassroomID);
+									var item = await _classroomService.GetClassroomAsync(current.ClassroomID);
 									item ??= new ClassroomModel { ClassroomID = current.ClassroomID, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
@@ -227,7 +228,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 					case "ItemRangesDeleted":
 						try
 						{
-							var model = await ClassroomService.GetClassroomAsync(current.ClassroomID);
+							var model = await _classroomService.GetClassroomAsync(current.ClassroomID);
 							if (model == null)
 							{
 								await OnItemDeletedExternally();

@@ -13,9 +13,10 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class SubscriptionListViewModel(ISubscriptionService subscriptionService, ICommonServices commonServices) : GenericListViewModel<SubscriptionModel>(commonServices)
+	public partial class SubscriptionListViewModel(ISubscriptionService subscriptionService,
+		ICommonServices commonServices) : GenericListViewModel<SubscriptionModel>(commonServices)
 	{
-		public ISubscriptionService SubscriptionService { get; } = subscriptionService;
+		private readonly ISubscriptionService _subscriptionService = subscriptionService;
 
 		private bool _hasEditorPermission;
 		private string StartTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
@@ -99,7 +100,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			if (!ViewModelArgs.IsEmpty)
 			{
 				DataRequest<Subscription> request = BuildDataRequest();
-				return await SubscriptionService.GetSubscriptionsAsync(request);
+				return await _subscriptionService.GetSubscriptionsAsync(request);
 			}
 			return [];
 		}
@@ -219,7 +220,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			foreach (var model in models)
 			{
-				await SubscriptionService.DeleteSubscriptionAsync(model);
+				await _subscriptionService.DeleteSubscriptionAsync(model);
 				LogWarning(model);
 			}
 		}
@@ -231,12 +232,12 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			List<SubscriptionModel> models = [];
 			foreach (var range in ranges)
 			{
-				var items = await SubscriptionService.GetSubscriptionsAsync(range.Index, range.Length, request);
+				var items = await _subscriptionService.GetSubscriptionsAsync(range.Index, range.Length, request);
 				models.AddRange(items);
 			}
 			foreach (var range in ranges.Reverse())
 			{
-				await SubscriptionService.DeleteSubscriptionRangeAsync(range.Index, range.Length, request);
+				await _subscriptionService.DeleteSubscriptionRangeAsync(range.Index, range.Length, request);
 			}
 			foreach (var model in models)
 			{

@@ -1,21 +1,21 @@
 ﻿using Hybrsoft.Enums;
-using Hybrsoft.Infrastructure.Models;
 using Hybrsoft.UI.Windows.Infrastructure.Common;
 using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Services;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class ClassroomStudentDetailsViewModel(IClassroomService classroomService, IClassroomStudentService classroomStudentService, ICommonServices commonServices) : GenericDetailsViewModel<ClassroomStudentModel>(commonServices)
+	public partial class ClassroomStudentDetailsViewModel(IClassroomService classroomService,
+		IClassroomStudentService classroomStudentService,
+		ICommonServices commonServices) : GenericDetailsViewModel<ClassroomStudentModel>(commonServices)
 	{
-		public IClassroomService ClassroomService { get; } = classroomService;
-		public IClassroomStudentService ClassroomStudentService { get; } = classroomStudentService;
+		private readonly IClassroomService _classroomService = classroomService;
+		private readonly IClassroomStudentService _classroomStudentService = classroomStudentService;
 
 		public override string Title => (Item?.IsNew ?? true) ? TitleNew : TitleEdit;
 		public string TitleNew => string.Format(ResourceService.GetString<ClassroomStudentDetailsViewModel>(ResourceFiles.UI, "TitleNew"), ClassroomID);
@@ -51,8 +51,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			ViewModelArgs = args ?? ClassroomStudentDetailsArgs.CreateDefault();
 			ClassroomStudentID = ViewModelArgs.ClassroomStudentID;
 			ClassroomID = ViewModelArgs.ClassroomID;
-			var classroom = await ClassroomService.GetClassroomAsync(ClassroomID);
-			AddedStudentKeys = await ClassroomStudentService.GetAddedStudentKeysInClassroomAsync(ClassroomID);
+			var classroom = await _classroomService.GetClassroomAsync(ClassroomID);
+			AddedStudentKeys = await _classroomStudentService.GetAddedStudentKeysInClassroomAsync(ClassroomID);
 
 			if (ViewModelArgs.IsNew)
 			{
@@ -63,7 +63,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				try
 				{
-					var item = await ClassroomStudentService.GetClassroomStudentAsync(ClassroomStudentID);
+					var item = await _classroomStudentService.GetClassroomStudentAsync(ClassroomStudentID);
 					Item = item ?? new ClassroomStudentModel() { ClassroomStudentID = ClassroomStudentID, ClassroomID = ClassroomID, IsEmpty = true };
 					Item.Classroom = classroom;
 				}
@@ -105,7 +105,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string startMessage = ResourceService.GetString<ClassroomStudentDetailsViewModel>(ResourceFiles.InfoMessages, "SavingStudentInTheClassroom");
 				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
-				await ClassroomStudentService.UpdateClassroomStudentAsync(model);
+				await _classroomStudentService.UpdateClassroomStudentAsync(model);
 				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "SaveSuccessful");
 				string endMessage = ResourceService.GetString<ClassroomStudentDetailsViewModel>(ResourceFiles.InfoMessages, "StudentInTheClassroomHasBeenSaved");
 				EndStatusMessage(endTitle, endMessage, LogType.Success);
@@ -130,7 +130,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string startMessage = ResourceService.GetString<ClassroomStudentDetailsViewModel>(ResourceFiles.InfoMessages, "DeletingStudentFromClassroom");
 				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
-				await ClassroomStudentService.DeleteClassroomStudentAsync(model);
+				await _classroomStudentService.DeleteClassroomStudentAsync(model);
 				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "DeletionSuccessful");
 				string endMessage = ResourceService.GetString<ClassroomStudentDetailsViewModel>(ResourceFiles.InfoMessages, "StudentInTheClassroomHasBeenDeleted");
 				EndStatusMessage(endTitle, endMessage, LogType.Warning);
@@ -180,7 +180,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 							{
 								try
 								{
-									var item = await ClassroomStudentService.GetClassroomStudentAsync(current.ClassroomStudentID);
+									var item = await _classroomStudentService.GetClassroomStudentAsync(current.ClassroomStudentID);
 									item ??= new ClassroomStudentModel { ClassroomStudentID = ClassroomStudentID, ClassroomID = ClassroomID, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
@@ -225,7 +225,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 					case "ItemRangesDeleted":
 						try
 						{
-							var model = await ClassroomStudentService.GetClassroomStudentAsync(current.ClassroomStudentID);
+							var model = await _classroomStudentService.GetClassroomStudentAsync(current.ClassroomStudentID);
 							if (model == null)
 							{
 								await OnItemDeletedExternally();

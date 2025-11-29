@@ -5,10 +5,13 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class UserDetailsWithRolesViewModel(IUserService userService, IUserRoleService userRoleService, ISettingsService settingsService, ICommonServices commonServices) : ViewModelBase(commonServices)
+	public partial class UserDetailsWithRolesViewModel(IUserService userService,
+		IUserRoleService userRoleService,
+		ISettingsService settingsService,
+		ICommonServices commonServices) : ViewModelBase(commonServices)
 	{
-		public ISettingsService SettingsService { get; } = settingsService;
-		public char PasswordChar { get => SettingsService.PasswordChar; }
+		private readonly ISettingsService _settingsService = settingsService;
+		public char PasswordChar { get => _settingsService.PasswordChar; }
 
 		public UserDetailsViewModel UserDetails { get; set; } = new UserDetailsViewModel(userService, commonServices);
 		public UserRoleListViewModel UserRoleList { get; set; } = new UserRoleListViewModel(userRoleService, commonServices);

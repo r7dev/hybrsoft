@@ -10,10 +10,12 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class CompanyUserDetailsViewModel(ICompanyService companyService, ICompanyUserService companyUserService, ICommonServices commonServices) : GenericDetailsViewModel<CompanyUserModel>(commonServices)
+	public partial class CompanyUserDetailsViewModel(ICompanyService companyService,
+		ICompanyUserService companyUserService,
+		ICommonServices commonServices) : GenericDetailsViewModel<CompanyUserModel>(commonServices)
 	{
-		public ICompanyService CompanyService { get; } = companyService;
-		public ICompanyUserService CompanyUserService { get; } = companyUserService;
+		private readonly ICompanyService _companyService = companyService;
+		private readonly ICompanyUserService _companyUserService = companyUserService;
 
 		private bool _hasEditorPermission;
 
@@ -51,8 +53,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			ViewModelArgs = args ?? CompanyUserDetailsArgs.CreateDefault();
 			CompanyUserID = ViewModelArgs.CompanyUserID;
 			CompanyID = ViewModelArgs.CompanyID;
-			var company = await CompanyService.GetCompanyAsync(CompanyID);
-			AddedUserKeys = await CompanyUserService.GetAddedUserKeysInCompanyAsync(CompanyID);
+			var company = await _companyService.GetCompanyAsync(CompanyID);
+			AddedUserKeys = await _companyUserService.GetAddedUserKeysInCompanyAsync(CompanyID);
 			_hasEditorPermission = AuthorizationService.HasPermission(Permissions.CompanyEditor);
 
 			if (ViewModelArgs.IsNew)
@@ -64,7 +66,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				try
 				{
-					var item = await CompanyUserService.GetCompanyUserAsync(CompanyUserID);
+					var item = await _companyUserService.GetCompanyUserAsync(CompanyUserID);
 					Item = item ?? new CompanyUserModel() { CompanyUserID = CompanyUserID, CompanyID = CompanyID, IsEmpty = true };
 					Item.Company = company;
 				}
@@ -112,7 +114,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string startMessage = ResourceService.GetString<CompanyUserDetailsViewModel>(ResourceFiles.InfoMessages, "SavingCompanyUser");
 				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
-				await CompanyUserService.UpdateCompanyUserAsync(model);
+				await _companyUserService.UpdateCompanyUserAsync(model);
 				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "SaveSuccessful");
 				string endMessage = ResourceService.GetString<CompanyUserDetailsViewModel>(ResourceFiles.InfoMessages, "CompanyUserHasBeenSaved");
 				EndStatusMessage(endTitle, endMessage, LogType.Success);
@@ -138,7 +140,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string startMessage = ResourceService.GetString<CompanyUserDetailsViewModel>(ResourceFiles.InfoMessages, "DeletingCompanyUser");
 				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
-				await CompanyUserService.DeleteCompanyUserAsync(model);
+				await _companyUserService.DeleteCompanyUserAsync(model);
 				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "DeletionSuccessful");
 				string endMessage = ResourceService.GetString<CompanyUserDetailsViewModel>(ResourceFiles.InfoMessages, "CompanyUserHasBeenDeleted");
 				EndStatusMessage(endTitle, endMessage, LogType.Warning);
@@ -192,7 +194,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 							{
 								try
 								{
-									var item = await CompanyUserService.GetCompanyUserAsync(current.CompanyUserID);
+									var item = await _companyUserService.GetCompanyUserAsync(current.CompanyUserID);
 									item ??= new CompanyUserModel { CompanyUserID = CompanyUserID, CompanyID = CompanyID, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
@@ -237,7 +239,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 					case "ItemRangesDeleted":
 						try
 						{
-							var model = await CompanyUserService.GetCompanyUserAsync(current.CompanyUserID);
+							var model = await _companyUserService.GetCompanyUserAsync(current.CompanyUserID);
 							if (model == null)
 							{
 								await OnItemDeletedExternally();

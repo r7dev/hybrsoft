@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class RolePermissionsViewModel(IRolePermissionService rolePermissionService, ICommonServices commonServices) : ViewModelBase(commonServices)
+	public partial class RolePermissionsViewModel(IRolePermissionService rolePermissionService,
+		ICommonServices commonServices) : ViewModelBase(commonServices)
 	{
-		public IRolePermissionService RolePermissionService { get; } = rolePermissionService;
+		private readonly IRolePermissionService _rolePermissionService = rolePermissionService;
 
 		public RolePermissionListViewModel RolePermissionList { get; set; } = new RolePermissionListViewModel(rolePermissionService, commonServices);
 		public RolePermissionDetailsViewModel RolePermissionDetails { get; set; } = new RolePermissionDetailsViewModel(rolePermissionService, commonServices);
@@ -69,7 +70,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				var model = await RolePermissionService.GetRolePermissionAsync(selected.RolePermissionID);
+				var model = await _rolePermissionService.GetRolePermissionAsync(selected.RolePermissionID);
 				selected.Merge(model);
 			}
 			catch (Exception ex)

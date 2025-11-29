@@ -12,12 +12,12 @@ namespace Hybrsoft.EnterpriseManager.Services
 {
 	public class PermissionService(IDataServiceFactory dataServiceFactory, ILogService logService) : IPermissionService
 	{
-		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
-		public ILogService LogService { get; } = logService;
+		private readonly IDataServiceFactory _dataServiceFactory = dataServiceFactory;
+		private readonly ILogService _logService = logService;
 
 		public async Task<PermissionModel> GetPermissionAsync(long id)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await GetPermissionAsync(dataService, id);
 		}
 
@@ -33,7 +33,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<IList<PermissionModel>> GetPermissionsAsync(DataRequest<Permission> request)
 		{
-			var collection = new PermissionCollection(this, LogService);
+			var collection = new PermissionCollection(this, _logService);
 			await collection.LoadAsync(request);
 			return collection;
 		}
@@ -41,7 +41,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<IList<PermissionModel>> GetPermissionsAsync(int skip, int take, DataRequest<Permission> request)
 		{
 			var models = new List<PermissionModel>();
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var items = await dataService.GetPermissionsAsync(skip, take, request);
 			foreach (var item in items)
 			{
@@ -52,14 +52,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<int> GetPermissionsCountAsync(DataRequest<Permission> request)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.GetPermissionsCountAsync(request);
 		}
 
 		public async Task<int> UpdatePermissionAsync(PermissionModel model)
 		{
 			long id = model.PermissionID;
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var item = id > 0 ? await dataService.GetPermissionAsync(model.PermissionID) : new Permission();
 			if (item != null)
 			{
@@ -73,13 +73,13 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<int> DeletePermissionAsync(PermissionModel model)
 		{
 			var item = new Permission { PermissionID = model.PermissionID };
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.DeletePermissionsAsync(item);
 		}
 
 		public async Task<int> DeletePermissionRangeAsync(int index, int length, DataRequest<Permission> request)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var items = await dataService.GetPermissionKeysAsync(index, length, request);
 			return await dataService.DeletePermissionsAsync([.. items]);
 		}

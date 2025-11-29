@@ -8,12 +8,12 @@ namespace Hybrsoft.UI.Windows.ViewModels
 	{
 		public PermissionsViewModel(IPermissionService permissionService, ICommonServices commonServices) : base(commonServices)
 		{
-			PermissionService = permissionService;
+			_permissionService = permissionService;
 
-			PermissionList = new PermissionListViewModel(PermissionService, commonServices);
+			PermissionList = new PermissionListViewModel(_permissionService, commonServices);
 		}
 
-		public IPermissionService PermissionService { get; }
+		private readonly IPermissionService _permissionService;
 
 		public PermissionListViewModel PermissionList { get; set; }
 

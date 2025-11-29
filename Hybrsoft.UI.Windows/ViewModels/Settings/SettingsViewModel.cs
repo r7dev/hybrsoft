@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class SettingsViewModel(ISettingsService settingsService, ICommonServices commonServices) : ViewModelBase(commonServices)
+	public partial class SettingsViewModel(ISettingsService settingsService,
+		ICommonServices commonServices) : ViewModelBase(commonServices)
 	{
-		public ISettingsService SettingsService { get; } = settingsService;
+		private readonly ISettingsService _settingsService = settingsService;
 
-		public string AppName => $"{SettingsService.AppName}";
-		public string Version => $"{SettingsService.Version}";
+		public string AppName => $"{_settingsService.AppName}";
+		public string Version => $"{_settingsService.Version}";
 		public string LicenseTo;
 
 		private bool _isBusy = false;
@@ -60,7 +61,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			_selectedLanguage = ResourceService.GetCurrentLanguageItem();
 
 			string licenseToPrefix = ResourceService.GetString<SettingsViewModel>(ResourceFiles.UI, "LicensedTo_Prefix");
-			var licenseTo = await SettingsService.GetLicensedToAsync();
+			var licenseTo = await _settingsService.GetLicensedToAsync();
 			LicenseTo = licenseToPrefix + licenseTo;
 
 			StatusReady();

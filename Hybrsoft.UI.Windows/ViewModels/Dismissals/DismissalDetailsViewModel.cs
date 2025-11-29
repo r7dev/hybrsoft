@@ -18,10 +18,10 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		IClassroomService classroomService,
 		ICommonServices commonServices) : GenericDetailsViewModel<DismissalModel>(commonServices)
 	{
-		public IDismissalService DismissalService { get; } = dismissalService;
-		public IStudentService StudentService { get; } = studentService;
-		public IStudentRelativeService StudentRelativeService { get; } = studentRelativeService;
-		public IClassroomService ClassroomService { get; } = classroomService;
+		private readonly IDismissalService _dismissalService = dismissalService;
+		private readonly IStudentService _studentService = studentService;
+		private readonly IStudentRelativeService _studentRelativeService = studentRelativeService;
+		private readonly IClassroomService _classroomService = classroomService;
 
 		public IList<RelativeModel> Relatives { get; set; } = [];
 		public ICommand RelativeSelectedCommand => new RelayCommand<RelativeModel>(RelativeSelected);
@@ -47,12 +47,12 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			if (ViewModelArgs.IsNew)
 			{
 				Item = new DismissalModel() { ClassroomID = ViewModelArgs.ClassroomID, StudentID = ViewModelArgs.StudentID };
-				var student = await StudentService.GetStudentAsync(Item.StudentID);
+				var student = await _studentService.GetStudentAsync(Item.StudentID);
 				if (student is not null)
 				{
 					Item.Student = student;
 				}
-				var classroom = await ClassroomService.GetClassroomAsync(Item.ClassroomID);
+				var classroom = await _classroomService.GetClassroomAsync(Item.ClassroomID);
 				if (classroom is not null)
 				{
 					Item.Classroom = classroom;
@@ -62,7 +62,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 					Where = r => r.StudentID == Item.StudentID,
 					OrderBys = [(r => r.Relative.FirstName, OrderBy.Asc)]
 				};
-				var studentRelatives = await StudentRelativeService.GetStudentRelativesAsync(request);
+				var studentRelatives = await _studentRelativeService.GetStudentRelativesAsync(request);
 				Relatives = [.. studentRelatives.Select(r => r.Relative)];
 				IsEditMode = true;
 				NotifyChanges();
@@ -71,7 +71,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				try
 				{
-					var item = await DismissalService.GetDismissalAsync(ViewModelArgs.DismissalID);
+					var item = await _dismissalService.GetDismissalAsync(ViewModelArgs.DismissalID);
 					Item = item ?? new DismissalModel { DismissalID = ViewModelArgs.DismissalID, IsEmpty = true };
 				}
 				catch (Exception ex)
@@ -104,7 +104,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string startMessage = ResourceService.GetString<DismissalDetailsViewModel>(ResourceFiles.InfoMessages, "SavingDismissal");
 				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
-				await DismissalService.UpdateDismissalAsync(model);
+				await _dismissalService.UpdateDismissalAsync(model);
 				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "SaveSuccessful");
 				string endMessage = ResourceService.GetString<DismissalDetailsViewModel>(ResourceFiles.InfoMessages, "DismissalSaved");
 				EndStatusMessage(endTitle, endMessage, LogType.Success);
@@ -158,7 +158,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 							{
 								try
 								{
-									var item = await DismissalService.GetDismissalAsync(current.DismissalID);
+									var item = await _dismissalService.GetDismissalAsync(current.DismissalID);
 									item ??= new DismissalModel { DismissalID = current.DismissalID, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();

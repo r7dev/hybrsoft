@@ -13,12 +13,12 @@ namespace Hybrsoft.EnterpriseManager.Services
 {
 	public class SubscriptionService(IDataServiceFactory dataServiceFactory, ILogService logService) : ISubscriptionService
 	{
-		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
-		public ILogService LogService { get; } = logService;
+		private readonly IDataServiceFactory _dataServiceFactory = dataServiceFactory;
+		private readonly ILogService _logService = logService;
 
 		public async Task<SubscriptionModel> GetSubscriptionAsync(long id)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await GetSubscriptionAsync(dataService, id);
 		}
 
@@ -34,7 +34,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<IList<SubscriptionModel>> GetSubscriptionsAsync(DataRequest<Subscription> request)
 		{
-			var collection = new SubscriptionCollection(this, LogService);
+			var collection = new SubscriptionCollection(this, _logService);
 			await collection.LoadAsync(request);
 			return collection;
 		}
@@ -42,7 +42,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<IList<SubscriptionModel>> GetSubscriptionsAsync(int skip, int take, DataRequest<Subscription> request)
 		{
 			var models = new List<SubscriptionModel>();
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var items = await dataService.GetSubscriptionsAsync(skip, take, request);
 			foreach (var item in items)
 			{
@@ -53,14 +53,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<int> GetSubscriptionsCountAsync(DataRequest<Subscription> request)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.GetSubscriptionsCountAsync(request);
 		}
 
 		public async Task<int> UpdateSubscriptionAsync(SubscriptionModel model)
 		{
 			long id = model.SubscriptionID;
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var item = id > 0 ? await dataService.GetSubscriptionAsync(model.SubscriptionID) : new Subscription();
 			if (item != null)
 			{
@@ -74,13 +74,13 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<int> DeleteSubscriptionAsync(SubscriptionModel model)
 		{
 			var item = new Subscription { SubscriptionID = model.SubscriptionID };
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.DeleteSubscriptionsAsync(item);
 		}
 
 		public async Task<int> DeleteSubscriptionRangeAsync(int index, int length, DataRequest<Subscription> request)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var items = await dataService.GetSubscriptionKeysAsync(index, length, request);
 			return await dataService.DeleteSubscriptionsAsync([.. items]);
 		}

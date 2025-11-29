@@ -9,9 +9,10 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class PermissionDetailsViewModel(IPermissionService permissionService, ICommonServices commonServices) : GenericDetailsViewModel<PermissionModel>(commonServices)
+	public partial class PermissionDetailsViewModel(IPermissionService permissionService,
+		ICommonServices commonServices) : GenericDetailsViewModel<PermissionModel>(commonServices)
 	{
-		public IPermissionService PermissionService { get; } = permissionService;
+		private readonly IPermissionService _permissionService = permissionService;
 
 		public override string Title => ItemIsNew
 				? ResourceService.GetString<PermissionDetailsViewModel>(ResourceFiles.UI, "TitleNew")
@@ -34,7 +35,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				try
 				{
-					var item = await PermissionService.GetPermissionAsync(ViewModelArgs.PermissionID);
+					var item = await _permissionService.GetPermissionAsync(ViewModelArgs.PermissionID);
 					Item = item ?? new PermissionModel { PermissionID = ViewModelArgs.PermissionID, IsEmpty = true };
 					IsEnabled = item.IsEnabled;
 				}
@@ -69,7 +70,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string startMessage = ResourceService.GetString<PermissionDetailsViewModel>(ResourceFiles.InfoMessages, "SavingPermission");
 				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
-				await PermissionService.UpdatePermissionAsync(model);
+				await _permissionService.UpdatePermissionAsync(model);
 				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "SaveSuccessful");
 				string endMessage = ResourceService.GetString<PermissionDetailsViewModel>(ResourceFiles.InfoMessages, "PermissionSaved");
 				EndStatusMessage(endTitle, endMessage, LogType.Success);
@@ -94,7 +95,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string startMessage = ResourceService.GetString<PermissionDetailsViewModel>(ResourceFiles.InfoMessages, "DeletingPermission");
 				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
-				await PermissionService.DeletePermissionAsync(model);
+				await _permissionService.DeletePermissionAsync(model);
 				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "DeletionSuccessful");
 				string endMessage = ResourceService.GetString<PermissionDetailsViewModel>(ResourceFiles.InfoMessages, "PermissionDeleted");
 				EndStatusMessage(endTitle, endMessage, LogType.Warning);
@@ -158,7 +159,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 							{
 								try
 								{
-									var item = await PermissionService.GetPermissionAsync(current.PermissionID);
+									var item = await _permissionService.GetPermissionAsync(current.PermissionID);
 									item ??= new PermissionModel { PermissionID = current.PermissionID, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
@@ -203,7 +204,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 					case "ItemRangesDeleted":
 						try
 						{
-							var model = await PermissionService.GetPermissionAsync(current.PermissionID);
+							var model = await _permissionService.GetPermissionAsync(current.PermissionID);
 							if (model == null)
 							{
 								await OnItemDeletedExternally();

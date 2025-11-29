@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class StudentDetailsWithRelativesViewModel(IStudentService studentService, IStudentRelativeService studentRelativeService, IFilePickerService filePickerService, ICommonServices commonServices) : ViewModelBase(commonServices)
+	public partial class StudentDetailsWithRelativesViewModel(IStudentService studentService,
+		IStudentRelativeService studentRelativeService,
+		IFilePickerService filePickerService,
+		ICommonServices commonServices) : ViewModelBase(commonServices)
 	{
 		public StudentDetailsViewModel StudentDetails { get; set; } = new StudentDetailsViewModel(studentService, filePickerService, commonServices);
 		public StudentRelativeListViewModel StudentRelativeList { get; set; } = new StudentRelativeListViewModel(studentRelativeService, commonServices);

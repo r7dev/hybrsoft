@@ -11,11 +11,11 @@ namespace Hybrsoft.EnterpriseManager.Services
 {
 	public class CompanyUserService(IDataServiceFactory dataServiceFactory) : ICompanyUserService
 	{
-		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
+		private readonly IDataServiceFactory _dataServiceFactory = dataServiceFactory;
 
 		public async Task<CompanyUserModel> GetCompanyUserAsync(long id)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await GetCompanyUserAsync(dataService, id);
 		}
 		private static async Task<CompanyUserModel> GetCompanyUserAsync(IDataService dataService, long id)
@@ -37,7 +37,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<IList<CompanyUserModel>> GetCompanyUsersAsync(int skip, int take, DataRequest<CompanyUser> request)
 		{
 			var models = new List<CompanyUserModel>();
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var items = await dataService.GetCompanyUsersAsync(skip, take, request);
 			foreach (var item in items)
 			{
@@ -48,19 +48,19 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<IList<long>> GetAddedUserKeysInCompanyAsync(long parentID)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.GetAddedUserKeysInCompanyAsync(parentID);
 		}
 
 		public async Task<int> GetCompanyUsersCountAsync(DataRequest<CompanyUser> request)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.GetCompanyUsersCountAsync(request);
 		}
 
 		public async Task<int> UpdateCompanyUserAsync(CompanyUserModel model)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var item = model.CompanyUserID > 0
 				? await dataService.GetCompanyUserAsync(model.CompanyUserID)
 				: new CompanyUser() { User = new User() };
@@ -76,13 +76,13 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<int> DeleteCompanyUserAsync(CompanyUserModel model)
 		{
 			var item = new CompanyUser() { CompanyUserID = model.CompanyUserID };
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.DeleteCompanyUsersAsync(item);
 		}
 
 		public async Task<int> DeleteCompanyUserRangeAsync(int index, int length, DataRequest<CompanyUser> request)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var items = await dataService.GetCompanyUsersAsync(index, length, request);
 			return await dataService.DeleteCompanyUsersAsync([.. items]);
 		}

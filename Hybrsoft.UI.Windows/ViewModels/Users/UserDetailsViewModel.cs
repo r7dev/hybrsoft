@@ -9,9 +9,10 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class UserDetailsViewModel(IUserService userService, ICommonServices commonServices) : GenericDetailsViewModel<UserModel>(commonServices)
+	public partial class UserDetailsViewModel(IUserService userService,
+		ICommonServices commonServices) : GenericDetailsViewModel<UserModel>(commonServices)
 	{
-		public IUserService UserService { get; } = userService;
+		private readonly IUserService _userService = userService;
 
 		public override string Title => ItemIsNew
 				? ResourceService.GetString<UserDetailsViewModel>(ResourceFiles.UI, "TitleNew")
@@ -34,7 +35,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				try
 				{
-					var item = await UserService.GetUserAsync(ViewModelArgs.UserID);
+					var item = await _userService.GetUserAsync(ViewModelArgs.UserID);
 					Item = item ?? new UserModel { UserID = ViewModelArgs.UserID, IsEmpty = true };
 				}
 				catch (Exception ex)
@@ -68,7 +69,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string startMessage = ResourceService.GetString<UserDetailsViewModel>(ResourceFiles.InfoMessages, "SavingUser");
 				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
-				await UserService.UpdateUserAsync(model);
+				await _userService.UpdateUserAsync(model);
 				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "SaveSuccessful");
 				string endMessage = ResourceService.GetString<UserDetailsViewModel>(ResourceFiles.InfoMessages, "UserSaved");
 				EndStatusMessage(endTitle, endMessage, LogType.Success);
@@ -93,7 +94,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string startMessage = ResourceService.GetString<UserDetailsViewModel>(ResourceFiles.InfoMessages, "DeletingUser");
 				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
-				await UserService.DeleteUserAsync(model);
+				await _userService.DeleteUserAsync(model);
 				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "DeletionSuccessful");
 				string endMessage = ResourceService.GetString<UserDetailsViewModel>(ResourceFiles.InfoMessages, "UserDeleted");
 				EndStatusMessage(endTitle, endMessage, LogType.Warning);
@@ -161,7 +162,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 							{
 								try
 								{
-									var item = await UserService.GetUserAsync(current.UserID);
+									var item = await _userService.GetUserAsync(current.UserID);
 									item ??= new UserModel { UserID = current.UserID, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
@@ -206,7 +207,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 					case "ItemRangesDeleted":
 						try
 						{
-							var model = await UserService.GetUserAsync(current.UserID);
+							var model = await _userService.GetUserAsync(current.UserID);
 							if (model == null)
 							{
 								await OnItemDeletedExternally();

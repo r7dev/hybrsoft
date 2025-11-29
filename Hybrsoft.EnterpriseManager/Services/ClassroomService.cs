@@ -1,25 +1,24 @@
-﻿using Hybrsoft.UI.Windows.Models;
-using Hybrsoft.UI.Windows.Services;
-using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
+﻿using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
 using Hybrsoft.EnterpriseManager.Services.VirtualCollections;
 using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.DataServices;
 using Hybrsoft.Infrastructure.Models;
+using Hybrsoft.UI.Windows.Models;
+using Hybrsoft.UI.Windows.Services;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services
 {
 	public class ClassroomService(IDataServiceFactory dataServiceFactory, ILogService logService) : IClassroomService
 	{
-		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
-		public ILogService LogService { get; } = logService;
-		public static ILookupTables LookupTables => LookupTablesProxy.Instance;
+		private readonly IDataServiceFactory _dataServiceFactory = dataServiceFactory;
+		private readonly ILogService _logService = logService;
+		private static ILookupTables LookupTables => LookupTablesProxy.Instance;
 
 		public async Task<ClassroomModel> GetClassroomAsync(long id)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await GetClassroomAsync(dataService, id);
 		}
 
@@ -35,7 +34,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<IList<ClassroomModel>> GetClassroomsAsync(DataRequest<Classroom> request)
 		{
-			var collection = new ClassroomCollection(this, LogService);
+			var collection = new ClassroomCollection(this, _logService);
 			await collection.LoadAsync(request);
 			return collection;
 		}
@@ -43,7 +42,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<IList<ClassroomModel>> GetClassroomsAsync(int skip, int take, DataRequest<Classroom> request)
 		{
 			var models = new List<ClassroomModel>();
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var items = await dataService.GetClassroomsAsync(skip, take, request);
 			foreach (var item in items)
 			{
@@ -54,14 +53,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<int> GetClassroomsCountAsync(DataRequest<Classroom> request)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.GetClassroomsCountAsync(request);
 		}
 
 		public async Task<int> UpdateClassroomAsync(ClassroomModel model)
 		{
 			long id = model.ClassroomID;
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var item = id > 0
 				? await dataService.GetClassroomAsync(model.ClassroomID)
 				: new Classroom() { ScheduleType = new ScheduleType() };
@@ -77,13 +76,13 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<int> DeleteClassroomAsync(ClassroomModel model)
 		{
 			var item = new Classroom { ClassroomID = model.ClassroomID };
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.DeleteClassroomsAsync(item);
 		}
 
 		public async Task<int> DeleteClassroomRangeAsync(int index, int length, DataRequest<Classroom> request)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var items = await dataService.GetClassroomKeysAsync(index, length, request);
 			return await dataService.DeleteClassroomsAsync([.. items]);
 		}

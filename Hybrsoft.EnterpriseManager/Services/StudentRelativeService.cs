@@ -11,11 +11,11 @@ namespace Hybrsoft.EnterpriseManager.Services
 {
 	public class StudentRelativeService(IDataServiceFactory dataServiceFactory) : IStudentRelativeService
 	{
-		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
+		private readonly IDataServiceFactory _dataServiceFactory = dataServiceFactory;
 
 		public async Task<StudentRelativeModel> GetStudentRelativeAsync(long id)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await GetStudentRelativeAsync(dataService, id);
 		}
 		private static async Task<StudentRelativeModel> GetStudentRelativeAsync(IDataService dataService, long id)
@@ -37,7 +37,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<IList<StudentRelativeModel>> GetStudentRelativesAsync(int skip, int take, DataRequest<StudentRelative> request)
 		{
 			var models = new List<StudentRelativeModel>();
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var items = await dataService.GetStudentRelativesAsync(skip, take, request);
 			foreach (var item in items)
 			{
@@ -48,19 +48,19 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<IList<long>> GetAddedRelativeKeysInStudentAsync(long parentID)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.GetAddedRelativeKeysInStudentAsync(parentID);
 		}
 
 		public async Task<int> GetStudentRelativesCountAsync(DataRequest<StudentRelative> request)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.GetStudentRelativesCountAsync(request);
 		}
 
 		public async Task<int> UpdateStudentRelativeAsync(StudentRelativeModel model)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var item = model.StudentRelativeID > 0
 				? await dataService.GetStudentRelativeAsync(model.StudentRelativeID)
 				: new StudentRelative() { Relative = new Relative() };
@@ -76,13 +76,13 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<int> DeleteStudentRelativeAsync(StudentRelativeModel model)
 		{
 			var item = new StudentRelative() { StudentRelativeID = model.StudentRelativeID };
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.DeleteStudentRelativesAsync(item);
 		}
 
 		public async Task<int> DeleteStudentRelativeRangeAsync(int index, int length, DataRequest<StudentRelative> request)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var items = await dataService.GetStudentRelativesAsync(index, length, request);
 			return await dataService.DeleteStudentRelativesAsync([.. items]);
 		}

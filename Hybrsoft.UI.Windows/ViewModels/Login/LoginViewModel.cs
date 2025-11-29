@@ -16,10 +16,10 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		ILookupTables lookupTables,
 		ICommonServices commonServices) : ViewModelBase(commonServices)
 	{
-		public ILoginService LoginService { get; } = loginService;
-		public ISettingsService SettingsService { get; } = settingsService;
-		public ILicenseService LicenseService { get; } = licenseService;
-		public INetworkService NetworkService { get; } = networkService;
+		private readonly ILoginService _loginService = loginService;
+		private readonly ISettingsService _settingsService = settingsService;
+		private readonly ILicenseService _licenseService = licenseService;
+		private readonly INetworkService _networkService = networkService;
 		private readonly ILookupTables _lookupTables = lookupTables;
 
 		private ShellArgs ViewModelArgs { get; set; }
@@ -70,8 +70,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			ViewModelArgs = args;
 
-			UserName = SettingsService.UserName ?? args.UserInfo.AccountName;
-			IsLoginWithWindowsHello = await LoginService.IsWindowsHelloEnabledAsync(UserName);
+			UserName = _settingsService.UserName ?? args.UserInfo.AccountName;
+			IsLoginWithWindowsHello = await _loginService.IsWindowsHelloEnabledAsync(UserName);
 			IsLoginWithPassword = !IsLoginWithWindowsHello;
 			IsBusy = false;
 
@@ -102,17 +102,17 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			var result = ValidateInput();
 			if (result.IsOk)
 			{
-				result = await LoginService.SignInWithPasswordAsync(UserName, Password);
+				result = await _loginService.SignInWithPasswordAsync(UserName, Password);
 				if (result.IsOk)
 				{
 					await LoadPermissionsAsync();
-					if (!await LoginService.IsWindowsHelloEnabledAsync(UserName))
+					if (!await _loginService.IsWindowsHelloEnabledAsync(UserName))
 					{
-						await LoginService.TrySetupWindowsHelloAsync(UserName);
+						await _loginService.TrySetupWindowsHelloAsync(UserName);
 					}
 					// It can only be assigned to the settings after verification in IsWindowsHelloEnabledAsync.
 					// Where it will be detected in case the user entered at login is different from the last logged-in user.
-					SettingsService.UserName = UserName;
+					_settingsService.UserName = UserName;
 					await VerifyLicenseAsync();
 					await EnterApplication();
 					return;
@@ -125,7 +125,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		public async void LoginWithWindowsHello()
 		{
 			IsBusy = true;
-			var result = await LoginService.SignInWithWindowsHelloAsync();
+			var result = await _loginService.SignInWithWindowsHelloAsync();
 			if (result.IsOk)
 			{
 				await LoadPermissionsAsync();
@@ -144,8 +144,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				ViewModelArgs.UserInfo = new UserInfo
 				{
 					AccountName = UserName,
-					FirstName = SettingsService.UserFirstName,
-					LastName = SettingsService.UserLastName,
+					FirstName = _settingsService.UserFirstName,
+					LastName = _settingsService.UserLastName,
 					PictureSource = null
 				};
 			}
@@ -199,16 +199,16 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		private async Task<bool> IsLicenseValidAsync()
 		{
-			if (await LicenseService.IsLicenseValidOfflineAsync())
+			if (await _licenseService.IsLicenseValidOfflineAsync())
 			{
 				return true;
 			}
-			if (await NetworkService.IsInternetAvailableAsync())
+			if (await _networkService.IsInternetAvailableAsync())
 			{
-				var license = await LicenseService.ValidateSubscriptionOnlineAsync(UserName, Password);
+				var license = await _licenseService.ValidateSubscriptionOnlineAsync(UserName, Password);
 				if (license.IsActivated)
 				{
-					LicenseService.SaveLicenseLocally(LicenseService.CreateSubscriptionInfoDto(license));
+					_licenseService.SaveLicenseLocally(_licenseService.CreateSubscriptionInfoDto(license));
 					return true;
 				}
 			}

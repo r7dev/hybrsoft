@@ -10,9 +10,10 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class DashboardViewModel(IStudentService studentService, ICommonServices commonServices) : ViewModelBase(commonServices)
+	public partial class DashboardViewModel(IStudentService studentService,
+		ICommonServices commonServices) : ViewModelBase(commonServices)
 	{
-		public IStudentService StudentService { get; } = studentService;
+		private readonly IStudentService _studentService = studentService;
 
 		private string StartTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
 		private string StartMessage => ResourceService.GetString<DashboardViewModel>(ResourceFiles.InfoMessages, "LoadingDashboard");
@@ -47,7 +48,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				{
 					OrderBys = [(r => r.CreatedOn, OrderBy.Desc)]
 				};
-				Students = await StudentService.GetStudentsAsync(0, 5, request);
+				Students = await _studentService.GetStudentsAsync(0, 5, request);
 			}
 			catch (Exception ex)
 			{

@@ -13,9 +13,10 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class CompanyListViewModel(ICompanyService companyService, ICommonServices commonServices) : GenericListViewModel<CompanyModel>(commonServices)
+	public partial class CompanyListViewModel(ICompanyService companyService,
+		ICommonServices commonServices) : GenericListViewModel<CompanyModel>(commonServices)
 	{
-		public ICompanyService CompanyService { get; } = companyService;
+		private readonly ICompanyService _companyService = companyService;
 
 		private bool _hasEditorPermission;
 		private string StartTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
@@ -99,7 +100,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			if (!ViewModelArgs.IsEmpty)
 			{
 				DataRequest<Company> request = BuildDataRequest();
-				return await CompanyService.GetCompaniesAsync(request);
+				return await _companyService.GetCompaniesAsync(request);
 			}
 			return [];
 		}
@@ -218,7 +219,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			foreach (var model in models)
 			{
-				await CompanyService.DeleteCompanyAsync(model);
+				await _companyService.DeleteCompanyAsync(model);
 				LogWarning(model);
 			}
 		}
@@ -230,12 +231,12 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			List<CompanyModel> models = [];
 			foreach (var range in ranges)
 			{
-				var items = await CompanyService.GetCompaniesAsync(range.Index, range.Length, request);
+				var items = await _companyService.GetCompaniesAsync(range.Index, range.Length, request);
 				models.AddRange(items);
 			}
 			foreach (var range in ranges.Reverse())
 			{
-				await CompanyService.DeleteCompanyRangeAsync(range.Index, range.Length, request);
+				await _companyService.DeleteCompanyRangeAsync(range.Index, range.Length, request);
 			}
 			foreach (var model in models)
 			{

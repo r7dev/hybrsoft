@@ -50,7 +50,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			return null;
 		}
 
-		static private async Task<byte[]> GetImageBytesAsync(StorageFile file)
+		private static async Task<byte[]> GetImageBytesAsync(StorageFile file)
 		{
 			using var randomStream = await file.OpenReadAsync();
 			using var stream = randomStream.AsStream();
@@ -59,7 +59,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			return buffer;
 		}
 
-		static private async Task<byte[]> GetResizedImageBytesAsync(StorageFile file, int newWidth, int newHeight)
+		private static async Task<byte[]> GetResizedImageBytesAsync(StorageFile file, int newWidth, int newHeight)
 		{
 			using var randomStream = await file.OpenReadAsync();
 			using var stream = randomStream.AsStream();

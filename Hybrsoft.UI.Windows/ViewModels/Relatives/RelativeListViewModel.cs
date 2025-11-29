@@ -13,9 +13,10 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class RelativeListViewModel(IRelativeService relativeService, ICommonServices commonServices) : GenericListViewModel<RelativeModel>(commonServices)
+	public partial class RelativeListViewModel(IRelativeService relativeService,
+		ICommonServices commonServices) : GenericListViewModel<RelativeModel>(commonServices)
 	{
-		public IRelativeService RelativeService { get; } = relativeService;
+		private readonly IRelativeService _relativeService = relativeService;
 
 		private string StartTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
 		private string StartMessage => ResourceService.GetString<RelativeListViewModel>(ResourceFiles.InfoMessages, "LoadingRelatives");
@@ -97,7 +98,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			if (!ViewModelArgs.IsEmpty)
 			{
 				DataRequest<Relative> request = BuildDataRequest();
-				return await RelativeService.GetRelativesAsync(request);
+				return await _relativeService.GetRelativesAsync(request);
 			}
 			return [];
 		}
@@ -206,7 +207,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			foreach (var model in models)
 			{
-				await RelativeService.DeleteRelativeAsync(model);
+				await _relativeService.DeleteRelativeAsync(model);
 				LogWarning(model);
 			}
 		}
@@ -218,12 +219,12 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			List<RelativeModel> models = [];
 			foreach (var range in ranges)
 			{
-				var items = await RelativeService.GetRelativesAsync(range.Index, range.Length, request);
+				var items = await _relativeService.GetRelativesAsync(range.Index, range.Length, request);
 				models.AddRange(items);
 			}
 			foreach (var range in ranges.Reverse())
 			{
-				await RelativeService.DeleteRelativeRangeAsync(range.Index, range.Length, request);
+				await _relativeService.DeleteRelativeRangeAsync(range.Index, range.Length, request);
 			}
 			foreach (var model in models)
 			{

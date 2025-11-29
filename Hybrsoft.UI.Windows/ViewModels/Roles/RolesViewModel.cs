@@ -8,15 +8,17 @@ namespace Hybrsoft.UI.Windows.ViewModels
 {
 	public partial class RolesViewModel : ViewModelBase
 	{
-		public RolesViewModel(IRoleService roleService, IRolePermissionService rolePermissionService, ICommonServices commonServices) : base(commonServices)
+		public RolesViewModel(IRoleService roleService,
+			IRolePermissionService rolePermissionService,
+			ICommonServices commonServices) : base(commonServices)
 		{
-			RoleService = roleService;
-			RoleList = new RoleListViewModel(RoleService, commonServices);
-			RoleDetails = new RoleDetailsViewModel(RoleService, commonServices);
+			_roleService = roleService;
+			RoleList = new RoleListViewModel(_roleService, commonServices);
+			RoleDetails = new RoleDetailsViewModel(_roleService, commonServices);
 			RolePermissionList = new RolePermissionListViewModel(rolePermissionService, commonServices);
 		}
 
-		public IRoleService RoleService { get; }
+		private readonly IRoleService _roleService;
 
 		public RoleListViewModel RoleList { get; set; }
 
@@ -85,7 +87,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				var model = await RoleService.GetRoleAsync(selected.RoleID);
+				var model = await _roleService.GetRoleAsync(selected.RoleID);
 				selected.Merge(model);
 			}
 			catch (Exception ex)

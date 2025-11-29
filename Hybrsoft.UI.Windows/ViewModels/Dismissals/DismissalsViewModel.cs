@@ -6,13 +6,14 @@ namespace Hybrsoft.UI.Windows.ViewModels
 {
 	public partial class DismissalsViewModel : ViewModelBase
 	{
-		public DismissalsViewModel(IDismissalService dismissalService, ICommonServices commonServices) : base(commonServices)
+		public DismissalsViewModel(IDismissalService dismissalService,
+			ICommonServices commonServices) : base(commonServices)
 		{
-			DismissalService = dismissalService;
-			DismissalList = new DismissalListViewModel(DismissalService, commonServices);
+			_dismissalService = dismissalService;
+			DismissalList = new DismissalListViewModel(_dismissalService, commonServices);
 		}
 
-		public IDismissalService DismissalService { get; }
+		private readonly IDismissalService _dismissalService;
 
 		public DismissalListViewModel DismissalList { get; set; }
 

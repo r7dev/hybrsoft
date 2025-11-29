@@ -10,13 +10,12 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class LicenseActivationViewModel(
-		ILicenseService licenseService,
+	public partial class LicenseActivationViewModel(ILicenseService licenseService,
 		INetworkService networkService,
 		ICommonServices commonServices) : ShellViewModel(commonServices)
 	{
-		ILicenseService LicenseService { get; } = licenseService;
-		INetworkService NetworkService { get; } = networkService;
+		private readonly ILicenseService _licenseService = licenseService;
+		private readonly INetworkService _networkService = networkService;
 
 		private bool _IsInternetAvailable;
 		public bool IsInternetAvailable
@@ -61,7 +60,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		public override async Task LoadAsync(ShellArgs args)
 		{
 			ViewModelArgs = args;
-			IsInternetAvailable = await NetworkService.IsInternetAvailableAsync();
+			IsInternetAvailable = await _networkService.IsInternetAvailableAsync();
 
 			await base.LoadAsync(args);
 		}
@@ -88,7 +87,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			IsBusy = true;
 			HasInfo = false;
 
-			IsInternetAvailable = await NetworkService.IsInternetAvailableAsync();
+			IsInternetAvailable = await _networkService.IsInternetAvailableAsync();
 			if (!IsInternetAvailable)
 			{
 				string title = ResourceService.GetString<LicenseActivationViewModel>(ResourceFiles.Errors, "NoInternetConnection");
@@ -99,12 +98,12 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 			LicenseActivationModel license = (LicenseActivationModel)ViewModelArgs.Parameter;
 			license.LicenseKey = LicenseKey;
-			var response = await LicenseService.ActivateSubscriptionOnlineAsync(license);
+			var response = await _licenseService.ActivateSubscriptionOnlineAsync(license);
 			await Task.Delay(200);
 
 			if (response.IsActivated)
 			{
-				LicenseService.SaveLicenseLocally(LicenseService.CreateSubscriptionInfoDto(response));
+				_licenseService.SaveLicenseLocally(_licenseService.CreateSubscriptionInfoDto(response));
 
 				InfoGlyph = "\uE8FB";
 				InfoForeground = new SolidColorBrush(Colors.Green);
@@ -142,7 +141,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		private async void CheckConnection()
 		{
-			IsInternetAvailable = await NetworkService.IsInternetAvailableAsync();
+			IsInternetAvailable = await _networkService.IsInternetAvailableAsync();
 			if (IsInternetAvailable)
 			{
 				string title = ResourceService.GetString<LicenseActivationViewModel>(ResourceFiles.InfoMessages, "ConnectionRestored");

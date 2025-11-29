@@ -13,9 +13,10 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class StudentRelativeListViewModel(IStudentRelativeService studentRelativeService, ICommonServices commonServices) : GenericListViewModel<StudentRelativeModel>(commonServices)
+	public partial class StudentRelativeListViewModel(IStudentRelativeService studentRelativeService,
+		ICommonServices commonServices) : GenericListViewModel<StudentRelativeModel>(commonServices)
 	{
-		public IStudentRelativeService StudentRelativeService { get; } = studentRelativeService;
+		private readonly IStudentRelativeService _studentRelativeService = studentRelativeService;
 
 		private string StartTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
 		private string StartMessage => ResourceService.GetString<StudentRelativeListViewModel>(ResourceFiles.InfoMessages, "LoadingStudentRelatives");
@@ -106,7 +107,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			if (!ViewModelArgs.IsEmpty)
 			{
 				DataRequest<StudentRelative> request = BuildDataRequest();
-				return await StudentRelativeService.GetStudentRelativesAsync(request);
+				return await _studentRelativeService.GetStudentRelativesAsync(request);
 			}
 			return [];
 		}
@@ -202,7 +203,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			foreach (var model in models)
 			{
-				await StudentRelativeService.DeleteStudentRelativeAsync(model);
+				await _studentRelativeService.DeleteStudentRelativeAsync(model);
 				LogWarning(model);
 			}
 		}
@@ -214,12 +215,12 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			List<StudentRelativeModel> models = [];
 			foreach (var range in ranges)
 			{
-				var items = await StudentRelativeService.GetStudentRelativesAsync(range.Index, range.Length, request);
+				var items = await _studentRelativeService.GetStudentRelativesAsync(range.Index, range.Length, request);
 				models.AddRange(items);
 			}
 			foreach (var range in ranges.Reverse())
 			{
-				await StudentRelativeService.DeleteStudentRelativeRangeAsync(range.Index, range.Length, request);
+				await _studentRelativeService.DeleteStudentRelativeRangeAsync(range.Index, range.Length, request);
 			}
 			foreach (var model in models)
 			{

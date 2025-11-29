@@ -13,13 +13,13 @@ namespace Hybrsoft.EnterpriseManager.Services
 {
 	public class CompanyService(IDataServiceFactory dataServiceFactory, ILogService logService) : ICompanyService
 	{
-		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
-		public ILogService LogService { get; } = logService;
-		static public ILookupTables LookupTables => LookupTablesProxy.Instance;
+		private readonly IDataServiceFactory _dataServiceFactory = dataServiceFactory;
+		private readonly ILogService _logService = logService;
+		private static ILookupTables LookupTables => LookupTablesProxy.Instance;
 
 		public async Task<CompanyModel> GetCompanyAsync(long id)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await GetCompanyAsync(dataService, id);
 		}
 
@@ -35,7 +35,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<IList<CompanyModel>> GetCompaniesAsync(DataRequest<Company> request)
 		{
-			var collection = new CompanyCollection(this, LogService);
+			var collection = new CompanyCollection(this, _logService);
 			await collection.LoadAsync(request);
 			return collection;
 		}
@@ -43,7 +43,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<IList<CompanyModel>> GetCompaniesAsync(int skip, int take, DataRequest<Company> request)
 		{
 			var models = new List<CompanyModel>();
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var items = await dataService.GetCompaniesAsync(skip, take, request);
 			foreach (var item in items)
 			{
@@ -54,14 +54,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<int> GetCompaniesCountAsync(DataRequest<Company> request)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.GetCompaniesCountAsync(request);
 		}
 
 		public async Task<int> UpdateCompanyAsync(CompanyModel model)
 		{
 			long id = model.CompanyID;
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var item = id > 0
 				? await dataService.GetCompanyAsync(model.CompanyID)
 				: new Company() { Country = new Country() };
@@ -77,13 +77,13 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<int> DeleteCompanyAsync(CompanyModel model)
 		{
 			var item = new Company { CompanyID = model.CompanyID };
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.DeleteCompaniesAsync(item);
 		}
 
 		public async Task<int> DeleteCompanyRangeAsync(int index, int length, DataRequest<Company> request)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var items = await dataService.GetCompanyKeysAsync(index, length, request);
 			return await dataService.DeleteCompaniesAsync([.. items]);
 		}

@@ -19,14 +19,17 @@ namespace Hybrsoft.EnterpriseManager.Services
 {
 	public partial class NavigationService : INavigationService
 	{
-		static private readonly ConcurrentDictionary<Type, Type> _viewModelMap = new();
+		private static readonly ConcurrentDictionary<Type, Type> _viewModelMap = new();
 
 		public NavigationService(IDataServiceFactory dataServiceFactory, IResourceService resourceService)
 		{
 			MainViewId = (int)WindowTracker.MainID;
-			DataServiceFactory = dataServiceFactory;
-			ResourceService = resourceService;
+			_dataServiceFactory = dataServiceFactory;
+			_resourceService = resourceService;
 		}
+
+		private readonly IDataServiceFactory _dataServiceFactory;
+		private readonly IResourceService _resourceService;
 
 		public int MainViewId { get; }
 
@@ -117,20 +120,17 @@ namespace Hybrsoft.EnterpriseManager.Services
 			currentView?.Window.Close();
 		}
 
-		public IDataServiceFactory DataServiceFactory { get; }
-		private static IResourceService ResourceService { get; set; }
-
 		public IEnumerable<NavigationItemModel> GetItems()
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return GetNavigationItemByParentId(dataService.GetNavigationItemByAppType(AppType.EnterpriseManager), null);
 		}
 
-		private static IEnumerable<NavigationItemModel> GetNavigationItemByParentId(IList<NavigationItem> items, int? parentId)
+		private IEnumerable<NavigationItemModel> GetNavigationItemByParentId(IList<NavigationItem> items, int? parentId)
 		{
 			return items.Where(f => f.ParentID == parentId)
 				.Select(f => new NavigationItemModel(
-					string.IsNullOrEmpty(f.Uid) ? f.Label : ResourceService.GetString(ResourceFiles.UI, f.Uid),
+					string.IsNullOrEmpty(f.Uid) ? f.Label : _resourceService.GetString(ResourceFiles.UI, f.Uid),
 					f.Icon.Value,
 					f.ViewModel,
 					f.ParentID,

@@ -10,9 +10,10 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class StudentRelativeDetailsViewModel(IStudentRelativeService studentRelativeService, ICommonServices commonServices) : GenericDetailsViewModel<StudentRelativeModel>(commonServices)
+	public partial class StudentRelativeDetailsViewModel(IStudentRelativeService studentRelativeService,
+		ICommonServices commonServices) : GenericDetailsViewModel<StudentRelativeModel>(commonServices)
 	{
-		IStudentRelativeService StudentRelativeService { get; } = studentRelativeService;
+		private readonly IStudentRelativeService _studentRelativeService = studentRelativeService;
 
 		public override string Title => (Item?.IsNew ?? true) ? TitleNew : TitleEdit;
 		public string TitleNew => string.Format(ResourceService.GetString<StudentRelativeDetailsViewModel>(ResourceFiles.UI, "TitleNew"), StudentID);
@@ -48,7 +49,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			ViewModelArgs = args ?? StudentRelativeDetailsArgs.CreateDefault();
 			StudentRelativeID = ViewModelArgs.StudentRelativeID;
 			StudentID = ViewModelArgs.StudentID;
-			AddedRelativeKeys = await StudentRelativeService.GetAddedRelativeKeysInStudentAsync(StudentID);
+			AddedRelativeKeys = await _studentRelativeService.GetAddedRelativeKeysInStudentAsync(StudentID);
 
 			if (ViewModelArgs.IsNew)
 			{
@@ -59,7 +60,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				try
 				{
-					var item = await StudentRelativeService.GetStudentRelativeAsync(StudentRelativeID);
+					var item = await _studentRelativeService.GetStudentRelativeAsync(StudentRelativeID);
 					Item = item ?? new StudentRelativeModel() { StudentRelativeID = StudentRelativeID, StudentID = StudentID, IsEmpty = true };
 				}
 				catch (Exception ex)
@@ -100,7 +101,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string startMessage = ResourceService.GetString<StudentRelativeDetailsViewModel>(ResourceFiles.InfoMessages, "SavingStudentsRelative");
 				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
-				await StudentRelativeService.UpdateStudentRelativeAsync(model);
+				await _studentRelativeService.UpdateStudentRelativeAsync(model);
 				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "SaveSuccessful");
 				string endMessage = ResourceService.GetString<StudentRelativeDetailsViewModel>(ResourceFiles.InfoMessages, "TheStudentsRelativeWasSaved");
 				EndStatusMessage(endTitle, endMessage, LogType.Success);
@@ -125,7 +126,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string startMessage = ResourceService.GetString<StudentRelativeDetailsViewModel>(ResourceFiles.InfoMessages, "DeletingStudentRelative");
 				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
-				await StudentRelativeService.DeleteStudentRelativeAsync(model);
+				await _studentRelativeService.DeleteStudentRelativeAsync(model);
 				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "DeletionSuccessful");
 				string endMessage = ResourceService.GetString<StudentRelativeDetailsViewModel>(ResourceFiles.InfoMessages, "StudentsRelativeHasBeenDeleted");
 				EndStatusMessage(endTitle, endMessage, LogType.Warning);
@@ -175,7 +176,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 							{
 								try
 								{
-									var item = await StudentRelativeService.GetStudentRelativeAsync(current.StudentRelativeID);
+									var item = await _studentRelativeService.GetStudentRelativeAsync(current.StudentRelativeID);
 									item ??= new StudentRelativeModel { StudentRelativeID = StudentRelativeID, StudentID = StudentID, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
@@ -220,7 +221,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 					case "ItemRangesDeleted":
 						try
 						{
-							var model = await StudentRelativeService.GetStudentRelativeAsync(current.StudentRelativeID);
+							var model = await _studentRelativeService.GetStudentRelativeAsync(current.StudentRelativeID);
 							if (model == null)
 							{
 								await OnItemDeletedExternally();

@@ -8,15 +8,17 @@ namespace Hybrsoft.UI.Windows.ViewModels
 {
 	public partial class CompaniesViewModel : ViewModelBase
 	{
-		public CompaniesViewModel(ICompanyService companyService, ICompanyUserService companyUserService, ICommonServices commonServices) : base(commonServices)
+		public CompaniesViewModel(ICompanyService companyService,
+			ICompanyUserService companyUserService,
+			ICommonServices commonServices) : base(commonServices)
 		{
-			CompanyService = companyService;
-			CompanyList = new CompanyListViewModel(CompanyService, commonServices);
-			CompanyDetails = new CompanyDetailsViewModel(CompanyService, commonServices);
+			_companyService = companyService;
+			CompanyList = new CompanyListViewModel(_companyService, commonServices);
+			CompanyDetails = new CompanyDetailsViewModel(_companyService, commonServices);
 			CompanyUserList = new CompanyUserListViewModel(companyUserService, commonServices);
 		}
 
-		public ICompanyService CompanyService { get; }
+		private readonly ICompanyService _companyService;
 
 		public CompanyListViewModel CompanyList { get; set; }
 
@@ -85,7 +87,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				var model = await CompanyService.GetCompanyAsync(selected.CompanyID);
+				var model = await _companyService.GetCompanyAsync(selected.CompanyID);
 				selected.Merge(model);
 			}
 			catch (Exception ex)

@@ -6,13 +6,14 @@ namespace Hybrsoft.UI.Windows.ViewModels
 {
 	public partial class SubscriptionsViewModel : ViewModelBase
 	{
-		public SubscriptionsViewModel(ISubscriptionService subscriptionService, ICommonServices commonServices) : base(commonServices)
+		public SubscriptionsViewModel(ISubscriptionService subscriptionService,
+			ICommonServices commonServices) : base(commonServices)
 		{
-			SubscriptionService = subscriptionService;
-			SubscriptionList = new SubscriptionListViewModel(SubscriptionService, commonServices);
+			_subscriptionService = subscriptionService;
+			SubscriptionList = new SubscriptionListViewModel(_subscriptionService, commonServices);
 		}
 
-		public ISubscriptionService SubscriptionService { get; }
+		private readonly ISubscriptionService _subscriptionService;
 
 		public SubscriptionListViewModel SubscriptionList { get; set; }
 

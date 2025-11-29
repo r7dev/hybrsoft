@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class CompanyDetailsWithUsersViewModel(ICompanyService companyService, ICompanyUserService companyUserService, ICommonServices commonServices) : ViewModelBase(commonServices)
+	public partial class CompanyDetailsWithUsersViewModel(ICompanyService companyService,
+		ICompanyUserService companyUserService,
+		ICommonServices commonServices) : ViewModelBase(commonServices)
 	{
 		public CompanyDetailsViewModel CompanyDetails { get; set; } = new CompanyDetailsViewModel(companyService, commonServices);
 		public CompanyUserListViewModel CompanyUserList { get; set; } = new CompanyUserListViewModel(companyUserService, commonServices);

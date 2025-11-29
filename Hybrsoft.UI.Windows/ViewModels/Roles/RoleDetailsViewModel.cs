@@ -9,9 +9,10 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class RoleDetailsViewModel(IRoleService roleService, ICommonServices commonServices) : GenericDetailsViewModel<RoleModel>(commonServices)
+	public partial class RoleDetailsViewModel(IRoleService roleService,
+		ICommonServices commonServices) : GenericDetailsViewModel<RoleModel>(commonServices)
 	{
-		public IRoleService RoleService { get; } = roleService;
+		private readonly IRoleService _roleService = roleService;
 
 		public override string Title
 		{
@@ -39,7 +40,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				try
 				{
-					var item = await RoleService.GetRoleAsync(ViewModelArgs.RoleID);
+					var item = await _roleService.GetRoleAsync(ViewModelArgs.RoleID);
 					Item = item ?? new RoleModel { RoleID = ViewModelArgs.RoleID, IsEmpty = true };
 				}
 				catch (Exception ex)
@@ -74,7 +75,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string startMessage = ResourceService.GetString<RoleDetailsViewModel>(ResourceFiles.InfoMessages, "SavingRole");
 				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
-				await RoleService.UpdateRoleAsync(model);
+				await _roleService.UpdateRoleAsync(model);
 				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "SaveSuccessful");
 				string endMessage = ResourceService.GetString<RoleDetailsViewModel>(ResourceFiles.InfoMessages, "RoleSaved");
 				EndStatusMessage(endTitle, endMessage, LogType.Success);
@@ -99,7 +100,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string startMessage = ResourceService.GetString<RoleDetailsViewModel>(ResourceFiles.InfoMessages, "DeletingRole");
 				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
-				await RoleService.DeleteRoleAsync(model);
+				await _roleService.DeleteRoleAsync(model);
 				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "DeletionSuccessful");
 				string endMessage = ResourceService.GetString<RoleDetailsViewModel>(ResourceFiles.InfoMessages, "RoleDeleted");
 				EndStatusMessage(endTitle, endMessage, LogType.Warning);
@@ -153,7 +154,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 							{
 								try
 								{
-									var item = await RoleService.GetRoleAsync(current.RoleID);
+									var item = await _roleService.GetRoleAsync(current.RoleID);
 									item ??= new RoleModel { RoleID = current.RoleID, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
@@ -198,7 +199,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 					case "ItemRangesDeleted":
 						try
 						{
-							var model = await RoleService.GetRoleAsync(current.RoleID);
+							var model = await _roleService.GetRoleAsync(current.RoleID);
 							if (model == null)
 							{
 								await OnItemDeletedExternally();

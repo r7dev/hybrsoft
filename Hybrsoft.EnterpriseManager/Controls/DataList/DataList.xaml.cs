@@ -28,11 +28,11 @@ namespace Hybrsoft.EnterpriseManager.Controls
 		{
 			this.InitializeComponent();
 			DependencyExpressions.Initialize(this);
-			ResourceService = ServiceLocator.Current.GetService<IResourceService>();
+			_resourceService = ServiceLocator.Current.GetService<IResourceService>();
 		}
 
-		static private readonly DependencyExpressions DependencyExpressions = new();
-		public IResourceService ResourceService { get; }
+		private static readonly DependencyExpressions DependencyExpressions = new();
+		private readonly IResourceService _resourceService;
 
 		#region NewLabel
 		public string NewLabel
@@ -334,14 +334,14 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			{
 				if (ItemsSource == null)
 				{
-					return ResourceService.GetString(ResourceFiles.UI, "DataListUserControl_Loading");
+					return _resourceService.GetString(ResourceFiles.UI, "DataListUserControl_Loading");
 				}
 				else
 				{
-					string searchMessage = ResourceService.GetString(ResourceFiles.UI, "DataListUserControl_NoItemsFound");
+					string searchMessage = _resourceService.GetString(ResourceFiles.UI, "DataListUserControl_NoItemsFound");
 					if (DefaultCommands.Contains("new"))
 					{
-						string newItemMessage = ResourceService.GetString(ResourceFiles.UI, "DataListUserControl_NewItem");
+						string newItemMessage = _resourceService.GetString(ResourceFiles.UI, "DataListUserControl_NewItem");
 						return $"{searchMessage} {newItemMessage}";
 					}
 					return searchMessage;

@@ -13,9 +13,10 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class RolePermissionListViewModel(IRolePermissionService rolePermissionService, ICommonServices commonServices) : GenericListViewModel<RolePermissionModel>(commonServices)
+	public partial class RolePermissionListViewModel(IRolePermissionService rolePermissionService,
+		ICommonServices commonServices) : GenericListViewModel<RolePermissionModel>(commonServices)
 	{
-		public IRolePermissionService RolePermissionService { get; } = rolePermissionService;
+		private readonly IRolePermissionService _rolePermissionService = rolePermissionService;
 
 		private string StartTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
 		private string StartMessage => ResourceService.GetString<RolePermissionListViewModel>(ResourceFiles.InfoMessages, "LoadingRolePermissions");
@@ -106,7 +107,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			if (!ViewModelArgs.IsEmpty)
 			{
 				DataRequest<RolePermission> request = BuildDataRequest();
-				return await RolePermissionService.GetRolePermissionsAsync(request);
+				return await _rolePermissionService.GetRolePermissionsAsync(request);
 			}
 			return [];
 		}
@@ -202,7 +203,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			foreach (var model in models)
 			{
-				await RolePermissionService.DeleteRolePermissionAsync(model);
+				await _rolePermissionService.DeleteRolePermissionAsync(model);
 				LogWarning(model);
 			}
 		}
@@ -214,12 +215,12 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			List<RolePermissionModel> models = [];
 			foreach (var range in ranges)
 			{
-				var items = await RolePermissionService.GetRolePermissionsAsync(range.Index, range.Length, request);
+				var items = await _rolePermissionService.GetRolePermissionsAsync(range.Index, range.Length, request);
 				models.AddRange(items);
 			}
 			foreach (var range in ranges.Reverse())
 			{
-				await RolePermissionService.DeleteRolePermissionRangeAsync(range.Index, range.Length, request);
+				await _rolePermissionService.DeleteRolePermissionRangeAsync(range.Index, range.Length, request);
 			}
 			foreach (var model in models)
 			{

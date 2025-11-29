@@ -8,15 +8,18 @@ namespace Hybrsoft.UI.Windows.ViewModels
 {
 	public partial class StudentsViewModel : ViewModelBase
 	{
-		public StudentsViewModel(IStudentService studentService, IStudentRelativeService studentRelativeService, IFilePickerService filePickerService, ICommonServices commonServices) : base(commonServices)
+		public StudentsViewModel(IStudentService studentService,
+			IStudentRelativeService studentRelativeService,
+			IFilePickerService filePickerService,
+			ICommonServices commonServices) : base(commonServices)
 		{
-			StudentService = studentService;
-			StudentList = new StudentListViewModel(StudentService, commonServices);
-			StudentDetails = new StudentDetailsViewModel(StudentService, filePickerService, commonServices);
+			_studentService = studentService;
+			StudentList = new StudentListViewModel(_studentService, commonServices);
+			StudentDetails = new StudentDetailsViewModel(_studentService, filePickerService, commonServices);
 			StudentRelativeList = new StudentRelativeListViewModel(studentRelativeService, commonServices);
 		}
 
-		public IStudentService StudentService { get; }
+		private readonly IStudentService _studentService;
 
 		public StudentListViewModel StudentList { get; set; }
 
@@ -85,7 +88,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				var model = await StudentService.GetStudentAsync(selected.StudentID);
+				var model = await _studentService.GetStudentAsync(selected.StudentID);
 				selected.Merge(model);
 			}
 			catch (Exception ex)

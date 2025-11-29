@@ -13,12 +13,12 @@ namespace Hybrsoft.EnterpriseManager.Services
 {
 	public class DismissalService(IDataServiceFactory dataServiceFactory, ILogService logService) : IDismissalService
 	{
-		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
-		public ILogService LogService { get; } = logService;
+		private readonly IDataServiceFactory _dataServiceFactory = dataServiceFactory;
+		private readonly ILogService _logService = logService;
 
 		public async Task<IList<DismissibleStudentModel>> GetDismissibleStudentsAsync(DataRequest<ClassroomStudent> request)
 		{
-			var collection = new DismissibleStudentCollection(this, LogService);
+			var collection = new DismissibleStudentCollection(this, _logService);
 			await collection.LoadAsync(request);
 			return collection;
 		}
@@ -26,7 +26,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<IList<DismissibleStudentModel>> GetDismissibleStudentsAsync(int skip, int take, DataRequest<ClassroomStudent> request)
 		{
 			var models = new List<DismissibleStudentModel>();
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var items = await dataService.GetDismissibleStudentsAsync(skip, take, request);
 			foreach (var item in items)
 			{
@@ -37,7 +37,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<int> GetDismissibleStudentsCountAsync(DataRequest<ClassroomStudent> request)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.GetDismissibleStudentsCountAsync(request);
 		}
 
@@ -59,7 +59,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<DismissalModel> GetDismissalAsync(long id)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await GetDismissalAsync(dataService, id);
 		}
 
@@ -75,7 +75,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<IList<DismissalModel>> GetDismissalsAsync(DataRequest<Dismissal> request)
 		{
-			var collection = new DismissalCollection(this, LogService);
+			var collection = new DismissalCollection(this, _logService);
 			await collection.LoadAsync(request);
 			return collection;
 		}
@@ -83,7 +83,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<IList<DismissalModel>> GetDismissalsAsync(int skip, int take, DataRequest<Dismissal> request)
 		{
 			var models = new List<DismissalModel>();
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var items = await dataService.GetDismissalsAsync(skip, take, request);
 			foreach (var item in items)
 			{
@@ -94,14 +94,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<int> GetDismissalsCountAsync(DataRequest<Dismissal> request)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.GetDismissalsCountAsync(request);
 		}
 
 		public async Task<int> UpdateDismissalAsync(DismissalModel model)
 		{
 			long id = model.DismissalID;
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var item = id > 0
 				? await dataService.GetDismissalAsync(model.DismissalID)
 				: new Dismissal() { Classroom = new Classroom(), Student = new Student(), Relative = new Relative() };
@@ -118,13 +118,13 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<int> ApproveDismissalAsync(DismissalModel model)
 		{
 			var item = new Dismissal { DismissalID = model.DismissalID };
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.ApproveDismissalsAsync(item);
 		}
 
 		public async Task<int> ApproveDismissalRangeAsync(int index, int length, DataRequest<Dismissal> request)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var items = await dataService.GetDismissalKeysAsync(index, length, request);
 			return await dataService.ApproveDismissalsAsync([.. items]);
 		}

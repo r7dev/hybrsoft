@@ -10,9 +10,10 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class CompanyDetailsViewModel(ICompanyService companyService, ICommonServices commonServices) : GenericDetailsViewModel<CompanyModel>(commonServices)
+	public partial class CompanyDetailsViewModel(ICompanyService companyService,
+		ICommonServices commonServices) : GenericDetailsViewModel<CompanyModel>(commonServices)
 	{
-		public ICompanyService CompanyService { get; } = companyService;
+		private readonly ICompanyService _companyService = companyService;
 
 		private bool _hasEditorPermission;
 
@@ -45,7 +46,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				try
 				{
-					var item = await CompanyService.GetCompanyAsync(ViewModelArgs.CompanyID);
+					var item = await _companyService.GetCompanyAsync(ViewModelArgs.CompanyID);
 					Item = item ?? new CompanyModel { CompanyID = ViewModelArgs.CompanyID, IsEmpty = true };
 					await Task.Delay(200);
 					EditableItem.NotifyChanges();
@@ -92,7 +93,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string startMessage = ResourceService.GetString<CompanyDetailsViewModel>(ResourceFiles.InfoMessages, "SavingCompany");
 				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
-				await CompanyService.UpdateCompanyAsync(model);
+				await _companyService.UpdateCompanyAsync(model);
 				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "SaveSuccessful");
 				string endMessage = ResourceService.GetString<CompanyDetailsViewModel>(ResourceFiles.InfoMessages, "CompanySaved");
 				EndStatusMessage(endTitle, endMessage, LogType.Success);
@@ -118,7 +119,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string startMessage = ResourceService.GetString<CompanyDetailsViewModel>(ResourceFiles.InfoMessages, "DeletingCompany");
 				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
-				await CompanyService.DeleteCompanyAsync(model);
+				await _companyService.DeleteCompanyAsync(model);
 				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "DeletionSuccessful");
 				string endMessage = ResourceService.GetString<CompanyDetailsViewModel>(ResourceFiles.InfoMessages, "CompanyDeleted");
 				EndStatusMessage(endTitle, endMessage, LogType.Warning);
@@ -177,7 +178,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 							{
 								try
 								{
-									var item = await CompanyService.GetCompanyAsync(current.CompanyID);
+									var item = await _companyService.GetCompanyAsync(current.CompanyID);
 									item ??= new CompanyModel { CompanyID = current.CompanyID, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
@@ -222,7 +223,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 					case "ItemRangesDeleted":
 						try
 						{
-							var model = await CompanyService.GetCompanyAsync(current.CompanyID);
+							var model = await _companyService.GetCompanyAsync(current.CompanyID);
 							if (model == null)
 							{
 								await OnItemDeletedExternally();

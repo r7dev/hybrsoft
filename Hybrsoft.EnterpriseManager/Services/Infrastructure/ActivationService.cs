@@ -27,7 +27,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 
 	static public class ActivationService
 	{
-		static public ActivationInfo GetActivationInfo(IActivatedEventArgs args)
+		public static ActivationInfo GetActivationInfo(IActivatedEventArgs args)
 		{
 			return args.Kind switch
 			{

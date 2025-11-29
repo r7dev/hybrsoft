@@ -11,11 +11,11 @@ namespace Hybrsoft.EnterpriseManager.Services
 {
 	public class UserRoleService(IDataServiceFactory dataServiceFactory) : IUserRoleService
 	{
-		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
+		private readonly IDataServiceFactory _dataServiceFactory = dataServiceFactory;
 
 		public async Task<UserRoleModel> GetUserRoleAsync(long id)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await GetUserRoleAsync(dataService, id);
 		}
 		private static async Task<UserRoleModel> GetUserRoleAsync(IDataService dataService, long id)
@@ -37,7 +37,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<IList<UserRoleModel>> GetUserRolesAsync(int skip, int take, DataRequest<UserRole> request)
 		{
 			var models = new List<UserRoleModel>();
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var items = await dataService.GetUserRolesAsync(skip, take, request);
 			foreach (var item in items)
 			{
@@ -48,19 +48,19 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<IList<long>> GetAddedRoleKeysInUserAsync(long parentID)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.GetAddedRoleKeysInUserAsync(parentID);
 		}
 
 		public async Task<int> GetUserRolesCountAsync(DataRequest<UserRole> request)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.GetUserRolesCountAsync(request);
 		}
 
 		public async Task<int> UpdateUserRoleAsync(UserRoleModel model)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var item = model.UserRoleID > 0
 				? await dataService.GetUserRoleAsync(model.UserRoleID)
 				: new UserRole() { Role = new Role() };
@@ -76,13 +76,13 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<int> DeleteUserRoleAsync(UserRoleModel model)
 		{
 			var item = new UserRole() { UserRoleID = model.UserRoleID };
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.DeleteUserRolesAsync(item);
 		}
 
 		public async Task<int> DeleteUserRoleRangeAsync(int index, int length, DataRequest<UserRole> request)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var items = await dataService.GetUserRolesAsync(index, length, request);
 			return await dataService.DeleteUserRolesAsync([..items]);
 		}

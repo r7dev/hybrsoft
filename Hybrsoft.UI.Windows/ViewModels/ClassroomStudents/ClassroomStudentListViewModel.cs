@@ -13,9 +13,10 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class ClassroomStudentListViewModel(IClassroomStudentService classroomStudentService, ICommonServices commonServices) : GenericListViewModel<ClassroomStudentModel>(commonServices)
+	public partial class ClassroomStudentListViewModel(IClassroomStudentService classroomStudentService,
+		ICommonServices commonServices) : GenericListViewModel<ClassroomStudentModel>(commonServices)
 	{
-		public IClassroomStudentService ClassroomStudentService { get; } = classroomStudentService;
+		private readonly IClassroomStudentService _classroomStudentService = classroomStudentService;
 
 		private string StartTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
 		private string StartMessage => ResourceService.GetString<ClassroomStudentListViewModel>(ResourceFiles.InfoMessages, "LoadingStudentsInTheClassroom");
@@ -106,7 +107,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			if (!ViewModelArgs.IsEmpty)
 			{
 				DataRequest<ClassroomStudent> request = BuildDataRequest();
-				return await ClassroomStudentService.GetClassroomStudentsAsync(request);
+				return await _classroomStudentService.GetClassroomStudentsAsync(request);
 			}
 			return [];
 		}
@@ -202,7 +203,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			foreach (var model in models)
 			{
-				await ClassroomStudentService.DeleteClassroomStudentAsync(model);
+				await _classroomStudentService.DeleteClassroomStudentAsync(model);
 				LogWarning(model);
 			}
 		}
@@ -214,12 +215,12 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			List<ClassroomStudentModel> models = [];
 			foreach (var range in ranges)
 			{
-				var items = await ClassroomStudentService.GetClassroomStudentsAsync(range.Index, range.Length, request);
+				var items = await _classroomStudentService.GetClassroomStudentsAsync(range.Index, range.Length, request);
 				models.AddRange(items);
 			}
 			foreach (var range in ranges.Reverse())
 			{
-				await ClassroomStudentService.DeleteClassroomStudentRangeAsync(range.Index, range.Length, request);
+				await _classroomStudentService.DeleteClassroomStudentRangeAsync(range.Index, range.Length, request);
 			}
 			foreach (var model in models)
 			{

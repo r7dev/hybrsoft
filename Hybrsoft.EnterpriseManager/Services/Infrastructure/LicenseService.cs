@@ -26,9 +26,9 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 
 		private readonly IUserService _userService = userService;
 		private readonly IWindowsSecurityService _windowsSecurityService = windowsSecurityService;
-		public INetworkService NetworkService { get; } = networkService;
-		public ISettingsService SettingsService { get; } = settingsService;
-		public ILogService LogService { get; } = logService;
+		private readonly INetworkService _networkService = networkService;
+		private readonly ISettingsService _settingsService = settingsService;
+		private readonly ILogService _logService = logService;
 
 		public async Task<LicenseResponse> ActivateSubscriptionOnlineAsync(LicenseActivationModel license)
 		{
@@ -40,7 +40,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 					return new LicenseResponse { IsActivated = false, Message = "Authentication failed." };
 				}
 
-				var client = NetworkService.GetHttpClient(_jwtToken);
+				var client = _networkService.GetHttpClient(_jwtToken);
 				var payload = new { license.Email, license.LicenseKey, ProductType = AppType.EnterpriseManager };
 				var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
 				var response = await client.PostAsync(AppConfig.ApiBaseUrl + "/subscription/activate", content);
@@ -49,7 +49,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			}
 			catch (Exception ex)
 			{
-				await LogService.WriteAsync(LogType.Error, "License", "Activate", ex.Message, ex.ToString());
+				await _logService.WriteAsync(LogType.Error, "License", "Activate", ex.Message, ex.ToString());
 				return new LicenseResponse { IsActivated = false };
 			}
 		}
@@ -64,7 +64,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 					return new LicenseResponse { IsActivated = false, Message = "Authentication failed." };
 				}
 
-				var client  = NetworkService.GetHttpClient(_jwtToken);
+				var client  = _networkService.GetHttpClient(_jwtToken);
 				var payload = new { Email = email, ProductType = AppType.EnterpriseManager };
 				var content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
 				var response = await client.PostAsync(AppConfig.ApiBaseUrl + "/subscription/validate", content);
@@ -77,7 +77,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			}
 			catch (Exception ex)
 			{
-				await LogService.WriteAsync(LogType.Error, "License", "Validate Online", ex.Message, ex.ToString());
+				await _logService.WriteAsync(LogType.Error, "License", "Validate Online", ex.Message, ex.ToString());
 				return new LicenseResponse { IsActivated = false };
 			}
 		}
@@ -85,14 +85,14 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		public void SaveLicenseLocally(SubscriptionInfoDto model)
 		{
 			var encryptedData = _windowsSecurityService.EncryptData(model);
-			SettingsService.SaveSettingAsync(_licenseData, encryptedData);
-			SettingsService.SaveSettingAsync(_lastLicenseSync, DateTimeOffset.Now.ToString("o"));
+			_settingsService.SaveSettingAsync(_licenseData, encryptedData);
+			_settingsService.SaveSettingAsync(_lastLicenseSync, DateTimeOffset.Now.ToString("o"));
 		}
 
 		public async Task<bool> IsLicenseValidOfflineAsync()
 		{
-			var encryptedData = await SettingsService.ReadSettingAsync<string>(_licenseData);
-			var lastSyncStr = await SettingsService.ReadSettingAsync<string>(_lastLicenseSync);
+			var encryptedData = await _settingsService.ReadSettingAsync<string>(_licenseData);
+			var lastSyncStr = await _settingsService.ReadSettingAsync<string>(_lastLicenseSync);
 			if (string.IsNullOrEmpty(encryptedData) || string.IsNullOrEmpty(lastSyncStr))
 				return false;
 
@@ -146,7 +146,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 					isPasswordEncrypted = true;
 				}
 
-				var client = NetworkService.GetHttpClient();
+				var client = _networkService.GetHttpClient();
 				var payload = new
 				{
 					Username = email,
@@ -167,7 +167,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			}
 			catch (Exception ex)
 			{
-				await LogService.WriteAsync(LogType.Error, "License", "Authenticate", ex.Message, ex.ToString());
+				await _logService.WriteAsync(LogType.Error, "License", "Authenticate", ex.Message, ex.ToString());
 				return null;
 			}
 		}
@@ -180,7 +180,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 
 		public async Task<int?> GetRemainingDaysAsync()
 		{
-			var encryptedData = await SettingsService.ReadSettingAsync<string>(_licenseData);
+			var encryptedData = await _settingsService.ReadSettingAsync<string>(_licenseData);
 			if (string.IsNullOrEmpty(encryptedData))
 				return null;
 

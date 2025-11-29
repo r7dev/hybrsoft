@@ -10,11 +10,12 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class RelativeDetailsViewModel(IRelativeService relativeService, IFilePickerService filePickerService, ICommonServices commonServices) : GenericDetailsViewModel<RelativeModel>(commonServices)
+	public partial class RelativeDetailsViewModel(IRelativeService relativeService,
+		IFilePickerService filePickerService,
+		ICommonServices commonServices) : GenericDetailsViewModel<RelativeModel>(commonServices)
 	{
-		public IRelativeService RelativeService { get; } = relativeService;
-
-		public IFilePickerService FilePickerService { get; } = filePickerService;
+		private readonly IRelativeService _relativeService = relativeService;
+		private readonly IFilePickerService _filePickerService = filePickerService;
 
 		public override string Title => ItemIsNew
 				? ResourceService.GetString<RelativeDetailsViewModel>(ResourceFiles.UI, "TitleNew")
@@ -44,7 +45,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				try
 				{
-					var item = await RelativeService.GetRelativeAsync(ViewModelArgs.RelativeID);
+					var item = await _relativeService.GetRelativeAsync(ViewModelArgs.RelativeID);
 					Item = item ?? new RelativeModel { RelativeID = ViewModelArgs.RelativeID, IsEmpty = true };
 					await Task.Delay(200);
 					EditableItem.NotifyChanges();
@@ -93,7 +94,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		public virtual async void EditPictureAsync()
 		{
 			NewPictureSource = null;
-			var result = await FilePickerService.OpenImagePickerAsync();
+			var result = await _filePickerService.OpenImagePickerAsync();
 			if (result != null)
 			{
 				EditableItem.Picture = result.ImageBytes;
@@ -116,7 +117,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string startMessage = ResourceService.GetString<RelativeDetailsViewModel>(ResourceFiles.InfoMessages, "SavingRelative");
 				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
-				await RelativeService.UpdateRelativeAsync(model);
+				await _relativeService.UpdateRelativeAsync(model);
 				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "SaveSuccessful");
 				string endMessage = ResourceService.GetString<RelativeDetailsViewModel>(ResourceFiles.InfoMessages, "RelativeSaved");
 				EndStatusMessage(endTitle, endMessage, LogType.Success);
@@ -141,7 +142,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string startMessage = ResourceService.GetString<RelativeDetailsViewModel>(ResourceFiles.InfoMessages, "DeletingRelative");
 				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
-				await RelativeService.DeleteRelativeAsync(model);
+				await _relativeService.DeleteRelativeAsync(model);
 				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "DeletionSuccessful");
 				string endMessage = ResourceService.GetString<RelativeDetailsViewModel>(ResourceFiles.InfoMessages, "RelativeDeleted");
 				EndStatusMessage(endTitle, endMessage, LogType.Warning);
@@ -201,7 +202,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 							{
 								try
 								{
-									var item = await RelativeService.GetRelativeAsync(current.RelativeID);
+									var item = await _relativeService.GetRelativeAsync(current.RelativeID);
 									item ??= new RelativeModel { RelativeID = current.RelativeID, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
@@ -246,7 +247,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 					case "ItemRangesDeleted":
 						try
 						{
-							var model = await RelativeService.GetRelativeAsync(current.RelativeID);
+							var model = await _relativeService.GetRelativeAsync(current.RelativeID);
 							if (model == null)
 							{
 								await OnItemDeletedExternally();

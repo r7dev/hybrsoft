@@ -13,13 +13,13 @@ namespace Hybrsoft.EnterpriseManager.Services
 {
 	public class RelativeService(IDataServiceFactory dataServiceFactory, ILogService logService) : IRelativeService
 	{
-		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
-		public ILogService LogService { get; } = logService;
-		public static ILookupTables LookupTables => LookupTablesProxy.Instance;
+		private readonly IDataServiceFactory _dataServiceFactory = dataServiceFactory;
+		private readonly ILogService _logService = logService;
+		private static ILookupTables LookupTables => LookupTablesProxy.Instance;
 
 		public async Task<RelativeModel> GetRelativeAsync(long id)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await GetRelativeAsync(dataService, id);
 		}
 
@@ -35,7 +35,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<IList<RelativeModel>> GetRelativesAsync(DataRequest<Relative> request)
 		{
-			var collection = new RelativeCollection(this, LogService);
+			var collection = new RelativeCollection(this, _logService);
 			await collection.LoadAsync(request);
 			return collection;
 		}
@@ -43,7 +43,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<IList<RelativeModel>> GetRelativesAsync(int skip, int take, DataRequest<Relative> request)
 		{
 			var models = new List<RelativeModel>();
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var items = await dataService.GetRelativesAsync(skip, take, request);
 			foreach (var item in items)
 			{
@@ -54,14 +54,14 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<int> GetRelativesCountAsync(DataRequest<Relative> request)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.GetRelativesCountAsync(request);
 		}
 
 		public async Task<int> UpdateRelativeAsync(RelativeModel model)
 		{
 			long id = model.RelativeID;
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var item = id > 0 ? await dataService.GetRelativeAsync(model.RelativeID) : new Relative();
 			if (item != null)
 			{
@@ -75,13 +75,13 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<int> DeleteRelativeAsync(RelativeModel model)
 		{
 			var item = new Relative { RelativeID = model.RelativeID };
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.DeleteRelativesAsync(item);
 		}
 
 		public async Task<int> DeleteRelativeRangeAsync(int index, int length, DataRequest<Relative> request)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var items = await dataService.GetRelativeKeysAsync(index, length, request);
 			return await dataService.DeleteRelativesAsync([.. items]);
 		}

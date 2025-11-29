@@ -13,9 +13,10 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class DismissalListViewModel(IDismissalService dismissalService, ICommonServices commonServices) : GenericListViewModel<DismissalModel>(commonServices)
+	public partial class DismissalListViewModel(IDismissalService dismissalService,
+		ICommonServices commonServices) : GenericListViewModel<DismissalModel>(commonServices)
 	{
-		IDismissalService DismissalService { get; } = dismissalService;
+		private readonly IDismissalService _dismissalService = dismissalService;
 
 		private bool _hasPermissionToAccept;
 		private string StartTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
@@ -99,7 +100,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			if (!ViewModelArgs.IsEmpty)
 			{
 				DataRequest<Dismissal> request = BuildDataRequest();
-				return await DismissalService.GetDismissalsAsync(request);
+				return await _dismissalService.GetDismissalsAsync(request);
 			}
 			return [];
 		}
@@ -170,7 +171,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			foreach (var model in models)
 			{
-				await DismissalService.ApproveDismissalAsync(model);
+				await _dismissalService.ApproveDismissalAsync(model);
 				LogSuccess(model);
 			}
 		}
@@ -182,12 +183,12 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			List<DismissalModel> models = [];
 			foreach (var range in ranges)
 			{
-				var dismissals = await DismissalService.GetDismissalsAsync(range.Index, range.Length, request);
+				var dismissals = await _dismissalService.GetDismissalsAsync(range.Index, range.Length, request);
 				models.AddRange(dismissals);
 			}
 			foreach (var range in ranges.Reverse())
 			{
-				await DismissalService.ApproveDismissalRangeAsync(range.Index, range.Length, request);
+				await _dismissalService.ApproveDismissalRangeAsync(range.Index, range.Length, request);
 			}
 			foreach (var model in models)
 			{

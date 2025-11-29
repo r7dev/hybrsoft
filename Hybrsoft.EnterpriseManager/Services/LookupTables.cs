@@ -10,11 +10,13 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services
 {
-	public class LookupTables(IDataServiceFactory dataServiceFactory, ILogService logService, IResourceService resourceService) : ILookupTables
+	public class LookupTables(IDataServiceFactory dataServiceFactory,
+		ILogService logService,
+		IResourceService resourceService) : ILookupTables
 	{
-		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
-		public ILogService LogService { get; } = logService;
-		public IResourceService ResourceService { get; } = resourceService;
+		private readonly IDataServiceFactory _dataServiceFactory = dataServiceFactory;
+		private readonly ILogService _logService = logService;
+		private readonly IResourceService _resourceService = resourceService;
 
 		public IList<CountryModel> Countries { get; private set; }
 		public IList<PermissionModel> Permissions { get; private set; }
@@ -59,12 +61,12 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			try
 			{
-				using var dataService = DataServiceFactory.CreateDataService();
+				using var dataService = _dataServiceFactory.CreateDataService();
 				var items = await dataService.GetCountriesAsync();
 				return [.. items.Select(r => new CountryModel
 				{
 					CountryID = r.CountryID,
-					Name = string.IsNullOrEmpty(r.Uid) ? r.Name : ResourceService.GetString(ResourceFiles.UI, r.Uid),
+					Name = string.IsNullOrEmpty(r.Uid) ? r.Name : _resourceService.GetString(ResourceFiles.UI, r.Uid),
 				})];
 			}
 			catch (Exception ex)
@@ -78,7 +80,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			try
 			{
-				using var dataService = DataServiceFactory.CreateDataService();
+				using var dataService = _dataServiceFactory.CreateDataService();
 				var items = await dataService.GetPermissionsByUserAsync(userID);
 				return [.. items.Select(r => new PermissionModel
 				{
@@ -106,12 +108,12 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			try
 			{
-				using var dataService = DataServiceFactory.CreateDataService();
+				using var dataService = _dataServiceFactory.CreateDataService();
 				var items = await dataService.GetScheduleTypesAsync();
 				return [.. items.Select(r => new ScheduleTypeModel
 				{
 					ScheduleTypeID = r.ScheduleTypeID,
-					Name = string.IsNullOrEmpty(r.Uid) ? r.Name : ResourceService.GetString(ResourceFiles.UI, r.Uid),
+					Name = string.IsNullOrEmpty(r.Uid) ? r.Name : _resourceService.GetString(ResourceFiles.UI, r.Uid),
 				})];
 			}
 			catch (Exception ex)
@@ -134,12 +136,12 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			try
 			{
-				using var dataService = DataServiceFactory.CreateDataService();
+				using var dataService = _dataServiceFactory.CreateDataService();
 				var items = await dataService.GetSubscriptionPlansAsync();
 				return [.. items.Select(r => new SubscriptionPlanModel
 				{
 					SubscriptionPlanID = r.SubscriptionPlanID,
-					Name = string.IsNullOrEmpty(r.Uid) ? r.Name : ResourceService.GetString(ResourceFiles.UI, r.Uid),
+					Name = string.IsNullOrEmpty(r.Uid) ? r.Name : _resourceService.GetString(ResourceFiles.UI, r.Uid),
 					DurationMonths = r.DurationMonths
 				})];
 			}
@@ -164,7 +166,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 				.Select(r => new SubscriptionStatusModel
 				{
 					SubscriptionStatusID = (short)r,
-					DisplayName = ResourceService.GetString(ResourceFiles.UI, $"SubscriptionStatus_{r}")
+					DisplayName = _resourceService.GetString(ResourceFiles.UI, $"SubscriptionStatus_{r}")
 				})];
 		}
 
@@ -192,12 +194,12 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			try
 			{
-				using var dataService = DataServiceFactory.CreateDataService();
+				using var dataService = _dataServiceFactory.CreateDataService();
 				var items = await dataService.GetRelativeTypesAsync();
 				return [.. items.Select(r => new RelativeTypeModel
 				{
 					RelativeTypeID = r.RelativeTypeID,
-					Name = string.IsNullOrEmpty(r.Uid) ? r.Name : ResourceService.GetString(ResourceFiles.UI, r.Uid),
+					Name = string.IsNullOrEmpty(r.Uid) ? r.Name : _resourceService.GetString(ResourceFiles.UI, r.Uid),
 				})];
 			}
 			catch (Exception ex)
@@ -209,7 +211,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		private async void LogException(string source, string action, Exception exception)
 		{
-			await LogService.WriteAsync(LogType.Error, source, action, exception.Message, exception.ToString());
+			await _logService.WriteAsync(LogType.Error, source, action, exception.Message, exception.ToString());
 		}
 	}
 }

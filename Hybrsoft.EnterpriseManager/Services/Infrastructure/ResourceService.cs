@@ -25,10 +25,10 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		{
 			_resourceManager = new ResourceManager();
 			_resourceContext = _resourceManager.CreateResourceContext();
-			SettingsService = settingsService;
+			_settingsService = settingsService;
 		}
 
-		public ISettingsService SettingsService { get; }
+		private readonly ISettingsService _settingsService;
 
 		public async Task InitializeAsync()
 		{
@@ -85,7 +85,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 				ApplicationLanguages.PrimaryLanguageOverride = language.Tag;
 				_resourceContext.QualifierValues["Language"] = language.Tag;
 
-				await SettingsService.SaveSettingAsync(LanguageSettingsKey, language.Tag);
+				await _settingsService.SaveSettingAsync(LanguageSettingsKey, language.Tag);
 			}
 		}
 
@@ -101,7 +101,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 
 		private async Task<string> GetLanguageTagFromSettingsAsync()
 		{
-			return await SettingsService.ReadSettingAsync<string>(LanguageSettingsKey);
+			return await _settingsService.ReadSettingAsync<string>(LanguageSettingsKey);
 		}
 
 		private void RegisterLanguageFromResource()

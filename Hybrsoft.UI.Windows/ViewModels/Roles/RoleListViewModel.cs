@@ -13,9 +13,10 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class RoleListViewModel(IRoleService roleService, ICommonServices commonServices) : GenericListViewModel<RoleModel>(commonServices)
+	public partial class RoleListViewModel(IRoleService roleService,
+		ICommonServices commonServices) : GenericListViewModel<RoleModel>(commonServices)
 	{
-		public IRoleService RoleService { get; } = roleService;
+		private readonly IRoleService _roleService = roleService;
 
 		private string StartTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
 		private string StartMessage => ResourceService.GetString<RoleListViewModel>(ResourceFiles.InfoMessages, "LoadingRoles");
@@ -97,7 +98,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			if (!ViewModelArgs.IsEmpty)
 			{
 				DataRequest<Role> request = BuildDataRequest();
-				return await RoleService.GetRolesAsync(request);
+				return await _roleService.GetRolesAsync(request);
 			}
 			return [];
 		}
@@ -206,7 +207,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			foreach (var model in models)
 			{
-				await RoleService.DeleteRoleAsync(model);
+				await _roleService.DeleteRoleAsync(model);
 				LogWarning(model);
 			}
 		}
@@ -218,12 +219,12 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			List<RoleModel> models = [];
 			foreach (var range in ranges)
 			{
-				var items = await RoleService.GetRolesAsync(range.Index, range.Length, request);
+				var items = await _roleService.GetRolesAsync(range.Index, range.Length, request);
 				models.AddRange(items);
 			}
 			foreach (var range in ranges.Reverse())
 			{
-				await RoleService.DeleteRoleRangeAsync(range.Index, range.Length, request);
+				await _roleService.DeleteRoleRangeAsync(range.Index, range.Length, request);
 			}
 			foreach (var model in models)
 			{

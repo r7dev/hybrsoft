@@ -13,8 +13,8 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 {
 	public class LogService(IDataServiceFactory dataServiceFactory, IMessageService messageService) : ILogService
 	{
-		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
-		public IMessageService MessageService { get; } = messageService;
+		private readonly IDataServiceFactory _dataServiceFactory = dataServiceFactory;
+		private readonly IMessageService _messageService = messageService;
 
 		public async Task WriteAsync(LogType type, string source, string action, Exception ex)
 		{
@@ -45,12 +45,12 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 			};
 
 			await CreateLogAsync(appLog);
-			MessageService.Send(this, "LogAdded", appLog);
+			_messageService.Send(this, "LogAdded", appLog);
 		}
 
 		public async Task<AppLogModel> GetLogAsync(long id)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var item = await dataService.GetAppLogAsync(id);
 			if (item != null)
 			{
@@ -69,7 +69,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 		public async Task<IList<AppLogModel>> GetLogsAsync(int skip, int take, DataRequest<AppLog> request)
 		{
 			var models = new List<AppLogModel>();
-			using var dataSource = DataServiceFactory.CreateDataService();
+			using var dataSource = _dataServiceFactory.CreateDataService();
 			var items = await dataSource.GetAppLogsAsync(skip, take, request);
 			foreach (var item in items)
 			{
@@ -80,33 +80,33 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 
 		public async Task<int> GetLogsCountAsync(DataRequest<AppLog> request)
 		{
-			using var dataSource = DataServiceFactory.CreateDataService();
+			using var dataSource = _dataServiceFactory.CreateDataService();
 			return await dataSource.GetAppLogsCountAsync(request);
 		}
 
 		public async Task<int> CreateLogAsync(AppLog model)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.CreateAppLogAsync(model);
 		}
 
 		public async Task<int> DeleteLogAsync(AppLogModel model)
 		{
 			var item = new AppLog { AppLogID = model.AppLogID };
-			using var dataSource = DataServiceFactory.CreateDataService();
+			using var dataSource = _dataServiceFactory.CreateDataService();
 			return await dataSource.DeleteAppLogsAsync(item);
 		}
 
 		public async Task<int> DeleteLogRangeAsync(int index, int length, DataRequest<AppLog> request)
 		{
-			using var ds = DataServiceFactory.CreateDataService();
+			using var ds = _dataServiceFactory.CreateDataService();
 			var items = await ds.GetAppLogKeysAsync(index, length, request);
 			return await ds.DeleteAppLogsAsync([.. items]);
 		}
 
 		public async Task MarkAllAsReadAsync()
 		{
-			using var dataSource = DataServiceFactory.CreateDataService();
+			using var dataSource = _dataServiceFactory.CreateDataService();
 			await dataSource.MarkAllAsReadAsync();
 		}
 

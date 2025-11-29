@@ -27,11 +27,11 @@ public sealed partial class DataGrid : UserControl, INotifyExpressionChanged
 	{
 		InitializeComponent();
 		DependencyExpressions.Initialize(this);
-		ResourceService = ServiceLocator.Current.GetService<IResourceService>();
+		_resourceService = ServiceLocator.Current.GetService<IResourceService>();
 	}
 
-	static private readonly DependencyExpressions DependencyExpressions = new();
-	public IResourceService ResourceService { get; }
+	private static readonly DependencyExpressions DependencyExpressions = new();
+	private readonly IResourceService _resourceService;
 
 	#region NewLabel
 	public string NewLabel
@@ -333,14 +333,14 @@ public sealed partial class DataGrid : UserControl, INotifyExpressionChanged
 		{
 			if (ItemsSource == null)
 			{
-				return ResourceService.GetString(ResourceFiles.UI, "DataGridUserControl_Loading");
+				return _resourceService.GetString(ResourceFiles.UI, "DataGridUserControl_Loading");
 			}
 			else
 			{
-				string searchMessage = ResourceService.GetString(ResourceFiles.UI, "DataGridUserControl_NoItemsFound");
+				string searchMessage = _resourceService.GetString(ResourceFiles.UI, "DataGridUserControl_NoItemsFound");
 				if (DefaultCommands.Contains("new"))
 				{
-					string newItemMessage = ResourceService.GetString(ResourceFiles.UI, "DataGridUserControl_NewItem");
+					string newItemMessage = _resourceService.GetString(ResourceFiles.UI, "DataGridUserControl_NewItem");
 					return $"{searchMessage} {newItemMessage}";
 				}
 				return searchMessage;

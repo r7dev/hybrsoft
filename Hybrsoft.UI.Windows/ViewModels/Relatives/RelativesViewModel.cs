@@ -8,11 +8,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 	{
 		public RelativesViewModel(IRelativeService relativeService, ICommonServices commonServices) : base(commonServices)
 		{
-			RelativeService = relativeService;
-			RelativeList = new RelativeListViewModel(RelativeService, commonServices);
+			_relativeService = relativeService;
+			RelativeList = new RelativeListViewModel(_relativeService, commonServices);
 		}
 
-		public IRelativeService RelativeService { get; }
+		private readonly IRelativeService _relativeService;
 
 		public RelativeListViewModel RelativeList { get; set; }
 

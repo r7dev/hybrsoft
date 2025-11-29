@@ -8,15 +8,17 @@ namespace Hybrsoft.UI.Windows.ViewModels
 {
 	public partial class UsersViewModel : ViewModelBase
 	{
-		public UsersViewModel(IUserService userService, IUserRoleService userRoleService, ICommonServices commonServices) : base(commonServices)
+		public UsersViewModel(IUserService userService,
+			IUserRoleService userRoleService,
+			ICommonServices commonServices) : base(commonServices)
 		{
-			UserService = userService;
-			UserList = new UserListViewModel(UserService, commonServices);
-			UserDetails = new UserDetailsViewModel(UserService, commonServices);
+			_userService = userService;
+			UserList = new UserListViewModel(_userService, commonServices);
+			UserDetails = new UserDetailsViewModel(_userService, commonServices);
 			UserRoleList = new UserRoleListViewModel(userRoleService, commonServices);
 		}
 
-		public IUserService UserService { get; }
+		private readonly IUserService _userService;
 
 		public UserListViewModel UserList { get; set; }
 
@@ -85,7 +87,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			try
 			{
-				var model = await UserService.GetUserAsync(selected.UserID);
+				var model = await _userService.GetUserAsync(selected.UserID);
 				selected.Merge(model);
 			}
 			catch (Exception ex)

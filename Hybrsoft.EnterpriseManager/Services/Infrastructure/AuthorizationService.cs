@@ -6,11 +6,11 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 {
 	public class AuthorizationService(ILookupTables lookupTables) : IAuthorizationService
 	{
-		private ILookupTables LookupTables { get; } = lookupTables;
+		private readonly ILookupTables _lookupTables = lookupTables;
 
 		public bool HasPermission(Permissions permission)
 		{
-			return LookupTables.Permissions.Any(r => r.Name == permission.ToString());
+			return _lookupTables.Permissions.Any(r => r.Name == permission.ToString());
 		}
 	}
 }

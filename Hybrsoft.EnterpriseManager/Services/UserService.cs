@@ -12,15 +12,17 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services
 {
-	public class UserService(IDataServiceFactory dataServiceFactory, ILogService logService, ISecurityService securityService) : IUserService
+	public class UserService(IDataServiceFactory dataServiceFactory,
+		ILogService logService,
+		ISecurityService securityService) : IUserService
 	{
-		public IDataServiceFactory DataServiceFactory { get; } = dataServiceFactory;
-		public ILogService LogService { get; } = logService;
-		private ISecurityService SecurityService { get; } = securityService;
+		private readonly IDataServiceFactory _dataServiceFactory = dataServiceFactory;
+		private readonly ILogService _logService = logService;
+		private readonly ISecurityService _securityService = securityService;
 
 		public async Task<UserModel> GetUserAsync(long id, bool includePassword = false)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await GetUserAsync(dataService, id, includePassword);
 		}
 
@@ -36,7 +38,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<UserModel> GetUserByEmailAsync(string email, bool includePassword)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await GetUserByEmailAsync(dataService, email, includePassword);
 		}
 
@@ -52,7 +54,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<IList<UserModel>> GetUsersAsync(DataRequest<User> request)
 		{
-			var collection = new UserCollection(this, LogService);
+			var collection = new UserCollection(this, _logService);
 			await collection.LoadAsync(request);
 			return collection;
 		}
@@ -60,7 +62,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<IList<UserModel>> GetUsersAsync(int skip, int take, DataRequest<User> request)
 		{
 			var models = new List<UserModel>();
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var items = await dataService.GetUsersAsync(skip, take, request);
 			foreach (var item in items)
 			{
@@ -71,20 +73,20 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public async Task<int> GetUsersCountAsync(DataRequest<User> request)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.GetUsersCountAsync(request);
 		}
 
 		public async Task<int> UpdateUserAsync(UserModel model)
 		{
 			long id = model.UserID;
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var item = id > 0 ? await dataService.GetUserAsync(model.UserID) : new User();
 			if (item != null)
 			{
 				model.PasswordLength = model.Password?.Length ?? 0;
 				model.Password = model.PasswordChanged
-					? SecurityService.HashPassword(model.Password)
+					? _securityService.HashPassword(model.Password)
 					: item.Password;
 				UpdateUserFromModel(item, model);
 				await dataService.UpdateUserAsync(item);
@@ -96,13 +98,13 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public async Task<int> DeleteUserAsync(UserModel model)
 		{
 			var item = new User { UserID = model.UserID };
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.DeleteUsersAsync(item);
 		}
 
 		public async Task<int> DeleteUserRangeAsync(int index, int length, DataRequest<User> request)
 		{
-			using var dataService = DataServiceFactory.CreateDataService();
+			using var dataService = _dataServiceFactory.CreateDataService();
 			var items = await dataService.GetUserKeysAsync(index, length, request);
 			return await dataService.DeleteUsersAsync([.. items]);
 		}

@@ -11,9 +11,10 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class RolePermissionDetailsViewModel(IRolePermissionService rolePermissionService, ICommonServices commonServices) : GenericDetailsViewModel<RolePermissionModel>(commonServices)
+	public partial class RolePermissionDetailsViewModel(IRolePermissionService rolePermissionService,
+		ICommonServices commonServices) : GenericDetailsViewModel<RolePermissionModel>(commonServices)
 	{
-		public IRolePermissionService RolePermissionService { get; } = rolePermissionService;
+		private readonly IRolePermissionService _rolePermissionService = rolePermissionService;
 
 		public override string Title => (Item?.IsNew ?? true) ? TitleNew : TitleEdit;
 		public string TitleNew => string.Format(ResourceService.GetString<RolePermissionDetailsViewModel>(ResourceFiles.UI, "TitleNew"), RoleId);
@@ -50,7 +51,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			ViewModelArgs = args ?? RolePermissionDetailsArgs.CreateDefault();
 			RolePermissionId = ViewModelArgs.RolePermissionId;
 			RoleId = ViewModelArgs.RoleId;
-			AddedPermissionKeys = await RolePermissionService.GetAddedPermissionKeysInRoleAsync(RoleId);
+			AddedPermissionKeys = await _rolePermissionService.GetAddedPermissionKeysInRoleAsync(RoleId);
 
 			if (ViewModelArgs.IsNew)
 			{
@@ -61,7 +62,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				try
 				{
-					var item = await RolePermissionService.GetRolePermissionAsync(RolePermissionId);
+					var item = await _rolePermissionService.GetRolePermissionAsync(RolePermissionId);
 					Item = item ?? new RolePermissionModel { RolePermissionID = RolePermissionId, RoleID = RoleId, IsEmpty = true };
 				}
 				catch (Exception ex)
@@ -102,7 +103,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string startMessage = ResourceService.GetString<RolePermissionDetailsViewModel>(ResourceFiles.InfoMessages, "SavingRolePermission");
 				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
-				await RolePermissionService.UpdateRolePermissionAsync(model);
+				await _rolePermissionService.UpdateRolePermissionAsync(model);
 				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "SaveSuccessful");
 				string endMessage = ResourceService.GetString<RolePermissionDetailsViewModel>(ResourceFiles.InfoMessages, "RolePermissionSaved");
 				EndStatusMessage(endTitle, endMessage, LogType.Success);
@@ -127,7 +128,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string startMessage = ResourceService.GetString<RolePermissionDetailsViewModel>(ResourceFiles.InfoMessages, "DeletingRolePermission");
 				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
-				await RolePermissionService.DeleteRolePermissionAsync(model);
+				await _rolePermissionService.DeleteRolePermissionAsync(model);
 				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "DeletionSuccessful");
 				string endMessage = ResourceService.GetString<RolePermissionDetailsViewModel>(ResourceFiles.InfoMessages, "RolePermissionDeleted");
 				EndStatusMessage(endTitle, endMessage, LogType.Warning);
@@ -177,7 +178,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 							{
 								try
 								{
-									var item = await RolePermissionService.GetRolePermissionAsync(current.RolePermissionID);
+									var item = await _rolePermissionService.GetRolePermissionAsync(current.RolePermissionID);
 									item ??= new RolePermissionModel { RolePermissionID = RolePermissionId, RoleID = RoleId, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
@@ -222,7 +223,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 					case "ItemRangesDeleted":
 						try
 						{
-							var model = await RolePermissionService.GetRolePermissionAsync(current.RolePermissionID);
+							var model = await _rolePermissionService.GetRolePermissionAsync(current.RolePermissionID);
 							if (model == null)
 							{
 								await OnItemDeletedExternally();

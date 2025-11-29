@@ -13,7 +13,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 {
 	public class NetworkService(ILogService logService) : INetworkService
 	{
-		public ILogService LogService { get; } = logService;
+		private readonly ILogService _logService = logService;
 
 		private static readonly SocketsHttpHandler _handler = new()
 		{
@@ -38,7 +38,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			}
 			catch (Exception ex)
 			{
-				await LogService.WriteAsync(LogType.Error, "Network", "IsInternetAvailable", ex.Message, ex.ToString());
+				await _logService.WriteAsync(LogType.Error, "Network", "IsInternetAvailable", ex.Message, ex.ToString());
 				return false;
 			}
 		}
@@ -57,7 +57,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			}
 			catch (Exception ex)
 			{
-				LogService.WriteAsync(LogType.Error, "Network", "GetHttpClient", ex.Message, ex.ToString()).Wait();
+				_logService.WriteAsync(LogType.Error, "Network", "GetHttpClient", ex.Message, ex.ToString()).Wait();
 				throw;
 			}
 		}

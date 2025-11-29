@@ -10,11 +10,12 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class StudentDetailsViewModel(IStudentService studentService, IFilePickerService filePickerService, ICommonServices commonServices) : GenericDetailsViewModel<StudentModel>(commonServices)
+	public partial class StudentDetailsViewModel(IStudentService studentService,
+		IFilePickerService filePickerService,
+		ICommonServices commonServices) : GenericDetailsViewModel<StudentModel>(commonServices)
 	{
-		public IStudentService StudentService { get; } = studentService;
-
-		public IFilePickerService FilePickerService { get; } = filePickerService;
+		private readonly IStudentService _studentService = studentService;
+		private readonly IFilePickerService _filePickerService = filePickerService;
 
 		public override string Title => ItemIsNew
 				? ResourceService.GetString<StudentDetailsViewModel>(ResourceFiles.UI, "TitleNew")
@@ -37,7 +38,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				try
 				{
-					var item = await StudentService.GetStudentAsync(ViewModelArgs.StudentID);
+					var item = await _studentService.GetStudentAsync(ViewModelArgs.StudentID);
 					Item = item ?? new StudentModel { StudentID = ViewModelArgs.StudentID, IsEmpty = true };
 				}
 				catch (Exception ex)
@@ -85,7 +86,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		public virtual async void EditPictureAsync()
 		{
 			NewPictureSource = null;
-			var result = await FilePickerService.OpenImagePickerAsync();
+			var result = await _filePickerService.OpenImagePickerAsync();
 			if (result != null)
 			{
 				EditableItem.Picture = result.ImageBytes;
@@ -108,7 +109,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string startMessage = ResourceService.GetString<StudentDetailsViewModel>(ResourceFiles.InfoMessages, "SavingStudent");
 				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
-				await StudentService.UpdateStudentAsync(model);
+				await _studentService.UpdateStudentAsync(model);
 				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "SaveSuccessful");
 				string endMessage = ResourceService.GetString<StudentDetailsViewModel>(ResourceFiles.InfoMessages, "StudentSaved");
 				EndStatusMessage(endTitle, endMessage, LogType.Success);
@@ -133,7 +134,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string startMessage = ResourceService.GetString<StudentDetailsViewModel>(ResourceFiles.InfoMessages, "DeletingStudent");
 				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
-				await StudentService.DeleteStudentAsync(model);
+				await _studentService.DeleteStudentAsync(model);
 				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "DeletionSuccessful");
 				string endMessage = ResourceService.GetString<StudentDetailsViewModel>(ResourceFiles.InfoMessages, "StudentDeleted");
 				EndStatusMessage(endTitle, endMessage, LogType.Warning);
@@ -196,7 +197,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 							{
 								try
 								{
-									var item = await StudentService.GetStudentAsync(current.StudentID);
+									var item = await _studentService.GetStudentAsync(current.StudentID);
 									item ??= new StudentModel { StudentID = current.StudentID, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
@@ -241,7 +242,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 					case "ItemRangesDeleted":
 						try
 						{
-							var model = await StudentService.GetStudentAsync(current.StudentID);
+							var model = await _studentService.GetStudentAsync(current.StudentID);
 							if (model == null)
 							{
 								await OnItemDeletedExternally();

@@ -13,9 +13,10 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class UserListViewModel(IUserService userService, ICommonServices commonServices) : GenericListViewModel<UserModel>(commonServices)
+	public partial class UserListViewModel(IUserService userService,
+		ICommonServices commonServices) : GenericListViewModel<UserModel>(commonServices)
 	{
-		public IUserService UserService { get; } = userService;
+		private readonly IUserService _userService = userService;
 
 		private string StartTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
 		private string StartMessage => ResourceService.GetString<UserListViewModel>(ResourceFiles.InfoMessages, "LoadingUsers");
@@ -97,7 +98,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			if (!ViewModelArgs.IsEmpty)
 			{
 				DataRequest<User> request = BuildDataRequest();
-				return await UserService.GetUsersAsync(request);
+				return await _userService.GetUsersAsync(request);
 			}
 			return [];
 		}
@@ -193,7 +194,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			foreach (var model in models)
 			{
-				await UserService.DeleteUserAsync(model);
+				await _userService.DeleteUserAsync(model);
 				LogWarning(model);
 			}
 		}
@@ -205,12 +206,12 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			List<UserModel> models = [];
 			foreach (var range in ranges)
 			{
-				var items = await UserService.GetUsersAsync(range.Index, range.Length, request);
+				var items = await _userService.GetUsersAsync(range.Index, range.Length, request);
 				models.AddRange(items);
 			}
 			foreach (var range in ranges.Reverse())
 			{
-				await UserService.DeleteUserRangeAsync(range.Index, range.Length, request);
+				await _userService.DeleteUserRangeAsync(range.Index, range.Length, request);
 			}
 			foreach (var model in models)
 			{

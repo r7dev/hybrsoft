@@ -10,9 +10,10 @@ using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class UserRoleDetailsViewModel(IUserRoleService userRoleService, ICommonServices commonServices) : GenericDetailsViewModel<UserRoleModel>(commonServices)
+	public partial class UserRoleDetailsViewModel(IUserRoleService userRoleService,
+		ICommonServices commonServices) : GenericDetailsViewModel<UserRoleModel>(commonServices)
 	{
-		public IUserRoleService UserRoleService { get; } = userRoleService;
+		private readonly IUserRoleService _userRoleService = userRoleService;
 
 		public override string Title => (Item?.IsNew ?? true) ? TitleNew : TitleEdit;
 		public string TitleNew => string.Format(ResourceService.GetString<UserRoleDetailsViewModel>(ResourceFiles.UI, "TitleNew"), UserId);
@@ -49,7 +50,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			ViewModelArgs = args ?? UserRoleDetailsArgs.CreateDefault();
 			UserRoleId = ViewModelArgs.UserRoleId;
 			UserId = ViewModelArgs.UserId;
-			AddedRoleKeys = await UserRoleService.GetAddedRoleKeysInUserAsync(UserId);
+			AddedRoleKeys = await _userRoleService.GetAddedRoleKeysInUserAsync(UserId);
 
 			if (ViewModelArgs.IsNew)
 			{
@@ -60,7 +61,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				try
 				{
-					var item = await UserRoleService.GetUserRoleAsync(UserRoleId);
+					var item = await _userRoleService.GetUserRoleAsync(UserRoleId);
 					Item = item ?? new UserRoleModel { UserRoleID = UserRoleId, UserID = UserId, IsEmpty = true };
 				}
 				catch (Exception ex)
@@ -101,7 +102,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string startMessage = ResourceService.GetString<UserRoleDetailsViewModel>(ResourceFiles.InfoMessages, "SavingUserRole");
 				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
-				await UserRoleService.UpdateUserRoleAsync(model);
+				await _userRoleService.UpdateUserRoleAsync(model);
 				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "SaveSuccessful");
 				string endMessage = ResourceService.GetString<UserRoleDetailsViewModel>(ResourceFiles.InfoMessages, "UserRoleSaved");
 				EndStatusMessage(endTitle, endMessage, LogType.Success);
@@ -126,7 +127,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string startMessage = ResourceService.GetString<UserRoleDetailsViewModel>(ResourceFiles.InfoMessages, "DeletingUserRole");
 				StartStatusMessage(startTitle, startMessage);
 				await Task.Delay(100);
-				await UserRoleService.DeleteUserRoleAsync(model);
+				await _userRoleService.DeleteUserRoleAsync(model);
 				string endTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "DeletionSuccessful");
 				string endMessage = ResourceService.GetString<UserRoleDetailsViewModel>(ResourceFiles.InfoMessages, "UserRoleDeleted");
 				EndStatusMessage(endTitle, endMessage, LogType.Warning);
@@ -176,7 +177,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 							{
 								try
 								{
-									var item = await UserRoleService.GetUserRoleAsync(current.UserRoleID);
+									var item = await _userRoleService.GetUserRoleAsync(current.UserRoleID);
 									item ??= new UserRoleModel { UserRoleID = UserRoleId, UserID = UserId, IsEmpty = true };
 									current.Merge(item);
 									current.NotifyChanges();
@@ -221,7 +222,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 					case "ItemRangesDeleted":
 						try
 						{
-							var model = await UserRoleService.GetUserRoleAsync(current.UserRoleID);
+							var model = await _userRoleService.GetUserRoleAsync(current.UserRoleID);
 							if (model == null)
 							{
 								await OnItemDeletedExternally();
