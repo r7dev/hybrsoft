@@ -1,0 +1,30 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="ARM64" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Hybrsoft.AspireAppHost/Hybrsoft.AspireAppHost.csproj" />
+  <Project Path="Hybrsoft.AspireServiceDefaults/Hybrsoft.AspireServiceDefaults.csproj" />
+  <Project Path="Hybrsoft.Database/Hybrsoft.Database.sqlproj" Id="4364da23-5537-4d53-ad26-ceaac4718faa">
+    <Platform Project="AnyCPU" />
+    <Build />
+    <Deploy />
+  </Project>
+  <Project Path="Hybrsoft.Domain/Hybrsoft.Domain.csproj" />
+  <Project Path="Hybrsoft.DTOs/Hybrsoft.DTOs.csproj" />
+  <Project Path="Hybrsoft.EnterpriseManager/Hybrsoft.EnterpriseManager.csproj">
+    <Platform Solution="*|Any CPU" Project="x64" />
+    <Platform Solution="*|ARM64" Project="ARM64" />
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x86" />
+    <Deploy />
+  </Project>
+  <Project Path="Hybrsoft.Enums/Hybrsoft.Enums.csproj" />
+  <Project Path="Hybrsoft.FoundationAPI/Hybrsoft.FoundationAPI.csproj" />
+  <Project Path="Hybrsoft.Infrastructure/Hybrsoft.Infrastructure.csproj" />
+  <Project Path="Hybrsoft.UI.Windows/Hybrsoft.UI.Windows.csproj">
+    <BuildDependency Project="Hybrsoft.Infrastructure/Hybrsoft.Infrastructure.csproj" />
+  </Project>
+</Solution>
