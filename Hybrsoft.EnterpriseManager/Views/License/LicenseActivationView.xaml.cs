@@ -1,6 +1,7 @@
+using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.UI.Windows.Services;
 using Hybrsoft.UI.Windows.ViewModels;
-using Hybrsoft.EnterpriseManager.Configuration;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
@@ -39,6 +40,15 @@ namespace Hybrsoft.EnterpriseManager.Views
 		{
 			var navigationService = ServiceLocator.Current.GetService<INavigationService>();
 			navigationService.Initialize(Frame);
+		}
+
+		private void OnBackButtonClick(object sender, RoutedEventArgs e)
+		{
+			var loginService = ServiceLocator.Current.GetService<ILoginService>();
+			loginService.Logoff();
+			var args = ViewModel.ViewModelArgs;
+			args.Parameter = null;
+			Frame.Navigate(typeof(LoginView), args);
 		}
 	}
 }
