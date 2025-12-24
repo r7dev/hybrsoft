@@ -76,14 +76,6 @@ namespace Hybrsoft.EnterpriseManager.Views
 			UpdateBackButton();
 		}
 
-		private void NavigationView_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
-		{
-			if (_navigationService.CanGoBack)
-			{
-				_navigationService.GoBack();
-			}
-		}
-
 		private void OnFrameNavigated(object sender, NavigationEventArgs e)
 		{
 			var targetType = NavigationService.GetViewModel(e.SourcePageType);
@@ -97,7 +89,7 @@ namespace Hybrsoft.EnterpriseManager.Views
 
 		private void UpdateBackButton()
 		{
-			NavigationView.IsBackEnabled = _navigationService.CanGoBack;
+			ModernTitleBar.IsBackButtonEnabled = _navigationService.CanGoBack;
 		}
 
 		private async void OnLogoff(object sender, RoutedEventArgs e)

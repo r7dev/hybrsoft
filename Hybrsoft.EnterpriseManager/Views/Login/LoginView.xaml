@@ -30,7 +30,7 @@
 			<StackPanel VerticalAlignment="Top"
 						Height="48"
 						Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-				<controls:ModernTitle x:Name="ModernTitleBar" IsUserInfoHidden="True"/>
+				<controls:ModernTitle x:Name="ModernTitleBar"/>
 			</StackPanel>
 
 			<TextBox Grid.RowSpan="3" GotFocus="OnBackgroundFocus" Opacity="0" />

@@ -9,6 +9,7 @@ namespace Hybrsoft.UI.Windows.Services
 	{
 		bool IsMainView { get; }
 		bool CanGoBack { get; }
+		bool CanLogoff { get; }
 
 		void Initialize(object frame);
 

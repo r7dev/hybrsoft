@@ -17,7 +17,7 @@
 		</Grid.RowDefinitions>
 
 		<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-			<controls:ModernTitle x:Name="ModernTitleBar" IsUserInfoHidden="True"/>
+			<controls:ModernTitle x:Name="ModernTitleBar"/>
 		</Grid>
 
 		<Grid Grid.Row="1">

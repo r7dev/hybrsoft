@@ -57,6 +57,13 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			set { Set(ref _infoForeground, value); }
 		}
 
+		public bool _isBackButtonEnabled;
+		public bool IsBackButtonEnabled
+		{
+			get { return _isBackButtonEnabled; }
+			set { Set(ref _isBackButtonEnabled, value); }
+		}
+
 		public override async Task LoadAsync(ShellArgs args)
 		{
 			ViewModelArgs = args;

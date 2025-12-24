@@ -68,6 +68,8 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public void GoBack() => Frame.GoBack();
 
+		public bool CanLogoff => Frame.BackStack.Last().SourcePageType.Name == nameof(LoginView);
+
 		public void Initialize(object frame)
 		{
 			Frame = frame as Frame;

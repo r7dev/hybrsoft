@@ -8,53 +8,50 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d">
 
-	<Grid x:Name="AppTitleBar" Height="48">
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition x:Name="LeftPaddingColumn" Width="0"/>
-			<ColumnDefinition x:Name="IconColumn" Width="Auto"/>
-			<ColumnDefinition x:Name="TitleColumn" Width="Auto"/>
-			<ColumnDefinition x:Name="LeftDragColumn" Width="*"/>
-			<ColumnDefinition x:Name="SearchColumn" Width="4*" MinWidth="220"/>
-			<ColumnDefinition x:Name="RightDragColumn" Width="*" MinWidth="48"/>
-			<ColumnDefinition x:Name="AccountColumn" Width="Auto"/>
-			<ColumnDefinition x:Name="RightPaddingColumn" Width="0"/>
-		</Grid.ColumnDefinitions>
-		<Image x:Name="TitleBarIcon"
-			   Source="ms-appx:///Assets/default.ico"
-			   Grid.Column="1"
-			   Width="16" Height="16"
-			   Margin="8,0,4,0"/>
-		<TextBlock x:Name="TitleBarTextBlock"
-				   Text="{x:Bind Title, Mode=OneWay}"
-				   Style="{StaticResource CaptionTextBlockStyle}"
-				   Grid.Column="2"
-				   VerticalAlignment="Center">
-		</TextBlock>
-		<Grid x:Name="PersonPic"
-			  Grid.Column="6"
-			  Visibility="{x:Bind IsUserInfoHidden, Converter={StaticResource InverseBoolToVisibilityConverter}}">
-			<PersonPicture DisplayName="{x:Bind DisplayName}"
-						   Height="32" Margin="0,0,16,0"
-						   ProfilePicture="{x:Bind PictureSource, Converter={StaticResource ObjectToImageConverter}}"/>
-			<Button BorderThickness="0"
-					HorizontalAlignment="Stretch"
-					VerticalAlignment="Stretch"
-					Opacity="0">
-				<Button.Flyout>
-					<Flyout>
-						<StackPanel Orientation="Horizontal">
-							<PersonPicture DisplayName="{x:Bind DisplayName}"
-										   Height="48" Margin="0,0,16,0"
-										   ProfilePicture="{x:Bind PictureSource, Converter={StaticResource ObjectToImageConverter}}"/>
-							<StackPanel>
-								<TextBlock Text="{x:Bind DisplayName}" FontWeight="Bold"/>
-								<TextBlock Text="{x:Bind AccountName}" FontSize="12"/>
+	<TitleBar Title="{x:Bind Title, Mode=OneWay}"
+			  Subtitle="Preview"
+			  BackRequested="TitleBar_BackRequested"
+			  IsBackButtonEnabled="{x:Bind IsBackButtonEnabled, Mode=TwoWay}"
+			  IsBackButtonVisible="{x:Bind IsBackButtonVisible, Mode=OneWay}"
+			  IsPaneToggleButtonVisible="{x:Bind IsPaneToggleButtonVisible, Mode=OneWay}"
+			  PaneToggleRequested="TitleBar_PaneToggleRequested">
+		<TitleBar.IconSource>
+			<ImageIconSource ImageSource="ms-appx:///Assets/default.ico" />
+		</TitleBar.IconSource>
+		<TitleBar.Content>
+			<AutoSuggestBox Width="360"
+							VerticalAlignment="Center"
+							PlaceholderText="Search.."
+							QueryIcon="Find"
+							Visibility="{x:Bind IsSearchBoxVisible, Converter={StaticResource DefaultBoolToVisibilityConverter}}"/>
+		</TitleBar.Content>
+		<TitleBar.RightHeader>
+			<Grid x:Name="PersonPic"
+				  Grid.Column="6"
+				  Visibility="{x:Bind IsUserInfoVisible, Converter={StaticResource DefaultBoolToVisibilityConverter}, Mode=OneWay}">
+				<PersonPicture DisplayName="{x:Bind DisplayName}"
+							   Height="32" Margin="0,0,16,0"
+							   ProfilePicture="{x:Bind PictureSource, Converter={StaticResource ObjectToImageConverter}}"/>
+				<Button BorderThickness="0"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Stretch"
+						Opacity="0">
+					<Button.Flyout>
+						<Flyout>
+							<StackPanel Orientation="Horizontal">
+								<PersonPicture DisplayName="{x:Bind DisplayName}"
+											   Height="48" Margin="0,0,16,0"
+											   ProfilePicture="{x:Bind PictureSource, Converter={StaticResource ObjectToImageConverter}}"/>
+								<StackPanel>
+									<TextBlock Text="{x:Bind DisplayName}" FontWeight="Bold"/>
+									<TextBlock Text="{x:Bind AccountName}" FontSize="12"/>
+								</StackPanel>
+								<HyperlinkButton Click="OnLogoff" Content="Logoff" Margin="16,0,0,0"/>
 							</StackPanel>
-							<HyperlinkButton Click="OnLogoff" Content="Logoff" Margin="16,0,0,0"/>
-						</StackPanel>
-					</Flyout>
-				</Button.Flyout>
-			</Button>
-		</Grid>
-	</Grid>
+						</Flyout>
+					</Button.Flyout>
+				</Button>
+			</Grid>
+		</TitleBar.RightHeader>
+	</TitleBar>
 </UserControl>

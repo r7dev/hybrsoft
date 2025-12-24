@@ -28,6 +28,10 @@
 
 		<!-- App Title Bar -->
 		<controls:ModernTitle x:Name="ModernTitleBar"
+							  IsBackButtonVisible="True"
+							  IsPaneToggleButtonVisible="True"
+							  IsPaneOpen="{x:Bind ViewModel.IsPaneOpen, Mode=TwoWay}"
+							  IsUserInfoVisible="True"
 							  DisplayName="{x:Bind ViewModel.UserInfo.DisplayName, Mode=OneWay}"
 							  PictureSource="{x:Bind ViewModel.UserInfo.PictureSource, Mode=OneWay}"
 							  AccountName="{x:Bind ViewModel.UserInfo.AccountName, Mode=OneWay}"
@@ -42,7 +46,8 @@
 						SelectionChanged="OnSelectionChanged"
 						IsPaneOpen="{x:Bind ViewModel.IsPaneOpen, Mode=TwoWay}"
 						IsEnabled="{x:Bind ViewModel.IsEnabled, Mode=OneWay}"
-						BackRequested="NavigationView_BackRequested">
+						IsBackButtonVisible="Collapsed"
+						IsPaneToggleButtonVisible="False">
 			<Grid>
 				<Frame x:Name="frame">
 					<Frame.ContentTransitions>

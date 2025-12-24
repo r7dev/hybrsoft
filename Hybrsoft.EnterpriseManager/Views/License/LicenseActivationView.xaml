@@ -19,21 +19,10 @@
 		<StackPanel VerticalAlignment="Top"
 					Height="48"
 					Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-					<controls:ModernTitle x:Name="ModernTitleBar" IsUserInfoHidden="True"/>
+					<controls:ModernTitle x:Name="ModernTitleBar"
+										  IsBackButtonVisible="True"
+										  IsBackButtonEnabled="{x:Bind ViewModel.IsBackButtonEnabled, Mode=OneWay}"/>
 		</StackPanel>
-
-		<Grid Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top">
-			<Button Background="Transparent"
-					BorderBrush="Transparent"
-					Click="OnBackButtonClick"
-					Height="48"
-					Margin="2,2,0,0"
-					Width="48">
-				<StackPanel Orientation="Horizontal">
-					<FontIcon Glyph="&#xE72B;" FontSize="16" Margin="0,0,5,0"/>
-				</StackPanel>
-			</Button>
-		</Grid>
 
 		<StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
 			<TextBlock x:Uid="/UI/LicenseActivationView_LicenseActivation"
