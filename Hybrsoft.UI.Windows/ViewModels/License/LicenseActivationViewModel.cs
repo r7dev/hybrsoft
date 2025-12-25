@@ -1,8 +1,8 @@
-﻿using Hybrsoft.UI.Windows.Models;
+﻿using Hybrsoft.Enums;
 using Hybrsoft.UI.Windows.Infrastructure.Common;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
+using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Services;
-using Hybrsoft.Enums;
 using Microsoft.UI;
 using Microsoft.UI.Xaml.Media;
 using System.Threading.Tasks;
@@ -16,6 +16,13 @@ namespace Hybrsoft.UI.Windows.ViewModels
 	{
 		private readonly ILicenseService _licenseService = licenseService;
 		private readonly INetworkService _networkService = networkService;
+
+		public bool _isBackButtonEnabled;
+		public bool IsBackButtonEnabled
+		{
+			get { return _isBackButtonEnabled; }
+			set { Set(ref _isBackButtonEnabled, value); }
+		}
 
 		private bool _IsInternetAvailable;
 		public bool IsInternetAvailable
@@ -55,13 +62,6 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			get { return _infoForeground; }
 			set { Set(ref _infoForeground, value); }
-		}
-
-		public bool _isBackButtonEnabled;
-		public bool IsBackButtonEnabled
-		{
-			get { return _isBackButtonEnabled; }
-			set { Set(ref _isBackButtonEnabled, value); }
 		}
 
 		public override async Task LoadAsync(ShellArgs args)

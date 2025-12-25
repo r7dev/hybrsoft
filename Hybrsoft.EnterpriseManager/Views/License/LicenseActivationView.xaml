@@ -33,6 +33,7 @@
 				<TextBox x:Name="LicenseKey"
 						 x:Uid="/UI/LicenseActivationView_EnterYourLicenseKey"
 						 Text="{x:Bind ViewModel.LicenseKey, Mode=TwoWay}"
+						 TextChanged="LicenseKey_TextChanged"
 						 Width="300"/>
 				<FontIcon Foreground="{x:Bind ViewModel.InfoForeground, Mode=OneWay}"
 						  Glyph="{x:Bind ViewModel.InfoGlyph, Mode=OneWay}"
