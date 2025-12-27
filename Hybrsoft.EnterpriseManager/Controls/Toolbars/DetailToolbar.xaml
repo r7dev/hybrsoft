@@ -43,7 +43,7 @@
 					  Tag="cancel"/>
 		<AppBarButton x:Name="buttonCancelSecondary"
 					  Icon="Cancel"
-					  IsEnabled="{x:Bind CancelSecondaryCommand.CanExecute(x:Null)}"
+					  Command="{x:Bind CancelSecondaryCommand}"
 					  x:Uid="/UI/DetailToolbarUserControl_AppBarButtonCancel"
 					  LabelPosition="Default"
 					  HorizontalAlignment="Left"

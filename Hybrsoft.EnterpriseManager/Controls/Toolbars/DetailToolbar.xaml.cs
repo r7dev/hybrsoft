@@ -166,9 +166,6 @@ namespace Hybrsoft.EnterpriseManager.Controls
 					case "buttonSave":
 						RaiseButtonClick(ToolbarButton.Save);
 						break;
-					case "buttonCancelSecondary":
-						RaiseButtonClick(ToolbarButton.CancelSecondary);
-						break;
 				}
 			}
 		}

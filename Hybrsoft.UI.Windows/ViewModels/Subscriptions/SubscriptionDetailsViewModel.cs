@@ -11,11 +11,17 @@ using Windows.ApplicationModel.DataTransfer;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class SubscriptionDetailsViewModel(ISubscriptionService subscriptionService,
-		ICommonServices commonServices) : GenericDetailsViewModel<SubscriptionModel>(commonServices)
+	public partial class SubscriptionDetailsViewModel : GenericDetailsViewModel<SubscriptionModel>
 	{
-		private readonly ISubscriptionService _subscriptionService = subscriptionService;
+		public SubscriptionDetailsViewModel(ISubscriptionService subscriptionService,
+			ICommonServices commonServices) : base(commonServices)
+		{
+			_subscriptionService = subscriptionService;
+			_cancelSecondaryCommand = new RelayCommand(OnCancelSecondary, CanCancelSecondary);
+		}
 
+		private readonly ISubscriptionService _subscriptionService;
+		private readonly RelayCommand _cancelSecondaryCommand;
 		private bool _hasEditorPermission;
 
 		public override string Title => ItemIsNew
@@ -48,6 +54,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 					LogException("Subscription", "Load", ex);
 				}
 			}
+			_cancelSecondaryCommand.OnCanExecuteChanged();
 		}
 
 		public void Unload()
@@ -103,7 +110,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			EditableItem.NotifyChanges();
 		}
 
-		public ICommand CancelSecondaryCommand => new RelayCommand(OnCancelSecondary);
+		public ICommand CancelSecondaryCommand => _cancelSecondaryCommand;
 		private async void OnCancelSecondary()
 		{
 			if (await ConfirmCancellationAsync())
@@ -119,6 +126,13 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			string confirm = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_PrimaryButtonText_Confirm");
 			string cancel = ResourceService.GetString(ResourceFiles.UI, "ContentDialog_CloseButtonText_Cancel");
 			return await DialogService.ShowAsync(title, content, confirm, cancel);
+		}
+		private bool CanCancelSecondary()
+		{
+			return _hasEditorPermission
+				&& !ItemIsNew
+				&& EditableItem.CancelledOn == null
+				&& EditableItem.Status != SubscriptionStatus.Expired;
 		}
 
 		public ICommand CopyDescriptionCommand => new RelayCommand(OnCopyDescription);
