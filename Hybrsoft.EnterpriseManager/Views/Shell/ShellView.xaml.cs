@@ -66,5 +66,10 @@ namespace Hybrsoft.EnterpriseManager.Views
 			ServiceLocator.DisposeCurrent();
 		}
 
+		private void OnUnlockClick(object sender, RoutedEventArgs e)
+		{
+			var context = ServiceLocator.Current.GetService<IContextService>();
+			WindowTracker.Switch((ulong)context.MainViewID);
+		}
 	}
 }

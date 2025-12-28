@@ -8,6 +8,13 @@ namespace Hybrsoft.UI.Windows.ViewModels
 {
 	public partial class ShellViewModel(ICommonServices commonServices) : ViewModelBase(commonServices)
 	{
+		private bool _isLocked = false;
+		public bool IsLocked
+		{
+			get => _isLocked;
+			set => Set(ref _isLocked, value);
+		}
+
 		private bool _isEnabled = true;
 		public bool IsEnabled
 		{
@@ -64,12 +71,24 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		virtual public void Subscribe()
 		{
+			MessageService.Subscribe<ILoginService, bool>(this, OnLoginMessage);
 			MessageService.Subscribe<ViewModelBase, StatusInfoDto>(this, OnMessage);
 		}
 
 		virtual public void Unsubscribe()
 		{
 			MessageService.Unsubscribe(this);
+		}
+
+		private async void OnLoginMessage(ILoginService loginService, string message, bool isAuthenticated)
+		{
+			if (message == "AuthenticationChanged")
+			{
+				await ContextService.RunAsync(() =>
+				{
+					IsLocked = !isAuthenticated;
+				});
+			}
 		}
 
 		private async void OnMessage(ViewModelBase viewModel, string message, StatusInfoDto status)

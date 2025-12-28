@@ -966,4 +966,10 @@
   <data name="RelativeDetailsUserControl_DocumentNumber.Header" xml:space="preserve">
     <value>Document Number</value>
   </data>
+  <data name="ShellView_ApplicationIsLocked.Text" xml:space="preserve">
+    <value>Application is locked</value>
+  </data>
+  <data name="ShellView_SwitchToMainViewToUnlock.Content" xml:space="preserve">
+    <value>Switch to main view to unlock</value>
+  </data>
 </root>

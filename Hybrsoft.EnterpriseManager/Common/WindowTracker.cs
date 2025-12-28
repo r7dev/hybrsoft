@@ -53,6 +53,14 @@ namespace Hybrsoft.EnterpriseManager.Common
 				_current.Window.Title = title;
 			}
 		}
+
+		public static void Switch(ulong id)
+		{
+			if (_windows.TryGetValue(id, out var window))
+			{
+				window.Activate();
+			}
+		}
 	}
 
 	public class CurrentWindow
