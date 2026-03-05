@@ -133,10 +133,10 @@
     <value>Tem certeza de que deseja excluir as salas de aula selecionadas?</value>
   </data>
   <data name="ClassroomStudentDetailsViewModel_AreYouSureYouWantToDeleteCurrentStudentFromTheClassroom" xml:space="preserve">
-    <value>Tem certeza de que deseja excluir o estudante atual da sala de aula?</value>
+    <value>Tem certeza de que deseja excluir o aluno atual da sala de aula?</value>
   </data>
   <data name="ClassroomStudentListViewModel_AreYouSureYouWantToDeleteSelectedStudentsFromTheClassroom" xml:space="preserve">
-    <value>Tem certeza de que deseja excluir os estudantes da sala de aula selecionados?</value>
+    <value>Tem certeza de que deseja excluir os alunos da sala de aula selecionados?</value>
   </data>
   <data name="CompanyDetailsViewModel_AreYouSureYouWantToDeleteCurrentCompany" xml:space="preserve">
     <value>Tem certeza de que deseja excluir a empresa atual?</value>
@@ -184,16 +184,16 @@
     <value>Tem certeza de que deseja excluir as permissões de função selecionadas?</value>
   </data>
   <data name="StudentDetailsViewModel_AreYouSureYouWantToDeleteCurrentStudent" xml:space="preserve">
-    <value>Tem certeza de que deseja excluir o estudante atual?</value>
+    <value>Tem certeza de que deseja excluir o aluno atual?</value>
   </data>
   <data name="StudentListViewModel_AreYouSureYouWantToDeleteSelectedStudents" xml:space="preserve">
-    <value>Tem certeza de que deseja excluir estudantes selecionados?</value>
+    <value>Tem certeza de que deseja excluir alunos selecionados?</value>
   </data>
   <data name="StudentRelativeDetailsViewModel_AreYouSureYouWantToDeleteTheCurrentRelativeOfTheStudent" xml:space="preserve">
-    <value>Tem certeza de que deseja excluir o parente atual do estudante?</value>
+    <value>Tem certeza de que deseja excluir o parente atual do aluno?</value>
   </data>
   <data name="StudentRelativeListViewModel_AreYouSureYouWantToDeleteTheSelectedRelativesOfTheStudent" xml:space="preserve">
-    <value>Tem certeza de que deseja excluir os parentes do estudante selecionados?</value>
+    <value>Tem certeza de que deseja excluir os parentes do aluno selecionados?</value>
   </data>
   <data name="SubscriptionDetailsViewModel_AreYouSureYouWantToCancelCurrentSubscription" xml:space="preserve">
     <value>Tem certeza de que deseja cancelar a assinatura atual?</value>

@@ -130,7 +130,7 @@
     <value>Ano</value>
   </data>
   <data name="ClassroomStudentDetailsViewModel_PropertyStudent" xml:space="preserve">
-    <value>Estudante</value>
+    <value>Aluno</value>
   </data>
   <data name="CompanyDetailsViewModel_PropertyCountry" xml:space="preserve">
     <value>País</value>

@@ -442,13 +442,13 @@
     <value>Pesquisar Função</value>
   </data>
   <data name="StudentListViewModel_Prefix" xml:space="preserve">
-    <value>Estudantes</value>
+    <value>Alunos</value>
   </data>
   <data name="StudentDetailsViewModel_TitleNew" xml:space="preserve">
-    <value>Novo Estudante</value>
+    <value>Novo Aluno</value>
   </data>
   <data name="StudentCardUserControl_StudentID.Text" xml:space="preserve">
-    <value>Estudante ID</value>
+    <value>Aluno ID</value>
   </data>
   <data name="GenericCardUserControl_CreatedOn.Text" xml:space="preserve">
     <value>Criado Em</value>
@@ -457,7 +457,7 @@
     <value>Última Atualização</value>
   </data>
   <data name="StudentDetailsUserControl_Information.Text" xml:space="preserve">
-    <value>Informações do Estudante</value>
+    <value>Informações do Aluno</value>
   </data>
   <data name="StudentDetailsUserControl_FirstName.Header" xml:space="preserve">
     <value>Primeiro Nome</value>
@@ -472,7 +472,7 @@
     <value>Endereço Eletrônico</value>
   </data>
   <data name="StudentListUserControl_ColumnHeaderStudentID.Text" xml:space="preserve">
-    <value>Estudante ID</value>
+    <value>Aluno ID</value>
   </data>
   <data name="StudentListUserControl_ColumnHeaderFirstName.Text" xml:space="preserve">
     <value>Primeiro Nome</value>
@@ -484,10 +484,10 @@
     <value>Última Atualização</value>
   </data>
   <data name="StudentListUserControl_New.NewLabel" xml:space="preserve">
-    <value>Novo Estudante</value>
+    <value>Novo Aluno</value>
   </data>
   <data name="NavigationItem_Students" xml:space="preserve">
-    <value>Estudantes</value>
+    <value>Alunos</value>
   </data>
   <data name="ContentDialog_Title_ConfirmLogoff" xml:space="preserve">
     <value>Confirmar logoff</value>
@@ -541,46 +541,46 @@
     <value>Nível</value>
   </data>
   <data name="ClassroomStudentDetailsViewModel_TitleNew" xml:space="preserve">
-    <value>Novo Estudante da Sala de Aula, Sala de Aula #{0}</value>
+    <value>Novo Aluno da Sala de Aula, Sala de Aula #{0}</value>
   </data>
   <data name="ClassroomStudentDetailsViewModel_TitleEdit" xml:space="preserve">
-    <value>Estudante {0}, #{1}</value>
+    <value>Aluno {0}, #{1}</value>
   </data>
   <data name="ClassroomsClassroomStudentsUserControl_ColumnHeaderStudentID.Text" xml:space="preserve">
-    <value>Estudante ID</value>
+    <value>Aluno ID</value>
   </data>
   <data name="ClassroomsClassroomStudentsUserControl_ColumnHeaderName.Text" xml:space="preserve">
     <value>Nome</value>
   </data>
   <data name="ClassroomsClassroomStudentsUserControl_New.NewLabel" xml:space="preserve">
-    <value>Novo Estudante</value>
+    <value>Novo Aluno</value>
   </data>
   <data name="ClassroomsView_Details_Students.Header" xml:space="preserve">
-    <value>Estudantes</value>
+    <value>Alunos</value>
   </data>
   <data name="GenericView_EmptyDetails.Header" xml:space="preserve">
     <value>Nenhum item selecionado</value>
   </data>
   <data name="ClassroomStudentCardUserControl_StudentFromTheClassroom.Text" xml:space="preserve">
-    <value>Estudante da Sala de Aula</value>
+    <value>Aluno da Sala de Aula</value>
   </data>
   <data name="ClassroomStudentCardUserControl_ClassroomID.Text" xml:space="preserve">
     <value>Sala de Aula ID</value>
   </data>
   <data name="ClassroomStudentCardUserControl_StudentID.Text" xml:space="preserve">
-    <value>Estudante ID</value>
+    <value>Aluno ID</value>
   </data>
   <data name="StudentSuggestBoxUserControl.PlaceholderText" xml:space="preserve">
-    <value>Pesquisar Estudante</value>
+    <value>Pesquisar Aluno</value>
   </data>
   <data name="StudentSuggestBoxUserControl.Header" xml:space="preserve">
-    <value>Estudante</value>
+    <value>Aluno</value>
   </data>
   <data name="ClassroomStudentCardUserControl_Student.Text" xml:space="preserve">
-    <value>Estudante</value>
+    <value>Aluno</value>
   </data>
   <data name="ClassroomDetailsUserControl_Students.Header" xml:space="preserve">
-    <value>Estudantes</value>
+    <value>Alunos</value>
   </data>
   <data name="RelativeDetailsViewModel_TitleNew" xml:space="preserve">
     <value>Novo Parente</value>
@@ -631,7 +631,7 @@
     <value>Telefone</value>
   </data>
   <data name="StudentRelativeDetailsViewModel_TitleNew" xml:space="preserve">
-    <value>Novo Parente do Estudante, Estudante #{0}</value>
+    <value>Novo Parente do Aluno, Aluno #{0}</value>
   </data>
   <data name="StudentRelativeDetailsViewModel_TitleEdit" xml:space="preserve">
     <value>Parente {0}, #{1}</value>
@@ -649,10 +649,10 @@
     <value>Parentes</value>
   </data>
   <data name="StudentRelativeCardUserControl_StudentsRelative.Text" xml:space="preserve">
-    <value>Parente do Estudante</value>
+    <value>Parente do Aluno</value>
   </data>
   <data name="StudentRelativeCardUserControl_StudentID.Text" xml:space="preserve">
-    <value>Estudante ID</value>
+    <value>Aluno ID</value>
   </data>
   <data name="StudentRelativeCardUserControl_Relative.Text" xml:space="preserve">
     <value>Parente</value>
@@ -670,10 +670,10 @@
     <value>Parentes</value>
   </data>
   <data name="DismissibleStudentListViewModel_Prefix" xml:space="preserve">
-    <value>Estudantes Dispensáveis</value>
+    <value>Alunos Dispensáveis</value>
   </data>
   <data name="NavigationItem_DismissibleStudents" xml:space="preserve">
-    <value>Estudantes Dispensáveis</value>
+    <value>Alunos Dispensáveis</value>
   </data>
   <data name="DataGridUserControl_Loading" xml:space="preserve">
     <value>Carregando...</value>
@@ -745,10 +745,10 @@
     <value>Babá</value>
   </data>
   <data name="StudentsPane_LastestStudents.Text" xml:space="preserve">
-    <value>Últimos Estudantes</value>
+    <value>Últimos Alunos</value>
   </data>
   <data name="StudentsPane_StudentID.Text" xml:space="preserve">
-    <value>Estudante ID</value>
+    <value>Aluno ID</value>
   </data>
   <data name="StudentsPane_Name.Text" xml:space="preserve">
     <value>Nome</value>

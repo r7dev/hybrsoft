@@ -268,28 +268,28 @@
     <value>Função de Usuário excluída</value>
   </data>
   <data name="StudentListViewModel_LoadingStudents" xml:space="preserve">
-    <value>Carregando estudantes...</value>
+    <value>Carregando alunos...</value>
   </data>
   <data name="StudentListViewModel_StudentsLoaded" xml:space="preserve">
-    <value>Estudantes carregados</value>
+    <value>Alunos carregados</value>
   </data>
   <data name="StudentListViewModel_Deleting0Students" xml:space="preserve">
-    <value>Excluindo {0} estudantes...</value>
+    <value>Excluindo {0} alunos...</value>
   </data>
   <data name="StudentListViewModel_0StudentsDeleted" xml:space="preserve">
-    <value>{0} estudantes excluídos</value>
+    <value>{0} alunos excluídos</value>
   </data>
   <data name="StudentDetailsViewModel_SavingStudent" xml:space="preserve">
-    <value>Salvando estudante...</value>
+    <value>Salvando aluno...</value>
   </data>
   <data name="StudentDetailsViewModel_StudentSaved" xml:space="preserve">
-    <value>Estudante salvo</value>
+    <value>Aluno salvo</value>
   </data>
   <data name="StudentDetailsViewModel_DeletingStudent" xml:space="preserve">
-    <value>Excluindo estudante...</value>
+    <value>Excluindo aluno...</value>
   </data>
   <data name="StudentDetailsViewModel_StudentDeleted" xml:space="preserve">
-    <value>Estudante excluído</value>
+    <value>Aluno excluído</value>
   </data>
   <data name="ClassroomDetailsViewModel_SavingClassroom" xml:space="preserve">
     <value>Salvando sala de aula...</value>
@@ -316,28 +316,28 @@
     <value>{0} salas de aula excluídas</value>
   </data>
   <data name="ClassroomStudentDetailsViewModel_SavingStudentInTheClassroom" xml:space="preserve">
-    <value>Salvando o estudante na sala de aula...</value>
+    <value>Salvando o aluno na sala de aula...</value>
   </data>
   <data name="ClassroomStudentDetailsViewModel_StudentInTheClassroomHasBeenSaved" xml:space="preserve">
-    <value>Estudante na Sala de Aula foi salvo</value>
+    <value>Aluno na Sala de Aula foi salvo</value>
   </data>
   <data name="ClassroomStudentDetailsViewModel_DeletingStudentFromClassroom" xml:space="preserve">
-    <value>Excluindo o estudante da sala de aula...</value>
+    <value>Excluindo o aluno da sala de aula...</value>
   </data>
   <data name="ClassroomStudentDetailsViewModel_StudentInTheClassroomHasBeenDeleted" xml:space="preserve">
-    <value>Estudante na Sala de Aula foi excluído</value>
+    <value>Aluno na Sala de Aula foi excluído</value>
   </data>
   <data name="ClassroomStudentListViewModel_LoadingStudentsInTheClassroom" xml:space="preserve">
-    <value>Carregando estudantes da sala de aula...</value>
+    <value>Carregando alunos da sala de aula...</value>
   </data>
   <data name="ClassroomStudentListViewModel_StudentsInTheClassroomLoaded" xml:space="preserve">
-    <value>Estudantes da Sala de Aula carregados</value>
+    <value>Alunos da Sala de Aula carregados</value>
   </data>
   <data name="ClassroomStudentListViewModel_0StudentsInTheClassroomDeleted" xml:space="preserve">
-    <value>{0} estudantes da sala de aula excluídos</value>
+    <value>{0} alunos da sala de aula excluídos</value>
   </data>
   <data name="ClassroomStudentListViewModel_Deleting0ClassroomStudents" xml:space="preserve">
-    <value>Excluindo {0} estudantes da sala de aula...</value>
+    <value>Excluindo {0} alunos da sala de aula...</value>
   </data>
   <data name="RelativeDetailsViewModel_SavingRelative" xml:space="preserve">
     <value>Salvando parente...</value>
@@ -364,34 +364,34 @@
     <value>{0} parentes excluídos</value>
   </data>
   <data name="StudentRelativeDetailsViewModel_SavingStudentsRelative" xml:space="preserve">
-    <value>Salvando parente do estudante...</value>
+    <value>Salvando parente do aluno...</value>
   </data>
   <data name="StudentRelativeDetailsViewModel_TheStudentsRelativeWasSaved" xml:space="preserve">
     <value>Parente do Estudando foi salvo.</value>
   </data>
   <data name="StudentRelativeDetailsViewModel_DeletingStudentRelative" xml:space="preserve">
-    <value>Excluindo parente do estudante...</value>
+    <value>Excluindo parente do aluno...</value>
   </data>
   <data name="StudentRelativeDetailsViewModel_StudentsRelativeHasBeenDeleted" xml:space="preserve">
-    <value>Parente do Estudante foi excluído</value>
+    <value>Parente do Aluno foi excluído</value>
   </data>
   <data name="StudentRelativeListViewModel_LoadingStudentRelatives" xml:space="preserve">
-    <value>Carregando parentes do estudante...</value>
+    <value>Carregando parentes do aluno...</value>
   </data>
   <data name="StudentRelativeListViewModel_StudentsRelativesLoaded" xml:space="preserve">
-    <value>Parentes do Estudante carregados</value>
+    <value>Parentes do Aluno carregados</value>
   </data>
   <data name="StudentRelativeListViewModel_Deleting0StudentRelatives" xml:space="preserve">
-    <value>Excluindo {0} parentes de estudantes...</value>
+    <value>Excluindo {0} parentes do alunos...</value>
   </data>
   <data name="StudentRelativeListViewModel_0StudentRelativesDeleted" xml:space="preserve">
-    <value>{0} parentes de estudante excluídos</value>
+    <value>{0} parentes do aluno excluídos</value>
   </data>
   <data name="DismissibleStudentListViewModel_LoadingDismissibleStudents" xml:space="preserve">
-    <value>Carregando estudantes dispensáveis...</value>
+    <value>Carregando alunos dispensáveis...</value>
   </data>
   <data name="DismissibleStudentListViewModel_DismissibleStudentsLoaded" xml:space="preserve">
-    <value>Estudantes Dispensáveis carregados</value>
+    <value>Alunos Dispensáveis carregados</value>
   </data>
   <data name="DismissalDetailsViewModel_SavingDismissal" xml:space="preserve">
     <value>Salvando dispensa...</value>

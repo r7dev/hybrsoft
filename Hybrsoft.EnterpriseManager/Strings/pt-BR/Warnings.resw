@@ -127,10 +127,10 @@
     <value>Esta sala de aula foi modificado externamente</value>
   </data>
   <data name="ClassroomStudentDetailsViewModel_ThisClassroomStudentHasBeenDeletedExternally" xml:space="preserve">
-    <value>Este estudante da sala de aula foi excluído externamente</value>
+    <value>Este aluno da sala de aula foi excluído externamente</value>
   </data>
   <data name="ClassroomStudentDetailsViewModel_ThisClassroomStudentHasBeenModifiedExternally" xml:space="preserve">
-    <value>Este estudante da sala de aula foi modificado externamente</value>
+    <value>Este aluno da sala de aula foi modificado externamente</value>
   </data>
   <data name="CompanyDetailsViewModel_ThisCompanyHasBeenDeletedExternally" xml:space="preserve">
     <value>Esta empresa foi excluída externamente</value>
@@ -178,16 +178,16 @@
     <value>Por favor, reinicie a aplicação para que as alterações sejam aplicadas por completo.</value>
   </data>
   <data name="StudentDetailsViewModel_ThisStudentHasBeenDeletedExternally" xml:space="preserve">
-    <value>Este estudante foi excluído externamente</value>
+    <value>Este aluno foi excluído externamente</value>
   </data>
   <data name="StudentDetailsViewModel_ThisStudentHasBeenModifiedExternally" xml:space="preserve">
-    <value>Este estudante foi modificado externamente</value>
+    <value>Este aluno foi modificado externamente</value>
   </data>
   <data name="StudentRelativeDetailsViewModel_ThisStudentsRelativeHasBeenDeletedExternally" xml:space="preserve">
-    <value>Este parente do estudante foi excluído externamente</value>
+    <value>Este parente do aluno foi excluído externamente</value>
   </data>
   <data name="StudentRelativeDetailsViewModel_ThisStudentsRelativeHasBeenModifiedExternally" xml:space="preserve">
-    <value>Este parente do estudante foi modificado externamente</value>
+    <value>Este parente do aluno foi modificado externamente</value>
   </data>
   <data name="SubscriptionDetailsViewModel_ThisSubscriptionHasBeenDeletedExternally" xml:space="preserve">
     <value>Esta assinatura foi excluída externamente</value>

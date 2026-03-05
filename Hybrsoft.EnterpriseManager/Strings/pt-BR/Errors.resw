@@ -190,16 +190,16 @@
     <value>Erro ao excluir a Função de Usuário: {0}</value>
   </data>
   <data name="StudentListViewModel_ErrorLoadingStudents0" xml:space="preserve">
-    <value>Erro ao carregar Estudantes: {0}</value>
+    <value>Erro ao carregar Alunos: {0}</value>
   </data>
   <data name="StudentListViewModel_ErrorDeleting0Students1" xml:space="preserve">
-    <value>Erro ao excluir {0} Estudantes: {1}</value>
+    <value>Erro ao excluir {0} Alunos: {1}</value>
   </data>
   <data name="StudentDetailsViewModel_ErrorDeletingStudent0" xml:space="preserve">
-    <value>Erro ao excluir Estudante: {0}</value>
+    <value>Erro ao excluir Aluno: {0}</value>
   </data>
   <data name="StudentDetailsViewModel_ErrorSavingStudent0" xml:space="preserve">
-    <value>Erro ao salvar Estudante: {0}</value>
+    <value>Erro ao salvar Aluno: {0}</value>
   </data>
   <data name="ClassroomDetailsViewModel_ErrorSavingClassroom0" xml:space="preserve">
     <value>Erro ao salvar Sala de Aula: {0}</value>
@@ -214,16 +214,16 @@
     <value>Erro ao excluir {0} Salas de Aula: {1}</value>
   </data>
   <data name="ClassroomStudentDetailsViewModel_ErrorSavingStudentInTheClassroom0" xml:space="preserve">
-    <value>Erro ao salvar o Estudante na Sala de Aula: {0}</value>
+    <value>Erro ao salvar o Aluno na Sala de Aula: {0}</value>
   </data>
   <data name="ClassroomStudentDetailsViewModel_ErrorDeletingStudentFromTheClassroom0" xml:space="preserve">
-    <value>Erro ao excluir Estudante na Sala de Aula: {0}</value>
+    <value>Erro ao excluir Aluno na Sala de Aula: {0}</value>
   </data>
   <data name="ClassroomStudentListViewModel_ErrorLoadingStudentsInTheClassroom0" xml:space="preserve">
-    <value>Erro ao carregar Estudantes da Sala de Aula: {0}</value>
+    <value>Erro ao carregar Alunos da Sala de Aula: {0}</value>
   </data>
   <data name="ClassroomStudentListViewModel_ErrorDeleting0StudentsFromTheClassroom1" xml:space="preserve">
-    <value>Erro ao excluir {0} Estudantes da Sala de Aula: {1}</value>
+    <value>Erro ao excluir {0} Alunos da Sala de Aula: {1}</value>
   </data>
   <data name="RelativeDetailsViewModel_ErrorSavingRelative0" xml:space="preserve">
     <value>Erro ao salvar Parente: {0}</value>
@@ -238,19 +238,19 @@
     <value>Erro ao excluir {0} Parentes: {1}</value>
   </data>
   <data name="StudentRelativeDetailsViewModel_ErrorSavingStudentsRelative0" xml:space="preserve">
-    <value>Erro ao salvar Parente do Estudante: {0}</value>
+    <value>Erro ao salvar Parente do Aluno: {0}</value>
   </data>
   <data name="StudentRelativeDetailsViewModel_ErrorDeletingStudentsRelative0" xml:space="preserve">
-    <value>Erro ao excluir Parente do Estudante: {0}</value>
+    <value>Erro ao excluir Parente do Aluno: {0}</value>
   </data>
   <data name="StudentRelativeListViewModel_ErrorLoadingStudentsRelatives0" xml:space="preserve">
-    <value>Erro ao carregar Parentes do Estudante: {0}</value>
+    <value>Erro ao carregar Parentes do Aluno: {0}</value>
   </data>
   <data name="StudentRelativeListViewModel_ErrorDeleting0RelativesOfTheStudent1" xml:space="preserve">
-    <value>Erro ao excluir {0} Parentes de Estudante: {1}</value>
+    <value>Erro ao excluir {0} Parentes do Aluno: {1}</value>
   </data>
   <data name="DismissibleStudentListViewModel_ErrorLoadingDismissibleStudents0" xml:space="preserve">
-    <value>Erro ao carregar Estudantes Dispensáveis: {0}</value>
+    <value>Erro ao carregar Alunos Dispensáveis: {0}</value>
   </data>
   <data name="DismissalDetailsViewModel_ErrorSavingDismissal0" xml:space="preserve">
     <value>Erro ao salvar Dispensa: {0}</value>
