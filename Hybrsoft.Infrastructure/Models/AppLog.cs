@@ -15,5 +15,6 @@ namespace Hybrsoft.Infrastructure.Models
 		public string Message { get; set; }
 		public string Description { get; set; }
 		public AppType AppType { get; set; }
+		public string SearchTerms { get; set; }
 	}
 }

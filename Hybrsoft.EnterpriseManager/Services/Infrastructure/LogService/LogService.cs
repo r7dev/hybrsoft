@@ -28,10 +28,14 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 		}
 		public async Task WriteAsync(LogType type, string source, string action, string message, string description)
 		{
-			int maxDescriptionLength = 4000;
-			string refinedDescription = !string.IsNullOrEmpty(description) && description.Length > maxDescriptionLength
-				? description[..maxDescriptionLength]
+			int maxLength = 4000;
+			string refinedDescription = description?.Length > maxLength
+				? description[..maxLength]
 				: description;
+			string searchTerms = $"{type.GetDescription()} {source} {action} {message} {refinedDescription}";
+			string refinedSearchTerms = searchTerms?.Length > maxLength
+				? searchTerms[..maxLength]
+				: searchTerms;
 			var appLog = new AppLog
 			{
 				User = AppSettings.Current.UserName ?? "App",
@@ -41,6 +45,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 				Message = message,
 				Description = refinedDescription,
 				AppType = AppType.EnterpriseManager,
+				SearchTerms = refinedSearchTerms,
 				IsRead = type != LogType.Error
 			};
 

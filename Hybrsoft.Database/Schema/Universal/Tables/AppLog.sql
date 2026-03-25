@@ -9,7 +9,8 @@
 	[Action] NVARCHAR(50) NOT NULL,
 	[Message] NVARCHAR(400) NOT NULL,
 	[Description] NVARCHAR(4000) NOT NULL,
-	[AppType] SMALLINT NOT NULL
+	[AppType] SMALLINT NOT NULL,
+	[SearchTerms] NVARCHAR(4000) NOT NULL
 )
 GO
 CREATE INDEX IX_AppLog_AppType_IsRead ON [Universal].[AppLog] ([AppType], [IsRead]);
