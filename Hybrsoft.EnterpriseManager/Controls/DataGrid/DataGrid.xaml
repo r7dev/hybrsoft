@@ -29,8 +29,8 @@
 		<!--Grid Content-->
 		<Grid Grid.Row="2">
 			<controls:AdaptiveGridView x:Name="gridview"
-									   DesiredWidth="240"
-									   ItemHeight="220"
+									   DesiredWidth="{x:Bind ItemWidth}"
+									   ItemHeight="{x:Bind ItemHeight}"
 									   StretchContentForSingleRow="False"
 									   ItemsSource="{x:Bind ItemsSource, Mode=OneWay}"
 									   ItemTemplate="{x:Bind ItemTemplate}"

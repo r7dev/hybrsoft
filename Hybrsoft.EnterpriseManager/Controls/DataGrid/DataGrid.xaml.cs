@@ -92,6 +92,32 @@ public sealed partial class DataGrid : UserControl, INotifyExpressionChanged
 	public static readonly DependencyProperty ItemTemplateProperty = DependencyProperty.Register(nameof(ItemTemplate), typeof(DataTemplate), typeof(DataGrid), new PropertyMetadata(null));
 	#endregion
 
+	#region ItemWidth
+	public double ItemWidth
+	{
+		get { return (double)GetValue(ItemWidthProperty); }
+		set { SetValue(ItemWidthProperty, value); }
+	}
+	public static readonly DependencyProperty ItemWidthProperty = DependencyProperty.Register(
+		nameof(ItemWidth),
+		typeof(double),
+		typeof(DataGrid),
+		new PropertyMetadata(240.0));
+	#endregion
+
+	#region ItemHeight
+	public double ItemHeight
+	{
+		get { return (double)GetValue(ItemHeightProperty); }
+		set { SetValue(ItemHeightProperty, value); }
+	}
+	public static readonly DependencyProperty ItemHeightProperty = DependencyProperty.Register(
+		nameof(ItemHeight),
+		typeof(double),
+		typeof(DataGrid),
+		new PropertyMetadata(220.0));
+	#endregion
+
 	#region DefaultCommands
 	public string DefaultCommands
 	{
