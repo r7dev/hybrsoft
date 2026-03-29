@@ -130,8 +130,13 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 				if (!LocalSettings.Values.TryGetValue(name, out object value))
 				{
 					LocalSettings.Values[name] = defaultValue;
+					return defaultValue;
 				}
-				return (TResult)LocalSettings.Values[name];
+				if (value is TResult typedValue)
+				{
+					return typedValue;
+				}
+				return (TResult)Convert.ChangeType(value, typeof(TResult));
 			}
 			catch (Exception ex)
 			{
