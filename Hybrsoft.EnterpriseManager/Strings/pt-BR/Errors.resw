@@ -357,4 +357,16 @@
   <data name="ApprovalFailed" xml:space="preserve">
     <value>Falha na Aprovação.</value>
   </data>
+  <data name="StudentBelongingDetailsViewModel_ErrorSavingStudentsBelonging0" xml:space="preserve">
+    <value>Erro ao salvar Pertence do Aluno: {0}</value>
+  </data>
+  <data name="StudentBelongingDetailsViewModel_ErrorDeletingStudentsBelonging0" xml:space="preserve">
+    <value>Erro ao excluir Pertence do Aluno: {0}</value>
+  </data>
+  <data name="StudentBelongingListViewModel_ErrorLoadingStudentBelongings0" xml:space="preserve">
+    <value>Erro ao carregar Pertences do Aluno: {0}</value>
+  </data>
+  <data name="StudentBelongingListViewModel_ErrorDeleting0StudentBelongings1" xml:space="preserve">
+    <value>Erro ao excluir {0} Pertences do Aluno: {1}</value>
+  </data>
 </root>

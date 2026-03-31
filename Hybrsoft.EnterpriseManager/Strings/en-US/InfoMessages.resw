@@ -525,4 +525,28 @@
   <data name="GenericListViewModel_Selecting" xml:space="preserve">
     <value>Selecting.</value>
   </data>
+  <data name="StudentBelongingDetailsViewModel_SavingStudentsBelonging" xml:space="preserve">
+    <value>Saving student's belonging...</value>
+  </data>
+  <data name="StudentBelongingDetailsViewModel_TheStudentsBelongingWasSaved" xml:space="preserve">
+    <value>The Student's Belonging was saved.</value>
+  </data>
+  <data name="StudentBelongingDetailsViewModel_DeletingStudentsBelonging" xml:space="preserve">
+    <value>Deleting student's belonging...</value>
+  </data>
+  <data name="StudentBelongingDetailsViewModel_StudentsBelongingWasDeleted" xml:space="preserve">
+    <value>Student's Belonging was deleted</value>
+  </data>
+  <data name="StudentBelongingListViewModel_LoadingStudentsBelongings" xml:space="preserve">
+    <value>Loading student's belongings...</value>
+  </data>
+  <data name="StudentBelongingListViewModel_StudentBelongingsLoaded" xml:space="preserve">
+    <value>Student Belongings loaded</value>
+  </data>
+  <data name="StudentBelongingListViewModel_Deleting0StudentBelongings" xml:space="preserve">
+    <value>Deleting {0} student belongings...</value>
+  </data>
+  <data name="StudentBelongingListViewModel_0StudentBelongingsDeleted" xml:space="preserve">
+    <value>{0} student belongings deleted</value>
+  </data>
 </root>
