@@ -10,6 +10,7 @@ namespace Hybrsoft.Infrastructure.DataContexts
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<Student>().ToTable(nameof(Student), schema);
+			modelBuilder.Entity<StudentBelonging>().ToTable(nameof(StudentBelonging), schema);
 			modelBuilder.Entity<StudentRelative>().ToTable(nameof(StudentRelative), schema);
 			modelBuilder.Entity<Classroom>().ToTable(nameof(Classroom), schema);
 			modelBuilder.Entity<ClassroomStudent>().ToTable(nameof(ClassroomStudent), schema);
@@ -21,6 +22,7 @@ namespace Hybrsoft.Infrastructure.DataContexts
 		}
 
 		public DbSet<Student> Students { get; set; }
+		public DbSet<StudentBelonging> StudentBelongings { get; set; }
 		public DbSet<StudentRelative> StudentRelatives { get; set; }
 		public DbSet<Classroom> Classrooms { get; set; }
 		public DbSet<ClassroomStudent> ClassroomStudents { get; set; }
