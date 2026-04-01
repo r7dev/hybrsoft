@@ -216,4 +216,10 @@
   <data name="SettingsViewModel_TheLanguageHasBeenSuccessfullyChanged" xml:space="preserve">
     <value>Idioma Alterado com Sucesso.</value>
   </data>
+  <data name="StudentBelongingDetailsViewModel_ThisStudentsBelongingWasModifiedExternally" xml:space="preserve">
+    <value>Este pertence do aluno foi modificado externamente</value>
+  </data>
+  <data name="StudentBelongingDetailsViewModel_ThisStudentsBelongingWasDeletedExternally" xml:space="preserve">
+    <value>Este pertence do aluno foi excluído externamente</value>
+  </data>
 </root>

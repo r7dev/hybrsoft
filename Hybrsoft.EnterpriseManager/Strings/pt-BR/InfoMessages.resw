@@ -367,7 +367,7 @@
     <value>Salvando parente do aluno...</value>
   </data>
   <data name="StudentRelativeDetailsViewModel_TheStudentsRelativeWasSaved" xml:space="preserve">
-    <value>Parente do Estudando foi salvo.</value>
+    <value>Parente do Aluno foi salvo.</value>
   </data>
   <data name="StudentRelativeDetailsViewModel_DeletingStudentRelative" xml:space="preserve">
     <value>Excluindo parente do aluno...</value>
@@ -524,5 +524,29 @@
   </data>
   <data name="GenericListViewModel_Selecting" xml:space="preserve">
     <value>Selecionando.</value>
+  </data>
+  <data name="StudentBelongingDetailsViewModel_SavingStudentsBelonging" xml:space="preserve">
+    <value>Salvando pertence do aluno...</value>
+  </data>
+  <data name="StudentBelongingDetailsViewModel_TheStudentsBelongingWasSaved" xml:space="preserve">
+    <value>Pertence do Aluno foi salvo.</value>
+  </data>
+  <data name="StudentBelongingDetailsViewModel_DeletingStudentsBelonging" xml:space="preserve">
+    <value>Excluindo pertence do aluno...</value>
+  </data>
+  <data name="StudentBelongingDetailsViewModel_StudentsBelongingWasDeleted" xml:space="preserve">
+    <value>Pertence do Aluno foi excluído</value>
+  </data>
+  <data name="StudentBelongingListViewModel_LoadingStudentsBelongings" xml:space="preserve">
+    <value>Carregando pertences do aluno...</value>
+  </data>
+  <data name="StudentBelongingListViewModel_StudentBelongingsLoaded" xml:space="preserve">
+    <value>Pertences do Aluno carregados</value>
+  </data>
+  <data name="StudentBelongingListViewModel_Deleting0StudentBelongings" xml:space="preserve">
+    <value>Excluindo {0} pertences do alunos...</value>
+  </data>
+  <data name="StudentBelongingListViewModel_0StudentBelongingsDeleted" xml:space="preserve">
+    <value>{0} pertences do aluno excluídos</value>
   </data>
 </root>

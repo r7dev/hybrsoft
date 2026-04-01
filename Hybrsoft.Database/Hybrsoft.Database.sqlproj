@@ -92,6 +92,7 @@
     <Build Include="Schema\Universal\Tables\Country.sql" />
     <Build Include="Schema\Universal\Tables\Subscription.sql" />
     <Build Include="Schema\Universal\Tables\SubscriptionPlan.sql" />
+    <Build Include="Schema\Learn\Tables\StudentBelonging.sql" />
     <None Include="Script-Post\Role.Initialize.sql" />
     <None Include="Script-Post\RolePermission.Initialize.sql" />
     <None Include="Script-Post\UserRole.Initialize.sql" />
