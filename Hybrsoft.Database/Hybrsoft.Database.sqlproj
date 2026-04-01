@@ -92,6 +92,9 @@
     <Build Include="Schema\Universal\Tables\Country.sql" />
     <Build Include="Schema\Universal\Tables\Subscription.sql" />
     <Build Include="Schema\Universal\Tables\SubscriptionPlan.sql" />
+    <None Include="Script-Post\Role.Initialize.sql" />
+    <None Include="Script-Post\RolePermission.Initialize.sql" />
+    <None Include="Script-Post\UserRole.Initialize.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Hybrsoft.Database.refactorlog" />
