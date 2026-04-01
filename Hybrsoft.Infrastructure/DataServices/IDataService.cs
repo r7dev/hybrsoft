@@ -96,6 +96,13 @@ namespace Hybrsoft.Infrastructure.DataServices
 		Task<int> UpdateStudentAsync(Student entity);
 		Task<int> DeleteStudentsAsync(params Student[] entities);
 
+		Task<StudentBelonging> GetStudentBelongingAsync(long id);
+		Task<IList<StudentBelonging>> GetStudentBelongingsAsync(int skip, int take, DataRequest<StudentBelonging> request);
+		Task<IList<StudentBelonging>> GetStudentBelongingKeysAsync(int skip, int take, DataRequest<StudentBelonging> request);
+		Task<int> GetStudentBelongingsCountAsync(DataRequest<StudentBelonging> request);
+		Task<int> UpdateStudentBelongingAsync(StudentBelonging entity);
+		Task<int> DeleteStudentBelongingsAsync(params StudentBelonging[] entities);
+
 		Task<StudentRelative> GetStudentRelativeAsync(long id);
 		Task<IList<StudentRelative>> GetStudentRelativesAsync(int skip, int take, DataRequest<StudentRelative> request);
 		Task<IList<StudentRelative>> GetStudentRelativeKeysAsync(int skip, int take, DataRequest<StudentRelative> request);

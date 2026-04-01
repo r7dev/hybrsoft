@@ -972,4 +972,10 @@
   <data name="ShellView_SwitchToMainViewToUnlock.Content" xml:space="preserve">
     <value>Mude para visualização principal para desbloquear</value>
   </data>
+  <data name="StudentBelongingDetailsViewModel_TitleNew" xml:space="preserve">
+    <value>Novo Pertence do Aluno, Aluno #{0}</value>
+  </data>
+  <data name="StudentBelongingDetailsViewModel_TitleEdit" xml:space="preserve">
+    <value>Pertence {0}, #{1}</value>
+  </data>
 </root>

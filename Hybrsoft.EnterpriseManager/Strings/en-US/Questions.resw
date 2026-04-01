@@ -183,6 +183,12 @@
   <data name="RolePermissionListViewModel_AreYouSureYouWantToDeleteSelectedRolePermissions" xml:space="preserve">
     <value>Are you sure you want to delete selected role permissions?</value>
   </data>
+  <data name="StudentBelongingDetailsViewModel_AreYouSureYouWantToDeleteTheStudentsCurrentBelonging" xml:space="preserve">
+    <value>Are you sure you want to delete the student's current belonging?</value>
+  </data>
+  <data name="StudentBelongingListViewModel_AreYouSureYouWantToDeleteTheSelectedStudentsBelonging" xml:space="preserve">
+    <value>Are you sure you want to delete the selected student's belongings?</value>
+  </data>
   <data name="StudentDetailsViewModel_AreYouSureYouWantToDeleteCurrentStudent" xml:space="preserve">
     <value>Are you sure you want to delete current student?</value>
   </data>

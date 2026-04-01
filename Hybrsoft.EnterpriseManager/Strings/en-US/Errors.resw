@@ -357,4 +357,16 @@
   <data name="ApprovalFailed" xml:space="preserve">
     <value>Approval Failed.</value>
   </data>
+  <data name="StudentBelongingDetailsViewModel_ErrorSavingStudentsBelonging0" xml:space="preserve">
+    <value>Error saving Student's Belonging: {0}</value>
+  </data>
+  <data name="StudentBelongingDetailsViewModel_ErrorDeletingStudentsBelonging0" xml:space="preserve">
+    <value>Error deleting Student's Belonging: {0}</value>
+  </data>
+  <data name="StudentBelongingListViewModel_ErrorLoadingStudentBelongings0" xml:space="preserve">
+    <value>Error loading Student Belongings: {0}</value>
+  </data>
+  <data name="StudentBelongingListViewModel_ErrorDeleting0StudentBelongings1" xml:space="preserve">
+    <value>Error deleting {0} Student Belongings: {1}</value>
+  </data>
 </root>
