@@ -66,9 +66,15 @@
 					BorderBrush="LightGray"
 					BorderThickness="0,1,0,0"
 					Visibility="{x:Bind ViewModel.StudentDetails.ItemIsNew, Mode=OneWay, Converter={StaticResource InverseBoolToVisibilityConverter}}">
-				<controls:Section x:Uid="/UI/StudentDetailsUserControl_Relatives"
-								  Background="{StaticResource DetailsViewBackgroundColor}">
-					<views:StudentsStudentRelatives ViewModel="{x:Bind ViewModel.StudentRelativeList}" />
+				<controls:Section Background="{StaticResource DetailsViewBackgroundColor}">
+					<Pivot x:Name="pivot">
+						<PivotItem x:Uid="/UI/StudentDetailsUserControl_Relatives">
+							<views:StudentsStudentRelatives ViewModel="{x:Bind ViewModel.StudentRelativeList}" />
+						</PivotItem>
+						<PivotItem x:Uid="/UI/StudentDetailsUserControl_Belongings">
+							<views:StudentsStudentBelongings ViewModel="{x:Bind ViewModel.StudentBelongingList}" />
+						</PivotItem>
+					</Pivot>
 				</controls:Section>
 			</Border>
 		</Grid>

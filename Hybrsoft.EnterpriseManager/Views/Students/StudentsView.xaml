@@ -53,6 +53,9 @@
 						<PivotItem x:Uid="/UI/StudentsView_Details_Relatives">
 							<views:StudentsStudentRelatives Grid.Row="1" ViewModel="{x:Bind ViewModel.StudentRelativeList}" />
 						</PivotItem>
+						<PivotItem x:Uid="/UI/StudentsView_Details_Belongings">
+							<views:StudentsStudentBelongings Grid.Row="1" ViewModel="{x:Bind ViewModel.StudentBelongingList}" />
+						</PivotItem>
 					</Pivot>
 
 				</controls:Section>

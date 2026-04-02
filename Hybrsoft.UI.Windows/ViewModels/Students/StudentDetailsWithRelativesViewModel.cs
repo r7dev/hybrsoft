@@ -5,13 +5,15 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class StudentDetailsWithRelativesViewModel(IStudentService studentService,
+	public partial class StudentMasterDetailsViewModel(IStudentService studentService,
 		IStudentRelativeService studentRelativeService,
+		IStudentBelongingService studentBelongingService,
 		IFilePickerService filePickerService,
 		ICommonServices commonServices) : ViewModelBase(commonServices)
 	{
 		public StudentDetailsViewModel StudentDetails { get; set; } = new StudentDetailsViewModel(studentService, filePickerService, commonServices);
 		public StudentRelativeListViewModel StudentRelativeList { get; set; } = new StudentRelativeListViewModel(studentRelativeService, commonServices);
+		public StudentBelongingListViewModel StudentBelongingList { get; set; } = new StudentBelongingListViewModel(studentBelongingService, commonServices);
 
 		public async Task LoadAsync(StudentDetailsArgs args)
 		{
@@ -21,10 +23,12 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			if (StudentId > 0)
 			{
 				await StudentRelativeList.LoadAsync(new StudentRelativeListArgs { StudentID = args.StudentID });
+				await StudentBelongingList.LoadAsync(new StudentBelongingListArgs { StudentID = args.StudentID });
 			}
 			else
 			{
 				await StudentRelativeList.LoadAsync(new StudentRelativeListArgs { IsEmpty = true }, silent: true);
+				await StudentBelongingList.LoadAsync(new StudentBelongingListArgs { IsEmpty = true }, silent: true);
 			}
 		}
 		public void Unload()
@@ -32,6 +36,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			StudentDetails.CancelEdit();
 			StudentDetails.Unload();
 			StudentRelativeList.Unload();
+			StudentBelongingList.Unload();
 		}
 
 		public void Subscribe()
@@ -39,6 +44,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			MessageService.Subscribe<StudentDetailsViewModel, StudentModel>(this, OnMessage);
 			StudentDetails.Subscribe();
 			StudentRelativeList.Subscribe();
+			StudentBelongingList.Subscribe();
 		}
 
 		public void Unsubscribe()
@@ -46,6 +52,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			MessageService.Unsubscribe(this);
 			StudentDetails.Unsubscribe();
 			StudentRelativeList.Unsubscribe();
+			StudentBelongingList.Unsubscribe();
 		}
 
 		private async void OnMessage(StudentDetailsViewModel viewModel, string message, StudentModel student)
@@ -53,6 +60,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			if (viewModel == StudentDetails && (message == "NewItemSaved" || message == "ItemChanged"))
 			{
 				await StudentRelativeList.LoadAsync(new StudentRelativeListArgs { StudentID = student.StudentID });
+				await StudentBelongingList.LoadAsync(new StudentBelongingListArgs { StudentID = student.StudentID });
 			}
 		}
 	}

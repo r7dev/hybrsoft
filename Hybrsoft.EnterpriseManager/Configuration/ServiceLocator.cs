@@ -26,6 +26,7 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			serviceCollection.AddSingleton<ILookupTables, LookupTables>();
 			serviceCollection.AddSingleton<IRelativeService, RelativeService>();
 			serviceCollection.AddSingleton<IStudentService, StudentService>();
+			serviceCollection.AddSingleton<IStudentBelongingService, StudentBelongingService>();
 			serviceCollection.AddSingleton<IStudentRelativeService, StudentRelativeService>();
 			serviceCollection.AddSingleton<IClassroomService, ClassroomService>();
 			serviceCollection.AddSingleton<IClassroomStudentService, ClassroomStudentService>();
@@ -69,8 +70,9 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 
 			serviceCollection.AddTransient<StudentsViewModel>();
 			serviceCollection.AddTransient<StudentDetailsViewModel>();
-			serviceCollection.AddTransient<StudentDetailsWithRelativesViewModel>();
+			serviceCollection.AddTransient<StudentMasterDetailsViewModel>();
 
+			serviceCollection.AddTransient<StudentBelongingDetailsViewModel>();
 			serviceCollection.AddTransient<StudentRelativeDetailsViewModel>();
 
 			serviceCollection.AddTransient<ClassroomsViewModel>();

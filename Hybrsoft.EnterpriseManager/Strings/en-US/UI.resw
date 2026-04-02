@@ -978,4 +978,31 @@
   <data name="StudentBelongingDetailsViewModel_TitleEdit" xml:space="preserve">
     <value>Belonging {0}, #{1}</value>
   </data>
+  <data name="StudentBelongingCardUserControl_StudentsBelonging.Text" xml:space="preserve">
+    <value>Student's Belonging</value>
+  </data>
+  <data name="StudentBelongingCardUserControl_StudentID.Text" xml:space="preserve">
+    <value>Student ID</value>
+  </data>
+  <data name="StudentBelongingDetailsUserControl_DisplayName.Header" xml:space="preserve">
+    <value>Display Name</value>
+  </data>
+  <data name="StudentBelongingDetailsUserControl_Description.Header" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="StudentsStudentBelongingsUserControl_ColumnHeaderStudentBelongingID.Text" xml:space="preserve">
+    <value>Student Belongs ID</value>
+  </data>
+  <data name="StudentsStudentBelongingsUserControl_ColumnHeaderDisplayName.Text" xml:space="preserve">
+    <value>Display Name</value>
+  </data>
+  <data name="StudentsStudentBelongingsUserControl_New.NewLabel" xml:space="preserve">
+    <value>New Student Belonging</value>
+  </data>
+  <data name="StudentsView_Details_Belongings.Header" xml:space="preserve">
+    <value>Belongings</value>
+  </data>
+  <data name="StudentDetailsUserControl_Belongings.Header" xml:space="preserve">
+    <value>Belongings</value>
+  </data>
 </root>

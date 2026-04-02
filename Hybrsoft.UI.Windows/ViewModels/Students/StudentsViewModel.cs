@@ -10,6 +10,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 	{
 		public StudentsViewModel(IStudentService studentService,
 			IStudentRelativeService studentRelativeService,
+			IStudentBelongingService studentBelongingService,
 			IFilePickerService filePickerService,
 			ICommonServices commonServices) : base(commonServices)
 		{
@@ -17,6 +18,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			StudentList = new StudentListViewModel(_studentService, commonServices);
 			StudentDetails = new StudentDetailsViewModel(_studentService, filePickerService, commonServices);
 			StudentRelativeList = new StudentRelativeListViewModel(studentRelativeService, commonServices);
+			StudentBelongingList = new StudentBelongingListViewModel(studentBelongingService, commonServices);
 		}
 
 		private readonly IStudentService _studentService;
@@ -26,6 +28,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		public StudentDetailsViewModel StudentDetails { get; set; }
 
 		public StudentRelativeListViewModel StudentRelativeList { get; set; }
+		public StudentBelongingListViewModel StudentBelongingList { get; set; }
 
 		public async Task LoadAsync(StudentListArgs args)
 		{
@@ -44,6 +47,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			StudentList.Subscribe();
 			StudentDetails.Subscribe();
 			StudentRelativeList.Subscribe();
+			StudentBelongingList.Subscribe();
 		}
 		public void Unsubscribe()
 		{
@@ -51,6 +55,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			StudentList.Unsubscribe();
 			StudentDetails.Unsubscribe();
 			StudentRelativeList.Unsubscribe();
+			StudentBelongingList.Unsubscribe();
 		}
 
 		private async void OnMessage(StudentListViewModel viewModel, string message, object args)
@@ -72,13 +77,16 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				StudentDetails.CancelEdit();
 			}
 			StudentRelativeList.IsMultipleSelection = false;
+			StudentBelongingList.IsMultipleSelection = false;
 			var selected = StudentList.SelectedItem;
-			if (!StudentRelativeList.IsMultipleSelection)
+			if (!StudentRelativeList.IsMultipleSelection
+				|| !StudentBelongingList.IsMultipleSelection)
 			{
 				if (selected != null && !selected.IsEmpty)
 				{
 					await PopulateDetails(selected);
 					await PopulateStudentRelatives(selected);
+					await PopulateStudentBelongings(selected);
 				}
 			}
 			StudentDetails.Item = selected;
@@ -109,6 +117,21 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			catch (Exception ex)
 			{
 				LogException("Students", "Load the Student's Relatives", ex);
+			}
+		}
+
+		private async Task PopulateStudentBelongings(StudentModel selectedItem)
+		{
+			try
+			{
+				if (selectedItem != null)
+				{
+					await StudentBelongingList.LoadAsync(new StudentBelongingListArgs { StudentID = selectedItem.StudentID }, silent: true);
+				}
+			}
+			catch (Exception ex)
+			{
+				LogException("Students", "Load the Student's Belongings", ex);
 			}
 		}
 	}

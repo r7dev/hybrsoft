@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+	x:Class="Hybrsoft.EnterpriseManager.Views.StudentBelongingDetails"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:Hybrsoft.EnterpriseManager.Views"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:controls="using:Hybrsoft.EnterpriseManager.Controls"
+	xmlns:views="using:Hybrsoft.EnterpriseManager.Views"
+	xmlns:viewmodels="using:Hybrsoft.UI.Windows.ViewModels"
+	xmlns:commons="using:Hybrsoft.UI.Windows.Infrastructure.Common"
+	mc:Ignorable="d">
+
+	<UserControl.Resources>
+		<DataTemplate x:Key="DetailsTemplate" x:DataType="viewmodels:StudentBelongingDetailsViewModel">
+			<controls:FluidGrid Columns="2" ColumnSpacing="12" Margin="12,18,6,6" RowSpacing="12">
+				<controls:FormTextBox x:Uid="/UI/StudentBelongingDetailsUserControl_DisplayName"
+									  Text="{x:Bind EditableItem.DisplayName, Mode=TwoWay}"
+									  MaxLength="{x:Bind commons:FieldLengths.DisplayName, Mode=OneTime}"
+									  controls:FluidGrid.ColumnSpan="2"/>
+				<controls:FormTextBox x:Uid="/UI/StudentBelongingDetailsUserControl_Description"
+									  Text="{x:Bind EditableItem.Description, Mode=TwoWay}"
+									  MaxLength="{x:Bind commons:FieldLengths.Description, Mode=OneTime}"
+									  controls:FluidGrid.ColumnSpan="2"/>
+			</controls:FluidGrid>
+		</DataTemplate>
+	</UserControl.Resources>
+
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="320"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+
+		<Grid BorderBrush="LightGray" BorderThickness="0,1,1,0" Background="{StaticResource DetailsViewBackgroundColor}">
+			<views:StudentBelongingCard Margin="6,12" ViewModel="{x:Bind ViewModel}" Item="{x:Bind ViewModel.Item, Mode=OneWay}" />
+		</Grid>
+
+		<controls:Details x:Name="details" Grid.Column="1" Margin="6"
+						  DetailsContent="{x:Bind ViewModel}"
+						  DetailsTemplate="{StaticResource DetailsTemplate}"
+						  CanGoBack="{x:Bind ViewModel.CanGoBack}"
+						  IsEditMode="{x:Bind ViewModel.IsEditMode, Mode=OneWay}"
+						  BackCommand="{x:Bind ViewModel.BackCommand}"
+						  EditCommand="{x:Bind ViewModel.EditCommand}"
+						  DeleteCommand="{x:Bind ViewModel.DeleteCommand}"
+						  SaveCommand="{x:Bind ViewModel.SaveCommand}"
+						  CancelCommand="{x:Bind ViewModel.CancelCommand}" />
+	</Grid>
+</UserControl>

@@ -1,17 +1,21 @@
 ﻿using Hybrsoft.Enums;
+using Hybrsoft.UI.Windows.Infrastructure.Common;
 using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
 	public partial class StudentBelongingDetailsViewModel(IStudentBelongingService studentBelongingService,
+		IFilePickerService filePickerService,
 		ICommonServices commonServices) : GenericDetailsViewModel<StudentBelongingModel>(commonServices)
 	{
 		private readonly IStudentBelongingService _studentBelongingService = studentBelongingService;
+		private readonly IFilePickerService _filePickerService = filePickerService;
 
 		public override string Title => (Item?.IsNew ?? true) ? TitleNew : TitleEdit;
 		public string TitleNew => string.Format(ResourceService.GetString<StudentBelongingDetailsViewModel>(ResourceFiles.UI, "TitleNew"), StudentID);
@@ -63,13 +67,40 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			MessageService.Unsubscribe(this);
 		}
 
-		public StudentBelongingDetailsArgs CreateArgs()
+		private object _newPictureSource = null;
+		public object NewPictureSource
 		{
-			return new StudentBelongingDetailsArgs
+			get => _newPictureSource;
+			set => Set(ref _newPictureSource, value);
+		}
+
+		public override void BeginEdit()
+		{
+			NewPictureSource = null;
+			base.BeginEdit();
+		}
+
+		public ICommand EditPictureCommand => new RelayCommand(OnEditPicture);
+		protected virtual void OnEditPicture()
+		{
+			EditPictureAsync();
+		}
+		public virtual async void EditPictureAsync()
+		{
+			NewPictureSource = null;
+			var result = await _filePickerService.OpenImagePickerAsync();
+			if (result != null)
 			{
-				StudentBelongingID = Item?.StudentBelongingID ?? 0,
-				StudentID = Item?.StudentID ?? 0
-			};
+				EditableItem.Picture = result.ImageBytes;
+				EditableItem.PictureSource = result.ImageSource;
+				EditableItem.Thumbnail = result.ThumbnailBytes;
+				EditableItem.ThumbnailSource = result.ThumbnailSource;
+				NewPictureSource = result.ImageSource;
+			}
+			else
+			{
+				NewPictureSource = null;
+			}
 		}
 
 		protected override async Task<bool> SaveItemAsync(StudentBelongingModel model)

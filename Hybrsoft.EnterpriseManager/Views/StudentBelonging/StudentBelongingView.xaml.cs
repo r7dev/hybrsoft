@@ -1,6 +1,6 @@
+using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.UI.Windows.Services;
 using Hybrsoft.UI.Windows.ViewModels;
-using Hybrsoft.EnterpriseManager.Configuration;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using System.Threading.Tasks;
@@ -13,24 +13,23 @@ namespace Hybrsoft.EnterpriseManager.Views
 	/// <summary>
 	/// An empty page that can be used on its own or navigated to within a Frame.
 	/// </summary>
-	public sealed partial class StudentView : Page
+	public sealed partial class StudentBelongingView : Page
 	{
-		public StudentView()
+		public StudentBelongingView()
 		{
-			ViewModel = ServiceLocator.Current.GetService<StudentMasterDetailsViewModel>();
+			ViewModel = ServiceLocator.Current.GetService<StudentBelongingDetailsViewModel>();
 			NavigationService = ServiceLocator.Current.GetService<INavigationService>();
-			this.InitializeComponent();
+			InitializeComponent();
 		}
 
-		public StudentMasterDetailsViewModel ViewModel { get; }
+		public StudentBelongingDetailsViewModel ViewModel { get; }
 		public INavigationService NavigationService { get; }
 
 		protected override async void OnNavigatedTo(NavigationEventArgs e)
 		{
 			ViewModel.Subscribe();
-			await ViewModel.LoadAsync(e.Parameter as StudentDetailsArgs);
-
-			if (ViewModel.StudentDetails.IsEditMode)
+			await ViewModel.LoadAsync(e.Parameter as StudentBelongingDetailsArgs);
+			if (ViewModel.IsEditMode)
 			{
 				await Task.Delay(100);
 				details.SetFocus();

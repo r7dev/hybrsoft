@@ -101,9 +101,12 @@
     <None Remove="Views\Shell\MainShellView.xaml" />
     <None Remove="Views\Shell\ShellView.xaml" />
     <None Remove="Views\SplashScreen\ExtendedSplash.xaml" />
+    <None Remove="Views\StudentBelonging\Details\StudentBelongingCard.xaml" />
+    <None Remove="Views\StudentBelonging\StudentBelongingView.xaml" />
     <None Remove="Views\StudentRelative\Details\StudentRelativeCard.xaml" />
     <None Remove="Views\StudentRelative\Details\StudentRelativeDetails.xaml" />
     <None Remove="Views\StudentRelative\StudentRelativeView.xaml" />
+    <None Remove="Views\Students\Details\StudentsStudentBelongings.xaml" />
     <None Remove="Views\Students\Details\StudentsStudentRelatives.xaml" />
     <None Remove="Views\Students\List\StudentList.xaml" />
     <None Remove="Views\Students\StudentsView.xaml" />
@@ -216,6 +219,26 @@
   <ItemGroup>
     <Folder Include="Assets\Images\" />
     <Folder Include="Views\Roles\Details\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Students\Details\StudentsStudentBelongings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\StudentBelonging\StudentBelongingView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\StudentBelonging\Details\StudentBelongingDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\StudentBelonging\Details\StudentBelongingCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Controls\WindowTitle\ModernTitle.xaml">
