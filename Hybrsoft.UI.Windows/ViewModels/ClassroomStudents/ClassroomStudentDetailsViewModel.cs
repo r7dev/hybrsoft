@@ -88,15 +88,6 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			MessageService.Unsubscribe(this);
 		}
 
-		public ClassroomStudentDetailsArgs CreateArgs()
-		{
-			return new ClassroomStudentDetailsArgs
-			{
-				ClassroomStudentID = Item?.ClassroomStudentID ?? 0,
-				ClassroomID = Item?.ClassroomID ?? 0
-			};
-		}
-
 		protected override async Task<bool> SaveItemAsync(ClassroomStudentModel model)
 		{
 			try

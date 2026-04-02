@@ -60,16 +60,6 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			MessageService.Unsubscribe(this);
 		}
 
-		public ClassroomStudentListArgs CreateArgs()
-		{
-			return new ClassroomStudentListArgs
-			{
-				Query = Query,
-				OrderBys = ViewModelArgs.OrderBys,
-				ClassroomID = ViewModelArgs.ClassroomID
-			};
-		}
-
 		public async Task<bool> RefreshAsync()
 		{
 			bool isOk = true;

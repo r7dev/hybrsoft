@@ -54,15 +54,6 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			MessageService.Unsubscribe(this);
 		}
 
-		public DismissalListArgs CreateArgs()
-		{
-			return new DismissalListArgs
-			{
-				Query = Query,
-				OrderBys = ViewModelArgs.OrderBys
-			};
-		}
-
 		public async Task<bool> RefreshAsync()
 		{
 			bool isOk = true;

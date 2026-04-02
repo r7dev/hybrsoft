@@ -48,14 +48,6 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			MessageService.Unsubscribe(this);
 		}
 
-		public AppLogDetailsArgs CreateArgs()
-		{
-			return new AppLogDetailsArgs
-			{
-				AppLogID = Item?.AppLogID ?? 0
-			};
-		}
-
 		public ICommand CopyDescriptionCommand => new RelayCommand(OnCopyDescription);
 		virtual protected void OnCopyDescription()
 		{

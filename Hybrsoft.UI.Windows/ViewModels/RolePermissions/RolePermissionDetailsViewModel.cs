@@ -86,15 +86,6 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			MessageService.Unsubscribe(this);
 		}
 
-		public RolePermissionDetailsArgs CreateArgs()
-		{
-			return new RolePermissionDetailsArgs
-			{
-				RolePermissionId = Item?.RolePermissionID ?? 0,
-				RoleId = Item?.RoleID ?? 0
-			};
-		}
-
 		protected override async Task<bool> SaveItemAsync(RolePermissionModel model)
 		{
 			try

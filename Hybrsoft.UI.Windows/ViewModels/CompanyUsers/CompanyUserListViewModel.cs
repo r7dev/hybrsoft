@@ -62,16 +62,6 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			MessageService.Unsubscribe(this);
 		}
 
-		public CompanyUserListArgs CreateArgs()
-		{
-			return new CompanyUserListArgs
-			{
-				Query = Query,
-				OrderBys = ViewModelArgs.OrderBys,
-				CompanyID = ViewModelArgs.CompanyID
-			};
-		}
-
 		public async Task<bool> RefreshAsync()
 		{
 			bool isOk = true;

@@ -91,15 +91,6 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			MessageService.Unsubscribe(this);
 		}
 
-		public CompanyUserDetailsArgs CreateArgs()
-		{
-			return new CompanyUserDetailsArgs
-			{
-				CompanyUserID = Item?.CompanyUserID ?? 0,
-				CompanyID = Item?.CompanyID ?? 0
-			};
-		}
-
 		public new ICommand EditCommand => new RelayCommand(OnEdit, CanEdit);
 		private bool CanEdit()
 		{

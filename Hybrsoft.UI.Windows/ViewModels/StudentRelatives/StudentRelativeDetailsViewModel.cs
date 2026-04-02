@@ -84,15 +84,6 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			MessageService.Unsubscribe(this);
 		}
 
-		public StudentRelativeDetailsArgs CreateArgs()
-		{
-			return new StudentRelativeDetailsArgs
-			{
-				StudentRelativeID = Item?.StudentRelativeID ?? 0,
-				StudentID = Item?.StudentID ?? 0
-			};
-		}
-
 		protected override async Task<bool> SaveItemAsync(StudentRelativeModel model)
 		{
 			try
