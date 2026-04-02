@@ -37,3 +37,4 @@ IF NOT EXISTS(SELECT TOP 1 1
 	END
 
 PRINT 'User Role loaded.'
+GO

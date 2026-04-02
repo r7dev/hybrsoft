@@ -9,3 +9,4 @@ IF NOT EXISTS(SELECT TOP 1 1 FROM [Universal].[Role] WHERE [Name] = @Name)
 	END
 
 PRINT 'Role loaded.'
+GO

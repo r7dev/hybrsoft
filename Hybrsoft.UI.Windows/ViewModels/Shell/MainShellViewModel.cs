@@ -146,35 +146,35 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 			if (item.ViewModel == typeof(DashboardViewModel))
 			{
-				return AuthorizationService.HasPermission(Permissions.DashboardReader);
+				return _hasSecurityAdministration || AuthorizationService.HasPermission(Permissions.DashboardReader);
 			}
 			if (item.ViewModel == typeof(RelativesViewModel))
 			{
-				return AuthorizationService.HasPermission(Permissions.RelativeReader);
+				return _hasSecurityAdministration || AuthorizationService.HasPermission(Permissions.RelativeReader);
 			}
 			if (item.ViewModel == typeof(StudentsViewModel))
 			{
-				return AuthorizationService.HasPermission(Permissions.StudentReader);
+				return _hasSecurityAdministration || AuthorizationService.HasPermission(Permissions.StudentReader);
 			}
 			if (item.ViewModel == typeof(ClassroomsViewModel))
 			{
-				return AuthorizationService.HasPermission(Permissions.ClassroomReader);
+				return _hasSecurityAdministration || AuthorizationService.HasPermission(Permissions.ClassroomReader);
 			}
 			if (item.ViewModel == typeof(DismissibleStudentsViewModel))
 			{
-				return AuthorizationService.HasPermission(Permissions.DismissibleStudentsReader);
+				return _hasSecurityAdministration || AuthorizationService.HasPermission(Permissions.DismissibleStudentsReader);
 			}
 			if (item.ViewModel == typeof(DismissalsViewModel))
 			{
-				return AuthorizationService.HasPermission(Permissions.DismissalReader);
+				return _hasSecurityAdministration || AuthorizationService.HasPermission(Permissions.DismissalReader);
 			}
 			if (item.ViewModel == typeof(CompaniesViewModel))
 			{
-				return AuthorizationService.HasPermission(Permissions.CompanyReader);
+				return _hasSecurityAdministration || AuthorizationService.HasPermission(Permissions.CompanyReader);
 			}
 			if (item.ViewModel == typeof(SubscriptionsViewModel))
 			{
-				return AuthorizationService.HasPermission(Permissions.SubscriptionReader);
+				return _hasSecurityAdministration || AuthorizationService.HasPermission(Permissions.SubscriptionReader);
 			}
 
 			return (item.ViewModel == typeof(PermissionsViewModel)

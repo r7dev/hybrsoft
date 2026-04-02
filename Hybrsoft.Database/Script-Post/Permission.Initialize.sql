@@ -9,3 +9,4 @@ IF NOT EXISTS(SELECT TOP 1 1 FROM [Universal].[Permission] WHERE [Name] = @Name)
 	END
 
 PRINT 'Permission loaded.'
+GO

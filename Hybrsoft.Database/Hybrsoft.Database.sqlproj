@@ -105,6 +105,7 @@
     <None Include="Script-Post\RelativeType.Initialize.sql" />
     <None Include="Script-Post\Country.Initialize.sql" />
     <None Include="Script-Post\SubscriptionPlan.Initialize.sql" />
+    <None Include="Script-Pre\CreateDataBase.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Script-Post\ScheduleType.Initialize.sql" />

@@ -9,4 +9,5 @@
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
+:r CreateDataBase.sql
 :r DataBaseUsersAdd.sql

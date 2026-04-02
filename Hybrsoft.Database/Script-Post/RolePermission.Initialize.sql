@@ -1,7 +1,7 @@
 ﻿PRINT 'Initializing Role Permission...'
 
-DECLARE @Name VARCHAR(50) = 'Administrator',
-		@DisplayName VARCHAR(100) = 'SecurityAdministration'
+DECLARE @RoleName VARCHAR(50) = 'Administrator',
+		@PermissionName VARCHAR(100) = 'SecurityAdministration'
 
 IF NOT EXISTS(SELECT TOP 1 1
 			  FROM [Universal].[RolePermission] rp
@@ -9,15 +9,15 @@ IF NOT EXISTS(SELECT TOP 1 1
 					ON r.[RoleID] = rp.[RoleID]
 				INNER JOIN [Universal].[Permission] p
 					ON p.[PermissionID] = rp.[PermissionID]
-			  WHERE r.[Name] = @Name
-				AND p.[DisplayName] = @DisplayName)
+			  WHERE r.[Name] = @RoleName
+				AND p.[Name] = @PermissionName)
 	BEGIN
 		DECLARE @RoleID BIGINT = (SELECT TOP 1 [RoleID]
 								  FROM [Universal].[Role]
-								  WHERE [Name] = @Name),
+								  WHERE [Name] = @RoleName),
 				@PermissionID BIGINT = (SELECT TOP 1 [PermissionID]
 										FROM [Universal].[Permission]
-										WHERE [DisplayName] = @DisplayName)
+										WHERE [Name] = @PermissionName)
 
 		IF (@RoleID IS NOT NULL AND @PermissionID IS NOT NULL)
 			BEGIN
@@ -37,3 +37,4 @@ IF NOT EXISTS(SELECT TOP 1 1
 	END
 
 PRINT 'Role Permission loaded.'
+GO

@@ -9,3 +9,4 @@ IF NOT EXISTS(SELECT TOP 1 1 FROM [Universal].[User] WHERE [Email] = @Email)
 	END
 
 PRINT 'User loaded.'
+GO
