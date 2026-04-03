@@ -24,13 +24,13 @@ namespace Hybrsoft.EnterpriseManager.Views
 		}
 
 		#region ViewModel
-		public UserDetailsWithRolesViewModel ViewModel
+		public UserMasterDetailsViewModel ViewModel
 		{
-			get { return (UserDetailsWithRolesViewModel)GetValue(ViewModelProperty); }
+			get { return (UserMasterDetailsViewModel)GetValue(ViewModelProperty); }
 			set { SetValue(ViewModelProperty, value); }
 		}
 
-		public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register("ViewModel", typeof(UserDetailsWithRolesViewModel), typeof(UserDetails), new PropertyMetadata(null));
+		public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register("ViewModel", typeof(UserMasterDetailsViewModel), typeof(UserDetails), new PropertyMetadata(null));
 		#endregion
 
 		public void SetFocus()

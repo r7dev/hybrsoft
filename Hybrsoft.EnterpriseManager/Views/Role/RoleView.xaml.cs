@@ -17,12 +17,12 @@ namespace Hybrsoft.EnterpriseManager.Views
 	{
 		public RoleView()
 		{
-			ViewModel = ServiceLocator.Current.GetService<RoleDetailsWithPermissionsViewModel>();
+			ViewModel = ServiceLocator.Current.GetService<RoleMasterDetailsViewModel>();
 			NavigationService = ServiceLocator.Current.GetService<INavigationService>();
 			this.InitializeComponent();
 		}
 
-		public RoleDetailsWithPermissionsViewModel ViewModel { get; }
+		public RoleMasterDetailsViewModel ViewModel { get; }
 		public INavigationService NavigationService { get; }
 
 		protected override async void OnNavigatedTo(NavigationEventArgs e)

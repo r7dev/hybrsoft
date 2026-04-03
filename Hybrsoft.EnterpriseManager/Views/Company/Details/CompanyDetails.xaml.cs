@@ -17,13 +17,13 @@ namespace Hybrsoft.EnterpriseManager.Views
 		}
 
 		#region ViewModel
-		public CompanyDetailsWithUsersViewModel ViewModel
+		public CompanyMasterDetailsViewModel ViewModel
 		{
-			get { return (CompanyDetailsWithUsersViewModel)GetValue(ViewModelProperty); }
+			get { return (CompanyMasterDetailsViewModel)GetValue(ViewModelProperty); }
 			set { SetValue(ViewModelProperty, value); }
 		}
 
-		public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register("ViewModel", typeof(CompanyDetailsWithUsersViewModel), typeof(CompanyDetails), new PropertyMetadata(null));
+		public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register("ViewModel", typeof(CompanyMasterDetailsViewModel), typeof(CompanyDetails), new PropertyMetadata(null));
 
 		#endregion
 

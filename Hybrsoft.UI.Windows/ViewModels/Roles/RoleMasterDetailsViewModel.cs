@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class RoleDetailsWithPermissionsViewModel(IRoleService roleService,
+	public partial class RoleMasterDetailsViewModel(IRoleService roleService,
 		IRolePermissionService rolePermissionService,
 		ICommonServices commonServices) : ViewModelBase(commonServices)
 	{

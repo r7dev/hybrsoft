@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class UserDetailsWithRolesViewModel(IUserService userService,
+	public partial class UserMasterDetailsViewModel(IUserService userService,
 		IUserRoleService userRoleService,
 		ISettingsService settingsService,
 		ICommonServices commonServices) : ViewModelBase(commonServices)

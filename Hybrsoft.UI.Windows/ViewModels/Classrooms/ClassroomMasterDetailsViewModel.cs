@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class ClassroomDetailsWithStudentsViewModel(IClassroomService classroomService, IClassroomStudentService classroomStudentService, ICommonServices commonServices) : ViewModelBase(commonServices)
+	public partial class ClassroomMasterDetailsViewModel(IClassroomService classroomService, IClassroomStudentService classroomStudentService, ICommonServices commonServices) : ViewModelBase(commonServices)
 	{
 		public ClassroomDetailsViewModel ClassroomDetails { get; set; } = new ClassroomDetailsViewModel(classroomService, commonServices);
 		public ClassroomStudentListViewModel ClassroomStudentList { get; set; } = new ClassroomStudentListViewModel(classroomStudentService, commonServices);

@@ -17,12 +17,12 @@ namespace Hybrsoft.EnterpriseManager.Views
 	{
 		public ClassroomView()
 		{
-			ViewModel = ServiceLocator.Current.GetService<ClassroomDetailsWithStudentsViewModel>();
+			ViewModel = ServiceLocator.Current.GetService<ClassroomMasterDetailsViewModel>();
 			NavigationService = ServiceLocator.Current.GetService<INavigationService>();
 			this.InitializeComponent();
 		}
 
-		public ClassroomDetailsWithStudentsViewModel ViewModel { get; }
+		public ClassroomMasterDetailsViewModel ViewModel { get; }
 		public INavigationService NavigationService { get; }
 
 		protected override async void OnNavigatedTo(NavigationEventArgs e)

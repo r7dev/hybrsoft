@@ -15,13 +15,13 @@ namespace Hybrsoft.EnterpriseManager.Views
 		}
 
 		#region ViewModel
-		public RoleDetailsWithPermissionsViewModel ViewModel
+		public RoleMasterDetailsViewModel ViewModel
 		{
-			get { return (RoleDetailsWithPermissionsViewModel)GetValue(ViewModelProperty); }
+			get { return (RoleMasterDetailsViewModel)GetValue(ViewModelProperty); }
 			set { SetValue(ViewModelProperty, value); }
 		}
 
-		public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register("ViewModel", typeof(RoleDetailsWithPermissionsViewModel), typeof(RoleDetails), new PropertyMetadata(null));
+		public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register("ViewModel", typeof(RoleMasterDetailsViewModel), typeof(RoleDetails), new PropertyMetadata(null));
 
 		#endregion
 

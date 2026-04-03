@@ -77,7 +77,7 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 
 			serviceCollection.AddTransient<ClassroomsViewModel>();
 			serviceCollection.AddTransient<ClassroomDetailsViewModel>();
-			serviceCollection.AddTransient<ClassroomDetailsWithStudentsViewModel>();
+			serviceCollection.AddTransient<ClassroomMasterDetailsViewModel>();
 
 			serviceCollection.AddTransient<ClassroomStudentDetailsViewModel>();
 
@@ -87,7 +87,7 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 
 			serviceCollection.AddTransient<CompaniesViewModel>();
 			serviceCollection.AddTransient<CompanyDetailsViewModel>();
-			serviceCollection.AddTransient<CompanyDetailsWithUsersViewModel>();
+			serviceCollection.AddTransient<CompanyMasterDetailsViewModel>();
 
 			serviceCollection.AddTransient<CompanyUserDetailsViewModel>();
 
@@ -99,13 +99,13 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 
 			serviceCollection.AddTransient<RolesViewModel>();
 			serviceCollection.AddTransient<RoleDetailsViewModel>();
-			serviceCollection.AddTransient<RoleDetailsWithPermissionsViewModel>();
+			serviceCollection.AddTransient<RoleMasterDetailsViewModel>();
 
 			serviceCollection.AddTransient<RolePermissionDetailsViewModel>();
 
 			serviceCollection.AddTransient<UsersViewModel>();
 			serviceCollection.AddTransient<UserDetailsViewModel>();
-			serviceCollection.AddTransient<UserDetailsWithRolesViewModel>();
+			serviceCollection.AddTransient<UserMasterDetailsViewModel>();
 
 			serviceCollection.AddTransient<UserRoleDetailsViewModel>();
 
