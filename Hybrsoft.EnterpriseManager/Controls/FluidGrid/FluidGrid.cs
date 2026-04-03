@@ -194,7 +194,8 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			double maxDesiredWidth = Columns * MaxColumnWidth + ColumnSpacing * (Columns - 1);
 			if (maxDesiredWidth <= availableWidth)
 			{
-				return Tuple.Create(Columns, MaxColumnWidth);
+				double colWidth = (availableWidth - ColumnSpacing * (Columns - 1)) / Columns;
+				return Tuple.Create(Columns, colWidth);
 			}
 
 			double minDesiredWidth = Columns * MinColumnWidth + ColumnSpacing * (Columns - 1);
