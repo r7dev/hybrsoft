@@ -27,7 +27,9 @@
 				<controls:FormTextBox x:Uid="/UI/PermissionDetailsUserControl_Description"
 									  Text="{x:Bind EditableItem.Description, Mode=TwoWay}"
 									  MaxLength="{x:Bind commons:FieldLengths.Description, Mode=OneTime}"
-									  controls:FluidGrid.ColumnSpan="2"/>
+									  controls:FluidGrid.ColumnSpan="2"
+									  Height="80"
+									  TextWrapping="Wrap"/>
 			</controls:FluidGrid>
 		</DataTemplate>
 	</UserControl.Resources>
