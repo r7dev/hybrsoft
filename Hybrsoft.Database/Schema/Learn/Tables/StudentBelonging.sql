@@ -8,7 +8,7 @@
 	[Thumbnail] VARBINARY(MAX) NULL,
 	[CreatedOn] DATETIMEOFFSET NOT NULL,
 	[LastModifiedOn] DATETIMEOFFSET NULL,
-	[SearchTerms] NVARCHAR(4000) NULL,
+	[SearchTerms] NVARCHAR(230) NULL,
 	CONSTRAINT FK_StudentBelonging_StudentID FOREIGN KEY ([StudentID]) REFERENCES [Learn].[Student] ([StudentID]) ON DELETE CASCADE
 )
 GO
