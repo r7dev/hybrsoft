@@ -162,6 +162,25 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return await DialogService.ShowAsync(title, content, delete, cancel);
 		}
 
+		override protected IEnumerable<IValidationConstraint<StudentBelongingModel>> GetValidationConstraints(StudentBelongingModel model)
+		{
+			string propertyDisplayName = ResourceService.GetString<StudentBelongingDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyDisplayName");
+			var requiredDisplayName = new RequiredConstraint<StudentBelongingModel>(propertyDisplayName, m => m.DisplayName);
+			requiredDisplayName.SetResourceService(ResourceService);
+
+			string propertyDescription = ResourceService.GetString<StudentBelongingDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyDescription");
+			var requiredDescription = new RequiredConstraint<StudentBelongingModel>(propertyDescription, m => m.Description);
+			requiredDescription.SetResourceService(ResourceService);
+
+			string propertyPicture = ResourceService.GetString<StudentBelongingDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyPicture");
+			var requiredPicture = new PictureValidationConstraint<StudentBelongingModel>(propertyPicture, m => m.Picture);
+			requiredPicture.SetResourceService(ResourceService);
+
+			yield return requiredDisplayName;
+			yield return requiredDescription;
+			yield return requiredPicture;
+		}
+
 		#region Handle external messages
 		private async void OnDetailsMessage(StudentBelongingDetailsViewModel sender, string message, StudentBelongingModel changed)
 		{

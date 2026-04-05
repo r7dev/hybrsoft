@@ -228,4 +228,27 @@ namespace Hybrsoft.UI.Windows.Infrastructure.Common
 			.GetString(ResourceFiles.ValidationErrors, MessageKey)?
 			.Replace("{PropertyName}", PropertyName);
 	}
+
+	public class PictureValidationConstraint<T>(string propertyName, Func<T, byte[]> propertyValue, int maxSizeInBytes = 2 * 1024 * 1024)
+		: ValidationConstraint<T>("ValidationConstraint_PictureValidationError", model => ValidateProperty(model, propertyValue, maxSizeInBytes))
+	{
+		public string PropertyName { get; } = propertyName;
+		public int MaxSizeInBytes { get; } = maxSizeInBytes;
+
+		private static bool ValidateProperty(T model, Func<T, byte[]> propertyValue, int maxSizeInBytes)
+		{
+			var value = propertyValue(model);
+			if (value == null || value.Length == 0)
+			{
+				return false;
+			}
+			return value.Length <= maxSizeInBytes;
+		}
+
+		public override string Message => _resourceService?
+			.GetString(ResourceFiles.ValidationErrors, MessageKey)?
+			.Replace("{PropertyName}", PropertyName)
+			.Replace("{MaxSize}", (MaxSizeInBytes / 1024).ToString())
+			?? $"Property '{PropertyName}' must contain a valid image with size up to {MaxSizeInBytes / 1024} KB.";
+	}
 }
