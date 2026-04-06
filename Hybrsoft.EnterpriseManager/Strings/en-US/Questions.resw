@@ -159,6 +159,12 @@
   <data name="LoginService_YourDeviceSupportsWindowsHelloAndYouCanUseItToAuthenticateWithTheApp" xml:space="preserve">
     <value>Your device supports Windows Hello and you can use it to authenticate with the app.</value>
   </data>
+  <data name="LostAndFoundDetailsViewModel_AreYouSureYouWantToDeleteCurrentLostAndFound" xml:space="preserve">
+    <value>Are you sure you want to delete current lost and found?</value>
+  </data>
+  <data name="LostAndFoundListViewModel_AreYouSureYouWantToDeleteSelectedLostAndFound" xml:space="preserve">
+    <value>Are you sure you want to delete selected lost and found?</value>
+  </data>
   <data name="PermissionDetailsViewModel_AreYouSureYouWantToDeleteCurrentPermission" xml:space="preserve">
     <value>Are you sure you want to delete current permission?</value>
   </data>

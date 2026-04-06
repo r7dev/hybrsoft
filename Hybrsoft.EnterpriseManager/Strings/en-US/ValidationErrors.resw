@@ -249,4 +249,16 @@
   <data name="ValidationConstraint_PictureValidationError" xml:space="preserve">
     <value>Property '{PropertyName}' must contain a valid image with size up to {MaxSize} KB.</value>
   </data>
+  <data name="LostAndFoundDetailsViewModel_PropertyDisplayName" xml:space="preserve">
+    <value>Display Name</value>
+  </data>
+  <data name="LostAndFoundDetailsViewModel_PropertyDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="LostAndFoundDetailsViewModel_PropertyStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="LostAndFoundDetailsViewModel_PropertyPicture" xml:space="preserve">
+    <value>Picture</value>
+  </data>
 </root>

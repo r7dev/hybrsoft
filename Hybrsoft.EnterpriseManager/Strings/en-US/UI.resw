@@ -1005,4 +1005,19 @@
   <data name="StudentDetailsUserControl_Belongings.Header" xml:space="preserve">
     <value>Belongings</value>
   </data>
+  <data name="LostAndFoundStatus_Pending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="LostAndFoundStatus_Claimed" xml:space="preserve">
+    <value>Claimed</value>
+  </data>
+  <data name="LostAndFoundStatus_Donated" xml:space="preserve">
+    <value>Donated</value>
+  </data>
+  <data name="LostAndFoundDetailsViewModel_TitleNew" xml:space="preserve">
+    <value>New Lost and Found</value>
+  </data>
+  <data name="LostAndFoundListViewModel_Prefix" xml:space="preserve">
+    <value>Lost and Found</value>
+  </data>
 </root>

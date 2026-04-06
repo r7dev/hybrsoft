@@ -369,4 +369,16 @@
   <data name="StudentBelongingListViewModel_ErrorDeleting0StudentBelongings1" xml:space="preserve">
     <value>Error deleting {0} Student Belongings: {1}</value>
   </data>
+  <data name="LostAndFoundDetailsViewModel_ErrorSavingLostAndFound0" xml:space="preserve">
+    <value>Error saving Lost and Found: {0}</value>
+  </data>
+  <data name="LostAndFoundDetailsViewModel_ErrorDeletingLostAndFound0" xml:space="preserve">
+    <value>Error deleting Lost and Found: {0}</value>
+  </data>
+  <data name="LostAndFoundListViewModel_ErrorLoadingLostAndFound0" xml:space="preserve">
+    <value>Error loading Lost and Found: {0}</value>
+  </data>
+  <data name="LostAndFoundListViewModel_ErrorDeleting0LostAndFound1" xml:space="preserve">
+    <value>Error deleting {0} Lost and Found: {1}</value>
+  </data>
 </root>

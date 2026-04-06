@@ -1,4 +1,4 @@
-﻿PRINT 'Initializing Role Permission...'
+﻿PRINT 'Initializing RolePermission...'
 
 DECLARE @RoleName VARCHAR(50) = 'Administrator',
 		@PermissionName VARCHAR(100) = 'SecurityAdministration'
@@ -36,5 +36,5 @@ IF NOT EXISTS(SELECT TOP 1 1
 			END
 	END
 
-PRINT 'Role Permission loaded.'
+PRINT 'RolePermission loaded.'
 GO

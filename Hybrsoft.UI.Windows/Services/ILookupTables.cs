@@ -16,12 +16,14 @@ namespace Hybrsoft.UI.Windows.Services
 		IList<SubscriptionStatusModel> SubscriptionStatuses { get; }
 		IList<SubscriptionTypeModel> SubscriptionTypes { get; }
 		IList<RelativeTypeModel> RelativeTypes { get; }
+		IList<LostAndFoundStatusModel> LostAndFoundStatus { get; }
 
 		string GetCountry(short countryID);
 		string GetScheduleType(short scheduleTypeID);
 		string GetSubscriptionPlan(short subscriptionPlanID);
 		string GetSubscriptionStatus(short subscriptionPlanID);
 		string GetRelativeType(short relativeTypeID);
+		string GetLostAndFoundStatus(short lostAndFoundStatusID);
 	}
 
 	public class LookupTablesProxy

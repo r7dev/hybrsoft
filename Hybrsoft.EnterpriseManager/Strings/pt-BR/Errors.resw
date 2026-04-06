@@ -369,4 +369,16 @@
   <data name="StudentBelongingListViewModel_ErrorDeleting0StudentBelongings1" xml:space="preserve">
     <value>Erro ao excluir {0} Pertences do Aluno: {1}</value>
   </data>
+  <data name="LostAndFoundDetailsViewModel_ErrorSavingLostAndFound0" xml:space="preserve">
+    <value>Erro ao salvar Achados e Perdidos: {0}</value>
+  </data>
+  <data name="LostAndFoundDetailsViewModel_ErrorDeletingLostAndFound0" xml:space="preserve">
+    <value>Erro ao excluir Achados e Perdidos: {0}</value>
+  </data>
+  <data name="LostAndFoundListViewModel_ErrorLoadingLostAndFound0" xml:space="preserve">
+    <value>Erro ao carregar Achados e Perdidos: {0}</value>
+  </data>
+  <data name="LostAndFoundListViewModel_ErrorDeleting0LostAndFound1" xml:space="preserve">
+    <value>Erro ao excluir {0} Achados e Perdidos: {1}</value>
+  </data>
 </root>

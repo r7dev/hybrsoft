@@ -18,6 +18,8 @@ namespace Hybrsoft.Infrastructure.DataContexts
 		public DbSet<Relative> Relatives { get; set; }
 		public DbSet<RelativeType> RelativeTypes { get; set; }
 		public DbSet<Dismissal> Dismissals { get; set; }
+		public DbSet<LostAndFound> LostAndFound { get; set; }
+		public DbSet<LostAndFoundStatus> LostAndFoundStatus { get; set; }
 
 		EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
 

@@ -88,6 +88,7 @@ namespace Hybrsoft.Infrastructure.DataServices
 		#region Schema Learn
 		Task<IList<ScheduleType>> GetScheduleTypesAsync();
 		Task<IList<RelativeType>> GetRelativeTypesAsync();
+		Task<IList<LostAndFoundStatus>> GetLostAndFoundStatusAsync();
 
 		Task<Student> GetStudentAsync(long id);
 		Task<IList<Student>> GetStudentsAsync(int skip, int take, DataRequest<Student> request);
@@ -142,6 +143,13 @@ namespace Hybrsoft.Infrastructure.DataServices
 		Task<int> GetDismissalsCountAsync(DataRequest<Dismissal> request);
 		Task<int> UpdateDismissalAsync(Dismissal entity);
 		Task<int> ApproveDismissalsAsync(params Dismissal[] entities);
+
+		Task<LostAndFound> GetLostAndFoundAsync(long id);
+		Task<IList<LostAndFound>> GetLostAndFoundAsync(int skip, int take, DataRequest<LostAndFound> request);
+		Task<IList<LostAndFound>> GetLostAndFoundKeysAsync(int skip, int take, DataRequest<LostAndFound> request);
+		Task<int> GetLostAndFoundCountAsync(DataRequest<LostAndFound> request);
+		Task<int> UpdateLostAndFoundAsync(LostAndFound entity);
+		Task<int> DeleteLostAndFoundAsync(params LostAndFound[] entities);
 		#endregion
 	}
 }

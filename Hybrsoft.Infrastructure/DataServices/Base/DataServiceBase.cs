@@ -66,6 +66,13 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 				.ToListAsync();
 		}
 
+		public async Task<IList<LostAndFoundStatus>> GetLostAndFoundStatusAsync()
+		{
+			return await _learnDataSource.LostAndFoundStatus
+				.AsNoTracking()
+				.ToListAsync();
+		}
+
 		#region Dispose
 		public void Dispose()
 		{

@@ -549,4 +549,28 @@
   <data name="StudentBelongingListViewModel_0StudentBelongingsDeleted" xml:space="preserve">
     <value>{0} pertences do aluno excluídos</value>
   </data>
+  <data name="LostAndFoundDetailsViewModel_SavingLostAndFound" xml:space="preserve">
+    <value>Salvando achados e perdidos...</value>
+  </data>
+  <data name="LostAndFoundDetailsViewModel_LostAndFoundSaved" xml:space="preserve">
+    <value>Achados e Perdidos salvo</value>
+  </data>
+  <data name="LostAndFoundDetailsViewModel_DeletingLostAndFound" xml:space="preserve">
+    <value>Excluindo achados e perdidos...</value>
+  </data>
+  <data name="LostAndFoundDetailsViewModel_LostAndFoundDeleted" xml:space="preserve">
+    <value>Achados e Perdidos excluído</value>
+  </data>
+  <data name="LostAndFoundListViewModel_LoadingLostAndFound" xml:space="preserve">
+    <value>Carregando achados e perdidos...</value>
+  </data>
+  <data name="LostAndFoundListViewModel_LostAndFoundLoaded" xml:space="preserve">
+    <value>Achados e Perdidos carregados</value>
+  </data>
+  <data name="LostAndFoundListViewModel_Deleting0LostAndFound" xml:space="preserve">
+    <value>Excluindo {0} achados e perdidos...</value>
+  </data>
+  <data name="LostAndFoundListViewModel_0LostAndFoundDeleted" xml:space="preserve">
+    <value>{0} Achados e Perdidos excluídos</value>
+  </data>
 </root>

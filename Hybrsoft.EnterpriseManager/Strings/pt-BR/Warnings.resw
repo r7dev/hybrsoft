@@ -222,4 +222,10 @@
   <data name="StudentBelongingDetailsViewModel_ThisStudentsBelongingWasDeletedExternally" xml:space="preserve">
     <value>Este pertence do aluno foi excluído externamente</value>
   </data>
+  <data name="LostAndFoundDetailsViewModel_ThisLostAndFoundHasBeenModifiedExternally" xml:space="preserve">
+    <value>Este achados e perdidos foi modificado externamente</value>
+  </data>
+  <data name="LostAndFoundDetailsViewModel_ThisLostAndFoundHasBeenDeletedExternally" xml:space="preserve">
+    <value>Este achados e perdidos foi excluído externamente</value>
+  </data>
 </root>

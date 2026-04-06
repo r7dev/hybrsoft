@@ -549,4 +549,28 @@
   <data name="StudentBelongingListViewModel_0StudentBelongingsDeleted" xml:space="preserve">
     <value>{0} student belongings deleted</value>
   </data>
+  <data name="LostAndFoundDetailsViewModel_SavingLostAndFound" xml:space="preserve">
+    <value>Saving lost and found...</value>
+  </data>
+  <data name="LostAndFoundDetailsViewModel_LostAndFoundSaved" xml:space="preserve">
+    <value>Lost and Found saved</value>
+  </data>
+  <data name="LostAndFoundDetailsViewModel_DeletingLostAndFound" xml:space="preserve">
+    <value>Deleting lost and found...</value>
+  </data>
+  <data name="LostAndFoundDetailsViewModel_LostAndFoundDeleted" xml:space="preserve">
+    <value>Lost and Found deleted</value>
+  </data>
+  <data name="LostAndFoundListViewModel_LoadingLostAndFound" xml:space="preserve">
+    <value>Loading lost and found...</value>
+  </data>
+  <data name="LostAndFoundListViewModel_LostAndFoundLoaded" xml:space="preserve">
+    <value>Lost and Found loaded</value>
+  </data>
+  <data name="LostAndFoundListViewModel_Deleting0LostAndFound" xml:space="preserve">
+    <value>Deleting {0} lost and found...</value>
+  </data>
+  <data name="LostAndFoundListViewModel_0LostAndFoundDeleted" xml:space="preserve">
+    <value>{0} Lost and Found deleted</value>
+  </data>
 </root>

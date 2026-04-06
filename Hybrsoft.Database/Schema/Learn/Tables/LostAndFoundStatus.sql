@@ -1,0 +1,6 @@
+﻿CREATE TABLE [Learn].[LostAndFoundStatus]
+(
+	[LostAndFoundStatusID] SMALLINT NOT NULL PRIMARY KEY,
+	[Name] NVARCHAR(10) NOT NULL,
+	[Uid] NVARCHAR(35) NULL
+)

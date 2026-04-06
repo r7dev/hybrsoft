@@ -1,4 +1,4 @@
-﻿PRINT 'Initializing User Role...'
+﻿PRINT 'Initializing UserRole...'
 
 DECLARE @Email VARCHAR(150) = 'ricardo.machado@outlook.com.br',
 		@Name VARCHAR(50) = 'Administrator'
@@ -36,5 +36,5 @@ IF NOT EXISTS(SELECT TOP 1 1
 			END
 	END
 
-PRINT 'User Role loaded.'
+PRINT 'UserRole loaded.'
 GO
