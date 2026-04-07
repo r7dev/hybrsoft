@@ -25,7 +25,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 		public IList<SubscriptionStatusModel> SubscriptionStatuses { get; private set; }
 		public IList<SubscriptionTypeModel> SubscriptionTypes { get; private set; }
 		public IList<RelativeTypeModel> RelativeTypes { get; private set; }
-		public IList<LostAndFoundStatusModel> LostAndFoundStatus { get; private set; }
+		public IList<LostAndFoundStatusModel> LostAndFoundStatuses { get; private set; }
 
 		public async Task InitializeAsync()
 		{
@@ -35,7 +35,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			SubscriptionStatuses = await GetSubscriptionStatusesAsync();
 			SubscriptionTypes = await GetSubscriptionTypesAsync();
 			RelativeTypes = await GetRelativeTypesAsync();
-			LostAndFoundStatus = await GetLostAndFoundStatusAsync();
+			LostAndFoundStatuses = await GetLostAndFoundStatusesAsync();
 		}
 
 		/// <summary>
@@ -213,30 +213,19 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public string GetLostAndFoundStatus(short lostAndFoundStatusID)
 		{
-			return lostAndFoundStatusID == 0
-				? string.Empty
-				: LostAndFoundStatus.Where(r => r.LostAndFoundStatusID == lostAndFoundStatusID)
-				.Select(r => r.Name)
+			return LostAndFoundStatuses.Where(r => r.LostAndFoundStatusID == lostAndFoundStatusID)
+				.Select(r => r.DisplayName)
 				.FirstOrDefault();
 		}
 
-		private async Task<IList<LostAndFoundStatusModel>> GetLostAndFoundStatusAsync()
+		private async Task<IList<LostAndFoundStatusModel>> GetLostAndFoundStatusesAsync()
 		{
-			try
-			{
-				using var dataService = _dataServiceFactory.CreateDataService();
-				var items = await dataService.GetLostAndFoundStatusAsync();
-				return [.. items.Select(r => new LostAndFoundStatusModel
+			return [.. Enum.GetValues<LostAndFoundStatus>()
+				.Select(r => new LostAndFoundStatusModel
 				{
-					LostAndFoundStatusID = r.LostAndFoundStatusID,
-					Name = string.IsNullOrEmpty(r.Uid) ? r.Name : _resourceService.GetString(ResourceFiles.UI, r.Uid),
+					LostAndFoundStatusID = (short)r,
+					DisplayName = _resourceService.GetString(ResourceFiles.UI, $"LostAndFoundStatus_{r}")
 				})];
-			}
-			catch (Exception ex)
-			{
-				LogException("LookupTables", "Load LostAndFoundStatus", ex);
-			}
-			return [];
 		}
 
 		private async void LogException(string source, string action, Exception exception)
