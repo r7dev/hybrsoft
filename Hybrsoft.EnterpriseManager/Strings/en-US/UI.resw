@@ -1020,4 +1020,40 @@
   <data name="LostAndFoundListViewModel_Prefix" xml:space="preserve">
     <value>Lost and Found</value>
   </data>
+  <data name="LostAndFoundListUserControl_ColumnHeaderLostAndFoundID.Text" xml:space="preserve">
+    <value>Lost and Found ID</value>
+  </data>
+  <data name="LostAndFoundListUserControl_ColumnHeaderDisplayName.Text" xml:space="preserve">
+    <value>Display Name</value>
+  </data>
+  <data name="LostAndFoundListUserControl_ColumnHeaderStatus.Text" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="LostAndFoundListUserControl_ColumnHeaderLastModified.Text" xml:space="preserve">
+    <value>Last Modified</value>
+  </data>
+  <data name="LostAndFoundListUserControl_New.NewLabel" xml:space="preserve">
+    <value>New Lost and Found</value>
+  </data>
+  <data name="LostAndFoundCardUserControl_LostAndFoundID.Text" xml:space="preserve">
+    <value>Lost and Found ID</value>
+  </data>
+  <data name="LostAndFoundDetailsUserControl_Information.Text" xml:space="preserve">
+    <value>Lost and Found Information</value>
+  </data>
+  <data name="LostAndFoundDetailsUserControl_DisplayName.Header" xml:space="preserve">
+    <value>Display Name</value>
+  </data>
+  <data name="LostAndFoundDetailsUserControl_Description.Header" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="LostAndFoundDetailsUserControl_Status.Header" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="LostAndFoundDetailsUserControl_DonationDate.Header" xml:space="preserve">
+    <value>Donation Date</value>
+  </data>
+  <data name="NavigationItem_LostAndFound" xml:space="preserve">
+    <value>Lost and Found</value>
+  </data>
 </root>

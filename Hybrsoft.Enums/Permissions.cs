@@ -13,6 +13,8 @@
 		DismissibleStudentsRequester,
 		DismissalReader,
 		DismissalConfirmator,
+		LostAndFoundReader,
+		LostAndFoundEditor,
 		DashboardReader,
 		CompanyReader,
 		CompanyEditor,
