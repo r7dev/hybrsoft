@@ -15,7 +15,6 @@ namespace Hybrsoft.EnterpriseManager.Services
 	{
 		private readonly IDataServiceFactory _dataServiceFactory = dataServiceFactory;
 		private readonly ILogService _logService = logService;
-		private static ILookupTables LookupTables => LookupTablesProxy.Instance;
 
 		public async Task<LostAndFoundModel> GetLostAndFoundAsync(long id)
 		{
@@ -92,6 +91,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			{
 				LostAndFoundID = source.LostAndFoundID,
 				DisplayName = source.DisplayName,
+				Status = source.Status,
 				Thumbnail = source.Thumbnail,
 				ThumbnailSource = await BitmapTools.LoadBitmapAsync(source.Thumbnail),
 				CreatedOn = source.CreatedOn,
@@ -100,8 +100,6 @@ namespace Hybrsoft.EnterpriseManager.Services
 			if (includeAllFields)
 			{
 				model.Description = source.Description;
-				model.LostAndFoundStatusID = source.LostAndFoundStatusID;
-				model.LostAndFoundStatus = await CreateLostAndFoundStatusModelAsync(source.LostAndFoundStatus, includeAllFields);
 				model.StudentBelongingID = source.StudentBelongingID;
 				model.DonationDate = source.DonationDate;
 				model.Picture = source.Picture;
@@ -114,27 +112,13 @@ namespace Hybrsoft.EnterpriseManager.Services
 		{
 			target.DisplayName = source.DisplayName;
 			target.Description = source.Description;
-			target.LostAndFoundStatusID = source.LostAndFoundStatusID;
+			target.Status = source.Status;
 			target.StudentBelongingID = source.StudentBelongingID;
 			target.DonationDate = source.DonationDate;
 			target.Picture = source.Picture;
 			target.Thumbnail = source.Thumbnail;
 			target.CreatedOn = source.CreatedOn;
 			target.LastModifiedOn = source.LastModifiedOn;
-		}
-
-		public static async Task<LostAndFoundStatusModel> CreateLostAndFoundStatusModelAsync(LostAndFoundStatus source, bool includeAllFields)
-		{
-			var model = new LostAndFoundStatusModel()
-			{
-				LostAndFoundStatusID = source.LostAndFoundStatusID,
-				Name = string.IsNullOrEmpty(source.Uid)
-					? source.Name
-					: LookupTables.GetLostAndFoundStatus(source.LostAndFoundStatusID),
-			};
-			if (includeAllFields) { }
-			await Task.CompletedTask;
-			return model;
 		}
 	}
 }

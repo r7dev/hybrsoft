@@ -15,7 +15,6 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		{
 			return await _learnDataSource.LostAndFound
 				.Where(r => r.LostAndFoundID == id)
-				.Include(r => r.LostAndFoundStatus)
 				.FirstOrDefaultAsync();
 		}
 
@@ -30,7 +29,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 					LostAndFoundID = r.LostAndFoundID,
 					DisplayName = r.DisplayName,
 					Thumbnail = r.Thumbnail,
-					LostAndFoundStatusID = r.LostAndFoundStatusID,
+					Status = r.Status,
 				})
 				.AsNoTracking()
 				.ToListAsync();

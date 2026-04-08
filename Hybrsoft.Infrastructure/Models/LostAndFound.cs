@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hybrsoft.Enums;
+using System;
 
 namespace Hybrsoft.Infrastructure.Models
 {
@@ -8,7 +9,7 @@ namespace Hybrsoft.Infrastructure.Models
 		public string DisplayName { get; set; }
 		public string Description { get; set; }
 
-		public short LostAndFoundStatusID { get; set; }
+		public LostAndFoundStatus Status { get; set; }
 		public long? StudentBelongingID { get; set; }
 		public DateTimeOffset? DonationDate { get; set; }
 
@@ -20,7 +21,5 @@ namespace Hybrsoft.Infrastructure.Models
 		public string SearchTerms { get; set; }
 
 		public string BuildSearchTerms() => $"{LostAndFoundID} {DisplayName} {Description}".ToLower();
-
-		public virtual LostAndFoundStatus LostAndFoundStatus { get; set; }
 	}
 }

@@ -5,7 +5,7 @@
 	[Description] NVARCHAR(150) NOT NULL,
 	[Picture] VARBINARY(MAX) NOT NULL,
 	[Thumbnail] VARBINARY(MAX) NOT NULL,
-	[LostAndFoundStatusID] SMALLINT NOT NULL,
+	[Status] SMALLINT NOT NULL,
 	[StudentBelongingID] BIGINT NULL,
 	[DonationDate] DATETIMEOFFSET NULL,
 	[CreatedOn] DATETIMEOFFSET NOT NULL,
@@ -16,4 +16,4 @@
 GO
 CREATE INDEX IX_LostAndFound_DisplayName_SearchTerms
 ON [Learn].[LostAndFound] ([DisplayName], [SearchTerms])
-INCLUDE ([LostAndFoundID], [LostAndFoundStatusID], [Thumbnail]);
+INCLUDE ([LostAndFoundID], [Status], [Thumbnail]);

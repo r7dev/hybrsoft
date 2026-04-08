@@ -28,6 +28,7 @@
 			<converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
 			<converters:ObjectToImageConverter x:Key="ObjectToImageConverter" />
 			<converters:SubscriptionTypeConverter x:Key="SubscriptionTypeConverter" />
+			<converters:LostAndFoundStatusConverter x:Key="LostAndFoundStatusConverter" />
 		</ResourceDictionary>
 	</Application.Resources>
 </Application>

@@ -25,13 +25,14 @@
 									  Text="{x:Bind EditableItem.Description, Mode=TwoWay}"
 									  MaxLength="{x:Bind commons:FieldLengths.Description, Mode=OneTime}"/>
 				<controls:FormComboBox x:Uid="/UI/LostAndFoundDetailsUserControl_Status"
-									   ItemsSource="{x:Bind LookupTables.LostAndFoundStatus, Mode=OneWay}"
-									   SelectedValue="{x:Bind EditableItem.LostAndFoundStatusID, Mode=TwoWay, Converter={StaticResource Int16Converter}}"
+									   ItemsSource="{x:Bind LookupTables.LostAndFoundStatuses, Mode=OneWay}"
+									   SelectedValue="{x:Bind EditableItem.Status, Mode=TwoWay, Converter={StaticResource LostAndFoundStatusConverter}}"
 									   SelectedValuePath="LostAndFoundStatusID"
-									   DisplayMemberPath="Name"
+									   DisplayMemberPath="DisplayName"
 									   SelectionChanged="FormComboBox_SelectionChanged" />
 				<controls:FormCalendarDatePicker x:Uid="/UI/LostAndFoundDetailsUserControl_DonationDate"
-												 Date="{x:Bind EditableItem.DonationDate, Mode=TwoWay}"/>
+												 Date="{x:Bind EditableItem.DonationDate, Mode=TwoWay}"
+												 Visibility="{x:Bind EditableItem.IsDonated, Mode=OneWay}"/>
 			</controls:FluidGrid>
 		</DataTemplate>
 	</UserControl.Resources>

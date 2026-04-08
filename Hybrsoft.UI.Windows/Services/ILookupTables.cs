@@ -16,7 +16,7 @@ namespace Hybrsoft.UI.Windows.Services
 		IList<SubscriptionStatusModel> SubscriptionStatuses { get; }
 		IList<SubscriptionTypeModel> SubscriptionTypes { get; }
 		IList<RelativeTypeModel> RelativeTypes { get; }
-		IList<LostAndFoundStatusModel> LostAndFoundStatus { get; }
+		IList<LostAndFoundStatusModel> LostAndFoundStatuses { get; }
 
 		string GetCountry(short countryID);
 		string GetScheduleType(short scheduleTypeID);

@@ -2,9 +2,9 @@
 
 namespace Hybrsoft.UI.Windows.Models
 {
-	public class LostAndFoundStatusModel : ObservableObject
+	public partial class LostAndFoundStatusModel : ObservableObject
 	{
 		public short LostAndFoundStatusID { get; set; }
-		public string Name { get; set; }
+		public string DisplayName { get; set; }
 	}
 }
