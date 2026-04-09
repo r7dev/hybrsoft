@@ -28,7 +28,6 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		public ICommand LostAndFoundStatusSelectedCommand => new RelayCommand<LostAndFoundStatusModel>(LostAndFoundStatusSelected);
 		private void LostAndFoundStatusSelected(LostAndFoundStatusModel lostAndFoundStatus)
 		{
-			//EditableItem.LostAndFoundStatus = lostAndFoundStatus;
 			EditableItem.NotifyChanges();
 		}
 
@@ -47,14 +46,14 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				{
 					var item = await _lostAndFoundService.GetLostAndFoundAsync(ViewModelArgs.LostAndFoundID);
 					Item = item ?? new LostAndFoundModel { LostAndFoundID = ViewModelArgs.LostAndFoundID, IsEmpty = true };
-					//await Task.Delay(200);
-					//EditableItem.NotifyChanges();
 				}
 				catch (Exception ex)
 				{
 					LogException("LostAndFound", "Load", ex);
 				}
 			}
+			await Task.Delay(200);
+			EditableItem.NotifyChanges();
 		}
 
 		public void Unload()

@@ -27,8 +27,6 @@ namespace Hybrsoft.UI.Windows.Models
 		public DateTimeOffset CreatedOn { get; set; }
 		public DateTimeOffset? LastModifiedOn { get; set; }
 
-		//public virtual LostAndFoundStatusModel LostAndFoundStatus { get; set; }
-
 		public bool IsDonated => Status == LostAndFoundStatus.Donated;
 
 		public override void Merge(ObservableObject source)
@@ -46,7 +44,7 @@ namespace Hybrsoft.UI.Windows.Models
 				LostAndFoundID = source.LostAndFoundID;
 				DisplayName = source.DisplayName;
 				Description = source.Description;
-				//Status = source.Status;
+				Status = source.Status;
 				StudentBelongingID = source.StudentBelongingID;
 				DonationDate = source.DonationDate;
 				Picture = source.Picture;
