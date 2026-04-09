@@ -213,9 +213,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 
 		public string GetLostAndFoundStatus(short lostAndFoundStatusID)
 		{
-			return lostAndFoundStatusID == 0
-				? string.Empty
-				: LostAndFoundStatuses.Where(r => r.LostAndFoundStatusID == lostAndFoundStatusID)
+			return LostAndFoundStatuses.Where(r => r.LostAndFoundStatusID == lostAndFoundStatusID)
 				.Select(r => r.DisplayName)
 				.FirstOrDefault();
 		}

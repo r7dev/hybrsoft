@@ -178,12 +178,17 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			requiredDescription.SetResourceService(ResourceService);
 
 			string propertyPicture = ResourceService.GetString<LostAndFoundDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyPicture");
-			var requiredPicture = new RequiredGreaterThanZeroConstraint<LostAndFoundModel>(propertyPicture, m => m.Picture);
+			var requiredPicture = new PictureValidationConstraint<LostAndFoundModel>(propertyPicture, m => m.Picture);
 			requiredPicture.SetResourceService(ResourceService);
+
+			string propertyDonationDate = ResourceService.GetString<LostAndFoundDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyDonationDate");
+			var requiredDonationDateIfDonated = new RequiredIfConstraint<LostAndFoundModel>(propertyDonationDate, m => m.DonationDate, m => m.Status == LostAndFoundStatus.Donated);
+			requiredDonationDateIfDonated.SetResourceService(ResourceService);
 
 			yield return requiredDisplayName;
 			yield return requiredDescription;
 			yield return requiredPicture;
+			yield return requiredDonationDateIfDonated;
 		}
 
 		#region Handle external messages

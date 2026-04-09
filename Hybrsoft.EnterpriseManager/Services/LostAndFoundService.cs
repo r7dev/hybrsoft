@@ -1,6 +1,7 @@
 ﻿using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
 using Hybrsoft.EnterpriseManager.Services.VirtualCollections;
 using Hybrsoft.EnterpriseManager.Tools;
+using Hybrsoft.Enums;
 using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.DataServices;
 using Hybrsoft.Infrastructure.Models;
@@ -114,11 +115,12 @@ namespace Hybrsoft.EnterpriseManager.Services
 			target.Description = source.Description;
 			target.Status = source.Status;
 			target.StudentBelongingID = source.StudentBelongingID;
-			target.DonationDate = source.DonationDate;
+			target.DonationDate = source.Status == LostAndFoundStatus.Donated ? source.DonationDate : null;
 			target.Picture = source.Picture;
 			target.Thumbnail = source.Thumbnail;
 			target.CreatedOn = source.CreatedOn;
 			target.LastModifiedOn = source.LastModifiedOn;
+			target.SearchTerms = LookupTablesProxy.Instance?.GetLostAndFoundStatus((short)source.Status);
 		}
 	}
 }

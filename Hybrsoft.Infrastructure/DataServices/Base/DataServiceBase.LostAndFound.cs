@@ -30,6 +30,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 					DisplayName = r.DisplayName,
 					Thumbnail = r.Thumbnail,
 					Status = r.Status,
+					LastModifiedOn = r.LastModifiedOn
 				})
 				.AsNoTracking()
 				.ToListAsync();

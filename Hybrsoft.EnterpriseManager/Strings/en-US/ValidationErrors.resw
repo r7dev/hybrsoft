@@ -261,4 +261,7 @@
   <data name="LostAndFoundDetailsViewModel_PropertyPicture" xml:space="preserve">
     <value>Picture</value>
   </data>
+  <data name="LostAndFoundDetailsViewModel_PropertyDonationDate" xml:space="preserve">
+    <value>Donation Date</value>
+  </data>
 </root>

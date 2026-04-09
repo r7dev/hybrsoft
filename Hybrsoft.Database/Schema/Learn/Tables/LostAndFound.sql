@@ -16,4 +16,4 @@
 GO
 CREATE INDEX IX_LostAndFound_DisplayName_SearchTerms
 ON [Learn].[LostAndFound] ([DisplayName], [SearchTerms])
-INCLUDE ([LostAndFoundID], [Status], [Thumbnail]);
+INCLUDE ([LostAndFoundID], [Status], [Thumbnail], [LastModifiedOn]);
