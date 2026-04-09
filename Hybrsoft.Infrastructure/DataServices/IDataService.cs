@@ -88,7 +88,6 @@ namespace Hybrsoft.Infrastructure.DataServices
 		#region Schema Learn
 		Task<IList<ScheduleType>> GetScheduleTypesAsync();
 		Task<IList<RelativeType>> GetRelativeTypesAsync();
-		Task<IList<LostAndFoundStatus>> GetLostAndFoundStatusAsync();
 
 		Task<Student> GetStudentAsync(long id);
 		Task<IList<Student>> GetStudentsAsync(int skip, int take, DataRequest<Student> request);

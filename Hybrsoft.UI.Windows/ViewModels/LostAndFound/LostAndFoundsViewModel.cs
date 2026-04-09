@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class LostAndFoundViewModel : ViewModelBase
+	public partial class LostAndFoundsViewModel : ViewModelBase
 	{
-		public LostAndFoundViewModel(ILostAndFoundService lostAndFoundService,
+		public LostAndFoundsViewModel(ILostAndFoundService lostAndFoundService,
 			ICommonServices commonServices) : base(commonServices)
 		{
 			_lostAndFoundService = lostAndFoundService;

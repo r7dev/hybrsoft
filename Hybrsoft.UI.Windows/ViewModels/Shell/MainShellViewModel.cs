@@ -99,6 +99,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				case nameof(DismissalsViewModel):
 					NavigationService.Navigate(viewModel, new DismissalListArgs());
 					break;
+				case nameof(LostAndFoundsViewModel):
+					NavigationService.Navigate(viewModel, new LostAndFoundListArgs());
+					break;
 				case nameof(CompaniesViewModel):
 					NavigationService.Navigate(viewModel, new CompanyListArgs());
 					break;
@@ -167,6 +170,10 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			if (item.ViewModel == typeof(DismissalsViewModel))
 			{
 				return _hasSecurityAdministration || AuthorizationService.HasPermission(Permissions.DismissalReader);
+			}
+			if (item.ViewModel == typeof(LostAndFoundsViewModel))
+			{
+				return _hasSecurityAdministration || AuthorizationService.HasPermission(Permissions.LostAndFoundReader);
 			}
 			if (item.ViewModel == typeof(CompaniesViewModel))
 			{

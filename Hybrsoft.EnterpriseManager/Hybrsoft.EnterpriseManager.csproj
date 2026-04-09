@@ -80,6 +80,8 @@
     <None Remove="Views\Dismissal\DismissalView.xaml" />
     <None Remove="Views\License\LicenseActivationView.xaml" />
     <None Remove="Views\Login\LoginView.xaml" />
+    <None Remove="Views\LostAndFound\Details\LostAndFoundCard.xaml" />
+    <None Remove="Views\LostAndFound\Details\LostAndFoundDetails.xaml" />
     <None Remove="Views\Permissions\List\PermissionList.xaml" />
     <None Remove="Views\Permissions\PermissionsView.xaml" />
     <None Remove="Views\Permission\Details\PermissionCard.xaml" />
@@ -218,7 +220,28 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Images\" />
+    <Folder Include="Views\LostAndFounds\" />
     <Folder Include="Views\Roles\Details\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\LostAndFound\LostAndFoundView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\LostAndFound\Details\LostAndFoundDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\LostAndFound\Details\LostAndFoundCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\LostAndFound\LostAndFoundsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Students\Details\StudentsStudentBelongings.xaml">

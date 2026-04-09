@@ -1,4 +1,6 @@
-﻿using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
+﻿using Hybrsoft.Enums;
+using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
+using Hybrsoft.UI.Windows.Services;
 using System;
 
 namespace Hybrsoft.UI.Windows.Models
@@ -9,7 +11,8 @@ namespace Hybrsoft.UI.Windows.Models
 		public long LostAndFoundID { get; set; }
 		public string DisplayName { get; set; }
 		public string Description { get; set; }
-		public short LostAndFoundStatusID { get; set; }
+		public LostAndFoundStatus Status { get; set; }
+		public string StatusDisplayName => LookupTablesProxy.Instance?.GetLostAndFoundStatus((short)Status);
 		public long? StudentBelongingID { get; set; }
 		public DateTimeOffset? DonationDate { get; set; }
 
@@ -24,7 +27,7 @@ namespace Hybrsoft.UI.Windows.Models
 		public DateTimeOffset CreatedOn { get; set; }
 		public DateTimeOffset? LastModifiedOn { get; set; }
 
-		public virtual LostAndFoundStatusModel LostAndFoundStatus { get; set; }
+		public bool IsDonated => Status == LostAndFoundStatus.Donated;
 
 		public override void Merge(ObservableObject source)
 		{
@@ -41,7 +44,7 @@ namespace Hybrsoft.UI.Windows.Models
 				LostAndFoundID = source.LostAndFoundID;
 				DisplayName = source.DisplayName;
 				Description = source.Description;
-				LostAndFoundStatusID = source.LostAndFoundStatusID;
+				Status = source.Status;
 				StudentBelongingID = source.StudentBelongingID;
 				DonationDate = source.DonationDate;
 				Picture = source.Picture;

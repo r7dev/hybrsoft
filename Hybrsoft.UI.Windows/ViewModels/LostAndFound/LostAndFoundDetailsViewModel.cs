@@ -28,7 +28,6 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		public ICommand LostAndFoundStatusSelectedCommand => new RelayCommand<LostAndFoundStatusModel>(LostAndFoundStatusSelected);
 		private void LostAndFoundStatusSelected(LostAndFoundStatusModel lostAndFoundStatus)
 		{
-			EditableItem.LostAndFoundStatus = lostAndFoundStatus;
 			EditableItem.NotifyChanges();
 		}
 
@@ -47,14 +46,14 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				{
 					var item = await _lostAndFoundService.GetLostAndFoundAsync(ViewModelArgs.LostAndFoundID);
 					Item = item ?? new LostAndFoundModel { LostAndFoundID = ViewModelArgs.LostAndFoundID, IsEmpty = true };
-					await Task.Delay(200);
-					EditableItem.NotifyChanges();
 				}
 				catch (Exception ex)
 				{
 					LogException("LostAndFound", "Load", ex);
 				}
 			}
+			await Task.Delay(200);
+			EditableItem.NotifyChanges();
 		}
 
 		public void Unload()
@@ -178,18 +177,18 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			var requiredDescription = new RequiredConstraint<LostAndFoundModel>(propertyDescription, m => m.Description);
 			requiredDescription.SetResourceService(ResourceService);
 
-			string propertyStatus = ResourceService.GetString<LostAndFoundDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyStatus");
-			var requiredStatus = new RequiredGreaterThanZeroConstraint<LostAndFoundModel>(propertyStatus, m => m.LostAndFoundStatusID);
-			requiredStatus.SetResourceService(ResourceService);
-
 			string propertyPicture = ResourceService.GetString<LostAndFoundDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyPicture");
-			var requiredPicture = new RequiredGreaterThanZeroConstraint<LostAndFoundModel>(propertyPicture, m => m.Picture);
+			var requiredPicture = new PictureValidationConstraint<LostAndFoundModel>(propertyPicture, m => m.Picture);
 			requiredPicture.SetResourceService(ResourceService);
+
+			string propertyDonationDate = ResourceService.GetString<LostAndFoundDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyDonationDate");
+			var requiredDonationDateIfDonated = new RequiredIfConstraint<LostAndFoundModel>(propertyDonationDate, m => m.DonationDate, m => m.Status == LostAndFoundStatus.Donated);
+			requiredDonationDateIfDonated.SetResourceService(ResourceService);
 
 			yield return requiredDisplayName;
 			yield return requiredDescription;
-			yield return requiredStatus;
 			yield return requiredPicture;
+			yield return requiredDonationDateIfDonated;
 		}
 
 		#region Handle external messages
