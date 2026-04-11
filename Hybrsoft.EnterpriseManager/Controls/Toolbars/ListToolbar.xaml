@@ -8,7 +8,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d">
 
-	<CommandBar x:Name="commandBar" Height="36" DefaultLabelPosition="Right" Style="{StaticResource ToolBarStyle}" Background="Transparent">
+	<CommandBar x:Name="commandBar" Height="46" DefaultLabelPosition="Right" Style="{StaticResource ToolBarStyle}" Background="Transparent">
 		<AppBarButton x:Name="buttonCancel"
 					  Icon="Cancel"
 					  x:Uid="/UI/ListToolbarUserControl_AppBarButtonCancel"
@@ -50,11 +50,12 @@
 		<CommandBar.Content>
 			<StackPanel Orientation="Horizontal">
 				<AppBarButton x:Name="buttonSelect"
-							  Icon="List"
 							  Label="Label"
 							  LabelPosition="Collapsed"
 							  Style="{StaticResource ToolBarButtonCollapsedStyle}"
-							  Tag="select"/>
+							  Tag="select">
+					<FontIcon Glyph="&#xE762;"/>
+				</AppBarButton>
 				<AppBarButton x:Name="buttonRefresh"
 							  Icon="Refresh"
 							  Label="Label"
