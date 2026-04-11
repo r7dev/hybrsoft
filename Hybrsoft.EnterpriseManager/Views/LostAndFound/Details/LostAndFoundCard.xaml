@@ -6,52 +6,47 @@
 	xmlns:local="using:Hybrsoft.EnterpriseManager.Views"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:controls="using:Hybrsoft.EnterpriseManager.Controls"
 	mc:Ignorable="d">
-	<UserControl.Resources>
-		<x:Double x:Key="CardPictureRadius">132</x:Double>
-	</UserControl.Resources>
 
 	<ScrollViewer VerticalScrollBarVisibility="Auto">
 		<StackPanel Margin="12,6">
-			<Grid Margin="0,12">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto"/>
-					<ColumnDefinition Width="*" />
-				</Grid.ColumnDefinitions>
-				<PersonPicture Margin="1"
-							   ProfilePicture="{x:Bind Item.PictureSource, Mode=OneWay, Converter={StaticResource ObjectToImageConverter}}"
-							   Width="{StaticResource CardPictureRadius}"
-							   Height="{StaticResource CardPictureRadius}" />
-				<controls:RoundButton Radius="{StaticResource CardPictureRadius}"
-									  BorderThickness="1"
-									  BorderBrush="White"
-									  Background="Transparent"
-									  Command="{x:Bind ViewModel.EditPictureCommand}"
-									  HorizontalAlignment="Center"
-									  Visibility="{x:Bind ViewModel.IsEditMode, Mode=OneWay}">
-					<Grid Width="{StaticResource CardPictureRadius}" Height="{StaticResource CardPictureRadius}">
-						<Rectangle Fill="White" Opacity="0.75" />
-						<TextBlock Text="Edit"
-								   FontSize="13" 
-								   HorizontalAlignment="Center" 
-								   VerticalAlignment="Center" 
-								   Visibility="{x:Bind ViewModel.IsEnabled, Mode=OneWay}" />
-						<Image Source="{x:Bind ViewModel.NewPictureSource, Mode=OneWay, Converter={StaticResource ObjectToImageConverter}}"
-							   Stretch="UniformToFill" 
-							   HorizontalAlignment="Center" 
-							   VerticalAlignment="Center"
-							   Visibility="{x:Bind ViewModel.NewPictureSource, Mode=OneWay, Converter={StaticResource NullToVisibilityConverter}}" />
+			<StackPanel Margin="0,12">
+				<Grid Margin="6" Height="271">
+					<Grid Background="LightGray">
+						<Image Source="{x:Bind Item.PictureSource, Mode=OneWay, Converter={StaticResource ObjectToImageConverter}}"
+							   Stretch="UniformToFill"
+							   HorizontalAlignment="Center"
+							   VerticalAlignment="Center"/>
 					</Grid>
-				</controls:RoundButton>
-
-				<TextBlock Grid.Column="1"
-						   Margin="12,0,0,0"
-						   FontSize="18"
-						   Text="{x:Bind Item.DisplayName, Mode=OneWay}"
+					<Button Padding="0"
+							BorderThickness="1"
+							BorderBrush="White"
+							Background="Transparent"
+							Command="{x:Bind ViewModel.EditPictureCommand}"
+							HorizontalContentAlignment="Stretch"
+							VerticalContentAlignment="Stretch"
+							HorizontalAlignment="Stretch"
+							VerticalAlignment="Stretch"
+							Visibility="{x:Bind ViewModel.IsEditMode, Mode=OneWay}">
+						<Grid>
+							<Rectangle Fill="White" Opacity="0.75" />
+							<TextBlock Text="Edit"
+									   FontSize="14"
+									   HorizontalAlignment="Center"
+									   VerticalAlignment="Center"
+									   Visibility="{x:Bind ViewModel.IsEnabled, Mode=OneWay}" />
+							<Image Source="{x:Bind ViewModel.NewPictureSource, Mode=OneWay, Converter={StaticResource ObjectToImageConverter}}" 
+								   Stretch="UniformToFill" 
+								   HorizontalAlignment="Center" 
+								   VerticalAlignment="Center"
+								   Visibility="{x:Bind ViewModel.NewPictureSource, Mode=OneWay, Converter={StaticResource NullToVisibilityConverter}}" />
+						</Grid>
+					</Button>
+				</Grid>
+				<TextBlock Text="{x:Bind Item.DisplayName, Mode=OneWay}"
 						   VerticalAlignment="Center"
-						   Style="{StaticResource CardText}"/>
-			</Grid>
+						   Style="{StaticResource CardSuperHeader}"/>
+			</StackPanel>
 
 			<TextBlock Style="{StaticResource CardSection}" x:Uid="/UI/GenericCardUserControl_General" />
 
