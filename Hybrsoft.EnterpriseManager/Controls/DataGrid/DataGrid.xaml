@@ -21,6 +21,7 @@
 			DefaultCommands="{x:Bind DefaultCommands, Mode=OneWay}"
 			DefaultCommandsMultipleSelection="{x:Bind DefaultCommandsMultipleSelection, Mode=OneWay}"
 			NewLabel="{x:Bind NewLabel, Mode=OneWay}"
+			SelectedDataLayout="{x:Bind SelectedDataLayout, Mode=TwoWay}"
 			Query="{x:Bind Query, Mode=TwoWay}"
 			QuerySubmitted="OnQuerySubmitted"
 			ToolbarMode="{x:Bind ToolbarMode, Mode=OneWay}"

@@ -81,6 +81,13 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			set => Set(ref _isMultipleSelection, value);
 		}
 
+		private DataLayoutType _selectedDataLayout = DataLayoutType.List;
+		public DataLayoutType SelectedDataLayout
+		{
+			get => _selectedDataLayout;
+			set => Set(ref _selectedDataLayout, value);
+		}
+
 		public List<TModel> SelectedItems { get; protected set; }
 		public IndexRange[] SelectedIndexRanges { get; protected set; }
 

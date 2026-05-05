@@ -53,7 +53,8 @@
 							  Label="Label"
 							  LabelPosition="Collapsed"
 							  Style="{StaticResource ToolBarButtonCollapsedStyle}"
-							  Tag="select">
+							  Tag="select"
+							  VerticalAlignment="Center">
 					<FontIcon Glyph="&#xE762;"/>
 				</AppBarButton>
 				<AppBarButton x:Name="buttonRefresh"
@@ -61,7 +62,11 @@
 							  Label="Label"
 							  LabelPosition="Collapsed"
 							  Style="{StaticResource ToolBarButtonCollapsedStyle}"
-							  Tag="refresh"/>
+							  Tag="refresh"
+							  VerticalAlignment="Center"/>
+				<controls:DataLayoutSelector x:Name="datalayout"
+											 SelectedDataLayout="{x:Bind SelectedDataLayout, Mode=TwoWay}"
+											 Tag="datalayout"/>
 				<controls:SearchDateRange x:Name="daterange"
 										  Margin="6,0,0,0"
 										  StartDate="{x:Bind StartDate, Mode=TwoWay}"

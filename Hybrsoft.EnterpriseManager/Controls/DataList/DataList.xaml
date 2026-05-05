@@ -20,6 +20,7 @@
 		<controls:ListToolbar
 			DefaultCommands="{x:Bind DefaultCommands, Mode=OneWay}"
 			NewLabel="{x:Bind NewLabel, Mode=OneWay}"
+			SelectedDataLayout="{x:Bind SelectedDataLayout, Mode=TwoWay}"
 			StartDate="{x:Bind StartDate, Mode=TwoWay}"
 			EndDate="{x:Bind EndDate, Mode=TwoWay}"
 			Query="{x:Bind Query, Mode=TwoWay}"

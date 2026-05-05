@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+	x:Class="Hybrsoft.EnterpriseManager.Controls.DataLayoutSelector"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:Hybrsoft.EnterpriseManager.Controls"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d">
+
+	<StackPanel Background="{ThemeResource LayerOnMicaBaseAltFillColorDefaultBrush}"
+				Margin="12,0,6,0"
+				Orientation="Horizontal"
+				CornerRadius="12">
+		<SelectorBar x:Name="SelectorDataLayoutBar"
+					 SelectionChanged="SelectorDataLayoutBar_SelectionChanged">
+			<SelectorBarItem x:Name="ListItem" Margin="12,0,6,0" Tag="list">
+				<FontIcon Glyph="&#xEA37;" Margin="0,5" />
+			</SelectorBarItem>
+			<SelectorBarItem x:Name="GridItem" Margin="6,0,6,0" Tag="grid">
+				<FontIcon Glyph="&#xF0E2;" Margin="0,5" />
+			</SelectorBarItem>
+			<SelectorBarItem x:Name="GridSmallItem" Margin="6,0,12,0" Tag="gridsmall">
+				<FontIcon Glyph="&#xF232;" Margin="0,5" />
+			</SelectorBarItem>
+		</SelectorBar>
+	</StackPanel>
+</UserControl>

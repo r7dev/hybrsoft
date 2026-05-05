@@ -20,7 +20,7 @@ namespace Hybrsoft.EnterpriseManager.Views
 			get { return (LostAndFoundListViewModel)GetValue(ViewModelProperty); }
 			set { SetValue(ViewModelProperty, value); }
 		}
-		public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register("ViewModel", typeof(LostAndFoundListViewModel), typeof(LostAndFoundList), new PropertyMetadata(null));
+		public static readonly DependencyProperty ViewModelProperty = DependencyProperty.Register(nameof(ViewModel), typeof(LostAndFoundListViewModel), typeof(LostAndFoundList), new PropertyMetadata(null));
 		#endregion
 	}
 }

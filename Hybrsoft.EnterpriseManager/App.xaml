@@ -29,6 +29,7 @@
 			<converters:ObjectToImageConverter x:Key="ObjectToImageConverter" />
 			<converters:SubscriptionTypeConverter x:Key="SubscriptionTypeConverter" />
 			<converters:LostAndFoundStatusConverter x:Key="LostAndFoundStatusConverter" />
+			<converters:DataLayoutConverter x:Key="DataLayoutConverter" />
 		</ResourceDictionary>
 	</Application.Resources>
 </Application>

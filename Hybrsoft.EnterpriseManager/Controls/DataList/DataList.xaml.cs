@@ -155,6 +155,27 @@ namespace Hybrsoft.EnterpriseManager.Controls
 		public static readonly DependencyProperty SelectedItemsCountProperty = DependencyProperty.Register(nameof(SelectedItemsCount), typeof(int), typeof(DataList), new PropertyMetadata(null, SelectedItemsCountChanged));
 		#endregion
 
+		#region DataLayoutSelector
+		public DataLayoutType? SelectedDataLayout
+		{
+			get => (DataLayoutType?)GetValue(SelectedDataLayoutProperty);
+			set
+			{
+				var current = (DataLayoutType?)GetValue(SelectedDataLayoutProperty);
+				if (current != value)
+				{
+					SetValue(SelectedDataLayoutProperty, value);
+				}
+			}
+		}
+
+		public static readonly DependencyProperty SelectedDataLayoutProperty =
+			DependencyProperty.Register(
+				nameof(SelectedDataLayout),
+				typeof(DataLayoutType?),
+				typeof(DataList),
+				new PropertyMetadata(null));
+		#endregion
 
 		#region StartDate
 		public DateTimeOffset? StartDate

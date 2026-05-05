@@ -1,4 +1,5 @@
 using Hybrsoft.EnterpriseManager.Tools.ElementSet;
+using Hybrsoft.Enums;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
@@ -72,6 +73,28 @@ namespace Hybrsoft.EnterpriseManager.Controls
 			set { SetValue(DefaultCommandsMultipleSelectionProperty, value); }
 		}
 		public static readonly DependencyProperty DefaultCommandsMultipleSelectionProperty = DependencyProperty.Register(nameof(DefaultCommandsMultipleSelection), typeof(string), typeof(ListToolbar), new PropertyMetadata("cancel,delete", DefaultCommandsChanged));
+		#endregion
+
+		#region DataLayoutSelector
+		public DataLayoutType? SelectedDataLayout
+		{
+			get => (DataLayoutType?)GetValue(SelectedDataLayoutProperty);
+			set
+			{
+				var current = (DataLayoutType?)GetValue(SelectedDataLayoutProperty);
+				if (current != value)
+				{
+					SetValue(SelectedDataLayoutProperty, value);
+				}
+			}
+		}
+
+		public static readonly DependencyProperty SelectedDataLayoutProperty =
+			DependencyProperty.Register(
+				nameof(SelectedDataLayout),
+				typeof(DataLayoutType?),
+				typeof(ListToolbar),
+				new PropertyMetadata(null));
 		#endregion
 
 		#region StartDate
@@ -176,6 +199,7 @@ namespace Hybrsoft.EnterpriseManager.Controls
 				.ForEach(v => v.Show(v.IsCategory(categories)));
 			ElementSet.Children<AppBarButton>(commandBar.Content)
 				.ForEach(v => v.Show(v.IsCategory(categories)));
+			datalayout.Show(datalayout.IsCategory(categories));
 			daterange.Show(daterange.IsCategory(categories));
 			search.Show(search.IsCategory(categories));
 		}

@@ -224,6 +224,11 @@
     <Folder Include="Views\Roles\Details\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Controls\DataLayoutSelector\DataLayoutSelector.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="Views\LostAndFound\LostAndFoundView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

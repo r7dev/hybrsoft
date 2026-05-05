@@ -31,6 +31,9 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			ViewModelArgs = args ?? LostAndFoundListArgs.CreateEmpty();
 			Query = ViewModelArgs.Query;
 
+			if (SelectedDataLayout == DataLayoutType.List)
+				SelectedDataLayout = DataLayoutType.Grid;
+
 			await RefreshWithStatusAsync();
 		}
 		public void Unload()

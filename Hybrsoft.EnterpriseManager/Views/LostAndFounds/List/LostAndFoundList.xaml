@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<UserControl
+<UserControl x:Name="Root"
 	x:Class="Hybrsoft.EnterpriseManager.Views.LostAndFoundList"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -7,7 +7,9 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:models="using:Hybrsoft.UI.Windows.Models"
+	xmlns:viewmodels="using:Hybrsoft.UI.Windows.ViewModels"
 	xmlns:controls="using:Hybrsoft.EnterpriseManager.Controls"
+	xmlns:converters="using:Hybrsoft.EnterpriseManager.Converters"
 	mc:Ignorable="d">
 
 	<UserControl.Resources>
@@ -27,7 +29,7 @@
 			</Grid>
 		</DataTemplate>
 
-		<DataTemplate x:Key="ItemTemplate" x:DataType="models:LostAndFoundModel">
+		<DataTemplate x:Key="ItemListTemplate" x:DataType="models:LostAndFoundModel">
 			<Grid Height="32">
 				<Grid Visibility="{x:Bind IsEmpty, Converter={StaticResource InverseBoolToVisibilityConverter}}">
 					<Grid.ColumnDefinitions>
@@ -47,24 +49,105 @@
 				</Grid>
 			</Grid>
 		</DataTemplate>
+
+		<DataTemplate x:Key="ItemGridTemplate" x:DataType="models:LostAndFoundModel">
+			<Grid BorderThickness="1" BorderBrush="Gainsboro" Background="White">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="10*"/>
+					<RowDefinition Height="3*"/>
+				</Grid.RowDefinitions>
+				<Grid>
+					<Image Source="{x:Bind ThumbnailSource, Mode=OneWay, Converter={StaticResource ObjectToImageConverter}}" 
+				   Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" />
+				</Grid>
+				<Grid Grid.Row="1" Background="WhiteSmoke">
+					<StackPanel Margin="6" VerticalAlignment="Center">
+						<TextBlock Text="{x:Bind DisplayName}" FontSize="12" FontWeight="SemiBold" />
+						<TextBlock Text="{x:Bind StatusDisplayName}" FontSize="12" Foreground="Gray" />
+					</StackPanel>
+				</Grid>
+			</Grid>
+		</DataTemplate>
+
+		<DataTemplate x:Key="ListTemplate" x:DataType="viewmodels:LostAndFoundListViewModel">
+			<controls:DataList DefaultCommands="new,select,refresh,datalayout,search"
+							   ItemsSource="{x:Bind Items, Mode=OneWay}"
+							   ItemSecondaryActionInvokedCommand="{x:Bind OpenInNewViewCommand}"
+							   x:Uid="/UI/LostAndFoundListUserControl_New"
+							   SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
+							   HeaderTemplate="{StaticResource HeaderTemplate}"
+							   ItemTemplate="{StaticResource ItemListTemplate}"
+							   IsMultipleSelection="{x:Bind IsMultipleSelection, Mode=TwoWay}"
+							   ItemsCount="{x:Bind ItemsCount, Mode=OneWay}"
+							   NewCommand="{x:Bind NewCommand}"
+							   RefreshCommand="{x:Bind RefreshCommand}"
+							   SelectedDataLayout="{x:Bind SelectedDataLayout, Mode=TwoWay}"
+							   Query="{x:Bind Query, Mode=TwoWay}"
+							   QuerySubmittedCommand="{x:Bind RefreshCommand}"
+							   StartSelectionCommand="{x:Bind StartSelectionCommand}"
+							   CancelSelectionCommand="{x:Bind CancelSelectionCommand}"
+							   SelectItemsCommand="{x:Bind SelectItemsCommand}"
+							   DeselectItemsCommand="{x:Bind DeselectItemsCommand}"
+							   SelectRangesCommand="{x:Bind SelectRangesCommand}"
+							   DeleteCommand="{x:Bind DeleteSelectionCommand}"/>
+		</DataTemplate>
+
+		<DataTemplate x:Key="GridTemplate" x:DataType="viewmodels:LostAndFoundListViewModel">
+			<controls:DataGrid DefaultCommands="new,select,refresh,datalayout,search"
+							   ItemsSource="{x:Bind Items, Mode=OneWay}"
+							   ItemSecondaryActionInvokedCommand="{x:Bind OpenInNewViewCommand}"
+							   x:Uid="/UI/LostAndFoundListUserControl_New"
+							   SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
+							   ItemTemplate="{StaticResource ItemGridTemplate}"
+							   IsMultipleSelection="{x:Bind IsMultipleSelection, Mode=TwoWay}"
+							   ItemsCount="{x:Bind ItemsCount, Mode=OneWay}"
+							   NewCommand="{x:Bind NewCommand}"
+							   RefreshCommand="{x:Bind RefreshCommand}"
+							   SelectedDataLayout="{x:Bind SelectedDataLayout, Mode=TwoWay}"
+							   Query="{x:Bind Query, Mode=TwoWay}"
+							   QuerySubmittedCommand="{x:Bind RefreshCommand}"
+							   StartSelectionCommand="{x:Bind StartSelectionCommand}"
+							   CancelSelectionCommand="{x:Bind CancelSelectionCommand}"
+							   SelectItemsCommand="{x:Bind SelectItemsCommand}"
+							   DeselectItemsCommand="{x:Bind DeselectItemsCommand}"
+							   SelectRangesCommand="{x:Bind SelectRangesCommand}"
+							   DeleteCommand="{x:Bind DeleteSelectionCommand}"/>
+		</DataTemplate>
+
+		<DataTemplate x:Key="GridSmallTemplate" x:DataType="viewmodels:LostAndFoundListViewModel">
+			<controls:DataGrid DefaultCommands="new,select,refresh,datalayout,search"
+							   ItemsSource="{x:Bind Items, Mode=OneWay}"
+							   ItemSecondaryActionInvokedCommand="{x:Bind OpenInNewViewCommand}"
+							   x:Uid="/UI/LostAndFoundListUserControl_New"
+							   SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
+							   ItemTemplate="{StaticResource ItemGridTemplate}"
+							   IsMultipleSelection="{x:Bind IsMultipleSelection, Mode=TwoWay}"
+							   ItemsCount="{x:Bind ItemsCount, Mode=OneWay}"
+							   NewCommand="{x:Bind NewCommand}"
+							   RefreshCommand="{x:Bind RefreshCommand}"
+							   SelectedDataLayout="{x:Bind SelectedDataLayout, Mode=TwoWay}"
+							   Query="{x:Bind Query, Mode=TwoWay}"
+							   QuerySubmittedCommand="{x:Bind RefreshCommand}"
+							   StartSelectionCommand="{x:Bind StartSelectionCommand}"
+							   CancelSelectionCommand="{x:Bind CancelSelectionCommand}"
+							   SelectItemsCommand="{x:Bind SelectItemsCommand}"
+							   DeselectItemsCommand="{x:Bind DeselectItemsCommand}"
+							   SelectRangesCommand="{x:Bind SelectRangesCommand}"
+							   DeleteCommand="{x:Bind DeleteSelectionCommand}"
+							   ItemHeight="165"
+							   ItemWidth="180"/>
+		</DataTemplate>
+
+		<converters:DataLayoutConverter x:Key="DataLayoutConverter"
+										ListTemplate="{StaticResource ListTemplate}"
+										GridTemplate="{StaticResource GridTemplate}"
+										GridSmallTemplate="{StaticResource GridSmallTemplate}" />
 	</UserControl.Resources>
 
-	<controls:DataList ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
-					   ItemSecondaryActionInvokedCommand="{x:Bind ViewModel.OpenInNewViewCommand}"
-					   x:Uid="/UI/LostAndFoundListUserControl_New"
-					   SelectedItem="{x:Bind ViewModel.SelectedItem, Mode=TwoWay}"
-					   HeaderTemplate="{StaticResource HeaderTemplate}"
-					   ItemTemplate="{StaticResource ItemTemplate}"
-					   IsMultipleSelection="{x:Bind ViewModel.IsMultipleSelection, Mode=TwoWay}"
-					   ItemsCount="{x:Bind ViewModel.ItemsCount, Mode=OneWay}"
-					   NewCommand="{x:Bind ViewModel.NewCommand}"
-					   RefreshCommand="{x:Bind ViewModel.RefreshCommand}"
-					   Query="{x:Bind ViewModel.Query, Mode=TwoWay}"
-					   QuerySubmittedCommand="{x:Bind ViewModel.RefreshCommand}"
-					   StartSelectionCommand="{x:Bind ViewModel.StartSelectionCommand}"
-					   CancelSelectionCommand="{x:Bind ViewModel.CancelSelectionCommand}"
-					   SelectItemsCommand="{x:Bind ViewModel.SelectItemsCommand}"
-					   DeselectItemsCommand="{x:Bind ViewModel.DeselectItemsCommand}"
-					   SelectRangesCommand="{x:Bind ViewModel.SelectRangesCommand}"
-					   DeleteCommand="{x:Bind ViewModel.DeleteSelectionCommand}"/>
+	<ContentControl Content="{x:Bind ViewModel, Mode=OneWay}"
+					ContentTemplate="{Binding ViewModel.SelectedDataLayout,
+									  ElementName=Root,
+									  Converter={StaticResource DataLayoutConverter}}"
+					HorizontalContentAlignment="Stretch"
+					VerticalContentAlignment="Stretch"/>
 </UserControl>

@@ -179,6 +179,27 @@ public sealed partial class DataGrid : UserControl, INotifyExpressionChanged
 	public static readonly DependencyProperty SelectedItemsCountProperty = DependencyProperty.Register(nameof(SelectedItemsCount), typeof(int), typeof(DataGrid), new PropertyMetadata(null, SelectedItemsCountChanged));
 	#endregion
 
+	#region DataLayoutSelector
+	public DataLayoutType? SelectedDataLayout
+	{
+		get => (DataLayoutType?)GetValue(SelectedDataLayoutProperty);
+		set
+		{
+			var current = (DataLayoutType?)GetValue(SelectedDataLayoutProperty);
+			if (current != value)
+			{
+				SetValue(SelectedDataLayoutProperty, value);
+			}
+		}
+	}
+
+	public static readonly DependencyProperty SelectedDataLayoutProperty =
+		DependencyProperty.Register(
+			nameof(SelectedDataLayout),
+			typeof(DataLayoutType?),
+			typeof(DataGrid),
+			new PropertyMetadata(null));
+	#endregion
 
 	#region Query
 	public string Query
