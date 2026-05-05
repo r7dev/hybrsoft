@@ -36,7 +36,7 @@
 									  Visibility="{x:Bind ViewModel.IsEditMode, Mode=OneWay}">
 					<Grid Width="{StaticResource CardPictureRadius}" Height="{StaticResource CardPictureRadius}">
 						<Rectangle Fill="White" Opacity="0.75" />
-						<TextBlock Text="Edit"
+						<TextBlock x:Uid="/UI/GenericCardUserControl_Edit"
 								   FontSize="13"
 								   HorizontalAlignment="Center"
 								   VerticalAlignment="Center"

@@ -1056,4 +1056,7 @@
   <data name="NavigationItem_LostAndFound" xml:space="preserve">
     <value>Achados e Perdidos</value>
   </data>
+  <data name="GenericCardUserControl_Edit.Text" xml:space="preserve">
+    <value>Editar</value>
+  </data>
 </root>

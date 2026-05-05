@@ -30,7 +30,7 @@
 							Visibility="{x:Bind ViewModel.IsEditMode, Mode=OneWay}">
 						<Grid>
 							<Rectangle Fill="White" Opacity="0.75" />
-							<TextBlock Text="Edit"
+							<TextBlock x:Uid="/UI/GenericCardUserControl_Edit"
 									   FontSize="14"
 									   HorizontalAlignment="Center"
 									   VerticalAlignment="Center"
