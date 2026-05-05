@@ -14,13 +14,13 @@
 				CornerRadius="12">
 		<SelectorBar x:Name="SelectorDataLayoutBar"
 					 SelectionChanged="SelectorDataLayoutBar_SelectionChanged">
-			<SelectorBarItem x:Name="ListItem" Margin="12,0,6,0" Tag="list">
+			<SelectorBarItem x:Name="ListItem" Margin="12,0,6,0" Tag="List">
 				<FontIcon Glyph="&#xEA37;" Margin="0,5" />
 			</SelectorBarItem>
-			<SelectorBarItem x:Name="GridItem" Margin="6,0,6,0" Tag="grid">
+			<SelectorBarItem x:Name="GridItem" Margin="6,0,6,0" Tag="Grid">
 				<FontIcon Glyph="&#xF0E2;" Margin="0,5" />
 			</SelectorBarItem>
-			<SelectorBarItem x:Name="GridSmallItem" Margin="6,0,12,0" Tag="gridsmall">
+			<SelectorBarItem x:Name="GridSmallItem" Margin="6,0,12,0" Tag="GridSmall">
 				<FontIcon Glyph="&#xF232;" Margin="0,5" />
 			</SelectorBarItem>
 		</SelectorBar>
