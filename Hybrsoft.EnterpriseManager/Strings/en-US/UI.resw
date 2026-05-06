@@ -1059,4 +1059,16 @@
   <data name="GenericCardUserControl_Edit.Text" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="LostAndFoundPanel_LostAndFoundID.Text" xml:space="preserve">
+    <value>Lost and Found ID</value>
+  </data>
+  <data name="LostAndFoundPanel_DisplayName.Text" xml:space="preserve">
+    <value>Display Name</value>
+  </data>
+  <data name="LostAndFoundPanel_Status.Text" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="LostAndFoundPanel_LatestLostAndFound.Text" xml:space="preserve">
+    <value>Latest Lost and Found</value>
+  </data>
 </root>

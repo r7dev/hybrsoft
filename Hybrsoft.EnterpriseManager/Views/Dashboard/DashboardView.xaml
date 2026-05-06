@@ -49,6 +49,11 @@
 									Height="250"
 									ItemsSource="{x:Bind ViewModel.Students, Mode=OneWay}" 
 									Tag="Students" />
+				<views:LostAndFoundPanel Margin="12"
+										 Width="600"
+										 Height="250"
+										 ItemsSource="{x:Bind ViewModel.LostAndFound, Mode=OneWay}"
+										 Tag="LostAndFound" />
 			</GridView>
 		</Grid>
 	</Grid>

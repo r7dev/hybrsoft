@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+	x:Class="Hybrsoft.EnterpriseManager.Views.LostAndFoundPanel"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:Hybrsoft.EnterpriseManager.Views"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:models="using:Hybrsoft.UI.Windows.Models"
+	mc:Ignorable="d">
+
+	<UserControl.Resources>
+		<DataTemplate x:Key="HeaderTemplate">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="40"/>
+					<ColumnDefinition Width="6*"/>
+					<ColumnDefinition Width="10*"/>
+					<ColumnDefinition Width="4*"/>
+				</Grid.ColumnDefinitions>
+				<TextBlock x:Uid="/UI/LostAndFoundPanel_LostAndFoundID" Grid.Column="1" Style="{StaticResource ColumnHeaderStyle}" />
+				<TextBlock x:Uid="/UI/LostAndFoundPanel_DisplayName" Grid.Column="2" Style="{StaticResource ColumnHeaderStyle}" />
+				<TextBlock x:Uid="/UI/LostAndFoundPanel_Status" Grid.Column="3" Style="{StaticResource ColumnHeaderStyle}" />
+			</Grid>
+		</DataTemplate>
+
+		<DataTemplate x:Key="ItemTemplate" x:DataType="models:LostAndFoundModel">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="40"/>
+					<ColumnDefinition Width="6*"/>
+					<ColumnDefinition Width="10*"/>
+					<ColumnDefinition Width="4*"/>
+				</Grid.ColumnDefinitions>
+				<Border Grid.Column="0" Margin="1" Padding="1">
+					<Image Source="{x:Bind ThumbnailSource, Mode=OneWay, Converter={StaticResource ObjectToImageConverter}}"
+						   Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" x:Phase="2" />
+				</Border>
+				<TextBlock Grid.Column="1" Text="{x:Bind LostAndFoundID}" Style="{StaticResource ColumnValueStyle}" />
+				<TextBlock Grid.Column="2" Text="{x:Bind DisplayName}" Style="{StaticResource ColumnValueStyle}" />
+				<TextBlock Grid.Column="3" Text="{x:Bind StatusDisplayName}" Style="{StaticResource ColumnValueStyle}" />
+			</Grid>
+		</DataTemplate>
+	</UserControl.Resources>
+	
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<TextBlock x:Uid="/UI/LostAndFoundPanel_LatestLostAndFound" Margin="6,0" FontSize="18" />
+		<Grid Grid.Row="1">
+			<ContentControl ContentTemplate="{StaticResource HeaderTemplate}" HorizontalContentAlignment="Stretch" />
+			<Border Margin="4" BorderBrush="LightGray" BorderThickness="0,0,0,1" />
+		</Grid>
+		<ListView Grid.Row="2"
+				  ItemsSource="{x:Bind ItemsSource, Mode=OneWay}" 
+				  ItemTemplate="{StaticResource ItemTemplate}"
+				  ItemContainerStyle="{StaticResource RowItemStyle}"
+				  IsHitTestVisible="False" />
+	</Grid>
+</UserControl>
