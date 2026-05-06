@@ -141,7 +141,10 @@ namespace Hybrsoft.EnterpriseManager.Controls
 
 		private void OnItemClick(object sender, ItemClickEventArgs e)
 		{
-			SelectedItem = e.ClickedItem;
+			if (SelectionMode != ListViewSelectionMode.Multiple)
+			{
+				SelectedItem = e.ClickedItem;
+			}
 			var cmd = ItemClickCommand;
 			if (cmd != null)
 			{
