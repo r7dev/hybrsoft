@@ -44,11 +44,11 @@
 						<controls:WrapPanel />
 					</ItemsPanelTemplate>
 				</GridView.ItemsPanel>
-				<views:StudentsPane Margin="12" 
-									Width="600"
-									Height="250"
-									ItemsSource="{x:Bind ViewModel.Students, Mode=OneWay}" 
-									Tag="Students" />
+				<views:StudentsPanel Margin="12"
+									 Width="600"
+									 Height="250"
+									 ItemsSource="{x:Bind ViewModel.Students, Mode=OneWay}" 
+									 Tag="Students" />
 				<views:LostAndFoundPanel Margin="12"
 										 Width="600"
 										 Height="250"

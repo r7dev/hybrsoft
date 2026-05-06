@@ -8,9 +8,9 @@ using System.Collections.Generic;
 
 namespace Hybrsoft.EnterpriseManager.Views
 {
-	public sealed partial class StudentsPane : UserControl
+	public sealed partial class StudentsPanel : UserControl
 	{
-		public StudentsPane()
+		public StudentsPanel()
 		{
 			InitializeComponent();
 		}
@@ -22,7 +22,7 @@ namespace Hybrsoft.EnterpriseManager.Views
 			set { SetValue(ItemsSourceProperty, value); }
 		}
 
-		public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSource", typeof(IList<StudentModel>), typeof(StudentsPane), new PropertyMetadata(null));
+		public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSource", typeof(IList<StudentModel>), typeof(StudentsPanel), new PropertyMetadata(null));
 		#endregion
 	}
 }

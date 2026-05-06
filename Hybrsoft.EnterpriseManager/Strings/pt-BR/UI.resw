@@ -744,16 +744,16 @@
   <data name="RelativeType_Nanny" xml:space="preserve">
     <value>Babá</value>
   </data>
-  <data name="StudentsPane_LastestStudents.Text" xml:space="preserve">
+  <data name="StudentsPanel_LatestStudents.Text" xml:space="preserve">
     <value>Últimos Alunos</value>
   </data>
-  <data name="StudentsPane_StudentID.Text" xml:space="preserve">
+  <data name="StudentsPanel_StudentID.Text" xml:space="preserve">
     <value>Aluno ID</value>
   </data>
-  <data name="StudentsPane_Name.Text" xml:space="preserve">
+  <data name="StudentsPanel_Name.Text" xml:space="preserve">
     <value>Nome</value>
   </data>
-  <data name="StudentsPane_EmailAddress.Text" xml:space="preserve">
+  <data name="StudentsPanel_EmailAddress.Text" xml:space="preserve">
     <value>Endereço Eletrônico</value>
   </data>
   <data name="ExtendedSplash_LoadingPleaseWait.Text" xml:space="preserve">
