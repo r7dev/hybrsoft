@@ -11,6 +11,6 @@
 	[Email] NVARCHAR(70) NULL,
 	[CreatedOn] DATETIMEOFFSET NOT NULL,
 	[LastModifiedOn] DATETIMEOFFSET NULL,
-	[SearchTerms] NVARCHAR(400) NULL,
+	[SearchTerms] NVARCHAR(530) NULL,
 	CONSTRAINT FK_Company_CountryID FOREIGN KEY ([CountryID]) REFERENCES [Universal].[Country] ([CountryID])
 )

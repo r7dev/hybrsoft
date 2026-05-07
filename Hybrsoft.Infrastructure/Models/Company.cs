@@ -18,7 +18,7 @@ namespace Hybrsoft.Infrastructure.Models
 		public DateTimeOffset? LastModifiedOn { get; set; }
 		public string SearchTerms { get; set; }
 
-		public string BuildSearchTerms() => $"{LegalName} {TradeName} {FederalRegistration} {StateRegistration} {CityLicense} {Phone} {Email}".ToLower();
+		public string BuildSearchTerms() => $"{CompanyID} {LegalName} {TradeName} {FederalRegistration} {StateRegistration} {CityLicense} {Phone} {Email}".ToLower();
 
 		public virtual Country Country { get; set; }
 	}
