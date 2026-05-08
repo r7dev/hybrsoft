@@ -53,6 +53,22 @@
 			<TextBlock Style="{StaticResource CardHeader}" x:Uid="/UI/LostAndFoundCardUserControl_LostAndFoundID" />
 			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind Item.LostAndFoundID, Mode=OneWay}" />
 
+			<Rectangle Style="{StaticResource CardSeparator}"/>
+			<TextBlock Style="{StaticResource CardSection}" x:Uid="/UI/LostAndFoundCardUserControl_Student" />
+
+			<StackPanel Orientation="Horizontal" Margin="0,0">
+				<PersonPicture ProfilePicture="{x:Bind Item.StudentThumbnailSource, Mode=OneWay, Converter={StaticResource ObjectToImageConverter}}"
+							   Margin="0,3,12,3"
+							   Height="56" />
+				<TextBlock Text="{x:Bind Item.StudentFullName, Mode=OneWay}"
+						   VerticalAlignment="Center"
+						   Style="{StaticResource CardSuperHeader}"
+						   TextAlignment="Center" />
+			</StackPanel>
+
+			<TextBlock Style="{StaticResource CardHeader}" x:Uid="/UI/LostAndFoundCardUserControl_StudentBelongingID" />
+			<TextBlock Style="{StaticResource CardText}" Text="{x:Bind Item.StudentBelongingID, Mode=OneWay}" />
+
 			<TextBlock Style="{StaticResource CardHeader}" x:Uid="/UI/GenericCardUserControl_CreatedOn" />
 			<TextBlock Style="{StaticResource CardText}"
 					   Text="{x:Bind Item.CreatedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
@@ -60,7 +76,6 @@
 			<TextBlock Style="{StaticResource CardHeader}" x:Uid="/UI/GenericCardUserControl_LastUpdate" />
 			<TextBlock Style="{StaticResource CardText}"
 					   Text="{x:Bind Item.LastModifiedOn, Mode=OneWay, Converter={StaticResource DateTimeFormatConverter}}" />
-
 		</StackPanel>
 	</ScrollViewer>
 </UserControl>

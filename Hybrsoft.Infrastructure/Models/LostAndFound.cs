@@ -21,5 +21,7 @@ namespace Hybrsoft.Infrastructure.Models
 		public string SearchTerms { get; set; }
 
 		public string BuildSearchTerms() => $"{LostAndFoundID} {DisplayName} {Description} {SearchTerms}".ToLower();
+
+		public virtual StudentBelonging StudentBelonging { get; set; }
 	}
 }

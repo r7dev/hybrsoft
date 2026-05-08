@@ -264,4 +264,7 @@
   <data name="LostAndFoundDetailsViewModel_PropertyDonationDate" xml:space="preserve">
     <value>Data da Doação</value>
   </data>
+  <data name="LostAndFoundDetailsViewModel_PropertyStudentsBelonging" xml:space="preserve">
+    <value>Pertence do Aluno</value>
+  </data>
 </root>

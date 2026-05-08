@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+	x:Class="Hybrsoft.EnterpriseManager.Controls.StudentBelongingSuggestBox"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:Hybrsoft.EnterpriseManager.Controls"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:controls="using:Hybrsoft.EnterpriseManager.Controls"
+	xmlns:models="using:Hybrsoft.UI.Windows.Models"
+	mc:Ignorable="d">
+
+	<UserControl.Resources>
+		<DataTemplate x:Key="ItemTemplate" x:DataType="models:StudentBelongingModel">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="0.5*"/>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+
+				<Grid Grid.Column="0" Margin="6,0">
+					<PersonPicture ProfilePicture="{x:Bind Student.ThumbnailSource, Converter={StaticResource ObjectToImageConverter}}"
+								   Width="40"
+								   Height="40" />
+				</Grid>
+
+				<StackPanel Grid.Column="1" Margin="4">
+					<TextBlock Text="{x:Bind Student.FullName}" FontSize="14" />
+				</StackPanel>
+
+				<Grid Grid.Column="2" Margin="6,0">
+					<Image Source="{x:Bind ThumbnailSource, Converter={StaticResource ObjectToImageConverter}}"
+							Stretch="UniformToFill"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							x:Phase="2"
+							Width="40"
+							Height="40" />
+				</Grid>
+
+				<StackPanel Grid.Column="3" Margin="4">
+					<TextBlock Text="{x:Bind DisplayName}" FontSize="14" />
+					<TextBlock Text="{x:Bind StudentBelongingID}" FontSize="13" Foreground="#666" />
+				</StackPanel>
+
+				<Border Margin="4,-1" Grid.ColumnSpan="4" BorderBrush="LightGray" BorderThickness="0,0,0,1" />
+			</Grid>
+		</DataTemplate>
+	</UserControl.Resources>
+
+	<controls:FormAutoSuggestBox x:Name="suggestBox"
+								 ItemsSource="{x:Bind Items, Mode=OneWay}"
+								 ItemTemplate="{StaticResource ItemTemplate}"
+								 ItemContainerStyle="{StaticResource RowItemStyle}"
+								 x:Uid="/UI/StudentBelongingSuggestBoxUserControl"
+								 DisplayText="{x:Bind DisplayText, Mode=OneWay}"
+								 TextMemberPath="DisplayName"
+								 AutoMaximizeSuggestionArea="False"
+								 TextChanged="OnTextChanged"
+								 SuggestionChosen="OnSuggestionChosen" />
+</UserControl>

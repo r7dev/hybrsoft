@@ -34,6 +34,7 @@
     <None Remove="Controls\Suggest\PermissionSuggestBox.xaml" />
     <None Remove="Controls\Suggest\RelativeSuggestBox.xaml" />
     <None Remove="Controls\Suggest\RoleSuggestBox.xaml" />
+    <None Remove="Controls\Suggest\StudentBelongingSuggestBox.xaml" />
     <None Remove="Controls\Suggest\StudentSuggestBox.xaml" />
     <None Remove="Controls\Suggest\UserSuggestBox.xaml" />
     <None Remove="Controls\Toolbars\DetailToolbar.xaml" />
@@ -221,6 +222,11 @@
     <Folder Include="Assets\Images\" />
     <Folder Include="Views\LostAndFounds\" />
     <Folder Include="Views\Roles\Details\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\Suggest\StudentBelongingSuggestBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Dashboard\Parts\LostAndFoundPanel.xaml">

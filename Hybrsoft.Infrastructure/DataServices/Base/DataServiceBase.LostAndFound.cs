@@ -15,6 +15,8 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		{
 			return await _learnDataSource.LostAndFound
 				.Where(r => r.LostAndFoundID == id)
+				.Include(r => r.StudentBelonging)
+				.ThenInclude(r => r.Student)
 				.FirstOrDefaultAsync();
 		}
 

@@ -22,6 +22,8 @@ namespace Hybrsoft.UI.Windows.Models
 		public DateTimeOffset CreatedOn { get; set; }
 		public DateTimeOffset? LastModifiedOn { get; set; }
 
+		public virtual StudentModel Student { get; set; }
+
 		public override void Merge(ObservableObject source)
 		{
 			if (source is StudentBelongingModel model)

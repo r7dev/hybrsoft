@@ -92,7 +92,10 @@ namespace Hybrsoft.EnterpriseManager.Services
 				Thumbnail = source.Thumbnail,
 				ThumbnailSource = await BitmapTools.LoadBitmapAsync(source.Thumbnail),
 				CreatedOn = source.CreatedOn,
-				LastModifiedOn = source.LastModifiedOn
+				LastModifiedOn = source.LastModifiedOn,
+				Student = source.Student is not null
+					? await StudentService.CreateStudentModelAsync(source.Student, includeAllFields)
+					: new StudentModel(),
 			};
 			if (includeAllFields)
 			{

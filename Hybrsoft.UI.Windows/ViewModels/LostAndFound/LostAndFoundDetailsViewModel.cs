@@ -108,10 +108,23 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
+		public ICommand StudentBelongingSelectedCommand => new RelayCommand<StudentBelongingModel>(StudentBelongingSelected);
+		private void StudentBelongingSelected(StudentBelongingModel model)
+		{
+			EditableItem.StudentBelongingID = model?.StudentBelongingID ?? 0;
+			EditableItem.StudentBelonging = model;
+			EditableItem.NotifyChanges();
+		}
+
 		protected override async Task<bool> SaveItemAsync(LostAndFoundModel model)
 		{
 			try
 			{
+				if (EditableItem.Status != LostAndFoundStatus.Claimed)
+				{
+					EditableItem.StudentBelongingID = 0;
+					EditableItem.StudentBelonging = null;
+				}
 				string startTitle = ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
 				string startMessage = ResourceService.GetString<LostAndFoundDetailsViewModel>(ResourceFiles.InfoMessages, "SavingLostAndFound");
 				StartStatusMessage(startTitle, startMessage);
@@ -181,14 +194,26 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			var requiredPicture = new PictureValidationConstraint<LostAndFoundModel>(propertyPicture, m => m.Picture);
 			requiredPicture.SetResourceService(ResourceService);
 
-			string propertyDonationDate = ResourceService.GetString<LostAndFoundDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyDonationDate");
-			var requiredDonationDateIfDonated = new RequiredIfConstraint<LostAndFoundModel>(propertyDonationDate, m => m.DonationDate, m => m.Status == LostAndFoundStatus.Donated);
-			requiredDonationDateIfDonated.SetResourceService(ResourceService);
-
 			yield return requiredDisplayName;
 			yield return requiredDescription;
 			yield return requiredPicture;
-			yield return requiredDonationDateIfDonated;
+
+			if (model.Status == LostAndFoundStatus.Claimed)
+			{
+				string propertyStudentBelonging = ResourceService.GetString<LostAndFoundDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyStudentsBelonging");
+				var requiredStudentBelonging = new RequiredGreaterThanZeroConstraint<LostAndFoundModel>(propertyStudentBelonging, m => m.StudentBelongingID);
+				requiredStudentBelonging.SetResourceService(ResourceService);
+
+				yield return requiredStudentBelonging;
+			}
+			else if (model.Status == LostAndFoundStatus.Donated)
+			{
+				string propertyDonationDate = ResourceService.GetString<LostAndFoundDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyDonationDate");
+				var requiredDonationDateIfDonated = new RequiredIfConstraint<LostAndFoundModel>(propertyDonationDate, m => m.DonationDate, m => m.Status == LostAndFoundStatus.Donated);
+				requiredDonationDateIfDonated.SetResourceService(ResourceService);
+
+				yield return requiredDonationDateIfDonated;
+			}
 		}
 
 		#region Handle external messages

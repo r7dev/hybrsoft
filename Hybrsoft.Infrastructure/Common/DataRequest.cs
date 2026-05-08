@@ -11,5 +11,6 @@ namespace Hybrsoft.Infrastructure.Common
 
 		public Expression<Func<T, bool>> Where { get; set; }
 		public List<(Expression<Func<T, object>> KeySelector, OrderBy OrderBy)> OrderBys { get; set; } = [];
+		public List<Expression<Func<T, object>>> Includes { get; set; } = [];
 	}
 }

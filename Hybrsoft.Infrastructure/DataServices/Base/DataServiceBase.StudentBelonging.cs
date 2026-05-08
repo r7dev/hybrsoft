@@ -21,7 +21,8 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		public async Task<IList<StudentBelonging>> GetStudentBelongingsAsync(int skip, int take, DataRequest<StudentBelonging> request)
 		{
 			IQueryable<StudentBelonging> items = GetStudentBelongings(request);
-
+			bool includeStudent = request.Includes
+				.Any(i => i.Body.ToString().Contains(nameof(StudentBelonging.Student)));
 			// Execute
 			var records = await items.Skip(skip).Take(take)
 				.Select(r => new StudentBelonging
@@ -29,7 +30,17 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 					StudentBelongingID = r.StudentBelongingID,
 					StudentID = r.StudentID,
 					DisplayName = r.DisplayName,
-					Thumbnail = r.Thumbnail
+					Thumbnail = r.Thumbnail,
+					Student = includeStudent
+					? new Student
+					{
+						StudentID = r.Student.StudentID,
+						FirstName = r.Student.FirstName,
+						LastName = r.Student.LastName,
+						Thumbnail = r.Student.Thumbnail,
+						CreatedOn = r.CreatedOn
+					}
+					: null
 				})
 				.AsNoTracking()
 				.ToListAsync();

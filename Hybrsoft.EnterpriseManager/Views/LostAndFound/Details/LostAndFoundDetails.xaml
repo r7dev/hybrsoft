@@ -33,6 +33,10 @@
 				<controls:FormCalendarDatePicker x:Uid="/UI/LostAndFoundDetailsUserControl_DonationDate"
 												 Date="{x:Bind EditableItem.DonationDate, Mode=TwoWay}"
 												 Visibility="{x:Bind EditableItem.IsDonated, Mode=OneWay}"/>
+				<controls:StudentBelongingSuggestBox DisplayText="{x:Bind EditableItem.StudentBelonging.DisplayName, Mode=OneWay}"
+													 SelectedCommand="{x:Bind StudentBelongingSelectedCommand}"
+													 Visibility="{x:Bind EditableItem.CanEditStudentBelonging, Mode=OneWay}"
+													 controls:FluidGrid.ColumnSpan="2" />
 			</controls:FluidGrid>
 		</DataTemplate>
 	</UserControl.Resources>

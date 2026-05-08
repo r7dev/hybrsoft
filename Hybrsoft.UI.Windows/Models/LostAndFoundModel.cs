@@ -13,7 +13,7 @@ namespace Hybrsoft.UI.Windows.Models
 		public string Description { get; set; }
 		public LostAndFoundStatus Status { get; set; }
 		public string StatusDisplayName => LookupTablesProxy.Instance?.GetLostAndFoundStatus((short)Status);
-		public long? StudentBelongingID { get; set; }
+		public long StudentBelongingID { get; set; }
 		public DateTimeOffset? DonationDate { get; set; }
 
 		public bool IsNew => LostAndFoundID <= 0;
@@ -27,6 +27,11 @@ namespace Hybrsoft.UI.Windows.Models
 		public DateTimeOffset CreatedOn { get; set; }
 		public DateTimeOffset? LastModifiedOn { get; set; }
 
+		public virtual StudentBelongingModel StudentBelonging { get; set; }
+
+		public string StudentFullName => StudentBelonging?.Student?.FullName ?? String.Empty;
+		public object StudentThumbnailSource => StudentBelonging?.Student?.ThumbnailSource ?? null;
+		public bool CanEditStudentBelonging => Status == LostAndFoundStatus.Claimed;
 		public bool IsDonated => Status == LostAndFoundStatus.Donated;
 
 		public override void Merge(ObservableObject source)
@@ -46,6 +51,7 @@ namespace Hybrsoft.UI.Windows.Models
 				Description = source.Description;
 				Status = source.Status;
 				StudentBelongingID = source.StudentBelongingID;
+				StudentBelonging = source.StudentBelonging;
 				DonationDate = source.DonationDate;
 				Picture = source.Picture;
 				PictureSource = source.PictureSource;

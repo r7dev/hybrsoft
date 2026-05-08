@@ -17,5 +17,7 @@ namespace Hybrsoft.Infrastructure.Models
 		public string SearchTerms { get; set; }
 
 		public string BuildSearchTerms() => $"{StudentBelongingID} {DisplayName} {Description}".ToLower();
+
+		public virtual Student Student { get; set; }
 	}
 }

@@ -1071,4 +1071,16 @@
   <data name="LostAndFoundPanel_LatestLostAndFound.Text" xml:space="preserve">
     <value>Últimos Achados e Perdidos</value>
   </data>
+  <data name="StudentBelongingSuggestBoxUserControl.Header" xml:space="preserve">
+    <value>Pertence do Aluno</value>
+  </data>
+  <data name="StudentBelongingSuggestBoxUserControl.PlaceholderText" xml:space="preserve">
+    <value>Pesquisar Pertence do Aluno</value>
+  </data>
+  <data name="LostAndFoundCardUserControl_Student.Text" xml:space="preserve">
+    <value>Aluno</value>
+  </data>
+  <data name="LostAndFoundCardUserControl_StudentBelongingID.Text" xml:space="preserve">
+    <value>Pertence do Aluno ID</value>
+  </data>
 </root>

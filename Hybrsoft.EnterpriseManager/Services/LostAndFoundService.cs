@@ -101,7 +101,11 @@ namespace Hybrsoft.EnterpriseManager.Services
 			if (includeAllFields)
 			{
 				model.Description = source.Description;
-				model.StudentBelongingID = source.StudentBelongingID;
+				if (model.Status == LostAndFoundStatus.Claimed)
+				{
+					model.StudentBelongingID = source.StudentBelongingID ?? 0;
+					model.StudentBelonging = await StudentBelongingService.CreateStudentBelongingModelAsync(source.StudentBelonging, includeAllFields);
+				}
 				model.DonationDate = source.DonationDate;
 				model.Picture = source.Picture;
 				model.PictureSource = await BitmapTools.LoadBitmapAsync(source.Picture);
@@ -114,7 +118,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			target.DisplayName = source.DisplayName;
 			target.Description = source.Description;
 			target.Status = source.Status;
-			target.StudentBelongingID = source.StudentBelongingID;
+			target.StudentBelongingID = source.StudentBelongingID == 0 ? null : source.StudentBelongingID;
 			target.DonationDate = source.Status == LostAndFoundStatus.Donated ? source.DonationDate : null;
 			target.Picture = source.Picture;
 			target.Thumbnail = source.Thumbnail;
