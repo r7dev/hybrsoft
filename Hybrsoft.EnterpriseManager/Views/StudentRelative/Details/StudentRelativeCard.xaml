@@ -18,12 +18,9 @@
 			<TextBlock Style="{StaticResource CardSection}" x:Uid="/UI/StudentRelativeCardUserControl_Relative" />
 
 			<StackPanel Orientation="Horizontal" Margin="0,0">
-				<Image Source="{x:Bind Item.Relative.ThumbnailSource, Mode=OneWay, Converter={StaticResource ObjectToImageConverter}}" 
-					   Margin="0,3,9,12"
-					   Height="56"
-					   Stretch="Uniform"
-					   HorizontalAlignment="Center"
-					   VerticalAlignment="Center" />
+				<PersonPicture ProfilePicture="{x:Bind Item.Relative.ThumbnailSource, Mode=OneWay, Converter={StaticResource ObjectToImageConverter}}" 
+							   Margin="0,3,12,8"
+							   Height="56" />
 				<TextBlock Text="{x:Bind Item.Relative.FullName, Mode=OneWay}"
 						   VerticalAlignment="Center"
 						   Style="{StaticResource CardSuperHeader}"
