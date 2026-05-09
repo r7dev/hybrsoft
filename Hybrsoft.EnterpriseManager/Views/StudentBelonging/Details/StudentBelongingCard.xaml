@@ -23,10 +23,10 @@
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
-				<PersonPicture Margin="1"
-							   ProfilePicture="{x:Bind Item.PictureSource, Mode=OneWay, Converter={StaticResource ObjectToImageConverter}}"
-							   Width="{StaticResource CardPictureRadius}"
-							   Height="{StaticResource CardPictureRadius}" />
+				<Image Margin="1"
+					   Source="{x:Bind Item.PictureSource, Mode=OneWay, Converter={StaticResource ObjectToImageConverter}}"
+					   Width="{StaticResource CardPictureRadius}"
+					   Height="{StaticResource CardPictureRadius}" />
 				<controls:RoundButton Radius="{StaticResource CardPictureRadius}"
 									  BorderThickness="1"
 									  BorderBrush="White"
