@@ -11,7 +11,9 @@
 	[CreatedOn] DATETIMEOFFSET NOT NULL,
 	[LastModifiedOn] DATETIMEOFFSET NULL,
 	[SearchTerms] NVARCHAR(220) NULL,
-	CONSTRAINT FK_LostAndFound_StudentBelongingID FOREIGN KEY ([StudentBelongingID]) REFERENCES [Learn].[StudentBelonging] ([StudentBelongingID]) ON DELETE SET NULL
+	CONSTRAINT CK_LostAndFound_Status CHECK ([Status] IN (0, 1, 2)), -- 0 - Pending, 1 - Claimed, 2 - Donated
+	CONSTRAINT CK_LostAndFound_ClaimedRequiresBelonging CHECK (NOT ([Status] = 1 AND [StudentBelongingID] IS NULL)),
+	CONSTRAINT FK_LostAndFound_StudentBelongingID FOREIGN KEY ([StudentBelongingID]) REFERENCES [Learn].[StudentBelonging] ([StudentBelongingID]) ON DELETE NO ACTION
 )
 GO
 CREATE INDEX IX_LostAndFound_DisplayName_SearchTerms
