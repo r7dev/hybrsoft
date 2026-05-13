@@ -48,8 +48,21 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		{
 			IQueryable<AppLog> items = _universalDataSource.AppLogs;
 
+			// Query semantic
+			if (request.UseSemanticSearch && !request.QueryEmbedding.IsNull)
+			{
+				items = items
+					.Join(_universalDataSource.AppLogEmbeddings,
+						  log => log.AppLogID,
+						  emb => emb.AppLogID,
+						  (log, emb) => new { log, emb })
+					.Where(x => EF.Functions.VectorDistance("cosine", x.emb.Embedding, request.QueryEmbedding) < 0.7) // threshold
+					.OrderBy(x => EF.Functions.VectorDistance("cosine", x.emb.Embedding, request.QueryEmbedding))
+					.Select(x => x.log);
+				skipSorting = true;
+			}
 			// Query
-			if (!string.IsNullOrEmpty(request.Query))
+			else if (!string.IsNullOrEmpty(request.Query))
 			{
 				items = items.Where(r => EF.Functions.Like(r.SearchTerms, "%" + request.Query + "%"));
 			}
@@ -96,6 +109,37 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		{
 			entity.CreateOn = DateTimeOffset.Now;
 			_universalDataSource.Entry(entity).State = EntityState.Added;
+			foreach (var embedding in entity.AppLogEmbeddings)
+			{
+				_universalDataSource.Entry(embedding).State = EntityState.Added;
+			}
+			return await _universalDataSource.SaveChangesAsync();
+		}
+
+		public async Task<int> UpdateAppLogAsync(IEnumerable<AppLog> entities)
+		{
+			foreach (var entity in entities)
+			{
+				if (entity.AppLogID > 0)
+				{
+					_universalDataSource.Entry(entity).State = EntityState.Modified;
+				}
+				else
+				{
+					_universalDataSource.Entry(entity).State = EntityState.Added;
+				}
+				foreach (var embedding in entity.AppLogEmbeddings)
+				{
+					if (embedding.AppLogEmbeddingID > 0)
+					{
+						_universalDataSource.Entry(embedding).State = EntityState.Modified;
+					}
+					else
+					{
+						_universalDataSource.Entry(embedding).State = EntityState.Added;
+					}
+				}
+			}
 			return await _universalDataSource.SaveChangesAsync();
 		}
 
@@ -111,6 +155,22 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			await _universalDataSource.AppLogs
 				.Where(r => !r.IsRead && r.AppType == AppType.EnterpriseManager)
 				.ExecuteUpdateAsync(r => r.SetProperty(x => x.IsRead, true));
+		}
+
+		public async Task<IList<AppLog>> GetAppLogsWithMissingEmbeddingsAsync()
+		{
+			string query = @$"
+				SELECT log.*
+				FROM [Universal].[AppLog] log
+					LEFT JOIN [Universal].[AppLogEmbedding] emb
+						ON log.[AppLogID] = emb.[AppLogID]
+				WHERE log.[AppType] = {(int)AppType.EnterpriseManager}
+				AND (emb.[AppLogID] IS NULL OR emb.[Embedding] IS NULL)";
+
+			return await _universalDataSource.AppLogs
+				.FromSqlRaw(query)
+				.Include(log => log.AppLogEmbeddings)
+				.ToListAsync();
 		}
 	}
 }

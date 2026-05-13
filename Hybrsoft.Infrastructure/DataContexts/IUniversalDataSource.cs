@@ -10,6 +10,7 @@ namespace Hybrsoft.Infrastructure.DataContexts
 	public interface IUniversalDataSource : IDisposable
 	{
 		public DbSet<AppLog> AppLogs { get; set; }
+		public DbSet<AppLogEmbedding> AppLogEmbeddings { get; set; }
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<Company> Companies { get; set; }
 		public DbSet<CompanyUser> CompanyUsers { get; set; }

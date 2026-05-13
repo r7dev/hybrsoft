@@ -12,6 +12,8 @@ namespace Hybrsoft.UI.Windows.Services
 		string UserLastName { get; set; }
 		char PasswordChar { get; }
 		EnvironmentType Environment { get; set; }
+		bool UseSemanticSearch { get; set; }
+		bool IsSemanticSearchEnabled { get; set; }
 
 		Task<string> GetLicensedToAsync();
 

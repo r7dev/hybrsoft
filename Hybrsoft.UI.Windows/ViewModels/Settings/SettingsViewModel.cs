@@ -52,6 +52,29 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			_ = ResourceService.SetLanguageAsync(value);
 		}
 
+		private bool _useSemanticSearch = false;
+		public bool UseSemanticSearch
+		{
+			get => _useSemanticSearch;
+			set
+			{
+				if (Set(ref _useSemanticSearch, value) is true)
+				{
+					_settingsService.UseSemanticSearch = value;
+					if (value)
+					{
+						LogService.PopulateMissingEmbeddingsAsync();
+					}
+				}
+			}
+		}
+		private bool _isSemanticSearchEnabled;
+		public bool IsSemanticSearchEnabled
+		{
+			get => _isSemanticSearchEnabled;
+			set => Set(ref _isSemanticSearchEnabled, value);
+		}
+
 		public SettingsArgs ViewModelArgs { get; private set; }
 
 		public async Task LoadAsync(SettingsArgs args)
@@ -59,6 +82,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			ViewModelArgs = args ?? SettingsArgs.CreateDefault();
 			_availableLanguages = ResourceService.LanguageOptions;
 			_selectedLanguage = ResourceService.GetCurrentLanguageItem();
+			_useSemanticSearch = _settingsService.UseSemanticSearch;
+			_isSemanticSearchEnabled = _settingsService.IsSemanticSearchEnabled;
 
 			string licenseToPrefix = ResourceService.GetString<SettingsViewModel>(ResourceFiles.UI, "LicensedTo_Prefix");
 			var licenseTo = await _settingsService.GetLicensedToAsync();

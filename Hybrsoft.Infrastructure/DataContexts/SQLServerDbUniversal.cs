@@ -11,6 +11,7 @@ namespace Hybrsoft.Infrastructure.DataContexts
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<AppLog>().ToTable(nameof(AppLog), schema);
+			modelBuilder.Entity<AppLogEmbedding>().ToTable(nameof(AppLogEmbedding), schema);
 			modelBuilder.Entity<Category>().ToTable(nameof(Category), schema);
 			modelBuilder.Entity<Company>().ToTable(nameof(Company), schema);
 			modelBuilder.Entity<CompanyUser>().ToTable(nameof(CompanyUser), schema);
@@ -31,6 +32,7 @@ namespace Hybrsoft.Infrastructure.DataContexts
 		}
 
 		public DbSet<AppLog> AppLogs { get; set; }
+		public DbSet<AppLogEmbedding> AppLogEmbeddings { get; set; }
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<Company> Companies { get; set; }
 		public DbSet<CompanyUser> CompanyUsers { get; set; }

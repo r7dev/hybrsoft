@@ -1083,4 +1083,10 @@
   <data name="LostAndFoundCardUserControl_StudentBelongingID.Text" xml:space="preserve">
     <value>Pertence do Aluno ID</value>
   </data>
+  <data name="SettingsView_SemanticSearchCard.Description" xml:space="preserve">
+    <value>Use a pesquisa semântica com IA</value>
+  </data>
+  <data name="SettingsView_SemanticSearchCard.Header" xml:space="preserve">
+    <value>Pesquisa Semântica de IA</value>
+  </data>
 </root>

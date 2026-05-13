@@ -1,20 +1,26 @@
-﻿using Hybrsoft.UI.Windows.Models;
-using Hybrsoft.UI.Windows.Services;
-using Hybrsoft.EnterpriseManager.Configuration;
+﻿using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
 using Hybrsoft.Enums;
 using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.Models;
+using Hybrsoft.UI.Windows.Models;
+using Hybrsoft.UI.Windows.Services;
+using Microsoft.Data.SqlTypes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 {
-	public class LogService(IDataServiceFactory dataServiceFactory, IMessageService messageService) : ILogService
+	public class LogService(IDataServiceFactory dataServiceFactory,
+		IEmbeddingService embeddingService,
+		IMessageService messageService) : ILogService
 	{
 		private readonly IDataServiceFactory _dataServiceFactory = dataServiceFactory;
+		private readonly IEmbeddingService _embeddingService = embeddingService;
 		private readonly IMessageService _messageService = messageService;
+		readonly int _maxLength = 4000;
 
 		public async Task WriteAsync(LogType type, string source, string action, Exception ex)
 		{
@@ -29,14 +35,10 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 		public async Task WriteAsync(LogType type, string source, string action, string message, string description)
 		{
 			string user = AppSettings.Current.UserName ?? "App";
-			int maxLength = 4000;
-			string refinedDescription = description?.Length > maxLength
-				? description[..maxLength]
+			string refinedDescription = description?.Length > _maxLength
+				? description[.._maxLength]
 				: description;
-			string searchTerms = $"{user} {type.GetDescription()} {source} {action} {message} {refinedDescription}";
-			string refinedSearchTerms = searchTerms?.Length > maxLength
-				? searchTerms[..maxLength]
-				: searchTerms;
+			string searchTerms = BuildSearchTerms(user, type, source, action, message, refinedDescription);
 			var appLog = new AppLog
 			{
 				User = user,
@@ -46,12 +48,27 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 				Message = message,
 				Description = refinedDescription,
 				AppType = AppType.EnterpriseManager,
-				SearchTerms = refinedSearchTerms,
-				IsRead = type != LogType.Error
+				SearchTerms = searchTerms,
+				IsRead = type != LogType.Error,
+				AppLogEmbeddings =
+				[
+					new AppLogEmbedding()
+					{
+						Embedding = AppSettings.Current.UseSemanticSearch && _embeddingService.IsConfigured
+							? await _embeddingService.GenerateEmbeddingAsync(searchTerms)
+							: SqlVector<float>.CreateNull(AppConfig.Azure_OpenAI_Embedding_Dimension)
+					}
+				],
 			};
 
 			await CreateLogAsync(appLog);
 			_messageService.Send(this, "LogAdded", appLog);
+		}
+
+		private string BuildSearchTerms(string user, LogType type, string source, string action, string message, string description)
+		{
+			string searchTerms = $"{user} {type.GetDescription()} {source} {action} {message} {description}";
+			return searchTerms.Length > _maxLength ? searchTerms[.._maxLength] : searchTerms;
 		}
 
 		public async Task<AppLogModel> GetLogAsync(long id)
@@ -114,6 +131,58 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 		{
 			using var dataSource = _dataServiceFactory.CreateDataService();
 			await dataSource.MarkAllAsReadAsync();
+		}
+
+		public async Task PopulateMissingEmbeddingsAsync()
+		{
+			if (!_embeddingService.IsConfigured) return;
+
+			using var dataSource = _dataServiceFactory.CreateDataService();
+			var items = await dataSource.GetAppLogsWithMissingEmbeddingsAsync();
+
+			const int batchSize = 50;
+			for (int i = 0; i < items.Count; i += batchSize)
+			{
+				var batchItems = items.Skip(i).Take(batchSize).ToList();
+
+				var terms = new List<string>();
+				var mapping = new List<(AppLog item, AppLogEmbedding embedding)>();
+
+				foreach (var item in batchItems)
+				{
+					string searchTerm = BuildSearchTerms(item.User, item.Type, item.Source, item.Action, item.Message, item.Description);
+					terms.Add(searchTerm);
+					if (item.AppLogEmbeddings == null || item.AppLogEmbeddings.Count == 0)
+					{
+						var newEmbedding = new AppLogEmbedding { AppLogID = item.AppLogID };
+						item.AppLogEmbeddings = [newEmbedding];
+						mapping.Add((item, newEmbedding));
+					}
+					else
+					{
+						foreach (var embedding in item.AppLogEmbeddings)
+						{
+							if (embedding.Embedding.IsNull || embedding.Embedding.Length == 0)
+							{
+								mapping.Add((item, embedding));
+							}
+						}
+					}
+				}
+
+				if (terms.Count == 0) continue;
+
+				// Gera embeddings em lote
+				var embeddings = await _embeddingService.GenerateEmbeddingsAsync(terms);
+
+				// Aplica embeddings de volta nos objetos
+				for (int j = 0; j < embeddings.Count; j++)
+				{
+					mapping[j].embedding.Embedding = embeddings[j];
+				}
+
+				await dataSource.UpdateAppLogAsync(batchItems);
+			}
 		}
 
 		private static AppLogModel CreateAppLogModel(AppLog source)

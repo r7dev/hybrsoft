@@ -45,6 +45,14 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 			set => SaveSettingAsync<EnvironmentType>(nameof(Environment), value).Wait();
 		}
 
+		public bool UseSemanticSearch
+		{
+			get => ReadSettingAsync<bool>(nameof(UseSemanticSearch)).Result;
+			set => SaveSettingAsync(nameof(UseSemanticSearch), value).Wait();
+		}
+
+		public bool IsSemanticSearchEnabled { get; set; } = true;
+
 		public async Task<string> GetLicensedToAsync()
 		{
 			var encryptedData = await ReadSettingAsync<string>("LicenseData");
@@ -56,8 +64,25 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure
 		{
 			if (AppSettings.Current.LocalSettings.Values.TryGetValue(key, out object value))
 			{
-				using MemoryStream memoryStream = new(Encoding.UTF8.GetBytes((string)value));
-				return await JsonSerializer.DeserializeAsync<T>(memoryStream);
+				if (value is string s)
+				{
+					try
+					{
+						using MemoryStream memoryStream = new(Encoding.UTF8.GetBytes(s));
+						return await JsonSerializer.DeserializeAsync<T>(memoryStream);
+					}
+					catch (JsonException)
+					{
+						if (typeof(T) == typeof(string))
+						{
+							return (T)value;
+						}
+					}
+				}
+				else if (value is T t)
+				{
+					return t;
+				}
 			}
 
 			return default;

@@ -20,5 +20,6 @@ namespace Hybrsoft.UI.Windows.Services
 		Task<int> DeleteLogAsync(AppLogModel model);
 		Task<int> DeleteLogRangeAsync(int index, int length, DataRequest<AppLog> request);
 		Task MarkAllAsReadAsync();
+		Task PopulateMissingEmbeddingsAsync();
 	}
 }

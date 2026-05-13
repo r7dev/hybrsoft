@@ -27,6 +27,11 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 
 		public static string ApiBaseUrl => Configuration["AppSettings:ApiBaseUrl" + (IsDevelopment ? "Dev" : "Prod")];
 
+		public static string Azure_OpenAI_API_Endpoint => Configuration["AzureSettings:OPENAI_API_ENDPOINT"];
+		public static string Azure_OpenAI_API_Key => Configuration["AzureSettings:OPENAI_API_KEY"];
+		public static string Azure_OpenAI_Embedding_Model => Configuration["AzureSettings:OPENAI_EMBEDDING_MODEL"];
+		public static int Azure_OpenAI_Embedding_Dimension => Configuration.GetValue<int>("AzureSettings:OPENAI_EMBEDDING_DIMENSION");
+
 		public static string SQLServerProdConnectionString => Configuration.GetConnectionString("SQLServerProd");
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using Hybrsoft.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace Hybrsoft.Infrastructure.Models
 {
@@ -16,5 +17,7 @@ namespace Hybrsoft.Infrastructure.Models
 		public string Description { get; set; }
 		public AppType AppType { get; set; }
 		public string SearchTerms { get; set; }
+
+		public ICollection<AppLogEmbedding> AppLogEmbeddings { get; set; }
 	}
 }
