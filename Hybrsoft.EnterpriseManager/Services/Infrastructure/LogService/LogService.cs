@@ -50,15 +50,15 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 				AppType = AppType.EnterpriseManager,
 				SearchTerms = searchTerms,
 				IsRead = type != LogType.Error,
-				AppLogEmbeddings =
+				AppLogEmbeddings = AppSettings.Current.UseSemanticSearch && _embeddingService.IsConfigured
+				?
 				[
 					new AppLogEmbedding()
 					{
-						Embedding = AppSettings.Current.UseSemanticSearch && _embeddingService.IsConfigured
-							? await _embeddingService.GenerateEmbeddingAsync(searchTerms)
-							: SqlVector<float>.CreateNull(AppConfig.Azure_OpenAI_Embedding_Dimension)
+						Embedding = await _embeddingService.GenerateEmbeddingAsync(searchTerms)
 					}
-				],
+				]
+				: [],
 			};
 
 			await CreateLogAsync(appLog);
