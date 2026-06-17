@@ -1,7 +1,7 @@
-﻿using Hybrsoft.UI.Windows.Models;
+﻿using Hybrsoft.Enums;
 using Hybrsoft.UI.Windows.Infrastructure.Common;
+using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Services;
-using Hybrsoft.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -122,6 +122,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string endMessage = ResourceService.GetString<RelativeDetailsViewModel>(ResourceFiles.InfoMessages, "RelativeSaved");
 				EndStatusMessage(endTitle, endMessage, LogType.Success);
 				LogSuccess("Relative", "Save", "Relative saved successfully", $"Relative {model.RelativeID} '{model.FullName}' was saved successfully.");
+				await SaveEmbeddingAsync(model);
 				return true;
 			}
 			catch (Exception ex)
@@ -132,6 +133,21 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				LogException("Relative", "Save", ex);
 				return false;
 			}
+		}
+
+		private async Task SaveEmbeddingAsync(RelativeModel model)
+		{
+			await ContextService.RunAsync(async () =>
+			{
+				try
+				{
+					await _relativeService.UpdateRelativeEmbeddingAsync(model);
+				}
+				catch (Exception ex)
+				{
+					LogException("Relative", "Save Embedding", ex);
+				}
+			});
 		}
 
 		protected override async Task<bool> DeleteItemAsync(RelativeModel model)

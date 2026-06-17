@@ -134,6 +134,7 @@ namespace Hybrsoft.Infrastructure.DataServices
 		Task<int> GetRelativesCountAsync(DataRequest<Relative> request);
 		Task<int> UpdateRelativeAsync(Relative entity);
 		Task<int> DeleteRelativesAsync(params Relative[] entities);
+		Task<int> UpdateRelativeEmbeddingAsync(RelativeEmbedding entity);
 
 		Task<IList<ClassroomStudent>> GetDismissibleStudentsAsync(int skip, int take, DataRequest<ClassroomStudent> request);
 		Task<IList<ClassroomStudent>> GetDismissibleStudentKeysAsync(int skip, int take, DataRequest<ClassroomStudent> request);

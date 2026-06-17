@@ -1,19 +1,23 @@
-﻿using Hybrsoft.UI.Windows.Models;
-using Hybrsoft.UI.Windows.Services;
+﻿using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
 using Hybrsoft.EnterpriseManager.Services.VirtualCollections;
 using Hybrsoft.EnterpriseManager.Tools;
 using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.DataServices;
 using Hybrsoft.Infrastructure.Models;
+using Hybrsoft.UI.Windows.Models;
+using Hybrsoft.UI.Windows.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services
 {
-	public class RelativeService(IDataServiceFactory dataServiceFactory, ILogService logService) : IRelativeService
+	public class RelativeService(IDataServiceFactory dataServiceFactory,
+		IEmbeddingService embeddingService,
+		ILogService logService) : IRelativeService
 	{
 		private readonly IDataServiceFactory _dataServiceFactory = dataServiceFactory;
+		private readonly IEmbeddingService _embeddingService = embeddingService;
 		private readonly ILogService _logService = logService;
 		private static ILookupTables LookupTables => LookupTablesProxy.Instance;
 
@@ -68,6 +72,24 @@ namespace Hybrsoft.EnterpriseManager.Services
 				UpdateRelativeFromModel(item, model);
 				await dataService.UpdateRelativeAsync(item);
 				model.Merge(await GetRelativeAsync(dataService, item.RelativeID));
+			}
+			return 0;
+		}
+
+		public async Task<int> UpdateRelativeEmbeddingAsync(RelativeModel model)
+		{
+			long id = model.RelativeID;
+			if (id > 0 && AppSettings.Current.UseSemanticSearch && _embeddingService.IsConfigured)
+			{
+				var item = new Relative() { RelativeID = id };
+				UpdateRelativeFromModel(item, model);
+				var itemEmbedding = new RelativeEmbedding
+				{
+					RelativeID = id,
+					Embedding = await _embeddingService.GenerateEmbeddingAsync(item.BuildSearchTerms())
+				};
+				using var dataService = _dataServiceFactory.CreateDataService();
+				await dataService.UpdateRelativeEmbeddingAsync(itemEmbedding);
 			}
 			return 0;
 		}

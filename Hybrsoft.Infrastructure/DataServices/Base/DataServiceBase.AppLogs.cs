@@ -53,12 +53,12 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			{
 				items = items
 					.Join(_universalDataSource.AppLogEmbeddings,
-						  log => log.AppLogID,
+						  item => item.AppLogID,
 						  emb => emb.AppLogID,
-						  (log, emb) => new { log, emb })
-					.Where(x => EF.Functions.VectorDistance("cosine", x.emb.Embedding, request.QueryEmbedding) < 0.7) // threshold
-					.OrderBy(x => EF.Functions.VectorDistance("cosine", x.emb.Embedding, request.QueryEmbedding))
-					.Select(x => x.log);
+						  (item, emb) => new { item, emb })
+					.Where(f => EF.Functions.VectorDistance("cosine", f.emb.Embedding, request.QueryEmbedding) < 0.7) // threshold
+					.OrderBy(f => EF.Functions.VectorDistance("cosine", f.emb.Embedding, request.QueryEmbedding))
+					.Select(f => f.item);
 				skipSorting = true;
 			}
 			// Query

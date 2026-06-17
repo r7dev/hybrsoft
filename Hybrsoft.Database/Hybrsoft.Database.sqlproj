@@ -99,6 +99,7 @@
     <Build Include="Schema\Learn\Tables\LostAndFound.sql" />
     <None Include="Script-Post\LostAndFoundStatus.Initialize.sql" />
     <Build Include="Schema\Universal\Tables\AppLogEmbedding.sql" />
+    <Build Include="Schema\Learn\Tables\RelativeEmbedding.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="Hybrsoft.Database.refactorlog" />

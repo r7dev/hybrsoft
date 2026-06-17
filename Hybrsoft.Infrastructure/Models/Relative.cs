@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Hybrsoft.Infrastructure.Models
 {
@@ -23,5 +24,7 @@ namespace Hybrsoft.Infrastructure.Models
 		public string BuildSearchTerms() => $"{RelativeID} {FirstName} {MiddleName} {LastName} {DocumentNumber} {Phone} {Email}".ToLower();
 
 		public virtual RelativeType RelativeType { get; set; }
+
+		public ICollection<RelativeEmbedding> RelativeEmbeddings { get; set; }
 	}
 }
