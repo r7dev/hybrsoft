@@ -21,6 +21,7 @@ namespace Hybrsoft.Infrastructure.DataServices
 		Task<IList<AppLog>> GetAppLogKeysAsync(int skip, int take, DataRequest<AppLog> request);
 		Task<int> GetAppLogsCountAsync(DataRequest<AppLog> request);
 		Task<int> CreateAppLogAsync(AppLog entity);
+		Task<int> CreateAppLogEmbeddingAsync(AppLogEmbedding entity);
 		Task<int> UpdateAppLogAsync(IEnumerable<AppLog> entities);
 		Task<int> DeleteAppLogsAsync(params AppLog[] entities);
 		Task MarkAllAsReadAsync();

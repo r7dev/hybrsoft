@@ -109,10 +109,12 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		{
 			entity.CreateOn = DateTimeOffset.Now;
 			_universalDataSource.Entry(entity).State = EntityState.Added;
-			foreach (var embedding in entity.AppLogEmbeddings)
-			{
-				_universalDataSource.Entry(embedding).State = EntityState.Added;
-			}
+			return await _universalDataSource.SaveChangesAsync();
+		}
+
+		public async Task<int> CreateAppLogEmbeddingAsync(AppLogEmbedding entity)
+		{
+			_universalDataSource.Entry(entity).State = EntityState.Added;
 			return await _universalDataSource.SaveChangesAsync();
 		}
 

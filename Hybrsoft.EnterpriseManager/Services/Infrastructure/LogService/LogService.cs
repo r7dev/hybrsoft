@@ -49,20 +49,13 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 				Description = refinedDescription,
 				AppType = AppType.EnterpriseManager,
 				SearchTerms = searchTerms,
-				IsRead = type != LogType.Error,
-				AppLogEmbeddings = AppSettings.Current.UseSemanticSearch && _embeddingService.IsConfigured
-				?
-				[
-					new AppLogEmbedding()
-					{
-						Embedding = await _embeddingService.GenerateEmbeddingAsync(searchTerms)
-					}
-				]
-				: [],
+				IsRead = type != LogType.Error
 			};
 
 			await CreateLogAsync(appLog);
 			_messageService.Send(this, "LogAdded", appLog);
+
+			await CreateLogEmbeddingAsync(appLog);
 		}
 
 		private string BuildSearchTerms(string user, LogType type, string source, string action, string message, string description)
@@ -111,6 +104,24 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 		{
 			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.CreateAppLogAsync(model);
+		}
+
+		public async Task<int> CreateLogEmbeddingAsync(AppLog model)
+		{
+			long id = model.AppLogID;
+			if (id > 0 && AppSettings.Current.UseSemanticSearch && _embeddingService.IsConfigured)
+			{
+				_ = Task.Run(async () => {
+					var embedding = new AppLogEmbedding
+					{
+						AppLogID = id,
+						Embedding = await _embeddingService.GenerateEmbeddingAsync(model.SearchTerms)
+					};
+					using var dataService = _dataServiceFactory.CreateDataService();
+					return await dataService.CreateAppLogEmbeddingAsync(embedding);
+				});
+			}
+			return 0;
 		}
 
 		public async Task<int> DeleteLogAsync(AppLogModel model)
