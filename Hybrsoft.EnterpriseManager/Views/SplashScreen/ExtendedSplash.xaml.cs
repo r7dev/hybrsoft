@@ -19,7 +19,9 @@ namespace Hybrsoft.EnterpriseManager.Views.SplashScreen
 			WindowTracker.Register(this);
 
 			OverlappedPresenter presenter = this.AppWindow.Presenter as OverlappedPresenter;
+#if !DEBUG
 			presenter.IsAlwaysOnTop = true;
+#endif
 			presenter.IsMaximizable = false;
 			presenter.IsMinimizable = false;
 			presenter.IsResizable = false;
