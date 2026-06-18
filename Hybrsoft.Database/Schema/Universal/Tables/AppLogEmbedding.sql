@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [Universal].[AppLogEmbedding]
 (
-	[AppLogEmbeddingID] BIGINT NOT NULL PRIMARY KEY IDENTITY,
+	[AppLogEmbeddingID] BIGINT NOT NULL PRIMARY KEY,
 	[AppLogID] BIGINT NOT NULL,
 	[Embedding] VECTOR(1536) NULL,
 	CONSTRAINT FK_AppLogEmbedding_AppLogID FOREIGN KEY ([AppLogID]) REFERENCES [Universal].[AppLog] ([AppLogID]) ON DELETE CASCADE

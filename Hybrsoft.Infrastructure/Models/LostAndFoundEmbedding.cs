@@ -3,10 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hybrsoft.Infrastructure.Models
 {
-	public class RelativeEmbedding
+	public class LostAndFoundEmbedding
 	{
-		public long RelativeEmbeddingID { get; set; }
-		public long RelativeID { get; set; }
+		public long LostAndFoundEmbeddingID { get; set; }
+		public long LostAndFoundID { get; set; }
+		public string SearchTerms { get; set; }
 		[Column(TypeName = "vector(1536)")]
 		public SqlVector<float> Embedding { get; set; }
 	}

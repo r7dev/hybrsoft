@@ -59,19 +59,6 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		{
 			IQueryable<Relative> items = _learnDataSource.Relatives;
 
-			// Query semantic
-			if (request.UseSemanticSearch && !request.QueryEmbedding.IsNull)
-			{
-				items = items
-					.Join(_learnDataSource.RelativeEmbeddings,
-						  item => item.RelativeID,
-						  emb => emb.RelativeID,
-						  (item, emb) => new { item, emb })
-					.Where(f => EF.Functions.VectorDistance("cosine", f.emb.Embedding, request.QueryEmbedding) < 0.7) // threshold
-					.OrderBy(f => EF.Functions.VectorDistance("cosine", f.emb.Embedding, request.QueryEmbedding))
-					.Select(f => f.item);
-				skipSorting = true;
-			}
 			// Query
 			if (!string.IsNullOrEmpty(request.Query))
 			{
@@ -138,19 +125,6 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			return await _learnDataSource.Relatives
 				.Where(r => entities.Contains(r))
 				.ExecuteDeleteAsync();
-		}
-
-		public async Task<int> UpdateRelativeEmbeddingAsync(RelativeEmbedding entity)
-		{
-			if (entity.RelativeEmbeddingID > 0)
-			{
-				_learnDataSource.Entry(entity).State = EntityState.Modified;
-			}
-			else
-			{
-				_learnDataSource.Entry(entity).State = EntityState.Added;
-			}
-			return await _learnDataSource.SaveChangesAsync();
 		}
 	}
 }

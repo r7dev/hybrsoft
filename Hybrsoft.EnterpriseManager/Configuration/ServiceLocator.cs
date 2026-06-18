@@ -53,12 +53,14 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			serviceCollection.AddSingleton<IWindowsSecurityService, WindowsSecurityService>();
 			serviceCollection.AddSingleton<IAuthorizationService, AuthorizationService>();
 			serviceCollection.AddSingleton<IEmbeddingService>(sp =>
-				new AzureEmbeddingService(
+				EmbeddingServiceFactory.CreateAzure(
 					modelName: AppConfig.Azure_OpenAI_Embedding_Model,
 					apiKey: AppConfig.Azure_OpenAI_API_Key,
 					endpoint: new Uri(AppConfig.Azure_OpenAI_API_Endpoint)
 				)
 			);
+			serviceCollection.AddSingleton<IEmbeddingTables, LogEmbeddingService>();
+			serviceCollection.AddSingleton<IEmbeddingTables, LostAndFoundEmbeddingService>();
 
 			serviceCollection.AddScoped<IContextService, ContextService>();
 			serviceCollection.AddScoped<INavigationService, NavigationService>();

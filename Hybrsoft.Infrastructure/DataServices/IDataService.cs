@@ -21,11 +21,12 @@ namespace Hybrsoft.Infrastructure.DataServices
 		Task<IList<AppLog>> GetAppLogKeysAsync(int skip, int take, DataRequest<AppLog> request);
 		Task<int> GetAppLogsCountAsync(DataRequest<AppLog> request);
 		Task<int> CreateAppLogAsync(AppLog entity);
-		Task<int> CreateAppLogEmbeddingAsync(AppLogEmbedding entity);
-		Task<int> UpdateAppLogAsync(IEnumerable<AppLog> entities);
 		Task<int> DeleteAppLogsAsync(params AppLog[] entities);
 		Task MarkAllAsReadAsync();
+
 		Task<IList<AppLog>> GetAppLogsWithMissingEmbeddingsAsync();
+		Task<int> CreateAppLogEmbeddingAsync(AppLogEmbedding entity);
+		Task<int> UpdateAppLogEmbeddingsAsync(IEnumerable<AppLogEmbedding> entities);
 
 		Task<Company> GetCompanyAsync(long id);
 		Task<IList<Company>> GetCompaniesAsync(int skip, int take, DataRequest<Company> request);
@@ -135,7 +136,6 @@ namespace Hybrsoft.Infrastructure.DataServices
 		Task<int> GetRelativesCountAsync(DataRequest<Relative> request);
 		Task<int> UpdateRelativeAsync(Relative entity);
 		Task<int> DeleteRelativesAsync(params Relative[] entities);
-		Task<int> UpdateRelativeEmbeddingAsync(RelativeEmbedding entity);
 
 		Task<IList<ClassroomStudent>> GetDismissibleStudentsAsync(int skip, int take, DataRequest<ClassroomStudent> request);
 		Task<IList<ClassroomStudent>> GetDismissibleStudentKeysAsync(int skip, int take, DataRequest<ClassroomStudent> request);
@@ -153,6 +153,11 @@ namespace Hybrsoft.Infrastructure.DataServices
 		Task<int> GetLostAndFoundCountAsync(DataRequest<LostAndFound> request);
 		Task<int> UpdateLostAndFoundAsync(LostAndFound entity);
 		Task<int> DeleteLostAndFoundAsync(params LostAndFound[] entities);
+
+		Task<LostAndFoundEmbedding> GetLostAndFoundEmbeddingAsync(long id);
+		Task<IList<LostAndFound>> GetLostAndFoundWithMissingEmbeddingsAsync();
+		Task<int> UpdateLostAndFoundEmbeddingAsync(LostAndFoundEmbedding entity);
+		Task<int> UpdateLostAndFoundEmbeddingsAsync(IEnumerable<LostAndFoundEmbedding> entities);
 		#endregion
 	}
 }

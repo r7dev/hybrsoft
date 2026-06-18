@@ -13,11 +13,9 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class AppLogListViewModel(IEmbeddingService embeddingService,
-		ISettingsService settingsService,
+	public partial class AppLogListViewModel(ISettingsService settingsService,
 		ICommonServices commonServices) : GenericListViewModel<AppLogModel>(commonServices)
 	{
-		private readonly IEmbeddingService _embeddingService = embeddingService;
 		private readonly ISettingsService _settingsService = settingsService;
 		private string StartTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
 		private string StartMessage => ResourceService.GetString<AppLogListViewModel>(ResourceFiles.InfoMessages, "LoadingLogs");
@@ -105,7 +103,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			if (!ViewModelArgs.IsEmpty)
 			{
-				DataRequest<AppLog> request = BuildDataRequest();
+				DataRequest<AppLog> request = await BuildDataRequestAsync();
 				return await LogService.GetLogsAsync(request);
 			}
 			return [];
@@ -190,22 +188,22 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		private async Task DeleteRangesAsync(IEnumerable<IndexRange> ranges)
 		{
-			DataRequest<AppLog> request = BuildDataRequest();
+			DataRequest<AppLog> request = await BuildDataRequestAsync();
 			foreach (var range in ranges.Reverse())
 			{
 				await LogService.DeleteLogRangeAsync(range.Index, range.Length, request);
 			}
 		}
 
-		private DataRequest<AppLog> BuildDataRequest()
+		private async Task<DataRequest<AppLog>> BuildDataRequestAsync()
 		{
 			bool useSemanticSearch = _settingsService.UseSemanticSearch;
 			return new DataRequest<AppLog>()
 			{
 				UseSemanticSearch = useSemanticSearch,
 				QueryEmbedding = useSemanticSearch && !string.IsNullOrWhiteSpace(Query)
-					? _embeddingService.GenerateEmbeddingAsync(Query).Result
-					: SqlVector<float>.CreateNull(_embeddingService.EmbeddingDimension),
+					? await EmbeddingService.GenerateEmbeddingAsync(Query)
+					: SqlVector<float>.CreateNull(EmbeddingService.EmbeddingDimension),
 				Query = Query,
 				Where = r => r.AppType == AppType.EnterpriseManager
 					&& r.CreateOn >= StartDate

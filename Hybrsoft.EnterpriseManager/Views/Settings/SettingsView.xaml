@@ -62,14 +62,21 @@
 							  SelectedValuePath="Tag"/>
 				</toolkit:SettingsCard>
 				<!--  Semantic Search with IA  -->
-				<toolkit:SettingsCard x:Uid="/UI/SettingsView_SemanticSearchCard" >
-					<toolkit:SettingsCard.HeaderIcon>
-						<FontIcon Glyph="&#xE773;" />
-					</toolkit:SettingsCard.HeaderIcon>
-					<ToggleSwitch x:Name="SemanticSearchToggle"
-								  IsOn="{x:Bind ViewModel.UseSemanticSearch, Mode=TwoWay}"
-								  IsEnabled="{x:Bind ViewModel.IsSemanticSearchEnabled, Mode=OneWay}"/>
-				</toolkit:SettingsCard>
+				<toolkit:SettingsExpander x:Uid="/UI/SettingsView_AIFeaturesExpander">
+					<toolkit:SettingsExpander.HeaderIcon>
+						<FontIcon Glyph="&#xEABC;" />
+					</toolkit:SettingsExpander.HeaderIcon>
+					<toolkit:SettingsExpander.Items>
+						<toolkit:SettingsCard x:Uid="/UI/SettingsView_SemanticSearchCard" >
+							<toolkit:SettingsCard.HeaderIcon>
+								<FontIcon Glyph="&#xED37;" />
+							</toolkit:SettingsCard.HeaderIcon>
+							<ToggleSwitch x:Name="SemanticSearchToggle"
+										  IsOn="{x:Bind ViewModel.UseSemanticSearch, Mode=TwoWay}"
+										  IsEnabled="{x:Bind ViewModel.IsSemanticSearchEnabled, Mode=OneWay}"/>
+						</toolkit:SettingsCard>
+					</toolkit:SettingsExpander.Items>
+				</toolkit:SettingsExpander>
 				<!--  About  -->
 				<TextBlock x:Uid="/UI/SettingsView_AboutSection_Subtitle" Style="{StaticResource SettingsSectionHeaderTextBlockStyle}" />
 				<toolkit:SettingsExpander x:Uid="/UI/SettingsView_AboutExpander" Header="{x:Bind ViewModel.AppName, Mode=OneWay}">

@@ -9,5 +9,6 @@
 		ILogService LogService { get; }
 		IAuthorizationService AuthorizationService { get; }
 		IResourceService ResourceService { get; }
+		IEmbeddingService EmbeddingService { get; }
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using Hybrsoft.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace Hybrsoft.Infrastructure.Models
 {
@@ -23,5 +24,7 @@ namespace Hybrsoft.Infrastructure.Models
 		public string BuildSearchTerms() => $"{LostAndFoundID} {DisplayName} {Description} {SearchTerms}".ToLower();
 
 		public virtual StudentBelonging StudentBelonging { get; set; }
+
+		public ICollection<LostAndFoundEmbedding> LostAndFoundEmbeddings { get; set; }
 	}
 }

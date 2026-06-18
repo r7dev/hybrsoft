@@ -381,4 +381,10 @@
   <data name="LostAndFoundListViewModel_ErrorDeleting0LostAndFound1" xml:space="preserve">
     <value>Error deleting {0} Lost and Found: {1}</value>
   </data>
+  <data name="SettingsViewModel_CouldNotCompleteTheSmartSearchSetupPleaseTryAgainLater" xml:space="preserve">
+    <value>Could not complete the smart search setup. Please try again later.</value>
+  </data>
+  <data name="ProcessFailed" xml:space="preserve">
+    <value>Process Failed.</value>
+  </data>
 </root>
