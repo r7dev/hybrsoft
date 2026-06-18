@@ -5,7 +5,6 @@ using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.Models;
 using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Services;
-using Microsoft.Data.SqlTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +13,12 @@ using System.Threading.Tasks;
 namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 {
 	public class LogService(IDataServiceFactory dataServiceFactory,
+		IContextService contextService,
 		IEmbeddingService embeddingService,
 		IMessageService messageService) : ILogService
 	{
 		private readonly IDataServiceFactory _dataServiceFactory = dataServiceFactory;
+		private readonly IContextService _contextService = contextService;
 		private readonly IEmbeddingService _embeddingService = embeddingService;
 		private readonly IMessageService _messageService = messageService;
 		readonly int _maxLength = 4000;
@@ -111,14 +112,14 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 			long id = model.AppLogID;
 			if (id > 0 && AppSettings.Current.UseSemanticSearch && _embeddingService.IsConfigured)
 			{
-				_ = Task.Run(async () => {
+				await _contextService.RunAsync(async () => {
 					var embedding = new AppLogEmbedding
 					{
 						AppLogID = id,
 						Embedding = await _embeddingService.GenerateEmbeddingAsync(model.SearchTerms)
 					};
 					using var dataService = _dataServiceFactory.CreateDataService();
-					return await dataService.CreateAppLogEmbeddingAsync(embedding);
+					await dataService.CreateAppLogEmbeddingAsync(embedding);
 				});
 			}
 			return 0;

@@ -8,6 +8,7 @@ using Hybrsoft.Infrastructure.Models;
 using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Services;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services
@@ -72,24 +73,6 @@ namespace Hybrsoft.EnterpriseManager.Services
 				UpdateRelativeFromModel(item, model);
 				await dataService.UpdateRelativeAsync(item);
 				model.Merge(await GetRelativeAsync(dataService, item.RelativeID));
-			}
-			return 0;
-		}
-
-		public async Task<int> UpdateRelativeEmbeddingAsync(RelativeModel model)
-		{
-			long id = model.RelativeID;
-			if (id > 0 && AppSettings.Current.UseSemanticSearch && _embeddingService.IsConfigured)
-			{
-				var item = new Relative() { RelativeID = id };
-				UpdateRelativeFromModel(item, model);
-				var itemEmbedding = new RelativeEmbedding
-				{
-					RelativeID = id,
-					Embedding = await _embeddingService.GenerateEmbeddingAsync(item.BuildSearchTerms())
-				};
-				using var dataService = _dataServiceFactory.CreateDataService();
-				await dataService.UpdateRelativeEmbeddingAsync(itemEmbedding);
 			}
 			return 0;
 		}
@@ -161,6 +144,76 @@ namespace Hybrsoft.EnterpriseManager.Services
 			if (includeAllFields) { }
 			await Task.CompletedTask;
 			return model;
+		}
+
+		public async Task<int> UpdateRelativeEmbeddingAsync(RelativeModel model)
+		{
+			long id = model.RelativeID;
+			if (id > 0 && AppSettings.Current.UseSemanticSearch && _embeddingService.IsConfigured)
+			{
+				using var dataService = _dataServiceFactory.CreateDataService();
+				var item = new Relative() { RelativeID = id };
+				UpdateRelativeFromModel(item, model);
+				var itemEmbedding = await dataService.GetRelativeEmbeddingAsync(id)
+					?? new RelativeEmbedding { RelativeEmbeddingID = id };
+				string newSearchTerms = item.BuildSearchTerms();
+				if (itemEmbedding.SearchTerms != newSearchTerms)
+				{
+					itemEmbedding.SearchTerms = newSearchTerms;
+					itemEmbedding.Embedding = await _embeddingService.GenerateEmbeddingAsync(newSearchTerms);
+					await dataService.UpdateRelativeEmbeddingAsync(itemEmbedding);
+				}
+			}
+			return 0;
+		}
+
+		public async Task PopulateMissingEmbeddingsAsync()
+		{
+			using var dataService = _dataServiceFactory.CreateDataService();
+			var items = await dataService.GetRelativesWithMissingEmbeddingsAsync();
+
+			const int batchSize = 50;
+			for (int i = 0; i < items.Count; i += batchSize)
+			{
+				var batchItems = items.Skip(i).Take(batchSize).ToList();
+
+				var terms = new List<string>();
+				var mapping = new List<(Relative item, RelativeEmbedding embedding)>();
+
+				foreach (var item in batchItems)
+				{
+					terms.Add(item.SearchTerms);
+					if (item.RelativeEmbeddings == null || item.RelativeEmbeddings.Count == 0)
+					{
+						var newEmbedding = new RelativeEmbedding { RelativeEmbeddingID = item.RelativeID };
+						item.RelativeEmbeddings = [newEmbedding];
+						mapping.Add((item, newEmbedding));
+					}
+					else
+					{
+						foreach (var embedding in item.RelativeEmbeddings)
+						{
+							if (embedding.Embedding.IsNull || embedding.Embedding.Length == 0)
+							{
+								mapping.Add((item, embedding));
+							}
+						}
+					}
+				}
+
+				if (terms.Count == 0) continue;
+
+				// Generate embeddings in batch
+				var embeddings = await _embeddingService.GenerateEmbeddingsAsync(terms);
+
+				// Applies embeddings back to the objects
+				for (int j = 0; j < embeddings.Count; j++)
+				{
+					mapping[j].embedding.Embedding = embeddings[j];
+				}
+
+				await dataService.CreateRelativeEmbeddingsAsync([.. mapping.Select(m => m.embedding)]);
+			}
 		}
 	}
 }

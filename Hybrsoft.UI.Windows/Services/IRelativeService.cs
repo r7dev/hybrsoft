@@ -14,9 +14,11 @@ namespace Hybrsoft.UI.Windows.Services
 		Task<int> GetRelativesCountAsync(DataRequest<Relative> request);
 
 		Task<int> UpdateRelativeAsync(RelativeModel model);
-		Task<int> UpdateRelativeEmbeddingAsync(RelativeModel model);
 
 		Task<int> DeleteRelativeAsync(RelativeModel model);
 		Task<int> DeleteRelativeRangeAsync(int index, int length, DataRequest<Relative> request);
+
+		Task<int> UpdateRelativeEmbeddingAsync(RelativeModel model);
+		Task PopulateMissingEmbeddingsAsync();
 	}
 }
