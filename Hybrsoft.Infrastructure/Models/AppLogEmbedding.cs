@@ -6,7 +6,6 @@ namespace Hybrsoft.Infrastructure.Models
 	public class AppLogEmbedding
 	{
 		public long AppLogEmbeddingID { get; set; }
-		public long AppLogID { get; set; }
 		[Column(TypeName = "vector(1536)")]
 		public SqlVector<float> Embedding { get; set; }
 	}

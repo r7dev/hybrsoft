@@ -115,7 +115,7 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 				await _contextService.RunAsync(async () => {
 					var embedding = new AppLogEmbedding
 					{
-						AppLogID = id,
+						AppLogEmbeddingID = id,
 						Embedding = await _embeddingService.GenerateEmbeddingAsync(model.SearchTerms)
 					};
 					using var dataService = _dataServiceFactory.CreateDataService();
@@ -158,42 +158,33 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 				var batchItems = items.Skip(i).Take(batchSize).ToList();
 
 				var terms = new List<string>();
-				var mapping = new List<(AppLog item, AppLogEmbedding embedding)>();
+				var newEmbeddings = new List<AppLogEmbedding>();
 
 				foreach (var item in batchItems)
 				{
-					string searchTerm = BuildSearchTerms(item.User, item.Type, item.Source, item.Action, item.Message, item.Description);
-					terms.Add(searchTerm);
-					if (item.AppLogEmbeddings == null || item.AppLogEmbeddings.Count == 0)
+					terms.Add(item.SearchTerms);
+
+					var embedding = item.AppLogEmbeddings?.FirstOrDefault()
+						?? new AppLogEmbedding { AppLogEmbeddingID = item.AppLogID };
+
+					if (embedding.Embedding.IsNull || embedding.Embedding.Length == 0)
 					{
-						var newEmbedding = new AppLogEmbedding { AppLogID = item.AppLogID };
-						item.AppLogEmbeddings = [newEmbedding];
-						mapping.Add((item, newEmbedding));
-					}
-					else
-					{
-						foreach (var embedding in item.AppLogEmbeddings)
-						{
-							if (embedding.Embedding.IsNull || embedding.Embedding.Length == 0)
-							{
-								mapping.Add((item, embedding));
-							}
-						}
+						newEmbeddings.Add(embedding);
 					}
 				}
 
 				if (terms.Count == 0) continue;
 
-				// Gera embeddings em lote
-				var embeddings = await _embeddingService.GenerateEmbeddingsAsync(terms);
+				// Generate embeddings in batch
+				var generatedEmbeddings = await _embeddingService.GenerateEmbeddingsAsync(terms);
 
-				// Aplica embeddings de volta nos objetos
-				for (int j = 0; j < embeddings.Count; j++)
+				// Applies embeddings back to the objects
+				for (int j = 0; j < generatedEmbeddings.Count; j++)
 				{
-					mapping[j].embedding.Embedding = embeddings[j];
+					newEmbeddings[j].Embedding = generatedEmbeddings[j];
 				}
 
-				await dataSource.UpdateAppLogAsync(batchItems);
+				await dataSource.UpdateAppLogEmbeddingsAsync([.. newEmbeddings]);
 			}
 		}
 

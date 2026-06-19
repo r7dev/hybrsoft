@@ -178,41 +178,33 @@ namespace Hybrsoft.EnterpriseManager.Services
 				var batchItems = items.Skip(i).Take(batchSize).ToList();
 
 				var terms = new List<string>();
-				var mapping = new List<(Relative item, RelativeEmbedding embedding)>();
+				var newEmbeddings = new List<RelativeEmbedding>();
 
 				foreach (var item in batchItems)
 				{
 					terms.Add(item.SearchTerms);
-					if (item.RelativeEmbeddings == null || item.RelativeEmbeddings.Count == 0)
+
+					var embedding = item.RelativeEmbeddings?.FirstOrDefault()
+						?? new RelativeEmbedding { RelativeEmbeddingID = item.RelativeID };
+
+					if (embedding.Embedding.IsNull || embedding.Embedding.Length == 0)
 					{
-						var newEmbedding = new RelativeEmbedding { RelativeEmbeddingID = item.RelativeID };
-						item.RelativeEmbeddings = [newEmbedding];
-						mapping.Add((item, newEmbedding));
-					}
-					else
-					{
-						foreach (var embedding in item.RelativeEmbeddings)
-						{
-							if (embedding.Embedding.IsNull || embedding.Embedding.Length == 0)
-							{
-								mapping.Add((item, embedding));
-							}
-						}
+						newEmbeddings.Add(embedding);
 					}
 				}
 
 				if (terms.Count == 0) continue;
 
 				// Generate embeddings in batch
-				var embeddings = await _embeddingService.GenerateEmbeddingsAsync(terms);
+				var generatedEmbeddings = await _embeddingService.GenerateEmbeddingsAsync(terms);
 
 				// Applies embeddings back to the objects
-				for (int j = 0; j < embeddings.Count; j++)
+				for (int j = 0; j < generatedEmbeddings.Count; j++)
 				{
-					mapping[j].embedding.Embedding = embeddings[j];
+					newEmbeddings[j].Embedding = generatedEmbeddings[j];
 				}
 
-				await dataService.CreateRelativeEmbeddingsAsync([.. mapping.Select(m => m.embedding)]);
+				await dataService.UpdateRelativeEmbeddingsAsync([.. newEmbeddings]);
 			}
 		}
 	}

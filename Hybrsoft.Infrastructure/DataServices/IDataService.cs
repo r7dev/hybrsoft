@@ -21,11 +21,12 @@ namespace Hybrsoft.Infrastructure.DataServices
 		Task<IList<AppLog>> GetAppLogKeysAsync(int skip, int take, DataRequest<AppLog> request);
 		Task<int> GetAppLogsCountAsync(DataRequest<AppLog> request);
 		Task<int> CreateAppLogAsync(AppLog entity);
-		Task<int> CreateAppLogEmbeddingAsync(AppLogEmbedding entity);
-		Task<int> UpdateAppLogAsync(IEnumerable<AppLog> entities);
 		Task<int> DeleteAppLogsAsync(params AppLog[] entities);
 		Task MarkAllAsReadAsync();
+
 		Task<IList<AppLog>> GetAppLogsWithMissingEmbeddingsAsync();
+		Task<int> CreateAppLogEmbeddingAsync(AppLogEmbedding entity);
+		Task<int> UpdateAppLogEmbeddingsAsync(IEnumerable<AppLogEmbedding> entities);
 
 		Task<Company> GetCompanyAsync(long id);
 		Task<IList<Company>> GetCompaniesAsync(int skip, int take, DataRequest<Company> request);
@@ -137,9 +138,9 @@ namespace Hybrsoft.Infrastructure.DataServices
 		Task<int> DeleteRelativesAsync(params Relative[] entities);
 
 		Task<RelativeEmbedding> GetRelativeEmbeddingAsync(long id);
-		Task<int> CreateRelativeEmbeddingsAsync(IEnumerable<RelativeEmbedding> entities);
-		Task<int> UpdateRelativeEmbeddingAsync(RelativeEmbedding entity);
 		Task<IList<Relative>> GetRelativesWithMissingEmbeddingsAsync();
+		Task<int> UpdateRelativeEmbeddingAsync(RelativeEmbedding entity);
+		Task<int> UpdateRelativeEmbeddingsAsync(IEnumerable<RelativeEmbedding> entities);
 
 		Task<IList<ClassroomStudent>> GetDismissibleStudentsAsync(int skip, int take, DataRequest<ClassroomStudent> request);
 		Task<IList<ClassroomStudent>> GetDismissibleStudentKeysAsync(int skip, int take, DataRequest<ClassroomStudent> request);

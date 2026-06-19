@@ -141,17 +141,26 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		}
 
 
-		public async Task<int> CreateRelativeEmbeddingsAsync(IEnumerable<RelativeEmbedding> entities)
-		{
-			_learnDataSource.RelativeEmbeddings.AddRange(entities);
-			return await _learnDataSource.SaveChangesAsync();
-		}
-
 		public async Task<RelativeEmbedding> GetRelativeEmbeddingAsync(long id)
 		{
 			return await _learnDataSource.RelativeEmbeddings
 				.Where(e => e.RelativeEmbeddingID == id)
 				.FirstOrDefaultAsync();
+		}
+
+		public async Task<IList<Relative>> GetRelativesWithMissingEmbeddingsAsync()
+		{
+			string query = @$"
+				SELECT rel.RelativeID, rel.SearchTerms
+				FROM [Learn].[Relative] rel
+					LEFT JOIN [Learn].[RelativeEmbedding] emb
+						ON rel.[RelativeID] = emb.[RelativeEmbeddingID]
+				WHERE emb.[RelativeEmbeddingID] IS NULL OR emb.[Embedding] IS NULL";
+
+			return await _learnDataSource.Relatives
+				.FromSqlRaw(query)
+				.Include(rel => rel.RelativeEmbeddings)
+				.ToListAsync();
 		}
 
 		public async Task<int> UpdateRelativeEmbeddingAsync(RelativeEmbedding entity)
@@ -167,19 +176,20 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			return await _learnDataSource.SaveChangesAsync();
 		}
 
-		public async Task<IList<Relative>> GetRelativesWithMissingEmbeddingsAsync()
+		public async Task<int> UpdateRelativeEmbeddingsAsync(IEnumerable<RelativeEmbedding> entities)
 		{
-			string query = @$"
-				SELECT rel.*
-				FROM [Learn].[Relative] rel
-					LEFT JOIN [Learn].[RelativeEmbedding] emb
-						ON rel.[RelativeID] = emb.[RelativeEmbeddingID]
-				WHERE (emb.[RelativeEmbeddingID] IS NULL OR emb.[Embedding] IS NULL)";
-
-			return await _learnDataSource.Relatives
-				.FromSqlRaw(query)
-				.Include(rel => rel.RelativeEmbeddings)
-				.ToListAsync();
+			foreach (var entity in entities)
+			{
+				if (entity.RelativeEmbeddingID > 0)
+				{
+					_learnDataSource.Entry(entity).State = EntityState.Modified;
+				}
+				else
+				{
+					_learnDataSource.Entry(entity).State = EntityState.Added;
+				}
+			}
+			return await _learnDataSource.SaveChangesAsync();
 		}
 	}
 }
