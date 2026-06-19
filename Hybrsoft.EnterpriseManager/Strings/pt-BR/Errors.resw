@@ -381,4 +381,10 @@
   <data name="LostAndFoundListViewModel_ErrorDeleting0LostAndFound1" xml:space="preserve">
     <value>Erro ao excluir {0} Achados e Perdidos: {1}</value>
   </data>
+  <data name="SettingsViewModel_CouldNotCompleteTheSmartSearchSetupPleaseTryAgainLater" xml:space="preserve">
+    <value>Não foi possível concluir a preparação da busca inteligente. Tente novamente mais tarde.</value>
+  </data>
+  <data name="ProcessFailed" xml:space="preserve">
+    <value>Processo Falhou.</value>
+  </data>
 </root>

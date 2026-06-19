@@ -145,49 +145,6 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 			await dataSource.MarkAllAsReadAsync();
 		}
 
-		public async Task PopulateMissingEmbeddingsAsync()
-		{
-			if (!_embeddingService.IsConfigured) return;
-
-			using var dataSource = _dataServiceFactory.CreateDataService();
-			var items = await dataSource.GetAppLogsWithMissingEmbeddingsAsync();
-
-			const int batchSize = 50;
-			for (int i = 0; i < items.Count; i += batchSize)
-			{
-				var batchItems = items.Skip(i).Take(batchSize).ToList();
-
-				var terms = new List<string>();
-				var newEmbeddings = new List<AppLogEmbedding>();
-
-				foreach (var item in batchItems)
-				{
-					terms.Add(item.SearchTerms);
-
-					var embedding = item.AppLogEmbeddings?.FirstOrDefault()
-						?? new AppLogEmbedding { AppLogEmbeddingID = item.AppLogID };
-
-					if (embedding.Embedding.IsNull || embedding.Embedding.Length == 0)
-					{
-						newEmbeddings.Add(embedding);
-					}
-				}
-
-				if (terms.Count == 0) continue;
-
-				// Generate embeddings in batch
-				var generatedEmbeddings = await _embeddingService.GenerateEmbeddingsAsync(terms);
-
-				// Applies embeddings back to the objects
-				for (int j = 0; j < generatedEmbeddings.Count; j++)
-				{
-					newEmbeddings[j].Embedding = generatedEmbeddings[j];
-				}
-
-				await dataSource.UpdateAppLogEmbeddingsAsync([.. newEmbeddings]);
-			}
-		}
-
 		private static AppLogModel CreateAppLogModel(AppLog source)
 		{
 			return new AppLogModel()

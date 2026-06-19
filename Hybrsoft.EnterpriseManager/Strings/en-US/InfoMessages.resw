@@ -573,4 +573,10 @@
   <data name="LostAndFoundListViewModel_0LostAndFoundDeleted" xml:space="preserve">
     <value>{0} Lost and Found deleted</value>
   </data>
+  <data name="SettingsViewModel_PreparingTheSystemForSmarterSearches" xml:space="preserve">
+    <value>Preparing the system for smarter searches…</value>
+  </data>
+  <data name="SettingsViewModel_SetupCompletedSmartSearchIsNowAvailable" xml:space="preserve">
+    <value>Setup completed. Smart search is now available.</value>
+  </data>
 </root>

@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.UI.Windows.ViewModels
 {
-	public partial class AppLogsViewModel(IEmbeddingService embeddingService,
-		ISettingsService settingsService,
+	public partial class AppLogsViewModel(ISettingsService settingsService,
 		ICommonServices commonServices) : ViewModelBase(commonServices)
 	{
-		public AppLogListViewModel AppLogList { get; } = new AppLogListViewModel(embeddingService, settingsService, commonServices);
+		public AppLogListViewModel AppLogList { get; } = new AppLogListViewModel(settingsService, commonServices);
 		public AppLogDetailsViewModel AppLogDetails { get; } = new AppLogDetailsViewModel(commonServices);
 
 		public async Task LoadAsync(AppLogListArgs args)

@@ -15,12 +15,10 @@ using System.Windows.Input;
 namespace Hybrsoft.UI.Windows.ViewModels
 {
 	public partial class RelativeListViewModel(IRelativeService relativeService,
-		IEmbeddingService embeddingService,
 		ISettingsService settingsService,
 		ICommonServices commonServices) : GenericListViewModel<RelativeModel>(commonServices)
 	{
 		private readonly IRelativeService _relativeService = relativeService;
-		private readonly IEmbeddingService _embeddingService = embeddingService;
 		private readonly ISettingsService _settingsService = settingsService;
 
 		private string StartTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
@@ -245,8 +243,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			{
 				UseSemanticSearch = useSemanticSearch,
 				QueryEmbedding = useSemanticSearch && !string.IsNullOrWhiteSpace(Query)
-					? _embeddingService.GenerateEmbeddingAsync(Query).Result
-					: SqlVector<float>.CreateNull(_embeddingService.EmbeddingDimension),
+					? EmbeddingService.GenerateEmbeddingAsync(Query).Result
+					: SqlVector<float>.CreateNull(EmbeddingService.EmbeddingDimension),
 				Query = Query,
 				OrderBys = ViewModelArgs.OrderBys
 			};

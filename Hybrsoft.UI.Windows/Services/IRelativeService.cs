@@ -19,6 +19,5 @@ namespace Hybrsoft.UI.Windows.Services
 		Task<int> DeleteRelativeRangeAsync(int index, int length, DataRequest<Relative> request);
 
 		Task<int> UpdateRelativeEmbeddingAsync(RelativeModel model);
-		Task PopulateMissingEmbeddingsAsync();
 	}
 }
