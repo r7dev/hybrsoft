@@ -32,7 +32,7 @@ namespace Hybrsoft.UI.Windows.Services
 					terms.Add(item.SearchTerms);
 
 					var embedding = item.AppLogEmbeddings?.FirstOrDefault()
-						?? new AppLogEmbedding { AppLogEmbeddingID = item.AppLogID };
+						?? new AppLogEmbedding { AppLogID = item.AppLogID };
 
 					if (embedding.Embedding.IsNull || embedding.Embedding.Length == 0)
 					{

@@ -31,7 +31,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 					terms.Add(item.SearchTerms);
 
 					var embedding = item.RelativeEmbeddings?.FirstOrDefault()
-						?? new RelativeEmbedding { RelativeEmbeddingID = item.RelativeID };
+						?? new RelativeEmbedding { RelativeID = item.RelativeID, SearchTerms = item.SearchTerms };
 
 					if (embedding.Embedding.IsNull || embedding.Embedding.Length == 0)
 					{

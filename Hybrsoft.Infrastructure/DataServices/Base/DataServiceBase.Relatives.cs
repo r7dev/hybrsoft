@@ -66,14 +66,14 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 					.Join(_learnDataSource.RelativeEmbeddings,
 						  item => item.RelativeID,
 						  emb => emb.RelativeEmbeddingID,
-						  (item, emb) => new { item, emb })
-					.Where(f => EF.Functions.VectorDistance("cosine", f.emb.Embedding, request.QueryEmbedding) < 0.7) // threshold
-					.OrderBy(f => EF.Functions.VectorDistance("cosine", f.emb.Embedding, request.QueryEmbedding))
+						  (item, emb) => new { item, emb, score = EF.Functions.VectorDistance("cosine", emb.Embedding, request.QueryEmbedding) })
+					.Where(f => f.score < 0.7) // threshold
+					.OrderBy(f => f.score)
 					.Select(f => f.item);
 				skipSorting = true;
 			}
 			// Query
-			if (!string.IsNullOrEmpty(request.Query))
+			else if (!string.IsNullOrEmpty(request.Query))
 			{
 				items = items.Where(r => EF.Functions.Like(r.SearchTerms, "%" + request.Query + "%"));
 			}
@@ -151,10 +151,10 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		public async Task<IList<Relative>> GetRelativesWithMissingEmbeddingsAsync()
 		{
 			string query = @$"
-				SELECT rel.RelativeID, rel.SearchTerms
+				SELECT rel.*
 				FROM [Learn].[Relative] rel
 					LEFT JOIN [Learn].[RelativeEmbedding] emb
-						ON rel.[RelativeID] = emb.[RelativeEmbeddingID]
+						ON rel.[RelativeID] = emb.[RelativeID]
 				WHERE emb.[RelativeEmbeddingID] IS NULL OR emb.[Embedding] IS NULL";
 
 			return await _learnDataSource.Relatives
@@ -186,6 +186,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 				}
 				else
 				{
+					entity.RelativeEmbeddingID = entity.RelativeID;
 					_learnDataSource.Entry(entity).State = EntityState.Added;
 				}
 			}

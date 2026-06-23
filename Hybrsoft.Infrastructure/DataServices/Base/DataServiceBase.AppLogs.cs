@@ -55,9 +55,9 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 					.Join(_universalDataSource.AppLogEmbeddings,
 						  item => item.AppLogID,
 						  emb => emb.AppLogEmbeddingID,
-						  (item, emb) => new { item, emb })
-					.Where(f => EF.Functions.VectorDistance("cosine", f.emb.Embedding, request.QueryEmbedding) < 0.7) // threshold
-					.OrderBy(f => EF.Functions.VectorDistance("cosine", f.emb.Embedding, request.QueryEmbedding))
+						  (item, emb) => new { item, emb, score = EF.Functions.VectorDistance("cosine", emb.Embedding, request.QueryEmbedding) })
+					.Where(f => f.score < 0.7) // threshold
+					.OrderBy(f => f.score)
 					.Select(f => f.item);
 				skipSorting = true;
 			}
@@ -130,10 +130,10 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		public async Task<IList<AppLog>> GetAppLogsWithMissingEmbeddingsAsync()
 		{
 			string query = @$"
-				SELECT log.AppLogID, log.SearchTerms
+				SELECT log.*
 				FROM [Universal].[AppLog] log
 					LEFT JOIN [Universal].[AppLogEmbedding] emb
-						ON log.[AppLogID] = emb.[AppLogEmbeddingID]
+						ON log.[AppLogID] = emb.[AppLogID]
 				WHERE log.[AppType] = {(int)AppType.EnterpriseManager}
 				AND (emb.[AppLogEmbeddingID] IS NULL OR emb.[Embedding] IS NULL)";
 
@@ -160,6 +160,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 				}
 				else
 				{
+					entity.AppLogEmbeddingID = entity.AppLogID;
 					_universalDataSource.Entry(entity).State = EntityState.Added;
 				}
 			}

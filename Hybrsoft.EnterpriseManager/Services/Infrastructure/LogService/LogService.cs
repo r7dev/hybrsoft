@@ -112,15 +112,26 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 			long id = model.AppLogID;
 			if (id > 0 && AppSettings.Current.UseSemanticSearch && _embeddingService.IsConfigured)
 			{
-				await _contextService.RunAsync(async () => {
+				async Task CreateEmbeddingInternalAsync()
+				{
 					var embedding = new AppLogEmbedding
 					{
 						AppLogEmbeddingID = id,
+						AppLogID = id,
 						Embedding = await _embeddingService.GenerateEmbeddingAsync(model.SearchTerms)
 					};
 					using var dataService = _dataServiceFactory.CreateDataService();
 					await dataService.CreateAppLogEmbeddingAsync(embedding);
-				});
+				}
+
+				if (_contextService.ContextID > 0)
+				{
+					await _contextService.RunAsync(async () => await CreateEmbeddingInternalAsync());
+				}
+				else
+				{
+					await CreateEmbeddingInternalAsync();
+				}
 			}
 			return 0;
 		}

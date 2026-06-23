@@ -6,6 +6,7 @@ namespace Hybrsoft.Infrastructure.Models
 	public class RelativeEmbedding
 	{
 		public long RelativeEmbeddingID { get; set; }
+		public long RelativeID { get; set; }
 		public string SearchTerms { get; set; }
 		[Column(TypeName = "vector(1536)")]
 		public SqlVector<float> Embedding { get; set; }
