@@ -60,8 +60,21 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		{
 			IQueryable<LostAndFound> items = _learnDataSource.LostAndFound;
 
+			// Query semantic
+			if (request.UseSemanticSearch && !request.QueryEmbedding.IsNull)
+			{
+				items = items
+					.Join(_learnDataSource.LostAndFoundEmbeddings,
+						  item => item.LostAndFoundID,
+						  emb => emb.LostAndFoundEmbeddingID,
+						  (item, emb) => new { item, emb, score = EF.Functions.VectorDistance("cosine", emb.Embedding, request.QueryEmbedding) })
+					.Where(f => f.score < 0.7) // threshold
+					.OrderBy(f => f.score)
+					.Select(f => f.item);
+				skipSorting = true;
+			}
 			// Query
-			if (!string.IsNullOrEmpty(request.Query))
+			else if (!string.IsNullOrEmpty(request.Query))
 			{
 				items = items.Where(r => EF.Functions.Like(r.SearchTerms, "%" + request.Query + "%"));
 			}
@@ -126,6 +139,59 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			return await _learnDataSource.LostAndFound
 				.Where(r => entities.Contains(r))
 				.ExecuteDeleteAsync();
+		}
+
+
+		public async Task<LostAndFoundEmbedding> GetLostAndFoundEmbeddingAsync(long id)
+		{
+			return await _learnDataSource.LostAndFoundEmbeddings
+				.Where(e => e.LostAndFoundEmbeddingID == id)
+				.FirstOrDefaultAsync();
+		}
+
+		public async Task<IList<LostAndFound>> GetLostAndFoundWithMissingEmbeddingsAsync()
+		{
+			string query = @$"
+				SELECT item.*
+				FROM [Learn].[LostAndFound] item
+					LEFT JOIN [Learn].[LostAndFoundEmbedding] emb
+						ON item.[LostAndFoundID] = emb.[LostAndFoundID]
+				WHERE emb.[LostAndFoundEmbeddingID] IS NULL OR emb.[Embedding] IS NULL";
+
+			return await _learnDataSource.LostAndFound
+				.FromSqlRaw(query)
+				.Include(item => item.LostAndFoundEmbeddings)
+				.ToListAsync();
+		}
+
+		public async Task<int> UpdateLostAndFoundEmbeddingAsync(LostAndFoundEmbedding entity)
+		{
+			if (entity.LostAndFoundEmbeddingID > 0)
+			{
+				_learnDataSource.Entry(entity).State = EntityState.Modified;
+			}
+			else
+			{
+				_learnDataSource.Entry(entity).State = EntityState.Added;
+			}
+			return await _learnDataSource.SaveChangesAsync();
+		}
+
+		public async Task<int> UpdateLostAndFoundEmbeddingsAsync(IEnumerable<LostAndFoundEmbedding> entities)
+		{
+			foreach (var entity in entities)
+			{
+				if (entity.LostAndFoundEmbeddingID > 0)
+				{
+					_learnDataSource.Entry(entity).State = EntityState.Modified;
+				}
+				else
+				{
+					entity.LostAndFoundEmbeddingID = entity.LostAndFoundID;
+					_learnDataSource.Entry(entity).State = EntityState.Added;
+				}
+			}
+			return await _learnDataSource.SaveChangesAsync();
 		}
 	}
 }

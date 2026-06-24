@@ -155,7 +155,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 				var item = new Relative() { RelativeID = id };
 				UpdateRelativeFromModel(item, model);
 				var itemEmbedding = await dataService.GetRelativeEmbeddingAsync(id)
-					?? new RelativeEmbedding { RelativeEmbeddingID = id };
+					?? new RelativeEmbedding { RelativeID = id };
 				string newSearchTerms = item.BuildSearchTerms();
 				if (itemEmbedding.SearchTerms != newSearchTerms)
 				{

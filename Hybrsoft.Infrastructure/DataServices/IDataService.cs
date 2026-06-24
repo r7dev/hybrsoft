@@ -158,6 +158,11 @@ namespace Hybrsoft.Infrastructure.DataServices
 		Task<int> GetLostAndFoundCountAsync(DataRequest<LostAndFound> request);
 		Task<int> UpdateLostAndFoundAsync(LostAndFound entity);
 		Task<int> DeleteLostAndFoundAsync(params LostAndFound[] entities);
+
+		Task<LostAndFoundEmbedding> GetLostAndFoundEmbeddingAsync(long id);
+		Task<IList<LostAndFound>> GetLostAndFoundWithMissingEmbeddingsAsync();
+		Task<int> UpdateLostAndFoundEmbeddingAsync(LostAndFoundEmbedding entity);
+		Task<int> UpdateLostAndFoundEmbeddingsAsync(IEnumerable<LostAndFoundEmbedding> entities);
 		#endregion
 	}
 }

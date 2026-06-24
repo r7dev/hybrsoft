@@ -134,6 +134,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string endMessage = ResourceService.GetString<LostAndFoundDetailsViewModel>(ResourceFiles.InfoMessages, "LostAndFoundSaved");
 				EndStatusMessage(endTitle, endMessage, LogType.Success);
 				LogSuccess("LostAndFound", "Save", "LostAndFound saved successfully", $"LostAndFound {model.LostAndFoundID} '{model.DisplayName}' was saved successfully.");
+				await SaveEmbeddingAsync(model);
 				return true;
 			}
 			catch (Exception ex)
@@ -144,6 +145,21 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				LogException("LostAndFound", "Save", ex);
 				return false;
 			}
+		}
+
+		private async Task SaveEmbeddingAsync(LostAndFoundModel model)
+		{
+			await ContextService.RunAsync(async () =>
+			{
+				try
+				{
+					await _lostAndFoundService.UpdateLostAndFoundEmbeddingAsync(model);
+				}
+				catch (Exception ex)
+				{
+					LogException("LostAndFound", "Save Embedding", ex);
+				}
+			});
 		}
 
 		protected override async Task<bool> DeleteItemAsync(LostAndFoundModel model)

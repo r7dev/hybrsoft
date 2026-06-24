@@ -7,13 +7,16 @@ namespace Hybrsoft.UI.Windows.ViewModels
 	public partial class LostAndFoundsViewModel : ViewModelBase
 	{
 		public LostAndFoundsViewModel(ILostAndFoundService lostAndFoundService,
+			ISettingsService settingsService,
 			ICommonServices commonServices) : base(commonServices)
 		{
 			_lostAndFoundService = lostAndFoundService;
-			LostAndFoundList = new LostAndFoundListViewModel(_lostAndFoundService, commonServices);
+			_settingsService = settingsService;
+			LostAndFoundList = new LostAndFoundListViewModel(_lostAndFoundService, _settingsService, commonServices);
 		}
 
 		private readonly ILostAndFoundService _lostAndFoundService;
+		private readonly ISettingsService _settingsService;
 
 		public LostAndFoundListViewModel LostAndFoundList { get; set; }
 

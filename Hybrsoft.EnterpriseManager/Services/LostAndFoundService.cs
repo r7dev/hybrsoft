@@ -1,4 +1,5 @@
-﻿using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
+﻿using Hybrsoft.EnterpriseManager.Configuration;
+using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
 using Hybrsoft.EnterpriseManager.Services.VirtualCollections;
 using Hybrsoft.EnterpriseManager.Tools;
 using Hybrsoft.Enums;
@@ -12,9 +13,12 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services
 {
-	public class LostAndFoundService(IDataServiceFactory dataServiceFactory, ILogService logService) : ILostAndFoundService
+	public class LostAndFoundService(IDataServiceFactory dataServiceFactory,
+		IEmbeddingService embeddingService,
+		ILogService logService) : ILostAndFoundService
 	{
 		private readonly IDataServiceFactory _dataServiceFactory = dataServiceFactory;
+		private readonly IEmbeddingService _embeddingService = embeddingService;
 		private readonly ILogService _logService = logService;
 
 		public async Task<LostAndFoundModel> GetLostAndFoundAsync(long id)
@@ -125,6 +129,27 @@ namespace Hybrsoft.EnterpriseManager.Services
 			target.CreatedOn = source.CreatedOn;
 			target.LastModifiedOn = source.LastModifiedOn;
 			target.SearchTerms = LookupTablesProxy.Instance?.GetLostAndFoundStatus((short)source.Status);
+		}
+
+		public async Task<int> UpdateLostAndFoundEmbeddingAsync(LostAndFoundModel model)
+		{
+			long id = model.LostAndFoundID;
+			if (id > 0 && AppSettings.Current.UseSemanticSearch && _embeddingService.IsConfigured)
+			{
+				using var dataService = _dataServiceFactory.CreateDataService();
+				var item = new LostAndFound() { LostAndFoundID = id };
+				UpdateLostAndFoundFromModel(item, model);
+				var itemEmbedding = await dataService.GetLostAndFoundEmbeddingAsync(id)
+					?? new LostAndFoundEmbedding { LostAndFoundID = id };
+				string newSearchTerms = item.BuildSearchTerms();
+				if (itemEmbedding.SearchTerms != newSearchTerms)
+				{
+					itemEmbedding.SearchTerms = newSearchTerms;
+					itemEmbedding.Embedding = await _embeddingService.GenerateEmbeddingAsync(newSearchTerms);
+					await dataService.UpdateLostAndFoundEmbeddingAsync(itemEmbedding);
+				}
+			}
+			return 0;
 		}
 	}
 }

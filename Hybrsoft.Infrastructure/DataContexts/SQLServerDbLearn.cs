@@ -19,6 +19,7 @@ namespace Hybrsoft.Infrastructure.DataContexts
 			modelBuilder.Entity<RelativeEmbedding>().ToTable(nameof(RelativeEmbedding), schema);
 			modelBuilder.Entity<RelativeType>().ToTable(nameof(RelativeType), schema);
 			modelBuilder.Entity<Dismissal>().ToTable(nameof(Dismissal), schema);
+			modelBuilder.Entity<LostAndFoundEmbedding>().ToTable(nameof(LostAndFoundEmbedding), schema);
 			base.OnModelCreating(modelBuilder);
 		}
 
@@ -33,5 +34,6 @@ namespace Hybrsoft.Infrastructure.DataContexts
 		public DbSet<RelativeType> RelativeTypes { get; set; }
 		public DbSet<Dismissal> Dismissals { get; set; }
 		public DbSet<LostAndFound> LostAndFound { get; set; }
+		public DbSet<LostAndFoundEmbedding> LostAndFoundEmbeddings { get; set; }
 	}
 }

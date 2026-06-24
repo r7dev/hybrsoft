@@ -5,6 +5,7 @@ using Hybrsoft.UI.Windows.Infrastructure.Common;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Services;
+using Microsoft.Data.SqlTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,11 @@ using System.Windows.Input;
 namespace Hybrsoft.UI.Windows.ViewModels
 {
 	public partial class LostAndFoundListViewModel(ILostAndFoundService lostAndFoundService,
+		ISettingsService settingsService,
 		ICommonServices commonServices) : GenericListViewModel<LostAndFoundModel>(commonServices)
 	{
 		private readonly ILostAndFoundService _lostAndFoundService = lostAndFoundService;
+		private readonly ISettingsService _settingsService = settingsService;
 
 		private string StartTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
 		private string StartMessage => ResourceService.GetString<LostAndFoundListViewModel>(ResourceFiles.InfoMessages, "LoadingLostAndFound");
@@ -238,8 +241,13 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		private DataRequest<LostAndFound> BuildDataRequest()
 		{
+			bool useSemanticSearch = _settingsService.UseSemanticSearch;
 			return new DataRequest<LostAndFound>()
 			{
+				UseSemanticSearch = useSemanticSearch,
+				QueryEmbedding = useSemanticSearch && !string.IsNullOrWhiteSpace(Query)
+					? EmbeddingService.GenerateEmbeddingAsync(Query).Result
+					: SqlVector<float>.CreateNull(EmbeddingService.EmbeddingDimension),
 				Query = Query,
 				OrderBys = ViewModelArgs.OrderBys
 			};

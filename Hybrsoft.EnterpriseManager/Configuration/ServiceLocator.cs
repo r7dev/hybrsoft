@@ -59,6 +59,9 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 					endpoint: new Uri(AppConfig.Azure_OpenAI_API_Endpoint)
 				)
 			);
+			serviceCollection.AddSingleton<IEmbeddingTables, LogEmbeddingService>();
+			serviceCollection.AddSingleton<IEmbeddingTables, LostAndFoundEmbeddingService>();
+			serviceCollection.AddSingleton<IEmbeddingTables, RelativeEmbeddingService>();
 
 			serviceCollection.AddScoped<IContextService, ContextService>();
 			serviceCollection.AddScoped<INavigationService, NavigationService>();
