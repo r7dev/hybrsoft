@@ -1,5 +1,4 @@
-﻿using Hybrsoft.EnterpriseManager.Configuration;
-using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
+﻿using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
 using Hybrsoft.EnterpriseManager.Services.VirtualCollections;
 using Hybrsoft.EnterpriseManager.Tools;
 using Hybrsoft.Infrastructure.Common;
@@ -8,17 +7,14 @@ using Hybrsoft.Infrastructure.Models;
 using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Services;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services
 {
 	public class RelativeService(IDataServiceFactory dataServiceFactory,
-		IEmbeddingService embeddingService,
 		ILogService logService) : IRelativeService
 	{
 		private readonly IDataServiceFactory _dataServiceFactory = dataServiceFactory;
-		private readonly IEmbeddingService _embeddingService = embeddingService;
 		private readonly ILogService _logService = logService;
 		private static ILookupTables LookupTables => LookupTablesProxy.Instance;
 
@@ -144,27 +140,6 @@ namespace Hybrsoft.EnterpriseManager.Services
 			if (includeAllFields) { }
 			await Task.CompletedTask;
 			return model;
-		}
-
-		public async Task<int> UpdateRelativeEmbeddingAsync(RelativeModel model)
-		{
-			long id = model.RelativeID;
-			if (id > 0 && AppSettings.Current.UseSemanticSearch && _embeddingService.IsConfigured)
-			{
-				using var dataService = _dataServiceFactory.CreateDataService();
-				var item = new Relative() { RelativeID = id };
-				UpdateRelativeFromModel(item, model);
-				var itemEmbedding = await dataService.GetRelativeEmbeddingAsync(id)
-					?? new RelativeEmbedding { RelativeID = id };
-				string newSearchTerms = item.BuildSearchTerms();
-				if (itemEmbedding.SearchTerms != newSearchTerms)
-				{
-					itemEmbedding.SearchTerms = newSearchTerms;
-					itemEmbedding.Embedding = await _embeddingService.GenerateEmbeddingAsync(newSearchTerms);
-					await dataService.UpdateRelativeEmbeddingAsync(itemEmbedding);
-				}
-			}
-			return 0;
 		}
 	}
 }

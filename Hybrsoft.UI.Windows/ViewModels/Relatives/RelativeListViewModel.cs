@@ -5,7 +5,6 @@ using Hybrsoft.UI.Windows.Infrastructure.Common;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Services;
-using Microsoft.Data.SqlTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +14,9 @@ using System.Windows.Input;
 namespace Hybrsoft.UI.Windows.ViewModels
 {
 	public partial class RelativeListViewModel(IRelativeService relativeService,
-		ISettingsService settingsService,
 		ICommonServices commonServices) : GenericListViewModel<RelativeModel>(commonServices)
 	{
 		private readonly IRelativeService _relativeService = relativeService;
-		private readonly ISettingsService _settingsService = settingsService;
 
 		private string StartTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
 		private string StartMessage => ResourceService.GetString<RelativeListViewModel>(ResourceFiles.InfoMessages, "LoadingRelatives");
@@ -238,13 +235,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		private DataRequest<Relative> BuildDataRequest()
 		{
-			bool useSemanticSearch = _settingsService.UseSemanticSearch;
 			return new DataRequest<Relative>()
 			{
-				UseSemanticSearch = useSemanticSearch,
-				QueryEmbedding = useSemanticSearch && !string.IsNullOrWhiteSpace(Query)
-					? EmbeddingService.GenerateEmbeddingAsync(Query).Result
-					: SqlVector<float>.CreateNull(EmbeddingService.EmbeddingDimension),
 				Query = Query,
 				OrderBys = ViewModelArgs.OrderBys
 			};

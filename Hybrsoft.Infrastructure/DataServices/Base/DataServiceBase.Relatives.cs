@@ -59,21 +59,8 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		{
 			IQueryable<Relative> items = _learnDataSource.Relatives;
 
-			// Query semantic
-			if (request.UseSemanticSearch && !request.QueryEmbedding.IsNull)
-			{
-				items = items
-					.Join(_learnDataSource.RelativeEmbeddings,
-						  item => item.RelativeID,
-						  emb => emb.RelativeEmbeddingID,
-						  (item, emb) => new { item, emb, score = EF.Functions.VectorDistance("cosine", emb.Embedding, request.QueryEmbedding) })
-					.Where(f => f.score < 0.7) // threshold
-					.OrderBy(f => f.score)
-					.Select(f => f.item);
-				skipSorting = true;
-			}
 			// Query
-			else if (!string.IsNullOrEmpty(request.Query))
+			if (!string.IsNullOrEmpty(request.Query))
 			{
 				items = items.Where(r => EF.Functions.Like(r.SearchTerms, "%" + request.Query + "%"));
 			}
@@ -138,59 +125,6 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			return await _learnDataSource.Relatives
 				.Where(r => entities.Contains(r))
 				.ExecuteDeleteAsync();
-		}
-
-
-		public async Task<RelativeEmbedding> GetRelativeEmbeddingAsync(long id)
-		{
-			return await _learnDataSource.RelativeEmbeddings
-				.Where(e => e.RelativeEmbeddingID == id)
-				.FirstOrDefaultAsync();
-		}
-
-		public async Task<IList<Relative>> GetRelativesWithMissingEmbeddingsAsync()
-		{
-			string query = @$"
-				SELECT rel.*
-				FROM [Learn].[Relative] rel
-					LEFT JOIN [Learn].[RelativeEmbedding] emb
-						ON rel.[RelativeID] = emb.[RelativeID]
-				WHERE emb.[RelativeEmbeddingID] IS NULL OR emb.[Embedding] IS NULL";
-
-			return await _learnDataSource.Relatives
-				.FromSqlRaw(query)
-				.Include(rel => rel.RelativeEmbeddings)
-				.ToListAsync();
-		}
-
-		public async Task<int> UpdateRelativeEmbeddingAsync(RelativeEmbedding entity)
-		{
-			if (entity.RelativeEmbeddingID > 0)
-			{
-				_learnDataSource.Entry(entity).State = EntityState.Modified;
-			}
-			else
-			{
-				_learnDataSource.Entry(entity).State = EntityState.Added;
-			}
-			return await _learnDataSource.SaveChangesAsync();
-		}
-
-		public async Task<int> UpdateRelativeEmbeddingsAsync(IEnumerable<RelativeEmbedding> entities)
-		{
-			foreach (var entity in entities)
-			{
-				if (entity.RelativeEmbeddingID > 0)
-				{
-					_learnDataSource.Entry(entity).State = EntityState.Modified;
-				}
-				else
-				{
-					entity.RelativeEmbeddingID = entity.RelativeID;
-					_learnDataSource.Entry(entity).State = EntityState.Added;
-				}
-			}
-			return await _learnDataSource.SaveChangesAsync();
 		}
 	}
 }

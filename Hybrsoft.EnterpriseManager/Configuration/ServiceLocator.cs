@@ -61,7 +61,6 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			);
 			serviceCollection.AddSingleton<IEmbeddingTables, LogEmbeddingService>();
 			serviceCollection.AddSingleton<IEmbeddingTables, LostAndFoundEmbeddingService>();
-			serviceCollection.AddSingleton<IEmbeddingTables, RelativeEmbeddingService>();
 
 			serviceCollection.AddScoped<IContextService, ContextService>();
 			serviceCollection.AddScoped<INavigationService, NavigationService>();
