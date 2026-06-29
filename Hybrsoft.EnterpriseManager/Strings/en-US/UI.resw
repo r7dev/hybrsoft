@@ -1089,4 +1089,10 @@
   <data name="SettingsView_SemanticSearchCard.Header" xml:space="preserve">
     <value>Semantic AI Search</value>
   </data>
+  <data name="SettingsView_AIFeaturesExpander.Description" xml:space="preserve">
+    <value>Set up AI features for a better experience</value>
+  </data>
+  <data name="SettingsView_AIFeaturesExpander.Header" xml:space="preserve">
+    <value>AI Features</value>
+  </data>
 </root>

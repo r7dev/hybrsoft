@@ -1089,4 +1089,10 @@
   <data name="SettingsView_SemanticSearchCard.Header" xml:space="preserve">
     <value>Pesquisa Semântica de IA</value>
   </data>
+  <data name="SettingsView_AIFeaturesExpander.Description" xml:space="preserve">
+    <value>Configure os recursos de IA para uma experiência melhor</value>
+  </data>
+  <data name="SettingsView_AIFeaturesExpander.Header" xml:space="preserve">
+    <value>Recursos de IA</value>
+  </data>
 </root>

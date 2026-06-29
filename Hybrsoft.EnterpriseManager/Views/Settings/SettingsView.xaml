@@ -62,7 +62,7 @@
 							  SelectedValuePath="Tag"/>
 				</toolkit:SettingsCard>
 				<!--  Semantic Search with IA  -->
-				<toolkit:SettingsExpander Header="AI Features" Description="Configure AI features">
+				<toolkit:SettingsExpander x:Uid="/UI/SettingsView_AIFeaturesExpander">
 					<toolkit:SettingsExpander.HeaderIcon>
 						<FontIcon Glyph="&#xEABC;" />
 					</toolkit:SettingsExpander.HeaderIcon>
