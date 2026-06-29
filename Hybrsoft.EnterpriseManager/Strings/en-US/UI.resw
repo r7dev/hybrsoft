@@ -1084,7 +1084,7 @@
     <value>Student Belongs ID</value>
   </data>
   <data name="SettingsView_SemanticSearchCard.Description" xml:space="preserve">
-    <value>Use semantic search with AI</value>
+    <value>Use AI semantic search to find information based on content similarity.</value>
   </data>
   <data name="SettingsView_SemanticSearchCard.Header" xml:space="preserve">
     <value>Semantic AI Search</value>
