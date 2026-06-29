@@ -103,7 +103,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			if (!ViewModelArgs.IsEmpty)
 			{
-				DataRequest<LostAndFound> request = BuildDataRequest();
+				DataRequest<LostAndFound> request = await BuildDataRequestAsync();
 				return await _lostAndFoundService.GetLostAndFoundAsync(request);
 			}
 			return [];
@@ -220,7 +220,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		private async Task<bool> DeleteRangesAsync(IEnumerable<IndexRange> ranges)
 		{
-			DataRequest<LostAndFound> request = BuildDataRequest();
+			DataRequest<LostAndFound> request = await BuildDataRequestAsync();
 
 			List<LostAndFoundModel> models = [];
 			foreach (var range in ranges)
@@ -239,14 +239,14 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			return true;
 		}
 
-		private DataRequest<LostAndFound> BuildDataRequest()
+		private async Task<DataRequest<LostAndFound>> BuildDataRequestAsync()
 		{
 			bool useSemanticSearch = _settingsService.UseSemanticSearch;
 			return new DataRequest<LostAndFound>()
 			{
 				UseSemanticSearch = useSemanticSearch,
 				QueryEmbedding = useSemanticSearch && !string.IsNullOrWhiteSpace(Query)
-					? EmbeddingService.GenerateEmbeddingAsync(Query).Result
+					? await EmbeddingService.GenerateEmbeddingAsync(Query)
 					: SqlVector<float>.CreateNull(EmbeddingService.EmbeddingDimension),
 				Query = Query,
 				OrderBys = ViewModelArgs.OrderBys
