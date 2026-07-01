@@ -48,23 +48,30 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 		{
 			IQueryable<AppLog> items = _universalDataSource.AppLogs;
 
+			// Query
+			items = items.Where(r => EF.Functions.Like(r.SearchTerms, "%" + request.Query + "%"));
 			// Query semantic
 			if (request.UseSemanticSearch && !request.QueryEmbedding.IsNull)
 			{
-				items = items
-					.Join(_universalDataSource.AppLogEmbeddings,
-						  item => item.AppLogID,
-						  emb => emb.AppLogEmbeddingID,
-						  (item, emb) => new { item, emb, score = EF.Functions.VectorDistance("cosine", emb.Embedding, request.QueryEmbedding) })
-					.Where(f => f.score < 0.7) // threshold
-					.OrderBy(f => f.score)
-					.Select(f => f.item);
+				var likeQuery = items.Select(f => new { Id = f.AppLogID, Score = 1.0 });
+
+				var vectorQuery = from emb in _universalDataSource.AppLogEmbeddings
+								  let score = EF.Functions.VectorDistance("cosine", emb.Embedding, request.QueryEmbedding)
+								  where score < 0.7
+								  select new { Id = emb.AppLogID, Score = score };
+
+				// Combine and keep best score per id to avoid duplicates
+				var combinedBest = likeQuery.Union(vectorQuery)
+					.GroupBy(x => x.Id)
+					.Select(g => new { Id = g.Key, Score = g.Min(x => x.Score) });
+
+				// Join back to entity, order by score (subquery only selected id and score)
+				items = combinedBest
+					.Join(_universalDataSource.AppLogs, c => c.Id, e => e.AppLogID, (c, e) => new { e, c.Score })
+					.OrderBy(x => x.Score)
+					.Select(x => x.e);
+
 				skipSorting = true;
-			}
-			// Query
-			else if (!string.IsNullOrEmpty(request.Query))
-			{
-				items = items.Where(r => EF.Functions.Like(r.SearchTerms, "%" + request.Query + "%"));
 			}
 
 			// Where
