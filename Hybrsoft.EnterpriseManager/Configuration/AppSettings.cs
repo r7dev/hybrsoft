@@ -123,6 +123,12 @@ namespace Hybrsoft.EnterpriseManager.Configuration
 			set => SetSettingsValueAsync(nameof(JwtTokenExpiration), WindowsSecurityService.EncryptData(value));
 		}
 
+		public bool UseSemanticSearch
+		{
+			get => GetSettingsValue(nameof(UseSemanticSearch), false);
+			set => SetSettingsValue(nameof(UseSemanticSearch), value);
+		}
+
 		private TResult GetSettingsValue<TResult>(string name, TResult defaultValue)
 		{
 			try

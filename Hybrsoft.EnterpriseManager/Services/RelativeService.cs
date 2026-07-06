@@ -1,17 +1,18 @@
-﻿using Hybrsoft.UI.Windows.Models;
-using Hybrsoft.UI.Windows.Services;
-using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
+﻿using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
 using Hybrsoft.EnterpriseManager.Services.VirtualCollections;
 using Hybrsoft.EnterpriseManager.Tools;
 using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.DataServices;
 using Hybrsoft.Infrastructure.Models;
+using Hybrsoft.UI.Windows.Models;
+using Hybrsoft.UI.Windows.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services
 {
-	public class RelativeService(IDataServiceFactory dataServiceFactory, ILogService logService) : IRelativeService
+	public class RelativeService(IDataServiceFactory dataServiceFactory,
+		ILogService logService) : IRelativeService
 	{
 		private readonly IDataServiceFactory _dataServiceFactory = dataServiceFactory;
 		private readonly ILogService _logService = logService;

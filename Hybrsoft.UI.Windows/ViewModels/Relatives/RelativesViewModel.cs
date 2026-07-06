@@ -6,7 +6,8 @@ namespace Hybrsoft.UI.Windows.ViewModels
 {
 	public partial class RelativesViewModel : ViewModelBase
 	{
-		public RelativesViewModel(IRelativeService relativeService, ICommonServices commonServices) : base(commonServices)
+		public RelativesViewModel(IRelativeService relativeService,
+			ICommonServices commonServices) : base(commonServices)
 		{
 			_relativeService = relativeService;
 			RelativeList = new RelativeListViewModel(_relativeService, commonServices);

@@ -18,6 +18,7 @@ namespace Hybrsoft.UI.Windows.Infrastructure.ViewModels
 		public ILogService LogService { get; } = commonServices.LogService;
 		public IAuthorizationService AuthorizationService { get; } = commonServices.AuthorizationService;
 		public IResourceService ResourceService { get; } = commonServices.ResourceService;
+		public IEmbeddingService EmbeddingService { get; } = commonServices.EmbeddingService;
 
 		public bool IsMainView => ContextService.IsMainView;
 

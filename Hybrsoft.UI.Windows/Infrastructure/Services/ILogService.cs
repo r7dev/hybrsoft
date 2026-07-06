@@ -17,6 +17,7 @@ namespace Hybrsoft.UI.Windows.Services
 		Task<IList<AppLogModel>> GetLogsAsync(int skip, int take, DataRequest<AppLog> request);
 		Task<int> GetLogsCountAsync(DataRequest<AppLog> request);
 		Task<int> CreateLogAsync(AppLog appLog);
+		Task<int> CreateLogEmbeddingAsync(AppLog appLog);
 		Task<int> DeleteLogAsync(AppLogModel model);
 		Task<int> DeleteLogRangeAsync(int index, int length, DataRequest<AppLog> request);
 		Task MarkAllAsReadAsync();

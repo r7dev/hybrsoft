@@ -1,10 +1,10 @@
-﻿using Hybrsoft.UI.Windows.Models;
-using Hybrsoft.UI.Windows.Infrastructure.Common;
-using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
-using Hybrsoft.UI.Windows.Services;
-using Hybrsoft.Enums;
+﻿using Hybrsoft.Enums;
 using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.Models;
+using Hybrsoft.UI.Windows.Infrastructure.Common;
+using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
+using Hybrsoft.UI.Windows.Models;
+using Hybrsoft.UI.Windows.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -24,6 +24,10 @@ namespace Hybrsoft.Infrastructure.DataServices
 		Task<int> DeleteAppLogsAsync(params AppLog[] entities);
 		Task MarkAllAsReadAsync();
 
+		Task<IList<AppLog>> GetAppLogsWithMissingEmbeddingsAsync();
+		Task<int> CreateAppLogEmbeddingAsync(AppLogEmbedding entity);
+		Task<int> UpdateAppLogEmbeddingsAsync(IEnumerable<AppLogEmbedding> entities);
+
 		Task<Company> GetCompanyAsync(long id);
 		Task<IList<Company>> GetCompaniesAsync(int skip, int take, DataRequest<Company> request);
 		Task<IList<Company>> GetCompanyKeysAsync(int skip, int take, DataRequest<Company> request);
@@ -149,6 +153,11 @@ namespace Hybrsoft.Infrastructure.DataServices
 		Task<int> GetLostAndFoundCountAsync(DataRequest<LostAndFound> request);
 		Task<int> UpdateLostAndFoundAsync(LostAndFound entity);
 		Task<int> DeleteLostAndFoundAsync(params LostAndFound[] entities);
+
+		Task<LostAndFoundEmbedding> GetLostAndFoundEmbeddingAsync(long id);
+		Task<IList<LostAndFound>> GetLostAndFoundWithMissingEmbeddingsAsync();
+		Task<int> UpdateLostAndFoundEmbeddingAsync(LostAndFoundEmbedding entity);
+		Task<int> UpdateLostAndFoundEmbeddingsAsync(IEnumerable<LostAndFoundEmbedding> entities);
 		#endregion
 	}
 }

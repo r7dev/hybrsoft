@@ -17,5 +17,7 @@ namespace Hybrsoft.UI.Windows.Services
 
 		Task<int> DeleteLostAndFoundAsync(LostAndFoundModel model);
 		Task<int> DeleteLostAndFoundRangeAsync(int index, int length, DataRequest<LostAndFound> request);
+
+		Task<int> UpdateLostAndFoundEmbeddingAsync(LostAndFoundModel model);
 	}
 }

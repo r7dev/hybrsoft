@@ -1,20 +1,27 @@
-﻿using Hybrsoft.UI.Windows.Models;
-using Hybrsoft.UI.Windows.Services;
-using Hybrsoft.EnterpriseManager.Configuration;
+﻿using Hybrsoft.EnterpriseManager.Configuration;
 using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
 using Hybrsoft.Enums;
 using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.Models;
+using Hybrsoft.UI.Windows.Models;
+using Hybrsoft.UI.Windows.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 {
-	public class LogService(IDataServiceFactory dataServiceFactory, IMessageService messageService) : ILogService
+	public class LogService(IDataServiceFactory dataServiceFactory,
+		IContextService contextService,
+		IEmbeddingService embeddingService,
+		IMessageService messageService) : ILogService
 	{
 		private readonly IDataServiceFactory _dataServiceFactory = dataServiceFactory;
+		private readonly IContextService _contextService = contextService;
+		private readonly IEmbeddingService _embeddingService = embeddingService;
 		private readonly IMessageService _messageService = messageService;
+		readonly int _maxLength = 4000;
 
 		public async Task WriteAsync(LogType type, string source, string action, Exception ex)
 		{
@@ -29,14 +36,10 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 		public async Task WriteAsync(LogType type, string source, string action, string message, string description)
 		{
 			string user = AppSettings.Current.UserName ?? "App";
-			int maxLength = 4000;
-			string refinedDescription = description?.Length > maxLength
-				? description[..maxLength]
+			string refinedDescription = description?.Length > _maxLength
+				? description[.._maxLength]
 				: description;
-			string searchTerms = $"{user} {type.GetDescription()} {source} {action} {message} {refinedDescription}";
-			string refinedSearchTerms = searchTerms?.Length > maxLength
-				? searchTerms[..maxLength]
-				: searchTerms;
+			string searchTerms = BuildSearchTerms(user, type, source, action, message, refinedDescription);
 			var appLog = new AppLog
 			{
 				User = user,
@@ -46,12 +49,20 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 				Message = message,
 				Description = refinedDescription,
 				AppType = AppType.EnterpriseManager,
-				SearchTerms = refinedSearchTerms,
+				SearchTerms = searchTerms,
 				IsRead = type != LogType.Error
 			};
 
 			await CreateLogAsync(appLog);
 			_messageService.Send(this, "LogAdded", appLog);
+
+			await CreateLogEmbeddingAsync(appLog);
+		}
+
+		private string BuildSearchTerms(string user, LogType type, string source, string action, string message, string description)
+		{
+			string searchTerms = $"{user} {type.GetDescription()} {source} {action} {message} {description}";
+			return searchTerms.Length > _maxLength ? searchTerms[.._maxLength] : searchTerms;
 		}
 
 		public async Task<AppLogModel> GetLogAsync(long id)
@@ -94,6 +105,35 @@ namespace Hybrsoft.EnterpriseManager.Services.Infrastructure.LogService
 		{
 			using var dataService = _dataServiceFactory.CreateDataService();
 			return await dataService.CreateAppLogAsync(model);
+		}
+
+		public async Task<int> CreateLogEmbeddingAsync(AppLog model)
+		{
+			long id = model.AppLogID;
+			if (id > 0 && AppSettings.Current.UseSemanticSearch && _embeddingService.IsConfigured)
+			{
+				async Task CreateEmbeddingInternalAsync()
+				{
+					var embedding = new AppLogEmbedding
+					{
+						AppLogEmbeddingID = id,
+						AppLogID = id,
+						Embedding = await _embeddingService.GenerateEmbeddingAsync(model.SearchTerms)
+					};
+					using var dataService = _dataServiceFactory.CreateDataService();
+					await dataService.CreateAppLogEmbeddingAsync(embedding);
+				}
+
+				if (_contextService.ContextID > 0)
+				{
+					await _contextService.RunAsync(async () => await CreateEmbeddingInternalAsync());
+				}
+				else
+				{
+					await CreateEmbeddingInternalAsync();
+				}
+			}
+			return 0;
 		}
 
 		public async Task<int> DeleteLogAsync(AppLogModel model)

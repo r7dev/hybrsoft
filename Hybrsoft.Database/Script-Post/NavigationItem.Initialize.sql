@@ -61,7 +61,7 @@ SELECT @ParentID = [NavigationItemId] FROM [Universal].[NavigationItem] WHERE [L
 IF NOT EXISTS(SELECT TOP 1 1 FROM [Universal].[NavigationItem] WHERE [Label] = @LabelLevel2 AND [AppType] = @AppType)
 	BEGIN
 		INSERT INTO [Universal].[NavigationItem] ([Label], [Icon], [Uid], [ViewModel], [ParentID], [AppType])
-		VALUES(@LabelLevel2, CONVERT(INT, 0xF0B4), 'NavigationItem_LostAndFound', 'LostAndFoundsViewModel', @ParentID, @AppType)
+		VALUES(@LabelLevel2, CONVERT(INT, 0xF69E), 'NavigationItem_LostAndFound', 'LostAndFoundsViewModel', @ParentID, @AppType)
 	END
 -- 2.5.0
 SET @LabelLevel2 = 'Companies'
