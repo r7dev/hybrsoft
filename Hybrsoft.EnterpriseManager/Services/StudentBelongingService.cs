@@ -1,4 +1,5 @@
-﻿using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
+﻿using Hybrsoft.EnterpriseManager.Configuration;
+using Hybrsoft.EnterpriseManager.Services.DataServiceFactory;
 using Hybrsoft.EnterpriseManager.Tools;
 using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.DataServices;
@@ -10,9 +11,11 @@ using System.Threading.Tasks;
 
 namespace Hybrsoft.EnterpriseManager.Services
 {
-	public class StudentBelongingService(IDataServiceFactory dataServiceFactory) : IStudentBelongingService
+	public class StudentBelongingService(IDataServiceFactory dataServiceFactory,
+		IEmbeddingService embeddingService) : IStudentBelongingService
 	{
 		private readonly IDataServiceFactory _dataServiceFactory = dataServiceFactory;
+		private readonly IEmbeddingService _embeddingService = embeddingService;
 
 		public async Task<StudentBelongingModel> GetStudentBelongingAsync(long id)
 		{
@@ -115,6 +118,27 @@ namespace Hybrsoft.EnterpriseManager.Services
 			target.Thumbnail = source.Thumbnail;
 			target.CreatedOn = source.CreatedOn;
 			target.LastModifiedOn = source.LastModifiedOn;
+		}
+
+		public async Task<int> UpdateStudentBelongingEmbeddingAsync(StudentBelongingModel model)
+		{
+			long id = model.StudentBelongingID;
+			if (id > 0 && AppSettings.Current.UseSemanticSearch && _embeddingService.IsConfigured)
+			{
+				using var dataService = _dataServiceFactory.CreateDataService();
+				var item = new StudentBelonging() { StudentBelongingID = id };
+				UpdateStudentBelongingFromModel(item, model);
+				var itemEmbedding = await dataService.GetStudentBelongingEmbeddingAsync(id)
+					?? new StudentBelongingEmbedding { StudentBelongingID = id };
+				string newSearchTerms = item.BuildSearchTerms();
+				if (itemEmbedding.SearchTerms != newSearchTerms)
+				{
+					itemEmbedding.SearchTerms = newSearchTerms;
+					itemEmbedding.Embedding = await _embeddingService.GenerateEmbeddingAsync(newSearchTerms);
+					await dataService.UpdateStudentBelongingEmbeddingAsync(itemEmbedding);
+				}
+			}
+			return 0;
 		}
 	}
 }

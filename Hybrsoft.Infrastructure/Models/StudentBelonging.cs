@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Hybrsoft.Infrastructure.Models
 {
@@ -19,5 +20,7 @@ namespace Hybrsoft.Infrastructure.Models
 		public string BuildSearchTerms() => $"{StudentBelongingID} {DisplayName} {Description}".ToLower();
 
 		public virtual Student Student { get; set; }
+
+		public ICollection<StudentBelongingEmbedding> StudentBelongingEmbeddings { get; set; }
 	}
 }

@@ -11,6 +11,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		public StudentsViewModel(IStudentService studentService,
 			IStudentRelativeService studentRelativeService,
 			IStudentBelongingService studentBelongingService,
+			ISettingsService settingsService,
 			IFilePickerService filePickerService,
 			ICommonServices commonServices) : base(commonServices)
 		{
@@ -18,7 +19,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			StudentList = new StudentListViewModel(_studentService, commonServices);
 			StudentDetails = new StudentDetailsViewModel(_studentService, filePickerService, commonServices);
 			StudentRelativeList = new StudentRelativeListViewModel(studentRelativeService, commonServices);
-			StudentBelongingList = new StudentBelongingListViewModel(studentBelongingService, commonServices);
+			StudentBelongingList = new StudentBelongingListViewModel(studentBelongingService, settingsService, commonServices);
 		}
 
 		private readonly IStudentService _studentService;

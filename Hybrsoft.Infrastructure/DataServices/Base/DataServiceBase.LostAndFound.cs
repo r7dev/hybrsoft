@@ -61,7 +61,10 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			IQueryable<LostAndFound> items = _learnDataSource.LostAndFound;
 
 			// Query
-			items = items.Where(r => EF.Functions.Like(r.SearchTerms, "%" + request.Query + "%"));
+			if (!string.IsNullOrWhiteSpace(request.Query))
+			{
+				items = items.Where(r => EF.Functions.Like(r.SearchTerms, "%" + request.Query + "%"));
+			}
 			// Query Semantic
 			if (request.UseSemanticSearch && !request.QueryEmbedding.IsNull)
 			{

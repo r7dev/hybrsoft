@@ -5,6 +5,7 @@ using Hybrsoft.UI.Windows.Infrastructure.Common;
 using Hybrsoft.UI.Windows.Infrastructure.ViewModels;
 using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Services;
+using Microsoft.Data.SqlTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,11 @@ using System.Windows.Input;
 namespace Hybrsoft.UI.Windows.ViewModels
 {
 	public partial class StudentBelongingListViewModel(IStudentBelongingService studentBelongingService,
+		ISettingsService settingsService,
 		ICommonServices commonServices) : GenericListViewModel<StudentBelongingModel>(commonServices)
 	{
 		private readonly IStudentBelongingService _studentBelongingService = studentBelongingService;
+		private readonly ISettingsService _settingsService = settingsService;
 
 		private string StartTitle => ResourceService.GetString(ResourceFiles.InfoMessages, "Processing");
 		private string StartMessage => ResourceService.GetString<StudentBelongingListViewModel>(ResourceFiles.InfoMessages, "LoadingStudentsBelongings");
@@ -96,7 +99,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 		{
 			if (!ViewModelArgs.IsEmpty)
 			{
-				DataRequest<StudentBelonging> request = BuildDataRequest();
+				DataRequest<StudentBelonging> request = await BuildDataRequestAsync();
 				return await _studentBelongingService.GetStudentBelongingsAsync(request);
 			}
 			return [];
@@ -200,7 +203,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		private async Task DeleteRangesAsync(IEnumerable<IndexRange> ranges)
 		{
-			DataRequest<StudentBelonging> request = BuildDataRequest();
+			DataRequest<StudentBelonging> request = await BuildDataRequestAsync();
 
 			List<StudentBelongingModel> models = [];
 			foreach (var range in ranges)
@@ -218,10 +221,15 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 		}
 
-		private DataRequest<StudentBelonging> BuildDataRequest()
+		private async Task<DataRequest<StudentBelonging>> BuildDataRequestAsync()
 		{
+			bool useSemanticSearch = _settingsService.UseSemanticSearch;
 			var request = new DataRequest<StudentBelonging>()
 			{
+				UseSemanticSearch = useSemanticSearch,
+				QueryEmbedding = useSemanticSearch && !string.IsNullOrWhiteSpace(Query)
+					? await EmbeddingService.GenerateEmbeddingAsync(Query)
+					: SqlVector<float>.CreateNull(EmbeddingService.EmbeddingDimension),
 				Query = Query,
 				OrderBys = ViewModelArgs.OrderBys
 			};

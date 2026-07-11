@@ -8,12 +8,13 @@ namespace Hybrsoft.UI.Windows.ViewModels
 	public partial class StudentMasterDetailsViewModel(IStudentService studentService,
 		IStudentRelativeService studentRelativeService,
 		IStudentBelongingService studentBelongingService,
+		ISettingsService settingsService,
 		IFilePickerService filePickerService,
 		ICommonServices commonServices) : ViewModelBase(commonServices)
 	{
 		public StudentDetailsViewModel StudentDetails { get; set; } = new StudentDetailsViewModel(studentService, filePickerService, commonServices);
 		public StudentRelativeListViewModel StudentRelativeList { get; set; } = new StudentRelativeListViewModel(studentRelativeService, commonServices);
-		public StudentBelongingListViewModel StudentBelongingList { get; set; } = new StudentBelongingListViewModel(studentBelongingService, commonServices);
+		public StudentBelongingListViewModel StudentBelongingList { get; set; } = new StudentBelongingListViewModel(studentBelongingService, settingsService, commonServices);
 
 		public async Task LoadAsync(StudentDetailsArgs args)
 		{

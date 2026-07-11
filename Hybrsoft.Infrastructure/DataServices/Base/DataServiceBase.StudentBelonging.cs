@@ -69,9 +69,32 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			IQueryable<StudentBelonging> items = _learnDataSource.StudentBelongings;
 
 			// Query
-			if (!string.IsNullOrEmpty(request.Query))
+			if (!string.IsNullOrWhiteSpace(request.Query))
 			{
 				items = items.Where(r => EF.Functions.Like(r.SearchTerms, "%" + request.Query + "%"));
+			}
+			// Query Semantic
+			if (request.UseSemanticSearch && !request.QueryEmbedding.IsNull)
+			{
+				var likeQuery = items.Select(f => new { Id = f.StudentBelongingID, Score = 1.0 });
+
+				var vectorQuery = from emb in _learnDataSource.StudentBelongingEmbeddings
+								  let score = EF.Functions.VectorDistance("cosine", emb.Embedding, request.QueryEmbedding)
+								  where score < 0.7
+								  select new { Id = emb.StudentBelongingID, Score = score };
+
+				// Combine and keep best score per id to avoid duplicates
+				var combinedBest = likeQuery.Union(vectorQuery)
+					.GroupBy(x => x.Id)
+					.Select(g => new { Id = g.Key, Score = g.Min(x => x.Score) });
+
+				// Join back to entity, order by score (subquery only selected id and score)
+				items = combinedBest
+					.Join(_learnDataSource.StudentBelongings, c => c.Id, e => e.StudentBelongingID, (c, e) => new { e, c.Score })
+					.OrderBy(x => x.Score)
+					.Select(x => x.e);
+
+				skipSorting = true;
 			}
 
 			// Where
@@ -134,6 +157,60 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			return await _learnDataSource.StudentBelongings
 				.Where(r => entities.Contains(r))
 				.ExecuteDeleteAsync();
+		}
+
+
+		public async Task<StudentBelongingEmbedding> GetStudentBelongingEmbeddingAsync(long id)
+		{
+			return await _learnDataSource.StudentBelongingEmbeddings
+				.Where(r => r.StudentBelongingEmbeddingID == id)
+				.FirstOrDefaultAsync();
+		}
+
+		public async Task<IList<StudentBelonging>> GetStudentBelongingWithMissingEmbeddingsAsync()
+		{
+			string query = @$"
+				SELECT item.*
+				FROM [Learn].[StudentBelonging] item
+					LEFT JOIN [Learn].[StudentBelongingEmbedding] emb
+						ON item.[StudentBelongingID] = emb.[StudentBelongingID]
+				WHERE emb.[StudentBelongingEmbeddingID] IS NULL OR emb.[Embedding] IS NULL";
+
+			return await _learnDataSource.StudentBelongings
+				.FromSqlRaw(query)
+				.Include(item => item.StudentBelongingEmbeddings)
+				.ToListAsync();
+		}
+
+		public async Task<int> UpdateStudentBelongingEmbeddingAsync(StudentBelongingEmbedding entity)
+		{
+			if (entity.StudentBelongingEmbeddingID > 0)
+			{
+				_learnDataSource.Entry(entity).State = EntityState.Modified;
+			}
+			else
+			{
+				entity.StudentBelongingEmbeddingID = entity.StudentBelongingID;
+				_learnDataSource.Entry(entity).State = EntityState.Added;
+			}
+			return await _learnDataSource.SaveChangesAsync();
+		}
+
+		public async Task<int> UpdateStudentBelongingEmbeddingsAsync(IEnumerable<StudentBelongingEmbedding> entities)
+		{
+			foreach (var entity in entities)
+			{
+				if (entity.StudentBelongingEmbeddingID > 0)
+				{
+					_learnDataSource.Entry(entity).State = EntityState.Modified;
+				}
+				else
+				{
+					entity.StudentBelongingEmbeddingID = entity.StudentBelongingID;
+					_learnDataSource.Entry(entity).State = EntityState.Added;
+				}
+			}
+			return await _learnDataSource.SaveChangesAsync();
 		}
 	}
 }

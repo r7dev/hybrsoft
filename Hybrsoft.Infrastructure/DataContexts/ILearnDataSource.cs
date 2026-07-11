@@ -11,6 +11,7 @@ namespace Hybrsoft.Infrastructure.DataContexts
 	{
 		public DbSet<Student> Students { get; set; }
 		public DbSet<StudentBelonging> StudentBelongings { get; set; }
+		public DbSet<StudentBelongingEmbedding> StudentBelongingEmbeddings { get; set; }
 		public DbSet<StudentRelative> StudentRelatives { get; set; }
 		public DbSet<Classroom> Classrooms { get; set; }
 		public DbSet<ClassroomStudent> ClassroomStudents { get; set; }

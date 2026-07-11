@@ -5,6 +5,7 @@ using Hybrsoft.Infrastructure.Common;
 using Hybrsoft.Infrastructure.Models;
 using Hybrsoft.UI.Windows.Models;
 using Hybrsoft.UI.Windows.Services;
+using Microsoft.Data.SqlTypes;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
@@ -24,12 +25,16 @@ namespace Hybrsoft.EnterpriseManager.Controls
 		{
 			if (!DesignMode.DesignModeEnabled)
 			{
-				StudentBelongingService = ServiceLocator.Current.GetService<IStudentBelongingService>();
+				_studentBelongingService = ServiceLocator.Current.GetService<IStudentBelongingService>();
+				_settingsService = ServiceLocator.Current.GetService<ISettingsService>();
+				_embeddingService = ServiceLocator.Current.GetService<IEmbeddingService>();
 			}
 			InitializeComponent();
 		}
 
-		private IStudentBelongingService StudentBelongingService { get; }
+		private IStudentBelongingService _studentBelongingService { get; }
+		private ISettingsService _settingsService { get; }
+		private IEmbeddingService _embeddingService { get; }
 
 		#region Items
 		public IList<StudentBelongingModel> Items
@@ -96,13 +101,18 @@ namespace Hybrsoft.EnterpriseManager.Controls
 
 		private async Task<IList<StudentBelongingModel>> GetItems(string query)
 		{
+			bool useSemanticSearch = _settingsService.UseSemanticSearch;
 			var request = new DataRequest<StudentBelonging>()
 			{
 				Query = query,
+				UseSemanticSearch = useSemanticSearch,
+				QueryEmbedding = useSemanticSearch && !string.IsNullOrWhiteSpace(query)
+					? await _embeddingService.GenerateEmbeddingAsync(query)
+					: SqlVector<float>.CreateNull(_embeddingService.EmbeddingDimension),
 				OrderBys = [(r => r.DisplayName, OrderBy.Asc)],
 				Includes = [r => r.Student]
 			};
-			return await StudentBelongingService.GetStudentBelongingsAsync(0, 20, request);
+			return await _studentBelongingService.GetStudentBelongingsAsync(0, 20, request);
 		}
 
 		private void OnSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)

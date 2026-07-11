@@ -17,5 +17,7 @@ namespace Hybrsoft.UI.Windows.Services
 
 		Task<int> DeleteStudentBelongingAsync(StudentBelongingModel model);
 		Task<int> DeleteStudentBelongingRangeAsync(int index, int length, DataRequest<StudentBelonging> request);
+
+		Task<int> UpdateStudentBelongingEmbeddingAsync(StudentBelongingModel model);
 	}
 }

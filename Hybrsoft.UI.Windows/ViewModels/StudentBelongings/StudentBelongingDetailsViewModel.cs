@@ -116,6 +116,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				string endMessage = ResourceService.GetString<StudentBelongingDetailsViewModel>(ResourceFiles.InfoMessages, "TheStudentsBelongingWasSaved");
 				EndStatusMessage(endTitle, endMessage, LogType.Success);
 				LogSuccess("StudentBelonging", "Save", "Student's belonging saved successfully", $"Student's belonging #{model.StudentID}, {model.DisplayName} was saved successfully.");
+				await SaveEmbeddingAsync(model);
 				return true;
 			}
 			catch (Exception ex)
@@ -126,6 +127,21 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				LogException("StudentBelonging", "Save", ex);
 				return false;
 			}
+		}
+
+		private async Task SaveEmbeddingAsync(StudentBelongingModel model)
+		{
+			await ContextService.RunAsync(async () =>
+			{
+				try
+				{
+					await _studentBelongingService.UpdateStudentBelongingEmbeddingAsync(model);
+				}
+				catch (Exception ex)
+				{
+					LogException("StudentBelonging", "Save Embedding", ex);
+				}
+			});
 		}
 
 		protected override async Task<bool> DeleteItemAsync(StudentBelongingModel model)

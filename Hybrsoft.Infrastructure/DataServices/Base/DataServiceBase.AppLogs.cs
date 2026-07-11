@@ -49,7 +49,10 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			IQueryable<AppLog> items = _universalDataSource.AppLogs;
 
 			// Query
-			items = items.Where(r => EF.Functions.Like(r.SearchTerms, "%" + request.Query + "%"));
+			if (!string.IsNullOrWhiteSpace(request.Query))
+			{
+				items = items.Where(r => EF.Functions.Like(r.SearchTerms, "%" + request.Query + "%"));
+			}
 			// Query semantic
 			if (request.UseSemanticSearch && !request.QueryEmbedding.IsNull)
 			{
