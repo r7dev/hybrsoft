@@ -118,6 +118,7 @@ namespace Hybrsoft.EnterpriseManager.Services
 			target.Thumbnail = source.Thumbnail;
 			target.CreatedOn = source.CreatedOn;
 			target.LastModifiedOn = source.LastModifiedOn;
+			target.SearchTermsStudent = source.Student?.FullName ?? string.Empty;
 		}
 
 		public async Task<int> UpdateStudentBelongingEmbeddingAsync(StudentBelongingModel model)

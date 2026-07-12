@@ -38,6 +38,7 @@ namespace Hybrsoft.UI.Windows.Models
 			{
 				StudentBelongingID = source.StudentBelongingID;
 				StudentID = source.StudentID;
+				Student = source.Student;
 				DisplayName = source.DisplayName;
 				Description = source.Description;
 				Picture = source.Picture;

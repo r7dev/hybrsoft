@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Hybrsoft.Infrastructure.DataServices.Base
@@ -71,7 +72,15 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			// Query
 			if (!string.IsNullOrWhiteSpace(request.Query))
 			{
-				items = items.Where(r => EF.Functions.Like(r.SearchTerms, "%" + request.Query + "%"));
+				if (request.Includes.Any(expr => expr.Body is MemberExpression member
+										&& member.Member.Name == nameof(StudentBelonging.Student)))
+				{
+					items = items.Where(r => EF.Functions.Like(r.SearchTermsStudent, "%" + request.Query + "%"));
+				}
+				else
+				{
+					items = items.Where(r => EF.Functions.Like(r.SearchTerms, "%" + request.Query + "%"));
+				}
 			}
 			// Query Semantic
 			if (request.UseSemanticSearch && !request.QueryEmbedding.IsNull)
@@ -149,6 +158,7 @@ namespace Hybrsoft.Infrastructure.DataServices.Base
 			}
 			entity.LastModifiedOn = DateTimeOffset.Now;
 			entity.SearchTerms = entity.BuildSearchTerms();
+			entity.SearchTermsStudent = entity.BuildSearchTermsStudent();
 			return await _learnDataSource.SaveChangesAsync();
 		}
 

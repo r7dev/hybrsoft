@@ -16,8 +16,10 @@ namespace Hybrsoft.Infrastructure.Models
 		public DateTimeOffset CreatedOn { get; set; }
 		public DateTimeOffset? LastModifiedOn { get; set; }
 		public string SearchTerms { get; set; }
+		public string SearchTermsStudent { get; set; }
 
 		public string BuildSearchTerms() => $"{StudentBelongingID} {DisplayName} {Description}".ToLower();
+		public string BuildSearchTermsStudent() => $"{StudentID} {SearchTermsStudent} {SearchTerms}".ToLower();
 
 		public virtual Student Student { get; set; }
 

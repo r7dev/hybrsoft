@@ -11,10 +11,12 @@ using System.Windows.Input;
 namespace Hybrsoft.UI.Windows.ViewModels
 {
 	public partial class StudentBelongingDetailsViewModel(IStudentBelongingService studentBelongingService,
+		IStudentService studentService,
 		IFilePickerService filePickerService,
 		ICommonServices commonServices) : GenericDetailsViewModel<StudentBelongingModel>(commonServices)
 	{
 		private readonly IStudentBelongingService _studentBelongingService = studentBelongingService;
+		private readonly IStudentService _studentService = studentService;
 		private readonly IFilePickerService _filePickerService = filePickerService;
 
 		public override string Title => (Item?.IsNew ?? true) ? TitleNew : TitleEdit;
@@ -33,10 +35,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			ViewModelArgs = args ?? StudentBelongingDetailsArgs.CreateDefault();
 			StudentBelongingID = ViewModelArgs.StudentBelongingID;
 			StudentID = ViewModelArgs.StudentID;
+			var student = await _studentService.GetStudentAsync(StudentID);
 
 			if (ViewModelArgs.IsNew)
 			{
-				Item = new StudentBelongingModel() { StudentID = StudentID };
+				Item = new StudentBelongingModel() { StudentID = StudentID, Student = student };
 				IsEditMode = true;
 			}
 			else
@@ -45,6 +48,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 				{
 					var item = await _studentBelongingService.GetStudentBelongingAsync(StudentBelongingID);
 					Item = item ?? new StudentBelongingModel() { StudentBelongingID = StudentBelongingID, StudentID = StudentID, IsEmpty = true };
+					Item.Student = student;
 				}
 				catch (Exception ex)
 				{

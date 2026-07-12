@@ -28,6 +28,7 @@
 
 				<StackPanel Grid.Column="1" Margin="4">
 					<TextBlock Text="{x:Bind Student.FullName}" FontSize="14" />
+					<TextBlock Text="{x:Bind Student.StudentID}" FontSize="13" Foreground="#666" />
 				</StackPanel>
 
 				<Grid Grid.Column="2" Margin="6,0">
