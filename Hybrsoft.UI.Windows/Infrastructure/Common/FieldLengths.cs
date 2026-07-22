@@ -4,7 +4,8 @@
 	{
 		public const int Name = 50;
 		public const int DisplayName = 50;
-		public const int Description = 150;
+		public const int ShortDescription = 1000;
+		public const int Description = 2000;
 		public const int FirstName = 50;
 		public const int MiddleName = 50;
 		public const int LastName = 50;

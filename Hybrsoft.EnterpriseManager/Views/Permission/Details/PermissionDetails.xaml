@@ -26,9 +26,11 @@
 									  MaxLength="{x:Bind commons:FieldLengths.DisplayName, Mode=OneTime}"/>
 				<controls:FormTextBox x:Uid="/UI/PermissionDetailsUserControl_Description"
 									  Text="{x:Bind EditableItem.Description, Mode=TwoWay}"
-									  MaxLength="{x:Bind commons:FieldLengths.Description, Mode=OneTime}"
+									  MaxLength="{x:Bind commons:FieldLengths.ShortDescription, Mode=OneTime}"
 									  controls:FluidGrid.ColumnSpan="2"
-									  Height="80"
+									  AcceptsReturn="True"
+									  MaxHeight="{x:Bind commons:FieldHeights.DescriptionMax, Mode=OneTime}"
+									  MinHeight="{x:Bind commons:FieldHeights.DescriptionMin, Mode=OneTime}"
 									  TextWrapping="Wrap"/>
 			</controls:FluidGrid>
 		</DataTemplate>
