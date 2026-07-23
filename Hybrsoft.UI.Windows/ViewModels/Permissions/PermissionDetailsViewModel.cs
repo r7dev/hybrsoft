@@ -123,18 +123,18 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		override protected IEnumerable<IValidationConstraint<PermissionModel>> GetValidationConstraints(PermissionModel model)
 		{
-			string propertyName = ResourceService.GetString<PermissionDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyName");
+			string propertyName = ResourceService.GetString<GenericDetailsViewModel<PermissionModel>>(ResourceFiles.ValidationErrors, "PropertyName");
 			var requiredName = new RequiredConstraint<PermissionModel>(propertyName, m => m.Name);
 			requiredName.SetResourceService(ResourceService);
 
 			var nameIsAlphanumeric = new AlphanumericValidationConstraint<PermissionModel>(propertyName, m => m.Name);
 			nameIsAlphanumeric.SetResourceService(ResourceService);
 
-			string propertyDisplayName = ResourceService.GetString<PermissionDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyDisplayName");
+			string propertyDisplayName = ResourceService.GetString<GenericDetailsViewModel<PermissionModel>>(ResourceFiles.ValidationErrors, "PropertyDisplayName");
 			var requiredDisplayName = new RequiredConstraint<PermissionModel>(propertyDisplayName, m => m.DisplayName);
 			requiredDisplayName.SetResourceService(ResourceService);
 
-			string propertyDescription = ResourceService.GetString<PermissionDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyDescription");
+			string propertyDescription = ResourceService.GetString<GenericDetailsViewModel<PermissionModel>>(ResourceFiles.ValidationErrors, "PropertyDescription");
 			var requiredDescription = new RequiredConstraint<PermissionModel>(propertyDescription, m => m.Description);
 			requiredDescription.SetResourceService(ResourceService);
 

@@ -146,7 +146,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		override protected IEnumerable<IValidationConstraint<ClassroomModel>> GetValidationConstraints(ClassroomModel model)
 		{
-			string propertyName = ResourceService.GetString<ClassroomDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyName");
+			string propertyName = ResourceService.GetString<GenericDetailsViewModel<ClassroomModel>>(ResourceFiles.ValidationErrors, "PropertyName");
 			var requiredName = new RequiredConstraint<ClassroomModel>(propertyName, m => m.Name);
 			requiredName.SetResourceService(ResourceService);
 

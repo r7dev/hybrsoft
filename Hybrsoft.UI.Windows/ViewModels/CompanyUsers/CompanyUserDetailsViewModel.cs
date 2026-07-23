@@ -163,7 +163,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		override protected IEnumerable<IValidationConstraint<CompanyUserModel>> GetValidationConstraints(CompanyUserModel model)
 		{
-			string propertyUser = ResourceService.GetString<CompanyUserDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyUser");
+			string propertyUser = ResourceService.GetString<GenericDetailsViewModel<CompanyUserModel>>(ResourceFiles.ValidationErrors, "PropertyUser");
 			var requiredUser = new RequiredGreaterThanZeroConstraint<CompanyUserModel>(propertyUser, m => m.UserID);
 			requiredUser.SetResourceService(ResourceService);
 

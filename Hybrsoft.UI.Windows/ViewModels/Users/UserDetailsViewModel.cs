@@ -122,15 +122,15 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		override protected IEnumerable<IValidationConstraint<UserModel>> GetValidationConstraints(UserModel model)
 		{
-			string propertyFirstName = ResourceService.GetString<UserDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyFirstName");
+			string propertyFirstName = ResourceService.GetString<GenericDetailsViewModel<UserModel>>(ResourceFiles.ValidationErrors, "PropertyFirstName");
 			var requiredFirstName = new RequiredConstraint<UserModel>(propertyFirstName, m => m.FirstName);
 			requiredFirstName.SetResourceService(ResourceService);
 
-			string propertyLastName = ResourceService.GetString<UserDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyLastName");
+			string propertyLastName = ResourceService.GetString<GenericDetailsViewModel<UserModel>>(ResourceFiles.ValidationErrors, "PropertyLastName");
 			var requiredLastName = new RequiredConstraint<UserModel>(propertyLastName, m => m.LastName);
 			requiredLastName.SetResourceService(ResourceService);
 
-			string propertyEmail = ResourceService.GetString<UserDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyEmail");
+			string propertyEmail = ResourceService.GetString<GenericDetailsViewModel<UserModel>>(ResourceFiles.ValidationErrors, "PropertyEmail");
 			var requiredEmail = new RequiredConstraint<UserModel>(propertyEmail, m => m.Email);
 			requiredEmail.SetResourceService(ResourceService);
 			var emailIsValid = new EmailValidationConstraint<UserModel>(propertyEmail, m => m.Email);

@@ -128,7 +128,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		override protected IEnumerable<IValidationConstraint<RoleModel>> GetValidationConstraints(RoleModel model)
 		{
-			string propertyName = ResourceService.GetString<RoleDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyName");
+			string propertyName = ResourceService.GetString<GenericDetailsViewModel<RoleModel>>(ResourceFiles.ValidationErrors, "PropertyName");
 			var requiredName = new RequiredConstraint<RoleModel>(propertyName, m => m.Name);
 			requiredName.SetResourceService(ResourceService);
 

@@ -251,7 +251,7 @@ namespace Hybrsoft.UI.Windows.ViewModels
 			}
 			else if (model.Type == SubscriptionType.Individual)
 			{
-				string propertyUser = ResourceService.GetString<SubscriptionDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyUser");
+				string propertyUser = ResourceService.GetString<GenericDetailsViewModel<SubscriptionModel>>(ResourceFiles.ValidationErrors, "PropertyUser");
 				var requiredUser = new RequiredGreaterThanZeroConstraint<SubscriptionModel>(propertyUser, m => m.UserID);
 				requiredUser.SetResourceService(ResourceService);
 

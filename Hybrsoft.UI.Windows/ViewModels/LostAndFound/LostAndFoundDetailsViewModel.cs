@@ -198,15 +198,15 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		override protected IEnumerable<IValidationConstraint<LostAndFoundModel>> GetValidationConstraints(LostAndFoundModel model)
 		{
-			string propertyDisplayName = ResourceService.GetString<LostAndFoundDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyDisplayName");
+			string propertyDisplayName = ResourceService.GetString<GenericDetailsViewModel<LostAndFoundModel>>(ResourceFiles.ValidationErrors, "PropertyDisplayName");
 			var requiredDisplayName = new RequiredConstraint<LostAndFoundModel>(propertyDisplayName, m => m.DisplayName);
 			requiredDisplayName.SetResourceService(ResourceService);
 
-			string propertyDescription = ResourceService.GetString<LostAndFoundDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyDescription");
+			string propertyDescription = ResourceService.GetString<GenericDetailsViewModel<LostAndFoundModel>>(ResourceFiles.ValidationErrors, "PropertyDescription");
 			var requiredDescription = new RequiredConstraint<LostAndFoundModel>(propertyDescription, m => m.Description);
 			requiredDescription.SetResourceService(ResourceService);
 
-			string propertyPicture = ResourceService.GetString<LostAndFoundDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyPicture");
+			string propertyPicture = ResourceService.GetString<GenericDetailsViewModel<LostAndFoundModel>>(ResourceFiles.ValidationErrors, "PropertyPicture");
 			var requiredPicture = new PictureValidationConstraint<LostAndFoundModel>(propertyPicture, m => m.Picture);
 			requiredPicture.SetResourceService(ResourceService);
 

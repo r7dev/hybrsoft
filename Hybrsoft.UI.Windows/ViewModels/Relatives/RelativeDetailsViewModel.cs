@@ -170,11 +170,11 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		override protected IEnumerable<IValidationConstraint<RelativeModel>> GetValidationConstraints(RelativeModel model)
 		{
-			string propertyFirstName = ResourceService.GetString<RelativeDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyFirstName");
+			string propertyFirstName = ResourceService.GetString<GenericDetailsViewModel<RelativeModel>>(ResourceFiles.ValidationErrors, "PropertyFirstName");
 			var requiredFirstName = new RequiredConstraint<RelativeModel>(propertyFirstName, m => m.FirstName);
 			requiredFirstName.SetResourceService(ResourceService);
 
-			string propertyLastName = ResourceService.GetString<RelativeDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyLastName");
+			string propertyLastName = ResourceService.GetString<GenericDetailsViewModel<RelativeModel>>(ResourceFiles.ValidationErrors, "PropertyLastName");
 			var requiredLastName = new RequiredConstraint<RelativeModel>(propertyLastName, m => m.LastName);
 			requiredLastName.SetResourceService(ResourceService);
 

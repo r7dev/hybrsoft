@@ -184,15 +184,15 @@ namespace Hybrsoft.UI.Windows.ViewModels
 
 		override protected IEnumerable<IValidationConstraint<StudentBelongingModel>> GetValidationConstraints(StudentBelongingModel model)
 		{
-			string propertyDisplayName = ResourceService.GetString<StudentBelongingDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyDisplayName");
+			string propertyDisplayName = ResourceService.GetString<GenericDetailsViewModel<StudentBelongingModel>>(ResourceFiles.ValidationErrors, "PropertyDisplayName");
 			var requiredDisplayName = new RequiredConstraint<StudentBelongingModel>(propertyDisplayName, m => m.DisplayName);
 			requiredDisplayName.SetResourceService(ResourceService);
 
-			string propertyDescription = ResourceService.GetString<StudentBelongingDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyDescription");
+			string propertyDescription = ResourceService.GetString<GenericDetailsViewModel<StudentBelongingModel>>(ResourceFiles.ValidationErrors, "PropertyDescription");
 			var requiredDescription = new RequiredConstraint<StudentBelongingModel>(propertyDescription, m => m.Description);
 			requiredDescription.SetResourceService(ResourceService);
 
-			string propertyPicture = ResourceService.GetString<StudentBelongingDetailsViewModel>(ResourceFiles.ValidationErrors, "PropertyPicture");
+			string propertyPicture = ResourceService.GetString<GenericDetailsViewModel<StudentBelongingModel>>(ResourceFiles.ValidationErrors, "PropertyPicture");
 			var requiredPicture = new PictureValidationConstraint<StudentBelongingModel>(propertyPicture, m => m.Picture);
 			requiredPicture.SetResourceService(ResourceService);
 

@@ -120,9 +120,6 @@
   <data name="ClassroomDetailsViewModel_PropertyEducationLevel" xml:space="preserve">
     <value>Education Level</value>
   </data>
-  <data name="ClassroomDetailsViewModel_PropertyName" xml:space="preserve">
-    <value>Name</value>
-  </data>
   <data name="ClassroomDetailsViewModel_PropertyScheduleType" xml:space="preserve">
     <value>Schedule Type</value>
   </data>
@@ -138,9 +135,6 @@
   <data name="CompanyDetailsViewModel_PropertyLegalName" xml:space="preserve">
     <value>Legal Name</value>
   </data>
-  <data name="CompanyUserDetailsViewModel_PropertyUser" xml:space="preserve">
-    <value>User</value>
-  </data>
   <data name="DismissalDetailsViewModel_PropertyRelative" xml:space="preserve">
     <value>Relative</value>
   </data>
@@ -150,47 +144,11 @@
   <data name="GenericDetailsViewModel_ValidationError" xml:space="preserve">
     <value>Validation Error</value>
   </data>
-  <data name="PermissionDetailsViewModel_PropertyDescription" xml:space="preserve">
-    <value>Description</value>
-  </data>
-  <data name="PermissionDetailsViewModel_PropertyDisplayName" xml:space="preserve">
-    <value>Display Name</value>
-  </data>
-  <data name="PermissionDetailsViewModel_PropertyName" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="RelativeDetailsViewModel_PropertyFirstName" xml:space="preserve">
-    <value>First Name</value>
-  </data>
-  <data name="RelativeDetailsViewModel_PropertyLastName" xml:space="preserve">
-    <value>Last Name</value>
-  </data>
   <data name="RelativeDetailsViewModel_PropertyRelativeType" xml:space="preserve">
     <value>Type</value>
   </data>
-  <data name="RoleDetailsViewModel_PropertyName" xml:space="preserve">
-    <value>Name</value>
-  </data>
   <data name="RolePermissionDetailsViewModel_PropertyPermission" xml:space="preserve">
     <value>Permission</value>
-  </data>
-  <data name="StudentBelongingDetailsViewModel_PropertyPicture" xml:space="preserve">
-    <value>Picture</value>
-  </data>
-  <data name="StudentBelongingDetailsViewModel_PropertyDescription" xml:space="preserve">
-    <value>Description</value>
-  </data>
-  <data name="StudentBelongingDetailsViewModel_PropertyDisplayName" xml:space="preserve">
-    <value>Display Name</value>
-  </data>
-  <data name="StudentDetailsViewModel_PropertyEmail" xml:space="preserve">
-    <value>Email</value>
-  </data>
-  <data name="StudentDetailsViewModel_PropertyFirstName" xml:space="preserve">
-    <value>First Name</value>
-  </data>
-  <data name="StudentDetailsViewModel_PropertyLastName" xml:space="preserve">
-    <value>Last Name</value>
   </data>
   <data name="StudentRelativeDetailsViewModel_PropertyRelative" xml:space="preserve">
     <value>Relative</value>
@@ -200,18 +158,6 @@
   </data>
   <data name="SubscriptionDetailsViewModel_PropertySubscriptionPlan" xml:space="preserve">
     <value>Subscription Plan</value>
-  </data>
-  <data name="SubscriptionDetailsViewModel_PropertyUser" xml:space="preserve">
-    <value>User</value>
-  </data>
-  <data name="UserDetailsViewModel_PropertyEmail" xml:space="preserve">
-    <value>Email</value>
-  </data>
-  <data name="UserDetailsViewModel_PropertyFirstName" xml:space="preserve">
-    <value>First Name</value>
-  </data>
-  <data name="UserDetailsViewModel_PropertyLastName" xml:space="preserve">
-    <value>Last Name</value>
   </data>
   <data name="UserDetailsViewModel_PropertyPassword" xml:space="preserve">
     <value>Password</value>
@@ -249,22 +195,37 @@
   <data name="ValidationConstraint_PictureValidationError" xml:space="preserve">
     <value>Property '{PropertyName}' must contain a valid image with size up to {MaxSize} KB.</value>
   </data>
-  <data name="LostAndFoundDetailsViewModel_PropertyDisplayName" xml:space="preserve">
-    <value>Display Name</value>
-  </data>
-  <data name="LostAndFoundDetailsViewModel_PropertyDescription" xml:space="preserve">
-    <value>Description</value>
-  </data>
   <data name="LostAndFoundDetailsViewModel_PropertyStatus" xml:space="preserve">
     <value>Status</value>
-  </data>
-  <data name="LostAndFoundDetailsViewModel_PropertyPicture" xml:space="preserve">
-    <value>Picture</value>
   </data>
   <data name="LostAndFoundDetailsViewModel_PropertyDonationDate" xml:space="preserve">
     <value>Donation Date</value>
   </data>
   <data name="LostAndFoundDetailsViewModel_PropertyStudentsBelonging" xml:space="preserve">
     <value>Student's Belonging</value>
+  </data>
+  <data name="GenericDetailsViewModel_PropertyDisplayName" xml:space="preserve">
+    <value>Display Name</value>
+  </data>
+  <data name="GenericDetailsViewModel_PropertyName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="GenericDetailsViewModel_PropertyUser" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="GenericDetailsViewModel_PropertyDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="GenericDetailsViewModel_PropertyFirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="GenericDetailsViewModel_PropertyLastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="GenericDetailsViewModel_PropertyPicture" xml:space="preserve">
+    <value>Picture</value>
+  </data>
+  <data name="GenericDetailsViewModel_PropertyEmail" xml:space="preserve">
+    <value>Email</value>
   </data>
 </root>
